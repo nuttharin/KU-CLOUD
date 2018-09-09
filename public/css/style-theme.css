@@ -1,0 +1,115 @@
+.btn:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
+  border-color: #48b687;
+}
+
+.btn-primary {
+  background:  #308ee0;
+  border-color:  #308ee0;
+  color: #ffffff;
+}
+
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+      background-color: #1e7bcb;
+      border-color: #1d74c0;
+      color: #ffffff;
+  }
+
+.btn-success {
+  background: #00ce68;
+  border-color: #00ce68;
+  color: #ffffff;
+}
+
+  .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active {
+      background-color: #00a855;
+      border-color: #009b4e;
+      color: #ffffff;
+  }
+
+.btn-warning {
+  background: #ffaf00;
+  border-color: #ffaf00;
+  color: #ffffff;
+}
+
+  .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active {
+      color: #ffffff;
+  }
+
+  .btn-warning:active, .btn-warning.active {
+      color: #ffffff;
+      background: #d99500;
+      box-shadow: none;
+  }
+
+.btn-danger {
+  background: #e65251;
+  border-color: #e65251;
+  color: #ffffff;
+}
+
+  .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active {
+    background-color: #e13130;
+    border-color: #e02624;
+      color: #ffffff;
+  }
+
+.btn-outline-primary {
+  border-color: #4ea7c6;
+  color: #4ea7c6;
+}
+
+  .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active {
+      color: #4ea7c6;
+      background-color: #FFFFFF;
+  }
+
+.btn-outline-success {
+  border-color: #48b687 !important;
+  color: #48b687 !important;
+}
+
+  .btn-outline-success:hover, .btn-outline-success:focus, .btn-outline-success:active, .btn-outline-success.active {
+      background-color: #FFFFFF;
+  }
+
+.btn-outline-warning {
+  border-color: #ed992c;
+  color: #ed992c;
+}
+
+  .btn-outline-warning:hover, .btn-outline-warning:focus, .btn-outline-warning:active, .btn-outline-warning.active {
+      background-color: #FFFFFF;
+      color: #ed992c;
+  }
+
+.btn-outline-danger {
+  border-color: #b81d2b;
+  color: #b81d2b;
+}
+
+/*.btn-outline-danger:hover, .btn-outline-danger:focus{
+      background-color:#FFFFFF;
+      
+  }
+  .btn-outline-danger:active, .btn-outline-danger.active
+  {
+      color:#FFFFFF;
+  }*/
+
+.btn-radius {
+  border-radius: 20px;
+}
+
+
