@@ -134,9 +134,19 @@
         <script src="{{url('js/test.js')}}"></script>
 
         <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
-            } );
+        $(document).ready(function() {
+            $('#example').DataTable({
+                fixedHeader: true,
+                "columns": [
+                    null,
+                    null,
+                    null,
+                    { "orderable": false }
+                ]
+            });
+        });
         </script>
+
+
 </body>
 </html>
