@@ -20,6 +20,11 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+ 
+  
+
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -56,6 +61,7 @@
         <!-- </div> -->
         </div>
     </nav>
+    
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar" class="sidebar">
@@ -107,6 +113,12 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="link_hide">Static</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -124,5 +136,12 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
             crossorigin="anonymous"></script>
         <script src="./js/test.js"> </script>
+
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+        <script>
+                $(document).ready(function() {
+                    $('#example').DataTable();
+                } );
+        </script>
 </body>
 </html>

@@ -74,6 +74,7 @@ span {
     display: flex;
     align-items: stretch;
     float: left;
+    width: 100%;
 }
 
 #sidebar {
@@ -225,13 +226,15 @@ a.article:hover {
 #content {
     width: 100%;
     padding: 20px;
-    min-height: 100vh;
+    min-height: calc(100vh - 63px);
     transition: all 0.3s;
     background-color: #f2f3f9;
     margin-top: 50px;
     /* add by team */
     margin-left: 250px;
     position: relative;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
 }
 
 .brand-logo-mini {
@@ -353,6 +356,7 @@ a.article:hover {
 }
 
 .navbar-brand {
+    transition: all 0.3s;
     color: #2383f3 !important;
     margin-right: 0 !important;
 }
