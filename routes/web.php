@@ -17,4 +17,12 @@ Route::get('/', function () {
 
 Route::get('/Admin','AdminController@index');
 
+<<<<<<< HEAD
 Route::get('/Company','CompanyController@index');
+
+Route::get('/Customer','CustomerController@index');
+=======
+Route::get('/Company/User','CompanyController@user');
+
+Route::get('/Company/Static','CompanyController@static');
+>>>>>>> 621f99f2c8a8ff238d9841abc940752dcdbeb181

@@ -1,4 +1,5 @@
 @extends('layouts.mainCompany')
+@section('title','User | Company')
 @section('content')
 
 <div class="row border-bottom">
