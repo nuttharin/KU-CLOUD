@@ -83,7 +83,7 @@ span {
     color: #000000;
     transition: all 0.3s;
     /* add by team */
-    min-height: calc(100vh - 63px);
+    height: 100%;
     z-index: 11;
     position: fixed;
 
