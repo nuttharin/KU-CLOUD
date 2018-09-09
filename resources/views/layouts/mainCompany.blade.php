@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href={{url('css/style4.css')}}>
 
+    <link rel="stylesheet" href={{url('css/style-theme.css')}}>
+
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
