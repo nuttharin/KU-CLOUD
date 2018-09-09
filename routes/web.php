@@ -22,4 +22,8 @@ Route::get('/Customer','CustomerController@index');
 Route::get('/Company/User','CompanyController@user');
 
 Route::get('/Company/Static','CompanyController@static');
+//Route::get('/')
+Route::get('/Company/Service','CompanyController@service');
+
+
 
