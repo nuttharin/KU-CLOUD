@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Route::get('/Admin','AdminController@index');
 
+Route::get('/Customer','CustomerController@index');
+
 Route::get('/Company/User','CompanyController@user');
 
 Route::get('/Company/Static','CompanyController@static');
+
