@@ -17,4 +17,6 @@ Route::get('/', function () {
 
 Route::get('/Admin','AdminController@index');
 
-Route::get('/Company','CompanyController@index');
+Route::get('/Company/User','CompanyController@user');
+
+Route::get('/Company/Static','CompanyController@static');

@@ -10,4 +10,14 @@ class CompanyController extends Controller
     {
         return view('company.index');
     }
+
+    public function user()
+    {
+        return view('company.user');
+    }   
+
+    public function static()
+    {
+        return view('company.static');
+    }
 }

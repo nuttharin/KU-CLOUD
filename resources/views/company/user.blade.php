@@ -1,4 +1,5 @@
 @extends('layouts.mainCompany')
+@section('title','User | Company')
 @section('content')
 <h2>Collapsible Sidebar Using Bootstrap 4</h2>
 <table id="example" class="table table-striped table-bordered" style="width:100%">
