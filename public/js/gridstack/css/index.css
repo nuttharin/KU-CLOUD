@@ -1,0 +1,140 @@
+.fa-cog{
+    cursor: pointer;
+}
+
+.panel {
+    position: relative;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.panel__header {
+    padding: 15px 25px;
+    background-color: #eee;
+}
+
+.panel__header__min {
+    padding: 5px 25px;
+}
+
+.panel__header>h4 {
+    float: left;
+}
+
+.panel__content {
+    padding: 30px;
+}
+
+.panel__content.isHidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+}
+
+.panel__header+.panel__content {
+    padding-top: 15px;
+    padding-bottom: 45px;
+}
+
+.panel__content__min {
+    padding: 10px;
+}
+
+.panel__edit-buttons {
+    float: right;
+    margin-right: -5px;
+}
+
+.panel__edit-buttons>a {
+    display: inline-block;
+    padding: 5px;
+    margin-top: 6px;
+    color: #a1aeb3;
+}
+
+.panel__edit-buttons>a:hover {
+    color: inherit;
+}
+
+.panel__btn-minimize.isClosed>.fa:before,
+.panel__btn-minimize.isClosed>.ui-icon:before,
+.panel__btn-minimize.isClosed>.custom-selectbox__label:before {
+    content: '\f204';
+}
+
+.panel__row {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-bottom: 1px solid #eee;
+}
+
+.panel__row:last-child {
+    border-bottom: none;
+}
+
+.panel__col-half {
+    position: relative;
+    display: table-cell;
+    border-right: 1px solid #eee;
+    width: 50%;
+    vertical-align: top;
+}
+
+.panel__col-half:last-child {
+    border-right: none;
+}
+
+.panel__col-quarter {
+    position: relative;
+    display: table-cell;
+    border-right: 1px solid #eee;
+    width: 25%;
+    vertical-align: top;
+}
+
+.panel__col-quarter:last-child {
+    border-right: none;
+}
+
+.panel__search {
+    float: right;
+    margin-right: 25px;
+    position: relative;
+    color: #a1aeb3;
+}
+
+.panel__search__inp {
+    height: 24px;
+    width: 120px;
+    background-color: #f1f4f6;
+    border: 1px solid #beccd1;
+    margin-top: 8px;
+    padding: 2px 20px 2px 10px;
+    border-radius: 2px;
+}
+
+.panel__search>.fa,
+.panel__search>.ui-icon,
+.panel__search>.custom-selectbox__label:before {
+    position: absolute;
+    top: 15px;
+    right: 8px;
+    font-size: 11px;
+}
+
+.panel--default {
+    background-color: white;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel__content {
+    flex: 1;
+    min-height: 0;
+}
