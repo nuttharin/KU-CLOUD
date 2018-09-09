@@ -19,22 +19,22 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>What do you want to edit?</th>
+                        <th>Alias</th>
+                        <th>Contact</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>LIONKING</td>
-                        <td>Test5678@gmail.com</td>
+                        <td>lion</td>
                         <td>0886442121</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
@@ -45,14 +45,14 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>Test5678@gmail.com</td>
+                        <td>lion</td>
                         <td>0886442121</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
@@ -63,14 +63,14 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>Test5678@gmail.com</td>
+                        <td>lion</td>
                         <td>0886442121</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
@@ -81,14 +81,14 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>Test5678@gmail.com</td>
+                        <td>lion</td>
                         <td>0886442121</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
@@ -99,14 +99,14 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>Test5678@gmail.com</td>
+                        <td>lion</td>
                         <td>0886442121</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
@@ -117,14 +117,14 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>Test5678@gmail.com</td>
+                        <td>lion</td>
                         <td>0886442121</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-dark col-3 px-1 py-1" onclick="">
+                                <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">

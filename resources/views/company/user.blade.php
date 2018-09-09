@@ -4,7 +4,7 @@
 
 <div class="row border-bottom">
     <div class="col-lg-6" style="padding: 30px 0px 10px 15px">
-        <span class="h3">Company</span>
+        <span class="h3">User</span>
     </div>
     <div class="col-lg-6 text-right" style="border-bottom: solid 1px #ddd; padding: 30px 15px 10px 0px">
         <button type="button" onclick="#" class="btn btn-success" style="width: 100px;">
@@ -20,16 +20,16 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Alias</th>
-                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>LIONKING</td>
-                        <td>lion</td>
-                        <td>Edinburgh123@gmail.com</td>
+                        <td>088554412</td>
+                        <td>Active</td>
                         <td>
                             <center>
                                 <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
@@ -37,6 +37,9 @@
                                 </button>
                                 <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-secondary col-3 px-1 py-1" onclick="">
+                                    <i class="fas fa-times"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-trash-alt"></i>
@@ -46,8 +49,8 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>lion</td>
-                        <td>Edinburgh123@gmail.com</td>
+                        <td>088554412</td>
+                        <td>Active</td>
                         <td>
                             <center>
                                 <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
@@ -55,6 +58,9 @@
                                 </button>
                                 <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-secondary col-3 px-1 py-1" onclick="">
+                                    <i class="fas fa-times"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-trash-alt"></i>
@@ -64,8 +70,8 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>lion</td>
-                        <td>Edinburgh123@gmail.com</td>
+                        <td>088554412</td>
+                        <td>Active</td>
                         <td>
                             <center>
                                 <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
@@ -73,6 +79,9 @@
                                 </button>
                                 <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-secondary col-3 px-1 py-1" onclick="">
+                                    <i class="fas fa-times"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-trash-alt"></i>
@@ -82,8 +91,8 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>lion</td>
-                        <td>Edinburgh123@gmail.com</td>
+                        <td>088554412</td>
+                        <td>Active</td>
                         <td>
                             <center>
                                 <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
@@ -91,6 +100,9 @@
                                 </button>
                                 <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-secondary col-3 px-1 py-1" onclick="">
+                                    <i class="fas fa-times"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-trash-alt"></i>
@@ -100,8 +112,8 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>lion</td>
-                        <td>Edinburgh123@gmail.com</td>
+                        <td>088554412</td>
+                        <td>Active</td>
                         <td>
                             <center>
                                 <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
@@ -109,6 +121,9 @@
                                 </button>
                                 <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-secondary col-3 px-1 py-1" onclick="">
+                                    <i class="fas fa-times"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-trash-alt"></i>
@@ -118,8 +133,8 @@
                     </tr>
                     <tr>
                         <td>LIONKING</td>
-                        <td>lion</td>
-                        <td>Edinburgh123@gmail.com</td>
+                        <td>088554412</td>
+                        <td>Inactive</td>
                         <td>
                             <center>
                                 <button type="button" class="btn btn-primary col-3 px-1 py-1" onclick="">
@@ -127,6 +142,9 @@
                                 </button>
                                 <button type="button" class="btn btn-success col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-secondary col-3 px-1 py-1" onclick="">
+                                    <i class="fas fa-times"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger col-3 px-1 py-1" onclick="">
                                     <i class="fas fa-trash-alt"></i>
