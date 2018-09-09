@@ -20,4 +20,8 @@ class CompanyController extends Controller
     {
         return view('company.static');
     }
+    public function service()
+    {
+        return view('company.service');
+    }
 }
