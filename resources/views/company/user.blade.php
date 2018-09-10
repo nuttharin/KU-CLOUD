@@ -40,16 +40,16 @@
                         <td>Active</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-success btn-sm" onclick="">
+                                <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Block">
                                     <i class="fas fa-times"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </center>
@@ -61,16 +61,16 @@
                         <td>Active</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-success btn-sm" onclick="">
+                                <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Block">
                                     <i class="fas fa-times"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </center>
@@ -82,16 +82,16 @@
                         <td>Active</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-success btn-sm" onclick="">
+                                <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Block">
                                     <i class="fas fa-times"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </center>
@@ -103,16 +103,16 @@
                         <td>Active</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-success btn-sm" onclick="">
+                                <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Block">
                                     <i class="fas fa-times"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </center>
@@ -124,16 +124,16 @@
                         <td>Active</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-success btn-sm" onclick="">
+                                <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Block">
                                     <i class="fas fa-times"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </center>
@@ -145,16 +145,16 @@
                         <td>Inactive</td>
                         <td>
                             <center>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                     <i class="fas fa-list"></i>
                                 </button>
-                                <button type="button" class="btn btn-success btn-sm" onclick="">
+                                <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Block">
                                     <i class="fas fa-times"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </center>
