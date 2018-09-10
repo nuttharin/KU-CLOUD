@@ -157,6 +157,7 @@
 </div>
 </div>
 <script src="{{url('js/company/widget.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function () {
         $("#addW").click(function () {
