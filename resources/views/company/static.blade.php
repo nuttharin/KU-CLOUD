@@ -61,6 +61,7 @@
                             <option value="line">line</option>
                             <option value="bar">bar</option>
                             <option value="Gauges">Gauges</option>
+                            <option value="Map">Map</option>
                         </select>
                     </div>
                 </div>
