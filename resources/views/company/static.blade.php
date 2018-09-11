@@ -135,8 +135,19 @@
                         </div>
                     </div>
                 </div>
+                <div id="map" class="value_widget" style="display:none;">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Latitude</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <label for="">Longitude</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
             </div>
-
             <div class="modal-footer">
                 <a class="btn btn-success btn-block" id="add-new-widget" href="#">Add Widget</a>
             </div>
@@ -190,4 +201,5 @@
     });
 
 </script>
+
 @endsection
