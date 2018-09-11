@@ -17,6 +17,7 @@ $(".grid-stack").gridstack(options);
 
     this.addNewWidget = function () {
         var divId = Math.random();
+        var divIdMap = Math.floor(100000 + Math.random() * 900000);
         var node = this.items.pop() || {
             x: 3,
             y: 4,
@@ -29,10 +30,17 @@ $(".grid-stack").gridstack(options);
         
         var wi = "";
 
-        if (type_chart === 'line') {
+        if (type_chart === 'line') 
+        {
             wi = '<canvas id="myChart_' + divId + '"></canvas>'
-        } else if (type_chart === 'Gauges') {
+        } 
+        else if (type_chart === 'Gauges') 
+        {
             wi = '<div id="' + divId + '" class="gauge"></div>'
+        }
+        else if(type_chart === 'Map')
+        {
+            wi = '<div id="mymap_'+ divIdMap +'"></div>'
         }
 
         var layout_widget = $("#layout-widget").html();
@@ -71,6 +79,9 @@ $(".grid-stack").gridstack(options);
                     updateDateGauge(g);
                 }, 1000);
                 break;
+            case 'Map':
+                var mymap = addMap(divIdMap);
+                break;
         }
 
         return false;
@@ -100,10 +111,17 @@ $(document).ready(function () {
     $("#type-chart").change(function () {
         $(".value_widget").hide();
         var type = $(this).val();
-        if (type == 'line') {
+        if (type == 'line') 
+        {
             $("#line").show();
-        } else if (type == 'bar') {
+        } 
+        else if (type == 'bar') 
+        {
             $("#bar").show();
+        }
+        else if(type == 'Map')
+        {
+            $("#map").show();
         }
     });
 
@@ -170,10 +188,34 @@ function addGage(divId) {
     return g1;
 }
 
-function updateDateGauge(gg1) {
-    gg1.refresh(getRandomInt(0, 100));
-}
+function addMap(divIdMap) 
+{       
+    var mapid = "mymap_" + divIdMap;
+    $('#' + mapid).css('height', '600px');
+    $('#' + mapid).css('width', '600px');
+    var mymap = L.map(mapid).setView([13.908241, -259.538269], 7);
 
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
+
+    //var marker = L.marker([13.746159, -259.971886]).addTo(mymap).bindPopup("Hello World");
+    //var marker2 = L.marker([13.947812, -259.196320]).addTo(mymap).bindPopup("Hello World 2");
+
+    function onMapClick(e) 
+    {
+        marker = new L.marker(e.latlng, { draggable: 'true' });
+        marker.on('dragend', function (event) {
+            var marker = event.target;
+            var position = marker.getLatLng();
+            marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+            mymap.panTo(new L.LatLng(position.lat, position.lng))
+        });
+        mymap.addLayer(marker);
+    };
+
+    mymap.on('click', onMapClick);
+}
 
 function updateData(myChart, data, datasetIndex) {
     var data = Math.random();
@@ -187,4 +229,8 @@ function updateData(myChart, data, datasetIndex) {
         dataset.data.push(data);
     });
     myChart.update();
+}
+
+function updateDateGauge(gg1) {
+    gg1.refresh(getRandomInt(0, 100));
 }

@@ -16,20 +16,20 @@
     <script type="text/javascript" src="{{url('js/test.js')}}"></script>
 
     <!-- Font Awesome JS -->
-    <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
-    
+    <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />  
     <link rel="stylesheet" href={{url('css/style4.css')}}>
-
     <link rel="stylesheet" href={{url('css/style-theme.css')}}>
-
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
-
     <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
     <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
     <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="{{url('leaflet/leaflet.css')}}"/>
+    <script src="{{url('leaflet/leaflet.js')}}"></script>
 
 </head>
 
