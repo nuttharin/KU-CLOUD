@@ -191,24 +191,29 @@ function addGage(divId) {
 function addMap(divIdMap) 
 {       
     var mapid = "mymap_" + divIdMap;
-    $('#' + mapid).css('height', '600px');
-    $('#' + mapid).css('width', '600px');
-    var mymap = L.map(mapid).setView([13.908241, -259.538269], 7);
-
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mymap);
+    $('#' + mapid).css('height', '400px');
+    $('#' + mapid).css('width', '400px');
+    var mymap = L.map(mapid);
 
     //var marker = L.marker([13.746159, -259.971886]).addTo(mymap).bindPopup("Hello World");
     //var marker2 = L.marker([13.947812, -259.196320]).addTo(mymap).bindPopup("Hello World 2");
 
-    function onMapClick(e) 
-    {
-        marker = new L.marker(e.latlng, { draggable: 'true' });
+    $.getJSON('https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/THA.geo.json').then(function (geoJSON) {
+        var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            boundary: geoJSON,
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, UK shape <a href="https://github.com/johan/world.geo.json">johan/word.geo.json</a>'
+        });
+        mymap.addLayer(osm);
+        var ukLayer = L.geoJSON(geoJSON);
+        mymap.fitBounds(ukLayer.getBounds());
+    });
+
+    function onMapClick(e) {
+        marker = new L.marker(e.latlng, { draggable: 'true' }).bindPopup(e.latlng.lat + " " + e.latlng.lng);
         marker.on('dragend', function (event) {
             var marker = event.target;
             var position = marker.getLatLng();
-            marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+            marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' }).bindPopup(position.lat + " " + position.lng);
             mymap.panTo(new L.LatLng(position.lat, position.lng))
         });
         mymap.addLayer(marker);
