@@ -192,8 +192,9 @@ function addMap(divIdMap)
 {       
     var mapid = "mymap_" + divIdMap;
     $('#' + mapid).css('height', '400px');
-    $('#' + mapid).css('width', '400px');
+    $('#' + mapid).css('width', 'auto');
     var mymap = L.map(mapid);
+
 
     //var marker = L.marker([13.746159, -259.971886]).addTo(mymap).bindPopup("Hello World");
     //var marker2 = L.marker([13.947812, -259.196320]).addTo(mymap).bindPopup("Hello World 2");
@@ -201,7 +202,7 @@ function addMap(divIdMap)
     $.getJSON('https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/THA.geo.json').then(function (geoJSON) {
         var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             boundary: geoJSON,
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, UK shape <a href="https://github.com/johan/world.geo.json">johan/word.geo.json</a>'
+            //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, UK shape <a href="https://github.com/johan/world.geo.json">johan/word.geo.json</a>'
         });
         mymap.addLayer(osm);
         var ukLayer = L.geoJSON(geoJSON);
