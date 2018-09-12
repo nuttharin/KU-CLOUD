@@ -25,5 +25,9 @@ Route::get('/Company/Static','CompanyController@static');
 //Route::get('/')
 Route::get('/Company/Service','CompanyController@service');
 
+Route::get('/Company/Service/AddService','CompanyController@Add_service');
+
+Route::get('/Company/Service/ShowService','CompanyController@Show_service');
+
 
 

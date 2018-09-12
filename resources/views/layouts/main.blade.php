@@ -111,6 +111,7 @@
         </nav>
 
         <!-- Page Content  -->
+        <?php session_start();?>
         <div id="content">
             @yield('content')
         </div>
