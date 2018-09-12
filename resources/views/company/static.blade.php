@@ -15,6 +15,10 @@
         background-color: #FFFFFF;
     }
 
+    element.style {
+        width: 100% !important;
+    }
+
 </style>
 
 <div class="row border-bottom">
