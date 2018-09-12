@@ -8,33 +8,29 @@
 
     <title>@yield('title')</title>
 
-    <!-- Font Awesome JS -->
-    <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href={{url('bootstrap-4.1.3/css/bootstrap.min.css')}}>
     <script type="text/javascript" src="{{url('jquery/jquery-3.3.1.min.js')}}"> </script>
-    <script src="{{url('bootstrap-4.1.3/js/popper.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script type="text/javascript" src="{{url('bootstrap-4.1.3/js/bootstrap.min.js')}}"> </script>
     <script type="text/javascript" src="{{url('js/test.js')}}"></script>
-    
+
+    <!-- Font Awesome JS -->
+    <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />  
     <link rel="stylesheet" href={{url('css/style4.css')}}>
-
     <link rel="stylesheet" href={{url('css/style-theme.css')}}>
-
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
-
     <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
     <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
     <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
 
-    
-
-    
-
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="{{url('leaflet/leaflet.css')}}"/>
+    <script src="{{url('leaflet/leaflet.js')}}"></script>
+    <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
 </head>
 
 <body>
@@ -103,7 +99,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#">
+                    <a href="{{action('CustomerController@index')}}">
                         <i class="fas fa-briefcase"></i>
                         <span class="link_hide">Customer</span>
                     </a>
@@ -152,12 +148,13 @@
                         }
                     ]
                 });
+
+                $('[data-toggle="tooltip"]').tooltip()
             });
 
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
         <script src="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.js')}}"></script>
         <script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
@@ -166,9 +163,5 @@
         <div id="content">
             @yield('content')
         </div>
-
-
-
 </body>
-
 </html>
