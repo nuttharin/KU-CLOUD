@@ -206,7 +206,7 @@ function addMap(divIdMap)
     $.getJSON('https://raw.githubusercontent.com/apisit/thailand.json/master/thailand.json').then(function (geoJSON) {
         var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
             boundary: geoJSON,
-            minZoom: 6,
+            minZoom: 7,
             maxZoom: 9,
             attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
         });
