@@ -191,24 +191,33 @@ function addGage(divId) {
 function addMap(divIdMap) 
 {       
     var mapid = "mymap_" + divIdMap;
-    $('#' + mapid).css('height', '400px');
+    $('#' + mapid).css('height', '500px');
     $('#' + mapid).css('width', 'auto');
-    var mymap = L.map(mapid);
+    var mymap = L.map(mapid, {
+        dragging: false,
+        zoomAnimation: false,
+        zoomControl: false
+    });
 
 
     //var marker = L.marker([13.746159, -259.971886]).addTo(mymap).bindPopup("Hello World");
     //var marker2 = L.marker([13.947812, -259.196320]).addTo(mymap).bindPopup("Hello World 2");
 
-    $.getJSON('https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/THA.geo.json').then(function (geoJSON) {
-        var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    $.getJSON('https://raw.githubusercontent.com/apisit/thailand.json/master/thailand.json').then(function (geoJSON) {
+        var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
             boundary: geoJSON,
-            //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, UK shape <a href="https://github.com/johan/world.geo.json">johan/word.geo.json</a>'
+            minZoom: 7,
+            maxZoom: 9,
+            attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
         });
         mymap.addLayer(osm);
         var ukLayer = L.geoJSON(geoJSON);
         mymap.fitBounds(ukLayer.getBounds());
     });
 
+    L.control.pan().addTo(mymap);
+    L.control.zoom().addTo(mymap);
+    
     function onMapClick(e) {
         marker = new L.marker(e.latlng, { draggable: 'true' }).bindPopup(e.latlng.lat + " " + e.latlng.lng);
         marker.on('dragend', function (event) {
