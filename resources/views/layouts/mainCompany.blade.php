@@ -31,6 +31,10 @@
     <link rel="stylesheet" href="{{url('leaflet/leaflet.css')}}"/>
     <script src="{{url('leaflet/leaflet.js')}}"></script>
     <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
+    <link rel="stylesheet" href="{{url('mappadcontrol/L.Control.Pan.css')}}"  />
+    <script src="{{url('mappadcontrol/L.Control.Pan.js')}}"></script>
+    <script src="{{url('mappadcontrol/leaflet-tilejson.js')}}"></script>
+    <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
 </head>
 
 <body>
