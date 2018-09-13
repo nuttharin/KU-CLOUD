@@ -22,7 +22,10 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.js"></script>
+    
+    <!-- gridstack -->
     <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
     <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
     <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
@@ -130,8 +133,6 @@
             </ul>
         </nav>
         <script src="{{url('js/company/minicolors.js')}}"></script>
-        <!-- Datatable -->
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 
 
 

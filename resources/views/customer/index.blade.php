@@ -7,6 +7,7 @@
     .dataTables_wrapper {
     font-size: 12px;
     }
+
 </style>
 <div class="row border-bottom">
     <div class="col-lg-6" style="padding: 30px 0px 10px 15px">
