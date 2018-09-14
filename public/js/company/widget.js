@@ -66,7 +66,6 @@ new function () {
         var layout_widget = $("#layout-widget").html();
         layout_widget = layout_widget.replace("((wi))", wi)
         layout_widget = layout_widget.replace("((title_name))", title_name)
-
         var data_widget = {
             id: divId,
             type: type_chart,
@@ -200,7 +199,8 @@ function AddLine(divId) {
 
 }
 
-function addGage(divId) {
+function addGage(divId) 
+{
     var g1 = new JustGage({
         id: divId,
         value: getRandomInt(0, 100),
@@ -214,19 +214,18 @@ function addGage(divId) {
     return g1;
 }
 
-
-function addMap(divIdMap) {
+function addMap(divIdMap) 
+{
     var mymap;
     var mapid = "mymap_" + divIdMap;
-    
     $('#' + mapid).css('height', '100%');
     $('#' + mapid).css('width', 'auto');
 
     mymap = L.map(mapid, {
-        dragging: false,
+        dragging: true,
+        zoomControl: true,        
+        scrollWheelZoom: false,
         zoomAnimation: false,
-        zoomControl: false,
-        scrollWheelZoom:false,
     });
 
     //var marker = L.marker([13.746159, -259.971886]).addTo(mymap).bindPopup("Hello World");
@@ -248,7 +247,8 @@ function addMap(divIdMap) {
     //L.control.pan().addTo(mymap);
     //L.control.zoom().addTo(mymap);
 
-    function onMapClick(e) {
+    function onMapClick(e) 
+    {
         marker = new L.marker(e.latlng, { draggable: 'true' }).bindPopup(e.latlng.lat + " " + e.latlng.lng);
         marker.on('dragend', function (event) {
             var marker = event.target;
@@ -259,16 +259,30 @@ function addMap(divIdMap) {
         mymap.addLayer(marker);
     };
 
-    mymap.on('click', onMapClick);
-
-    //setTimeout(function(){ mymap.invalidateSize()}, 400);
+    function disableGrid()
+    {
+        //$("#" + divIdContent).draggable( { obstacle: ".grid-stack", preventCollision: true } );
+        var grid = $('.grid-stack').data('gridstack');
+        grid.enableMove(false);  
+    }
+    function enableGrid()
+    {
+        var grid = $('.grid-stack').data('gridstack');
+        grid.enableMove(true);
+    }
 
     $('.grid-stack').on('change', function (e, items) {
         if(mymap != null)
         {
             mymap.invalidateSize(true);
         }
-    });
+    });   
+
+    mymap.on('click', onMapClick);
+    mymap.on('mousemove', disableGrid);
+    mymap.on('mouseout', enableGrid);
+
+    //setTimeout(function(){ mymap.invalidateSize()}, 400);
 }
 
 function updateData(myChart, data, datasetIndex) {
