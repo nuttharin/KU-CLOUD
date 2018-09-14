@@ -22,7 +22,10 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.js"></script>
+    
+    <!-- gridstack -->
     <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
     <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
     <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
@@ -35,6 +38,9 @@
     <script src="{{url('mappadcontrol/L.Control.Pan.js')}}"></script>
     <script src="{{url('mappadcontrol/leaflet-tilejson.js')}}"></script>
     <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
+
+     <!-- Scrollbar Custom CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 </head>
 
 <body>
@@ -131,11 +137,14 @@
                         <span class="link_hide">Static</span>
                     </a>
                 </li>
+                
+                
             </ul>
         </nav>
+
+        <!-- jQuery Custom Scroller CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="{{url('js/company/minicolors.js')}}"></script>
-        <!-- Datatable -->
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 
 
 

@@ -32,10 +32,11 @@
     </div>
 </div>
 <br />
+
 <div class="grid-stack">
 </div>
 
-<!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
+ <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> 
 
 <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-lg">
