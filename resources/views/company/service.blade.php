@@ -2,26 +2,23 @@
 @section('title','Web Service | Company')
 @section('content')
 
-<div>
-    <br>
-    <h2>Web Service </h2>
-    <hr>
-    <br>    
-</div>
+<div class="row border-bottom">
+    <div class="col-6" style="padding: 30px 0px 10px 15px">
+        <span class="h3">WebService</span>
+    </div>
+    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
+        <a  href="{{action('CompanyController@Add_service')}}" class="btn btn-success btn-radius">
+            <i class="fa fa-plus"></i>
+            Add Service
+        </a>
+    </div>
+</div>  
+<br>
 
 <div class="row">
     <div class="col-6" >
-        <h6>Number of registered web services is 6 </h6>
-    </div>
-    <div class="col-6 text-right" style="padding: 0px 15px 0px 0px; ">
-        <a href="add_webService.php">
-            <button type="button " class="btn btn-primary" >
-                <i class="fa fa-plus-circle"></i>
-                Add service
-            </button>
-        </a>     
-    </div>
-          
+        <h6>Number of registered web services is 2 </h6>
+    </div>          
 
 </div>
   
@@ -35,12 +32,14 @@
                         <th>Description</th>
                         <th>Status</th>
                         <th></th>
+                       
+                        
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href="add_webService.php">Weather3Hours</a></td>
-                        <td><a href="add_webService.php">สภาพอากาศทุกๆ3ชั่วโมง</a></td>
+                        <td><a href="{{url('Company/Service/ShowService')}}">Weather3Hours</a></td>
+                        <td><a href="<?php echo url('Company/Service/ShowService') ?>">สภาพอากาศทุกๆ3ชั่วโมง</a></td>
                         <td>Active</td>
                         <td>
                             <center>
@@ -80,27 +79,7 @@
                             </center>
                         </td>
                     </tr>
-                    <tr>
-                        <td><a href="">WeatherToday<a></td>
-                        <td><a href="">สภาพอากาศวันนี้<a></td>
-                        <td>Inactive</td>
-                        <td>
-                            <center>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="">
-                                    <i class="fas fa-list"></i>
-                                </button>
-                                <button type="button" class="btn btn-success btn-sm" onclick="">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </center>
-                        </td>
-                    </tr>
+                  
                   
                     
                    
