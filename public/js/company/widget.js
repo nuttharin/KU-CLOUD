@@ -4,10 +4,11 @@ var options = {
     float: false
 };
 
-class gridDashboard{
+var weather;
 
-    constructor(x,y,width,height,id,type)
-    {
+class gridDashboard {
+
+    constructor(x, y, width, height, id, type) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -17,10 +18,9 @@ class gridDashboard{
     }
 }
 
-class gridList extends gridDashboard{
-    constructor(grid)
-    {
-        super(grid.x,grid.y,grid.width,grid.height,grid.id,grid.type);
+class gridList extends gridDashboard {
+    constructor(grid) {
+        super(grid.x, grid.y, grid.width, grid.height, grid.id, grid.type);
     }
 
 }
@@ -66,6 +66,7 @@ new function () {
         var layout_widget = $("#layout-widget").html();
         layout_widget = layout_widget.replace("((wi))", wi)
         layout_widget = layout_widget.replace("((title_name))", title_name)
+
         var data_widget = {
             id: divId,
             type: type_chart,
@@ -74,7 +75,7 @@ new function () {
             width: 6,
             height: 7,
         }
-        
+
         var test = new gridList(data_widget);
         obj_grid.push(test);
 
@@ -91,9 +92,9 @@ new function () {
             node.height,
         );
 
-        g.attr('id',divId);
-        g.attr('type',type_chart);
-        
+        g.attr('id', divId);
+        g.attr('type', type_chart);
+
         var setting = {};
         switch (type_chart) {
             case 'line':
@@ -126,7 +127,7 @@ new function () {
                 y: node.y,
                 width: node.width,
                 height: node.height,
-                id:el[0].id
+                id: el[0].id
             };
         });
         $('#saved-data').val(JSON.stringify(this.serializedData, null, '    '));
@@ -199,8 +200,7 @@ function AddLine(divId) {
 
 }
 
-function addGage(divId) 
-{
+function addGage(divId) {
     var g1 = new JustGage({
         id: divId,
         value: getRandomInt(0, 100),
@@ -214,8 +214,7 @@ function addGage(divId)
     return g1;
 }
 
-function addMap(divIdMap) 
-{
+function addMap(divIdMap) {
     var mymap;
     var mapid = "mymap_" + divIdMap;
     $('#' + mapid).css('height', '100%');
@@ -223,7 +222,7 @@ function addMap(divIdMap)
 
     mymap = L.map(mapid, {
         dragging: true,
-        zoomControl: true,        
+        zoomControl: true,
         scrollWheelZoom: false,
         zoomAnimation: false,
     });
@@ -247,7 +246,7 @@ function addMap(divIdMap)
     //L.control.pan().addTo(mymap);
     //L.control.zoom().addTo(mymap);
 
-    function onMapClick(e) 
+    /*function onMapClick(e) 
     {
         marker = new L.marker(e.latlng, { draggable: 'true' }).bindPopup(e.latlng.lat + " " + e.latlng.lng);
         marker.on('dragend', function (event) {
@@ -257,32 +256,53 @@ function addMap(divIdMap)
             mymap.panTo(new L.LatLng(position.lat, position.lng))
         });
         mymap.addLayer(marker);
-    };
+    };*/
 
-    function disableGrid()
-    {
+    function disableGrid() {
         //$("#" + divIdContent).draggable( { obstacle: ".grid-stack", preventCollision: true } );
         var grid = $('.grid-stack').data('gridstack');
-        grid.enableMove(false);  
+        grid.enableMove(false);
     }
-    function enableGrid()
-    {
+
+    function enableGrid() {
         var grid = $('.grid-stack').data('gridstack');
         grid.enableMove(true);
     }
 
     $('.grid-stack').on('change', function (e, items) {
-        if(mymap != null)
-        {
+        if (mymap != null) {
             mymap.invalidateSize(true);
         }
-    });   
+    });
 
-    mymap.on('click', onMapClick);
+    //mymap.on('click', onMapClick);
     mymap.on('mousemove', disableGrid);
     mymap.on('mouseout', enableGrid);
+    
+    weather();
 
-    //setTimeout(function(){ mymap.invalidateSize()}, 400);
+    var heat = [];
+    var WeatherForecasts = weather.WeatherForecasts
+    for (let i in WeatherForecasts) {
+        //L.marker([WeatherForecasts[i].location.lat, WeatherForecasts[i].location.lon]).addTo(mymap).bindPopup(WeatherForecasts[i].location.province + " " + "อ ุณหภูมิที่ระดับพื้นผิว : " + WeatherForecasts[i].forecasts[1].data.tc + " °C");
+        heat.push([WeatherForecasts[i].location.lat, WeatherForecasts[i].location.lon,WeatherForecasts[i].forecasts[1].data.tc / 100])
+       
+    }
+    console.log(heat);
+    L.heatLayer(heat, {radius: 75}).addTo(mymap);
+
+
+}
+
+function weather() {
+    $.ajax({
+        dataType: "json",
+        url: '/js/company/test-api.json',
+        async: false,
+        success: function (data) {
+            weather = data;
+        }
+    });
 }
 
 function updateData(myChart, data, datasetIndex) {
