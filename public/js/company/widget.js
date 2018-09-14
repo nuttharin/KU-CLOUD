@@ -66,10 +66,7 @@ new function () {
         var layout_widget = $("#layout-widget").html();
         layout_widget = layout_widget.replace("((wi))", wi)
         layout_widget = layout_widget.replace("((title_name))", title_name)
-<<<<<<< HEAD
         
-=======
->>>>>>> e9f09ce80b20307b71b78dbc240fcade670510d2
         var data_widget = {
             id: divId,
             type: type_chart,
