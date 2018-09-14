@@ -19,6 +19,11 @@
     <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />  
     <link rel="stylesheet" href={{url('css/style4.css')}}>
     <link rel="stylesheet" href={{url('css/style-theme.css')}}>
+
+
+    <!-- I-check -->
+    <link rel="stylesheet" href={{url('css/i-check.min.css')}}>
+
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
@@ -28,7 +33,12 @@
     <!-- gridstack -->
     <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
     <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
-    <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
+    <link rel="sty[[hlesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
+
+    
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css"/>
+
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="{{url('leaflet/leaflet.css')}}"/>
@@ -121,7 +131,7 @@
                     </a>
                     <ul class="collapse list-unstyled sub" id="homeSubmenu">
                         <li>
-                            <a href="#">Web Service</a>
+                            <a href="{{action('CompanyController@service')}}">Web Service</a>
                         </li>
                         <li>
                             <a href="#">Mobile phone</a>
@@ -145,6 +155,7 @@
         <!-- jQuery Custom Scroller CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="{{url('js/company/minicolors.js')}}"></script>
+ 
 
 
 
@@ -160,9 +171,8 @@
                             "orderable": false
                         }
                     ]
-                });
+                });                
 
-                $('[data-toggle="tooltip"]').tooltip()
             });
 
         </script>
