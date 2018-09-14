@@ -213,9 +213,10 @@ function addGage(divId) {
 
     return g1;
 }
-var mymap;
+
 
 function addMap(divIdMap) {
+    var mymap;
     var mapid = "mymap_" + divIdMap;
     
     $('#' + mapid).css('height', '100%');
@@ -228,9 +229,6 @@ function addMap(divIdMap) {
         scrollWheelZoom:false,
     });
 
-
-
-
     //var marker = L.marker([13.746159, -259.971886]).addTo(mymap).bindPopup("Hello World");
     //var marker2 = L.marker([13.947812, -259.196320]).addTo(mymap).bindPopup("Hello World 2");
 
@@ -239,7 +237,6 @@ function addMap(divIdMap) {
             boundary: geoJSON,
             minZoom: 5,
             maxZoom: 9,
-            invalidateSize:true,
             attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
         });
 
@@ -251,7 +248,7 @@ function addMap(divIdMap) {
     //L.control.pan().addTo(mymap);
     //L.control.zoom().addTo(mymap);
 
-    /*function onMapClick(e) {
+    function onMapClick(e) {
         marker = new L.marker(e.latlng, { draggable: 'true' }).bindPopup(e.latlng.lat + " " + e.latlng.lng);
         marker.on('dragend', function (event) {
             var marker = event.target;
@@ -260,18 +257,19 @@ function addMap(divIdMap) {
             mymap.panTo(new L.LatLng(position.lat, position.lng))
         });
         mymap.addLayer(marker);
-    };*/
+    };
 
-    //mymap.on('click', onMapClick);
+    mymap.on('click', onMapClick);
 
-    setTimeout(function(){ mymap.invalidateSize()}, 400);
+    //setTimeout(function(){ mymap.invalidateSize()}, 400);
+
+    $('.grid-stack').on('change', function (e, items) {
+        if(mymap != null)
+        {
+            mymap.invalidateSize(true);
+        }
+    });
 }
-
-
-$('.grid-stack').on('change', function (e, items) {
-    if(mymap != null)
-    mymap.invalidateSize(true)
-});
 
 function updateData(myChart, data, datasetIndex) {
     var data = Math.random();
