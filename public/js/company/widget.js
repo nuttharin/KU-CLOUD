@@ -66,7 +66,7 @@ new function () {
         var layout_widget = $("#layout-widget").html();
         layout_widget = layout_widget.replace("((wi))", wi)
         layout_widget = layout_widget.replace("((title_name))", title_name)
-
+        
         var data_widget = {
             id: divId,
             type: type_chart,
@@ -260,8 +260,6 @@ function addMap(divIdMap) {
     };
 
     mymap.on('click', onMapClick);
-
-    //setTimeout(function(){ mymap.invalidateSize()}, 400);
 
     $('.grid-stack').on('change', function (e, items) {
         if(mymap != null)
