@@ -52,6 +52,10 @@ a span.link_hide {
 .navbar.default-layout .navbar-brand-wrapper {
     background-color: #ffffff;
     height: 63px;
+    transition: width 0.3s ease, background 0.3s ease;
+    -webkit-transition: width 0.3s ease, background 0.3s ease;
+    -moz-transition: width 0.3s ease, background 0.3s ease;
+    -ms-transition: width 0.3s ease, background 0.3s ease;
 }
 
 .navbar.default-layout {
@@ -83,13 +87,14 @@ span {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
     background: #ffffff;
     color: #000000;
     transition: all 0.3s;
-    /* add by team */
-    height: 100%;
-    z-index: 11;
-    position: fixed;
 }
 
 #sidebar.active {

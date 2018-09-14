@@ -4,14 +4,39 @@ var options = {
     float: false
 };
 
+class gridDashboard{
+
+    constructor(x,y,width,height,id,type)
+    {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.id = id;
+        this.type = type;
+    }
+}
+
+class gridList extends gridDashboard{
+    constructor(grid)
+    {
+        super(grid.x,grid.y,grid.width,grid.height,grid.id,grid.type);
+    }
+
+}
+
+
+
+var obj_grid = [];
+
 $(".grid-stack").gridstack(options);
-    new function () {
-        this.items = [{
-            x: 0,
-            y: 0,
-            width: 3,
-            height: 4,
-        }];
+new function () {
+    this.items = [{
+        x: 0,
+        y: 0,
+        width: 6,
+        height: 7,
+    }];
 
     this.grid = $(".grid-stack").data("gridstack");
 
@@ -21,50 +46,55 @@ $(".grid-stack").gridstack(options);
         var node = this.items.pop() || {
             x: 3,
             y: 4,
-            width: 3,
-            height: 4,
+            width: 6,
+            height: 7,
         };
 
         var title_name = $("#title-name").val();
         var type_chart = $("#type-chart").val();
-        
+
         var wi = "";
 
-        if (type_chart === 'line') 
-        {
+        if (type_chart === 'line') {
             wi = '<canvas id="myChart_' + divId + '"></canvas>'
-        } 
-        else if (type_chart === 'Gauges') 
-        {
+        } else if (type_chart === 'Gauges') {
             wi = '<div id="' + divId + '" class="gauge"></div>'
-        }
-        else if(type_chart === 'Map')
-        {
-            wi = '<div id="mymap_'+ divIdMap +'"></div>'
+        } else if (type_chart === 'Map') {
+            wi = '<div id="mymap_' + divIdMap + '"></div>'
         }
 
         var layout_widget = $("#layout-widget").html();
-        layout_widget = layout_widget.replace("((wi))",wi)
-        layout_widget = layout_widget.replace("((title_name))",title_name)
+        layout_widget = layout_widget.replace("((wi))", wi)
+        layout_widget = layout_widget.replace("((title_name))", title_name)
 
         var data_widget = {
-            id:divId,
-            type:type_chart
+            id: divId,
+            type: type_chart,
+            x: 3,
+            y: 4,
+            width: 6,
+            height: 7,
         }
-
-        layout_widget = layout_widget.replace("((data_widget))",JSON.stringify(data_widget))
-
-        console.log(layout_widget);
         
-        this.grid.addWidget(
+        var test = new gridList(data_widget);
+        obj_grid.push(test);
+
+        console.log(obj_grid);
+
+        layout_widget = layout_widget.replace("((data_widget))", JSON.stringify(data_widget))
+
+
+        var g = this.grid.addWidget(
             $(layout_widget),
             node.x,
             node.y,
             node.width,
             node.height,
-            node.id
         );
 
+        g.attr('id',divId);
+        g.attr('type',type_chart);
+        
         var setting = {};
         switch (type_chart) {
             case 'line':
@@ -83,7 +113,7 @@ $(".grid-stack").gridstack(options);
                 var mymap = addMap(divIdMap);
                 break;
         }
-
+        console.log(obj_grid);
         return false;
     }.bind(this);
 
@@ -97,6 +127,7 @@ $(".grid-stack").gridstack(options);
                 y: node.y,
                 width: node.width,
                 height: node.height,
+                id:el[0].id
             };
         });
         $('#saved-data').val(JSON.stringify(this.serializedData, null, '    '));
@@ -111,16 +142,11 @@ $(document).ready(function () {
     $("#type-chart").change(function () {
         $(".value_widget").hide();
         var type = $(this).val();
-        if (type == 'line') 
-        {
+        if (type == 'line') {
             $("#line").show();
-        } 
-        else if (type == 'bar') 
-        {
+        } else if (type == 'bar') {
             $("#bar").show();
-        }
-        else if(type == 'Map')
-        {
+        } else if (type == 'Map') {
             $("#map").show();
         }
     });
@@ -187,17 +213,22 @@ function addGage(divId) {
 
     return g1;
 }
+var mymap;
 
-function addMap(divIdMap) 
-{       
+function addMap(divIdMap) {
     var mapid = "mymap_" + divIdMap;
-    $('#' + mapid).css('height', '500px');
+    
+    $('#' + mapid).css('height', '100%');
     $('#' + mapid).css('width', 'auto');
-    var mymap = L.map(mapid, {
+
+    mymap = L.map(mapid, {
         dragging: false,
         zoomAnimation: false,
-        zoomControl: false
+        zoomControl: false,
+        scrollWheelZoom:false,
     });
+
+
 
 
     //var marker = L.marker([13.746159, -259.971886]).addTo(mymap).bindPopup("Hello World");
@@ -206,19 +237,21 @@ function addMap(divIdMap)
     $.getJSON('https://raw.githubusercontent.com/apisit/thailand.json/master/thailand.json').then(function (geoJSON) {
         var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
             boundary: geoJSON,
-            minZoom: 7,
+            minZoom: 5,
             maxZoom: 9,
+            invalidateSize:true,
             attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
         });
+
         mymap.addLayer(osm);
         var ukLayer = L.geoJSON(geoJSON);
         mymap.fitBounds(ukLayer.getBounds());
     });
 
-    L.control.pan().addTo(mymap);
-    L.control.zoom().addTo(mymap);
-    
-    function onMapClick(e) {
+    //L.control.pan().addTo(mymap);
+    //L.control.zoom().addTo(mymap);
+
+    /*function onMapClick(e) {
         marker = new L.marker(e.latlng, { draggable: 'true' }).bindPopup(e.latlng.lat + " " + e.latlng.lng);
         marker.on('dragend', function (event) {
             var marker = event.target;
@@ -227,10 +260,18 @@ function addMap(divIdMap)
             mymap.panTo(new L.LatLng(position.lat, position.lng))
         });
         mymap.addLayer(marker);
-    };
+    };*/
 
-    mymap.on('click', onMapClick);
+    //mymap.on('click', onMapClick);
+
+    setTimeout(function(){ mymap.invalidateSize()}, 400);
 }
+
+
+$('.grid-stack').on('change', function (e, items) {
+    if(mymap != null)
+    mymap.invalidateSize(true)
+});
 
 function updateData(myChart, data, datasetIndex) {
     var data = Math.random();

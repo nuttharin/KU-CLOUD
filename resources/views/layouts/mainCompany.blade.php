@@ -38,6 +38,9 @@
     <script src="{{url('mappadcontrol/L.Control.Pan.js')}}"></script>
     <script src="{{url('mappadcontrol/leaflet-tilejson.js')}}"></script>
     <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
+
+     <!-- Scrollbar Custom CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 </head>
 
 <body>
@@ -134,8 +137,13 @@
                         <span class="link_hide">Static</span>
                     </a>
                 </li>
+                
+                
             </ul>
         </nav>
+
+        <!-- jQuery Custom Scroller CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="{{url('js/company/minicolors.js')}}"></script>
 
 
