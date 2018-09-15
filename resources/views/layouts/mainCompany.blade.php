@@ -33,11 +33,8 @@
     <!-- gridstack -->
     <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
     <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
-    <link rel="sty[[hlesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
 
-    
-    <!-- datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css"/>
+    <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
 
 
     <!-- Leaflet -->
@@ -154,11 +151,11 @@
 
         <!-- jQuery Custom Scroller CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+        
+        <!-- Minicolors -->
+        <script src="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.js')}}"></script>
         <script src="{{url('js/company/minicolors.js')}}"></script>
  
-
-
-
         <script>
             $(document).ready(function () {
                 $('#example').DataTable({
@@ -179,7 +176,9 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
-        <script src="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.js')}}"></script>
+
+       
+
         <script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
         <script type="text/javascript" src="{{url('js/gridstack/gridstack.jQueryUI.js')}}"></script>
         <!-- Page Content  -->
