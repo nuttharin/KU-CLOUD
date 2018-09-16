@@ -30,7 +30,6 @@ a span.link_hide {
 
 .navbar {
     padding: 15px 10px;
-    background: linear-gradient(120deg, #556cdc, #128bfc, #18bef1);
     border: none;
     border-radius: 0;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
@@ -46,9 +45,17 @@ a span.link_hide {
     color: #FFFFFF !important;
 }
 
+.navbar.default-layout {
+    background: linear-gradient(120deg, #556cdc, #128bfc, #18bef1);
+}
+
 .navbar.default-layout .navbar-brand-wrapper {
     background-color: #ffffff;
     height: 63px;
+    transition: width 0.3s ease, background 0.3s ease;
+    -webkit-transition: width 0.3s ease, background 0.3s ease;
+    -moz-transition: width 0.3s ease, background 0.3s ease;
+    -ms-transition: width 0.3s ease, background 0.3s ease;
 }
 
 .navbar.default-layout {
@@ -80,14 +87,14 @@ span {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
     background: #ffffff;
     color: #000000;
     transition: all 0.3s;
-    /* add by team */
-    height: 100%;
-    z-index: 11;
-    position: fixed;
-
 }
 
 #sidebar.active {
@@ -100,7 +107,7 @@ span {
     position: fixed;
 }
 
-#content.active  {
+#content.active {
     /* add by team */
     margin-left: 80px;
 }
@@ -116,12 +123,17 @@ span {
 
 #sidebar ul li a {
     text-align: left;
+    align-items: center;
+    /*add by team */
+    white-space: nowrap;
+    height: 52px;
+    color: #4a4a4a;
 }
 
 #sidebar.active ul li a {
     padding: 20px 10px;
     text-align: center;
-    font-size: 0.85em;
+    font-size: 0.6em;
 }
 
 #sidebar.active ul li a i {
@@ -298,7 +310,8 @@ a.article:hover {
     #sidebar {
         margin-left: 0;
     }
-    #content{
+
+    #content {
         margin-left: 0;
     }
 
@@ -321,7 +334,6 @@ a.article:hover {
     .nav-profile-hide {
         display: none !important;
     }
-
 }
 
 /*icon */

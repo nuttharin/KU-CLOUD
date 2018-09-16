@@ -24,4 +24,12 @@ class CompanyController extends Controller
     {
         return view('company.service');
     }
+    public function Add_service()
+    {
+        return view('company.add_webService');
+    }
+    public function Show_service()
+    {
+        return view('company.showService');
+    }
 }
