@@ -56,11 +56,11 @@
 <h5>Detail Service</h5>
 <div>
     <div class ='row detail_service'> 
-        <div class='col-2 '> 
+        <div class='col-2'> 
             <label for="country">Service Name :</label>
             </div> 
         
-            <div class='col-3 ' style ="  padding-left: 0px; "> 
+            <div class='col-3' style ="padding-left: 0px;"> 
                 <input type="text" id="service_name" name="service_name" placeholder="">   
             </div> 
 

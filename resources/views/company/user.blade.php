@@ -70,7 +70,7 @@
                             <div class="float-right">
                                 <p class="mb-0 text-right">Total User Offline</p>
                                 <div class="fluid-container">
-                                    <h3 class="font-weight-medium text-right mb-0">0 User</h3>
+                                    <h3 class="font-weight-medium text-right mb-0">1 User</h3>
                                 </div>
                             </div>
                         </div>

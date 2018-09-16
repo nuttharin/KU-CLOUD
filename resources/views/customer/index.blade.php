@@ -17,6 +17,7 @@
                 <div class="row">
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
                         <span class="h3">Customer</span>
+                        <h6>Total Customer 6</h6>
                     </div>
                     <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
                         <button type="button" onclick="" class="btn btn-success btn-radius">
