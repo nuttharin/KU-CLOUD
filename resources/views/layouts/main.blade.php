@@ -182,6 +182,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
 
+<<<<<<< HEAD
 <!-- page script -->
 <script>
   $(document).ready(function() {
@@ -202,5 +203,39 @@ $("#sidebar-menu li a").on('click', function(e){
     //e.preventDefault();
 });
 </script>  
+=======
+        <script src="{{url('js/company/minicolors.js')}}"></script>
+
+        <!-- Page Content  -->
+        <?php session_start();?>
+        <div id="content">
+            @yield('content')
+        </div>
+
+        <!-- Datatable -->
+        
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+       
+
+
+
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable({
+                    fixedHeader: true,
+                    "columns": [
+                        null,
+                        null,
+                        null,
+                        {
+                            "orderable": false
+                        }
+                    ]
+                });
+            });
+
+        </script>
+>>>>>>> 8ef1b510b0b61e170bebb9a7ece8de426f411f43
 </body>
 </html>
