@@ -9,12 +9,15 @@
 <script src="{{url('js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}}"></script>
 
 <style type="text/css">
-    .grid-stack-item {}
+    .grid-stack-item {
+        
+    }
 
     .grid-stack-item-content {
         color: #2c3e50;
         text-align: center;
         background-color: #FFFFFF;
+        box-shadow: 1px 1px 10px 1px #aaaaaa;
     }
 
     element.style {
@@ -66,7 +69,6 @@
                         <select class="form-control" id="type-chart">
                             <option value="">--Select Type Widget--</option>
                             <option value="line">line</option>
-                            <option value="bar">bar</option>
                             <option value="Gauges">Gauges</option>
                             <option value="Map">Map</option>
                         </select>
@@ -143,7 +145,7 @@
                     </div>
                 </div>
                 <div id="map" class="value_widget" style="display:none;">
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-6">
                             <label for="">Latitude</label>
                             <input type="text" class="form-control">
@@ -152,7 +154,7 @@
                             <label for="">Longitude</label>
                             <input type="text" class="form-control">
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="modal-footer">

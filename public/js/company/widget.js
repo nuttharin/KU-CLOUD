@@ -6,28 +6,37 @@ var options = {
 
 var weather;
 
-class gridDashboard {
-
-    constructor(x, y, width, height, id, type) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.id = id;
-        this.type = type;
-    }
-}
-
-class gridList extends gridDashboard {
-    constructor(grid) {
-        super(grid.x, grid.y, grid.width, grid.height, grid.id, grid.type);
-    }
-
-}
-
-
-
 var obj_grid = [];
+
+class GridDashboard {
+
+    constructor(widget) {
+        this.name = widget.name;
+        this.x = widget.x;
+        this.y = widget.y;
+        this.width = widget.width;
+        this.height = widget.height;
+        this.id = widget.id;
+        this.type = widget.type;
+        this.lastUpdate = widget.lastUpdate;
+        this.timeInterval = widget.timeInterval;
+    }
+
+    getGrid() {
+        return this;
+    }
+}
+
+class ChartLine extends GridDashboard{
+    
+    constructor(widget)
+    {
+        super(widget);
+        this.valX = widget.valX;
+        this.valY = widget.valY;
+        this.deviceName = widget.deviceName;
+    }
+}
 
 $(".grid-stack").gridstack(options);
 new function () {
@@ -63,10 +72,6 @@ new function () {
             wi = '<div id="mymap_' + divIdMap + '"></div>'
         }
 
-        var layout_widget = $("#layout-widget").html();
-        layout_widget = layout_widget.replace("((wi))", wi)
-        layout_widget = layout_widget.replace("((title_name))", title_name)
-
         var data_widget = {
             id: divId,
             type: type_chart,
@@ -76,11 +81,12 @@ new function () {
             height: 7,
         }
 
-        var test = new gridList(data_widget);
-        obj_grid.push(test);
+        var widget = new GridDashboard(data_widget);
+        obj_grid.push(widget);
 
-        console.log(obj_grid);
-
+        var layout_widget = $("#layout-widget").html();
+        layout_widget = layout_widget.replace("((wi))", wi)
+        layout_widget = layout_widget.replace("((title_name))", title_name)
         layout_widget = layout_widget.replace("((data_widget))", JSON.stringify(data_widget))
 
 
@@ -92,8 +98,8 @@ new function () {
             node.height,
         );
 
-        g.attr('id', divId);
-        g.attr('type', type_chart);
+        //g.attr('id', divId);
+        //g.attr('type', type_chart);
 
         var setting = {};
         switch (type_chart) {
@@ -139,6 +145,7 @@ new function () {
 }();
 
 $(document).ready(function () {
+
     $("#type-chart").change(function () {
         $(".value_widget").hide();
         var type = $(this).val();
@@ -278,23 +285,26 @@ function addMap(divIdMap) {
     //mymap.on('click', onMapClick);
     mymap.on('mousemove', disableGrid);
     mymap.on('mouseout', enableGrid);
-    
+
     weather();
 
     var heat = [];
     var WeatherForecasts = weather.WeatherForecasts
     for (let i in WeatherForecasts) {
-        //L.marker([WeatherForecasts[i].location.lat, WeatherForecasts[i].location.lon]).addTo(mymap).bindPopup(WeatherForecasts[i].location.province + " " + "อ ุณหภูมิที่ระดับพื้นผิว : " + WeatherForecasts[i].forecasts[1].data.tc + " °C");
-        heat.push([WeatherForecasts[i].location.lat, WeatherForecasts[i].location.lon,WeatherForecasts[i].forecasts[1].data.tc / 100])
-       
+        L.marker([WeatherForecasts[i].location.lat, WeatherForecasts[i].location.lon]).addTo(mymap).bindPopup(WeatherForecasts[i].location.province + " " + "อ ุณหภูมิที่ระดับพื้นผิว : " + WeatherForecasts[i].forecasts[1].data.tc + " °C");
+        heat.push([WeatherForecasts[i].location.lat, WeatherForecasts[i].location.lon, WeatherForecasts[i].forecasts[1].data.tc / 100])
+
     }
-    console.log(heat);
-    L.heatLayer(heat, {radius: 75}).addTo(mymap);
+    L.heatLayer(heat, {
+        radius: 75
+    }).addTo(mymap);
 
 
 }
 
 function weather() {
+    //headers:{'Content-Type':'application/json' , 'authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU3Njk5YzY5ZDY0YjVkNDUzNGFiOGUyM2QyMmY0MTdmMjA0NTQ2ZGU5N2Q2OGZjOGU3MTFjNWRjYjJlZTk0NDE0OWNmMjBiZDIzYmIwMmZlIn0.eyJhdWQiOiIyIiwianRpIjoiZTc2OTljNjlkNjRiNWQ0NTM0YWI4ZTIzZDIyZjQxN2YyMDQ1NDZkZTk3ZDY4ZmM4ZTcxMWM1ZGNiMmVlOTQ0MTQ5Y2YyMGJkMjNiYjAyZmUiLCJpYXQiOjE1MzY5MzA1OTQsIm5iZiI6MTUzNjkzMDU5NCwiZXhwIjoxNTY4NDY2NTk0LCJzdWIiOiIyNjUiLCJzY29wZXMiOltdfQ.YpNDR_qqohsKFikhEl1Ghc06yK7E6Aqeg8khUInXuNPKSw6X7_isXZgb3CYZFY9rYLt28VGrHmvqJMUM3Qz13vdI0G2BtEjtvAmoKVgaTWOGkT34igx68AyIDrzw2g-dD6aFlo50KCMMnAP8u7dwqBX9VU4yKc3dsMAIkGu9-lkmuJKL0_Tfx_DiNfIr5AOZAX_ME6R5zjVoiCFnGtX6frVoLc8WH6N5AK2yQrN-gjJwnLYFCS7lkmEtTSxavf-MigVijYRDtjAeO5vqd_uADCjyWsLMQ2BX27pnq09srvfgrhrUGq7w9Qm4IhYRUMHqKouQT9AyGC9nQm_EBHAovtXkjWMObw87ucewTK2BXDhaV3zOe9Ww_Nv2kVMvf5mIl4zMZKp-BjRY0RKBoDg1xfm11IdVzwaiHYSRnMhMDgXcAYRBgxdTNjWLlGlVrapA6GgYatG6-Mie1iuuuhJfah2EzYwTwEuXqwh3cctl5FSxC0JsDtAo8DOYCq_Esbth0nPc4cpFL9YFHaE-vO1Sj-qNBA4b6x8EOGh_rdkOnqEOAVqxKe9lio9jM1N8EOenOlTpmUDB95w8hfI1j_KdpqQqy1zgGRn_BgrHnZJxDeOXKNMfgBtMfD3aQreU75InECJ8_5uCmgtSeYF0bjgAmBYd37yJo9zprO0MNBeEGLk'},
+    //url: 'http://data.tmd.go.th/nwpapi/v1/forecast/location/hourly/region?region=C&fields=tc,rh&date=2018-09-15&hour=8&duration=2',
     $.ajax({
         dataType: "json",
         url: '/js/company/test-api.json',
