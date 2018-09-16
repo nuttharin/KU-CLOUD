@@ -5,9 +5,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/r-2.2.2/sc-1.5.0/datatables.min.js"></script>
 <style>
-div.dataTables_wrapper {
+    div.dataTables_wrapper {
         width: 1000px;
         margin: 0 auto;
+    }
+    table{
+        font-size:14px; 
+    }
+    .dataTables_wrapper {
+    font-size: 12px;
     }
 </style>
 <?php
@@ -63,33 +69,37 @@ div.dataTables_wrapper {
 <br>
 <h5>NameService : <?php echo $_SESSION["NameService"]; ?></h5>
 <br>
-<table id="example3"  class=" table table-striped table-bordered table-hover  display nowrap"  style="width:100%">
-        <thead>
-            <tr>
-            <?php 
-                for ($i=0; $i <count($Weather3Hours) ; $i++) { 
-                    echo "<th>".$Weather3Hours[$i]."</th>";
-                }
-            ?>
-               
-            </tr>
-        </thead>
-        <tbody>
+<div class="card">
+        <div class="card-body">
+            <table id="example3"  class=" table table-striped table-bordered table-hover  display nowrap"  style="width:100%">
+                    <thead>
+                        <tr>
+                        <?php 
+                            for ($i=0; $i <count($Weather3Hours) ; $i++) { 
+                                echo "<th>".$Weather3Hours[$i]."</th>";
+                            }
+                        ?>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            <?php             
-               foreach($value_Weather3Hours as $land => $data)
-               {
-                    echo "<tr>";
-                    foreach($data as $detail => $value)
-                    {
-                        echo "<td>". $value ."</td>" ;
-                    }
-                    echo "</tr>";
-               }
-            ?>            
-            
-        </tbody>
-    </table>
+                        <?php             
+                        foreach($value_Weather3Hours as $land => $data)
+                        {
+                                echo "<tr>";
+                                foreach($data as $detail => $value)
+                                {
+                                    echo "<td>". $value ."</td>" ;
+                                }
+                                echo "</tr>";
+                        }
+                        ?>            
+                        
+                    </tbody>
+                </table>
+        </div>
+</div>
 </body>
 </html>
 
