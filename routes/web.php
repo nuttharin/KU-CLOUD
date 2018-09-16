@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Route::get('/Admin','AdminController@index');
 
+Route::get('/Admin/User','AdminController@user');
+
+Route::get('/Admin/Company','AdminController@company');
+
 Route::get('/Customer','CustomerController@index');
 
 Route::get('/Company/User','CompanyController@user');
