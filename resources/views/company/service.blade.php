@@ -9,29 +9,25 @@
     font-size: 12px;
     }
 </style>
-<div class="row border-bottom">
-    <div class="col-6" style="padding: 30px 0px 10px 15px">
-        <span class="h3">WebService</span>
-    </div>
-    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
-        <a href="{{action('CompanyController@Add_service')}}" class="btn btn-success btn-radius">
-            <i class="fa fa-plus"></i>
-            Add Service
-        </a>
-    </div>
-</div>
-<br>
 
-<div class="row">
-    <div class="col-6">
-        <h6>Number of registered web services is 2 </h6>
-    </div>
-
-</div>
 
 <div class="row" style="padding: 30px 0px 10px 0px">
     <div class="col-12">
         <div class="card">
+            <div class="card-header bg-white">
+                <div class="row">
+                    <div class="col-6" style="padding: 30px 0px 10px 15px">
+                        <span class="h3">WebService</span>
+                        <h6>Number of registered web services is 2 </h6>
+                    </div>
+                    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
+                        <a href="{{action('CompanyController@Add_service')}}" class="btn btn-success btn-radius">
+                            <i class="fa fa-plus"></i>
+                            Add Service
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
                 <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap"
                     id="example">
