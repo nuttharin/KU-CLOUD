@@ -9,28 +9,21 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="{{url('bootstrap-css/bootstrap.min.css')}}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{url('bootstrap-css/font-awesome.min.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{url('bootstrap-css/ionicons.min.css')}}">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="{{url('bootstrap-css/jquery-jvectormap.css')}}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{url('bootstrap-css/dataTables.bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('bootstrap-css/AdminLTE.min.css')}}">
+  <!-- jvectormap -->
+  <!--<link rel="stylesheet" href="{{url('bootstrap-css/jquery-jvectormap.css')}}">-->
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{url('bootstrap-css/_all-skins.min.css')}}">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{url('bootstrap-css/dataTables.bootstrap.min.css')}}">
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <!-- Table-->
-  <link rel="stylesheet" href="{{url('bootstrap-css/jquery-3.3.1.js')}}">
-  <link rel="stylesheet" href="{{url('bootstrap-css/jquery.dataTables.min.js')}}">
+  
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -132,32 +125,6 @@
   <div id="content">
             @yield('content')
   </div>
-
-<!-- Sparkline -->
-<script src="{{url('bootstrap-css/jquery.sparkline.min.js')}}"></script>
-<!-- jvectormap  -->
-<script src="{{url('bootstrap-css/jquery-jvectormap-1.2.2.min.js')}}"></script>
-<script src="{{url('bootstrap-css/jquery-jvectormap-world-mill-en.js')}}"></script>
-
-<!-- ChartJS -->
-<script src="{{url('bootstrap-css/Chart.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{url('dist/js/pages/dashboard2.js')}}"></script>
-<!-- SlimScroll -->
-<script src="{{url('bootstrap-css/jquery.slimscroll.min.js')}}"></script>
-<link rel="stylesheet" href="{{url('bootstrap-css/bootstrap.min.css')}}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{url('bootstrap-css/font-awesome.min.css')}}">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="{{url('bootstrap-css/ionicons.min.css')}}">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="{{url('bootstrap-css/jquery-jvectormap.css')}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{url('dist/css/AdminLTE.min.css')}}">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="{{url('bootstrap-css/_all-skins.min.css')}}">
-
 <!-- jQuery 3 -->
 <script src="{{url('bootstrap-css/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -170,7 +137,7 @@
 <!-- FastClick -->
 <script src="{{url('bootstrap-css/fastclick.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{url('dist/js/adminlte.min.js')}}"></script>
+<script src="{{url('bootstrap-css/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('bootstrap-css/demo.js')}}"></script>
 <!--table-->
@@ -181,7 +148,8 @@
  <!--bootstap datatable-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-
+<!-- Table-->
+<script src="{{url('jquery/jquery.dataTables.min.js')}}"></script>
 <!-- page script -->
 <script>
   $(document).ready(function() {

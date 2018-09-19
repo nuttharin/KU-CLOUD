@@ -10,8 +10,8 @@
     font-size: 12px;
     }
 </style>
-<div class="card">
-    <div class="card-header bg-light">
+<div class="card bg-white"style="margin-top:30px;">
+    <div class="card-header bg-white">
         <div class="row">
             <div class="col-6" style="padding: 30px 0px 10px 15px">
                 <span class="h3">User</span>
@@ -70,7 +70,7 @@
                             <div class="float-right">
                                 <p class="mb-0 text-right">Total User Offline</p>
                                 <div class="fluid-container">
-                                    <h3 class="font-weight-medium text-right mb-0">0 User</h3>
+                                    <h3 class="font-weight-medium text-right mb-0">1 User</h3>
                                 </div>
                             </div>
                         </div>

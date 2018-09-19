@@ -9,9 +9,7 @@
     
 ?>
 <style>
-    #Select1 {
-        width: 30%;
-    }
+    
     .input_atti
     {
         width: 25%;
@@ -44,7 +42,7 @@
     .regis
     {
 
-        padding: 0.5% 36.7%;
+        padding: 0.5% 42%;
         
     }
     
@@ -56,11 +54,11 @@
 <h5>Detail Service</h5>
 <div>
     <div class ='row detail_service'> 
-        <div class='col-2 '> 
+        <div class='col-2'> 
             <label for="country">Service Name :</label>
             </div> 
         
-            <div class='col-3 ' style ="  padding-left: 0px; "> 
+            <div class='col-3' style ="padding-left: 0px;"> 
                 <input type="text" id="service_name" name="service_name" placeholder="">   
             </div> 
 
@@ -87,7 +85,7 @@
             
     </div>
     <div class="col-6 detail_service" >
-    <button type="button" id="btn-regis" class="btn btn-primary " > <i class="fa fa-plus"></i> Add Column</button>    
+    <button type="button" id="Select1" class="btn btn-primary " > <i class="fa fa-plus"></i> Add Column</button>    
     </div>
 
 </div>
@@ -104,40 +102,42 @@
         </div>         
     </div>
 
-     <div class ='row' >
-        <div class='col-2 '>
-            <input type='text' id='input_detail' name='' placeholder=''>    
-        </div> 
-        <div class='col-2 '> 
-            <select class='form-control' id=''> 
-                <option>int</option> 
-                <option>string</option>
-                <option>double</option>  
-                <option>text</option> 
-            </select> 
-        </div> 
-        <div class='col-2 '> 
-            <select class='form-control' id=''> 
-                <option>Public</option> 
-                <option>Semi-private</option> 
-                <option>private</option> 
-            </select> 
-        </div>         
+    <div id="add_detail">
+        <div class ='row '  >
+            <div class='col-2 '>
+                <input type='text' id='input_detail' name='' placeholder=''>    
+            </div> 
+            <div class='col-2 '> 
+                <select class='form-control' id=''> 
+                    <option>int</option> 
+                    <option>string</option>
+                    <option>double</option>  
+                    <option>text</option> 
+                </select> 
+            </div> 
+            <div class='col-2 '> 
+                <select class='form-control' id=''> 
+                    <option>Public</option> 
+                    <option>Semi-private</option> 
+                    <option>private</option> 
+                </select> 
+            </div>         
+        </div>
     </div>
 
   
 </div>
 <div class ='regis detail_service'>
-    <button type="button" id="btn-regis" class="btn btn-success " > Add Service</button>
+    <button type="button" id="btn-regis" class="btn btn-success " > Save</button>
 </div>
 <script>
 
 $(document).ready(function() {
     var ati = ["StationNameTh","Province","Observe","Temperature","StationPressure","RelativeHumidity","WindSpeed","Rainfall","TotolCloud"];
-    var html = $("#input_detail").html();
+    var html = $("#add_detail").html();
     $("#Select1").click(function(){       
-        
-            $("#we").append("<br><div class ='row' ><div class='col-2 '> <input type='text' id='input_detail' name='' placeholder=''></div> <div class='col-2 '> <select class='form-control' id=''> <option>int</option> <option>string</option>  <option>double</option> <option>text</option> </select>  </div> <div class='col-2 '> <select class='form-control' id=''> <option>Public</option><option>Semi-private</option><option>private</option> </select>  </div>  </div>");   
+            $("#we").append(html);
+            //$("#we").append("<br><div class ='row' ><div class='col-2 '> <input type='text' id='input_detail' name='' placeholder=''></div> <div class='col-2 '> <select class='form-control' id=''> <option>int</option> <option>string</option>  <option>double</option> <option>text</option> </select>  </div> <div class='col-2 '> <select class='form-control' id=''> <option>Public</option><option>Semi-private</option><option>private</option> </select>  </div>  </div>");   
 
     });
 });
