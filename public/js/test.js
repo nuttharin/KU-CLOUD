@@ -9,9 +9,6 @@ $(document).ready(function () {
     //Add active class to nav-link based on url dynamically
     //Active class can be hard coded directly in html file also as required
     var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
-    switch (current){
-        
-    }
     $('ul li a', sidebar).each(function () {
         var $this = $(this);
         if (current === "") {
@@ -29,7 +26,7 @@ $(document).ready(function () {
                 $(this).parents('.nav-item').last().addClass('active');
                 if ($(this).parents('.sub').length) {
                     $(this).closest('.collapse').addClass('show');
-                    console.log($(this))
+                    $(this).parents('.nav-item').children(".dropdown-toggle").attr('aria-expanded','true');
                     $(this).addClass('active');
                 }
             }
@@ -43,24 +40,18 @@ $(document).ready(function () {
     $('#sidebarCollapse').on('click', function () {
         sidebar.find('.collapse.show').collapse('hide');
         if ($('#sidebar').hasClass('active')) {
-            $('.link_hide').show();
-            $('.brand-logo').show();
-            $('.brand-logo-mini').hide();
             $('.nav-profile-hide').show();
             $("#sidebar").mCustomScrollbar({
               theme: "minimal-dark"
             });
             
         } else {
-            $('.link_hide').hide();
-            $('.brand-logo').hide();
-            $('.brand-logo-mini').show();
             $('.nav-profile-hide').hide();
             $("#sidebar").mCustomScrollbar('destroy');
 
         }
-        
-        $('.sub').toggleClass('submenu_active');
+
+        $('body').toggleClass('sidebar-icon-only');
         $('#sidebar').toggleClass('active');
         $('#content').toggleClass('active');
     });

@@ -10,14 +10,14 @@
     font-size: 12px;
     }
 </style>
-<div class="card bg-white"style="margin-top:30px;">
+<div class="card bg-white" style="margin-top:30px;">
     <div class="card-header bg-white">
         <div class="row">
             <div class="col-6" style="padding: 30px 0px 10px 15px">
                 <span class="h3">User</span>
             </div>
             <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
-                <button type="button" onclick="" class="btn btn-success btn-radius">
+                <button type="button" class="btn btn-success btn-radius" id="btn-add-user">
                     <i class="fa fa-plus"></i>
                     Create
                 </button>
@@ -53,7 +53,7 @@
                             <div class="float-right">
                                 <p class="mb-0 text-right">Total User Online</p>
                                 <div class="fluid-container">
-                                    <h3 class="font-weight-medium text-right mb-0">6 User</h3>
+                                    <h3 class="font-weight-medium text-right mb-0">5 User</h3>
                                 </div>
                             </div>
                         </div>
@@ -96,160 +96,128 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>LIONKING</td>
-                            <td>088554412</td>
-                            <td>Active</td>
-                            <td>
-                                <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
-                                        <i class="fas fa-list"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Block">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>LIONKING</td>
-                            <td>088554412</td>
-                            <td>Active</td>
-                            <td>
-                                <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
-                                        <i class="fas fa-list"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Block">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>LIONKING</td>
-                            <td>088554412</td>
-                            <td>Active</td>
-                            <td>
-                                <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
-                                        <i class="fas fa-list"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Block">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>LIONKING</td>
-                            <td>088554412</td>
-                            <td>Active</td>
-                            <td>
-                                <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
-                                        <i class="fas fa-list"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Block">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>LIONKING</td>
-                            <td>088554412</td>
-                            <td>Active</td>
-                            <td>
-                                <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
-                                        <i class="fas fa-list"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Block">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>LIONKING</td>
-                            <td>088554412</td>
-                            <td>Inactive</td>
-                            <td>
-                                <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
-                                        <i class="fas fa-list"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Block">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </center>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addUser">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Create User Company</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="form-add-user">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Email</label>
+                            <input type="text" class="form-control" id="add_email_val"  />
+                            <label for="">Firstname</label>
+                            <input type="text" class="form-control" id="add_fname_val" />
+                            <label for="">Phone</label>
+                            <input type="text" class="add_phone_val form-control" />
+                        </div>
+                        <div class="col-6">
+                            <label for="">Password</label>
+                            <input type="text" class="form-control" id="add_pwd_val" />
+                            <label for="">Lastname</label>
+                            <input type="text" class="form-control" id="add_lname_val" />
+                            <label for="">Type User</label>
+                            <select id="add_type_user_val" class="form-control">
+                                <option>Admin</option>
+                                <option selected>Normal</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="add_phone_form" hidden>
+    <div class="input-group mb-2">
+        <input type="text" class="add_phone_val form-control mt-1" >
+        <div class="input-group-append">
+            <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
+        </div>
+    </div>
+</div>
+
+<div id="add_email_form" hidden>
+    <div class="input-group mb-2">
+        <input type="text" class="add_email_val form-control mt-1" >
+        <div class="input-group-append">
+            <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#btn-add-user").click(() => {
+            $("#addUser").modal('show');
+        })
+
+        $("#btn-add-phone").click(function() {
+            event.preventDefault();
+            let html = $("#add_phone_form").html();
+            $("#phone-other").append(html)
+        })
+
+        $("#btn-add-email").click(function() {
+            event.preventDefault();
+            let html = $("#add_email_form").html();
+            $("#email-other").append(html)
+        })
+
+        $(document).on('click',".btn-delete-email ,.btn-delete-phone",function(){
+            $(this).parent().parent().remove();
+        })
+
+        $("#btn-save-add-user").click(function() {
+            let email_input = $("#add_email_val").val();
+            let pwd_input = $("#add_pwd_val").val();
+            let fname_input = $("#add_fname_val").val();
+            let lname_input = $("#add_lname_val").val();
+            $.ajax({
+                url: "http://localhost:8000/api/company/users",
+                dataType: 'json',
+                method: "GET",
+                data: {
+                    username:'team',
+                    email: email_input,
+                    password: pwd_input,
+                    fname: fname_input,
+                    lname: lname_input,
+                    type_user: "COMPANY"
+                },
+                success: (res) => {
+                    $("#addUser").modal('hide');
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            })
+        })
+    });
+
+
+</script>
 @endsection

@@ -38,7 +38,8 @@
 </div>
 <br />
 
-<div class="grid-stack">
+<div class="contrainner">
+    <div class="grid-stack"></div>
 </div>
 
 <!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
@@ -66,11 +67,12 @@
                     </div>
                     <div class="col-6">
                         <label>Type Chart</label>
-                        <select class="form-control" id="type-chart">
+                        <select class="form-control" id="widget_type">
                             <option value="">--Select Type Widget--</option>
                             <option value="line">line</option>
                             <option value="Gauges">Gauges</option>
                             <option value="Map">Map</option>
+                            <option value="Half Circle">Half Circle</option>
                         </select>
                     </div>
                 </div>
@@ -79,11 +81,11 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="">Lable X</label>
-                            <input type="text" class="form-control">
+                            <input type="text" id="label-x-chart-line" class="form-control">
                         </div>
                         <div class="col-6">
                             <label for="">Select Value Of X</label>
-                            <input type="text" class="form-control">
+                            <input type="text" id="value-x-chart-line" class="form-control">
                         </div>
                     </div>
                     <br />
@@ -94,19 +96,19 @@
                         <div class="row" id="line_value">
                             <div class="col-3">
                                 <label for="">Label Y</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control label-y-chart-line">
                             </div>
                             <div class="col-3">
                                 <label for="">Value Of Y</label>
-                                <select name="" id="" class="form-control"></select>
+                                <select name="" id="" class="form-control value-y-chart-line"></select>
                             </div>
                             <div class="col-3">
                                 <label for="">RGB</label>
-                                <input type="text" id="rgb" class="form-control demo" data-format="rgb" value="rgb(33, 147, 58)">
+                                <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
                             </div>
                             <div class="col-3">
                                 <label for="">RGBA</label>
-                                <input type="text" id="rgba" class="form-control demo" data-format="rgb" data-opacity=".5"
+                                <input type="text" id="rgba" class="form-control demo rgba-chart-line" data-format="rgb" data-opacity=".5"
                                     value="rgba(255, 255, 255, 0.5)">
                             </div>
                         </div>
@@ -168,19 +170,19 @@
 <div id="line_value_layout" hidden>
     <div class="col-3">
         <label for="">Label Y</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control label-y-chart-line">
     </div>
     <div class="col-3">
         <label for="">Value Of Y</label>
-        <select name="" id="" class="form-control"></select>
+        <select name="" id="" class="form-control value-y-chart-line"></select>
     </div>
     <div class="col-3">
         <label for="">RGB</label>
-        <input type="text" id="rgb" class="form-control demo" data-format="rgb" value="rgb(33, 147, 58)">
+        <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
     </div>
     <div class="col-3">
         <label for="">RGBA</label>
-        <input type="text" id="rgba" class="form-control demo" data-format="rgb" data-opacity=".5" value="rgba(255, 255, 255, 0.5)">
+        <input type="text" id="rgba" class="form-control demo rgba-chart-line" data-format="rgb" data-opacity=".5" value="rgba(255, 255, 255, 0.5)">
     </div>
 </div>
 
@@ -207,6 +209,8 @@
         $("#addW").click(function () {
             $("#myModal").modal('show');
         });
+
+        $('.circliful').width($('.circliful').parent().height());
     });
 
 </script>
