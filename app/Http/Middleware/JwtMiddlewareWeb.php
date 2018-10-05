@@ -24,10 +24,12 @@
                 $request->headers->set("Authorization", "Bearer $token");//this is working
                 $response = $next($request);
                 $user = JWTAuth::parseToken()->authenticate();
+                if(!$user){
+                    return redirect('/Auth');
+                }
             } catch (Exception $e){
                 return redirect('/Auth');
             } 
-            
             return $response;
         }
     }

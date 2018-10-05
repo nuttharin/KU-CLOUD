@@ -11,6 +11,6 @@ class TB_EMAIL extends Model
     protected  $table = "TB_EMAIL";
     //
     protected $fillable = [
-        'user_id', 'email_user'
+        'user_id', 'email_user','is_verify'
     ];
 }

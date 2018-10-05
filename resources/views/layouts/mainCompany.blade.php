@@ -50,6 +50,9 @@
 
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- loading -->
+    <link rel="stylesheet" href="{{url('css/loading.css')}}">
 </head>
 
 <body>
@@ -182,7 +185,7 @@
         <script src="{{url('js/company/minicolors.js')}}"></script>
 
         <script>
-            $(document).ready(function () {
+            /*$(document).ready(function () {
                 $('#example').DataTable({
                     fixedHeader: true,
                     "columns": [
@@ -195,7 +198,7 @@
                     ]
                 });
 
-            });
+            });*/
 
         </script>
 

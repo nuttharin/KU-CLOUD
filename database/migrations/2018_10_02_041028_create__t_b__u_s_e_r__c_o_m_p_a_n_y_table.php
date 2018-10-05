@@ -14,11 +14,11 @@ class CreateTBUSERCOMPANYTable extends Migration
     public function up()
     {
         Schema::create('TB_USER_COMPANY', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();;
+            $table->integer('user_id')->unsigned();
             $table->boolean('is_user_main')->default(false);
             $table->integer('company_id')->unsigned();
             $table->timestamps();
-            $table->enum('type_user',['ADMIN','NORMAL']);
+            $table->enum('sub_type_user',['ADMIN','NORMAL']);
             $table->foreign('user_id')
             ->references('user_id')->on('TB_USERS')
             ->onDelete('cascade');

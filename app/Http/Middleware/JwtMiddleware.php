@@ -31,7 +31,7 @@
                 }else{
                     return response()->json(['status' => $e]);
                 }
-            }
+            }         
             //$response = $next($request);
             //$response->headers->set('Authorization', 'Bearer '.$request->cookie('token'));
             return $next($request);
