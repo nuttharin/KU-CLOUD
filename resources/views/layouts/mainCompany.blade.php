@@ -44,7 +44,7 @@
     <script src="{{url('mappadcontrol/L.Control.Pan.js')}}"></script>
     <script src="{{url('mappadcontrol/leaflet-tilejson.js')}}"></script>
     <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
-    
+     
     <!-- materialdesignicons -->
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.min.css">
 
@@ -55,10 +55,10 @@
 <body>
     <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-            <a class="navbar-brand brand-logo" style="margin-top:10px" href="index4.html">
+            <a class="navbar-brand brand-logo" style="margin-top:10px" href="#d">
                 <h4 class="text-center"><span style="color:green">KU</span> CLOUD</h4>
             </a>
-            <a class="navbar-brand brand-logo-mini" style="margin-top:10px" href="index4.html">
+            <a class="navbar-brand brand-logo-mini" style="margin-top:10px" href="#">
                 <h4 class="text-center" span style="color:green">KU</h4>
                 <!-- <img src="./logo.png" alt="" height="30px"> -->
             </a>
@@ -138,19 +138,20 @@
                 <li class="nav-item">
                     <a href="{{action('CompanyController@user')}}">
                         <i class="fas fa-users"></i>
-                        <span class="link_hide">User</span>
+                        <span>User</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{action('CustomerController@index')}}">
                         <i class="fas fa-briefcase"></i>
-                        <span class="link_hide">Customer</span>
+                        <span>Customer</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>
-                        <span class="link_hide">Input Service</span>
+                        <span>Input Service</span>
+                        <i class="fas fa-angle-right"></i>
                     </a>
                     <ul class="collapse list-unstyled sub" id="homeSubmenu">
                         <li class="nav-item">
@@ -170,8 +171,6 @@
                         <span class="link_hide">Static</span>
                     </a>
                 </li>
-
-
             </ul>
         </nav>
 
@@ -205,6 +204,9 @@
 
         <script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
         <script type="text/javascript" src="{{url('js/gridstack/gridstack.jQueryUI.js')}}"></script>
+        
+        <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
+        <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">

@@ -12,12 +12,9 @@ class GridDashboard {
 
     constructor(widget) {
         this.name = widget.name;
-        this.x = widget.x;
-        this.y = widget.y;
-        this.width = widget.width;
-        this.height = widget.height;
         this.id = widget.id;
         this.type = widget.type;
+        this.title_name = widget.title_name;
         this.lastUpdate = widget.lastUpdate;
         this.timeInterval = widget.timeInterval;
     }
@@ -27,16 +24,15 @@ class GridDashboard {
     }
 }
 
-class ChartLine extends GridDashboard{
-    
-    constructor(widget)
-    {
+class ChartLine extends GridDashboard {
+
+    constructor(widget) {
         super(widget);
-        this.valX = widget.valX;
-        this.valY = widget.valY;
         this.deviceName = widget.deviceName;
+        this.datasets = widget.datasets;
     }
 }
+
 
 $(".grid-stack").gridstack(options);
 new function () {
@@ -60,35 +56,63 @@ new function () {
         };
 
         var title_name = $("#title-name").val();
-        var type_chart = $("#type-chart").val();
+        var widget_type = $("#widget_type").val();
 
-        var wi = "";
+        var data_line = [];
+        var d = new Date();
+        var lastUpdate = d.getDate() + "-" + d.getMonth() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
+        switch (widget_type) {
+            case 'line':
+                let length_label = $(".label-y-chart-line").length - 1;
+                for (let i = 0; i < length_label; i++) {
+                    let label_y = $(".label-y-chart-line");
+                    let rgb = $(".rgb-chart-line");
+                    let rgba = $(".rgba-chart-line");
+                    let data = null;
+                    data = {
+                        label: $(label_y[i]).val(),
+                        backgroundColor: $(rgba[i]).val(),
+                        borderColor: $(rgb[i]).val(),
+                        borderWidth: 1,
+                    }
+                    data_line.push({ ...data });
+                }
 
-        if (type_chart === 'line') {
-            wi = '<canvas id="myChart_' + divId + '"></canvas>'
-        } else if (type_chart === 'Gauges') {
-            wi = '<div id="' + divId + '" class="gauge"></div>'
-        } else if (type_chart === 'Map') {
-            wi = '<div id="mymap_' + divIdMap + '"></div>'
+                data_widget = {
+                    id: divId,
+                    type: widget_type,
+                    title_name: title_name,
+                    lastUpdate: lastUpdate,
+                    datasets: [...data_line]
+                }
+                wi = '<canvas id="myChart_' + divId + '"></canvas>'
+                obj = new ChartLine({ ...data_widget });
+                break;
+            case 'Map':
+                data_widget = {
+                    id: divId,
+                    type: widget_type,
+                    title_name: title_name,
+                    lastUpdate: lastUpdate,
+                }
+                wi = '<div id="mymap_' + divIdMap + '"></div>'
+                obj = new GridDashboard({ ...data_widget });
+                break;
+            case 'Half Circle':
+                data_widget = {
+                    id: divId,
+                    type: widget_type,
+                    title_name: title_name,
+                    lastUpdate: lastUpdate,
+                }
+                wi = '<div id="circle_' + "1" + '" data-animation="1" data-animationStep="5" data-percent="58"></div>'
+                obj = new GridDashboard({ ...data_widget });
+                break;
         }
-
-        var data_widget = {
-            id: divId,
-            type: type_chart,
-            x: 3,
-            y: 4,
-            width: 6,
-            height: 7,
-        }
-
-        var widget = new GridDashboard(data_widget);
-        obj_grid.push(widget);
 
         var layout_widget = $("#layout-widget").html();
         layout_widget = layout_widget.replace("((wi))", wi)
         layout_widget = layout_widget.replace("((title_name))", title_name)
-        layout_widget = layout_widget.replace("((data_widget))", JSON.stringify(data_widget))
-
 
         var g = this.grid.addWidget(
             $(layout_widget),
@@ -98,15 +122,14 @@ new function () {
             node.height,
         );
 
-        //g.attr('id', divId);
-        //g.attr('type', type_chart);
+        g.data('_gridstack_data', JSON.stringify({ ...data_widget }));
 
         var setting = {};
-        switch (type_chart) {
+        switch (widget_type) {
             case 'line':
-                var myChart = AddLine(divId);
+                var myChart = AddLine({ ...obj });
                 setInterval(function () {
-                    updateData(myChart, [45, 50, 30, 34, 61, 53, 42], 0);
+                    updateData(myChart);
                 }, 1000);
                 break;
             case 'Gauges':
@@ -118,8 +141,16 @@ new function () {
             case 'Map':
                 var mymap = addMap(divIdMap);
                 break;
+            case 'Half Circle':
+                $("#circle_" + "1").circliful({
+                    animationStep: 5,
+                    foregroundBorderWidth: 5,
+                    backgroundBorderWidth: 15,
+                    percent: 80,
+                    halfCircle: 1,
+                });
+                break;
         }
-        console.log(obj_grid);
         return false;
     }.bind(this);
 
@@ -127,16 +158,17 @@ new function () {
         this.serializedData = _.map($('.grid-stack > .grid-stack-item:visible'), function (el) {
             el = $(el);
             var node = el.data('_gridstack_node');
-            console.log(node);
+            var widget = el.data('_gridstack_data');
+            console.log(widget);
             return {
                 x: node.x,
                 y: node.y,
                 width: node.width,
                 height: node.height,
-                id: el[0].id
+                widget: JSON.parse(widget)
             };
         });
-        $('#saved-data').val(JSON.stringify(this.serializedData, null, '    '));
+        $('#saved-data').val(JSON.stringify(this.serializedData, null, '        '));
         return false;
     }.bind(this);
 
@@ -146,7 +178,7 @@ new function () {
 
 $(document).ready(function () {
 
-    $("#type-chart").change(function () {
+    $("#widget_type").change(function () {
         $(".value_widget").hide();
         var type = $(this).val();
         if (type == 'line') {
@@ -160,8 +192,8 @@ $(document).ready(function () {
 
     $("#btn-add-value-line").click(function () {
         var html = $("#line_value_layout").html()
-        console.log(html);
         $("#line_value").append(html);
+        updateMinicolor();
     });
 
     $("#settingW").click(function () {
@@ -178,18 +210,12 @@ $(document).ready(function () {
 });
 
 
-function AddLine(divId) {
-    var ctx = document.getElementById("myChart_" + divId);
-    var myChart = new Chart(ctx, {
-        type: $("#type-chart").val(),
+function AddLine(widget) {
+    let ctx = document.getElementById("myChart_" + widget.id);
+    let myChart = new Chart(ctx, {
+        type: widget.type,
         data: {
-            datasets: [{
-                label: "# of Votes",
-                backgroundColor: $("#rgba").val(),
-                borderColor: $("#rgb").val(),
-                borderWidth: 1
-            }],
-
+            datasets: widget.datasets
         },
         options: {
             maintainAspectRatio: false,
@@ -315,17 +341,22 @@ function weather() {
     });
 }
 
-function updateData(myChart, data, datasetIndex) {
+function updateData(myChart) {
     var data = Math.random();
     var d = new Date();
     myChart.data.labels.push(d.toLocaleTimeString());
+    var i = 0;
     myChart.data.datasets.forEach((dataset) => {
         if (dataset.data.length > 10) {
             dataset.data.splice(0, 1);
-            myChart.data.labels.splice(0, 1);
+            //myChart.data.labels.splice(0, 1);
         }
-        dataset.data.push(data);
+        var data2 = Math.random();
+        dataset.data.push(data + data2);
     });
+
+    if (myChart.data.labels.length > 10) myChart.data.labels.splice(0, 1);
+
     myChart.update();
 }
 
