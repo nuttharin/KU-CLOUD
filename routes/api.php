@@ -20,19 +20,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('Auth','Api\AuthController@login');
 
-
-
 Route::post('login', 'UserController@authenticate');
 
-Route::get('open', 'DataController@open');
+Route::get('open', 'DataController@open'); //test
 
-Route::get('/me','Api\AuthController@me');
-
-//Route::get('/users','Api\CompanyController@getAllUser');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('closed', 'DataController@closed');
-    Route::get('company/users', 'Api\CompanyController@addUser');
-  
+    Route::get('closed', 'DataController@closed'); //test
+    Route::get('company/users','Api\CompanyController@getAllUser');
+    Route::post('company/users', 'Api\CompanyController@addUser');
 });
 

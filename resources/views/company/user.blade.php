@@ -10,6 +10,7 @@
     font-size: 12px;
     }
 </style>
+
 <div class="card bg-white" style="margin-top:30px;">
     <div class="card-header bg-white">
         <div class="row">
@@ -82,17 +83,18 @@
 </div>
 
 <div class="row" style="padding: 30px 0px 10px 0px">
+   
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="example">
+                <div class="lds-roller text-center"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"  id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Phone</th>
-                            <th>Status</th>
-                            <th></th>
+                            <th>Email</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -123,7 +125,7 @@
                             <label for="">Firstname</label>
                             <input type="text" class="form-control" id="add_fname_val" />
                             <label for="">Phone</label>
-                            <input type="text" class="add_phone_val form-control" />
+                            <input type="text" class="form-control" id="add_phone_val"/>
                         </div>
                         <div class="col-6">
                             <label for="">Password</label>
@@ -132,8 +134,8 @@
                             <input type="text" class="form-control" id="add_lname_val" />
                             <label for="">Type User</label>
                             <select id="add_type_user_val" class="form-control">
-                                <option>Admin</option>
-                                <option selected>Normal</option>
+                                <option>ADMIN</option>
+                                <option selected>NORMAL</option>
                             </select>
                         </div>
                     </div>
@@ -167,6 +169,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="{{url('js/company/users/users.js')}}"></script>
 
 <script>
 
@@ -191,31 +194,6 @@
             $(this).parent().parent().remove();
         })
 
-        $("#btn-save-add-user").click(function() {
-            let email_input = $("#add_email_val").val();
-            let pwd_input = $("#add_pwd_val").val();
-            let fname_input = $("#add_fname_val").val();
-            let lname_input = $("#add_lname_val").val();
-            $.ajax({
-                url: "http://localhost:8000/api/company/users",
-                dataType: 'json',
-                method: "GET",
-                data: {
-                    username:'team',
-                    email: email_input,
-                    password: pwd_input,
-                    fname: fname_input,
-                    lname: lname_input,
-                    type_user: "COMPANY"
-                },
-                success: (res) => {
-                    $("#addUser").modal('hide');
-                },
-                error: (res) => {
-                    console.log(res);
-                }
-            })
-        })
     });
 
 
