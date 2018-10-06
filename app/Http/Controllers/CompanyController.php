@@ -17,7 +17,12 @@ class CompanyController extends Controller
     public function user()
     {
         return view('company.user');
-    }   
+    }
+    
+    public function customer()
+    {
+        return view('company.customer');
+    }
 
     public function static()
     {
