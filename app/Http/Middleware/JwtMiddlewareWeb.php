@@ -19,7 +19,7 @@
          */
         public function handle($request, Closure $next)
         {   try{   
-                $token = isset($_COOKIE["token"])?$_COOKIE["token"]:"";
+                $token = isset($_COOKIE["token"]) ? $_COOKIE["token"]:"";
                 
                 $request->headers->set("Authorization", "Bearer $token");//this is working
                 $response = $next($request);
