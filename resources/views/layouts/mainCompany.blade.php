@@ -146,7 +146,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('CustomerController@index')}}">
+                    <a href="{{action('CompanyController@customer')}}">
                         <i class="fas fa-briefcase"></i>
                         <span>Customer</span>
                     </a>

@@ -1,14 +1,16 @@
-@extends('layouts.mainCompany')
+@extends('layouts.mainCompany') 
+@section('title','Customer | Company') 
 @section('content')
 <style>
-    table{
-        font-size:14px; 
+    table {
+        font-size: 14px;
     }
-    .dataTables_wrapper {
-    font-size: 12px;
-    }
-}
 
+    .dataTables_wrapper {
+        font-size: 12px;
+    }
+
+    }
 </style>
 <div class="row" style="padding: 30px 0px 10px 0px">
     <div class="col-12">
@@ -28,8 +30,7 @@
                 </div>
             </div>
             <div class="card-body bg-white">
-                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="example">
+                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -45,16 +46,13 @@
                             <td>0886442121</td>
                             <td>
                                 <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                         <i class="fas fa-list"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
+                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </center>
@@ -66,16 +64,13 @@
                             <td>0886442121</td>
                             <td>
                                 <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                         <i class="fas fa-list"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
+                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </center>
@@ -87,16 +82,13 @@
                             <td>0886442121</td>
                             <td>
                                 <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                         <i class="fas fa-list"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
+                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </center>
@@ -108,16 +100,13 @@
                             <td>0886442121</td>
                             <td>
                                 <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                         <i class="fas fa-list"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
+                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </center>
@@ -129,16 +118,13 @@
                             <td>0886442121</td>
                             <td>
                                 <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                         <i class="fas fa-list"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
+                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </center>
@@ -150,16 +136,13 @@
                             <td>0886442121</td>
                             <td>
                                 <center>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Detail">
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Detail">
                                         <i class="fas fa-list"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Edit">
+                                    <button type="button" class="btn btn-success btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </center>
@@ -171,5 +154,4 @@
         </div>
     </div>
 </div>
-
 @endsection

@@ -193,22 +193,9 @@
             $("#addUser").modal('show');
         })
 
-        $("#btn-add-phone").click(function() {
-            event.preventDefault();
-            let html = $("#add_phone_form").html();
-            $("#phone-other").append(html)
-        })
-
-        $("#btn-add-email").click(function() {
-            event.preventDefault();
-            let html = $("#add_email_form").html();
-            $("#email-other").append(html)
-        })
-
         $(document).on('click',".btn-delete-email ,.btn-delete-phone",function(){
             $(this).parent().parent().remove();
         })
-
     });
 
 </script>

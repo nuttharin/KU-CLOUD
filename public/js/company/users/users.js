@@ -6,7 +6,7 @@ var Users = new (function () {
     var ModalEdit = null;
     var ModalBlock = null;
     var ModalDelete = null;
-    var FormAddEmail = `
+    const FormAddEmail = `
                             <div class="input-group mb-2">
                                 <input type="text" class="add_email_val form-control mt-1" value={email}>
                                     <div class="input-group-append">
@@ -14,10 +14,10 @@ var Users = new (function () {
                                     </div>
                             </div>
                           `;
-    var FormAddPhone = `  <div class="input-group mb-2">
+    const FormAddPhone = `  <div class="input-group mb-2">
                                 <input type="text" class="add_phone_val form-control mt-1" value={phone}>
                                 <div class="input-group-append">
-                                    <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
+                                    <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                                 </div>
                             </div>`;
     var that = this;
@@ -47,8 +47,6 @@ var Users = new (function () {
             $('.text-loading').hide();
             $('#example').show();
             $('.text-static').show();
-
-
         }
     }
 
@@ -97,7 +95,6 @@ var Users = new (function () {
         $(".btn-delete").unbind().click(function () {
             onDeleteClick($(this).attr('index'));
         });
-
         $('[data-toggle="tooltip"]').tooltip();
     }
 
@@ -148,7 +145,7 @@ var Users = new (function () {
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" id="btn-save-add-user" class="btn btn-success btn-block">Save</button>
+                                        <button type="button" id="" class="btn btn-success btn-block">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -206,6 +203,20 @@ var Users = new (function () {
             $('body').append(ModalEdit);
 
         }
+
+        $("#btn-add-phone").unbind().click(function () {
+            event.preventDefault();
+            console.log(FormAddPhone)
+            if ($(".btn-delete-phone").length <= 2)
+                $("#input-add-phone").append(FormAddPhone.replace('{phone}', ''));
+        })
+
+        $("#btn-add-email").unbind().click(function () {
+            event.preventDefault();
+            console.log(FormAddEmail)
+            if ($(".btn-delete-email").length <= 2)
+                $("#input-add-email").append(FormAddEmail.replace('{email}', ''));
+        })
 
         let phoneList = UsersList[key].phone.split(',');
         let inputPhone = null;
