@@ -27,7 +27,11 @@ Route::get('open', 'DataController@open'); //test
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('closed', 'DataController@closed'); //test
+
     Route::get('company/users','Api\CompanyController@getAllUser');
-    Route::post('company/users', 'Api\CompanyController@addUser');
+    Route::post('company/users', 'Api\CompanyController@addUserCompany');
+    
+    Route::get('company/customers','Api\CompanyController@getAllCustomer');
+    Route::post('company/customers','Api\CompanyController@addUserCustomer');
 });
 
