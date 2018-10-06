@@ -1,7 +1,6 @@
-
-var Users = new (function () {
-    var UsersDATATABLE = null;
-    var UsersList = [];
+var Customer = new (function () {
+    var CustomerDATATABLE = null
+    var CustomerList = [];
     var ModalDetail = null;
     var ModalEdit = null;
     var ModalBlock = null;
@@ -22,10 +21,11 @@ var Users = new (function () {
                             </div>`;
     var that = this;
 
-    var updateDatatableData = (userList) => {
+
+    var updateDatatableData = (customerList) => {
         var Datatable = new Array();
-        UsersDATATABLE.fnClearTable();
-        $.each(userList.users, function (index, item) {
+        CustomerDATATABLE.fnClearTable();
+        $.each(customerList.customer, function (index, item) {
             var ret = [];
             ret[0] = item.fname + " " + item.lname;
             ret[1] = item.phone.split(',')[0];
@@ -50,7 +50,12 @@ var Users = new (function () {
                         </center>`;
             Datatable.push(ret);
         });
-        UsersDATATABLE.fnAddData(Datatable);
+        CustomerDATATABLE.fnAddData(Datatable);
+
+        $('#btn-add-customer').unbind().click(function () {
+            $('#addUser').modal('show');
+        })
+
 
         $(".btn-detail").unbind().click(function () {
             onDetailClick($(this).attr('index'));
@@ -67,36 +72,8 @@ var Users = new (function () {
         $(".btn-delete").unbind().click(function () {
             onDeleteClick($(this).attr('index'));
         });
-        $('[data-toggle="tooltip"]').tooltip();
-    }
 
-    var onSaveUserClick = () => {
-        let email_input = $("#add_email_val").val();
-        let pwd_input = $("#add_pwd_val").val();
-        let fname_input = $("#add_fname_val").val();
-        let lname_input = $("#add_lname_val").val();
-        let type_user_input = $("#add_type_user_val").val();
-        let phone_input = $("#add_phone_val").val();
-        $.ajax({
-            url: "http://localhost:8000/api/company/users",
-            dataType: 'json',
-            method: "POST",
-            data: {
-                email: email_input,
-                password: pwd_input,
-                fname: fname_input,
-                lname: lname_input,
-                phone: phone_input,
-                sub_type_user: type_user_input
-            },
-            success: (res) => {
-                this.showLastestDatatable();
-                $("#addUser").modal('hide');
-            },
-            error: (res) => {
-                console.log(res);
-            }
-        })
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     var onDetailClick = (key) => {
@@ -126,10 +103,10 @@ var Users = new (function () {
             $('body').append(ModalDetail);
         }
 
-        $('#title-user').html(UsersList[key].email.split(',')[0]);
-        $('#name-user').html(UsersList[key].fname + " " + UsersList[key].lname);
-        $('#phone-user').html(UsersList[key].phone);
-        $('#email-user').html(UsersList[key].email);
+        $('#title-user').html(CustomerList[key].email.split(',')[0]);
+        $('#name-user').html(CustomerList[key].fname + " " + CustomerList[key].lname);
+        $('#phone-user').html(CustomerList[key].phone);
+        $('#email-user').html(CustomerList[key].email);
 
         $("#detailUser").modal('show');
     }
@@ -141,7 +118,7 @@ var Users = new (function () {
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Edit User Company</h4>
+                                        <h4 class="modal-title">Edit User Customer</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
@@ -185,25 +162,24 @@ var Users = new (function () {
 
         $("#btn-add-email").unbind().click(function () {
             event.preventDefault();
-            console.log(FormAddEmail)
             if ($(".btn-delete-email").length <= 2)
                 $("#input-add-email").append(FormAddEmail.replace('{email}', ''));
         })
 
-        let phoneList = UsersList[key].phone.split(',');
+        let phoneList = CustomerList[key].phone.split(',');
         let inputPhone = null;
         inputPhone = phoneList.map(phone => {
             return FormAddPhone.replace('{phone}', phone);
         })
 
-        let emailList = UsersList[key].email.split(',');
+        let emailList = CustomerList[key].email.split(',');
         let inputEmail = null;
         inputEmail = emailList.map(email => {
             return FormAddEmail.replace('{email}', email);
         })
 
-        $('#edit-fname').val(UsersList[key].fname);
-        $('#edit-lname').val(UsersList[key].lname);
+        $('#edit-fname').val(CustomerList[key].fname);
+        $('#edit-lname').val(CustomerList[key].lname);
         $('#input-add-phone').html(inputPhone.join(''));
         $('#input-add-email').html(inputEmail.join(''));
         $('#editUser').modal('show');
@@ -216,7 +192,7 @@ var Users = new (function () {
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Block User Company</h4>
+                                        <h4 class="modal-title">Block User Customer</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
@@ -234,7 +210,7 @@ var Users = new (function () {
                         </div>`
             $('body').append(ModalBlock);
         }
-        $("#span-text-confirm-block").html("Are you sure to block " + UsersList[key].fname + " " + UsersList[key].lname + " ?");
+        $("#span-text-confirm-block").html("Are you sure to block " + CustomerList[key].fname + " " + CustomerList[key].lname + " ?");
         $("#BlockUser").modal('show');
     }
 
@@ -245,7 +221,7 @@ var Users = new (function () {
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Delete User Company</h4>
+                                        <h4 class="modal-title">Delete User Customer</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
@@ -264,23 +240,16 @@ var Users = new (function () {
             $('body').append(ModalDelete);
         }
 
-        $('#span-text-confirm').html("Are you sure to delete " + UsersList[key].email + " ? ")
+        $('#span-text-confirm').html("Are you sure to delete " + CustomerList[key].email + " ? ")
         $('#DeleteUser').modal('show');
     }
 
     var initialDatatable = () => {
-        if (UsersDATATABLE !== null) {
+        if (CustomerDATATABLE !== null) {
             return false;
         }
 
-        UsersDATATABLE = $('#example').dataTable();
-
-
-        $("#btn-save-add-user").unbind().click(function () {
-            onSaveUserClick($(this));
-        });
-
-
+        CustomerDATATABLE = $('#example').dataTable();
     }
 
     var showDatatableLoadingStatus = (showOrHide) => {
@@ -302,11 +271,11 @@ var Users = new (function () {
     this.showLastestDatatable = () => {
         showDatatableLoadingStatus(true);
         $.ajax({
-            url: "http://localhost:8000/api/company/users",
+            url: "http://localhost:8000/api/company/customers",
             method: 'GET',
             success: function (result) {
                 initialDatatable();
-                UsersList = result.users;
+                CustomerList = result.customer;
                 showDatatableLoadingStatus(false);
                 updateDatatableData(result);
             },
@@ -317,10 +286,9 @@ var Users = new (function () {
     };
 
 
-})
-
+});
 
 $(document).ready(function () {
-    var TB_USERS = Users;
-    TB_USERS.initialAndRun({});
+    var TB_USER_CUSTOMER = Customer;
+    TB_USER_CUSTOMER.initialAndRun({});
 });
