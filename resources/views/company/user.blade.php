@@ -1,15 +1,21 @@
-@extends('layouts.mainCompany')
-@section('title','User | Company')
+@extends('layouts.mainCompany') 
+@section('title','User | Company') 
 @section('content')
 
 <style>
-    table{
-        font-size:14px; 
+    table {
+        font-size: 14px;
     }
+
     .dataTables_wrapper {
-    font-size: 12px;
+        font-size: 12px;
     }
 </style>
+
+<link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
+<link href="{{url('css/animate.css')}}" rel="stylesheet">
+
+
 
 <div class="card bg-white" style="margin-top:30px;">
     <div class="card-header bg-white">
@@ -35,9 +41,15 @@
                                 <i class="mdi mdi-account-multiple text-primary icon-lg"></i>
                             </div>
                             <div class="float-right">
-                                <p class="mb-0 text-right">Total User</p>
-                                <div class="fluid-container">
-                                    <h3 class="font-weight-medium text-right mb-0">6 User</h3>
+                                <div class="text-loading">
+                                    <div class="text-line md"></div>
+                                    <div class="text-line lg ml-auto" style="width:100px"></div>
+                                </div>
+                                <div class="text-static animated fadeIn" style="display:none">
+                                    <p class="mb-0 text-right">Total User</p>
+                                    <div class="fluid-container">
+                                        <h3 class="font-weight-medium text-right mb-0">6 User</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -52,9 +64,15 @@
                                 <i class="mdi mdi-account-multiple text-success icon-lg"></i>
                             </div>
                             <div class="float-right">
-                                <p class="mb-0 text-right">Total User Online</p>
-                                <div class="fluid-container">
-                                    <h3 class="font-weight-medium text-right mb-0">5 User</h3>
+                                <div class="text-loading">
+                                    <div class="text-line md"></div>
+                                    <div class="text-line lg ml-auto" style="width:100px"></div>
+                                </div>
+                                <div class="text-static animated fadeIn" style="display:none">
+                                    <p class="mb-0 text-right">Total User Online</p>
+                                    <div class="fluid-container">
+                                        <h3 class="font-weight-medium text-right mb-0">5 User</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,9 +87,15 @@
                                 <i class="mdi mdi-account-multiple text-warning icon-lg"></i>
                             </div>
                             <div class="float-right">
-                                <p class="mb-0 text-right">Total User Offline</p>
-                                <div class="fluid-container">
-                                    <h3 class="font-weight-medium text-right mb-0">1 User</h3>
+                                <div class="text-loading">
+                                    <div class="text-line md"></div>
+                                    <div class="text-line lg ml-auto" style="width:100px"></div>
+                                </div>
+                                <div class="text-static animated fadeIn" style="display:none">
+                                    <p class="mb-0 text-right">Total User Offline</p>
+                                    <div class="fluid-container">
+                                        <h3 class="font-weight-medium text-right mb-0">1 User</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,12 +107,21 @@
 </div>
 
 <div class="row" style="padding: 30px 0px 10px 0px">
-   
+
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="lds-roller text-center"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"  id="example">
+                <div class="lds-roller text-center">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -121,11 +154,11 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="">Email</label>
-                            <input type="text" class="form-control" id="add_email_val"  />
+                            <input type="text" class="form-control" id="add_email_val" />
                             <label for="">Firstname</label>
                             <input type="text" class="form-control" id="add_fname_val" />
                             <label for="">Phone</label>
-                            <input type="text" class="form-control" id="add_phone_val"/>
+                            <input type="text" class="form-control" id="add_phone_val" />
                         </div>
                         <div class="col-6">
                             <label for="">Password</label>
@@ -151,28 +184,10 @@
     </div>
 </div>
 
-<div id="add_phone_form" hidden>
-    <div class="input-group mb-2">
-        <input type="text" class="add_phone_val form-control mt-1" >
-        <div class="input-group-append">
-            <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
-        </div>
-    </div>
-</div>
-
-<div id="add_email_form" hidden>
-    <div class="input-group mb-2">
-        <input type="text" class="add_email_val form-control mt-1" >
-        <div class="input-group-append">
-            <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript" src="{{url('js/company/users/users.js')}}"></script>
 
 <script>
-
     $(document).ready(function () {
         $("#btn-add-user").click(() => {
             $("#addUser").modal('show');
@@ -195,7 +210,6 @@
         })
 
     });
-
 
 </script>
 @endsection
