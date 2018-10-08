@@ -1,5 +1,5 @@
-@extends('layouts.mainCompany')
-@section('title','Static | Company')
+@extends('layouts.mainCompany') 
+@section('title','Static | Company') 
 @section('content')
 
 <script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
@@ -9,9 +9,7 @@
 <script src="{{url('js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}}"></script>
 
 <style type="text/css">
-    .grid-stack-item {
-        
-    }
+    .grid-stack-item {}
 
     .grid-stack-item-content {
         color: #2c3e50;
@@ -24,6 +22,9 @@
         width: 100% !important;
     }
 
+    .modal-lg {
+        max-width: 1100px !important;
+    }
 </style>
 
 <div class="row border-bottom">
@@ -54,21 +55,16 @@
             </div>
 
             <div class="modal-body">
-                <label>Name Widget</label>
-                <input type="text" name="title-name" id="title-name" class="form-control">
+
                 <div class="row">
                     <div class="col-6">
-                        <label>Device Name</label>
-                        <select class="form-control" id="">
-                            <option value="line">Device1</option>
-                            <option value="bar">Device2</option>
-                            <option value="pie">Device3</option>
-                        </select>
+                        <label>Title</label>
+                        <input type="text" name="title-name" id="title-name" class="form-control">
                     </div>
                     <div class="col-6">
-                        <label>Type Chart</label>
+                        <label>Widget Type</label>
                         <select class="form-control" id="widget_type">
-                            <option value="">--Select Type Widget--</option>
+                            <option value="">--Select Widget Type--</option>
                             <option value="line">line</option>
                             <option value="Gauges">Gauges</option>
                             <option value="Map">Map</option>
@@ -95,21 +91,20 @@
                     <div>
                         <div class="row" id="line_value">
                             <div class="col-3">
-                                <label for="">Label Y</label>
+                                <label for="">Channel</label>
                                 <input type="text" class="form-control label-y-chart-line">
                             </div>
                             <div class="col-3">
-                                <label for="">Value Of Y</label>
+                                <label for="">Resource</label>
                                 <select name="" id="" class="form-control value-y-chart-line"></select>
+                            </div>
+                            <div class="col-3">
+                                <label for="">Label</label>
+                                <input type="text" class="form-control label-y-chart-line">
                             </div>
                             <div class="col-3">
                                 <label for="">RGB</label>
                                 <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
-                            </div>
-                            <div class="col-3">
-                                <label for="">RGBA</label>
-                                <input type="text" id="rgba" class="form-control demo rgba-chart-line" data-format="rgb" data-opacity=".5"
-                                    value="rgba(255, 255, 255, 0.5)">
                             </div>
                         </div>
                     </div>
@@ -139,11 +134,6 @@
                             <label for="">RGB</label>
                             <input type="text" id="rgb" class="form-control demo" data-format="rgb" value="rgb(33, 147, 58)">
                         </div>
-                        <div class="col-3">
-                            <label for="">RGBA</label>
-                            <input type="text" id="rgba" class="form-control demo" data-format="rgb" data-opacity=".5"
-                                value="rgba(255, 255, 255, 0.5)">
-                        </div>
                     </div>
                 </div>
                 <div id="map" class="value_widget" style="display:none;">
@@ -169,20 +159,20 @@
 
 <div id="line_value_layout" hidden>
     <div class="col-3">
-        <label for="">Label Y</label>
+        <label for="">Channel</label>
         <input type="text" class="form-control label-y-chart-line">
     </div>
     <div class="col-3">
-        <label for="">Value Of Y</label>
+        <label for="">Resource</label>
         <select name="" id="" class="form-control value-y-chart-line"></select>
+    </div>
+    <div class="col-3">
+        <label for="">Label</label>
+        <input type="text" class="form-control label-y-chart-line">
     </div>
     <div class="col-3">
         <label for="">RGB</label>
         <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
-    </div>
-    <div class="col-3">
-        <label for="">RGBA</label>
-        <input type="text" id="rgba" class="form-control demo rgba-chart-line" data-format="rgb" data-opacity=".5" value="rgba(255, 255, 255, 0.5)">
     </div>
 </div>
 
@@ -214,5 +204,4 @@
     });
 
 </script>
-
 @endsection

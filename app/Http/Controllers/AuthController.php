@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\USER_VERIFICATIONS;
+use App\TB_EMAIL;
+use DB;
 
 class AuthController extends Controller
 {
@@ -16,15 +19,26 @@ class AuthController extends Controller
         return view('auth.index');
     }
 
-    public function test(){
-        $usesr = TB_USERS::get();
-        if(!empty($user))
-        {
-            return response($usesr, 200)
-                    ->header('Content-Type', 'application/json');
+    public function verifyUser($verification_code,$email){
+        $check = DB::table('USER_VERIFICATIONS')->where('token',$verification_code)->first();
+        if(!is_null($check)){
+            $email = TB_EMAIL::where('email_user','=',$email)->first();
+            if($email->is_verify == 1){
+                return response()->json([
+                    'success'=> true,
+                    'message'=> 'Account already verified..'
+                ]);
+            }
+            $email->update(['is_verify' => 1]);
+            DB::table('USER_VERIFICATIONS')->where('token',$verification_code)->delete();
+            return view('auth.verifyMessage', ['message' => 'You have successfully verified your email address.']);
+            /*return response()->json([
+                'success'=> true,
+                'message'=> 'You have successfully verified your email address.'
+            ]);*/
         }
-        return response('not found', 200)
-        ->header('Content-Type', 'application/json');
+        return view('auth.verifyMessage', ['message' => 'Verification code is invalid.']);
+        //return response()->json(['success'=> false, 'error'=> "Verification code is invalid."]);
     }
 }
 

@@ -12,6 +12,10 @@ use App\TB_USERS;
 use App\TB_EMAIL;
 use App\TB_PHONE;
 use App\TB_USER_COMPANY;
+use App\TB_USER_CUSTOMER;
+use email;
+use Mail;
+use Illuminate\Mail\Message;
 
 class CompanyController extends Controller
 {
@@ -58,7 +62,7 @@ class CompanyController extends Controller
             $email = TB_EMAIL::create([
                 'user_id' => $user->user_id,
                 'email_user' => $request->get('email'),
-                'is_verify' => true,
+                'is_verify' => false,
             ]);
 
             $phone = TB_PHONE::create([
@@ -66,6 +70,21 @@ class CompanyController extends Controller
                 'phone_user' => $request->get('phone')
             ]);
         }
+
+        $name = $request->get('fname')." ".$request->get('lname');
+        $email = $request->get('email');
+
+        $verification_code = str_random(30); //Generate verification code
+        
+        DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
+        $subject = "Please verify your email address.";
+        Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email],
+            function($mail) use ($email, $name, $subject){            
+                $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD Name Goes Here");
+                $mail->to($email, $name);
+                $mail->subject($subject);
+            });
+        
         //$request->bearerToken(),201
         return response()->json(["status_code","201"],201);
     }
