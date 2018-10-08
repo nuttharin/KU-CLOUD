@@ -34,11 +34,11 @@
     <div class="card-body">
         <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                <div class="card card-statistics">
+                <div class="card card-statistics bg-primary text-white">
                     <div class="card-body">
                         <div class="clearfix">
                             <div class="float-left">
-                                <i class="mdi mdi-account-multiple text-primary icon-lg"></i>
+                                <i class="mdi mdi-account-multiple icon-lg"></i>
                             </div>
                             <div class="float-right">
                                 <div class="text-loading">
@@ -57,11 +57,11 @@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                <div class="card card-statistics">
+                <div class="card card-statistics bg-success text-white">
                     <div class="card-body">
                         <div class="clearfix">
                             <div class="float-left">
-                                <i class="mdi mdi-account-multiple text-success icon-lg"></i>
+                                <i class="mdi mdi-account-multiple icon-lg"></i>
                             </div>
                             <div class="float-right">
                                 <div class="text-loading">
@@ -80,11 +80,11 @@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                <div class="card card-statistics">
+                <div class="card card-statistics  bg-warning text-white">
                     <div class="card-body">
                         <div class="clearfix">
                             <div class="float-left">
-                                <i class="mdi mdi-account-multiple text-warning icon-lg"></i>
+                                <i class="mdi mdi-account-multiple icon-lg"></i>
                             </div>
                             <div class="float-right">
                                 <div class="text-loading">

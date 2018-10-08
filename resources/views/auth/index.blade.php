@@ -1,25 +1,28 @@
-@extends('layouts.login')
+@extends('layouts.login') 
 @section('content')
 <style>
-    #form_login{
-        width:40%;
+    #form_login {
+        width: 40%;
         margin: auto;
         padding: 50px;
     }
 
     @media screen and (max-width: 850px) {
-        #form_login{
+        #form_login {
             width: 70%;
-        } 
+        }
     }
 
     @media screen and (max-width: 600px) {
-        #form_login{
+        #form_login {
             width: 100%;
-        } 
+        }
     }
 </style>
 <form id="form_login">
+    <div class="alert alert-danger" style="display:none">
+
+    </div>
     <h1>Login</h1>
     <label>Username</label>
     <input type="text" class="form-control" id="email">
@@ -47,10 +50,17 @@
                     window.location = "/Company/User";
                 },
                 error:(res) => {
-                    console.log(res);
+                    if(res.status === 500){
+                        $(".alert").show();
+                        $(".alert").html("<strong>Error!</strong> Please check email " + $("#email").val() + " to verify.");
+                    }
                 }
             });
         })
+        $("input,button").focus(function() {
+            $(".alert").hide();
+        });
     });
+
 </script>
 @endsection

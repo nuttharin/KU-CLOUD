@@ -54,6 +54,9 @@
 
     <!-- loading -->
     <link rel="stylesheet" href="{{url('css/loading.css')}}">
+
+    <!-- sweetalert -->
+    <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}">
 </head>
 
 <body>

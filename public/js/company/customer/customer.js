@@ -22,6 +22,33 @@ var Customer = new (function () {
     var that = this;
 
 
+    var onSaveUserClick = () => {
+        let email_input = $("#add_email_val").val();
+        let pwd_input = $("#add_pwd_val").val();
+        let fname_input = $("#add_fname_val").val();
+        let lname_input = $("#add_lname_val").val();
+        let phone_input = $("#add_phone_val").val();
+        $.ajax({
+            url: "http://localhost:8000/api/company/customers",
+            dataType: 'json',
+            method: "POST",
+            data: {
+                email: email_input,
+                password: pwd_input,
+                fname: fname_input,
+                lname: lname_input,
+                phone: phone_input,
+            },
+            success: (res) => {
+                this.showLastestDatatable();
+                $("#addUser").modal('hide');
+            },
+            error: (res) => {
+                console.log(res);
+            }
+        })
+    }
+
     var updateDatatableData = (customerList) => {
         var Datatable = new Array();
         CustomerDATATABLE.fnClearTable();
@@ -51,11 +78,6 @@ var Customer = new (function () {
             Datatable.push(ret);
         });
         CustomerDATATABLE.fnAddData(Datatable);
-
-        $('#btn-add-customer').unbind().click(function () {
-            $('#addUser').modal('show');
-        })
-
 
         $(".btn-detail").unbind().click(function () {
             onDetailClick($(this).attr('index'));
@@ -266,6 +288,14 @@ var Customer = new (function () {
 
     this.initialAndRun = () => {
         this.showLastestDatatable();
+
+        $('#btn-add-customer').unbind().click(function () {
+            $('#addUser').modal('show');
+        })
+
+        $('#btn-save-add-user').unbind().click(function () {
+            onSaveUserClick($(this));
+        })
     };
 
     this.showLastestDatatable = () => {

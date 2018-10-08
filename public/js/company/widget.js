@@ -37,6 +37,7 @@ class ChartLine extends GridDashboard {
 $(".grid-stack").gridstack(options);
 
 new function () {
+
     this.items = [{
         x: 0,
         y: 0,

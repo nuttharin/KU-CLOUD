@@ -13,6 +13,7 @@ use Config;
 use Auth;
 
 use DB;
+use App\TB_EMAIL;
 
 
 class AuthController extends Controller
@@ -22,28 +23,32 @@ class AuthController extends Controller
                             INNER JOIN TB_USER_COMPANY ON  TB_USER_COMPANY.user_id = TB_USERS.user_id
                             INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
                             INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
-                            WHERE TB_EMAIL.email_user = ? limit 1',[$request->get('email')]);
-        $hash_password = $user[0]->password;
-        if(Hash::check($request->get('password'), $hash_password))
+                            WHERE TB_EMAIL.email_user = ? AND is_verify = ? limit 1',[$request->get('email'),true]);
+        if(!empty($user))
         {
-            $user_custom = [
-                "email"=>$request->get('email'),
-                "company_id"=>empty($user[0]->company_id) ? -1 : $user[0]->company_id,
-                "type_user"=>$user[0]->type_user,
-            ];
-            $factory = JWTFactory::customClaims([
-                'sub'   => $user[0]->user_id,
-                'user'  =>  $user_custom
-            ]);
-            $payload = JWTFactory::make($factory);
-            $token = JWTAuth::encode($payload);
-            //$payload = JWTAuth::decode($token);
-            return response()->json(['token' => $token->get(),'status'=>200],200);
-            //return response()->json(compact('payload'));
+            $hash_password = $user[0]->password;
+            if(Hash::check($request->get('password'), $hash_password))
+            {
+                $user_custom = [
+                    "email"=>$request->get('email'),
+                    "company_id"=>empty($user[0]->company_id) ? -1 : $user[0]->company_id,
+                    "type_user"=>$user[0]->type_user,
+                ];
+                $factory = JWTFactory::customClaims([
+                    'sub'   => $user[0]->user_id,
+                    'user'  =>  $user_custom
+                ]);
+                $payload = JWTFactory::make($factory);
+                $token = JWTAuth::encode($payload);
+                //$payload = JWTAuth::decode($token);
+                return response()->json(['token' => $token->get(),'status'=>200],200);
+                //return response()->json(compact('payload'));
+            }
+            else{
+                return response()->json(['error' => 'could_not_create_token'], 500);
+            }
         }
-        else{
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
+        return response()->json(['status' => 'error'], 500);
         
         /*$credentials = $request->only('email', 'password');
         try {
@@ -67,6 +72,27 @@ class AuthController extends Controller
             'type_user' => $request->get('type_user')
         ]);
         dd($user);
+    }
+
+    public function verifyUser($verification_code,$email)
+    {
+        $check = DB::table('USER_VERIFICATIONS')->where('token',$verification_code)->first();
+        if(!is_null($check)){
+            $email = TB_EMAIL::where('email_user','=',$email);
+            if($user->is_verify == 1){
+                return response()->json([
+                    'success'=> true,
+                    'message'=> 'Account already verified..'
+                ]);
+            }
+            $email->update(['is_verified' => 1]);
+            DB::table('USER_VERIFICATIONS')->where('token',$verification_code)->delete();
+            return response()->json([
+                'success'=> true,
+                'message'=> 'You have successfully verified your email address.'
+            ]);
+        }
+        return response()->json(['success'=> false, 'error'=> "Verification code is invalid."]);
     }
     
 

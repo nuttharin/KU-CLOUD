@@ -135,3 +135,19 @@
 .btn-radius {
     border-radius: 20px;
 }
+
+.bg-success{
+    background: #00ce68 !important;
+    border-color: #00ce68 !important;
+}
+
+.bg-primary{
+    background: #308ee0 !important;
+    border-color: #308ee0 !important;
+}
+
+.bg-warning{
+    background: #ffaf00 !important;
+    border-color: #ffaf00 !important;
+}
+
