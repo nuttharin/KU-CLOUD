@@ -23,14 +23,14 @@ class CompanyController extends Controller
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
 
-        $users = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email FROM TB_USERS 
+        $users = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email,TB_USERS.block,TB_USER_COMPANY.sub_type_user FROM TB_USERS 
                             LEFT JOIN TB_PHONE ON TB_USERS.user_id =TB_PHONE.user_id
                             LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email FROM TB_EMAIL
                             GROUP BY TB_EMAIL.user_id) AS T1 ON T1.user_id = TB_USERS.user_id
                             INNER JOIN TB_USER_COMPANY ON TB_USER_COMPANY.user_id = TB_USERS.user_id
                             INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
                             WHERE TB_USERS.type_user = ? AND TB_COMPANY.company_id = ?
-                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname',['COMPANY',$payload["user"]->company_id]);
+                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USER_COMPANY.sub_type_user',['COMPANY',$payload["user"]->company_id]);
         
         if(!empty($users)){
             return response()->json(compact('users'),200);
@@ -71,7 +71,7 @@ class CompanyController extends Controller
             ]);
         }
 
-        $name = $request->get('fname')." ".$request->get('lname');
+        /*$name = $request->get('fname')." ".$request->get('lname');
         $email = $request->get('email');
 
         $verification_code = str_random(30); //Generate verification code
@@ -84,9 +84,16 @@ class CompanyController extends Controller
                 $mail->to($email, $name);
                 $mail->subject($subject);
             });
+        */
         
         //$request->bearerToken(),201
         return response()->json(["status_code","201"],201);
+    }
+
+    public function blockUserCompany(Request $request){
+        $user = TB_USERS::where('user_id', $request->get('user_id'))
+                        ->update(['block' => true]);
+        return response()->json(["status","success"],200);
     }
 
     public function getAllCustomer(Request $request){
@@ -140,5 +147,13 @@ class CompanyController extends Controller
         }
         //$request->bearerToken(),201
         return response()->json(["status_code","201"],201);
+    }
+
+    public function countUserCustomer(){
+        $customer = DB::table('TB_USERS')
+                        ->where('type_user','CUSTOMER')
+                        ->count();
+        dd($customer);
+
     }
 }

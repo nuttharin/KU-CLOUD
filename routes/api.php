@@ -30,8 +30,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('company/users','Api\CompanyController@getAllUser');
     Route::post('company/users', 'Api\CompanyController@addUserCompany');
+    Route::put('company/users/block','Api\CompanyController@blockUserCompany');
     
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
+    Route::get('company/customers/count','Api\CompanyController@countUserCustomer');
 });
 

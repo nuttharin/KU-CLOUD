@@ -11,12 +11,17 @@ var obj_grid = [];
 class GridDashboard {
 
     constructor(widget) {
+        this.item = widget.divId;
         this.name = widget.name;
         this.id = widget.id;
         this.type = widget.type;
         this.title_name = widget.title_name;
         this.lastUpdate = widget.lastUpdate;
         this.timeInterval = widget.timeInterval;
+    }
+
+    getId() {
+        return this.id;
     }
 
     getGrid() {
@@ -28,6 +33,7 @@ class ChartLine extends GridDashboard {
 
     constructor(widget) {
         super(widget);
+        this.chart = widget.chart;
         this.deviceName = widget.deviceName;
         this.datasets = widget.datasets;
     }
@@ -36,7 +42,7 @@ class ChartLine extends GridDashboard {
 
 $(".grid-stack").gridstack(options);
 
-new function () {
+var Static = new function () {
 
     this.items = [{
         x: 0,
@@ -45,10 +51,17 @@ new function () {
         height: 7,
     }];
 
+    var ModalDeleteWidget = null;
+
+    time = null;
+
     this.grid = $(".grid-stack").data("gridstack");
 
+    widgets = [];
+
     this.addNewWidget = function () {
-        var divId = Math.random();
+        clearInterval(time);
+        var divId = Math.floor(100000 + Math.random() * 900000);
         var divIdMap = Math.floor(100000 + Math.random() * 900000);
         var node = this.items.pop() || {
             x: 3,
@@ -63,25 +76,26 @@ new function () {
         var data_line = [];
         var d = new Date();
         var lastUpdate = d.getDate() + "-" + d.getMonth() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
+
         switch (widget_type) {
             case 'line':
                 let length_label = $(".label-y-chart-line").length - 1;
                 for (let i = 0; i < length_label; i++) {
                     let label_y = $(".label-y-chart-line");
                     let rgb = $(".rgb-chart-line");
-                    let rgba = $(".rgba-chart-line");
+                    let rgba = 'rgba(255,255,255,0.0)';
                     let data = null;
                     data = {
                         label: $(label_y[i]).val(),
-                        backgroundColor: $(rgba[i]).val(),
+                        backgroundColor: rgba,
                         borderColor: $(rgb[i]).val(),
-                        borderWidth: 1,
+                        borderWidth: 2
                     }
                     data_line.push({ ...data });
                 }
-
                 data_widget = {
-                    id: divId,
+                    divId: "item-" + divId,
+                    id: "myChart_" + divId,
                     type: widget_type,
                     title_name: title_name,
                     lastUpdate: lastUpdate,
@@ -89,32 +103,51 @@ new function () {
                 }
                 wi = '<canvas id="myChart_' + divId + '"></canvas>'
                 obj = new ChartLine({ ...data_widget });
+                widgets.push(obj);
                 break;
             case 'Map':
                 data_widget = {
-                    id: divId,
+                    id: "mymap_" + divIdMap,
                     type: widget_type,
                     title_name: title_name,
                     lastUpdate: lastUpdate,
                 }
                 wi = '<div id="mymap_' + divIdMap + '"></div>'
                 obj = new GridDashboard({ ...data_widget });
+                widgets.push(obj);
                 break;
             case 'Half Circle':
                 data_widget = {
-                    id: divId,
+                    id: "circle_" + divId,
                     type: widget_type,
                     title_name: title_name,
                     lastUpdate: lastUpdate,
                 }
-                wi = '<div id="circle_' + "1" + '" data-animation="1" data-animationStep="5" data-percent="58"></div>'
+                wi = '<div id="circle_' + divId + '" data-animation="1" data-animationStep="5" data-percent="58"></div>'
                 obj = new GridDashboard({ ...data_widget });
                 break;
+            case 'text':
+                data_widget = {
+                    divId: "item-" + divId,
+                    id: "text_" + divId,
+                    type: widget_type,
+                    title_name: title_name,
+                    lastUpdate: lastUpdate,
+                }
+                let text = $("#text-custom").val();
+                console.log(text);
+                wi = `<h3> ${text} </h3>`;
+                obj = new GridDashboard({ ...data_widget });
+                break;
+
         }
 
         var layout_widget = $("#layout-widget").html();
+        layout_widget = layout_widget.replace(/div_id/g, "item-" + divId)
         layout_widget = layout_widget.replace("((wi))", wi)
         layout_widget = layout_widget.replace("((title_name))", title_name)
+
+        node.id = "item-" + divId;
 
         var g = this.grid.addWidget(
             $(layout_widget),
@@ -122,26 +155,81 @@ new function () {
             node.y,
             node.width,
             node.height,
+            true, null, null, null, null, node.id
         );
 
         g.data('_gridstack_data', JSON.stringify({ ...data_widget }));
 
-        var setting = {};
-        switch (widget_type) {
+        $(".btn-delete-wi").unbind().click(function () {
+            onDeleteWidget($(this));
+        })
+
+        var widgetC = this.createWidget({ ...obj });
+        if (widgetC) {
+            if (obj.type === 'line') {
+                obj.chart = widgetC;
+            }
+            else if (obj.type === 'Map') {
+                obj.map = widgetC;
+            }
+        }
+        this.initialAndRun();
+        return false;
+    }.bind(this);
+
+    onDeleteWidget = function (el) {
+        if (ModalDeleteWidget === null) {
+            ModalDeleteWidget = `
+            <div class="modal fade" id="DeleteWidget">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Widget</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <h6>Are you sure to delete this widget?</h6>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="" class="btn btn-danger btn-block btn-submit-delete-widget">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+
+            $('body').append(ModalDeleteWidget);
+        }
+
+        $('#DeleteWidget').modal('show');
+        $('.btn-submit-delete-widget').unbind().click(function () {
+            submitDeleteWidget($(el));
+            $('#DeleteWidget').modal('hide');
+        })
+
+    }.bind(this);
+
+    submitDeleteWidget = function (el) {
+        let item = $(el).attr("item");
+        this.grid.removeWidget($('#' + item).closest(".grid-stack-item"));
+        widgets = widgets.find(widget => {
+            return widget.item != item
+        })
+        console.log(widgets);
+        return false;
+    }.bind(this);
+
+    this.createWidget = function (obj) {
+        switch (obj.type) {
             case 'line':
-                var myChart = AddLine({ ...obj });
-                setInterval(function () {
-                    updateData(myChart);
-                }, 1000);
-                break;
+                var chartline = this.createLine(obj);
+                return chartline;
             case 'Gauges':
-                var g = addGage(divId);
-                setInterval(function () {
-                    updateDateGauge(g);
-                }, 1000);
+                var g = addGage(obj);
                 break;
             case 'Map':
-                var mymap = addMap(divIdMap);
+                var mymap = this.createMap(obj);
                 break;
             case 'Half Circle':
                 $("#circle_" + "1").circliful({
@@ -152,9 +240,79 @@ new function () {
                     halfCircle: 1,
                 });
                 break;
+            default:
+                break;
         }
-        return false;
     }.bind(this);
+
+    this.createLine = function (obj) {
+        let ctx = document.getElementById(obj.id);
+        var myChart = new Chart(ctx, {
+            type: obj.type,
+            data: {
+                datasets: obj.datasets
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        return myChart;
+    }.bind(this);
+
+    this.createMap = function (obj) {
+        var mymap;
+        var mapid = obj.id;
+        $('#' + mapid).css('height', '100%');
+        $('#' + mapid).css('width', 'auto');
+
+        mymap = L.map(mapid, {
+            dragging: true,
+            zoomControl: true,
+            scrollWheelZoom: false,
+            zoomAnimation: false,
+        });
+
+        $.getJSON('https://raw.githubusercontent.com/apisit/thailand.json/master/thailand.json').then(function (geoJSON) {
+            var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+                boundary: geoJSON,
+                minZoom: 5,
+                maxZoom: 9,
+                attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+            });
+
+            mymap.addLayer(osm);
+            var ukLayer = L.geoJSON(geoJSON);
+            mymap.fitBounds(ukLayer.getBounds());
+        });
+
+        function disableGrid() {
+            var grid = $('.grid-stack').data('gridstack');
+            grid.enableMove(false);
+        }
+
+        function enableGrid() {
+            var grid = $('.grid-stack').data('gridstack');
+            grid.enableMove(true);
+        }
+
+        $('.grid-stack').on('change', function (e, items) {
+            if (mymap != null) {
+                mymap.invalidateSize(true);
+            }
+        });
+
+        mymap.on('mousemove', disableGrid);
+        mymap.on('mouseout', enableGrid);
+
+    }.bind(this);
+
 
     this.saveGrid = function () {
         this.serializedData = _.map($('.grid-stack > .grid-stack-item:visible'), function (el) {
@@ -170,27 +328,83 @@ new function () {
                 widget: JSON.parse(widget)
             };
         });
+        console.log(JSON.stringify(this.serializedData, null, '        '))
         $('#saved-data').val(JSON.stringify(this.serializedData, null, '        '));
+
+        $("#saveW").hide();
+        $("#addW").hide();
+        $("#settingW").show();
+        $(".edit-widget").hide();
+
         return false;
     }.bind(this);
 
+    this.initialAndRun = function () {
+        this.showLastestWidget();
+        time = setInterval(() => {
+            if (widgets.length > 0) {
+                this.updateData([...widgets]);
+            }
+        }, 1000)
+    }.bind(this);
 
-    $("#add-new-widget").click(this.addNewWidget);
-    $("#saveW").click(this.saveGrid);
+    this.showLastestWidget = function () {
+
+        $("#add-new-widget").unbind().click(this.addNewWidget);
+
+        $("#saveW").unbind().click(this.saveGrid);
+
+        $("#addW").unbind().click(function () {
+            $("#myModal").modal('show');
+        });
+    }.bind(this);
+
+    this.updateData = function (widgets) {
+        //console.log(widgets);
+        for (var i = 0; i < widgets.length; i++) {
+            if (widgets[i].type === 'line') {
+                var myChart = widgets[i].chart;
+                var data = Math.random();
+                var d = new Date();
+                myChart.data.labels.push(d.toLocaleTimeString());
+                myChart.data.datasets.forEach((dataset) => {
+                    if (dataset.data.length > 10) {
+                        dataset.data.splice(0, 1);
+                        //myChart.data.labels.splice(0, 1);
+                    }
+                    var data2 = Math.random();
+                    dataset.data.push(data + data2);
+                });
+
+                if (myChart.data.labels.length > 10) myChart.data.labels.splice(0, 1);
+
+                myChart.update();
+            }
+        }
+    }
+
+
+
 
 }();
 
 $(document).ready(function () {
+
+    var widget = Static;
+    widget.initialAndRun({});
 
     $("#widget_type").change(function () {
         $(".value_widget").hide();
         var type = $(this).val();
         if (type == 'line') {
             $("#line").show();
-        } else if (type == 'bar') {
+        } else if (type === 'bar') {
             $("#bar").show();
-        } else if (type == 'Map') {
+        } else if (type === 'Map') {
             $("#map").show();
+        }
+        else if (type === 'text') {
+            $("#text-box").show();
         }
     });
 
@@ -202,40 +416,29 @@ $(document).ready(function () {
 
     $("#settingW").click(function () {
         $(this).hide();
+        $(".edit-widget").show();
         $("#addW").show();
         $("#saveW").show();
     });
 
-    $("#saveW").click(function () {
-        $(this).hide();
-        $("#addW").hide();
-        $("#settingW").show();
+
+    $('.grid-stack').on('resizestop', function (event, ui) {
+        let el = $(this).find('.grid-stack-item')
+        var data_widget = JSON.parse(el.data('_gridstack_data'));
+        console.log(data_widget.type);
+        if (data_widget.type === 'Half Circle') {
+            var grid = this;
+            var element = event.target;
+            let width = $(this).find('.panel__content').width();
+            let height = $(this).find('.panel__content').height();
+            var panel = $(this).find('.panel__content');
+            var id = $(panel).children().children();
+            $(id).width(width + 30);
+            $(id).height(height + 50);
+        }
     });
 });
 
-
-function AddLine(widget) {
-    let ctx = document.getElementById("myChart_" + widget.id);
-    let myChart = new Chart(ctx, {
-        type: widget.type,
-        data: {
-            datasets: widget.datasets
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-    return myChart;
-
-}
 
 function addGage(divId) {
     var g1 = new JustGage({
