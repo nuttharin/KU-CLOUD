@@ -136,18 +136,35 @@
                     </div>-->
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('AdminController@user')}}">
-                        <i class="fas fa-users"></i>
-                        <span class="link_hide">User</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{action('AdminController@company')}}">
                         <i class="fas fa-briefcase"></i>
                         <span class="link_hide">Company</span>
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a href="{{action('AdminController@customer')}}">
+                        <i class="fas fa-briefcase"></i>
+                        <span class="link_hide">Customer</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{action('AdminController@administer')}}">
+                        <i class="fas fa-users"></i>
+                        <span class="link_hide">Administer</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{action('AdminController@static')}}">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="link_hide">Static</span>
+                    </a>
+                </li>
+                <!--<li class="nav-item">
+                    <a href="{{action('AdminController@user')}}">
+                        <i class="fas fa-users"></i>
+                        <span class="link_hide">User</span>
+                    </a>
+                </li>-->
             </ul>
         </nav>
 
