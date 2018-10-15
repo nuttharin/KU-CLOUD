@@ -21,6 +21,12 @@ Route::get('/Admin/User','AdminController@user');
 
 Route::get('/Admin/Company','AdminController@company');
 
+Route::get('/Admin/Customer','AdminController@customer');
+
+Route::get('/Admin/Administer','AdminController@administer');
+
+Route::get('/Admin/Static','AdminController@static');
+
 Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser');
 
 
