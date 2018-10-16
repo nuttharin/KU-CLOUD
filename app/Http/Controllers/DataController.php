@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 
 class DataController extends Controller
 {
@@ -14,8 +16,11 @@ class DataController extends Controller
     }
     
     public function closed(){
-        print_r($request->get('user'));
-        $data = "Only authorized users can see this";
-        return response()->json(compact('data'),200);
+        print_r(Gate::allows('isCompanyNormal'));
+        if(!Gate::allows('isCompanyNormal')){
+            $data = "Only authorized users can see this";
+            return response()->json(compact('data'),200);
+        }
+        return response()->json(['message'=>'Not permission to access this api'],403);
     }
 }

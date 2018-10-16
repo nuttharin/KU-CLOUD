@@ -30,7 +30,9 @@ var Users = new (function () {
             ret[0] = item.fname + " " + item.lname;
             ret[1] = item.phone.split(',')[0];
             ret[2] = item.email.split(',')[0];
-            ret[3] = `<center>
+            ret[3] = item.block ? 'Block' : 'Unblock';
+            ret[4] = item.sub_type_user;
+            ret[5] = `<center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
@@ -52,25 +54,29 @@ var Users = new (function () {
         });
         UsersDATATABLE.fnAddData(Datatable);
 
-        $(".btn-detail").unbind().click(function () {
+        $('#example').on('click', '.btn-detail', function () {
             onDetailClick($(this).attr('index'));
         });
 
-        $(".btn-edit").unbind().click(function () {
+        $('#example').on('click', '.btn-edit', function () {
             onEditClick($(this).attr('index'));
         });
 
-        $(".btn-block-user").unbind().click(function () {
+        $('#example').on('click', '.btn-block-user', function () {
             onBlockClick($(this).attr('index'));
         })
 
-        $(".btn-delete").unbind().click(function () {
+        $('#example').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
         });
+
         $('[data-toggle="tooltip"]').tooltip();
     }
 
     var onSaveUserClick = () => {
+        $("#loading-save").show();
+        $("#form-add-user").hide();
+        $("#btn-save-add-user").hide();
         let email_input = $("#add_email_val").val();
         let pwd_input = $("#add_pwd_val").val();
         let fname_input = $("#add_fname_val").val();
@@ -92,6 +98,9 @@ var Users = new (function () {
             success: (res) => {
                 this.showLastestDatatable();
                 $("#addUser").modal('hide');
+                $("#loading-save").hide();
+                $("#form-add-user").show();
+                $("#btn-save-add-user").show();
             },
             error: (res) => {
                 console.log(res);
@@ -185,7 +194,6 @@ var Users = new (function () {
 
         $("#btn-add-email").unbind().click(function () {
             event.preventDefault();
-            console.log(FormAddEmail)
             if ($(".btn-delete-email").length <= 2)
                 $("#input-add-email").append(FormAddEmail.replace('{email}', ''));
         })
@@ -234,8 +242,30 @@ var Users = new (function () {
                         </div>`
             $('body').append(ModalBlock);
         }
+
+        $('#btn-block-submit').unbind().click(function () {
+            onSubmitBlockUser(key);
+        });
+
         $("#span-text-confirm-block").html("Are you sure to block " + UsersList[key].fname + " " + UsersList[key].lname + " ?");
         $("#BlockUser").modal('show');
+    }
+
+    var onSubmitBlockUser = (key) => {
+        $.ajax({
+            url: "http://localhost:8000/api/company/users/block",
+            method: "put",
+            data: {
+                user_id: UsersList[key].user_id
+            },
+            success: (res) => {
+                $("#BlockUser").modal('hide');
+                that.showLastestDatatable();
+            },
+            error: () => {
+                console.log(res);
+            }
+        });
     }
 
     var onDeleteClick = (key) => {
@@ -273,7 +303,7 @@ var Users = new (function () {
             return false;
         }
 
-        UsersDATATABLE = $('#example').dataTable();
+        UsersDATATABLE = $('#example').dataTable({});
 
 
         $("#btn-save-add-user").unbind().click(function () {
@@ -286,6 +316,7 @@ var Users = new (function () {
     var showDatatableLoadingStatus = (showOrHide) => {
         if (showOrHide) {
             $('#example').hide();
+            $('.lds-roller').show();
         }
         else {
             $('.lds-roller').hide();
@@ -323,4 +354,6 @@ var Users = new (function () {
 $(document).ready(function () {
     var TB_USERS = Users;
     TB_USERS.initialAndRun({});
+
+
 });

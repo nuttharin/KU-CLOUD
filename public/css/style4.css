@@ -55,10 +55,10 @@ a.active {
     background: linear-gradient(120deg, #556cdc, #128bfc, #18bef1);
 }
 
-.navbar-brand-wrapper {
-    -webkit-transition: width 2s;
-    /* For Safari 3.1 to 6.0 */
-    transition: width 2s;
+.navbar.default-layout .navbar-brand-wrapper {
+    transition: width 0.3s ease, background 0.3s ease;
+    -webkit-transition: width 0.3s ease, background 0.3s ease;
+    width: 250px;
     background: #ffffff;
     height: 63px;
 }
@@ -90,20 +90,20 @@ span {
     width: 100%;
 }
 
-body nav.navbar div.navbar-brand-wrapper a.brand-logo-mini {
+
+
+.sidebar-icon-only nav.navbar div.navbar-brand-wrapper {
+    width: 80px;
+}
+
+
+
+.sidebar-icon-only nav.navbar div.navbar-brand-wrapper a.brand-logo {
     display: none;
 }
 
-body.sidebar-icon-only nav.navbar div.navbar-brand-wrapper {
-    min-width: 80px;
-    max-width: 80px;
-}
 
-body.sidebar-icon-only nav.navbar div.navbar-brand-wrapper a.brand-logo {
-    display: none;
-}
-
-body.sidebar-icon-only nav.navbar div.navbar-brand-wrapper a.brand-logo-mini {
+.sidebar-icon-only nav.navbar div.navbar-brand-wrapper a.brand-logo-mini {
     display: block !important;
 }
 
@@ -117,7 +117,7 @@ body.sidebar-icon-only nav.navbar div.navbar-brand-wrapper a.brand-logo-mini {
     z-index: 999;
     background: #ffffff;
     color: #000000;
-    /*transition: all 0.3s;*/
+    transition: all 0.3s;
 }
 
 #sidebar.active {
@@ -298,29 +298,6 @@ ul ul a {
     background: #ffffff;
 }
 
-ul.CTAs {
-    padding: 20px;
-}
-
-ul.CTAs a {
-    text-align: center;
-    font-size: 0.9em !important;
-    display: block;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-a.download {
-    background: #fff;
-    color: #7386D5;
-}
-
-a.article,
-a.article:hover {
-    background: #6d7fcc !important;
-    color: #fff !important;
-}
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -363,20 +340,12 @@ a.article:hover {
         margin-left: 0 !important;
     }
 
-    #sidebar .sidebar-header h3,
-    #sidebar .CTAs {
-        display: none;
-    }
-
-    #sidebar .sidebar-header strong {
-        display: block;
-    }
-
     #sidebar ul li a {
         padding: 20px 10px;
     }
 
     #sidebar ul li a span {
+        display: none;
         font-size: 0.85em;
     }
 
@@ -413,6 +382,10 @@ a.article:hover {
         display: none !important;
     }
 
+    .navbar.default-layout .navbar-brand-wrapper{
+        width: 80px;
+    }
+
     .brand-logo-mini {
         display: block !important;
     }
@@ -431,24 +404,19 @@ a.article:hover {
     background-color: transparent;
 }
 
-
 /* brand */
-.navbar-brand.brand-logo {
-    min-width: 250px;
-    max-width: 250px;
-
-}
-
-.navbar-brand.brand-logo-mini {
-    min-width: 80px;
-    max-width: 80px;
-}
-
-.navbar-brand {
+.navbar.default-layout .navbar-brand-wrapper .navbar-brand{
     color: #2383f3 !important;
     margin-right: 0 !important;
+    padding: 0.25rem 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 
+.navbar.default-layout .navbar-brand-wrapper .brand-logo-mini{
+    display: none;
+}
 .sidebar .list-unstyled .nav-item.nav-profile .nav-link {
     display: -webkit-flex;
     display: flex;
@@ -548,4 +516,12 @@ a.article:hover {
 
 .icon-sm {
     font-size: 1rem;
+}
+
+.grow:hover
+{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transition:all 0.3s;
+    transform: scale(1.1);
 }

@@ -105,7 +105,6 @@
         </div>
     </div>
 </div>
-
 <div class="row" style="padding: 30px 0px 10px 0px">
 
     <div class="col-12">
@@ -117,6 +116,8 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
+                            <th>Block</th>
+                            <th>Type user</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -150,6 +151,15 @@
 
             <!-- Modal body -->
             <div class="modal-body">
+                <div id="loading-save" style="display:none;">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <h6 class='text-center'>Saving Data ...</h6>
+                </div>
                 <form id="form-add-user">
                     <div class="row">
                         <div class="col-6">
@@ -177,7 +187,9 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block">Save</button>
+                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block">
+                    Save                
+                </button>
             </div>
 
         </div>
