@@ -56,7 +56,8 @@
     <link rel="stylesheet" href="{{url('css/loading.css')}}">
 
     <!-- sweetalert -->
-    <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}">
+    {{--
+    <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}"> --}}
 </head>
 
 <body>
@@ -198,6 +199,8 @@
 
         <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
         <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
+
+        <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">
