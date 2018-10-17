@@ -86,7 +86,8 @@ var AdminRepository = new (function () {
             ret[0]  = item.fname + " " + item.lname;
             ret[1]  = item.phone.split(',')[0];
             ret[2]  = item.email.split(',')[0];
-            ret[3]  = ` <center>
+            ret[3]  = item.block ? "No" : "Yes";
+            ret[4]  = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
@@ -199,7 +200,7 @@ var AdminRepository = new (function () {
                 fname:          fname_input,
                 lname:          lname_input,
                 phone:          phone_input,
-                type_user:  type_user_input
+                type_user:      type_user_input
             },
             success: (res) => 
             {
@@ -222,13 +223,16 @@ var AdminRepository = new (function () {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="title-user"></h5>
+                            <h5 class="modal-title" id="title-user">Admin User Details</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
                             <h6>Name : <span  id="name-user"><span></h6>
                             <h6>Phone : <span id="phone-user"><span></h6>
                             <h6>Email : <span id="email-user"><span></h6>
+                            <h6>Active : <span id="active-user"><span></h6>
+                            <h6>Create Date : <span id="create-user"><span></h6>
+                            <h6>Update Date : <span id="update-user"><span></h6>
                         </div>
                     </div>
                 </div>
@@ -237,10 +241,12 @@ var AdminRepository = new (function () {
             $('body').append(modalDetail);
         }
 
-        $('#title-user').html(usersList[key].email.split(',')[0]);
         $('#name-user').html(usersList[key].fname + " " + usersList[key].lname);
         $('#phone-user').html(usersList[key].phone);
         $('#email-user').html(usersList[key].email);
+        $('#active-user').html(usersList[key].block ? "No" : "Yes");
+        $('#create-user').html(usersList[key].created_at);
+        $('#update-user').html(usersList[key].updated_at);
 
         $("#detailUser").modal('show');
     }
@@ -330,7 +336,7 @@ var AdminRepository = new (function () {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Block User Admin</h4>
+                            <h4 class="modal-title" id="title-text"></h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -339,18 +345,65 @@ var AdminRepository = new (function () {
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btn-block-submit" class="btn btn-danger btn-block">Block</button>
+                            <button type="button" id="btn-block-submit" class="btn btn-danger btn-block"><span id="btn-text"></span></button>
                         </div>
                     </div>
                 </div>
             </div>`
-
+            
             $('body').append(modalBlock);
         }
 
-        $("#span-text-confirm-block").html("Are you sure to block " + usersList[key].fname + " " + usersList[key].lname + " ?");
-        
+        if(usersList[key].block)
+        {
+            $("#span-text-confirm-block").html("Are you sure to unblock " + usersList[key].fname + " " + usersList[key].lname + " ?");
+            $("#btn-text").html("Unblock");
+            $("#title-text").html("Unblock User Admin");
+        }
+        else
+        {
+            $("#span-text-confirm-block").html("Are you sure to block " + usersList[key].fname + " " + usersList[key].lname + " ?");
+            $("#btn-text").html("Block");
+            $("#title-text").html("Block User Admin");
+        }
+       
+        $("#btn-block-submit").unbind().click(function () {
+            blockSaveChange(key);
+        })
+
         $("#BlockUser").modal('show');
+    }
+
+    var blockSaveChange = (key) => 
+    {
+        var urlLink;
+
+        if(usersList[key].block)
+        {
+            urlLink = "http://localhost:8000/api/admin/users/unblock"
+        }
+        else
+        {
+            urlLink = "http://localhost:8000/api/admin/users/block"
+        }
+
+        $.ajax({
+            url: urlLink,
+            method: "PUT",
+            data: 
+            {
+                user_id:   usersList[key].user_id   
+            },
+            success: () => 
+            {
+                this.refreshDatatable();
+                $("#BlockUser").modal('hide');               
+            },
+            error: (res) => 
+            {
+                console.log(res);
+            }
+        });
     }
 
     var onDeleteClick = (key) => 
