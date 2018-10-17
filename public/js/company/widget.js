@@ -30,12 +30,19 @@ class GridDashboard {
 }
 
 class ChartLine extends GridDashboard {
-
     constructor(widget) {
         super(widget);
         this.chart = widget.chart;
         this.deviceName = widget.deviceName;
         this.datasets = widget.datasets;
+    }
+}
+
+class ChartTextLine extends ChartLine {
+    constructor(widget) {
+        super(widget);
+        this.unit = widget.unit;
+        this.rgb = widget.rgb;
     }
 }
 
@@ -50,6 +57,39 @@ var Static = new function () {
         width: 6,
         height: 7,
     }];
+
+    const optionChartLineNotLable = {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+            yAxes: [{
+                display: false
+            }],
+            xAxes: [{
+                display: false
+            }]
+        },
+        legend: {
+            display: false
+        },
+        elements: {
+            point: {
+                radius: 0
+            },
+            line: {
+                tension: 0
+            }
+        },
+        layout: {
+            padding: {
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 30
+            }
+        },
+        stepsize: 100
+    };
 
     var ModalDeleteWidget = null;
 
@@ -78,6 +118,24 @@ var Static = new function () {
         var lastUpdate = d.getDate() + "-" + d.getMonth() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
 
         switch (widget_type) {
+            case 'text-line':
+                let unit = $("#unit").val();
+                console.log(unit);
+                wi = `  <h2 class="text-left"><span id="value_${divId}">0</span> ${unit}</h2>
+                        <canvas id="myChart_${divId}"></canvas>
+                     `;
+                data_widget = {
+                    divId: "item-" + divId,
+                    id: "myChart_" + divId,
+                    type: widget_type,
+                    title_name: title_name,
+                    lastUpdate: lastUpdate,
+                    unit: unit,
+                    rgb: $("#value-text-line").find('.rgb-chart-line').val()
+                }
+                obj = new ChartTextLine({ ...data_widget });
+                widgets.push(obj);
+                break;
             case 'line':
                 let length_label = $(".label-y-chart-line").length - 1;
                 for (let i = 0; i < length_label; i++) {
@@ -93,6 +151,7 @@ var Static = new function () {
                     }
                     data_line.push({ ...data });
                 }
+
                 data_widget = {
                     divId: "item-" + divId,
                     id: "myChart_" + divId,
@@ -101,6 +160,7 @@ var Static = new function () {
                     lastUpdate: lastUpdate,
                     datasets: [...data_line]
                 }
+
                 wi = '<canvas id="myChart_' + divId + '"></canvas>'
                 obj = new ChartLine({ ...data_widget });
                 widgets.push(obj);
@@ -112,6 +172,7 @@ var Static = new function () {
                     title_name: title_name,
                     lastUpdate: lastUpdate,
                 }
+
                 wi = '<div id="mymap_' + divIdMap + '"></div>'
                 obj = new GridDashboard({ ...data_widget });
                 widgets.push(obj);
@@ -123,6 +184,7 @@ var Static = new function () {
                     title_name: title_name,
                     lastUpdate: lastUpdate,
                 }
+
                 wi = '<div id="circle_' + divId + '" data-animation="1" data-animationStep="5" data-percent="58"></div>'
                 obj = new GridDashboard({ ...data_widget });
                 break;
@@ -166,7 +228,7 @@ var Static = new function () {
 
         var widgetC = this.createWidget({ ...obj });
         if (widgetC) {
-            if (obj.type === 'line') {
+            if (obj.type === 'line' || obj.type === 'text-line') {
                 obj.chart = widgetC;
             }
             else if (obj.type === 'Map') {
@@ -222,6 +284,9 @@ var Static = new function () {
 
     this.createWidget = function (obj) {
         switch (obj.type) {
+            case 'text-line':
+                var chartText = this.createLineText(obj);
+                return chartText
             case 'line':
                 var chartline = this.createLine(obj);
                 return chartline;
@@ -263,6 +328,32 @@ var Static = new function () {
                 }
             }
         });
+        return myChart;
+    }.bind(this);
+
+    this.createLineText = function (obj) {
+        let ctx = document.getElementById(obj.id);
+        console.log(obj.rgb);
+        console.log(obj);
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+                    label: '',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(255, 255, 255, 0)',
+                    ],
+                    borderColor: [
+                        obj.rgb
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: optionChartLineNotLable
+        });
+
         return myChart;
     }.bind(this);
 
@@ -354,9 +445,9 @@ var Static = new function () {
 
         $("#saveW").unbind().click(this.saveGrid);
 
-        $("#addW").unbind().click(function () {
-            $("#myModal").modal('show');
-        });
+        // $("#addW").unbind().click(function () {
+        //     $("#myModal").modal('show');
+        // });
     }.bind(this);
 
     this.updateData = function (widgets) {
@@ -374,6 +465,26 @@ var Static = new function () {
                     }
                     var data2 = Math.random();
                     dataset.data.push(data + data2);
+                });
+
+                if (myChart.data.labels.length > 10) myChart.data.labels.splice(0, 1);
+
+                myChart.update();
+            }
+            else if (widgets[i].type === 'text-line') {
+                let value = widgets[i].id;
+                value = value.replace("myChart_", "value_");
+                var myChart = widgets[i].chart;
+                var data = Math.floor(100 + Math.random() * 900);
+                var d = new Date();
+                myChart.data.labels.push(d.toLocaleTimeString());
+                myChart.data.datasets.forEach((dataset) => {
+                    if (dataset.data.length > 10) {
+                        dataset.data.splice(0, 1);
+                        //myChart.data.labels.splice(0, 1);
+                    }
+                    dataset.data.push(data);
+                    $("#" + value).html(data);
                 });
 
                 if (myChart.data.labels.length > 10) myChart.data.labels.splice(0, 1);
@@ -406,6 +517,9 @@ $(document).ready(function () {
         else if (type === 'text') {
             $("#text-box").show();
         }
+        else if (type === 'text-line') {
+            $("#text-line").show();
+        }
     });
 
     $("#btn-add-value-line").click(function () {
@@ -435,6 +549,15 @@ $(document).ready(function () {
             var id = $(panel).children().children();
             $(id).width(width + 30);
             $(id).height(height + 50);
+        }
+        else if (data_widget.type === 'text-line') {
+            // var grid = this;
+            // var element = event.target;
+            // let width = $(this).find('.panel__content').width();
+            // let height = $(this).find('.panel__content').height();
+            // var panel = $(this).find('.panel__content');
+            // var id = $(panel).find('canvas');
+            // $(id).height(height - 90)
         }
     });
 });

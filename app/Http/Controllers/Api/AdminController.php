@@ -24,7 +24,7 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users      = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email 
+        $users      = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email 
                                     FROM TB_USERS 
                                     LEFT JOIN TB_PHONE 
                                     ON TB_USERS.user_id =TB_PHONE.user_id
@@ -33,7 +33,7 @@ class AdminController extends Controller
                                                 GROUP BY TB_EMAIL.user_id) AS T1 
                                     ON T1.user_id = TB_USERS.user_id
                                     WHERE TB_USERS.type_user = "ADMIN"
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname');
+                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at');
 
         if(empty($users))
         {           
@@ -77,7 +77,7 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users      = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email 
+        $users      = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email 
                                     FROM TB_USERS 
                                     LEFT JOIN TB_PHONE 
                                     ON TB_USERS.user_id =TB_PHONE.user_id
@@ -90,7 +90,7 @@ class AdminController extends Controller
                                     INNER JOIN TB_COMPANY 
                                     ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
                                     WHERE TB_USERS.type_user = "COMPANY"
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname',['COMPANY',$payload["user"]->company_id] );
+                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at',['COMPANY',$payload["user"]->company_id] );
 
         if(empty($users))
         {           
@@ -155,7 +155,7 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users   = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email 
+        $users   = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email 
                                     FROM TB_USERS 
                                     LEFT JOIN TB_PHONE 
                                     ON TB_USERS.user_id =TB_PHONE.user_id
@@ -168,7 +168,7 @@ class AdminController extends Controller
                                     INNER JOIN TB_COMPANY 
                                     ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
                                     WHERE TB_USERS.type_user = "CUSTOMER"
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname',['CUSTOMER',$payload["user"]->company_id]);
+                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at',['CUSTOMER',$payload["user"]->company_id]);
         
         if(empty($users))
         {           
@@ -217,7 +217,7 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $company    = DB::select('SELECT TB_COMPANY.company_id as id, TB_COMPANY.company_name as name, TB_COMPANY.alias, TB_COMPANY.address, TB_COMPANY.note 
+        $company    = DB::select('SELECT TB_COMPANY.company_id as id, TB_COMPANY.company_name as name, TB_COMPANY.alias, TB_COMPANY.address, TB_COMPANY.note, TB_COMPANY.created_at, TB_COMPANY.updated_at 
                                     FROM TB_COMPANY');
         
         if(empty($company))
@@ -243,5 +243,19 @@ class AdminController extends Controller
 
         //$request->bearerToken(),201
         return response()->json(["status_code","201"],201);
+    }
+
+    public function blockUser(Request $request) 
+    {
+        $user = TB_USERS::where('user_id', $request->get('user_id'))
+                        ->update(['block' => true]);
+        return response()->json(["status","success"],200);
+    }
+
+    public function unblockUser(Request $request) 
+    {
+        $user = TB_USERS::where('user_id', $request->get('user_id'))
+                        ->update(['block' => false]);
+        return response()->json(["status","success"],200);
     }
 }

@@ -5,21 +5,7 @@ var CompanyRepository = new (function () {
     var modelCreate     = null;
     var modalDetail     = null;
     var modalEdit       = null;
-    var modalBlock      = null;
     var modalDelete     = null;
-    const formAddEmail  = `
-                            <div class="input-group mb-2">
-                                <input type="text" class="add_email_val form-control mt-1" value={email}>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
-                                    </div>
-                            </div>`;
-    const formAddPhone  = `  <div class="input-group mb-2">
-                                <input type="text" class="add_phone_val form-control mt-1" value={phone}>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
-                                </div>
-                            </div>`;
 
     /* Initial Function */
     this.initialAndRun = () => 
@@ -95,10 +81,6 @@ var CompanyRepository = new (function () {
                                 data-placement="top" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip"
-                                data-placement="top" title="Block">
-                                <i class="fas fa-times"></i>
-                            </button>
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
@@ -116,10 +98,6 @@ var CompanyRepository = new (function () {
         $(".btn-edit").unbind().click(function () {
             onEditClick($(this).attr('index'));
         });
-
-        $(".btn-block-user").unbind().click(function () {
-            onBlockClick($(this).attr('index'));
-        })
 
         $(".btn-delete").unbind().click(function () {
             onDeleteClick($(this).attr('index'));
@@ -215,13 +193,16 @@ var CompanyRepository = new (function () {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="title-company"></h5>
+                            <h5 class="modal-title" id="title-company">Company Details</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
+                            <h6>Company Name : <span id="name-company"><span></h6>
                             <h6>Alias : <span id="alias-company"><span></h6>
                             <h6>Address : <span id="address-company"><span></h6>
                             <h6>Note : <span id="note-company"><span></h6>
+                            <h6>Create Date : <span id="create-company"><span></h6>
+                            <h6>Update Date : <span id="update-company"><span></h6>
                         </div>
                     </div>
                 </div>
@@ -230,10 +211,12 @@ var CompanyRepository = new (function () {
             $('body').append(modalDetail);
         }
 
-        $('#title-company').html(companyList[key].name);
+        $('#name-company').html(companyList[key].name);
         $('#alias-company').html(companyList[key].alias);
         $('#address-company').html(companyList[key].address);
         $('#note-company').html(companyList[key].note);
+        $('#create-company').html(companyList[key].created_at);
+        $('#update-company').html(companyList[key].updated_at);
 
         $("#detailCompany").modal('show');
     }
@@ -284,38 +267,6 @@ var CompanyRepository = new (function () {
         $('#note_val').val(companyList[key].note);
 
         $('#editCompany').modal('show');
-    }
-
-    var onBlockClick = (key) => 
-    {
-        if (modalBlock === null) 
-        {
-            modalBlock = 
-            `<div class="modal fade" id="BlockUser">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Block User Company</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="form-delete-user">
-                                <h6 id="span-text-confirm-block"></h6>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="btn-block-submit" class="btn btn-danger btn-block">Block</button>
-                        </div>
-                    </div>
-                </div>
-            </div>`
-
-            $('body').append(modalBlock);
-        }
-
-        $("#span-text-confirm-block").html("Are you sure to block " + companyList[key].name + " ?");
-        
-        $("#BlockUser").modal('show');
     }
 
     var onDeleteClick = (key) => 
