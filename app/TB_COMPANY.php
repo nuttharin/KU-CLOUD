@@ -9,6 +9,6 @@ class TB_COMPANY extends Model
     //
     protected  $table = "TB_COMPANY";
     protected $fillable = [
-        'user_id', 'email_user'
+        'company_name', 'alias', 'address', 'note'
     ];
 }
