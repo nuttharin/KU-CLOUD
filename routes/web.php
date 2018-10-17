@@ -15,17 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/Admin','AdminController@index');
 
-Route::get('/Admin/User','AdminController@user');
+Route::get('/Admin/UsersAdminister','AdminController@UsersAdminister');
 
-Route::get('/Admin/Company','AdminController@company');
+Route::get('/Admin/UsersCompany','AdminController@UsersCompany');
 
-Route::get('/Admin/Customer','AdminController@customer');
+Route::get('/Admin/UsersCustomer','AdminController@UsersCustomer');
 
-Route::get('/Admin/Administer','AdminController@administer');
+Route::get('/Admin/Company','AdminController@Company');
 
-Route::get('/Admin/Static','AdminController@static');
+Route::get('/Admin/Static','AdminController@Static');
 
 Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser');
 

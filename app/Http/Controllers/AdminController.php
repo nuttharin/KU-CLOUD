@@ -8,28 +8,24 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function UsersAdminister()
     {
-        return view('admin.index');
+        return view('admin.UsersAdminister');
     }
-    public function user()
+    public function UsersCompany()
     {
-        return view('admin.user');
+        return view('admin.UsersCompany');
     }
-    public function company()
+    public function UsersCustomer()
     {
-        return view('admin.company');
+        return view('admin.UsersCustomer');
     }
-    public function customer()
+    public function Company()
     {
-        return view('admin.customer');
+        return view('admin.Company');
     }
-    public function administer()
+    public function Static()
     {
-        return view('admin.administer');
-    }
-    public function static()
-    {
-        return view('admin.static');
+        return view('admin.Static');
     }
 }

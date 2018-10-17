@@ -35,8 +35,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
 
     /* Admin */
-    Route::get('admin/companies','Api\AdminController@getAllCompanies');
+    Route::get('admin/administer','Api\AdminController@getAllAdminister');
+    Route::post('admin/administer/create','Api\AdminController@createAdminister');  
 
+    Route::get('admin/companies','Api\AdminController@getAllCompanies');
     Route::post('admin/company/create','Api\AdminController@createCompany');
+
+    Route::get('admin/customers','Api\AdminController@getAllCustomers');
+    Route::post('admin/customer/create','Api\AdminController@createCustomer');
+
+    Route::get('admin/companydata','Api\AdminController@getAllCompanyData');
+    Route::post('admin/companydata/create','Api\AdminController@createCompanyData');
 });
 
