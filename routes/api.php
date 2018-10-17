@@ -38,7 +38,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
-    Route::post('admin/administer/create','Api\AdminController@createAdminister');  
+    Route::post('admin/administer/create','Api\AdminController@createAdminister');
 
     Route::get('admin/companies','Api\AdminController@getAllCompanies');
     Route::post('admin/company/create','Api\AdminController@createCompany');
@@ -48,5 +48,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('admin/companydata','Api\AdminController@getAllCompanyData');
     Route::post('admin/companydata/create','Api\AdminController@createCompanyData');
+
+    Route::put('admin/users/block','Api\AdminController@blockUser');  
+    Route::put('admin/users/unblock','Api\AdminController@unblockUser');
 });
 
