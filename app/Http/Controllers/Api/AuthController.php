@@ -40,6 +40,7 @@ class AuthController extends Controller
                 ]);
                 $payload = JWTFactory::make($factory);
                 $token = JWTAuth::encode($payload);
+                
                 //$payload = JWTAuth::decode($token);
                 return response()->json(['token' => $token->get(),'status'=>200],200);
                 //return response()->json(compact('payload'));

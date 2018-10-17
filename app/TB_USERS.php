@@ -14,7 +14,7 @@ class TB_USERS extends Authenticatable implements JWTSubject
     protected  $table = "TB_USERS";
     //
     protected $fillable = [
-        'fname','lname','password','type_user'
+        'fname','lname','password','type_user','block'
     ];
 
     protected $hidden = [
@@ -31,7 +31,15 @@ class TB_USERS extends Authenticatable implements JWTSubject
         return [ 'type_user' => $this->type_user ];
     }
 
+    public function email(){
+        return $this->hasMany('App\TB_EMAIL','user_id');
+    }
+
     public function phone(){
         return $this->hasMany('App\TB_PHONE','user_id');
+    }
+
+    public function user_company(){
+        return $this->belongsTo("App\TB_USER_COMPANY","user_id");
     }
 }
