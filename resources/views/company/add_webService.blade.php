@@ -37,7 +37,7 @@
         padding: 0.5% 5%;
     }
     #we{
-        padding: 0.5% 5%;
+        padding: 0.5% 6%;
     }
     .regis
     {
@@ -52,62 +52,48 @@
 <br>
 <h3>Add WebService</h3><hr>
 <h5>Detail Service</h5>
-<div>
-    <div class ='row detail_service'> 
-        <div class='col-2'> 
-            <label for="country">Service Name :</label>
-            </div> 
-        
-            <div class='col-3' style ="padding-left: 0px;"> 
-                <input type="text" id="service_name" name="service_name" placeholder="">   
-            </div> 
 
-        <div class='col-1 '> 
-            <label for="country">Alias :</label>
-        </div> 
+<div style ="padding:0.5% 3%;">
+    <form action="" class='form-inline'>
     
-        <div class='col-2 '> 
-            <input type="text" id="service_name" name="service_name" placeholder=" ">   
-        </div> 
-    
-    </div>
-
-    <div class ='row detail_service'> 
-        <div class='col-1 '> 
-            <label for="country">URL :</label>
-            </div> 
+        <label for="" class="mb-2 mr-sm-2 col-6 col-md-2">Service Name :</label>
+        <input type="text" class ="form-control mb-2 mr-sm-4 col-6 col-md-4" style='' id="service_name" name="service_name" placeholder="">                
+        <label for="" class="mb-2 mr-sm-3 col-6 col-md-1">Alias :</label>            
+        <input type="text" class ="form-control mb-2 mr-sm-4 col-6 col-md-4" style='width:200px' id="service_name" name="service_name" placeholder=" ">   
         
-            <div class='col-3 ' style ="  padding-left: 0px; "> 
-                <input type="text" style="width:140%;" id="url" name="service_name" placeholder="">   
-            </div> 
-            
+    </form>
+    <form action="" class='form-inline'>
+        <label for="" class="mb-2 mr-sm-2 col-6 col-md-2">URL :</label>            
+        <input type="text" class ="form-control mr-sm-4 mb-2 col-6 col-md-4" style='width:369px' id="service_name" name="service_name" placeholder=" ">  
+    </form> 
+    <form action="" class='form-inline' style='padding: 0.5% 4.5%;'>
+        <button type="button" id="Select1" class="btn btn-primary  mr-sm-3 col-5 col-md-2" style='width:200px'> <i class="fa fa-plus"></i> Add Column</button>    
+        <button type="button" id="btn-regis" class="btn btn-success col-3 col-md-1" > Save</button>
+    </form> 
+ 
 
-            
-    </div>
-    <div class="col-6 detail_service" >
-    <button type="button" id="Select1" class="btn btn-primary " > <i class="fa fa-plus"></i> Add Column</button>    
-    </div>
 
 </div>
-<div id = "we">
+
+<div id = "we" >
     <div class ="row">
-        <div class='col-2 '> 
+        <div class='col-4 col-md-3'> 
             <label for="country">Input</label>
         </div> 
-        <div class='col-2 '> 
+        <div class='col-4 col-md-2'> 
             <label for="country">Type</label>
         </div> 
-        <div class='col-2 '> 
+        <div class='col-4 col-md-2'> 
             <label for="country">Permission</label>
         </div>         
     </div>
 
     <div id="add_detail">
         <div class ='row '  >
-            <div class='col-2 '>
+            <div class='col-4 col-md-3'>
                 <input type='text' id='input_detail' name='' placeholder=''>    
             </div> 
-            <div class='col-2 '> 
+            <div class='col-4 col-md-2'> 
                 <select class='form-control' id=''> 
                     <option>int</option> 
                     <option>string</option>
@@ -115,7 +101,7 @@
                     <option>text</option> 
                 </select> 
             </div> 
-            <div class='col-2 '> 
+            <div class='col-4 col-md-2'> 
                 <select class='form-control' id=''> 
                     <option>Public</option> 
                     <option>Semi-private</option> 
@@ -127,9 +113,7 @@
 
   
 </div>
-<div class ='regis detail_service'>
-    <button type="button" id="btn-regis" class="btn btn-success " > Save</button>
-</div>
+
 <script>
 
 $(document).ready(function() {
