@@ -1,13 +1,14 @@
 @extends('layouts.mainCompany') 
 @section('title','Static | Company') 
-@section('content')
-
+@section('content') {{--
 <script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
-<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script>
+<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
 <script src="{{url('js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}}"></script>
+
+<script src="{{url('js/company/gauge/gauge.min.js')}}"></script>
 
 <style type="text/css">
     .grid-stack-item {}
@@ -41,6 +42,18 @@
 <br />
 
 <div class="contrainner">
+    <div class="d-flex flex-wrap align-content-center" id="loading" style="height:500px">
+        <div class="lds-ring text-center mx-auto">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <div class="grid-stack"></div>
     <!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
 
@@ -65,12 +78,19 @@
                             <select class="form-control" id="widget_type">
                             <option value="">--Select Widget Type--</option>
                             <option value="MutiLine">MutiLine</option>
+                            <option value="text-line">Text Line</option>
                             <option value="Gauges">Gauges</option>
                             <option value="Map">Map</option>
-                            <option value="Half Circle">Half Circle</option>
                             <option value="text">Text</option>
-                            <option value="text-line">Text Line</option>
+                            {{-- <option value="Half Circle">Half Circle</option> --}}   
                         </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Set time interval</label>
+                            <input type="number" id="time-interval" class="form-control">
                         </div>
                     </div>
 
@@ -80,13 +100,6 @@
                     </div>
 
                     <div id="MutiLine" class="value_widget" style="display:none;">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="">Set time interval</label>
-                                <input type="number" id="time-interval" class="form-control">
-                            </div>
-                        </div>
-
                         <br />
                         <h5>Select Value Of Y</h5>
                         <button class="btn btn-primary btn-sm btn-radius" id="btn-add-value-Mutiline">
@@ -109,8 +122,26 @@
                                 </div>
                                 <div class="col-3">
                                     <label for="">RGB</label>
-                                    <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
+                                    <input type="text" id="rgb" class="form-control demo rgb-chart-line">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Gauges" class="value_widget" style="display:none;">
+                        <div class="row">
+                            <div class="col-4">
+                                <label>limitMin</label>
+                                <input type="number" name="limitMin" id="g_limitMin" class="form-control">
+                            </div>
+
+                            <div class="col-4">
+                                <label>limitMax</label>
+                                <input type="number" name="limitMax" id="g_limitMax" class="form-control">
+                            </div>
+
+                            <div class="col-4">
+                                <label>Unit</label>
+                                <input type="text" name="unit" id="unit" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -134,7 +165,7 @@
                             </div>
                             <div class="col-4">
                                 <label for="">RGB</label>
-                                <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
+                                <input id="rgb" type="text" class="form-control demo rgb-chart-line">
                             </div>
                         </div>
                     </div>
@@ -174,7 +205,7 @@
     </div>
     <div class="col-3">
         <label for="">RGB</label>
-        <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
+        <input type="text" class="form-control demo rgb-chart-line">
     </div>
 </div>
 
@@ -182,13 +213,15 @@
     <div>
         <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
             <div class="panel__header__min ml-auto edit-widget">
-                <i class="fas fa-cog"></i>
+                <i class="fas fa-cog btn-edit-wi" item="div_id"></i>
                 <i class="fas fa-trash-alt btn-delete-wi" item="div_id"></i>
             </div>
             <header class="panel__header__min">
                 <h5>((title_name))</h5>
             </header>
-            <div class="panel__content">((wi))</div>
+            <div class="panel__content">
+                ((wi))
+            </div>
         </div>
     </div>
 </div>

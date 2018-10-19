@@ -21,7 +21,7 @@ class CreateTBUSERSTable extends Migration
             $table->boolean('block')->default(false);
             $table->enum('type_user',['ADMIN','COMPANY','CUSTOMER']);
             $table->timestamps();
-           
+
         });
     }
 

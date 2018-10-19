@@ -1,7 +1,8 @@
 /* Model */
 var AdminRepository = new (function () {
-    var usersList       = [];
+    var usersList = [];
     var datatableObject = null;
+<<<<<<< HEAD
     var modelCreate     = null;
     var modalDetail     = null;
     var modalEdit       = null;
@@ -9,13 +10,26 @@ var AdminRepository = new (function () {
     var modalDelete     = null;
 
     const formAddEmail  = `<div class="input-group mb-2">
+=======
+    var modelCreate = null;
+    var modalDetail = null;
+    var modalEdit = null;
+    var modalBlock = null;
+    var modalDelete = null;
+    const formAddEmail = `
+                            <div class="input-group mb-2">
+>>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                                 <input type="text" class="add_email_val form-control mt-1" value={email}>
                                     <div class="input-group-append">
                                         <button class="btn btn-danger mt-1 btn-delete-email"  id="btn1" type="button"><i class="fas fa-times"></i></button>  
                                     </div>
                             </div>`;
+<<<<<<< HEAD
 
     const formAddPhone  = ` <div class="input-group mb-2">
+=======
+    const formAddPhone = `  <div class="input-group mb-2">
+>>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                                 <input type="text" class="add_phone_val form-control mt-1" value={phone}>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
@@ -23,35 +37,29 @@ var AdminRepository = new (function () {
                             </div>`;
 
     /* Initial Function */
-    this.initialAndRun = () => 
-    {
+    this.initialAndRun = () => {
         this.refreshDatatable();
     };
 
-    this.refreshDatatable = () => 
-    {
+    this.refreshDatatable = () => {
         showLoadingStatus(true);
         $.ajax({
             url: "http://localhost:8000/api/admin/administer",
             method: 'GET',
-            success: function (result) 
-            {
+            success: function (result) {
                 initialDatatable();
                 usersList = result.users;
                 showLoadingStatus(false);
                 updateDatatableData(result);
             },
-            error: function (error) 
-            {
+            error: function (error) {
                 console.log(error);
             }
         });
     };
 
-    var initialDatatable = () => 
-    {
-        if (datatableObject !== null) 
-        {
+    var initialDatatable = () => {
+        if (datatableObject !== null) {
             return false;
         }
 
@@ -59,17 +67,14 @@ var AdminRepository = new (function () {
             onCreateClick();
         });
 
-        datatableObject = $('#datatable-admin').dataTable(); 
+        datatableObject = $('#datatable-admin').dataTable();
     }
 
-    var showLoadingStatus = (show) => 
-    {
-        if (show) 
-        {
+    var showLoadingStatus = (show) => {
+        if (show) {
             $('#datatable-admin').hide();
         }
-        else 
-        {
+        else {
             $('#datatable-admin').show();
             $('.text-static').show();
             $('.lds-roller').hide();
@@ -77,18 +82,25 @@ var AdminRepository = new (function () {
         }
     }
 
-    var updateDatatableData = (userList) => 
-    {
+    var updateDatatableData = (userList) => {
         var Datatable = new Array();
         datatableObject.fnClearTable();
 
         $.each(userList.users, function (index, item) {
             var ret = [];
+<<<<<<< HEAD
             ret[0]  = item.fname + " " + item.lname;
             ret[1]  = item.email.split(',')[0];
             ret[2]  = item.phone.split(',')[0];
             ret[3]  = item.block ? "No" : "Yes";
             ret[4]  = ` <center>
+=======
+            ret[0] = item.fname + " " + item.lname;
+            ret[1] = item.phone.split(',')[0];
+            ret[2] = item.email.split(',')[0];
+            ret[3] = item.block ? "No" : "Yes";
+            ret[4] = ` <center>
+>>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
@@ -131,12 +143,10 @@ var AdminRepository = new (function () {
     }
 
     /* Action Function */
-    var onCreateClick = () => 
-    {
-        if(modelCreate === null)
-        {
-            modelCreate = 
-            `<div class="modal fade" id="addUser">
+    var onCreateClick = () => {
+        if (modelCreate === null) {
+            modelCreate =
+                `<div class="modal fade" id="addUser">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -171,7 +181,7 @@ var AdminRepository = new (function () {
                     </div>
                 </div>
             </div>`
-            
+
             $('body').append(modelCreate);
         }
 
@@ -182,45 +192,40 @@ var AdminRepository = new (function () {
         $('#addUser').modal('show');
     }
 
-    var createSaveChange = () => 
-    {
-        let email_input     = $("#add_email_val").val();
-        let pwd_input       = $("#add_pwd_val").val();
-        let fname_input     = $("#add_fname_val").val();
-        let lname_input     = $("#add_lname_val").val();
+    var createSaveChange = () => {
+        let email_input = $("#add_email_val").val();
+        let pwd_input = $("#add_pwd_val").val();
+        let fname_input = $("#add_fname_val").val();
+        let lname_input = $("#add_lname_val").val();
         let type_user_input = $("#add_type_user_val").val();
-        let phone_input     = $("#add_phone_val").val();
+        let phone_input = $("#add_phone_val").val();
         $.ajax({
             url: "http://localhost:8000/api/admin/administer/create",
             dataType: 'json',
             method: "POST",
-            data: 
+            data:
             {
-                email:          email_input,
-                password:       pwd_input,
-                fname:          fname_input,
-                lname:          lname_input,
-                phone:          phone_input,
-                type_user:      type_user_input
+                email: email_input,
+                password: pwd_input,
+                fname: fname_input,
+                lname: lname_input,
+                phone: phone_input,
+                type_user: type_user_input
             },
-            success: (res) => 
-            {
+            success: (res) => {
                 this.refreshDatatable();
                 $("#addUser").modal('hide');
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         })
     }
 
-    var onDetailClick = (key) => 
-    {
-        if (modalDetail === null) 
-        {
-            modalDetail = 
-           `<div class="modal fade" id="detailUser">
+    var onDetailClick = (key) => {
+        if (modalDetail === null) {
+            modalDetail =
+                `<div class="modal fade" id="detailUser">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -252,12 +257,10 @@ var AdminRepository = new (function () {
         $("#detailUser").modal('show');
     }
 
-    var onEditClick = (key) => 
-    {
-        if (modalEdit === null) 
-        {
-            modalEdit = 
-            `<div class="modal fade" id="editUser">
+    var onEditClick = (key) => {
+        if (modalEdit === null) {
+            modalEdit =
+                `<div class="modal fade" id="editUser">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -334,6 +337,7 @@ var AdminRepository = new (function () {
         $('#editUser').modal('show');
     }
 
+<<<<<<< HEAD
     var editSaveChange = () => 
     {
         let user_id_input   = $("#edit-id").val();
@@ -372,6 +376,12 @@ var AdminRepository = new (function () {
         {
             modalBlock = 
             `<div class="modal fade" id="BlockUser">
+=======
+    var onBlockClick = (key) => {
+        if (modalBlock === null) {
+            modalBlock =
+                `<div class="modal fade" id="BlockUser">
+>>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -389,23 +399,21 @@ var AdminRepository = new (function () {
                     </div>
                 </div>
             </div>`
-            
+
             $('body').append(modalBlock);
         }
 
-        if(usersList[key].block)
-        {
+        if (usersList[key].block) {
             $("#span-text-confirm-block").html("Are you sure to unblock " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Unblock");
             $("#title-text").html("Unblock User Admin");
         }
-        else
-        {
+        else {
             $("#span-text-confirm-block").html("Are you sure to block " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Block");
             $("#title-text").html("Block User Admin");
         }
-       
+
         $("#btn-block-submit").unbind().click(function () {
             blockSaveChange(key);
         })
@@ -413,44 +421,37 @@ var AdminRepository = new (function () {
         $("#BlockUser").modal('show');
     }
 
-    var blockSaveChange = (key) => 
-    {
+    var blockSaveChange = (key) => {
         var urlLink;
 
-        if(usersList[key].block)
-        {
+        if (usersList[key].block) {
             urlLink = "http://localhost:8000/api/admin/users/unblock"
         }
-        else
-        {
+        else {
             urlLink = "http://localhost:8000/api/admin/users/block"
         }
 
         $.ajax({
             url: urlLink,
             method: "PUT",
-            data: 
+            data:
             {
-                user_id:   usersList[key].user_id   
+                user_id: usersList[key].user_id
             },
-            success: () => 
-            {
+            success: () => {
                 this.refreshDatatable();
-                $("#BlockUser").modal('hide');               
+                $("#BlockUser").modal('hide');
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         });
     }
 
-    var onDeleteClick = (key) => 
-    {
-        if (modalDelete === null) 
-        {
-            modalDelete = 
-            `<div class="modal fade" id="DeleteUser">
+    var onDeleteClick = (key) => {
+        if (modalDelete === null) {
+            modalDelete =
+                `<div class="modal fade" id="DeleteUser">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -473,10 +474,13 @@ var AdminRepository = new (function () {
         }
 
         $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email + " ? ")
+<<<<<<< HEAD
         
         $("#btn-delete-submit").unbind().click(function () {
             deleteSaveChange(key);
         })
+=======
+>>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
 
         $('#DeleteUser').modal('show');
     }
