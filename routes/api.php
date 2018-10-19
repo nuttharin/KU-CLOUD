@@ -39,17 +39,26 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
     Route::post('admin/administer/create','Api\AdminController@createAdminister');
+    Route::put('admin/administer/edit','Api\AdminController@editAdminister');
 
     Route::get('admin/companies','Api\AdminController@getAllCompanies');
     Route::post('admin/company/create','Api\AdminController@createCompany');
+    Route::put('admin/company/edit','Api\AdminController@editCompany');
 
     Route::get('admin/customers','Api\AdminController@getAllCustomers');
     Route::post('admin/customer/create','Api\AdminController@createCustomer');
+    Route::put('admin/customer/edit','Api\AdminController@editCustomer');
 
     Route::get('admin/companydata','Api\AdminController@getAllCompanyData');
     Route::post('admin/companydata/create','Api\AdminController@createCompanyData');
+    Route::put('admin/companydata/edit','Api\AdminController@editCompanyData');
+    Route::delete('admin/companydata/delete','Api\AdminController@deleteCompanyData');
 
     Route::put('admin/users/block','Api\AdminController@blockUser');  
     Route::put('admin/users/unblock','Api\AdminController@unblockUser');
+
+    Route::delete('admin/users/delete','Api\AdminController@deleteUser');
+
+    Route::get('admin/companydata/checkdelete','Api\AdminController@getCountUsersByCompanyID');
 });
 

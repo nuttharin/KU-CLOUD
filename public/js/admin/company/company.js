@@ -81,15 +81,16 @@ var CompanyRepository = new (function () {
 
         datatableObject.fnAddData(Datatable);
 
-        $(".btn-detail").unbind().click(function () {
+        $('#datatable-company').on('click', '.btn-detail', function () {
             onDetailClick($(this).attr('index'));
         });
 
-        $(".btn-edit").unbind().click(function () {
+        $('#datatable-company').on('click', '.btn-edit', function () {
             onEditClick($(this).attr('index'));
         });
 
-        $(".btn-delete").unbind().click(function () {
+
+        $('#datatable-company').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
         });
 
@@ -217,6 +218,7 @@ var CompanyRepository = new (function () {
                         <div class="modal-body">
                             <form id="form-edit-user">
                                 <div class="row">
+                                    <input type="hidden" class="form-control" id="company_id" />
                                     <div class="col-6">
                                         <label for="">Company Name</label>
                                         <input type="text" class="form-control" id="company_name" />
@@ -241,11 +243,16 @@ var CompanyRepository = new (function () {
 
             $('body').append(modalEdit);
         }
-
+        
+        $('#company_id').val(companyList[key].id);
         $('#company_name').val(companyList[key].name);
         $('#alias_val').val(companyList[key].alias);
         $('#address_val').val(companyList[key].address);
         $('#note_val').val(companyList[key].note);
+
+        $("#btn-edit-submit").unbind().click(function () {
+            editSaveChange($(this));
+        })
 
         $('#editCompany').modal('show');
     }
@@ -275,10 +282,60 @@ var CompanyRepository = new (function () {
             $('body').append(modalDelete);
         }
 
-        $('#span-text-confirm').html("Are you sure to delete " + companyList[key].name + " ? ")
+        $.ajax({
+            url: "http://localhost:8000/api/admin/companydata/checkdelete",
+            method: "GET",
+            data: 
+            {
+                company_id:   companyList[key].id   
+            },
+            success: (result) => 
+            {
+                if(result)
+                {
+                    $('#span-text-confirm').html("Are you sure to delete " + companyList[key].name + " ? ");
+                    $('#btn-delete-submit').show(); 
+                }  
+                else
+                {
+                    $('#span-text-confirm').html("Cannot delete.");
+                    $('#btn-delete-submit').hide(); 
+                }         
+            },
+            error: (res) => 
+            {
+                console.log(res);
+            }
+        });
+      
+        $("#btn-delete-submit").unbind().click(function () {
+            deleteSaveChange(key);
+        })
 
         $('#DeleteUser').modal('show');
     }
+
+    var deleteSaveChange = (key) => 
+    {
+        $.ajax({
+            url: "http://localhost:8000/api/admin/companydata/delete",
+            method: "DELETE",
+            data: 
+            {
+                company_id:   companyList[key].id   
+            },
+            success: () => 
+            {
+                this.refreshDatatable();
+                $("#DeleteUser").modal('hide');               
+            },
+            error: (res) => 
+            {
+                console.log(res);
+            }
+        });
+    }
+
 })
 
 /* Set initial value */
