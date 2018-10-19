@@ -1,6 +1,7 @@
 /* Model */
 var CompanyRepository = new (function () {
     var usersList       = [];
+    var companyList     = [];
     var datatableObject = null;
     var modelCreate     = null;
     var modalDetail     = null;
@@ -20,11 +21,25 @@ var CompanyRepository = new (function () {
                                     <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                                 </div>
                             </div>`;
-
+    
+        var that = this;
     /* Initial Function */
     this.initialAndRun = () => 
     {
         this.refreshDatatable();
+
+        $.ajax({
+            url: "http://localhost:8000/api/admin/companydata",
+            method: 'GET',
+            success: function (result) 
+            {
+                companyList = result.company;
+            },
+            error: function (error) 
+            {
+                console.log(error);
+            }
+        });
     };
 
     this.refreshDatatable = () => 
@@ -53,12 +68,12 @@ var CompanyRepository = new (function () {
         {
             return false;
         }
+      
+        datatableObject = $('#datatable-company').dataTable({}); 
 
         $("#btn-create").unbind().click(function () {
             onCreateClick();
         });
-
-        datatableObject = $('#datatable-company').dataTable(); 
     }
 
     var showLoadingStatus = (show) => 
@@ -66,6 +81,7 @@ var CompanyRepository = new (function () {
         if (show) 
         {
             $('#datatable-company').hide();
+            $('.lds-roller').show();
         }
         else 
         {
@@ -84,8 +100,8 @@ var CompanyRepository = new (function () {
         $.each(userList.users, function (index, item) {
             var ret = [];
             ret[0]  = item.fname + " " + item.lname;
-            ret[1]  = item.phone.split(',')[0];
-            ret[2]  = item.email.split(',')[0];
+            ret[1]  = item.email.split(',')[0];
+            ret[2]  = item.sub_type_user;
             ret[3]  = item.block ? "No" : "Yes";
             ret[4]  = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
@@ -110,19 +126,19 @@ var CompanyRepository = new (function () {
 
         datatableObject.fnAddData(Datatable);
 
-        $(".btn-detail").unbind().click(function () {
+        $('#datatable-company').on('click', '.btn-detail', function () {
             onDetailClick($(this).attr('index'));
         });
 
-        $(".btn-edit").unbind().click(function () {
+        $('#datatable-company').on('click', '.btn-edit', function () {
             onEditClick($(this).attr('index'));
         });
 
-        $(".btn-block-user").unbind().click(function () {
+        $('#datatable-company').on('click', '.btn-block-user', function () {
             onBlockClick($(this).attr('index'));
         })
 
-        $(".btn-delete").unbind().click(function () {
+        $('#datatable-company').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
         });
 
@@ -231,8 +247,10 @@ var CompanyRepository = new (function () {
                         </div>
                         <div class="modal-body">
                             <h6>Name : <span  id="name-user"><span></h6>
-                            <h6>Phone : <span id="phone-user"><span></h6>
                             <h6>Email : <span id="email-user"><span></h6>
+                            <h6>Company Name : <span id="company-name"><span></h6>
+                            <h6>Type User : <span id="type-user"><span></h6>
+                            <h6>Phone : <span id="phone-user"><span></h6>
                             <h6>Active : <span id="active-user"><span></h6>
                             <h6>Create Date : <span id="create-user"><span></h6>
                             <h6>Update Date : <span id="update-user"><span></h6>
@@ -245,8 +263,10 @@ var CompanyRepository = new (function () {
         }
 
         $('#name-user').html(usersList[key].fname + " " + usersList[key].lname);
-        $('#phone-user').html(usersList[key].phone);
         $('#email-user').html(usersList[key].email);
+        $('#company-name').html(usersList[key].company_name);
+        $('#type-user').html(usersList[key].sub_type_user);
+        $('#phone-user').html(usersList[key].phone);
         $('#active-user').html(usersList[key].block ? "No" : "Yes");
         $('#create-user').html(usersList[key].created_at);
         $('#update-user').html(usersList[key].updated_at);
@@ -272,6 +292,9 @@ var CompanyRepository = new (function () {
                                     <div class="col-6">
                                         <label>Firstname</label>
                                         <input type="text" id="edit-fname" class="form-control"/>
+                                        <label for="">Company</label>
+                                        <select id="add_company_val" class="form-control">
+                                        </select>
                                         <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-email"><i class="fas fa-plus"></i> add email</button>
                                         <div id="input-add-email">
                                         </div>
@@ -279,6 +302,11 @@ var CompanyRepository = new (function () {
                                     <div class="col-6">
                                         <label>Lastname</label>
                                         <input type="text" id="edit-lname" class="form-control"/>
+                                        <label for="">Type User</label>
+                                        <select id="add_type_user_val" class="form-control">
+                                            <option>ADMIN</option>
+                                            <option selected>NORMAL</option>
+                                        </select>
                                         <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-phone"><i class="fas fa-plus"></i> add phone</button>
                                         <div id="input-add-phone">
                                         </div>
@@ -287,6 +315,7 @@ var CompanyRepository = new (function () {
                             </form>
                         </div>
                         <div class="modal-footer">
+                            <input type="hidden" id="edit-id" class="form-control"/>
                             <button type="button" id="btn-edit-submit" class="btn btn-success btn-block">Save</button>
                         </div>
                     </div>
@@ -322,14 +351,62 @@ var CompanyRepository = new (function () {
             return formAddEmail.replace('{email}', email);
         })
 
+        $.each(companyList, function(key, value) {   
+            $('#add_company_val')
+                .append($("<option></option>")
+                           .attr("value",value.id)
+                           .text(value.name)); 
+       });
+
+        $('#edit-id').val(usersList[key].user_id);
         $('#edit-fname').val(usersList[key].fname);
         $('#edit-lname').val(usersList[key].lname);
         $('#input-add-phone').html(inputPhone.join(''));
         $('#input-add-email').html(inputEmail.join(''));
 
+        $("#btn-edit-submit").unbind().click(function () {
+            editSaveChange($(this));
+        })
+
         $('#editUser').modal('show');
     }
 
+    var editSaveChange = () => 
+    {
+        let user_id_input   = $("#edit-id").val();
+        let fname_input     = $("#edit-fname").val();
+        let lname_input     = $("#edit-lname").val();
+        let company_input   = $("#add_company_val").val();
+        let type_user_input = $("#add_type_user_val").val();
+        let email_input     = $(".add_email_val").map(function() { return $(this).val(); }).get().join();
+        let phone_input     = $(".add_phone_val").map(function() { return $(this).val(); }).get().join();
+
+        $.ajax({
+            url: "http://localhost:8000/api/admin/company/edit",
+            dataType: 'json',
+            method: "PUT",
+            data: 
+            {
+                user_id:        user_id_input,
+                fname:          fname_input,
+                lname:          lname_input,
+                company:        company_input,
+                sub_type_user:  type_user_input,
+                email:          email_input,
+                phone:          phone_input
+            },
+            success: (res) => 
+            {
+                this.refreshDatatable();
+                $("#editUser").modal('hide');
+            },
+            error: (res) => 
+            {
+                console.log(res);
+            }
+        })
+    }
+    
     var onBlockClick = (key) => 
     {
         if (modalBlock === null) 
@@ -438,7 +515,32 @@ var CompanyRepository = new (function () {
 
         $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email + " ? ")
         
+        $("#btn-delete-submit").unbind().click(function () {
+            deleteSaveChange(key);
+        })
+
         $('#DeleteUser').modal('show');
+    }
+
+    var deleteSaveChange = (key) => 
+    {
+        $.ajax({
+            url: "http://localhost:8000/api/admin/users/delete",
+            method: "DELETE",
+            data: 
+            {
+                user_id:   usersList[key].user_id   
+            },
+            success: () => 
+            {
+                this.refreshDatatable();
+                $("#DeleteUser").modal('hide');               
+            },
+            error: (res) => 
+            {
+                console.log(res);
+            }
+        });
     }
 })
 
