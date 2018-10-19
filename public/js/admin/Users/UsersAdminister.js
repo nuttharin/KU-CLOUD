@@ -2,15 +2,6 @@
 var AdminRepository = new (function () {
     var usersList = [];
     var datatableObject = null;
-<<<<<<< HEAD
-    var modelCreate     = null;
-    var modalDetail     = null;
-    var modalEdit       = null;
-    var modalBlock      = null;
-    var modalDelete     = null;
-
-    const formAddEmail  = `<div class="input-group mb-2">
-=======
     var modelCreate = null;
     var modalDetail = null;
     var modalEdit = null;
@@ -18,18 +9,12 @@ var AdminRepository = new (function () {
     var modalDelete = null;
     const formAddEmail = `
                             <div class="input-group mb-2">
->>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                                 <input type="text" class="add_email_val form-control mt-1" value={email}>
                                     <div class="input-group-append">
                                         <button class="btn btn-danger mt-1 btn-delete-email"  id="btn1" type="button"><i class="fas fa-times"></i></button>  
                                     </div>
                             </div>`;
-<<<<<<< HEAD
-
-    const formAddPhone  = ` <div class="input-group mb-2">
-=======
     const formAddPhone = `  <div class="input-group mb-2">
->>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                                 <input type="text" class="add_phone_val form-control mt-1" value={phone}>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
@@ -88,19 +73,11 @@ var AdminRepository = new (function () {
 
         $.each(userList.users, function (index, item) {
             var ret = [];
-<<<<<<< HEAD
-            ret[0]  = item.fname + " " + item.lname;
-            ret[1]  = item.email.split(',')[0];
-            ret[2]  = item.phone.split(',')[0];
-            ret[3]  = item.block ? "No" : "Yes";
-            ret[4]  = ` <center>
-=======
             ret[0] = item.fname + " " + item.lname;
             ret[1] = item.phone.split(',')[0];
             ret[2] = item.email.split(',')[0];
             ret[3] = item.block ? "No" : "Yes";
             ret[4] = ` <center>
->>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
@@ -337,51 +314,10 @@ var AdminRepository = new (function () {
         $('#editUser').modal('show');
     }
 
-<<<<<<< HEAD
-    var editSaveChange = () => 
-    {
-        let user_id_input   = $("#edit-id").val();
-        let fname_input     = $("#edit-fname").val();
-        let lname_input     = $("#edit-lname").val();
-        let email_input     = $(".add_email_val").map(function() { return $(this).val(); }).get().join();
-        let phone_input     = $(".add_phone_val").map(function() { return $(this).val(); }).get().join();
-
-        $.ajax({
-            url: "http://localhost:8000/api/admin/administer/edit",
-            dataType: 'json',
-            method: "PUT",
-            data: 
-            {
-                user_id:        user_id_input,
-                fname:          fname_input,
-                lname:          lname_input,
-                email:          email_input,
-                phone:          phone_input
-            },
-            success: (res) => 
-            {
-                this.refreshDatatable();
-                $("#editUser").modal('hide');
-            },
-            error: (res) => 
-            {
-                console.log(res);
-            }
-        })
-    }
-
-    var onBlockClick = (key) => 
-    {
-        if (modalBlock === null) 
-        {
-            modalBlock = 
-            `<div class="modal fade" id="BlockUser">
-=======
     var onBlockClick = (key) => {
         if (modalBlock === null) {
             modalBlock =
                 `<div class="modal fade" id="BlockUser">
->>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -474,13 +410,6 @@ var AdminRepository = new (function () {
         }
 
         $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email + " ? ")
-<<<<<<< HEAD
-        
-        $("#btn-delete-submit").unbind().click(function () {
-            deleteSaveChange(key);
-        })
-=======
->>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
 
         $('#DeleteUser').modal('show');
     }
