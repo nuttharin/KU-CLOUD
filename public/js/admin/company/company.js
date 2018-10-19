@@ -257,51 +257,10 @@ var CompanyRepository = new (function () {
         $('#editCompany').modal('show');
     }
 
-<<<<<<< HEAD
-    var editSaveChange = () => 
-    {
-        let company_id_input    = $("#company_id").val();
-        let company_name_input  = $("#company_name").val();
-        let alias_input         = $("#alias_val").val();
-        let address_input       = $("#address_val").val();
-        let note_input          = $("#note_val").val();
-
-        $.ajax({
-            url: "http://localhost:8000/api/admin/companydata/edit",
-            dataType: 'json',
-            method: "PUT",
-            data: 
-            {
-                company_id:     company_id_input,
-                company_name:   company_name_input,
-                alias:          alias_input,
-                address:        address_input,
-                note:           note_input
-            },
-            success: (res) => 
-            {
-                this.refreshDatatable();
-                $("#editCompany").modal('hide');
-            },
-            error: (res) => 
-            {
-                console.log(res);
-            }
-        })
-    }
-
-    var onDeleteClick = (key) => 
-    {
-        if (modalDelete === null) 
-        {
-            modalDelete = 
-            `<div class="modal fade" id="DeleteUser">
-=======
     var onDeleteClick = (key) => {
         if (modalDelete === null) {
             modalDelete =
                 `<div class="modal fade" id="DeleteUser">
->>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -323,7 +282,6 @@ var CompanyRepository = new (function () {
             $('body').append(modalDelete);
         }
 
-<<<<<<< HEAD
         $.ajax({
             url: "http://localhost:8000/api/admin/companydata/checkdelete",
             method: "GET",
@@ -353,9 +311,6 @@ var CompanyRepository = new (function () {
         $("#btn-delete-submit").unbind().click(function () {
             deleteSaveChange(key);
         })
-=======
-        $('#span-text-confirm').html("Are you sure to delete " + companyList[key].name + " ? ")
->>>>>>> 2ee8fd07acd1a953fc182b05c24617bae3b5c73e
 
         $('#DeleteUser').modal('show');
     }
