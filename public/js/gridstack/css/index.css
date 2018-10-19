@@ -138,3 +138,7 @@
     flex: 1;
     min-height: 0;
 }
+
+.btn-delete-wi{
+    cursor: pointer;
+}

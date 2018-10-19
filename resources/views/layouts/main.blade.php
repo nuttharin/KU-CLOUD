@@ -55,10 +55,10 @@
 <body>
     <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-            <a class="navbar-brand brand-logo" style="margin-top:10px" href="{{action('AdminController@index')}}">
+            <a class="navbar-brand brand-logo" style="margin-top:10px" href="{{action('AdminController@UsersAdminister')}}">
                 <h4 class="text-center"><span style="color:green">KU</span> CLOUD</h4>
             </a>
-            <a class="navbar-brand brand-logo-mini" style="margin-top:10px" href="{{action('AdminController@index')}}">
+            <a class="navbar-brand brand-logo-mini" style="margin-top:10px" href="{{action('AdminController@UsersAdminister')}}">
                 <h4 class="text-center" span style="color:green">KU</h4>
                 <!-- <img src="./logo.png" alt="" height="30px"> -->
             </a>
@@ -136,18 +136,41 @@
                     </div>-->
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('AdminController@user')}}">
-                        <i class="fas fa-users"></i>
-                        <span class="link_hide">User</span>
+                    <a href="#UsersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Users</span>
+                        <i class="fas fa-angle-right"></i>
                     </a>
+                    <ul class="collapse list-unstyled sub" id="UsersSubmenu">
+                        <li class="nav-item">
+                            <a href="{{action('AdminController@UsersAdminister')}}">
+                                <span class="link_hide">Users Administer</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('AdminController@UsersCompany')}}">
+                                <span class="link_hide">Users Company</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('AdminController@UsersCustomer')}}">
+                                <span class="link_hide">Users Customer</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('AdminController@company')}}">
-                        <i class="fas fa-briefcase"></i>
+                    <a href="{{action('AdminController@Company')}}">
+                        <i class="fas fa-users"></i>
                         <span class="link_hide">Company</span>
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a href="{{action('AdminController@Static')}}">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="link_hide">Static</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Admin | Company')
+@section('title','Admin | Users-Company')
 @section('content')
 
 <style>
@@ -113,8 +113,9 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Alias</th>
-                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Active</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -136,7 +137,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{url('js/admin/Company/Company.js')}}"></script>
+<script type="text/javascript" src="{{url('js/admin/Users/UsersCompany.js')}}"></script>
 
 <script>
     $(document).ready(function () {

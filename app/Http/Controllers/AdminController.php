@@ -3,19 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function UsersAdminister()
     {
-        return view('admin.index');
+        return view('admin.UsersAdminister');
     }
-    public function user()
+    public function UsersCompany()
     {
-        return view('admin.user');
+        return view('admin.UsersCompany');
     }
-    public function company()
+    public function UsersCustomer()
     {
-        return view('admin.company');
+        return view('admin.UsersCustomer');
+    }
+    public function Company()
+    {
+        return view('admin.Company');
+    }
+    public function Static()
+    {
+        return view('admin.Static');
     }
 }

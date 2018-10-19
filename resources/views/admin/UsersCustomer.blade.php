@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Admin | Company')
+@section('title','Admin | Users-Customer')
 @section('content')
 
 <style>
@@ -109,12 +109,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-company">
+                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-customer">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Alias</th>
-                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Active</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -136,7 +137,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{url('js/admin/Company/Company.js')}}"></script>
+<script type="text/javascript" src="{{url('js/admin/Users/UsersCustomer.js')}}"></script>
 
 <script>
     $(document).ready(function () {

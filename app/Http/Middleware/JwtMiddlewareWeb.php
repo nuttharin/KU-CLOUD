@@ -6,6 +6,8 @@
     use JWTAuth;
     use Exception;
     use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+    use Cache;
+    use Carbon\Carbon;
 
     class JwtMiddlewareWeb extends BaseMiddleware
     {
@@ -26,6 +28,10 @@
                 $user = JWTAuth::parseToken()->authenticate();
                 if(!$user){
                     return redirect('/Auth');
+                }
+                else{
+                    //$expiresAt = Carbon::now()->addMinutes(2);
+                    //Cache::put('user-is-online-'.$user->user_id,true,$expiresAt);
                 }
             } catch (Exception $e){
                 return redirect('/Auth');
