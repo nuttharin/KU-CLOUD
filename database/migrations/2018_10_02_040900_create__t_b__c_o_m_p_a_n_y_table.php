@@ -20,7 +20,6 @@ class CreateTBCOMPANYTable extends Migration
             $table->string('address',200);
             $table->string('note',100);
             $table->timestamps();
-
         });
     }
 
