@@ -28,4 +28,8 @@ class AdminController extends Controller
     {
         return view('admin.Static');
     }
+    public function AddService()
+    {
+        return view('admin.addService');
+    }
 }

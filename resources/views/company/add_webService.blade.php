@@ -9,122 +9,150 @@
     
 ?>
 <style>
-    
-    .input_atti
-    {
-        width: 25%;
+    #detail-show{
+        background-color: #EBF5FB    ;        
     }
-    #SelectPublic
-    {
-        width: 20%;
+
+    #detail-show p {
+        font-size: 13px;
+        color : #616A6B  ;
+        padding-left : 10px;
+        padding-right:8px;
+
+    }       
+     
+    #detail{
+        border-left-style: solid;
+        border-left-color: #AED6F1 ;
+        border-width: 2px;
     }
-    input[type=text]{
-    width: 100%;
-    padding: 3px 0px ;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;   
-    
+
+    .from-input-detail{
+        padding-left:30px;
     }
-    #input_detail
-    {
+
+    input,textarea{
+        border-radius: 4px;
+        border: none;
+        padding: 5px 20px;
+        cursor: pointer;
+        padding: 12px;
+
+
+    }
+
+    #name-webservice{
         width: 100%;
-        padding: 5.5px 0px ;
+        height: 40px;
+
+
     }
-    .detail_service
-    {
-        padding: 0.5% 5%;
+
+    #alias-webservice{
+        width: 100%;
+        height: 40px;
     }
-    #we{
-        padding: 0.5% 6%;
+
+    #url-webservice{
+        width: 100%;
+        height: 40px;
     }
-    .regis
-    {
-
-        padding: 0.5% 42%;
-        
-    }
-    
-
-}
-</style>
-<br>
-<h3>Add WebService</h3><hr>
-<h5>Detail Service</h5>
-
-<div style ="padding:0.5% 3%;">
-    <form action="" class='form-inline'>
-    
-        <label for="" class="mb-2 mr-sm-2 col-6 col-md-2">Service Name :</label>
-        <input type="text" class ="form-control mb-2 mr-sm-4 col-6 col-md-4" style='' id="service_name" name="service_name" placeholder="">                
-        <label for="" class="mb-2 mr-sm-3 col-6 col-md-1">Alias :</label>            
-        <input type="text" class ="form-control mb-2 mr-sm-4 col-6 col-md-4" style='width:200px' id="service_name" name="service_name" placeholder=" ">   
-        
-    </form>
-    <form action="" class='form-inline'>
-        <label for="" class="mb-2 mr-sm-2 col-6 col-md-2">URL :</label>            
-        <input type="text" class ="form-control mr-sm-4 mb-2 col-6 col-md-4" style='width:369px' id="service_name" name="service_name" placeholder=" ">  
-    </form> 
-    <form action="" class='form-inline' style='padding: 0.5% 4.5%;'>
-        <button type="button" id="Select1" class="btn btn-primary  mr-sm-3 col-5 col-md-2" style='width:200px'> <i class="fa fa-plus"></i> Add Column</button>    
-        <button type="button" id="btn-regis" class="btn btn-success col-3 col-md-1" > Save</button>
-    </form> 
- 
-
-
-</div>
-
-<div id = "we" >
-    <div class ="row">
-        <div class='col-4 col-md-3'> 
-            <label for="country">Input</label>
-        </div> 
-        <div class='col-4 col-md-2'> 
-            <label for="country">Type</label>
-        </div> 
-        <div class='col-4 col-md-2'> 
-            <label for="country">Permission</label>
-        </div>         
-    </div>
-
-    <div id="add_detail">
-        <div class ='row '  >
-            <div class='col-4 col-md-3'>
-                <input type='text' id='input_detail' name='' placeholder=''>    
-            </div> 
-            <div class='col-4 col-md-2'> 
-                <select class='form-control' id=''> 
-                    <option>int</option> 
-                    <option>string</option>
-                    <option>double</option>  
-                    <option>text</option> 
-                </select> 
-            </div> 
-            <div class='col-4 col-md-2'> 
-                <select class='form-control' id=''> 
-                    <option>Public</option> 
-                    <option>Semi-private</option> 
-                    <option>private</option> 
-                </select> 
-            </div>         
-        </div>
-    </div>
 
   
+
+    .from-input-detail h6,input {
+       
+        font-weight: normal;
+
+    }
+
+    .from-input-detail input,.from-input-detail textarea{
+        border: 1px solid #AED6F1 ;
+    }
+    
+    .show-header{
+        float:right;
+    }
+   
+    /* .column {
+        float: left;
+        width: 95%;
+        padding: 15px;
+        padding-right:8px;
+    }
+
+    .column1 {
+        float: left;
+        width:  2%;
+    } */
+    
+        
+    
+
+
+</style>
+<br>
+<h4>Create a new webservice</h4><hr>
+<div class="from-input-detail">
+    <div class="row">
+        <div class="col-sm-8 " >
+            <div class ="row">
+                <div class="col-sm-8">
+                    <h6 >Service Name <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="name-webservice" name="name" placeholder="Webservice name">
+                </div>
+                <div class="col-sm-4">
+                    <h6 >Alias <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="alias-webservice" name="alias" placeholder="Webservice alias ">
+                </div>
+
+                
+            </div>
+
+            <h6>URL <span style="color:red">*</span></h6>
+            <input type="text" class="mb-2" id="url-webservice" name="firstname" placeholder="service name">
+            <h6>Description</h6>
+            <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="Webservice description" ></textarea>
+            <button type="button" class="btn btn-primary show-header">Show value</button>
+
+                
+            
+        </div>
+        
+        
+        <div class="col-sm-4"  >
+                <!-- <div class ="col-sm-1" id="detail-left"></div> -->
+                <div class = "col-sm-12" id="detail" >
+                    <h6 style="font-style: oblique;"> Resource Data Type </h6>
+                    <div id="detail-show">
+                        <p>When creating a new resource, you need to specify the 
+                        type of data that is expected to be persisted to this resource.
+
+                        Beebotte has a number of defined data types; click here for more information.
+                        </p>
+                    </div> 
+
+                    <h6 style="font-style: oblique;"> Public is ? </h6>
+                    <div id="detail-show">
+                        <p>When creating a new resource, you need to specify the 
+                        type of data that is expected to be persisted to this resource.
+
+                        Beebotte has a number of defined data types; click here for more information.
+                        </p>
+                    </div> 
+                </div>
+        </div>
+    
+    </div>
+
 </div>
+<script type="text/javascript" src="{{url('js/company/services/addservice.js')}}"></script>
+
+
 
 <script>
-
-$(document).ready(function() {
-    var ati = ["StationNameTh","Province","Observe","Temperature","StationPressure","RelativeHumidity","WindSpeed","Rainfall","TotolCloud"];
-    var html = $("#add_detail").html();
-    $("#Select1").click(function(){       
-            $("#we").append(html);
-            //$("#we").append("<br><div class ='row' ><div class='col-2 '> <input type='text' id='input_detail' name='' placeholder=''></div> <div class='col-2 '> <select class='form-control' id=''> <option>int</option> <option>string</option>  <option>double</option> <option>text</option> </select>  </div> <div class='col-2 '> <select class='form-control' id=''> <option>Public</option><option>Semi-private</option><option>private</option> </select>  </div>  </div>");   
-
-    });
-});
-
+    
 </script>
+
+
 @endsection
