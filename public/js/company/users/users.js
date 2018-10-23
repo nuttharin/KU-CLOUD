@@ -5,6 +5,7 @@ var Users = new (function () {
     var ModalDetail = null;
     var ModalEdit = null;
     var ModalBlock = null;
+    var ModalUnBlock = null;
     var ModalDelete = null;
     const FormAddEmail = `
                             <div class="input-group mb-2">
@@ -26,7 +27,17 @@ var Users = new (function () {
         var Datatable = new Array();
         UsersDATATABLE.fnClearTable();
         $.each(userList.users, function (index, item) {
-            var ret = [];
+            let ret = [];
+            let btnBlock = `                            
+            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
+                <i class="fas fa-times"></i>
+            </button>`;
+            if (item.block) {
+                btnBlock = `                            
+                <button type="button" class="btn btn-info btn-sm btn-unblock-user" index=${index} data-toggle="tooltip" data-placement="top" title="UnBlock">
+                    <i class="fas fa-unlock"></i>
+                </button>`;
+            }
             ret[0] = item.fname + " " + item.lname;
             ret[1] = item.phone.split(',')[0];
             ret[2] = item.email.split(',')[0];
@@ -41,10 +52,7 @@ var Users = new (function () {
                                 data-placement="top" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip"
-                                data-placement="top" title="Block">
-                                <i class="fas fa-times"></i>
-                            </button>
+                            ${btnBlock}
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
@@ -64,7 +72,11 @@ var Users = new (function () {
 
         $('#example').on('click', '.btn-block-user', function () {
             onBlockClick($(this).attr('index'));
-        })
+        });
+
+        $('#example').on('click', '.btn-unblock-user', function () {
+            onUnBlockClick($(this).attr('index'));
+        });
 
         $('#example').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
@@ -105,8 +117,8 @@ var Users = new (function () {
             error: (res) => {
                 console.log(res);
             }
-        })
-    }
+        });
+    };
 
     var onDetailClick = (key) => {
         if (ModalDetail === null) {
@@ -176,46 +188,79 @@ var Users = new (function () {
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" id="btn-edit-submit" class="btn btn-success btn-block">Save</button>
+                                        <button type="button" id="btn-edit-submit" class="btn btn-success btn-block btn-submit-edit">Save</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>`
+                        </div>`;
             $('body').append(ModalEdit);
 
         }
 
+        $("#btn-edit-submit").unbind().click(function () {
+            onSubmitEditclick(key);
+        });
+
         $("#btn-add-phone").unbind().click(function () {
             event.preventDefault();
-            console.log(FormAddPhone)
+            console.log(FormAddPhone);
             if ($(".btn-delete-phone").length <= 2)
                 $("#input-add-phone").append(FormAddPhone.replace('{phone}', ''));
-        })
+        });
 
         $("#btn-add-email").unbind().click(function () {
             event.preventDefault();
             if ($(".btn-delete-email").length <= 2)
                 $("#input-add-email").append(FormAddEmail.replace('{email}', ''));
-        })
+        });
 
         let phoneList = UsersList[key].phone.split(',');
         let inputPhone = null;
         inputPhone = phoneList.map(phone => {
             return FormAddPhone.replace('{phone}', phone);
-        })
+        });
 
         let emailList = UsersList[key].email.split(',');
         let inputEmail = null;
         inputEmail = emailList.map(email => {
             return FormAddEmail.replace('{email}', email);
-        })
+        });
 
         $('#edit-fname').val(UsersList[key].fname);
         $('#edit-lname').val(UsersList[key].lname);
         $('#input-add-phone').html(inputPhone.join(''));
         $('#input-add-email').html(inputEmail.join(''));
         $('#editUser').modal('show');
-    }
+    };
+
+    var onSubmitEditclick = (index) => {
+        let fname = $("#edit-fname").val();
+        let lname = $("#edit-lname").val();
+        let phone = $(".add_phone_val").map(function () {
+            return { "phone_user": $(this).val() };
+        }).get();
+        let email = $(".add_email_val").map(function () {
+            return { "email_user": $(this).val() };
+        }).get();
+        console.log(phone);
+        $.ajax({
+            url: "http://localhost:8000/api/company/users/edit",
+            method: "PUT",
+            data: {
+                user_id: UsersList[index].user_id,
+                fname: fname,
+                lname: lname,
+                phone_user: phone,
+                email_user: email
+            },
+            success: (res) => {
+                console.log(res);
+            },
+            error: (res) => {
+                console.log(res);
+            }
+        });
+    };
 
     var onBlockClick = (key) => {
         if (ModalBlock === null) {
@@ -239,7 +284,7 @@ var Users = new (function () {
                                     </div>
                                 </div>
                             </div>
-                        </div>`
+                        </div>`;
             $('body').append(ModalBlock);
         }
 
@@ -249,24 +294,79 @@ var Users = new (function () {
 
         $("#span-text-confirm-block").html("Are you sure to block " + UsersList[key].fname + " " + UsersList[key].lname + " ?");
         $("#BlockUser").modal('show');
-    }
+    };
+
+    var onUnBlockClick = (key) => {
+        if (ModalUnBlock === null) {
+            ModalUnBlock = `
+            <div class="modal fade" id="UnBlockUser">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Block User Company</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form id="form-delete-user">
+                                <h6 id="span-text-confirm-unblock"></h6>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="btn-unblock-submit" class="btn btn-info btn-block">UnBlock</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            $('body').append(ModalUnBlock);
+        }
+
+        $('#btn-unblock-submit').unbind().click(function () {
+            onSubmitUnBlockUser(key);
+        });
+
+        $("#span-text-confirm-unblock").html("Are you sure to unblock " + UsersList[key].fname + " " + UsersList[key].lname + " ?");
+        $("#UnBlockUser").modal('show');
+
+    };
 
     var onSubmitBlockUser = (key) => {
         $.ajax({
             url: "http://localhost:8000/api/company/users/block",
             method: "put",
             data: {
-                user_id: UsersList[key].user_id
+                user_id: UsersList[key].user_id,
+                block: 1
             },
             success: (res) => {
                 $("#BlockUser").modal('hide');
                 that.showLastestDatatable();
             },
-            error: () => {
+            error: (res) => {
                 console.log(res);
             }
         });
-    }
+    };
+
+    var onSubmitUnBlockUser = (key) => {
+        $.ajax({
+            url: "http://localhost:8000/api/company/users/block",
+            method: "put",
+            data: {
+                user_id: UsersList[key].user_id,
+                block: 0
+            },
+            success: (res) => {
+                $("#UnBlockUser").modal('hide');
+                that.showLastestDatatable();
+            },
+            error: (res) => {
+                console.log(res);
+            }
+        });
+    };
 
     var onDeleteClick = (key) => {
         if (ModalDelete === null) {
@@ -296,7 +396,7 @@ var Users = new (function () {
 
         $('#span-text-confirm').html("Are you sure to delete " + UsersList[key].email + " ? ")
         $('#DeleteUser').modal('show');
-    }
+    };
 
     var initialDatatable = () => {
         if (UsersDATATABLE !== null) {

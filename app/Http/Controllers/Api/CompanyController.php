@@ -90,9 +90,18 @@ class CompanyController extends Controller
         return response()->json(["status_code","201"],201);
     }
 
+    public function editUserCompany(Request $request){
+        $user = TB_USERS::where('user_id', $request->get('user_id'))
+        ->update([
+                'fname' => $request->get('fname'),
+                'lname' => $request->get('lname'),
+            ]);
+        TB_PHONE::updateOrCreate(["user_id"=>$request->get('user_id')],$request->get('phone_user'));
+    }
+
     public function blockUserCompany(Request $request){
         $user = TB_USERS::where('user_id', $request->get('user_id'))
-                        ->update(['block' => true]);
+                        ->update(['block' => $request->get('block')]);
         return response()->json(["status","success"],200);
     }
 
