@@ -96,7 +96,22 @@ class CompanyController extends Controller
                 'fname' => $request->get('fname'),
                 'lname' => $request->get('lname'),
             ]);
-        TB_PHONE::updateOrCreate(["user_id"=>$request->get('user_id')],$request->get('phone_user'));
+        
+        foreach($request->get('phone_user') as $value){
+            TB_PHONE::firstOrCreate([
+                'user_id' => $request->get('user_id'),
+                'phone_user' => $value
+            ]);
+        }
+
+        foreach($request->get('email_user') as $value){
+            TB_EMAIL::firstOrCreate([
+                'user_id' => $request->get('user_id'),
+                'email_user' => $value
+            ]);
+        }
+        
+        //TB_PHONE::updateOrCreate(["user_id"=>$request->get('user_id')],$request->get('phone_user'));
     }
 
     public function blockUserCompany(Request $request){

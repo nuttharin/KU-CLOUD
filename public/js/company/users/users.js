@@ -9,14 +9,14 @@ var Users = new (function () {
     var ModalDelete = null;
     const FormAddEmail = `
                             <div class="input-group mb-2">
-                                <input type="text" class="add_email_val form-control mt-1" value={email}>
+                                <input type="text" class="add_email_val form-control mt-1" value={email} disabled>
                                     <div class="input-group-append">
                                         <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
                                     </div>
                             </div>
                           `;
     const FormAddPhone = `  <div class="input-group mb-2">
-                                <input type="text" class="add_phone_val form-control mt-1" value={phone}>
+                                <input type="text" class="add_phone_val form-control mt-1" value={phone} disabled>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                                 </div>
@@ -86,7 +86,7 @@ var Users = new (function () {
     }
 
     var onSaveUserClick = () => {
-        $("#loading-save").show();
+        $("#addUser #loading-save").show();
         $("#form-add-user").hide();
         $("#btn-save-add-user").hide();
         let email_input = $("#add_email_val").val();
@@ -110,7 +110,7 @@ var Users = new (function () {
             success: (res) => {
                 this.showLastestDatatable();
                 $("#addUser").modal('hide');
-                $("#loading-save").hide();
+                $("#addUser #loading-save").hide();
                 $("#form-add-user").show();
                 $("#btn-save-add-user").show();
             },
@@ -143,7 +143,7 @@ var Users = new (function () {
                                 </div>
                             </div>
                         </div>
-                          `
+                          `;
             $('body').append(ModalDetail);
         }
 
@@ -203,15 +203,19 @@ var Users = new (function () {
 
         $("#btn-add-phone").unbind().click(function () {
             event.preventDefault();
-            console.log(FormAddPhone);
-            if ($(".btn-delete-phone").length <= 2)
-                $("#input-add-phone").append(FormAddPhone.replace('{phone}', ''));
+            let addPhone = FormAddPhone.replace('disabled', '');
+            addPhone = addPhone.replace('{phone}', '');
+            if ($(".btn-delete-phone").length <= 2) {
+                $("#input-add-phone").append(addPhone);
+            }
         });
 
         $("#btn-add-email").unbind().click(function () {
             event.preventDefault();
+            let addEmail = FormAddEmail.replace('disabled', '');
+            addEmail = addEmail.replace('{email}', '');
             if ($(".btn-delete-email").length <= 2)
-                $("#input-add-email").append(FormAddEmail.replace('{email}', ''));
+                $("#input-add-email").append(addEmail);
         });
 
         let phoneList = UsersList[key].phone.split(',');
@@ -237,12 +241,11 @@ var Users = new (function () {
         let fname = $("#edit-fname").val();
         let lname = $("#edit-lname").val();
         let phone = $(".add_phone_val").map(function () {
-            return { "phone_user": $(this).val() };
+            return $(this).val();
         }).get();
         let email = $(".add_email_val").map(function () {
-            return { "email_user": $(this).val() };
+            return $(this).val();
         }).get();
-        console.log(phone);
         $.ajax({
             url: "http://localhost:8000/api/company/users/edit",
             method: "PUT",
@@ -254,7 +257,8 @@ var Users = new (function () {
                 email_user: email
             },
             success: (res) => {
-                console.log(res);
+                $("#editUser").modal('hide');
+                this.showLastestDatatable();
             },
             error: (res) => {
                 console.log(res);
@@ -274,7 +278,16 @@ var Users = new (function () {
                                     </div>
 
                                     <div class="modal-body">
-                                        <form id="form-delete-user">
+                                        <div id="loading-save" style="display:none;">
+                                            <div class="lds-ring">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                            <h6 class='text-center'>Saving Data ...</h6>
+                                        </div>
+                                        <form id="form-block-user">
                                             <h6 id="span-text-confirm-block"></h6>
                                         </form>
                                     </div>
@@ -306,9 +319,17 @@ var Users = new (function () {
                             <h4 class="modal-title">Block User Company</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-
                         <div class="modal-body">
-                            <form id="form-delete-user">
+                            <div id="loading-save" style="display:none;">
+                                <div class="lds-ring">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <h6 class='text-center'>Saving Data ...</h6>
+                            </div>
+                            <form id="form-unblock-user">
                                 <h6 id="span-text-confirm-unblock"></h6>
                             </form>
                         </div>
@@ -333,6 +354,8 @@ var Users = new (function () {
     };
 
     var onSubmitBlockUser = (key) => {
+        $("#BlockUser").find("#loading-save").show();
+        $("#BlockUser #form-block-user").hide();
         $.ajax({
             url: "http://localhost:8000/api/company/users/block",
             method: "put",
@@ -342,6 +365,8 @@ var Users = new (function () {
             },
             success: (res) => {
                 $("#BlockUser").modal('hide');
+                $("#BlockUser").find("#loading-save").hide();
+                $("#BlockUser #form-block-user").show();
                 that.showLastestDatatable();
             },
             error: (res) => {
@@ -351,6 +376,8 @@ var Users = new (function () {
     };
 
     var onSubmitUnBlockUser = (key) => {
+        $("#UnBlockUser").find("#loading-save").show();
+        $("#UnBlockUser #form-unblock-user").hide();
         $.ajax({
             url: "http://localhost:8000/api/company/users/block",
             method: "put",
@@ -360,6 +387,8 @@ var Users = new (function () {
             },
             success: (res) => {
                 $("#UnBlockUser").modal('hide');
+                $("#UnBlockUser").find("#loading-save").hide();
+                $("#UnBlockUser #form-unblock-user").show();
                 that.showLastestDatatable();
             },
             error: (res) => {
@@ -454,6 +483,4 @@ var Users = new (function () {
 $(document).ready(function () {
     var TB_USERS = Users;
     TB_USERS.initialAndRun({});
-
-
 });

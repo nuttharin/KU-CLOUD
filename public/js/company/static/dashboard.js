@@ -7,6 +7,7 @@ class Widget {
         this.itemId = widget.itemId;
         this.widgetId = widget.widgetId;
         this.type = widget.type;
+        this.lastUpdateId = widget.lastUpdateId;
         this.title_name = widget.title_name;
         this.lastUpdate = widget.lastUpdate;
         this.timeInterval = widget.timeInterval;
@@ -15,9 +16,11 @@ class Widget {
         this.updateLastUpdate = (time = null) => {
             if (time) {
                 this.lastUpdate = new Date(time);
+                $("#" + this.lastUpdateId).html(this.lastUpdate.toDateString() + " " + this.lastUpdate.toLocaleTimeString());
             }
             else {
                 this.lastUpdate = new Date();
+                $("#" + this.lastUpdateId).html(this.lastUpdate.toDateString() + " " + this.lastUpdate.toLocaleTimeString());
             }
         };
 
@@ -44,7 +47,6 @@ class Widget {
             let _el = $(el);
             let itemId = _el.attr("item");
             let widget = Dashboard.getWidgetById(itemId);
-            console.log(widget);
             if (ModalEditWidget === null) {
                 ModalEditWidget = `
                 <div class="modal fade" id="EditWidget">
@@ -56,7 +58,7 @@ class Widget {
                             </div>
     
                             <div class="modal-body" id="form-edit-widget">
-                                <div class="row">
+                                <div class="row" id="div-title">
                                     <div class="col-6">
                                         <lable>Title</label>
                                         <input type="text" class="form-control" id="edit-title"/>
@@ -80,6 +82,20 @@ class Widget {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div id="edit-text-box" class="value_widget" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Text</label>
+                                            <input type="text" id="edit-text-custom" class="form-control" />
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Font Size (px)</label>
+                                            <input type="number" id="edit-font-size" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
     
                             <div class="modal-footer">
@@ -94,6 +110,7 @@ class Widget {
 
             let formEditWidget = $("#form-edit-widget");
             $(".edit-widget-form").hide();
+            $("#div-title").show();
 
             if (widget.type === "MutiLine") {
                 formEditWidget.find("#edit-title").val(widget.title_name);
@@ -107,6 +124,12 @@ class Widget {
                 formEditWidget.find("#edit-title").val(widget.title_name);
                 $("#edit-Gauges").show();
                 formEditWidget.find("#edit-Gauges  #edit-unit").val(widget.unit);
+            }
+            else if (widget.type === "TextBox") {
+                formEditWidget.find("#edit-text-box #edit-text-custom").val(widget.textbox);
+                formEditWidget.find("#edit-text-box #edit-font-size").val(widget.fontsize);
+                $("#edit-text-box").show();
+                $("#div-title").hide();
             }
 
             $("#EditWidget").modal('show');
@@ -124,6 +147,14 @@ class Widget {
             $(".btn-edit-wi").unbind().click(function () {
                 onEditWidgetClick($(this));
             });
+
+            $(".btn-full-screen").unbind().click(function () {
+                onFullScreenClick($(this));
+            });
+        };
+
+        let onFullScreenClick = (el) => {
+            $("#modal-full-screen").modal('show');
         };
 
         let onDeleteWidgetClick = (el) => {
@@ -192,6 +223,10 @@ class Widget {
             else if (data.type === "Map") {
                 formateDate.title_name = data.title_name;
             }
+            else if (data.type === "TextBox") {
+                formateDate.textbox = data.textbox;
+                formateDate.fontsize = data.fontsize;
+            }
 
             return formateDate;
 
@@ -217,6 +252,8 @@ class Widget {
                     return `
                             <div id="${this.widgetId}"></div>
                             `;
+                case 'TextBox':
+                    return `<span id="${this.widgetId}"></span>`;
                 default:
                     break;
             }
@@ -234,10 +271,21 @@ class Widget {
             $(".grid-stack").gridstack(options);
             grid = $(".grid-stack").data("gridstack");
 
-            let layout_widget = $("#layout-widget").html();
-            layout_widget = layout_widget.replace(/div_id/g, this.itemId);
-            layout_widget = layout_widget.replace("((wi))", this.selectWiContent());
-            layout_widget = layout_widget.replace("((title_name))", this.title_name);
+            let layout_widget = "";
+            if (this.type !== "TextBox") {
+                layout_widget = $("#layout-widget").html();
+                layout_widget = layout_widget.replace(/div_id/g, this.itemId);
+                layout_widget = layout_widget.replace("((wi))", this.selectWiContent());
+                layout_widget = layout_widget.replace("((title_name))", this.title_name);
+                layout_widget = layout_widget.replace("{last_update}", this.lastUpdateId);
+            }
+            else {
+                node.width = 6;
+                node.height = 1;
+                layout_widget = $("#layout-widget-text").html();
+                layout_widget = layout_widget.replace(/div_id/g, this.itemId);
+                layout_widget = layout_widget.replace("((wi))", this.selectWiContent());
+            }
 
             node.id = this.itemId;
             let g = null;
@@ -271,6 +319,7 @@ class MutiLine extends Widget {
     constructor(widget) {
         super(widget);
 
+        this.fullScreenId = widget.fullScreenId;
         this.chart = null;
         this.datasets = widget.datasets;
 
@@ -313,7 +362,6 @@ class MutiLine extends Widget {
                     }
                 }
             });
-
             this.chart = myChart;
         };
 
@@ -342,6 +390,7 @@ class MutiLine extends Widget {
 class ChartTextLine extends MutiLine {
     constructor(widget) {
         super(widget);
+        this.fullScreenId = widget.fullScreenId;
         this.unit = widget.unit;
         this.rgb = widget.rgb;
 
@@ -399,7 +448,7 @@ class ChartTextLine extends MutiLine {
                 },
                 options: optionChartLineNotLable
             });
-
+            console.log(myChart);
             this.chart = myChart;
             this.updateData();
             return myChart;
@@ -468,6 +517,7 @@ class ChartTextLine extends MutiLine {
 class Gauges extends Widget {
     constructor(widget) {
         super(widget);
+        this.fullScreenId = widget.fullScreenId;
         this.textId = widget.textId;
         this.gaugeWidget = null;
         this.opts = widget.opts;
@@ -483,6 +533,7 @@ class Gauges extends Widget {
             gauge.animationSpeed = 32; // set animation speed (32 is default value)
             gauge.set(0); // set actual value
             this.gaugeWidget = gauge;
+            this.updateData();
         };
 
         this.updateData = () => {
@@ -497,13 +548,14 @@ class Gauges extends Widget {
 class Map extends Widget {
     constructor(widget) {
         super(widget);
-
+        this.fullScreenId = widget.fullScreenId;
         this.myMap = null;
 
         this.createMap = () => {
             let mymap;
             let mapid = this.widgetId;
-            $('#' + mapid).css('height', '100%');
+            let height = $("#" + this.itemId).height() - 100;
+            $('#' + mapid).css('height', height);
             $('#' + mapid).css('width', 'auto');
 
             mymap = L.map(mapid, {
@@ -546,6 +598,20 @@ class Map extends Widget {
             // mymap.on('mouseout', enableGrid);
 
             this.myMap = mymap;
+            console.log(this.myMap);
+        };
+    }
+}
+
+class TextBox extends Widget {
+    constructor(widget) {
+        super(widget);
+        this.textbox = widget.textbox;
+        this.fontsize = widget.fontsize;
+        this.createTextBox = () => {
+            console.log($("#" + this.widgetId));
+            $("#" + this.widgetId).html(this.textbox);
+            $("#" + this.widgetId).css({ "font-size": this.fontsize + "px" });
         };
     }
 }
@@ -603,6 +669,8 @@ class Dashboard {
             let data_widget = {
                 itemId: "item-" + divId,
                 widgetId: "myChart_" + divId,
+                lastUpdateId: "myChartLastUpdate_" + divId,
+                fullScreenId: "myChartFull_" + divId,
                 type: getWigetType(),
                 title_name: getTitleName(),
                 lastUpdate: getDateTimeNow(),
@@ -619,6 +687,8 @@ class Dashboard {
             let data_widget = {
                 itemId: "item-" + divId,
                 widgetId: "myChart_" + divId,
+                lastUpdateId: "myChartLastUpdate_" + divId,
+                fullScreenId: "myChartFull_" + divId,
                 type: getWigetType(),
                 title_name: getTitleName(),
                 lastUpdate: getDateTimeNow(),
@@ -638,6 +708,8 @@ class Dashboard {
                 textId: "gauges-text-" + divId,
                 itemId: "item-" + divId,
                 widgetId: "gauges-" + divId,
+                lastUpdateId: "gaugesLastUpdate-" + divId,
+                fullScreenId: "gaugesFull-" + divId,
                 type: getWigetType(),
                 title_name: getTitleName(),
                 lastUpdate: getDateTimeNow(),
@@ -673,14 +745,12 @@ class Dashboard {
             return data_widget;
         };
 
-        let getValueWigetText = (divId) => {
-
-        };
-
         let getValueMap = (divId) => {
             let data_widget = {
                 itemId: "item-" + divId,
                 widgetId: "map-" + divId,
+                lastUpdateId: "mapLastUpdate-" + divId,
+                fullScreenId: "mapFull-" + divId,
                 type: getWigetType(),
                 title_name: getTitleName(),
                 lastUpdate: getDateTimeNow(),
@@ -690,8 +760,27 @@ class Dashboard {
             return data_widget;
         };
 
+
+        let getValueWigetText = (divId) => {
+            let textbox = $("#text-box").find("#text-custom").val();
+            let fontsize = $("#text-box").find("#font-size").val();
+            let data_widget = {
+                itemId: "item-" + divId,
+                widgetId: "text-" + divId,
+                type: getWigetType(),
+                title_name: null,
+                lastUpdate: null,
+                timeInterval: null,
+                textbox: textbox,
+                fontsize: fontsize
+            };
+
+            return data_widget;
+        };
+
         let createFormBodyInputWidget = (type) => {
             $(".value_widget").hide();
+            $("#default-value").show();
             if (type === "MutiLine") {
                 $("#MutiLine").show();
             }
@@ -701,8 +790,9 @@ class Dashboard {
             else if (type === "Gauges") {
                 $("#Gauges").show();
             }
-            else if (type === "text") {
+            else if (type === "TextBox") {
                 $("#text-box").show();
+                $("#default-value").hide();
             }
 
             else {
@@ -750,8 +840,15 @@ class Dashboard {
                 obj_widget.createWidget();
                 obj_widget.createMap();
             }
-            //console.log(obj_widget);
+            else if (type === "TextBox") {
+                widget = getValueWigetText(divId);
+                obj_widget = new TextBox(widget);
+                obj_widget.createWidget();
+                obj_widget.createTextBox();
+            }
             widgetList.push(obj_widget);
+            console.log(obj_widget);
+
         };
 
         let saveGrid = () => {
@@ -777,9 +874,11 @@ class Dashboard {
             $("#settingW").click(function () {
                 clearInterval(time);
                 $(this).hide();
+                $(".full-screen").hide();
                 $(".edit-widget").show();
                 $("#addW").show();
                 $("#saveW").show();
+                $("#cancelW").show();
                 grid.enableMove(true);
                 grid.enableResize(true);
             });
@@ -800,10 +899,24 @@ class Dashboard {
             $("#saveW").unbind().click(function () {
                 $("#saveW").hide();
                 $("#addW").hide();
+                $("#cancelW").hide();
                 $("#settingW").show();
+                $(".full-screen").show();
                 $(".edit-widget").hide();
                 updateDatalast();
                 saveGrid();
+                grid.enableMove(false);
+                grid.enableResize(false);
+            });
+
+            $("#cancelW").unbind().click(function () {
+                $("#saveW").hide();
+                $("#addW").hide();
+                $(".edit-widget").hide();
+                $(".full-screen").show();
+                $("#cancelW").hide();
+                $("#settingW").show();
+                updateDatalast();
                 grid.enableMove(false);
                 grid.enableResize(false);
             });
@@ -848,6 +961,8 @@ class Dashboard {
                 widgets.lastUpdate = getDateTimeNow();
                 if (type === "MutiLine") {
                     widgets.widgetId = "myChart_" + divId;
+                    widgets.fullScreenId = "myChartFull_" + divId;
+                    widgets.lastUpdateId = "myChartLastUpdate_" + divId;
                     obj_widget = new MutiLine(widgets);
                     obj_widget.createWidget(gridData);
                     obj_widget.createMutiLine();
@@ -855,21 +970,32 @@ class Dashboard {
                 else if (type === 'Gauges') {
                     widgets.textId = "gauges-text-" + divId;
                     widgets.widgetId = "gauges-" + divId;
+                    widgets.lastUpdateId = "gaugesLastUpdate-" + divId;
+                    widgets.fullScreenId = "gaugesFull-" + divId;
                     obj_widget = new Gauges(widgets);
                     obj_widget.createWidget(gridData);
                     obj_widget.createGages();
                 }
                 else if (type === "text-line") {
                     widgets.widgetId = "myChart_" + divId;
+                    widgets.lastUpdateId = "myChartLastUpdate_" + divId;
+                    widgets.fullScreenId = "myChartFull_" + divId;
                     obj_widget = new ChartTextLine(widgets);
                     obj_widget.createWidget(gridData);
                     obj_widget.createTextLine();
                 }
                 else if (type === "Map") {
                     widgets.widgetId = "map-" + divId;
+                    widgets.fullScreenId = "mapFull-" + divId;
                     obj_widget = new Map(widgets);
                     obj_widget.createWidget(gridData);
                     obj_widget.createMap();
+                }
+                else if (type === "TextBox") {
+                    widgets.widgetId = "text-" + divId;
+                    obj_widget = new TextBox(widgets);
+                    obj_widget.createWidget(gridData);
+                    obj_widget.createTextBox();
                 }
                 widgetList.push(obj_widget);
             }
@@ -905,8 +1031,8 @@ class Dashboard {
         let _lastUpdate = new Date(lastUpdate);
 
         let diff = (current.getTime() - _lastUpdate.getTime()) / 1000;
-
-        console.log(diff);
+        //หน่วยวินาที
+        //console.log(diff);
         // diff /= 60;
 
         return Math.abs(Math.round(diff));
@@ -924,12 +1050,15 @@ class Dashboard {
 }
 
 $(document).ready(function () {
+    $("#sidebarCollapse").click();
     let dashboard = new Dashboard();
     dashboard.initDashboard();
 
     $('.grid-stack').on('gsresizestop', function (event, elem) {
         let el = $(elem);
         let data_widget = JSON.parse(el.data('_gridstack_data'));
+        let node = el.data('_gridstack_node');
+        console.log(node);
         let type = data_widget.type;
         if (type === "Gauges") {
 
@@ -946,6 +1075,11 @@ $(document).ready(function () {
             // document.getElementById('gauge').getContext('2d').setTransform(1, 0, 0, 1, 0, 0);
             // document.getElementById('gauge').getContext('2d').clearRect(0, 0, document.getElementById('gauge').getContext('2d').canvas.width, document.getElementById('gauge').getContext('2d').canvas.height);
             // document.getElementById('gauge').getContext('2d').restore();
+        }
+        else if (type === "Map") {
+            let map = Dashboard.getWidgetById(node.id);
+            console.log(map);
+            map.myMap.invalidateSize();
         }
     });
 });

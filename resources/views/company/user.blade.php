@@ -160,6 +160,7 @@
                     </div>
                     <h6 class='text-center'>Saving Data ...</h6>
                 </div>
+
                 <form id="form-add-user">
                     <div class="row">
                         <div class="col-6">
