@@ -41,7 +41,7 @@
 .select-menu sub title{
   background-color: transparent;
   display: block;
-  padding: 20px;
+  padding-top: 15px;
   color: rgb(0, 0, 0);
   font-size: 20px;
 }
