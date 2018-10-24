@@ -24,6 +24,10 @@ class AdminController extends Controller
     {
         return view('admin.Company');
     }
+    public function Infographic()
+    {
+        return view('admin.Infographic');
+    }
     public function Static()
     {
         return view('admin.Static');
