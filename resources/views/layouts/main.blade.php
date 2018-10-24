@@ -144,7 +144,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#UsersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas fa-users"></i>
                         <span>Users</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
@@ -168,8 +168,14 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{action('AdminController@Company')}}">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-briefcase"></i>
                         <span class="link_hide">Company</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{action('AdminController@Infographic')}}">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="link_hide">Infographic</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -197,6 +203,8 @@
 
         <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
         <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
+
+        <script type="text/javascript" src="{{url('fabric/fabric.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">
