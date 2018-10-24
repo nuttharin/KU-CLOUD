@@ -11,7 +11,10 @@
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
 
 <div class="row border-bottom">
-    <div class="col-12 text-right">
+    <div class="col-4 text-left" style="padding: 30px 0px 10px 15px">
+        <span class="h4">Create Infogarphic</span>
+    </div>
+    <div class="col-8 text-right">
         <button type="button" class="btn btn-default btn-md" style="margin: 20px;"><i class="fas fa-desktop"></i></button>
         <button type="button" class="btn btn-primary btn-md">Download</button>
         <button type="button" class="btn btn-success btn-md">Save</button>

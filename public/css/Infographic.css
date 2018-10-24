@@ -18,7 +18,7 @@
 
 .vertical-menu a.actives {
   background-color: rgb(157, 166, 255);
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .select-menu {
@@ -51,6 +51,9 @@
   padding: 20px;
   font-size: 17px;
   color: white;
+  border-bottom: 3px solid;
+  border-color: rgb(255, 255, 255);
+  border-radius: 0px;
 }
 
 .select-menu sub.head close {
