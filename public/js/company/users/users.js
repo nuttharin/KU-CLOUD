@@ -453,7 +453,7 @@ var Users = new (function () {
             $('#example').show();
             $('.text-static').show();
         }
-    }
+    };
 
     this.initialAndRun = () => {
         this.showLastestDatatable();

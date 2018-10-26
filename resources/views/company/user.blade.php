@@ -116,7 +116,7 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Block</th>
+                            <th>Active</th>
                             <th>Type user</th>
                             <th>Action</th>
                         </tr>
