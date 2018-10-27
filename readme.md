@@ -34,9 +34,35 @@ DB_PASSWORD=
 3. php artisan migrate
 
 User Login
-1.admin@hotmail.com
-2.company@hotmail.com
-password : secret
+<style>
+    table, td, th {    
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 15px;
+    }
+</style>
+<table>
+    <tr>
+        <th>Email</th>
+        <th>Password</th>   
+    </tr>
+    <tr>
+        <td>admin@hotmail.com</td>
+        <td>secret</td>
+    </tr>
+    <tr>
+        <td>company@hotmail.com</td>
+        <td>secret</td>
+    </tr>
+</table>
 
 กรณีเขียน ES6
 - npm install
