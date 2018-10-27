@@ -118,6 +118,7 @@
                             <th>Email</th>
                             <th>Active</th>
                             <th>Type user</th>
+                            <th>Online - Offline</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -198,7 +199,7 @@
 </div>
 
 
-<script type="text/javascript" src="{{url('js/company/users/users.js')}}"></script>
+<script type="text/javascript" src="{{mix('js/company/users/users.min.js')}}"></script>
 
 <script>
     $(document).ready(function () {

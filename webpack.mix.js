@@ -40,7 +40,9 @@ mix.webpackConfig({
  |
  */
 
-mix.js('resources/js/static/dashboard.min.js', 'public/js/company/static');
+mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static')
+    .js('resources/js/company/users/users.min.js', 'public/js/company/users')
+    .js('resources/js/company/customer/customer.min.js', 'public/js/company/customer');
 
 
 if (mix.inProduction) {

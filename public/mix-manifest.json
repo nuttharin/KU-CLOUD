@@ -1,3 +1,5 @@
 {
-    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=434c70c45a4a8e49fe1a"
+    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=dd7c37ec74d94e5c7553",
+    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=0f631f587adeadd65e20",
+    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=25b689fa6158aa083911"
 }

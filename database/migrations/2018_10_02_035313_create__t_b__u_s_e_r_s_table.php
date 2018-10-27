@@ -19,6 +19,8 @@ class CreateTBUSERSTable extends Migration
             $table->string('fname',50);
             $table->string('lname',50);
             $table->boolean('block')->default(false);
+            $table->boolean('online')->default(false);
+            $table->string('socketId',100)->nullable();
             $table->enum('type_user',['ADMIN','COMPANY','CUSTOMER']);
             $table->timestamps();
 
