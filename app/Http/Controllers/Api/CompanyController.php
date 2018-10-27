@@ -180,4 +180,12 @@ class CompanyController extends Controller
         dd($customer);
 
     }
+
+    public function countUserOnline(Request $request){
+        $type_user = $request->get('type_user');
+        $users = DB::select('SELECT if(TB_USERS.online,?,?) as online,COUNT(user_id) as count FROM TB_USERS
+        WHERE type_user = ?
+        GROUP BY TB_USERS.online',['online','offline',$type_user]);
+        return response()->json(compact('users'),200);
+    }
 }
