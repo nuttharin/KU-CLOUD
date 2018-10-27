@@ -14,7 +14,7 @@ class TB_USERS extends Authenticatable implements JWTSubject
     protected  $table = "TB_USERS";
     //
     protected $fillable = [
-        'user_id','fname','lname','password','type_user','block'
+        'user_id','fname','lname','password','type_user','block','online'
     ];
 
     protected $hidden = [

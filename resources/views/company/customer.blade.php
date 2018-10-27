@@ -183,5 +183,5 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{url('js/company/customer/customer.js')}}"></script>
+<script type="text/javascript" src="{{mix('js/company/customer/customer.min.js')}}"></script>
 @endsection

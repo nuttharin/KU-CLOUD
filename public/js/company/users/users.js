@@ -27,6 +27,7 @@ var Users = new (function () {
         var Datatable = new Array();
         UsersDATATABLE.fnClearTable();
         $.each(userList.users, function (index, item) {
+
             let ret = [];
             let btnBlock = `                            
             <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
