@@ -48,7 +48,7 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User</p>
                                             <div class="fluid-container">
-                                                <h3 class="font-weight-medium text-right mb-0">6 User</h3>
+                                                <h3 class="font-weight-medium text-right mb-0" id="total-user">0 User</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User Online</p>
                                             <div class="fluid-container">
-                                                <h3 class="font-weight-medium text-right mb-0">5 User</h3>
+                                                <h3 class="font-weight-medium text-right mb-0" id="total-user-online">0 User</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                        <div class="card card-statistics  bg-warning text-white">
+                        <div class="card card-statistics bg-secondary text-white">
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
@@ -94,7 +94,7 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User Offline</p>
                                             <div class="fluid-container">
-                                                <h3 class="font-weight-medium text-right mb-0">1 User</h3>
+                                                <h3 class="font-weight-medium text-right mb-0" id="total-user-offline">0 User</h3>
                                             </div>
                                         </div>
                                     </div>
