@@ -5,15 +5,18 @@
 
 <h2>Set Up database</h2>
 1. file .env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=KU_CLOUD2
-DB_USERNAME=root
-DB_PASSWORD=
+
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=KU_CLOUD2
+    DB_USERNAME=root
+    DB_PASSWORD=
+
 
 2. เปลี่ยน charset กับ collation
 - config/database.php
+
      'connections' => [
          ...
          'mysql' => [
@@ -31,6 +34,7 @@ DB_PASSWORD=
                 'engine' => null,
             ],
      ]
+
 3. php artisan migrate
 
 <h2>User Login</h2>
@@ -50,18 +54,27 @@ DB_PASSWORD=
 </table>
 
 <h2>กรณีเขียน ES6</h2>
-- npm install
-- ให้เขียนไฟล์ไว้ที่ resources/js สร้างโฟลเดอร์ขึ้นมา
-- ดูการ map path จาก resources/js มาไว้ที่ public/js ได้ที่ webpack.mix.js
-- npm run dev จะทำการ convert ไฟล์ js ให้เป็นเวอร์ชันที่สามารถรันได้ทุก Browser ไฟล์ที่ถูก convert แล้วจะอยู่ใน public/js/... ทีเราตั้งไว้
-- npm run watch เมื่อมีการ Save ไฟล์จะทำการ convert ไฟล์ไว้ใน public/js/... ทีเราตั้งไว้ ทันที
+<ul>
+    <li>npm install</li>
+    <li>ให้เขียนไฟล์ไว้ที่ resources/js สร้างโฟลเดอร์ขึ้นมา</li>
+    <li>ดูการ map path จาก resources/js มาไว้ที่ public/js ได้ที่ webpack.mix.js</li>
+    <li>npm run dev จะทำการ convert ไฟล์ js ให้เป็นเวอร์ชันที่สามารถรันได้ทุก Browser ไฟล์ที่ถูก convert แล้วจะอยู่ใน public/js/... ทีเราตั้งไว้</li>
+    <li>npm run watch เมื่อมีการ Save ไฟล์จะทำการ convert ไฟล์ไว้ใน public/js/... ทีเราตั้งไว้ ทันที</li>    
+</ul>
 
 <h2>เพิ่มประสิทธิภาพ js</h2>
-- npm run prod จะเป็นการบีบอัดไฟล์ js ให้เล็กลงทำให้โหลดได้เร็วขึ้น (ใช้กรณีทำเสร็จทุกอย่างแล้ว)
-- การ import / export ไฟล์ ดูตัวอย่าง code ที่ resources/js/static/dashboard.min.js และ resources/js/utility.js
-    - import { deepCopy } from '../utility.js';
-    - กรณีนี้จะช่วยลดขนาดไฟล์ลงได้ เพราะบางครั้งเราไม่ได้ใช้ function ทั้งหมดในไฟล์ที่เราเรียกมา เราสามารถ import เฉพาะอันที่เราต้องการใช้ได้
-- import / export ไม่รองรับการเขียนแบบไม่ผ่านการ convert จาก webpack
+
+<ul>
+<li>npm run prod จะเป็นการบีบอัดไฟล์ js ให้เล็กลงทำให้โหลดได้เร็วขึ้น (ใช้กรณีทำเสร็จทุกอย่างแล้ว)</li>
+<li>
+    การ import / export ไฟล์ ดูตัวอย่าง code ที่ resources/js/static/dashboard.min.js และ resources/js/utility.js
+    <ul>
+        <li>import { deepCopy } from '../utility.js';</li>
+        <li>กรณีนี้จะช่วยลดขนาดไฟล์ลงได้ เพราะบางครั้งเราไม่ได้ใช้ function ทั้งหมดในไฟล์ที่เราเรียกมา เราสามารถ import เฉพาะอันที่เราต้องการใช้ได้</li>
+    </ul>
+</li>
+<li>import / export ไม่รองรับการเขียนแบบไม่ผ่านการ convert จาก webpack</li>
+</ul>
 
 <h2>การใช้ online-offline-user</h2> 
 - เข้าไปที่โฟลเดอร์ online-offline-user 
