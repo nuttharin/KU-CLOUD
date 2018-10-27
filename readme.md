@@ -51,3 +51,18 @@ password : secret
     - import { deepCopy } from '../utility.js';
     - กรณีนี้จะช่วยลดขนาดไฟล์ลงได้ เพราะบางครั้งเราไม่ได้ใช้ function ทั้งหมดในไฟล์ที่เราเรียกมา เราสามารถ import เฉพาะอันที่เราต้องการใช้ได้
 - import / export ไม่รองรับการเขียนแบบไม่ผ่านการ convert จาก webpack
+
+การใช้ online-offline-user 
+- เข้าไปที่โฟลเดอร์ online-offline-user 
+- npm install
+- สร้างไฟล์ .env
+
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=KU_CLOUD2
+    DB_USERNAME=root
+    DB_PASSWORD=
+    JWT_KEY=1JFAi4s5D5L4MYkUgfDHyenLKgnum73d
+
+- JWT_KEY ต้องเหมือนกับ .env ของ laravel
+- npm start
