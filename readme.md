@@ -1,9 +1,9 @@
-KU CLOUD
+<h1>KU CLOUD</h1>
 - composer install
 - php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 - php artisan jwt:secret
 
-Set Up database
+<h2>Set Up database</h2>
 1. file .env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -33,7 +33,7 @@ DB_PASSWORD=
      ]
 3. php artisan migrate
 
-User Login
+<h2>User Login</h2>
 <table>
     <tr>
         <th>Email</th>
@@ -49,21 +49,21 @@ User Login
     </tr>
 </table>
 
-กรณีเขียน ES6
+<h2>กรณีเขียน ES6</h2>
 - npm install
 - ให้เขียนไฟล์ไว้ที่ resources/js สร้างโฟลเดอร์ขึ้นมา
 - ดูการ map path จาก resources/js มาไว้ที่ public/js ได้ที่ webpack.mix.js
 - npm run dev จะทำการ convert ไฟล์ js ให้เป็นเวอร์ชันที่สามารถรันได้ทุก Browser ไฟล์ที่ถูก convert แล้วจะอยู่ใน public/js/... ทีเราตั้งไว้
 - npm run watch เมื่อมีการ Save ไฟล์จะทำการ convert ไฟล์ไว้ใน public/js/... ทีเราตั้งไว้ ทันที
 
-เพิ่มประสิทธิภาพ 
+<h2>เพิ่มประสิทธิภาพ js</h2>
 - npm run prod จะเป็นการบีบอัดไฟล์ js ให้เล็กลงทำให้โหลดได้เร็วขึ้น (ใช้กรณีทำเสร็จทุกอย่างแล้ว)
 - การ import / export ไฟล์ ดูตัวอย่าง code ที่ resources/js/static/dashboard.min.js และ resources/js/utility.js
     - import { deepCopy } from '../utility.js';
     - กรณีนี้จะช่วยลดขนาดไฟล์ลงได้ เพราะบางครั้งเราไม่ได้ใช้ function ทั้งหมดในไฟล์ที่เราเรียกมา เราสามารถ import เฉพาะอันที่เราต้องการใช้ได้
 - import / export ไม่รองรับการเขียนแบบไม่ผ่านการ convert จาก webpack
 
-การใช้ online-offline-user 
+<h2>การใช้ online-offline-user</h2> 
 - เข้าไปที่โฟลเดอร์ online-offline-user 
 - npm install
 - สร้างไฟล์ .env
