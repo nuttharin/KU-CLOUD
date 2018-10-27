@@ -16,8 +16,7 @@
     DB_PASSWORD=
 
 
-2. เปลี่ยน charset กับ collation
-config/database.php
+2. เปลี่ยน charset กับ collation config/database.php
 
      'connections' => [
          ...
