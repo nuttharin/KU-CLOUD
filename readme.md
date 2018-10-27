@@ -1,7 +1,9 @@
 <h1>KU CLOUD</h1>
-- composer install
-- php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
-- php artisan jwt:secret
+<ul>
+    <li>composer install</li>
+    <li>php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"</li>
+    <li>php artisan jwt:secret</li>
+</ul>
 
 <h2>Set Up database</h2>
 1. file .env
@@ -15,7 +17,7 @@
 
 
 2. เปลี่ยน charset กับ collation
-- config/database.php
+config/database.php
 
      'connections' => [
          ...
