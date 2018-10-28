@@ -42,7 +42,16 @@ class AuthController extends Controller
                 $token = JWTAuth::encode($payload);
                 
                 //$payload = JWTAuth::decode($token);
-                return response()->json(['token' => $token->get(),'status'=>200],200);
+                if($user[0]->type_user == "ADMIN"){
+                    return response()->json(['token' => $token->get(),'path'=>'/Admin/UsersAdminister','status'=>200],200);
+                }
+                else if($user[0]->type_user == "COMPANY"){
+                    return response()->json(['token' => $token->get(),'path'=>'/Company/User','status'=>200],200);
+                }
+                else if($user[0]->type_user == "CUSTOMER"){
+                    return response()->json(['token' => $token->get(),'path'=>'','status'=>200],200);
+                }
+             
                 //return response()->json(compact('payload'));
             }
             else{

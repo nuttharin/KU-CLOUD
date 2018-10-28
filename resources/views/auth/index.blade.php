@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('layouts.login') 
 @section('content')
 <style>
     #form_login {
@@ -23,7 +23,7 @@
         cursor: pointer;
     }
 
-     #btn-close-login:hover {
+    #btn-close-login:hover {
         transition: 0.3s;
         color: #e13130;
     }
@@ -37,23 +37,23 @@
         -moz-animation: Gradient 15s ease infinite;
         animation: Gradient 15s ease infinite;
         position: fixed;
-        width:100%;
+        width: 100%;
         z-index: 1;
         height: 100%;
         overflow: hidden;
 
     }
 
-    .content-wrapper{
+    .content-wrapper {
         background-color: #f2f3f9;
         top: 100%;
-        position:absolute;
+        position: absolute;
         z-index: 2;
-        width: 100%; 
+        width: 100%;
         overflow: hidden;
     }
 
-    .login-wrapper{
+    .login-wrapper {
         color: #000;
         top: 100%;
         background: #f2f3f9;
@@ -62,18 +62,18 @@
         -moz-animation: Gradient 15s ease infinite;
         animation: Gradient 15s ease infinite;
         position: fixed;
-        width:100%;
+        width: 100%;
         z-index: 3;
         height: 100%;
         overflow: hidden;
     }
 
-    #content{
+    #content {
         position: unset !important;
         padding: 0;
     }
 
-    
+
     .modal-content {
         border-radius: 15px !important;
     }
@@ -82,9 +82,10 @@
         border: 0;
     }
 
-    .modal-footer{
+    .modal-footer {
         border: 0;
     }
+
     @-webkit-keyframes Gradient {
         0% {
             background-position: 0% 50%
@@ -151,10 +152,9 @@
                         <div class="card-body">
                             <h4 class="card-title">Lorem ipsum</h4>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                                fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent quis vehicula tellus.
-                                Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris consectetur
-                                ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent
+                                quis vehicula tellus. Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris
+                                consectetur ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
                                 tristique lorem. Vestibulum
                             </p>
                         </div>
@@ -165,10 +165,9 @@
                         <div class="card-body">
                             <h4 class="card-title">Lorem ipsum</h4>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                                fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent quis vehicula tellus.
-                                Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris consectetur
-                                ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent
+                                quis vehicula tellus. Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris
+                                consectetur ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
                                 tristique lorem. Vestibulum
                             </p>
                         </div>
@@ -179,10 +178,9 @@
                         <div class="card-body">
                             <h4 class="card-title">Lorem ipsum</h4>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                                fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent quis vehicula tellus.
-                                Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris consectetur
-                                ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent
+                                quis vehicula tellus. Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris
+                                consectetur ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
                                 tristique lorem. Vestibulum
                             </p>
                         </div>
@@ -245,7 +243,7 @@
                 success: (res) => {
                     console.log(res);
                     setCookie("token", res.token);
-                    window.location = "/Company/User ";
+                    window.location = res.path;
                 },
                 error: (res) => {
                     console.log(res);

@@ -1,14 +1,15 @@
 $(document).ready(function () {
-  $("#sidebar").mCustomScrollbar({
-    theme: "minimal-dark"
-  });
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal-dark"
+    });
     $('.brand-logo').show();
     $('.brand-logo-mini').hide();
     var sidebar = $('#sidebar');
 
     //Add active class to nav-link based on url dynamically
     //Active class can be hard coded directly in html file also as required
-    var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
+    //location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
+    var current = location.pathname;
     $('ul li a', sidebar).each(function () {
         var $this = $(this);
         if (current === "") {
@@ -26,7 +27,7 @@ $(document).ready(function () {
                 $(this).parents('.nav-item').last().addClass('active');
                 if ($(this).parents('.sub').length) {
                     $(this).closest('.collapse').addClass('show');
-                    $(this).parents('.nav-item').children(".dropdown-toggle").attr('aria-expanded','true');
+                    $(this).parents('.nav-item').children(".dropdown-toggle").attr('aria-expanded', 'true');
                     $(this).addClass('active');
                 }
             }
@@ -42,9 +43,9 @@ $(document).ready(function () {
         if ($('#sidebar').hasClass('active')) {
             $('.nav-profile-hide').show();
             $("#sidebar").mCustomScrollbar({
-              theme: "minimal-dark"
+                theme: "minimal-dark"
             });
-            
+
         } else {
             $('.nav-profile-hide').hide();
             $("#sidebar").mCustomScrollbar('destroy');

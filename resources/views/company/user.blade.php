@@ -15,8 +15,6 @@
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
 
-
-
 <div class="card bg-white" style="margin-top:30px;">
     <div class="card-header bg-white">
         <div class="row">
@@ -118,7 +116,7 @@
                             <th>Email</th>
                             <th>Active</th>
                             <th>Type user</th>
-                            <th>Online - Offline</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
