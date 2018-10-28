@@ -55,7 +55,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
     <!-- loading -->
-    <link rel="stylesheet" href="{{url('css/loading.css')}}"> {{--
+    <link rel="stylesheet" href="{{url('css/loading.css')}}">
 
     <!-- sweetalert -->
     <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}">
