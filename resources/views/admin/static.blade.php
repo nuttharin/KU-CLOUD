@@ -1,197 +1,195 @@
-@extends('layouts.main') 
-@section('title','Admin | Static') 
+@extends('layouts.main')
+@section('title','Admin | Company')
 @section('content')
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
 
-<script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
-<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+svg {
+  font: 10px sans-serif;
+}
 
-<script src="{{url('js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}}"></script>
+.y.axis path {
+  display: none;
+}
 
-<style type="text/css">
-    .grid-stack-item {}
+.y.axis line {
+  stroke: #fff;
+  stroke-opacity: .2;
+  shape-rendering: crispEdges;
+}
 
-    .grid-stack-item-content {
-        color: #2c3e50;
-        text-align: center;
-        background-color: #FFFFFF;
-        box-shadow: 1px 1px 10px 1px #aaaaaa;
-    }
+.y.axis .zero line {
+  stroke: #000;
+  stroke-opacity: 1;
+}
 
-    element.style {
-        width: 100% !important;
-    }
+.title {
+  font: 300 78px Helvetica Neue;
+  fill: #666;
+}
 
-    .modal-lg {
-        max-width: 1100px !important;
-    }
+.birthyear,
+.age {
+  text-anchor: middle;
+}
+
+.birthyear {
+  fill: #fff;
+}
+
+rect {
+  fill-opacity: .6;
+  fill: #e377c2;
+}
+
+rect:first-child {
+  fill: #1f77b4;
+}
+
 </style>
-
-<div class="row border-bottom">
-    <div class="col-6" style="padding: 30px 0px 10px 15px">
-        <span class="h3">Static</span>
+<body>
+    <div id="ghost">
+        <svg id="svgtest"></svg>
     </div>
-    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px">
-        <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add Widget</button>
-        <button class="btn btn-warning btn-radius" id="settingW"><i class="fas fa-cog"></i></button>
-        <button class="btn btn-info btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
-    </div>
-</div>
-<br />
+    <canvas id="canvas" width="595" height="842" ></canvas>
+</body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
 
-<div class="contrainner">
-    <div class="grid-stack"></div>
-</div>
+var margin = {top: 20, right: 40, bottom: 30, left: 20},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom,
+    barWidth = Math.floor(width / 19) - 1;
 
-<!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
+var x = d3.scale.linear()
+    .range([barWidth / 2, width - barWidth / 2]);
 
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+var y = d3.scale.linear()
+    .range([height, 0]);
 
-            <div class="modal-header">
-                <h4 class="modal-title">Add Widget</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("right")
+    .tickSize(-width)
+    .tickFormat(function(d) { return Math.round(d / 1e6) + "M"; });
 
-            <div class="modal-body">
+// An SVG element with a bottom-right origin.
+var svg = d3.select("#svgtest")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                <div class="row">
-                    <div class="col-6">
-                        <label>Title</label>
-                        <input type="text" name="title-name" id="title-name" class="form-control">
-                    </div>
-                    <div class="col-6">
-                        <label>Widget Type</label>
-                        <select class="form-control" id="widget_type">
-                            <option value="">--Select Widget Type--</option>
-                            <option value="line">line</option>
-                            <option value="Gauges">Gauges</option>
-                            <option value="Map">Map</option>
-                            <option value="Half Circle">Half Circle</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="line" class="value_widget" style="display:none;">
+// A sliding container to hold the bars by birthyear.
+var birthyears = svg.append("g")
+    .attr("class", "birthyears");
 
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="">Lable X</label>
-                            <input type="text" id="label-x-chart-line" class="form-control">
-                        </div>
-                        <div class="col-6">
-                            <label for="">Select Value Of X</label>
-                            <input type="text" id="value-x-chart-line" class="form-control">
-                        </div>
-                    </div>
-                    <br />
-                    <h5>Select Value Of Y</h5>
-                    <button class="btn btn-default btn-sm " id="btn-add-value-line"><i class="fa fa-plus"></i> Add Line
-                        Value Of Y</button>
-                    <div>
-                        <div class="row" id="line_value">
-                            <div class="col-3">
-                                <label for="">Channel</label>
-                                <input type="text" class="form-control label-y-chart-line">
-                            </div>
-                            <div class="col-3">
-                                <label for="">Resource</label>
-                                <select name="" id="" class="form-control value-y-chart-line"></select>
-                            </div>
-                            <div class="col-3">
-                                <label for="">Label</label>
-                                <input type="text" class="form-control label-y-chart-line">
-                            </div>
-                            <div class="col-3">
-                                <label for="">RGB</label>
-                                <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="bar" class="value_widget" style="display:none;">
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="">Lable Y</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-6">
-                            <label for="">Select Value Of Y</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <h5>Select Value Of X</h5>
-                    <div class="row" id="line_value">
-                        <div class="col-3">
-                            <label for="">Label X</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-3">
-                            <label for="">Value Of X</label>
-                            <select name="" id="" class="form-control"></select>
-                        </div>
-                        <div class="col-3">
-                            <label for="">RGB</label>
-                            <input type="text" id="rgb" class="form-control demo" data-format="rgb" value="rgb(33, 147, 58)">
-                        </div>
-                    </div>
-                </div>
-                <div id="map" class="value_widget" style="display:none;">
-                    <!--<div class="row">
-                        <div class="col-6">
-                            <label for="">Latitude</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-6">
-                            <label for="">Longitude</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>-->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a class="btn btn-success btn-block" id="add-new-widget" href="#">Add Widget</a>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+// A label for the current year.
+var title = svg.append("text")
+    .attr("class", "title")
+    .attr("dy", ".71em")
+    .text(2000);
 
-<div id="line_value_layout" hidden>
-    <div class="col-3">
-        <label for="">Channel</label>
-        <input type="text" class="form-control label-y-chart-line">
-    </div>
-    <div class="col-3">
-        <label for="">Resource</label>
-        <select name="" id="" class="form-control value-y-chart-line"></select>
-    </div>
-    <div class="col-3">
-        <label for="">Label</label>
-        <input type="text" class="form-control label-y-chart-line">
-    </div>
-    <div class="col-3">
-        <label for="">RGB</label>
-        <input type="text" id="rgb" class="form-control demo rgb-chart-line" data-format="rgb" value="rgb(33, 147, 58)">
-    </div>
-</div>
+d3.csv("http://localhost:8000/population.csv", function(error, data) {
 
-<div id="layout-widget" hidden>
-    <div>
-        <div class="panel grid-stack-item-content " data="((data_widget))">
-            <div class="panel__header__min">
-                <div class="panel__edit-buttons">
-                    <i class="fas fa-cog"></i>
-                </div>
-            </div>
-            <header class="panel__header__min">
-                <h5>((title_name))</h5>
-            </header>
-            <div class="panel__content">((wi))</div>
-        </div>
-    </div>
-</div>
+  // Convert strings to numbers.
+  data.forEach(function(d) {
+    d.people = +d.people;
+    d.year = +d.year;
+    d.age = +d.age;
+  });
 
-<script src="{{url('js/company/widget.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+  // Compute the extent of the data set in age and years.
+  var age1 = d3.max(data, function(d) { return d.age; }),
+      year0 = d3.min(data, function(d) { return d.year; }),
+      year1 = d3.max(data, function(d) { return d.year; }),
+      year = year1;
+
+  // Update the scale domains.
+  x.domain([year1 - age1, year1]);
+  y.domain([0, d3.max(data, function(d) { return d.people; })]);
+
+  // Produce a map from year and birthyear to [male, female].
+  data = d3.nest()
+      .key(function(d) { return d.year; })
+      .key(function(d) { return d.year - d.age; })
+      .rollup(function(v) { return v.map(function(d) { return d.people; }); })
+      .map(data);
+
+  // Add an axis to show the population values.
+  svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + width + ",0)")
+      .call(yAxis)
+    .selectAll("g")
+    .filter(function(value) { return !value; })
+      .classed("zero", true);
+
+  // Add labeled rects for each birthyear (so that no enter or exit is required).
+  var birthyear = birthyears.selectAll(".birthyear")
+      .data(d3.range(year0 - age1, year1 + 1, 5))
+    .enter().append("g")
+      .attr("class", "birthyear")
+      .attr("transform", function(birthyear) { return "translate(" + x(birthyear) + ",0)"; });
+
+  birthyear.selectAll("rect")
+      .data(function(birthyear) { return data[year][birthyear] || [0, 0]; })
+    .enter().append("rect")
+      .attr("x", -barWidth / 2)
+      .attr("width", barWidth)
+      .attr("y", y)
+      .attr("height", function(value) { return height - y(value); });
+
+  // Add labels to show birthyear.
+  birthyear.append("text")
+      .attr("y", height - 4)
+      .text(function(birthyear) { return birthyear; });
+
+  // Add labels to show age (separate; not animated).
+  svg.selectAll(".age")
+      .data(d3.range(0, age1 + 1, 5))
+    .enter().append("text")
+      .attr("class", "age")
+      .attr("x", function(age) { return x(year - age); })
+      .attr("y", height + 4)
+      .attr("dy", ".71em")
+      .text(function(age) { return age; });
+
+  // Allow the arrow keys to change the displayed year.
+  window.focus();
+  d3.select(window).on("keydown", function() {
+    switch (d3.event.keyCode) {
+      case 37: year = Math.max(year0, year - 10); break;
+      case 39: year = Math.min(year1, year + 10); break;
+    }
+    update();
+  });
+
+  function update() {
+    if (!(year in data)) return;
+    title.text(year);
+
+    birthyears.transition()
+        .duration(750)
+        .attr("transform", "translate(" + (x(year1) - x(year)) + ",0)");
+
+    birthyear.selectAll("rect")
+        .data(function(birthyear) { return data[year][birthyear] || [0, 0]; })
+      .transition()
+        .duration(750)
+        .attr("y", y)
+        .attr("height", function(value) { return height - y(value); });
+  }
+});
+
+
+  $('#ghost').freetrans({
+      matrix: "matrix(.95,.25,-.25,.95,30,50)"
+  });
+
+
+
+</script>
+
 @endsection
