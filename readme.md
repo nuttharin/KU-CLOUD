@@ -87,7 +87,7 @@
         DB_DATABASE=KU_CLOUD2
         DB_USERNAME=root
         DB_PASSWORD=
-        JWT_KEY=1JFAi4s5D5L4MYkUgfDHyenLKgnum73d`
+        JWT_KEY=1JFAi4s5D5L4MYkUgfDHyenLKgnum73d
 
 6. JWT_KEY ต้องเหมือนกับ .env ของ laravel
 7. npm start
