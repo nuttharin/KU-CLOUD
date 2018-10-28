@@ -58,11 +58,13 @@
     <link rel="stylesheet" href="{{url('css/loading.css')}}"> {{--
 
     <!-- sweetalert -->
-    <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}"> --}}
+    <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}">
 
     <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script src="{{url('js/socket.js')}}"></script>
+
+    <link rel="stylesheet" href="{{url('freetrans/jquery.freetrans.css')}}">
 </head>
 
 <body>
@@ -211,7 +213,11 @@
         <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
 
         <script type="text/javascript" src="{{url('fabric/fabric.js')}}"></script>
+        <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
 
+        <script type="text/javascript" src="{{url('freetrans/Matrix.js')}}"></script>
+        <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
         <!-- Page Content  -->
         <div id="content">
             @yield('content')
