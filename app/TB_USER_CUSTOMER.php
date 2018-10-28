@@ -12,4 +12,9 @@ class TB_USER_CUSTOMER extends Model
     protected $fillable = [
         'user_id','company_id'
     ];
+
+    
+    public function TB_USERS(){
+        return $this->hasMany('App\TB_USERS','user_id');
+    }
 }
