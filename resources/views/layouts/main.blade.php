@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
+    <meta name="ws_url" content="{{ env('WS_URL') }}">
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href={{url( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
     <script type="text/javascript" src="{{url('jquery/jquery-3.3.1.min.js')}}"></script>
@@ -53,10 +55,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
     <!-- loading -->
-    <link rel="stylesheet" href="{{url('css/loading.css')}}">
+    <link rel="stylesheet" href="{{url('css/loading.css')}}"> {{--
 
     <!-- sweetalert -->
     <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}">
+
+    <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="{{url('js/socket.js')}}"></script>
 
     <link rel="stylesheet" href="{{url('freetrans/jquery.freetrans.css')}}">
 </head>

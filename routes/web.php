@@ -12,9 +12,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser');
@@ -24,21 +24,21 @@ Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser
 
 
 
-
+Route::get('/','AuthController@index');
 Route::get('/Auth','AuthController@index');
 
 
 
 Route::group(['middleware' => ['jwt.verify.web']], function() {
-    Route::get('/Company/User','CompanyController@user');
-    Route::get('/Company/Static','CompanyController@static');
-    //Route::get('/')
-    Route::get('/Company/Service','CompanyController@service');
 
-    Route::get('/Company/Service/AddService','CompanyController@Add_service');
-
-    Route::get('/Company/Service/ShowService','CompanyController@Show_service');
     Route::get('/Compnay/Customer','CompanyController@customer');
+    Route::get('/Company/Static','CompanyController@static');
+    
+    Route::get('/Company/Service','CompanyController@service');
+    Route::get('/Company/Service/AddService','CompanyController@Add_service');
+    Route::get('/Company/Service/ShowService','CompanyController@Show_service');
+    
+    Route::get('/Company/User','CompanyController@user');
 
     /* Admin */
     Route::get('/Admin/UsersAdminister','AdminController@UsersAdminister');

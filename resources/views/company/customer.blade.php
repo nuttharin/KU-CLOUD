@@ -14,6 +14,7 @@
 </style>
 
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
+<link href="{{url('css/animate.css')}}" rel="stylesheet">
 
 <div class="row" style="padding: 30px 0px 10px 0px">
     <div class="col-12">
@@ -121,6 +122,7 @@
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Active</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>

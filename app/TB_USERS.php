@@ -42,4 +42,9 @@ class TB_USERS extends Authenticatable implements JWTSubject
     public function user_company(){
         return $this->belongsTo("App\TB_USER_COMPANY","user_id");
     }
+
+    
+    public function user_customer(){
+        return $this->belongsTo("App\TB_USER_CUSTOMER","user_id");
+    }
 }

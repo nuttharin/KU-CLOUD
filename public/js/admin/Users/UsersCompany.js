@@ -1,90 +1,103 @@
 /* Model */
 var CompanyRepository = new (function () {
-    var usersList       = [];
-    var companyList     = [];
+    var usersList = [];
+    var companyList = [];
     var datatableObject = null;
-    var modelCreate     = null;
-    var modalDetail     = null;
-    var modalEdit       = null;
-    var modalBlock      = null;
-    var modalDelete     = null;
-    const formAddEmail  = `
+    var modelCreate = null;
+    var modalDetail = null;
+    var modalEdit = null;
+    var modalBlock = null;
+    var modalDelete = null;
+    const formAddEmail = `
                             <div class="input-group mb-2">
                                 <input type="text" class="add_email_val form-control mt-1" value={email}>
                                     <div class="input-group-append">
                                         <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
                                     </div>
                             </div>`;
-    const formAddPhone  = `  <div class="input-group mb-2">
+    const formAddPhone = `  <div class="input-group mb-2">
                                 <input type="text" class="add_phone_val form-control mt-1" value={phone}>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                                 </div>
                             </div>`;
-    
-        var that = this;
+
+    var that = this;
     /* Initial Function */
-    this.initialAndRun = () => 
-    {
+    this.initialAndRun = () => {
         this.refreshDatatable();
 
         $.ajax({
             url: "http://localhost:8000/api/admin/companydata",
             method: 'GET',
-            success: function (result) 
-            {
+            success: function (result) {
                 companyList = result.company;
             },
-            error: function (error) 
-            {
+            error: function (error) {
                 console.log(error);
             }
         });
     };
 
-    this.refreshDatatable = () => 
-    {
+    this.refreshDatatable = () => {
         showLoadingStatus(true);
         $.ajax({
             url: "http://localhost:8000/api/admin/companies",
             method: 'GET',
-            success: function (result) 
-            {
+            success: function (result) {
                 initialDatatable();
                 usersList = result.users;
                 showLoadingStatus(false);
                 updateDatatableData(result);
             },
-            error: function (error) 
-            {
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+        $.ajax({
+            url: "http://localhost:8000/api/admin/users/online",
+            method: 'GET',
+            data: {
+                type_user: 'COMPANY',
+            },
+            success: function (result) {
+                let sum = 0;
+                for (let i in result.users) {
+                    sum += Number(result.users[i].count);
+                    if (result.users[i].online === "online") {
+                        $("#total-user-online").html(`${result.users[i].count} user`);
+                    }
+                    else {
+                        $("#total-user-offline").html(`${result.users[i].count} user`);
+                    }
+                }
+                $("#total-user").html(`${sum} user`);
+            },
+            error: function (error) {
                 console.log(error);
             }
         });
     };
 
-    var initialDatatable = () => 
-    {
-        if (datatableObject !== null) 
-        {
+    var initialDatatable = () => {
+        if (datatableObject !== null) {
             return false;
         }
-      
-        datatableObject = $('#datatable-company').dataTable({}); 
+
+        datatableObject = $('#datatable-company').dataTable({});
 
         $("#btn-create").unbind().click(function () {
             onCreateClick();
         });
     }
 
-    var showLoadingStatus = (show) => 
-    {
-        if (show) 
-        {
+    var showLoadingStatus = (show) => {
+        if (show) {
             $('#datatable-company').hide();
             $('.lds-roller').show();
         }
-        else 
-        {
+        else {
             $('#datatable-company').show();
             $('.text-static').show();
             $('.lds-roller').hide();
@@ -92,18 +105,18 @@ var CompanyRepository = new (function () {
         }
     }
 
-    var updateDatatableData = (userList) => 
-    {
+    var updateDatatableData = (userList) => {
         var Datatable = new Array();
         datatableObject.fnClearTable();
 
         $.each(userList.users, function (index, item) {
             var ret = [];
-            ret[0]  = item.fname + " " + item.lname;
-            ret[1]  = item.email.split(',')[0];
-            ret[2]  = item.sub_type_user;
-            ret[3]  = item.block ? "No" : "Yes";
-            ret[4]  = ` <center>
+            ret[0] = item.fname + " " + item.lname;
+            ret[1] = item.email.split(',')[0];
+            ret[2] = item.sub_type_user;
+            ret[3] = item.block ? "Block" : "Unblock";
+            ret[4] = item.online ? '<span class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></span>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
+            ret[5] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
@@ -146,12 +159,10 @@ var CompanyRepository = new (function () {
     }
 
     /* Action Function */
-    var onCreateClick = () => 
-    {
-        if(modelCreate === null)
-        {
-            modelCreate = 
-            `<div class="modal fade" id="addUser">
+    var onCreateClick = () => {
+        if (modelCreate === null) {
+            modelCreate =
+                `<div class="modal fade" id="addUser">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -189,7 +200,7 @@ var CompanyRepository = new (function () {
                     </div>
                 </div>
             </div>`
-            
+
             $('body').append(modelCreate);
         }
 
@@ -200,45 +211,40 @@ var CompanyRepository = new (function () {
         $('#addUser').modal('show');
     }
 
-    var createSaveChange = () => 
-    {
-        let email_input     = $("#add_email_val").val();
-        let pwd_input       = $("#add_pwd_val").val();
-        let fname_input     = $("#add_fname_val").val();
-        let lname_input     = $("#add_lname_val").val();
+    var createSaveChange = () => {
+        let email_input = $("#add_email_val").val();
+        let pwd_input = $("#add_pwd_val").val();
+        let fname_input = $("#add_fname_val").val();
+        let lname_input = $("#add_lname_val").val();
         let type_user_input = $("#add_type_user_val").val();
-        let phone_input     = $("#add_phone_val").val();
+        let phone_input = $("#add_phone_val").val();
         $.ajax({
             url: "http://localhost:8000/api/admin/company/create",
             dataType: 'json',
             method: "POST",
-            data: 
+            data:
             {
-                email:          email_input,
-                password:       pwd_input,
-                fname:          fname_input,
-                lname:          lname_input,
-                phone:          phone_input,
-                sub_type_user:  type_user_input
+                email: email_input,
+                password: pwd_input,
+                fname: fname_input,
+                lname: lname_input,
+                phone: phone_input,
+                sub_type_user: type_user_input
             },
-            success: (res) => 
-            {
+            success: (res) => {
                 this.refreshDatatable();
                 $("#addUser").modal('hide');
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         })
     }
 
-    var onDetailClick = (key) => 
-    {
-        if (modalDetail === null) 
-        {
-            modalDetail = 
-           `<div class="modal fade" id="detailUser">
+    var onDetailClick = (key) => {
+        if (modalDetail === null) {
+            modalDetail =
+                `<div class="modal fade" id="detailUser">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -274,12 +280,10 @@ var CompanyRepository = new (function () {
         $("#detailUser").modal('show');
     }
 
-    var onEditClick = (key) => 
-    {
-        if (modalEdit === null) 
-        {
-            modalEdit = 
-            `<div class="modal fade" id="editUser">
+    var onEditClick = (key) => {
+        if (modalEdit === null) {
+            modalEdit =
+                `<div class="modal fade" id="editUser">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -351,12 +355,12 @@ var CompanyRepository = new (function () {
             return formAddEmail.replace('{email}', email);
         })
 
-        $.each(companyList, function(key, value) {   
+        $.each(companyList, function (key, value) {
             $('#add_company_val')
                 .append($("<option></option>")
-                           .attr("value",value.id)
-                           .text(value.name)); 
-       });
+                    .attr("value", value.id)
+                    .text(value.name));
+        });
 
         $('#edit-id').val(usersList[key].user_id);
         $('#edit-fname').val(usersList[key].fname);
@@ -371,48 +375,43 @@ var CompanyRepository = new (function () {
         $('#editUser').modal('show');
     }
 
-    var editSaveChange = () => 
-    {
-        let user_id_input   = $("#edit-id").val();
-        let fname_input     = $("#edit-fname").val();
-        let lname_input     = $("#edit-lname").val();
-        let company_input   = $("#add_company_val").val();
+    var editSaveChange = () => {
+        let user_id_input = $("#edit-id").val();
+        let fname_input = $("#edit-fname").val();
+        let lname_input = $("#edit-lname").val();
+        let company_input = $("#add_company_val").val();
         let type_user_input = $("#add_type_user_val").val();
-        let email_input     = $(".add_email_val").map(function() { return $(this).val(); }).get().join();
-        let phone_input     = $(".add_phone_val").map(function() { return $(this).val(); }).get().join();
+        let email_input = $(".add_email_val").map(function () { return $(this).val(); }).get().join();
+        let phone_input = $(".add_phone_val").map(function () { return $(this).val(); }).get().join();
 
         $.ajax({
             url: "http://localhost:8000/api/admin/company/edit",
             dataType: 'json',
             method: "PUT",
-            data: 
+            data:
             {
-                user_id:        user_id_input,
-                fname:          fname_input,
-                lname:          lname_input,
-                company:        company_input,
-                sub_type_user:  type_user_input,
-                email:          email_input,
-                phone:          phone_input
+                user_id: user_id_input,
+                fname: fname_input,
+                lname: lname_input,
+                company: company_input,
+                sub_type_user: type_user_input,
+                email: email_input,
+                phone: phone_input
             },
-            success: (res) => 
-            {
+            success: (res) => {
                 this.refreshDatatable();
                 $("#editUser").modal('hide');
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         })
     }
-    
-    var onBlockClick = (key) => 
-    {
-        if (modalBlock === null) 
-        {
-            modalBlock = 
-            `<div class="modal fade" id="BlockUser">
+
+    var onBlockClick = (key) => {
+        if (modalBlock === null) {
+            modalBlock =
+                `<div class="modal fade" id="BlockUser">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -430,68 +429,59 @@ var CompanyRepository = new (function () {
                     </div>
                 </div>
             </div>`
-            
+
             $('body').append(modalBlock);
         }
 
-        if(usersList[key].block)
-        {
+        if (usersList[key].block) {
             $("#span-text-confirm-block").html("Are you sure to unblock " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Unblock");
             $("#title-text").html("Unblock User Company");
         }
-        else
-        {
+        else {
             $("#span-text-confirm-block").html("Are you sure to block " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Block");
             $("#title-text").html("Block User Company");
         }
-       
+
         $("#btn-block-submit").unbind().click(function () {
             blockSaveChange(key);
         })
-        
+
         $("#BlockUser").modal('show');
     }
 
-    var blockSaveChange = (key) => 
-    {
+    var blockSaveChange = (key) => {
         var urlLink;
 
-        if(usersList[key].block)
-        {
+        if (usersList[key].block) {
             urlLink = "http://localhost:8000/api/admin/users/unblock"
         }
-        else
-        {
+        else {
             urlLink = "http://localhost:8000/api/admin/users/block"
         }
 
         $.ajax({
             url: urlLink,
             method: "PUT",
-            data: 
+            data:
             {
-                user_id:   usersList[key].user_id   
+                user_id: usersList[key].user_id
             },
-            success: () => 
-            {
+            success: () => {
                 this.refreshDatatable();
-                $("#BlockUser").modal('hide');               
+                $("#BlockUser").modal('hide');
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         });
     }
 
-    var onDeleteClick = (key) => 
-    {
-        if (modalDelete === null) 
-        {
-            modalDelete = 
-            `<div class="modal fade" id="DeleteUser">
+    var onDeleteClick = (key) => {
+        if (modalDelete === null) {
+            modalDelete =
+                `<div class="modal fade" id="DeleteUser">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -514,7 +504,7 @@ var CompanyRepository = new (function () {
         }
 
         $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email + " ? ")
-        
+
         $("#btn-delete-submit").unbind().click(function () {
             deleteSaveChange(key);
         })
@@ -522,22 +512,19 @@ var CompanyRepository = new (function () {
         $('#DeleteUser').modal('show');
     }
 
-    var deleteSaveChange = (key) => 
-    {
+    var deleteSaveChange = (key) => {
         $.ajax({
             url: "http://localhost:8000/api/admin/users/delete",
             method: "DELETE",
-            data: 
+            data:
             {
-                user_id:   usersList[key].user_id   
+                user_id: usersList[key].user_id
             },
-            success: () => 
-            {
+            success: () => {
                 this.refreshDatatable();
-                $("#DeleteUser").modal('hide');               
+                $("#DeleteUser").modal('hide');
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         });

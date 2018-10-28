@@ -44,10 +44,12 @@ var CompanyRepository = new (function () {
     var showLoadingStatus = (show) => {
         if (show) {
             $('#datatable-company').hide();
+            $('#total-company').hide();
         }
         else {
             $('#datatable-company').show();
             $('.text-static').show();
+            $('#total-company').show();
             $('.lds-roller').hide();
             $('.text-loading').hide();
         }
@@ -56,7 +58,7 @@ var CompanyRepository = new (function () {
     var updateDatatableData = (companyList) => {
         var Datatable = new Array();
         datatableObject.fnClearTable();
-
+        let total_company = 0;
         $.each(companyList.company, function (index, item) {
             var ret = [];
             ret[0] = item.name;
@@ -77,10 +79,11 @@ var CompanyRepository = new (function () {
                             </button>
                         </center>`;
             Datatable.push(ret);
+            total_company++;
         });
 
         datatableObject.fnAddData(Datatable);
-
+        $("#total-company").html(`Total ${total_company} Company`);
         $('#datatable-company').on('click', '.btn-detail', function () {
             onDetailClick($(this).attr('index'));
         });
@@ -243,7 +246,7 @@ var CompanyRepository = new (function () {
 
             $('body').append(modalEdit);
         }
-        
+
         $('#company_id').val(companyList[key].id);
         $('#company_name').val(companyList[key].name);
         $('#alias_val').val(companyList[key].alias);
@@ -285,29 +288,25 @@ var CompanyRepository = new (function () {
         $.ajax({
             url: "http://localhost:8000/api/admin/companydata/checkdelete",
             method: "GET",
-            data: 
+            data:
             {
-                company_id:   companyList[key].id   
+                company_id: companyList[key].id
             },
-            success: (result) => 
-            {
-                if(result)
-                {
+            success: (result) => {
+                if (result) {
                     $('#span-text-confirm').html("Are you sure to delete " + companyList[key].name + " ? ");
-                    $('#btn-delete-submit').show(); 
-                }  
-                else
-                {
+                    $('#btn-delete-submit').show();
+                }
+                else {
                     $('#span-text-confirm').html("Cannot delete.");
-                    $('#btn-delete-submit').hide(); 
-                }         
+                    $('#btn-delete-submit').hide();
+                }
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         });
-      
+
         $("#btn-delete-submit").unbind().click(function () {
             deleteSaveChange(key);
         })
@@ -315,22 +314,19 @@ var CompanyRepository = new (function () {
         $('#DeleteUser').modal('show');
     }
 
-    var deleteSaveChange = (key) => 
-    {
+    var deleteSaveChange = (key) => {
         $.ajax({
             url: "http://localhost:8000/api/admin/companydata/delete",
             method: "DELETE",
-            data: 
+            data:
             {
-                company_id:   companyList[key].id   
+                company_id: companyList[key].id
             },
-            success: () => 
-            {
+            success: () => {
                 this.refreshDatatable();
-                $("#DeleteUser").modal('hide');               
+                $("#DeleteUser").modal('hide');
             },
-            error: (res) => 
-            {
+            error: (res) => {
                 console.log(res);
             }
         });
