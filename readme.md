@@ -5,7 +5,7 @@
 4. php artisan key:generate
 5. php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\JWTAuthServiceProvider"
 6. php artisan jwt:secret
-7. กรณีมีการอัพเดต database พิมพ์ cmd => php artisan migrate:reset
+7. กรณีมีการอัพเดต database พิมพ์ cmd => php artisan migrate:refresh
 
 ## Set Up database
 1. file .env
