@@ -19,7 +19,11 @@
     <div class="card-header bg-white">
         <div class="row">
             <div class="col-6" style="padding: 30px 0px 10px 15px">
-                <span class="h3">Company</span>
+                <h3>Company</h3>
+                <div class="text-loading">
+                    <div class="text-line md"></div>
+                </div>
+                <p id="total-company"></p>
             </div>
             <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
                 <button type="button" class="btn btn-success btn-radius" id="btn-create">

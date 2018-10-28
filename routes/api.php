@@ -63,5 +63,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('admin/users/delete','Api\AdminController@deleteUser');
 
     Route::get('admin/companydata/checkdelete','Api\AdminController@getCountUsersByCompanyID');
+    
+    Route::get('admin/users/online','Api\AdminController@countUserOnline');
 });
 
