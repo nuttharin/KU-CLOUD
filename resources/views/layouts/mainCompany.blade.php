@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
+    <meta name="ws_url" content="{{ env('WS_URL') }}">
+    <meta name="user_id" content="{{ $user->user_id }}">
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href={{url( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
     <script type="text/javascript" src="{{url('jquery/jquery-3.3.1.min.js')}}"></script>
@@ -58,6 +61,12 @@
     <!-- sweetalert -->
     {{--
     <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}"> --}}
+
+
+    <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="{{url('js/socket.js')}}"></script>
 </head>
 
 <body>
@@ -183,13 +192,15 @@
                 </li>
             </ul>
         </nav>
+        <script src="{{url('js/utility.js')}}"></script>
 
         <!-- jQuery Custom Scroller CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
         <!-- Minicolors -->
+        {{--
         <script src="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.js')}}"></script>
-        <script src="{{url('js/company/minicolors.js')}}"></script>
+        <script src="{{url('js/company/minicolors.js')}}"></script> --}}
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
@@ -200,7 +211,6 @@
         <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
         <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
 
-        <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">

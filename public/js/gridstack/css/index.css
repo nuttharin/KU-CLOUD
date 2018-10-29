@@ -134,7 +134,7 @@
     flex-direction: column;
 }
 
-.panel__content {
+.panel__content,.card-body,#body-full-screen {
     flex: 1;
     min-height: 0;
 }

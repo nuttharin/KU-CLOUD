@@ -28,9 +28,12 @@ Route::get('open', 'DataController@open'); //test
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('closed', 'DataController@closed'); //test
 
+    //Company
     Route::get('company/users','Api\CompanyController@getAllUser');
     Route::post('company/users', 'Api\CompanyController@addUserCompany');
     Route::put('company/users/block','Api\CompanyController@blockUserCompany');
+    Route::put('company/users/edit','Api\CompanyController@editUserCompany');
+    Route::get('company/users/online','Api\CompanyController@countUserOnline');
     
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
@@ -60,5 +63,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('admin/users/delete','Api\AdminController@deleteUser');
 
     Route::get('admin/companydata/checkdelete','Api\AdminController@getCountUsersByCompanyID');
+    
+    Route::get('admin/users/online','Api\AdminController@countUserOnline');
 });
 

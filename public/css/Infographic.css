@@ -1,0 +1,98 @@
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+
+page[size="A4"] {  
+  width: 595px;
+  height: 842px; 
+}
+
+.vertical-menu {
+  width: 10px;
+  height: 100%;
+  text-align: center;
+}
+
+.vertical-menu a {
+  background-color: rgb(106, 121, 255);
+  color: rgb(255, 255, 255);
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: rgb(157, 166, 255);
+}
+
+.vertical-menu a.actives {
+  background-color: rgb(157, 166, 255);
+  color: rgb(0, 0, 0);
+}
+
+.select-menu {
+  width: 10px;
+  height: 100%;
+  background-color: rgb(157, 166, 255);
+  text-align: center;
+  border-radius: 4px;
+}
+
+.select-menu sub{
+  background-color: rgb(247, 248, 255);
+  display: block;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.select-menu sub:hover{
+  top: -1px;
+}
+
+.select-menu sub title{
+  background-color: transparent;
+  display: block;
+  padding-top: 15px;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+}
+
+.select-menu top{
+  background-color: rgb(247, 248, 255);
+  display: block;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.select-menu top.head {
+  background-color: rgb(157, 166, 255);
+  padding: 20px;
+  font-size: 17px;
+  color: white;
+  border-bottom: 3px solid;
+  border-color: rgb(255, 255, 255);
+  border-radius: 0px;
+}
+
+.select-menu top.head close {
+  position: absolute;
+  right: 7px;
+  top: 2px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.shape{
+  width: 100px;
+  height: 65px;
+  background-color: #B2D237;
+}

@@ -212,4 +212,6 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
+    'faker_locale' => 'th_TH',
+
 ];

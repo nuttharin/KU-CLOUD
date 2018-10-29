@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
+    <meta name="ws_url" content="{{ env('WS_URL') }}">
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href={{url( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
     <script type="text/javascript" src="{{url('jquery/jquery-3.3.1.min.js')}}"></script>
@@ -57,6 +59,12 @@
 
     <!-- sweetalert -->
     <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}">
+
+    <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="{{url('js/socket.js')}}"></script>
+
+    <link rel="stylesheet" href="{{url('freetrans/jquery.freetrans.css')}}">
 </head>
 
 <body>
@@ -144,7 +152,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#UsersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas fa-users"></i>
                         <span>Users</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
@@ -168,8 +176,14 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{action('AdminController@Company')}}">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-briefcase"></i>
                         <span class="link_hide">Company</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{action('AdminController@Infographic')}}">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="link_hide">Infographic</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -198,6 +212,12 @@
         <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
         <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
 
+        <script type="text/javascript" src="{{url('fabric/fabric.js')}}"></script>
+        <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+
+        <script type="text/javascript" src="{{url('freetrans/Matrix.js')}}"></script>
+        <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
         <!-- Page Content  -->
         <div id="content">
             @yield('content')

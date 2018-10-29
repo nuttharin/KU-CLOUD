@@ -15,8 +15,6 @@
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
 
-
-
 <div class="card bg-white" style="margin-top:30px;">
     <div class="card-header bg-white">
         <div class="row">
@@ -48,7 +46,7 @@
                                 <div class="text-static animated fadeIn" style="display:none">
                                     <p class="mb-0 text-right">Total User</p>
                                     <div class="fluid-container">
-                                        <h3 class="font-weight-medium text-right mb-0">6 User</h3>
+                                        <h3 class="font-weight-medium text-right mb-0" id="total-user">0 User</h3>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +69,7 @@
                                 <div class="text-static animated fadeIn" style="display:none">
                                     <p class="mb-0 text-right">Total User Online</p>
                                     <div class="fluid-container">
-                                        <h3 class="font-weight-medium text-right mb-0">5 User</h3>
+                                        <h3 class="font-weight-medium text-right mb-0" id="total-user-online">0 User</h3>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +78,7 @@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                <div class="card card-statistics  bg-warning text-white">
+                <div class="card card-statistics  bg-secondary text-white">
                     <div class="card-body">
                         <div class="clearfix">
                             <div class="float-left">
@@ -94,7 +92,7 @@
                                 <div class="text-static animated fadeIn" style="display:none">
                                     <p class="mb-0 text-right">Total User Offline</p>
                                     <div class="fluid-container">
-                                        <h3 class="font-weight-medium text-right mb-0">1 User</h3>
+                                        <h3 class="font-weight-medium text-right mb-0" id="total-user-offline">0 User</h3>
                                     </div>
                                 </div>
                             </div>
@@ -116,8 +114,9 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Block</th>
+                            <th>Active</th>
                             <th>Type user</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -160,6 +159,7 @@
                     </div>
                     <h6 class='text-center'>Saving Data ...</h6>
                 </div>
+
                 <form id="form-add-user">
                     <div class="row">
                         <div class="col-6">
@@ -197,7 +197,7 @@
 </div>
 
 
-<script type="text/javascript" src="{{url('js/company/users/users.js')}}"></script>
+<script type="text/javascript" src="{{mix('js/company/users/users.min.js')}}"></script>
 
 <script>
     $(document).ready(function () {

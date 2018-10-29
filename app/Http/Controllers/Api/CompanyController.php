@@ -23,14 +23,14 @@ class CompanyController extends Controller
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
 
-        $users = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email,TB_USERS.block,TB_USER_COMPANY.sub_type_user FROM TB_USERS 
+        $users = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email,TB_USERS.block,TB_USER_COMPANY.sub_type_user,TB_USERS.online FROM TB_USERS 
                             LEFT JOIN TB_PHONE ON TB_USERS.user_id =TB_PHONE.user_id
                             LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email FROM TB_EMAIL
                             GROUP BY TB_EMAIL.user_id) AS T1 ON T1.user_id = TB_USERS.user_id
                             INNER JOIN TB_USER_COMPANY ON TB_USER_COMPANY.user_id = TB_USERS.user_id
                             INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
                             WHERE TB_USERS.type_user = ? AND TB_COMPANY.company_id = ?
-                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USER_COMPANY.sub_type_user',['COMPANY',$payload["user"]->company_id]);
+                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USER_COMPANY.sub_type_user,TB_USERS.online',['COMPANY',$payload["user"]->company_id]);
         
         if(!empty($users)){
             return response()->json(compact('users'),200);
@@ -90,9 +90,33 @@ class CompanyController extends Controller
         return response()->json(["status_code","201"],201);
     }
 
+    public function editUserCompany(Request $request){
+        $user = TB_USERS::where('user_id', $request->get('user_id'))
+        ->update([
+                'fname' => $request->get('fname'),
+                'lname' => $request->get('lname'),
+            ]);
+        
+        foreach($request->get('phone_user') as $value){
+            TB_PHONE::firstOrCreate([
+                'user_id' => $request->get('user_id'),
+                'phone_user' => $value
+            ]);
+        }
+
+        foreach($request->get('email_user') as $value){
+            TB_EMAIL::firstOrCreate([
+                'user_id' => $request->get('user_id'),
+                'email_user' => $value
+            ]);
+        }
+        
+        //TB_PHONE::updateOrCreate(["user_id"=>$request->get('user_id')],$request->get('phone_user'));
+    }
+
     public function blockUserCompany(Request $request){
         $user = TB_USERS::where('user_id', $request->get('user_id'))
-                        ->update(['block' => true]);
+                        ->update(['block' => $request->get('block')]);
         return response()->json(["status","success"],200);
     }
 
@@ -101,14 +125,14 @@ class CompanyController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
 
-        $customer = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email FROM TB_USERS 
+        $customer = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email,TB_USERS.block,TB_USERS.online FROM TB_USERS 
                             LEFT JOIN TB_PHONE ON TB_USERS.user_id =TB_PHONE.user_id
                             LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email FROM TB_EMAIL
                             GROUP BY TB_EMAIL.user_id) AS T1 ON T1.user_id = TB_USERS.user_id
                             INNER JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
                             INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
                             WHERE TB_USERS.type_user = ? AND TB_COMPANY.company_id = ?
-                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname',['CUSTOMER',$payload["user"]->company_id]);
+                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.online',['CUSTOMER',$payload["user"]->company_id]);
         if(!empty($customer)){
             return response()->json(compact('customer'),200);
         }
@@ -155,5 +179,13 @@ class CompanyController extends Controller
                         ->count();
         dd($customer);
 
+    }
+
+    public function countUserOnline(Request $request){
+        $type_user = $request->get('type_user');
+        $users = DB::select('SELECT if(TB_USERS.online,?,?) as online,COUNT(user_id) as count FROM TB_USERS
+        WHERE type_user = ?
+        GROUP BY TB_USERS.online',['online','offline',$type_user]);
+        return response()->json(compact('users'),200);
     }
 }
