@@ -147,6 +147,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -210,6 +211,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class, 
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'LogViewer'=> Arcanedev\LogViewer\Contracts\LogViewer::class,
+        'LogEntry' => Arcanedev\LogViewer\Entities\LogEntry::class,
+        'LogNotFoundException' => Arcanedev\LogViewer\Exceptions\LogNotFoundException::class,
+        'StatsTable' => Arcanedev\LogViewer\Tables\StatsTable::class
     ],
 
     'faker_locale' => 'th_TH',

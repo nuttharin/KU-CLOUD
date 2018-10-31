@@ -19,6 +19,7 @@ class CreateTBCOMPANYTable extends Migration
             $table->string('alias',50);
             $table->string('address',200);
             $table->string('note',100);
+            $table->string('folder_log',50);
             $table->timestamps();
         });
     }

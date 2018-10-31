@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\LogViewer\SizeLog;
+use App\Repositories\TB_COMPANY\CompanyRepository;
+use App\Repositories\TB_USERS\UsersRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 use JWTAuth;
+
 use DB;
 use App\TB_USERS;
 use App\TB_EMAIL;
@@ -14,26 +18,33 @@ use App\TB_PHONE;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\TB_COMPANY;
+use App\LogViewer\LogViewer;
 use email;
 use Mail;
 use Illuminate\Mail\Message;
 
+
 class AdminController extends Controller
 {
+    private $users;
+
+    private $log_viewer;
+
+    private $company;
+
+    public  function __construct(UsersRepository $users,CompanyRepository $company)
+    {
+        $this->users = $users;
+        $this->log_viewer = new LogViewer();
+        $this->log_viewer->setFolder('KU_CLOUD');
+        $this->company = $company;
+    }
+
     public function getAllAdminister(Request $request)
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users      = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email ,TB_USERS.online
-                                    FROM TB_USERS 
-                                    LEFT JOIN TB_PHONE 
-                                    ON TB_USERS.user_id =TB_PHONE.user_id
-                                    LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
-                                                FROM TB_EMAIL 
-                                                GROUP BY TB_EMAIL.user_id) AS T1 
-                                    ON T1.user_id = TB_USERS.user_id
-                                    WHERE TB_USERS.type_user = "ADMIN"
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at ,TB_USERS.online');
+        $users      = $this->users->getByTypeForAdmin('ADMIN');
 
         if(empty($users))
         {           
@@ -48,7 +59,7 @@ class AdminController extends Controller
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
-        
+
         $user = TB_USERS::create([
             'fname'     => $request->get('fname'),
             'lname'     => $request->get('lname'),
@@ -153,20 +164,7 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users      = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email  ,TB_USERS.online
-                                    FROM TB_USERS 
-                                    LEFT JOIN TB_PHONE 
-                                    ON TB_USERS.user_id =TB_PHONE.user_id
-                                    LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
-                                                FROM TB_EMAIL 
-                                                GROUP BY TB_EMAIL.user_id) AS T1 
-                                    ON T1.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_USER_COMPANY 
-                                    ON TB_USER_COMPANY.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_COMPANY 
-                                    ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
-                                    WHERE TB_USERS.type_user = "COMPANY"
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name ,TB_USERS.online',['COMPANY',$payload["user"]->company_id] );
+        $users      = $this->users->getByTypeForAdmin('COMPANY');
 
         if(empty($users))
         {           
@@ -323,20 +321,7 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users   = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_COMPANY.company_name,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email  ,TB_USERS.online
-                                    FROM TB_USERS 
-                                    LEFT JOIN TB_PHONE 
-                                    ON TB_USERS.user_id =TB_PHONE.user_id
-                                    LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
-                                                FROM TB_EMAIL
-                                                GROUP BY TB_EMAIL.user_id) AS T1 
-                                    ON T1.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_USER_CUSTOMER 
-                                    ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_COMPANY 
-                                    ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
-                                    WHERE TB_USERS.type_user = "CUSTOMER"
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_COMPANY.company_name ,TB_USERS.online',['CUSTOMER',$payload["user"]->company_id]);
+        $users   = $this->users->getByTypeForAdmin('CUSTOMER');
         
         if(empty($users))
         {           
@@ -609,9 +594,57 @@ class AdminController extends Controller
 
     public function countUserOnline(Request $request){
         $type_user = $request->get('type_user');
-        $users = DB::select('SELECT if(TB_USERS.online,?,?) as online,COUNT(user_id) as count FROM TB_USERS
-        WHERE type_user = ?
-        GROUP BY TB_USERS.online',['online','offline',$type_user]);
+        $users = $this->users->countUserOnline($type_user);
         return response()->json(compact('users'),200);
+    }
+
+    public  function getLogList(){
+        $folderFiles = $this->log_viewer->getFolderFiles();
+        $data = [
+            'logs' => $this->log_viewer->all(),
+            'folders' => $this->log_viewer->getFolders(),
+            'current_folder' => $this->log_viewer->getFolderName(),
+            'folder_files' => $folderFiles,
+            'files' => $this->log_viewer->getFiles(true),
+            'current_file' => $this->log_viewer->getFileName(),
+            'standardFormat' => true,
+        ];
+
+
+        if (is_array($data['logs'])) {
+            $firstLog = reset($data['logs']);
+            if (!$firstLog['context'] && !$firstLog['level']) {
+                $data['standardFormat'] = false;
+            }
+        }
+
+        return response()->json(compact('data'),200);
+    }
+
+    public function getFolderLogs(){
+        $folder_log = $this->company->getCompanyFolderLog();
+        return response()->json(compact('folder_log'),200);
+    }
+
+    public  function getFilelogByFolder(Request $request){
+        $folder_log = $request->get('folder_log');
+        $file_log = $this->log_viewer->getFolderFilesV2($folder_log,true);
+
+        return response()->json(compact('file_log'),200);
+    }
+
+    public  function getFileLog(Request $request){
+        $folder = $request->get('folder');
+        $file = $request->get('file');
+        $logs = $this->log_viewer->getLogsByFolders($folder,$file);
+        $size = SizeLog::getSizeFile(storage_path('logs').'/'.$folder.'/'.$file);
+        $data = [
+            'logs' => $logs,
+            'current_folder' => $folder,
+            'current_file' => $file,
+            'size'=>$size,
+            'standardFormat' => true,
+        ];
+        return response()->json(compact('data'),200);
     }
 }

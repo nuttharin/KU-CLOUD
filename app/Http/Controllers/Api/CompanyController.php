@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Repositories\TB_USERS\UsersRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -16,21 +17,37 @@ use App\TB_USER_CUSTOMER;
 use email;
 use Mail;
 use Illuminate\Mail\Message;
+use App\LogViewer\LogViewer;
+use Auth;
 
 class CompanyController extends Controller
 {
+    /**
+     * @var UsersRepository
+     */
+    private $users;
+    private $auth;
+
+    public  function __construct(UsersRepository $users)
+    {
+        $this->users = $users;
+        $this->log_viewer = new LogViewer();
+        $this->auth = Auth::user();
+        // $token = $request->cookie('token');
+        // $payload = JWTAuth::setToken($token)->getPayload();
+        // $this->log_viewer->setFolder('COMPANY_'.$payload["user"]->company_id);
+    }
+
+    public function test(){
+        $compnay_id = $this->auth->user_company()->first();
+        return response()->json(compact('compnay_id'),201);
+    }
+
     public function getAllUser(Request $request){
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
 
-        $users = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email,TB_USERS.block,TB_USER_COMPANY.sub_type_user,TB_USERS.online FROM TB_USERS 
-                            LEFT JOIN TB_PHONE ON TB_USERS.user_id =TB_PHONE.user_id
-                            LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email FROM TB_EMAIL
-                            GROUP BY TB_EMAIL.user_id) AS T1 ON T1.user_id = TB_USERS.user_id
-                            INNER JOIN TB_USER_COMPANY ON TB_USER_COMPANY.user_id = TB_USERS.user_id
-                            INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
-                            WHERE TB_USERS.type_user = ? AND TB_COMPANY.company_id = ?
-                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USER_COMPANY.sub_type_user,TB_USERS.online',['COMPANY',$payload["user"]->company_id]);
+        $users = $this->users->getByTypeForCompany('COMPANY',$payload["user"]->company_id);
         
         if(!empty($users)){
             return response()->json(compact('users'),200);
@@ -42,9 +59,8 @@ class CompanyController extends Controller
     public function addUserCompany(Request $request) {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
         
-        $user = TB_USERS::create([
+        $user = $this->users->create([
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'password' => Hash::make($request->get('password')),
@@ -125,14 +141,7 @@ class CompanyController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
 
-        $customer = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email,TB_USERS.block,TB_USERS.online FROM TB_USERS 
-                            LEFT JOIN TB_PHONE ON TB_USERS.user_id =TB_PHONE.user_id
-                            LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email FROM TB_EMAIL
-                            GROUP BY TB_EMAIL.user_id) AS T1 ON T1.user_id = TB_USERS.user_id
-                            INNER JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
-                            INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
-                            WHERE TB_USERS.type_user = ? AND TB_COMPANY.company_id = ?
-                            GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.online',['CUSTOMER',$payload["user"]->company_id]);
+        $customer = $this->users->getByTypeForCompany('CUSTOMER',$payload['user']->company_id);
         if(!empty($customer)){
             return response()->json(compact('customer'),200);
         }
@@ -173,19 +182,10 @@ class CompanyController extends Controller
         return response()->json(["status_code","201"],201);
     }
 
-    public function countUserCustomer(){
-        $customer = DB::table('TB_USERS')
-                        ->where('type_user','CUSTOMER')
-                        ->count();
-        dd($customer);
-
-    }
-
     public function countUserOnline(Request $request){
         $type_user = $request->get('type_user');
-        $users = DB::select('SELECT if(TB_USERS.online,?,?) as online,COUNT(user_id) as count FROM TB_USERS
-        WHERE type_user = ?
-        GROUP BY TB_USERS.online',['online','offline',$type_user]);
+        $company_id = $this->auth->user_company()->first()->company_id;
+        $users = $this->users->countUserOnline($type_user, $company_id);
         return response()->json(compact('users'),200);
     }
 }

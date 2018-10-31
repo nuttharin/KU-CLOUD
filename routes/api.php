@@ -26,18 +26,21 @@ Route::get('open', 'DataController@open'); //test
 
 
 Route::group(['middleware' => ['jwt.verify']], function() {
+   
+
     Route::get('closed', 'DataController@closed'); //test
 
     //Company
+    Route::get('company/test', 'Api\CompanyController@test'); //test
+
     Route::get('company/users','Api\CompanyController@getAllUser');
     Route::post('company/users', 'Api\CompanyController@addUserCompany');
     Route::put('company/users/block','Api\CompanyController@blockUserCompany');
     Route::put('company/users/edit','Api\CompanyController@editUserCompany');
     Route::get('company/users/online','Api\CompanyController@countUserOnline');
-    
+
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
-    Route::get('company/customers/count','Api\CompanyController@countUserCustomer');
 
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
@@ -65,5 +68,11 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('admin/companydata/checkdelete','Api\AdminController@getCountUsersByCompanyID');
     
     Route::get('admin/users/online','Api\AdminController@countUserOnline');
+
+    Route::get('admin/database/log','Api\AdminController@getLogList');
+
+    Route::get('admin/database/log/folder','Api\AdminController@getFolderLogs');
+    Route::get('admin/database/log/file','Api\AdminController@getFilelogByFolder');
+    Route::get('admin/database/logfile','Api\AdminController@getFileLog');
 });
 
