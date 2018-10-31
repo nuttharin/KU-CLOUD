@@ -14,6 +14,11 @@ page[size="A4"] {
   height: 842px; 
 }
 
+page[size="A4_115"] {  
+  width: 517px;
+  height: 732px; 
+}
+
 /* Main Menu */
 .vertical-menu {
   width: 10px;
@@ -120,6 +125,7 @@ headline{
 .crispy{
   margin: 6px;
   max-width: 100px;
+  text-align: center;
   display: inline-block;
 }
 
