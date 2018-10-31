@@ -7,7 +7,9 @@ class DatabaseLogs {
         let fileLogList = [];
         let folderLogList = [];
         let fileLogViewer = [];
+        let filelogSelect = null;
         let ModalFileLog = null;
+        let ModalStack = null;
 
         let showLoadingStatus = (show, datatable) => {
             if (show) {
@@ -63,7 +65,7 @@ class DatabaseLogs {
                                 <div class="modal-dialog modal-lg" width:"900px">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="title-user"></h5>
+                                            <h5 class="modal-title" id="title-user">Log files</h5>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
 
@@ -140,15 +142,15 @@ class DatabaseLogs {
             $(".log-viewer").show();
             $(".folder-log-viewer").hide();
             if (datatableLogViewer === null) {
-                datatableLogViewer = $('#table-log').dataTable({
-                    fixedHeader: true
-                });
+                datatableLogViewer = $('#table-log').dataTable({});
             }
 
             $("#btn-back").unbind().click(function () {
                 onBtnBackClick();
             });
 
+            filelogSelect = null;
+            filelogSelect = fileLogList[index];
             getFileLogViewer(fileLogList[index].folder, fileLogList[index].file);
         };
 
@@ -169,11 +171,62 @@ class DatabaseLogs {
                     ret[0] = `<i class="${item.level_img}" style="color:${item.level_color}"></i> <span class="text-${item.level_class}">${item.level}</span>`;
                     ret[1] = item.date;
                     ret[2] = `<div class='text-wrap width-200'>${item.text}</div>`;
-                    ret[3] = item.stack ? `<button class='btn btn-danger btn-sm btn-radius'>stack</button>` : '';
+                    ret[3] = item.stack ? `<button class='btn btn-danger btn-sm btn-radius btn-stack' index="${index}">stack</button>` : '';
                     Datatable.push(ret);
                 });
                 datatableLogViewer.fnAddData(Datatable);
+
+                $('#table-log').on('click', '.btn-stack', function () {
+                    onBtnStackClick($(this).attr('index'));
+                });
             }
+
+            $("#btn-download-file").unbind().click(function () {
+                console.log(filelogSelect.folder, filelogSelect.file);
+                $.ajax({
+                    url: 'http://localhost:8000/api/admin/database/log/file/download',
+                    method: 'POST',
+                    data: {
+                        folder: filelogSelect.folder,
+                        file: filelogSelect.file
+                    },
+                    success: (res) => {
+                        console.log(res);
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                });
+            });
+        };
+
+        let onBtnStackClick = (index) => {
+            if (ModalStack === null) {
+                ModalStack = ` <div class="modal fade" id="modal-stack">
+                                <div class="modal-dialog modal-lg" width:"900px">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="title-user">Stack</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <textarea class="form-control" style="width:100%;height:400px" id="text-stack" readonly></textarea>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                $('body').append(ModalStack);
+            }
+
+            $("#modal-stack").modal('show');
+            console.log(fileLogViewer.logs);
+            $("#text-stack").html(fileLogViewer.logs[index].stack);
+
         };
 
         let getFileLogViewer = (folder, file) => {

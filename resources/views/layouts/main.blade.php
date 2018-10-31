@@ -183,7 +183,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{action('AdminController@Infographic')}}">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-file-image"></i>
                         <span class="link_hide">Infographic</span>
                     </a>
                 </li>

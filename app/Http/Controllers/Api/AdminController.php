@@ -647,4 +647,10 @@ class AdminController extends Controller
         ];
         return response()->json(compact('data'),200);
     }
+
+    public  function downloadFileLog(Request $request){
+        $folder = $request->get('folder');
+        $file = $request->get('file');
+        return $this->log_viewer->download($folder,$file);
+    }
 }
