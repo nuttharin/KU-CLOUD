@@ -37,7 +37,7 @@
     </div>  
     <div class="col-6">
         <!-- A4 Size -->
-        <page size="A4" id="workspace" />        
+        <page size="A4_115" id="workspace" />        
     </div>
     <div class="col-3">
         <div class="row" id="propertySpace">
