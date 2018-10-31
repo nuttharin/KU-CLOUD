@@ -106,7 +106,7 @@
 
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet" />
-
+<link href="{{url('css/style.min.css')}}" rel="stylesheet" />
 
 <br>
 <h4>Create a new webservice</h4><hr>
@@ -201,7 +201,8 @@
     
 </div>
 <script type="text/javascript" src="{{url('js/company/services/addservice.js')}}"></script>
-
+<script type="text/javascript" src="{{url('jquery/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{url('jquery/jstree.min.js')}}"></script>
 
 
 <script>
