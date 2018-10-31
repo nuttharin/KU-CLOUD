@@ -297,18 +297,20 @@ class LogViewer
     }
 
     /**
-     * @param $bytes
-     * @param int $precision
-     * @return string
+     * @param $folder
+     * @param null $file
+     * @param array $headers
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    private function formatSize($bytes, $precision = 2)
+    public function download($folder, $file = null, $headers = [])
     {
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $path =  storage_path('logs').'/'.$folder.'/'.$file;
 
-        $bytes = max($bytes, 0);
-        $pow   = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow   = min($pow, count($units) - 1);
+        return response()->download($path, $file, $headers);
+    }
 
-        return round($bytes / pow(1024, $pow), $precision).' '.$units[$pow];
+    public function delete($date)
+    {
+        //return $this->filesystem->delete($date);
     }
 }

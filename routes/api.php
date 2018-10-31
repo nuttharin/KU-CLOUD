@@ -69,10 +69,11 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     
     Route::get('admin/users/online','Api\AdminController@countUserOnline');
 
+    
     Route::get('admin/database/log','Api\AdminController@getLogList');
-
     Route::get('admin/database/log/folder','Api\AdminController@getFolderLogs');
     Route::get('admin/database/log/file','Api\AdminController@getFilelogByFolder');
     Route::get('admin/database/logfile','Api\AdminController@getFileLog');
+    Route::post('admin/database/log/file/download','Api\AdminController@downloadFileLog');
 });
 

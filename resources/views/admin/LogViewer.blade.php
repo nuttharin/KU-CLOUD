@@ -18,6 +18,10 @@
         width: 600px;
     }
 </style>
+
+<link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
+<link href="{{url('css/animate.css')}}" rel="stylesheet">
+
 <div class="container-fluid">
     <div class="folder-log-viewer">
         <div class="card bg-white" style="margin-top:30px;">
@@ -72,14 +76,21 @@
                     </div>
                     <div class="col-6 text-right">
                         <div class="mr-auto">
-                            <button class="btn btn-success btn-radius"><i class="fas fa-arrow-down"></i></button>
-                            <button class="btn btn-danger btn-radius"> <i class="fas fa-trash-alt"></i></button>
+                            <button class="btn btn-success btn-radius" id="btn-download-file"><i class="fas fa-arrow-down"></i></button>
+                            <button class="btn btn-danger btn-radius"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         <h3>Log</h3>
+                        {{--
+                        <div class="text-loading">
+                            <div class="text-line md"></div>
+                        </div>
+                        <div class="text-loading">
+                            <div class="text-line md" style="200px"></div>
+                        </div> --}}
                         <p><i class="fas fa-folder-open text-warning"></i> <span id="path-file"></span></p>
                         <p>Size : <span id="file-size"></span></p>
                     </div>
