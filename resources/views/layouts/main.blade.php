@@ -192,6 +192,25 @@
                         <span class="link_hide">Static</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#LogSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                            <i class="far fa-file-alt"></i>
+                            <span>Logs</span>
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    <ul class="collapse list-unstyled sub" id="LogSubmenu">
+                        <li class="nav-item">
+                            <a href="{{action('AdminController@LogViewer')}}">
+                                Database Logs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('AdminController@UsersCompany')}}">
+                                Datawarehouse Logs
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
