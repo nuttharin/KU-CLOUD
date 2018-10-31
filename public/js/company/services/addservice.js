@@ -2,9 +2,7 @@ class Service{
     constructor(){
         let dataFromUrl;
         let dataHeader ;
-        let str ="";
-        let check = false;
-        let par ;
+        let dataHeaderList ;
 
         this.initService = (url) =>{
             console.log("init service")
@@ -12,92 +10,16 @@ class Service{
             treeView.clearValue();
             dataFromUrl = treeView.getDataFormUrl();
             dataHeader = treeView.getHeaderFormData(dataFromUrl);
-            let x =[]
-            x.push(dataHeader)
-            //createList(dataHeader);
-            
+            dataHeaderList = treeView.getDataHeaderAll();
+            dataHeader = JSON.stringify(dataHeader);
+          
+            console.log(dataHeader);
+            console.log(dataHeaderList);
            
-
-            //console.log(dataFromUrl);
-            console.log(JSON.stringify(dataHeader))
-            for(let i =0 ;i<dataHeader.length ;i++)
-            {
-                
-                let re =(data,pa) =>{
-
-                    console.log(data)
-                    Object.keys(data).forEach(function(key){
-                        if(data[key].child !== null)
-                        {
-                            if(check === true)
-                            {  
-                                    check = false;
-                                    str = str + '</ul></li>';
-                            }
-                            
-                            console.log("if "+data[key].header)
-                            str = str + '<li>' + data[key].header+'<ul>' ;
-                            check = true ;
-                            
-                            re(data[key].child,data[key].header )
-                        }
-                        else 
-                        {
-                            
-                            console.log("else  "+data[key].header)
-                            console.log("else  -- "+pa)
-
-                            // console.log("else  -- "+pa)
-                            if(pa === par)
-                            {
-                                str = str + '</ul><li>'+ data[key].header + '</li>';
-                            }
-                            else
-                                str = str + '<li>'+ data[key].header + '</li>';
-                            
-                            //check = false;
-                        }
-
-                        
-                    })
-                    
-                }
-                if(dataHeader[i].child !== null)
-                {
-                    
-                    console.log(dataHeader[i].header)
-                    str = str + '<ul>' + dataHeader[i].header  ;
-                    re(dataHeader[i].child,dataHeader[i].header);
-                    str = str + '</ul>';
-                }
-                    
-            }
-        $('.treeView-list').html(str)
-            console.log(str)    
+       
         }
 
-        let createList = (data) => {
-            let temp ;
-            //console.log(typeof(data[0]));
-            //if()
-            Object.keys(data).forEach(function(key){
-                //console.log(data[key].header+"  "+typeof(data[key].child));
-
-                if(data[key].child !== null ){
-                   console.log(data[key].header);
-                   createList(data[key].child);
-                }
-                else 
-                {
-                    console.log(data[key].header);
-                    console.log(data);
-                }
-                console.log("-----------------")
-                
-            })
-            str =str+"</h3>"
-
-        }
+        
 
         
     }
@@ -117,13 +39,17 @@ class TreeView{
 
         let dataHeaderAll = [];
         let num =0 ;
-        let num2 =1 ;
+        let num2 =0 ;
         //let num2 =1 ;
         //this.dataFromUrl;
 
         this.clearValue = () => {
             arrData = [] ;
             dataChild = [] ;
+        }
+
+        this.getDataHeaderAll = () =>{
+            return dataHeaderAll ;
         }
 
         this.getDataFormUrl = () =>{
@@ -165,12 +91,13 @@ class TreeView{
                     else {
                         temp = data[key];
                     }
-                    dataHeaderAll.push({'id': num2,'data' :key , 'parent' : ''});
-                    num = num2;
-                    
-                    getHeader(temp,key);  
-                    arrData.push({ 'id': num2,'text' : key , 'children' : dataChild });
+                   
+                    //num = num2;
+                   
+                    getHeader(temp,key); 
                     num2++;
+                    arrData.push({ 'id': num2,'text' : key , 'children' : dataChild });
+                    dataHeaderAll.push({'id': num2,'text' :key });
                    
 
                     
@@ -185,7 +112,7 @@ class TreeView{
             //return dataHeaderAll;
         }      
 
-        let getHeader = (dataIn,pa) =>{
+        let getHeader = (dataIn) =>{
 
             let arrDataIn = [] ;
             if(typeof(dataIn) !== 'object')
@@ -198,21 +125,22 @@ class TreeView{
 
                     if(typeof(dataIn[key]) === 'object')
                     {
-                        // dataHeaderAll.push({'id': num2, 'data' :key , 'parent' : num});
+                        // 
                         // num2++;
-                        num2++;
-                        getHeader(dataIn[key],key);
-                        arrDataIn.push({  'id': num2 ,'text' : key , 'children' : dataChild });
                         
-                       
+                        getHeader(dataIn[key]);
+                        num2++;
+                        arrDataIn.push({  'id': num2 ,'text' : key , 'children' : dataChild });
+                        dataHeaderAll.push({'id': num2, 'text' :key });
                         
 
                     }
                     else {
-                        // dataHeaderAll.push({'id': num2 ,'data' :key , 'parent' : num});
+                        // 
                         // num2++;
-                        arrDataIn.push({ 'id': num2,'text' : key , 'children' : null });
                         num2++;
+                        arrDataIn.push({ 'id': num2,'text' : key , 'children' : null });
+                        dataHeaderAll.push({'id': num2 ,'text' :key });
                         ///num++;
 
                     }
