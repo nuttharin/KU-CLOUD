@@ -37,12 +37,57 @@
     </div>  
     <div class="col-6">
         <!-- A4 Size -->
-        <page size="A4" id="workspace">        
-
-        </page>
+        <page size="A4_115" id="workspace" />        
     </div>
     <div class="col-3">
-
+        <div class="row" id="propertySpace">
+            <!--<div class="propertyMenu">
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Width (px)</span>
+                            <input type="text" class="form-control crispy"/>
+                        </div>
+                        <div class="col-6">
+                            <span>Height (px)</span>
+                            <input type="text" class="form-control crispy" />
+                        </div>
+                    </div>
+                </div>
+                <div class="Grouping">
+                    <div class="GroupTitle" data-toggle="collapse" data-target="#demo">
+                        <i class="far fa-chart-bar"></i><span>Chart properties</span>
+                    </div>
+                    <div class="GroupBody" id="demo" class="collapse">
+                        Lorem ipsum
+                    </div>
+                </div>
+                <div class="Grouping">
+                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
+                    <i class="fas fa-palette"></i><span>Color</span>
+                    </div>
+                    <div class="GroupBody" id="demox" class="collapse">
+                        Lorem ipsum
+                    </div>
+                </div>
+                <div class="Grouping">
+                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
+                        <i class="fas fa-list-ul"></i><span>Legend</span>
+                    </div>
+                    <div class="GroupBody" id="demox" class="collapse">
+                        Lorem ipsum
+                    </div>
+                </div>
+                <div class="Grouping">
+                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
+                    <i class="fas fa-comment"></i><span>Tooltips</span>
+                    </div>
+                    <div class="GroupBody" id="demox" class="collapse">
+                        Lorem ipsum
+                    </div>
+                </div>                        
+            </div>-->
+        </div>
     </div>     
 </div>
 

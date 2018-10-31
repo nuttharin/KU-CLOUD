@@ -1,5 +1,8 @@
+
+/* Workspace */
 page {
   background: white;
+  position: relative;
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
@@ -11,6 +14,12 @@ page[size="A4"] {
   height: 842px; 
 }
 
+page[size="A4_115"] {  
+  width: 517px;
+  height: 732px; 
+}
+
+/* Main Menu */
 .vertical-menu {
   width: 10px;
   height: 100%;
@@ -34,12 +43,13 @@ page[size="A4"] {
   color: rgb(0, 0, 0);
 }
 
+/* Select Menu */
 .select-menu {
   width: 10px;
   height: 100%;
   background-color: rgb(157, 166, 255);
   text-align: center;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .select-menu sub{
@@ -48,7 +58,7 @@ page[size="A4"] {
   padding: 20px;
   margin-bottom: 20px;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 2px;
   cursor: pointer;
 }
 
@@ -70,7 +80,7 @@ page[size="A4"] {
   padding: 20px;
   margin-bottom: 20px;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 2px;
 }
 
 .select-menu top.head {
@@ -90,9 +100,112 @@ page[size="A4"] {
   font-size: 15px;
   cursor: pointer;
 }
+ 
+/* Property */
+.propertyMenu {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(157, 166, 255);
+  text-align: center;
+}
 
-.shape{
-  width: 100px;
-  height: 65px;
-  background-color: #B2D237;
+/* Property - Scale */
+.Scaling{
+  background-color: rgba(129, 141, 255, 0.596); 
+  color: white;
+  margin: 5px;
+  padding-top: 5px;
+}
+
+headline{
+  margin-left: 25px;
+  margin-right: 20px;
+}
+
+.crispy{
+  margin: 6px;
+  max-width: 100px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Property - Trans*/
+.Trans{
+  background-color: rgba(129, 141, 255, 0.596); 
+  color: white;
+  margin: 5px;
+  padding-top: 5px;
+}
+
+/* Property - Group*/
+.Grouping{
+  background: linear-gradient(to right, rgb(31, 53, 255) 8px, transparent 4px) 0 0;
+  margin: 5px;
+}
+
+.GroupTitle{
+  position: relative;
+  background: linear-gradient(to right, rgb(31, 53, 255) 8px, transparent 4px) 0 0;
+  background-color: rgb(106, 121, 255);
+  display: block;
+  padding: 10px;
+  padding-bottom: 10px;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer; 
+  color: rgb(255, 255, 255);
+}
+
+.GroupTitle i{
+  position: absolute;
+  font-size: 20px;
+  top: 12px;
+  left: 20px;
+}
+
+.GroupTitle span{
+  margin-left: 40px;
+}
+
+.GroupTitle.active{
+  background-color: rgba(32, 55, 255, 0.76);
+}
+
+.GroupTitle:hover{
+  background-color: rgba(62, 82, 255, 0.76); 
+}
+
+.GroupTitle::after{
+  position: absolute;
+  content: "\f150";
+  font-family: 'Font Awesome 5 Free';
+  font-size: 15px;
+  top: 12px;
+  right: 6px;
+}
+
+.GroupBody{
+  background-color: rgba(129, 141, 255, 0.596); 
+  color: white;
+}
+
+/* Canvas */
+.sPosition{
+  position: absolute; 
+  top: 0; 
+  left: 0;
+}
+
+.fCorner{
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 0 0,
+              linear-gradient(to right, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 0 100%,
+              linear-gradient(to left, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 100% 0,
+              linear-gradient(to left, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 100% 100%,
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 0 0,
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 100% 0,
+              linear-gradient(to top, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 0 100%,
+              linear-gradient(to top, rgba(0, 0, 0, 0.514) 4px, transparent 4px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
 }

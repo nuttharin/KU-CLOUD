@@ -26,14 +26,16 @@ class SetupFirst extends Migration
                 'company_name'=>'KU_CLOUD',
                 'alias'=>'KU_CLOUD',
                 'address'=>'กำแพงแสน',
-                'note'=>'KU_CLOUD'
+                'note'=>'KU_CLOUD',
+                'folder_log'=>'KU_CLOUD'
             ],
             [
                 'company_id'=>'2',
                 'company_name'=>'TEST',
                 'alias'=>'TEST',
                 'address'=>'TEST',
-                'note'=>'TEST'
+                'note'=>'TEST',
+                'folder_log'=>'COMPANY_2'
             ]     
             
         ];

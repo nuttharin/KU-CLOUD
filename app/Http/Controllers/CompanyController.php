@@ -7,8 +7,11 @@ use JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use Gate;
 
+use App\LogViewer\LogViewer;
+
 class CompanyController extends Controller
 {
+    
     public function index()
     {       
         return view('company.index');

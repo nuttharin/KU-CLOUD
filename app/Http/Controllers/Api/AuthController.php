@@ -14,11 +14,13 @@ use Auth;
 
 use DB;
 use App\TB_EMAIL;
+use Log;
 
 
 class AuthController extends Controller
 {
     public function login(Request $request){
+       
         $user = DB::select('SELECT TB_USERS.user_id,TB_USERS.password,TB_USERS.type_user,TB_EMAIL.email_user,TB_COMPANY.company_id FROM TB_USERS
                             LEFT JOIN TB_USER_COMPANY ON  TB_USER_COMPANY.user_id = TB_USERS.user_id
                             LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
@@ -41,6 +43,7 @@ class AuthController extends Controller
                 $payload = JWTFactory::make($factory);
                 $token = JWTAuth::encode($payload);
                 
+                Log::debug('An informational message.',['id'=>$user[0]->type_user]);
                 //$payload = JWTAuth::decode($token);
                 if($user[0]->type_user == "ADMIN"){
                     return response()->json(['token' => $token->get(),'path'=>'/Admin/UsersAdminister','status'=>200],200);
