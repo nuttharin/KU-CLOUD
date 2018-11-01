@@ -626,10 +626,9 @@ class AdminController extends Controller
         return response()->json(compact('folder_log'),200);
     }
 
-    public  function getFilelogByFolder(Request $request){
+    public  function getFileLogByFolder(Request $request){
         $folder_log = $request->get('folder_log');
         $file_log = $this->log_viewer->getFolderFilesV2($folder_log,true);
-
         return response()->json(compact('file_log'),200);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_USERS\UsersRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,11 +15,17 @@ use App\TB_EMAIL;
 use App\TB_PHONE;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
+
 use email;
 use Mail;
 use Illuminate\Mail\Message;
+
 use App\LogViewer\LogViewer;
+
 use Auth;
+
+use Log;
+use App\LogViewer\SizeLog;
 
 class CompanyController extends Controller
 {
@@ -26,16 +33,20 @@ class CompanyController extends Controller
      * @var UsersRepository
      */
     private $users;
+    private $companies;
     private $auth;
 
-    public  function __construct(UsersRepository $users)
+    public  function __construct(UsersRepository $users,CompanyRepository $companies,Request $request)
     {
         $this->users = $users;
+        $this->companies = $companies;
+
         $this->log_viewer = new LogViewer();
         $this->auth = Auth::user();
-        // $token = $request->cookie('token');
-        // $payload = JWTAuth::setToken($token)->getPayload();
-        // $this->log_viewer->setFolder('COMPANY_'.$payload["user"]->company_id);
+
+         $token = $request->cookie('token');
+         $payload = JWTAuth::setToken($token)->getPayload();
+         $this->log_viewer->setFolder('COMPANY_'.$payload["user"]->company_id);
     }
 
     public function test(){
@@ -48,11 +59,10 @@ class CompanyController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
 
         $users = $this->users->getByTypeForCompany('COMPANY',$payload["user"]->company_id);
-        
         if(!empty($users)){
+            $this->log_viewer->logRequest($request);
             return response()->json(compact('users'),200);
         }
-        
         return response()->json(['message' => 'not have data'],200);
     }
 
@@ -143,6 +153,7 @@ class CompanyController extends Controller
 
         $customer = $this->users->getByTypeForCompany('CUSTOMER',$payload['user']->company_id);
         if(!empty($customer)){
+            $this->log_viewer->logRequest($request);
             return response()->json(compact('customer'),200);
         }
         return response()->json(['message' => 'not have data'],200);
@@ -187,5 +198,26 @@ class CompanyController extends Controller
         $company_id = $this->auth->user_company()->first()->company_id;
         $users = $this->users->countUserOnline($type_user, $company_id);
         return response()->json(compact('users'),200);
+    }
+
+    public  function getFileLogByFolder(){
+        $folder_log = 'COMPANY_'.$this->auth->user_id;
+        $file_log = $this->log_viewer->getFolderFilesV2($folder_log,true);
+        return response()->json(compact('file_log'),200);
+    }
+
+    public  function getFileLog(Request $request){
+        $folder = $request->get('folder');
+        $file = $request->get('file');
+        $logs = $this->log_viewer->getLogsByFolders($folder,$file);
+        $size = SizeLog::getSizeFile(storage_path('logs').'/'.$folder.'/'.$file);
+        $data = [
+            'logs' => $logs,
+            'current_folder' => $folder,
+            'current_file' => $file,
+            'size'=>$size,
+            'standardFormat' => true,
+        ];
+        return response()->json(compact('data'),200);
     }
 }

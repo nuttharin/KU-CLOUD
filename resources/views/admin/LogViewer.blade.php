@@ -37,7 +37,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table style="width: 100%" class="table table-striped table-bordered table-hover dt-responsive " id="datatable-folder-log">
+                        <table style="width: 100%" class="table table-striped table-bordered table-hover dt-responsive " id="datatable-folder-log" style="display: none">
                             <thead>
                                 <tr>
                                     <th>Company</th>
