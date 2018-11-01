@@ -4,6 +4,8 @@ class Service{
         let dataHeader ;
         let dataHeaderList ;
 
+        
+
         this.initService = (url) =>{
             console.log("init service")
             let treeView = new TreeView();
@@ -12,20 +14,43 @@ class Service{
             dataHeader = treeView.getHeaderFormData(dataFromUrl);
             dataHeaderList = treeView.getDataHeaderAll();
             dataHeader = JSON.stringify(dataHeader);
-          
-            console.log(dataHeader);
-            console.log(dataHeaderList);
-           
-       
+            
+            this.createTreeView();
+            //console.log(dataHeader);
+            // console.log(dataHeaderList);
         }
 
-        
-
-        
+        this.createTreeView=()=>{
+            //console.log("Sssssss");
+            //console.log(dataHeader);
+            let str = "<a href='select'></a><div id='select'><form id='search'><input class='mb-2 mr-2' type='search' id='id_search' placeholder='Search'/><button class='btn btn-primary' type='submit'>Search</button></form><div id='check'></div><div id='submitcheck'></div>"
+            document.getElementById('checkshow').innerHTML = str;
+            $('#check').jstree({
+                'core' : {
+                    'data' : JSON.parse(dataHeader),
+                    'themes': {
+                        'name': 'proton',
+                        "icons":false,
+                        'responsive': true
+                    },
+                },	
+                "plugins" : ["checkbox","wholerow","search"]
+            });
+            $("#check").jstree("check_all");
+            $('#check').jstree("check_node", "#top_level_node_id");
+            document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
+            $('#submit').on("click", function () {
+                var selectedElmsIds = $('#check').jstree("get_selected",true);
+                console.log(selectedElmsIds);
+                //instance.deselect_all();
+                //instance.select_node('1');
+            });
+            $("#search").submit(function(e) {
+            e.preventDefault();
+            $("#check").jstree(true).search($("#id_search").val());
+            });
+        }
     }
-
-     
-
 }
 
 class TreeView{
@@ -74,9 +99,7 @@ class TreeView{
 
         this.getHeaderFormData = (data) => {
             let dataTemp ;
-            arrData = [] ;
-            
-           
+            arrData = [] ;  
             if( typeof(data) !== 'object')
             {
 
@@ -97,13 +120,8 @@ class TreeView{
                     getHeader(temp,key); 
                     num2++;
                     arrData.push({ 'id': num2,'text' : key , 'children' : dataChild });
-                    dataHeaderAll.push({'id': num2,'text' :key });
-                   
-
-                    
+                    dataHeaderAll.push({'id': num2,'text' :key });                   
                     dataChild = [];
-
-
                 });
             }
             dataTemp = arrData ;
@@ -111,7 +129,7 @@ class TreeView{
             return dataTemp ;
             //return dataHeaderAll;
         }      
-
+        
         let getHeader = (dataIn) =>{
 
             let arrDataIn = [] ;
@@ -132,8 +150,6 @@ class TreeView{
                         num2++;
                         arrDataIn.push({  'id': num2 ,'text' : key , 'children' : dataChild });
                         dataHeaderAll.push({'id': num2, 'text' :key });
-                        
-
                     }
                     else {
                         // 
@@ -142,10 +158,7 @@ class TreeView{
                         arrDataIn.push({ 'id': num2,'text' : key , 'children' : null });
                         dataHeaderAll.push({'id': num2 ,'text' :key });
                         ///num++;
-
                     }
-                    
-
                 });
                 dataChild = arrDataIn ;
                 arrDataIn = [] ;
@@ -157,14 +170,6 @@ class TreeView{
         }
 
     }
-    
-
-
-
-
-    
-
-
 }
 
 $(document).ready(function(){
@@ -173,17 +178,16 @@ $(document).ready(function(){
         //console.log("kuy");
         let url  = $("#url-webservice").val();
         //console.log(url);
+       
         let service = new Service();
         service.initService();
-
-
     })
 
-    $(".show-header").click(function(){
+    // $(".show-header").click(function(){
        
-
-    })
+    // })
 
 
 
 })
+
