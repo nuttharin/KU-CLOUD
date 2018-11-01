@@ -188,6 +188,7 @@ span {
     left: 80px;
     width: 250px;
     margin-top: -55px;
+    background: #ffffff;
 }
 
 #sidebar.active .list-unstyled .nav-item span {
