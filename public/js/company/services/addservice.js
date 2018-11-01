@@ -36,8 +36,10 @@ class Service {
                 },
                 "plugins": ["checkbox", "wholerow", "search"]
             });
-            $("#check").jstree("check_all");
-            $('#check').jstree("check_node", "#top_level_node_id");
+            $('#check').on('ready.jstree', function() {
+                $("#check").jstree("open_all");
+                $("#check").jstree("check_all");           
+            });
             document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
             $('#submit').on("click", function () {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
