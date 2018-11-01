@@ -24,7 +24,7 @@ var Users = new (function () {
     var that = this;
 
     var updateDatatableData = (userList) => {
-        var Datatable = new Array();
+        var Datatable = [];
         UsersDATATABLE.fnClearTable();
         $.each(userList.users, function (index, item) {
 
@@ -84,7 +84,7 @@ var Users = new (function () {
         });
 
         $('[data-toggle="tooltip"]').tooltip();
-    }
+    };
 
     var onSaveUserClick = () => {
         $("#addUser #loading-save").show();
@@ -154,7 +154,7 @@ var Users = new (function () {
         $('#email-user').html(UsersList[key].email);
 
         $("#detailUser").modal('show');
-    }
+    };
 
     var onEditClick = (key) => {
         if (ModalEdit === null) {
@@ -420,11 +420,11 @@ var Users = new (function () {
                                     </div>
                                 </div>
                             </div>
-                        </div>`
+                        </div>`;
             $('body').append(ModalDelete);
         }
 
-        $('#span-text-confirm').html("Are you sure to delete " + UsersList[key].email + " ? ")
+        $('#span-text-confirm').html("Are you sure to delete " + UsersList[key].email + " ? ");
         $('#DeleteUser').modal('show');
     };
 
@@ -441,7 +441,7 @@ var Users = new (function () {
         });
 
 
-    }
+    };
 
     var showDatatableLoadingStatus = (showOrHide) => {
         if (showOrHide) {
@@ -478,7 +478,7 @@ var Users = new (function () {
     };
 
 
-})
+});
 
 
 $(document).ready(function () {

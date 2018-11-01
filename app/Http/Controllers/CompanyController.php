@@ -7,6 +7,8 @@ use JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use Gate;
 
+use Log;
+
 use App\LogViewer\LogViewer;
 
 class CompanyController extends Controller
@@ -48,5 +50,10 @@ class CompanyController extends Controller
     public function Show_service()
     {
         return view('company.showService')->with('user', Auth::user());
+    }
+
+    public  function LogViewer()
+    {
+        return view('company.LogViewer')->with('user', Auth::user());
     }
 }

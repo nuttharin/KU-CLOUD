@@ -7,8 +7,11 @@
  */
 
 namespace App\LogViewer;
+
+use Illuminate\Http\Request;
 use SplFileInfo;
 use App\LogViewer\SizeLog;
+use Log;
 
 class LogViewer
 {
@@ -256,6 +259,27 @@ class LogViewer
         }
         return array_values($folders);
     }
+
+    /**
+     * @param Request $request
+     */
+    public function logRequest(Request $request,$status = true): void
+    {
+        $method = strtoupper($request->getMethod());
+
+        $uri = $request->getPathInfo();
+
+        $bodyAsJson = json_encode($request->except(config('http-logger.except')));
+
+        $message = "{$method} {$uri} - {$bodyAsJson}";
+        if($status){
+            Log::info($message." SUCCESS");
+        }
+        else{
+            Log::error($message." ERROR");
+        }
+    }
+
     /**
      * @param bool $basename
      * @return array
@@ -289,8 +313,9 @@ class LogViewer
                     'size' => $size,
                     'folder' => $folder
                 ];
-                $files[$k] = basename($file);
+                //$files[$k] = basename($file);
             }
+            //$file_log['size_total'] = SizeLog::getSizeFolder($folder);
         }
 
         return array_values($file_log);

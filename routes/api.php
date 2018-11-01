@@ -42,6 +42,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
 
+    Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
+    Route::get('company/database/logfile','Api\CompanyController@getFileLog');
+
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
     Route::post('admin/administer/create','Api\AdminController@createAdminister');
@@ -72,7 +75,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     
     Route::get('admin/database/log','Api\AdminController@getLogList');
     Route::get('admin/database/log/folder','Api\AdminController@getFolderLogs');
-    Route::get('admin/database/log/file','Api\AdminController@getFilelogByFolder');
+    Route::get('admin/database/log/file','Api\AdminController@getFileLogByFolder');
     Route::get('admin/database/logfile','Api\AdminController@getFileLog');
     Route::post('admin/database/log/file/download','Api\AdminController@downloadFileLog');
 });
