@@ -126,8 +126,23 @@
         padding-top:30px;
         padding-bottom:30px;
     }
-    
-
+    .jstree-proton .jstree-clicked
+    {
+        color: black !important; 
+    }
+    .jstree-proton .jstree-wholerow-clicked
+    {
+        background:transparent !important;
+    }
+    .jstree-proton .jstree-wholerow-hovered {
+        background: #F5F5F5 !important;
+    }
+    .jstree-proton .jstree-hovered {
+        color: none !important;
+    }
+    .jstree-proton .jstree-search{
+        color:#6699FF !important;
+    }
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>
 <link href="{{url('jstree/style.min.css')}}" rel="stylesheet" />
