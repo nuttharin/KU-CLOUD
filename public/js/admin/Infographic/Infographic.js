@@ -1,10 +1,9 @@
+var path = $("#pathImg").val();
 
 class Workspace
 {
   constructor()
-  {
-    var path = $("#pathImg").val();
-  
+  { 
     /* Initial Function */
     this.initialAndRun = () => 
     {
@@ -41,10 +40,10 @@ class Workspace
         SetActive("btnGraph");
   
         $("#selectMenu").html(`<top class="head">Add Graph<close><i class="fas fa-times"></i></close></top>
-                                <sub id="g1"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Line</title></sub>
-                                <sub id="g2"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Bar</title></sub>
-                                <sub id="g3"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Circle</title></sub>
-                                <sub id="g4"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Stack</title></sub>`);
+                                <sub id="g1"><img src="${path}" style="width:100%; height:100%;"/><title>Line</title></sub>
+                                <sub id="g2"><img src="${path}" style="width:100%; height:100%;"/><title>Bar</title></sub>
+                                <sub id="g3"><img src="${path}" style="width:100%; height:100%;"/><title>Circle</title></sub>
+                                <sub id="g4"><img src="${path}" style="width:100%; height:100%;"/><title>Stack</title></sub>`);
         
         $(".fa-times").unbind().click(function () {
           UnActive("btnGraph");
@@ -80,10 +79,10 @@ class Workspace
         SetActive("btnMap");
   
         $("#selectMenu").html(`<top href="#" class="head">Add Map<close><i class="fas fa-times"></i></close></top>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>North</title></sub>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>South</title></sub>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>East</title></sub>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Wast</title></sub>`);
+                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>North</title></sub>
+                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>South</title></sub>
+                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>East</title></sub>
+                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Wast</title></sub>`);
         
         $(".fa-times").unbind().click(function () {
           UnActive("btnMap");
@@ -102,13 +101,27 @@ class Workspace
         SetActive("btnFont");
         
         $("#selectMenu").html(`<top href="#" class="head">Add Font<close><i class="fas fa-times"></i></close></top>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Head</title></sub>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Title</title></sub>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Subtitle</title></sub>`);
+                                <sub id="f1"><img src="${path}" style="width:100%; height:100%;"/><title>Head</title></sub>
+                                <sub id="f2"><img src="${path}" style="width:100%; height:100%;"/><title>Title</title></sub>
+                                <sub id="f3"><img src="${path}" style="width:100%; height:100%;"/><title>Subtitle</title></sub>`);
         
         $(".fa-times").unbind().click(function () {
           UnActive("btnFont");
         });
+
+        $("#f1").unbind().click(function () {
+          var fontHead = new Font();
+          fontHead.createHeadGraph();
+        });
+  
+        $("#f2").unbind().click(function () {
+          alert("f2");
+        });
+  
+        $("#f3").unbind().click(function () {
+          alert("f3");
+        });
+  
       }  
     }
   
@@ -142,9 +155,9 @@ class Workspace
         SetActive("btnShapes");
   
         $("#selectMenu").html(`<top href="#" class="head">Add Shape<close><i class="fas fa-times"></i></close></top>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Square</title></sub>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Triangle</title></sub>
-                                <sub href="#"><img src="`+ path + `" style="width:100%; height:100%;"/><title>Line</title></sub>`);
+                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Square</title></sub>
+                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Triangle</title></sub>
+                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Line</title></sub>`);
        
         $(".fa-times").unbind().click(function () {
           UnActive("btnShapes");
@@ -173,9 +186,10 @@ class Widget
 {
   constructor()
   {
-    this.createWidget = (id) =>
+    /* Create freetranform */
+    this.createWidget = (id, typeid) =>
     {
-      var widgetObject = interact('#canvas_' + id)  
+      var widgetObject = interact('#'+ typeid + id)  
       .draggable({
         autoScroll: true,
         inertia: true,
@@ -209,7 +223,7 @@ class Widget
         $(".propertyMenu").html(``);
       })
       .on('dragmove',function (event){
-        changefocus(id);
+        changefocus(id, typeid);
         var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -225,7 +239,7 @@ class Widget
         target.setAttribute('data-y', y);
       })
       .on('resizemove', function (event) {
-        changefocus(id);
+        changefocus(id, typeid);
         var target = event.target,
             x = (parseFloat(target.getAttribute('data-x')) || 0),
             y = (parseFloat(target.getAttribute('data-y')) || 0);
@@ -251,10 +265,11 @@ class Widget
       return widgetObject;
     }
 
-    let changefocus = (id) =>
+    /* Custom function */
+    let changefocus = (id, typeid) =>
     {
       $(".sPosition").removeClass("fCorner");
-      $("#canvas_"+ id).addClass("fCorner");
+      $('#' + typeid + id).addClass("fCorner");
     }
   
     this.clearfocus = () =>
@@ -275,7 +290,7 @@ class Graph extends Widget
       var id = Math.floor(100000 + Math.random() * 900000);
       this.clearfocus();
 
-      $("#workspace").append(`<canvas id="canvas_`+ id +`" class="sPosition fCorner"/>`);
+      $("#workspace").append(`<canvas id="canvas_${id}" class="sPosition fCorner"/>`);
 
       var speedData = {
         labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
@@ -312,7 +327,8 @@ class Graph extends Widget
       $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
       $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));
 
-      var widgetObject = this.createWidget(id);
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "canvas_");
       widgetObject.on('tap',function (event){
         /* Change focus */
         $(".sPosition").removeClass("fCorner");
@@ -324,8 +340,60 @@ class Graph extends Widget
         var property = new ContentProperty();
         property.createGraphProp(id);
 
+        /* Set property value */
         $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
         $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));
+
+        console.log($("#workspace").html());
+        
+      })
+    }
+  }
+}
+
+/* Font */
+class Font extends Widget
+{
+  constructor()
+  {
+    super();
+    this.createHeadGraph = () =>
+    {
+      var id = Math.floor(100000 + Math.random() * 900000);
+      this.clearfocus();
+
+      $("#workspace").append(`<span id="span_${id}" class="sPosition fCorner" style="font-size: 100px;">Head</span>`);
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+
+      var property = new ContentProperty();
+      property.createTextProp(id);
+
+      $("#width_" + id).val(Math.round($("#span_"+ id).width()));
+      $("#height_" + id).val(Math.round($("#span_"+ id).height()));
+
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "span_");
+      widgetObject.on('tap',function (event){
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#span_"+ id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createTextProp(id);
+
+        /* Set property value */
+        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
+        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
+
+        $("#inputtext_" + id).val($("#span_" + id).html());
+
+        console.log($("#workspace").html());
+        
       })
     }
   }
@@ -335,7 +403,55 @@ class Property
 {
   constructor()
   {
+    /* Create function property */
     $("#propertySpace").html('<div class="propertyMenu"></div>');
+
+    this.createEditdata = (id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Editdatacrispy">
+            <button type="button" class="btn btn-default Editdata" >Edit data</button>
+          </div>`);
+    }
+
+    this.createTextchange = (id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>Text change</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="text" id="inputtext_${id}" class="form-control crispyText" value="Head"/>
+                </div>
+            </div>
+          </div>`);
+
+      $("#inputtext_" + id).keyup(function () {
+        $("#span_" + id).html($("#inputtext_" + id).val());
+      });
+
+    }
+
+    this.createChartType = (id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>Chart type</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="bgbright"><img src="${path}" style="width:70%; height:70%;"/><title>Line</title></div>
+                </div>
+            </div>
+          </div>`);
+    }
 
     this.createScale = (id) => 
     {
@@ -344,11 +460,11 @@ class Property
           <div class="row">
               <div class="col-6">
                   <span>Width (px)</span>
-                  <input type="text" id="width_`+ id +`" class="form-control crispy"/>
+                  <input type="text" id="width_${id}" class="form-control crispy"/>
               </div>
               <div class="col-6">
                   <span>Height (px)</span>
-                  <input type="text" id="height_`+ id +`" class="form-control crispy" />
+                  <input type="text" id="height_${id}" class="form-control crispy" />
               </div>
           </div>
         </div>`);
@@ -362,6 +478,91 @@ class Property
         $("#canvas_" + id).css('width',$("#width_" + id).val());
         $("#canvas_" + id).css('height',$("#height_" + id).val());
       });
+    }
+
+    this.createColorAndFont = (id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row fontalign">
+                <div class="col-4">
+                    <span>Color</span>
+                </div>
+                <div class="col-8">
+                    <span>Font</span>
+                </div>
+            </div>
+            <div class="row inputalign">
+                <div class="col-4">
+                    <input type="color" class="colorSP" value="#000">
+                </div>
+                <div class="col-8">
+                    <select type="text" class="form-control">
+                        <option>test</option>
+                    </select>
+                </div>
+            </div>
+          </div>`);
+    }
+
+    this.createFontSize = (id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>Font size (pt)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <input type="range" min="9" max="120" value="9" class="slider"/>
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control crispysilde" />
+                </div>
+            </div>
+          </div>`);
+    }
+
+    this.createRotation = (id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>Rotation</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <input type="range" min="0" max="360" value="0" class="slider"/>
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control crispysilde" />
+                </div>
+            </div>
+          </div>`);
+    }
+
+    this.createTransparency = (id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>Transparency (%)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <input type="range" min="0" max="100" value="0" class="slider"/>
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control crispysilde" />
+                </div>
+            </div>
+          </div>`);
     }
 
     this.createChartDetail = (id) =>
@@ -422,15 +623,30 @@ class ContentProperty extends Property
 {
   constructor()
   {
+    /* call function property */
     super();
     this.createGraphProp = (id) =>
     {
+      this.createEditdata(id);
+      this.createChartType(id);
       this.createScale(id);
+      this.createRotation(id);
+      this.createTransparency(id);
       this.createChartDetail(id);
       this.createColor(id);
       this.createLegend(id);
       this.createTooltips(id);
     }   
+
+    this.createTextProp = (id) =>
+    {
+      this.createTextchange(id);
+      this.createScale(id);
+      this.createRotation(id);
+      this.createTransparency(id);
+      this.createColorAndFont(id);
+      this.createFontSize(id);
+    }
   }
 }
 
@@ -438,8 +654,6 @@ class ContentProperty extends Property
 $(document).ready(function () {
   let workspace = new Workspace();
   workspace.initialAndRun({});
-
-
 
   /*var canvas = new fabric.Canvas('canvas');
   canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
@@ -452,7 +666,4 @@ $(document).ready(function () {
   });
   canvas.setActiveObject(canvas.item(0));
   this.__canvases.push(canvas);*/
-
- 
-
 });

@@ -37,11 +37,41 @@
     </div>  
     <div class="col-6">
         <!-- A4 Size -->
-        <page size="A4_115" id="workspace" />        
+        <page size="A4_115" id="workspace">
+       
+        </page>        
     </div>
     <div class="col-3">
         <div class="row" id="propertySpace">
-            <!--<div class="propertyMenu">
+            <div id="result"></div>
+            <div class="propertyMenu">
+                <div class="Editdatacrispy">
+                    <button type="button" class="btn btn-default Editdata" >Edit data</button>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Chart type</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="bgbright"><img src="{{url('img_test.png')}}" style="width:70%; height:70%;"/><title>Line</title></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Text change</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control crispyText"/>
+                        </div>
+                    </div>
+                </div>
                 <div class="Scaling">
                     <div class="row">
                         <div class="col-6">
@@ -51,6 +81,71 @@
                         <div class="col-6">
                             <span>Height (px)</span>
                             <input type="text" class="form-control crispy" />
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row fontalign">
+                        <div class="col-4">
+                            <span>Color</span>
+                        </div>
+                        <div class="col-8">
+                            <span>Font</span>
+                        </div>
+                    </div>
+                    <div class="row inputalign">
+                        <div class="col-4">
+                            <input type="color" class="colorSP" value="#f6b73c">
+                        </div>
+                        <div class="col-8">
+                            <select type="text" class="form-control">
+                                <option>test</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Font size (pt)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="range" min="9" max="120" value="9" class="slider"/>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control crispysilde" />
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Rotation</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="range" min="0" max="360" value="0" class="slider"/>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control crispysilde" />
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Transparency (%)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="range" min="0" max="100" value="0" class="slider"/>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control crispysilde" />
                         </div>
                     </div>
                 </div>
@@ -86,7 +181,7 @@
                         Lorem ipsum
                     </div>
                 </div>                        
-            </div>-->
+            </div>
         </div>
     </div>     
 </div>
