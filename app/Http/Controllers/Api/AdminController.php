@@ -22,6 +22,7 @@ use App\LogViewer\LogViewer;
 use email;
 use Mail;
 use Illuminate\Mail\Message;
+use Symfony\Component\Translation\Dumper\QtFileDumper;
 
 
 class AdminController extends Controller
@@ -651,5 +652,15 @@ class AdminController extends Controller
         $folder = $request->get('folder');
         $file = $request->get('file');
         return $this->log_viewer->download($folder,$file);
+    }
+
+    public function deleteFileLog(Request $request){
+        $status = $this->log_viewer->deleteFileLog($request->get('folder'),$request->get('file'));
+        return response()->json(compact('status'),200);
+    }
+
+    public function delelteFileLogByFolder(Request $request){
+        $status = $this->log_viewer->delelteFileLogByFolder($request->get('folder'));
+        return response()->json(compact('status'),200);
     }
 }

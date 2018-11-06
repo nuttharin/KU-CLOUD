@@ -62,8 +62,10 @@
     {{--
     <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}"> --}}
 
-
     <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+
+    <!-- toastr -->
+    <link href="{{url('js/toastr/toastr.min.css')}}" rel="stylesheet" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script src="{{url('js/socket.js')}}"></script>
@@ -231,6 +233,8 @@
         <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
         <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
 
+        <!--toastr.min.js -->
+        <script src="{{url('js/toastr/toastr.min.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">
