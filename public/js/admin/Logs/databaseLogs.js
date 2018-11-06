@@ -100,6 +100,10 @@ class DatabaseLogs {
 
         };
 
+        let onDeleteClick = () => {
+
+        };
+
         let updateDatatableFileLog = () => {
             let Datatable = [];
             datatableFileLogObject.fnClearTable();
@@ -157,7 +161,7 @@ class DatabaseLogs {
         let onBtnBackClick = () => {
             $(".log-viewer").hide();
             $(".folder-log-viewer").show();
-            //this.refreshDatatable();
+            refreshDatatable();
         };
 
         let updateDatatableFileLogViewer = () => {
@@ -182,7 +186,6 @@ class DatabaseLogs {
             }
 
             $("#btn-download-file").unbind().click(function () {
-                console.log(filelogSelect.folder, filelogSelect.file);
                 $.ajax({
                     url: 'http://localhost:8000/api/admin/database/log/file/download',
                     method: 'POST',
@@ -192,6 +195,27 @@ class DatabaseLogs {
                     },
                     success: (res) => {
                         console.log(res);
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $("#btn-delete-file").unbind().click(function () {
+                $.ajax({
+                    url: 'http://localhost:8000/api/admin/database/log/file/delete',
+                    method: 'DELETE',
+                    data: {
+                        folder: filelogSelect.folder,
+                        file: filelogSelect.file
+                    },
+                    success: (res) => {
+                        if(res.status) {
+                            $(".log-viewer").hide();
+                            $(".folder-log-viewer").show();
+                            refreshDatatable();
+                        }
                     },
                     error: (error) => {
                         console.log(error);
@@ -224,7 +248,6 @@ class DatabaseLogs {
             }
 
             $("#modal-stack").modal('show');
-            console.log(fileLogViewer.logs);
             $("#text-stack").html(fileLogViewer.logs[index].stack);
 
         };
@@ -239,10 +262,8 @@ class DatabaseLogs {
                 },
                 success: (res) => {
                     fileLogViewer = res.data;
-                    setTimeout(() => {
-                        updateDatatableFileLogViewer();
-                        showLoadingStatus(false, $('#table-log'));
-                    }, 600);
+                    updateDatatableFileLogViewer();
+                    showLoadingStatus(false, $('#table-log'));
                 },
                 error: (error) => {
                     console.log(error);
@@ -274,10 +295,10 @@ class DatabaseLogs {
         };
 
         this.initialAndRun = () => {
-            this.refreshDatatable();
+            refreshDatatable();
         };
 
-        this.refreshDatatable = () => {
+        let refreshDatatable = () => {
             showLoadingStatus(true, $('#datatable-folder-log'));
             $.ajax({
                 url: "http://localhost:8000/api/admin/database/log/folder",
