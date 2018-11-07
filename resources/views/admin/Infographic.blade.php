@@ -16,8 +16,8 @@
     <div class="col-8 text-right">
         <button type="button" class="btn btn-default btn-md" style="margin: 20px;"><i class="fas fa-desktop"></i></button>
         <button type="button" class="btn btn-primary btn-md">Download</button>
-        <button type="button" class="btn btn-success btn-md">Save</button>
-    </div>
+        <button type="button" id="btn_save" class="btn btn-success btn-md">Save</button>
+    </div>      
 </div>
 <div class="row" style="padding: 30px 0px 10px 0px">
     <div class="col-3">
@@ -38,14 +38,14 @@
         <!-- A4 Size -->
         <page size="A4_115" id="workspace">
 
-        </page>
+        </page>        
     </div>
     <div class="col-3">
         <div class="row" id="propertySpace">
-            <div id="result"></div>
-            <div class="propertyMenu">
+            <!--<div class="propertyMenu">
                 <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default Editdata">Edit data</button>
+                    <button type="button" class="btn btn-default Editdata" >Edit data</button>
+                    <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
                 </div>
                 <div class="Scaling">
                     <div class="row">
@@ -69,7 +69,8 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <input type="text" class="form-control crispyText" />
+                            <input type="text" class="form-control crispyText"/>
+                            <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
                 </div>
@@ -181,12 +182,13 @@
                     <div class="GroupBody" id="demox" class="collapse">
                         Lorem ipsum
                     </div>
-                </div>
+                </div>             
             </div>
-        </div>
-    </div>
+        </div>-->
+    </div>     
 </div>
 
+<script type="text/javascript" src="{{url('js/admin/Infographic/WidgetObject.js')}}"></script>
 <script type="text/javascript" src="{{url('js/admin/Infographic/Infographic.js')}}"></script>
 <script>
     $(document).ready(function () {
