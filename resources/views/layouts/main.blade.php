@@ -206,7 +206,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{action('AdminController@UsersCompany')}}">
+                            <a href="#">
                                 Datawarehouse Logs
                             </a>
                         </li>
