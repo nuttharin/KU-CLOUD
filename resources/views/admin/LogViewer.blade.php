@@ -37,7 +37,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table style="width: 100%" class="table table-striped table-bordered table-hover dt-responsive " id="datatable-folder-log" style="display: none">
+                        <table style="width: 100% ;display: none" class="table table-striped table-bordered table-hover dt-responsive " id="datatable-folder-log">
                             <thead>
                                 <tr>
                                     <th>Company</th>
@@ -77,7 +77,7 @@
                     <div class="col-6 text-right">
                         <div class="mr-auto">
                             <button class="btn btn-success btn-radius" id="btn-download-file"><i class="fas fa-arrow-down"></i></button>
-                            <button class="btn btn-danger btn-radius"><i class="fas fa-trash-alt"></i></button>
+                            <button class="btn btn-danger btn-radius" id="btn-delete-file"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
                 </div>

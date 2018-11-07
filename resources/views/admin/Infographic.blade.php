@@ -1,9 +1,8 @@
-@extends('layouts.main')
-@section('title','Admin | Company')
+@extends('layouts.main') 
+@section('title','Admin | Company') 
 @section('content')
 
 <style>
-
 </style>
 
 <link href="{{url('css/Infographic.css')}}" rel="stylesheet">
@@ -30,11 +29,11 @@
                 <a href="#" id="btnImage"><i class="far fa-image fa-2x"></i></a>
                 <a href="#" id="btnShapes"><i class="fab fa-microsoft fa-2x"></i></a>
             </div>
-            <div class="col-8 select-menu" id="selectMenu">   
-                <input type="hidden" id="pathImg" value="{{url('img_test.png')}}"/>
+            <div class="col-8 select-menu" id="selectMenu" style="display:none">
+                <input type="hidden" id="pathImg" value="{{url('img_test.png')}}" />
             </div>
         </div>
-    </div>  
+    </div>
     <div class="col-6">
         <!-- A4 Size -->
         <page size="A4_115" id="workspace">
@@ -56,7 +55,9 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="bgbright"><img src="{{url('img_test.png')}}" style="width:70%; height:70%;"/><title>Line</title></div>
+                            <div class="bgbright"><img src="{{url('img_test.png')}}" style="width:70%; height:70%;" />
+                                <title>Line</title>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
                     <div class="row">
                         <div class="col-6">
                             <span>Width (px)</span>
-                            <input type="text" class="form-control crispy"/>
+                            <input type="text" class="form-control crispy" />
                         </div>
                         <div class="col-6">
                             <span>Height (px)</span>
@@ -113,7 +114,7 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <input type="range" min="9" max="120" value="9" class="slider"/>
+                            <input type="range" min="9" max="120" value="9" class="slider" />
                         </div>
                         <div class="col-4">
                             <input type="text" class="form-control crispysilde" />
@@ -128,7 +129,7 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <input type="range" min="0" max="360" value="0" class="slider"/>
+                            <input type="range" min="0" max="360" value="0" class="slider" />
                         </div>
                         <div class="col-4">
                             <input type="text" class="form-control crispysilde" />
@@ -143,7 +144,7 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <input type="range" min="0" max="100" value="0" class="slider"/>
+                            <input type="range" min="0" max="100" value="0" class="slider" />
                         </div>
                         <div class="col-4">
                             <input type="text" class="form-control crispysilde" />
@@ -160,7 +161,7 @@
                 </div>
                 <div class="Grouping">
                     <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                    <i class="fas fa-palette"></i><span>Color</span>
+                        <i class="fas fa-palette"></i><span>Color</span>
                     </div>
                     <div class="GroupBody" id="demox" class="collapse">
                         Lorem ipsum
@@ -176,7 +177,7 @@
                 </div>
                 <div class="Grouping">
                     <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                    <i class="fas fa-comment"></i><span>Tooltips</span>
+                        <i class="fas fa-comment"></i><span>Tooltips</span>
                     </div>
                     <div class="GroupBody" id="demox" class="collapse">
                         Lorem ipsum
@@ -194,5 +195,6 @@
         $("#sidebarCollapse").click();
         $("#selectMenu").hide();
     });
+
 </script>
 @endsection

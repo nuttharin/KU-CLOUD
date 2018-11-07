@@ -9,9 +9,12 @@
 namespace App\LogViewer;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use SplFileInfo;
 use App\LogViewer\SizeLog;
 use Log;
+
+use Illuminate\Support\Facades\Storage;
 
 class LogViewer
 {
@@ -334,8 +337,21 @@ class LogViewer
         return response()->download($path, $file, $headers);
     }
 
-    public function delete($date)
+    /**
+     * @param $folder
+     * @param $file
+     * @return bool
+     */
+    public function deleteFileLog($folder, $file)
     {
-        //return $this->filesystem->delete($date);
+        $path =  storage_path('logs').'/'.$folder.'/'.$file;
+        $file = File::delete($path);
+        Log::debug('Delete file : '.$path);
+        return $file;
+    }
+
+    public  function delelteFileLogByFolder($folder){
+        $path =  storage_path('logs').'/'.$folder;
+        return Storage::allFiles($path);
     }
 }

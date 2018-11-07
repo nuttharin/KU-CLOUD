@@ -47,92 +47,94 @@ class Widget {
             let _el = $(el);
             let itemId = _el.attr("item");
             let widget = Dashboard.getWidgetById(itemId);
-            if (ModalEditWidget === null) {
-                ModalEditWidget = `
-                <div class="modal fade" id="EditWidget">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Edit Widget</h5>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-    
-                            <div class="modal-body" id="form-edit-widget">
-                                <div class="row" id="div-title">
-                                    <div class="col-6">
-                                        <lable>Title</label>
-                                        <input type="text" class="form-control" id="edit-title"/>
-                                    </div>
-                                </div>
+            let modal = new ModalEditWidget(widget);
+            modal.initCreate();
+            // if (ModalEditWidget === null) {
+            //     ModalEditWidget = `
+            //         < div class="modal fade" id = "EditWidget" >
+            //             <div class="modal-dialog modal-lg">
+            //                 <div class="modal-content">
+            //                     <div class="modal-header">
+            //                         <h5 class="modal-title">Edit Widget</h5>
+            //                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+            //                     </div>
 
-                                <div id="edit-text-line" class="edit-widget-form"> 
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <lable>Unit</label>
-                                            <input type="text" class="form-control" id="edit-unit"/>
-                                        </div>
-                                    </div>
-                                </div>
+            //                     <div class="modal-body" id="form-edit-widget">
+            //                         <div class="row" id="div-title">
+            //                             <div class="col-6">
+            //                                 <lable>Title</label>
+            //                                 <input type="text" class="form-control" id="edit-title" />
+            //                             </div>
+            //                         </div>
 
-                                <div id="edit-Gauges" class="edit-widget-form"> 
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <lable>Unit</label>
-                                            <input type="text" class="form-control" id="edit-unit"/>
-                                        </div>
-                                    </div>
-                                </div>
+            //                         <div id="edit-text-line" class="edit-widget-form">
+            //                             <div class="row">
+            //                                 <div class="col-6">
+            //                                     <lable>Unit</label>
+            //                                     <input type="text" class="form-control" id="edit-unit" />
+            //                                 </div>
+            //                             </div>
+            //                         </div>
 
-                                <div id="edit-text-box" class="value_widget" style="display:none;">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Text</label>
-                                            <input type="text" id="edit-text-custom" class="form-control" />
-                                        </div>
-                                        <div class="col-6">
-                                            <label>Font Size (px)</label>
-                                            <input type="number" id="edit-font-size" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
+            //                         <div id="edit-Gauges" class="edit-widget-form">
+            //                             <div class="row">
+            //                                 <div class="col-6">
+            //                                     <lable>Unit</label>
+            //                                     <input type="text" class="form-control" id="edit-unit" />
+            //                                 </div>
+            //                             </div>
+            //                         </div>
 
-                            </div>
-    
-                            <div class="modal-footer">
-                                <button type="button" id="" class="btn btn-success btn-block btn-submit-edit-widget">Done</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+            //                         <div id="edit-text-box" class="value_widget" style="display:none;">
+            //                             <div class="row">
+            //                                 <div class="col-6">
+            //                                     <label>Text</label>
+            //                                     <input type="text" id="edit-text-custom" class="form-control" />
+            //                                 </div>
+            //                                 <div class="col-6">
+            //                                     <label>Font Size (px)</label>
+            //                                     <input type="number" id="edit-font-size" class="form-control" />
+            //                                 </div>
+            //                             </div>
+            //                         </div>
 
-                $('body').append(ModalEditWidget);
-            }
+            //                     </div>
 
-            let formEditWidget = $("#form-edit-widget");
-            $(".edit-widget-form").hide();
-            $("#div-title").show();
+            //                     <div class="modal-footer">
+            //                         <button type="button" id="" class="btn btn-success btn-block btn-submit-edit-widget">Done</button>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //     </div > `;
 
-            if (widget.type === "MutiLine") {
-                formEditWidget.find("#edit-title").val(widget.title_name);
-            }
-            else if (widget.type === "text-line") {
-                formEditWidget.find("#edit-title").val(widget.title_name);
-                $("#edit-text-line").show();
-                formEditWidget.find("#edit-text-line #edit-unit").val(widget.unit);
-            }
-            else if (widget.type === "Gauges") {
-                formEditWidget.find("#edit-title").val(widget.title_name);
-                $("#edit-Gauges").show();
-                formEditWidget.find("#edit-Gauges  #edit-unit").val(widget.unit);
-            }
-            else if (widget.type === "TextBox") {
-                formEditWidget.find("#edit-text-box #edit-text-custom").val(widget.textbox);
-                formEditWidget.find("#edit-text-box #edit-font-size").val(widget.fontsize);
-                $("#edit-text-box").show();
-                $("#div-title").hide();
-            }
+            //     $('body').append(ModalEditWidget);
+            // }
 
-            $("#EditWidget").modal('show');
+            // let formEditWidget = $("#form-edit-widget");
+            // $(".edit-widget-form").hide();
+            // $("#div-title").show();
+
+            // if (widget.type === "MutiLine") {
+            //     formEditWidget.find("#edit-title").val(widget.title_name);
+            // }
+            // else if (widget.type === "text-line") {
+            //     formEditWidget.find("#edit-title").val(widget.title_name);
+            //     $("#edit-text-line").show();
+            //     formEditWidget.find("#edit-text-line #edit-unit").val(widget.unit);
+            // }
+            // else if (widget.type === "Gauges") {
+            //     formEditWidget.find("#edit-title").val(widget.title_name);
+            //     $("#edit-Gauges").show();
+            //     formEditWidget.find("#edit-Gauges  #edit-unit").val(widget.unit);
+            // }
+            // else if (widget.type === "TextBox") {
+            //     formEditWidget.find("#edit-text-box #edit-text-custom").val(widget.textbox);
+            //     formEditWidget.find("#edit-text-box #edit-font-size").val(widget.fontsize);
+            //     $("#edit-text-box").show();
+            //     $("#div-title").hide();
+            // }
+
+            // $("#EditWidget").modal('show');
         };
 
         let submitEditWidget = () => {
@@ -163,24 +165,24 @@ class Widget {
         let onDeleteWidgetClick = (el) => {
             if (ModalDeleteWidget === null) {
                 ModalDeleteWidget = `
-                <div class="modal fade" id="DeleteWidget">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Delete Widget</h5>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-    
-                            <div class="modal-body">
-                                <h6>Are you sure to delete this widget?</h6>
-                            </div>
-    
-                            <div class="modal-footer">
-                                <button type="button" id="" class="btn btn-danger btn-block btn-submit-delete-widget">Delete</button>
+                    < div class="modal fade" id = "DeleteWidget" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete Widget</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <h6>Are you sure to delete this widget?</h6>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" id="" class="btn btn-danger btn-block btn-submit-delete-widget">Delete</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>`;
+                </div > `;
 
                 $('body').append(ModalDeleteWidget);
             }
@@ -238,24 +240,24 @@ class Widget {
             let valueId = "";
             switch (this.type) {
                 case 'MutiLine':
-                    return `<canvas id="${this.widgetId}"></canvas>`;
+                    return `< canvas id = "${this.widgetId}" ></canvas > `;
                 case 'text-line':
                     valueId = this.itemId.replace("item-", "value_");
-                    return ` <h2 class="text-left"><span id="${valueId}">0</span> ${this.unit}</h2>
-                             <canvas id="${this.widgetId}"></canvas>
-                            `;
+                    return ` < h2 class="text-left" > <span id="${valueId}">0</span> ${this.unit}</h2 >
+                    <canvas id="${this.widgetId}"></canvas>
+                `;
                 case 'Gauges':
                     valueId = this.itemId.replace("item-", "gauges-text-");
                     return `
-                            <h2><span id="${valueId}">0</span> <span>${this.unit}</span></h2>
-                            <canvas id="${this.widgetId}"></canvas>
-                            `;
+                    < h2 > <span id="${valueId}">0</span> <span>${this.unit}</span></h2 >
+                        <canvas id="${this.widgetId}"></canvas>
+                `;
                 case 'Map':
                     return `
-                            <div id="${this.widgetId}"></div>
-                            `;
+                    < div id = "${this.widgetId}" ></div >
+                        `;
                 case 'TextBox':
-                    return `<span id="${this.widgetId}"></span>`;
+                    return `< span id = "${this.widgetId}" ></span > `;
                 default:
                     break;
             }
@@ -265,22 +267,22 @@ class Widget {
             let valueId = "";
             switch (this.type) {
                 case 'MutiLine':
-                    return `<canvas id="${this.fullScreenId}"></canvas>`;
+                    return `< canvas id = "${this.fullScreenId}" ></canvas > `;
                 case 'text-line':
                     valueId = this.itemId.replace("item-", "value_full");
-                    return ` <h2 class="text-left"><span id="${valueId}">0</span> ${this.unit}</h2>
-                             <canvas id="${this.fullScreenId}"></canvas>
-                            `;
+                    return ` < h2 class="text-left" > <span id="${valueId}">0</span> ${this.unit}</h2 >
+                    <canvas id="${this.fullScreenId}"></canvas>
+                `;
                 case 'Gauges':
                     valueId = this.itemId.replace("item-", "gauges-text-full");
                     return `
-                            <h2><span id="${valueId}">0</span> <span>${this.unit}</span></h2>
-                            <canvas id="${this.fullScreenId}"></canvas>
-                            `;
+                    < h2 > <span id="${valueId}">0</span> <span>${this.unit}</span></h2 >
+                        <canvas id="${this.fullScreenId}"></canvas>
+                `;
                 case 'Map':
                     return `
-                            <div id="${this.fullScreenId}"></div>
-                            `;
+                    < div id = "${this.fullScreenId}" ></div >
+                        `;
                 default:
                     break;
             }
