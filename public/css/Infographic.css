@@ -27,7 +27,7 @@ page[size="A4_115"] {
 }
 
 .vertical-menu a {
-  background-color: rgb(106, 121, 255);
+  background-color: rgb(92, 92, 105);
   color: rgb(255, 255, 255);
   display: block;
   padding: 12px;
@@ -35,12 +35,11 @@ page[size="A4_115"] {
 }
 
 .vertical-menu a:hover {
-  background-color: rgb(157, 166, 255);
+  background-color: rgb(149, 149, 160);
 }
 
 .vertical-menu a.actives {
-  background-color: rgb(157, 166, 255);
-  color: rgb(0, 0, 0);
+  background-color: rgb(77, 76, 76);
 }
 
 /* Select Menu */
@@ -48,7 +47,7 @@ page[size="A4_115"] {
   width: 10px;
   height: 100%;
   max-height: 75vh;
-  background-color: rgb(157, 166, 255);
+  background-color: rgb(77, 76, 76);
   text-align: center;
   border-radius: 2px;
   overflow-y: scroll;
@@ -56,7 +55,7 @@ page[size="A4_115"] {
 }
 
 .select-menu sub{
-  background-color: rgb(247, 248, 255);
+  background-color: rgb(240, 240, 240);
   display: block;
   padding: 20px;
   margin-bottom: 20px;
@@ -87,7 +86,7 @@ page[size="A4_115"] {
 }
 
 .select-menu top.head {
-  background-color: rgb(157, 166, 255);
+  background-color: rgb(77, 76, 76);
   padding: 20px;
   font-size: 17px;
   color: white;
@@ -109,7 +108,7 @@ page[size="A4_115"] {
   width: 100%;
   height: 100%;
   max-height: 75vh;
-  background-color: rgb(157, 166, 255);
+  background-color: rgb(77, 76, 76);
   text-align: center;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -151,7 +150,7 @@ page[size="A4_115"] {
 
 /* Property - Scale */
 .Scaling{
-  background-color: rgba(129, 141, 255, 0.596); 
+  background-color: rgb(92, 92, 105); 
   color: white;
   margin: 5px;
   padding-top: 5px;
@@ -204,35 +203,35 @@ headline{
 /* Property - Text change*/
 .crispyText{
   margin: 6px;
-  max-width: 90%;
+  max-width: 75%;
   text-align: center;
   display: inline-block;
 }
 
 /* Property - color&font*/
 .Editdatacrispy{
-  background-color: rgba(129, 141, 255, 0.596); 
+  background-color: rgb(92, 92, 105); 
   color: white;
   margin: 5px;
 }
 
 .Editdata{
   margin: 6px;
-  width: 80%;
+  width: 70%;
   text-align: center;
   display: inline-block;
 }
 
 /* Property - Group*/
 .Grouping{
-  background: linear-gradient(to right, rgb(31, 53, 255) 8px, transparent 4px) 0 0;
+  background: linear-gradient(to right, rgb(149, 149, 160) 8px, transparent 4px) 0 0;
   margin: 5px;
 }
 
 .GroupTitle{
   position: relative;
-  background: linear-gradient(to right, rgb(31, 53, 255) 8px, transparent 4px) 0 0;
-  background-color: rgb(106, 121, 255);
+  background: linear-gradient(to right, rgb(149, 149, 160) 8px, transparent 4px) 0 0;
+  background-color: rgb(92, 92, 105);
   display: block;
   padding: 10px;
   padding-bottom: 10px;
@@ -258,7 +257,7 @@ headline{
 }
 
 .GroupTitle:hover{
-  background-color: rgba(62, 82, 255, 0.76); 
+  background-color: rgb(114, 114, 136); 
 }
 
 .GroupTitle::after{
@@ -271,7 +270,7 @@ headline{
 }
 
 .GroupBody{
-  background-color: rgba(129, 141, 255, 0.596); 
+  background-color: rgba(149, 149, 160, 0.315); 
   color: white;
 }
 
@@ -321,7 +320,7 @@ headline{
   appearance: none;
   width: 25px;
   height: 20px;
-  background: rgba(62, 82, 255, 0.76);
+  background: rgba(111, 125, 255, 0.76);
   cursor: pointer;
   border-radius: 9px;
 }
@@ -329,7 +328,7 @@ headline{
 .slider::-moz-range-thumb {
   width: 25px;
   height: 20px;
-  background: rgba(62, 82, 255, 0.76);
+  background: rgba(111, 125, 255, 0.76);
   cursor: pointer;
   border-radius: 9px;
 }
@@ -343,12 +342,12 @@ headline{
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1; 
-  -webkit-box-shadow: inset 0 0 6px rgba(17, 0, 255, 0.582); 
+  -webkit-box-shadow: inset 0 0 6px rgba(169, 169, 179, 0.582); 
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(144, 144, 179, 0.541); 
+  background: rgba(133, 133, 185, 0.733); 
   opacity: .50;
 }
 

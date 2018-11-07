@@ -1,4 +1,6 @@
 var path = $("#pathImg").val();
+let widgetObjectList = [];
+var CircularJSON = window.CircularJSON;
 
 class Workspace
 {
@@ -26,7 +28,44 @@ class Workspace
       $("#btnShapes").unbind().click(function () {
         shapesMenu();    
       });
+
+      $("#btn_save").unbind().click(function () {
+
+        /* Update widget data */
+        for(var i = 0; i < widgetObjectList.length; i++)
+        {
+          if(widgetObjectList[i].type == "line")
+          {
+            widgetObjectList[i].canvasTag =  document.getElementById("canvas_"+ widgetObjectList[i].id).outerHTML;
+          }
+          else if(widgetObjectList[i].type == "head")
+          {
+            widgetObjectList[i].spanTag =  document.getElementById("span_"+ widgetObjectList[i].id).outerHTML;
+          }
+        }
+        /* Save to localstorage */
+        localStorage.setItem("saveObject", CircularJSON.stringify(widgetObjectList));
+        console.log("save");
+      });
     };
+
+    this.loadWidgetData = (object) =>
+    {
+      for(var i = 0; i < object.length; i++)
+      {
+        if(object[i].type == "line")
+        {
+          var lineGraph = new Graph();
+          lineGraph.loadLineGraph(object[i].id, object[i].canvasTag, object[i].chartData);        
+        }
+        else if(object[i].type == "head")
+        {
+          var fontHead = new Font();
+          fontHead.loadHeadGraph(object[i].id, object[i].spanTag);
+        }
+      }
+
+    }
   
     /* Initial Action Function */
     var graphMenu = () => 
@@ -222,22 +261,6 @@ class Widget
         /* Clear property */
         $(".propertyMenu").html(``);
       })
-      .on('dragmove',function (event){
-        changefocus(id, typeid);
-        var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-    
-        // translate the element
-        target.style.webkitTransform =
-        target.style.transform =
-          'translate(' + x + 'px, ' + y + 'px)';
-    
-        // update the posiion attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
-      })
       .on('resizemove', function (event) {
         changefocus(id, typeid);
         var target = event.target,
@@ -322,8 +345,9 @@ class Graph extends Widget
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createGraphProp(id);
+      property.createGraphProp(id, myChart);
 
+      /* Set property value */
       $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
       $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));
 
@@ -338,15 +362,152 @@ class Graph extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id);
+        property.createGraphProp(id, myChart);
 
         /* Set property value */
         $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));
-
-        console.log($("#workspace").html());
-        
+        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));     
       })
+      .on('dragmove',function (event){
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#canvas_"+ id).addClass("fCorner");
+
+        var target = event.target,
+            // keep the dragged position in the data-x/data-y attributes
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+    
+        // translate the element
+        target.style.webkitTransform =
+        target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)';
+    
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createGraphProp(id, myChart);
+
+        /* Set property value */
+        $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
+        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));    
+      })
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      console.log(myChart.data);
+      saveObject.LineGraphObject(id, null, myChart.data, "line");
+      widgetObjectList.push(saveObject);
+      console.log(widgetObjectList[0].chartData.data);
+    }
+
+    this.loadLineGraph = (id, canvasTag, chartData) =>
+    {
+      this.clearfocus();
+
+      /* Create dummy chart prevent error */
+      var dummy = createDummyChart(id, chartData);
+
+      $("#workspace").append(canvasTag);
+      
+      let ctx = document.getElementById("canvas_"+ id);
+      var myChart2 = new Chart(ctx, {
+        type: 'line',
+        data: dummy.data,
+        options: dummy.options
+      });
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+      this.clearfocus();
+
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "canvas_");
+      widgetObject.on('tap',function (event){
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#canvas_"+ id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createGraphProp(id, myChart2);
+
+        /* Set property value */
+        $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
+        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));       
+      })
+      .on('dragmove',function (event){
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#canvas_"+ id).addClass("fCorner");
+
+        var target = event.target,
+            // keep the dragged position in the data-x/data-y attributes
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+    
+        // translate the element
+        target.style.webkitTransform =
+        target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)';
+    
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createGraphProp(id, myChart2);
+
+        /* Set property value */
+        $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
+        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));    
+      })
+
+      destroyDummyChart(dummy, id);
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.LineGraphObject(id, null, myChart2, "line");
+      widgetObjectList.push(saveObject);
+    }
+
+    let createDummyChart = (id, chartData) =>
+    {
+      $("#workspace").append(`<canvas id="dummy_${id}"></canvas>`);
+      
+      var speedData = {
+        labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
+        datasets: [{
+          label: "Car Speed",
+          data: [0, 59, 75, 20, 20, 55, 40],
+        }]
+      };
+
+      let ctx = document.getElementById("dummy_" + id);
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: speedData,
+        options: chartData.options
+      });
+
+      return myChart;
+    }
+
+    let destroyDummyChart = (myChart, id) =>
+    {      
+      let ctx = document.getElementById("dummy_" + id);
+      myChart.destroy();
+      ctx.remove();
     }
   }
 }
@@ -370,6 +531,7 @@ class Font extends Widget
       var property = new ContentProperty();
       property.createTextProp(id);
 
+      /* Set property value */
       $("#width_" + id).val(Math.round($("#span_"+ id).width()));
       $("#height_" + id).val(Math.round($("#span_"+ id).height()));
 
@@ -391,10 +553,110 @@ class Font extends Widget
         $("#height_" + id).val(Math.round($("#span_"+ id).height()));
 
         $("#inputtext_" + id).val($("#span_" + id).html());
-
-        console.log($("#workspace").html());
-        
       })
+      .on('dragmove',function (event){
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#span_"+ id).addClass("fCorner");
+
+        var target = event.target,
+            // keep the dragged position in the data-x/data-y attributes
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+    
+        // translate the element
+        target.style.webkitTransform =
+        target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)';
+    
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createTextProp(id);
+
+        /* Set property value */
+        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
+        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
+
+        $("#inputtext_" + id).val($("#span_" + id).html());   
+      })
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.HeadFontObject(id, null, "head");
+      widgetObjectList.push(saveObject);
+    }
+
+    this.loadHeadGraph = (id, spanTag) =>
+    {
+      this.clearfocus();
+
+      $("#workspace").append(spanTag);
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+      this.clearfocus();
+      
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "span_");
+      widgetObject.on('tap',function (event){
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#span_"+ id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createTextProp(id);
+
+        /* Set property value */
+        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
+        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
+
+        $("#inputtext_" + id).val($("#span_" + id).html());
+      })
+      .on('dragmove',function (event){
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#span_"+ id).addClass("fCorner");
+
+        var target = event.target,
+            // keep the dragged position in the data-x/data-y attributes
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+    
+        // translate the element
+        target.style.webkitTransform =
+        target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)';
+    
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createTextProp(id);
+
+        /* Set property value */
+        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
+        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
+
+        $("#inputtext_" + id).val($("#span_" + id).html());   
+      })
+     
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.HeadFontObject(id, null, "head");
+      widgetObjectList.push(saveObject);
     }
   }
 }
@@ -406,12 +668,23 @@ class Property
     /* Create function property */
     $("#propertySpace").html('<div class="propertyMenu"></div>');
 
-    this.createEditdata = (id) =>
+    this.createEditdata = (id, myChart) =>
     {
       $(".propertyMenu").append(`                
           <div class="Editdatacrispy">
             <button type="button" class="btn btn-default Editdata" >Edit data</button>
+            <button type="button" id="delete_canvas_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
           </div>`);
+
+      $("#delete_canvas_widget_" + id).click(function () {
+        widgetObjectList = arrayRemove(widgetObjectList,id);
+        let ctx = document.getElementById("canvas_" + id);
+        myChart.destroy();
+        ctx.remove();
+        console.log(widgetObjectList);
+        $(".propertyMenu").html(``);
+      });
+
     }
 
     this.createTextchange = (id) =>
@@ -426,12 +699,21 @@ class Property
             <div class="row">
                 <div class="col">
                     <input type="text" id="inputtext_${id}" class="form-control crispyText" value="Head"/>
+                    <button type="button" id="delete_text_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
                 </div>
             </div>
           </div>`);
 
       $("#inputtext_" + id).keyup(function () {
         $("#span_" + id).html($("#inputtext_" + id).val());
+      });
+
+      $("#delete_text_widget_" + id).click(function () {
+        widgetObjectList = arrayRemove(widgetObjectList,id);
+        let ctx = document.getElementById("span_" + id);
+        ctx.remove();
+        console.log(widgetObjectList);
+        $(".propertyMenu").html(``);
       });
 
     }
@@ -494,7 +776,7 @@ class Property
             </div>
             <div class="row inputalign">
                 <div class="col-4">
-                    <input type="color" class="colorSP" value="#000">
+                    <input type="color" class="colorSP" value="#000000">
                 </div>
                 <div class="col-8">
                     <select type="text" class="form-control">
@@ -623,11 +905,11 @@ class ContentProperty extends Property
 {
   constructor()
   {
-    /* call function property */
+    /* Call function property */
     super();
-    this.createGraphProp = (id) =>
+    this.createGraphProp = (id, myChart) =>
     {
-      this.createEditdata(id);
+      this.createEditdata(id, myChart);
       this.createChartType(id);
       this.createScale(id);
       this.createRotation(id);
@@ -652,18 +934,30 @@ class ContentProperty extends Property
 
 /* Set initial value */
 $(document).ready(function () {
+  //localStorage.clear();
   let workspace = new Workspace();
   workspace.initialAndRun({});
 
-  /*var canvas = new fabric.Canvas('canvas');
-  canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
+  /* Get saved data */
+  var object = CircularJSON.parse(localStorage.getItem("saveObject"));
 
-  canvas.item(0).set({
-    borderColor: 'red',
-    cornerColor: 'green',
-    cornerSize: 6,
-    transparentCorners: false
-  });
-  canvas.setActiveObject(canvas.item(0));
-  this.__canvases.push(canvas);*/
+  if(object != null)
+  {
+    /* Load saved widget */
+    //console.log(object[0].data);
+    workspace.loadWidgetData(object);
+  }
+  else
+  {
+    console.log("null");
+  }
+  
 });
+
+/* Globle function */
+function arrayRemove(arr, value) 
+{
+  return arr.filter(function(ele){
+      return ele.id != value;
+  });
+}
