@@ -34,7 +34,7 @@ class CompanyController extends Controller
 
     public function infographic()
     {
-        return view('company.infographic');
+        return view('company.infographic')->with('user', Auth::user());;
     }
 
     public function static()

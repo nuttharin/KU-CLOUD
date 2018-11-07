@@ -1,4 +1,4 @@
-@extends('layouts.main') 
+@extends('layouts.mainCompany') 
 @section('title','Company | Infographic') 
 @section('content')
 
@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-default btn-md" style="margin: 20px;"><i class="fas fa-desktop"></i></button>
         <button type="button" class="btn btn-primary btn-md">Download</button>
         <button type="button" id="btn_save" class="btn btn-success btn-md">Save</button>
-    </div>      
+    </div>
 </div>
 <div class="row" style="padding: 30px 0px 10px 0px">
     <div class="col-3">
@@ -38,7 +38,7 @@
         <!-- A4 Size -->
         <page size="A4_115" id="workspace">
 
-        </page>        
+        </page>
     </div>
     <div class="col-3">
         <div class="row" id="propertySpace">
@@ -185,16 +185,15 @@
                 </div>             
             </div>
         </div>-->
-    </div>     
-</div>
+        </div>
+    </div>
 
-<script type="text/javascript" src="{{url('js/company/Infographic/WidgetObject.js')}}"></script>
-<script type="text/javascript" src="{{url('js/company/Infographic/Infographic.js')}}"></script>
-<script>
-    $(document).ready(function () {
+    <script type="text/javascript" src="{{url('js/company/Infographic/WidgetObject.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/company/Infographic/Infographic.js')}}"></script>
+    <script>
+        $(document).ready(function () {
         $("#sidebarCollapse").click();
         $("#selectMenu").hide();
     });
-
-</script>
+    </script>
 @endsection
