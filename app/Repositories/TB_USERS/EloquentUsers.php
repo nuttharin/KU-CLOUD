@@ -8,7 +8,10 @@
 
 namespace App\Repositories\TB_USERS;
 use App\TB_USERS;
+use App\TB_EMAIL;
+use App\TB_PHONE;
 use DB;
+use Log;
 
 class EloquentUsers implements UsersRepository
 {
@@ -29,17 +32,33 @@ class EloquentUsers implements UsersRepository
 
     public function getByTypeForAdmin($type)
     {
+        $data = [];
         if($type == "ADMIN") {
-            return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email ,TB_USERS.online
-                                  FROM TB_USERS 
-                                  LEFT JOIN TB_PHONE 
-                                  ON TB_USERS.user_id =TB_PHONE.user_id
-                                  LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
-                                                    FROM TB_EMAIL 
-                                                    GROUP BY TB_EMAIL.user_id) AS T1 
-                                  ON T1.user_id = TB_USERS.user_id
-                                  WHERE TB_USERS.type_user = ?
-                                  GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at ,TB_USERS.online', [$type]);
+            $users = $this->model::where('type_user','ADMIN')->get();
+            foreach($users as $user){ 
+                $data[] = [
+                    'user_id'=>$user->user_id,
+                    'fname'=>$user->fname,
+                    'lname'=>$user->lname,
+                    'block'=>$user->block,
+                    'created_at'=>$user->created_at,
+                    'updated_at'=>$user->updated_at,
+                    'online'=>$user->online,
+                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->get(),
+                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->get(),
+                ];
+            }
+            return $data;
+            // return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email ,TB_USERS.online
+            //                       FROM TB_USERS 
+            //                       LEFT JOIN TB_PHONE 
+            //                       ON TB_USERS.user_id =TB_PHONE.user_id
+            //                       LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
+            //                                         FROM TB_EMAIL 
+            //                                         GROUP BY TB_EMAIL.user_id) AS T1 
+            //                       ON T1.user_id = TB_USERS.user_id
+            //                       WHERE TB_USERS.type_user = ?
+            //                       GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at ,TB_USERS.online', [$type]);
         }
         else if($type == "COMPANY"){
             return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email  ,TB_USERS.online

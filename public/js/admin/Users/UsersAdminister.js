@@ -9,14 +9,14 @@ var AdminRepository = new (function () {
     var modalDelete = null;
 
     const formAddEmail = `<div class="input-group mb-2">
-                                <input type="text" class="add_email_val form-control mt-1" value={email}>
+                                <input type="text" class="add_email_val form-control mt-1" value={email} disabled>
                                     <div class="input-group-append">
                                         <button class="btn btn-danger mt-1 btn-delete-email"  id="btn1" type="button"><i class="fas fa-times"></i></button>  
                                     </div>
                             </div>`;
 
     const formAddPhone = ` <div class="input-group mb-2">
-                                <input type="text" class="add_phone_val form-control mt-1" value={phone}>
+                                <input type="text" class="add_phone_val form-control mt-1" value={phone} disabled>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                                 </div>
@@ -83,6 +83,7 @@ var AdminRepository = new (function () {
     var showLoadingStatus = (show) => {
         if (show) {
             $('#datatable-admin').hide();
+            $('.lds-roller').show();
         }
         else {
             $('#datatable-admin').show();
@@ -93,16 +94,26 @@ var AdminRepository = new (function () {
     }
 
     var updateDatatableData = (userList) => {
-        var Datatable = new Array();
+        var Datatable = [];
         datatableObject.fnClearTable();
 
         $.each(userList.users, function (index, item) {
             var ret = [];
+            let btnBlock = `                            
+            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
+                <i class="fas fa-times"></i>
+            </button>`;
+            if (item.block) {
+                btnBlock = `                            
+                <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="UnBlock">
+                    <i class="fas fa-unlock"></i>
+                </button>`;
+            }
             ret[0] = item.fname + " " + item.lname;
-            ret[1] = item.email.split(',')[0];
-            ret[2] = item.phone.split(',')[0];
-            ret[3] = item.block ? "Block" : "Unblock";
-            ret[4] = item.online ? '<span class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></span>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
+            ret[1] = item.email[0].email_user;
+            ret[2] = item.phone[0].phone_user;
+            ret[3] = item.block ? '<b class="text-danger">Block</b>' : 'Unblock';
+            ret[4] = item.online ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
             ret[5] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
@@ -112,10 +123,7 @@ var AdminRepository = new (function () {
                                 data-placement="top" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip"
-                                data-placement="top" title="Block">
-                                <i class="fas fa-times"></i>
-                            </button>
+                            ${btnBlock}
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
@@ -136,7 +144,7 @@ var AdminRepository = new (function () {
 
         $('#datatable-admin').on('click', '.btn-block-user', function () {
             onBlockClick($(this).attr('index'));
-        })
+        });
 
         $('#datatable-admin').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
@@ -239,20 +247,24 @@ var AdminRepository = new (function () {
                             <h6>Name : <span  id="name-user"><span></h6>
                             <h6>Phone : <span id="phone-user"><span></h6>
                             <h6>Email : <span id="email-user"><span></h6>
-                            <h6>Active : <span id="active-user"><span></h6>
-                            <h6>Create Date : <span id="create-user"><span></h6>
-                            <h6>Update Date : <span id="update-user"><span></h6>
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
+            // <h6>Active : <span id="active-user"><span></h6>
+            // <h6>Create Date : <span id="create-user"><span></h6>
+            // <h6>Update Date : <span id="update-user"><span></h6>
 
             $('body').append(modalDetail);
         }
 
         $('#name-user').html(usersList[key].fname + " " + usersList[key].lname);
-        $('#phone-user').html(usersList[key].phone);
-        $('#email-user').html(usersList[key].email);
+        $('#phone-user').html(usersList[key].phone.map(data => {
+            return `${data.phone_user}`;
+        }));
+        $('#email-user').html(usersList[key].email.map(data => {
+            return `${data.email_user}`;
+        }));
         $('#active-user').html(usersList[key].block ? "No" : "Yes");
         $('#create-user').html(usersList[key].created_at);
         $('#update-user').html(usersList[key].updated_at);
@@ -296,35 +308,38 @@ var AdminRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalEdit);
         }
 
         $("#btn-add-phone").unbind().click(function () {
             event.preventDefault();
-            console.log(formAddPhone)
-            if ($(".btn-delete-phone").length <= 2)
-                $("#input-add-phone").append(formAddPhone.replace('{phone}', ''));
+            let addPhone = formAddPhone.replace('disabled', '');
+            addPhone = addPhone.replace('{phone}', '');
+            if ($(".btn-delete-phone").length <= 2) {
+                $("#input-add-phone").append(addPhone);
+            }
         });
 
         $("#btn-add-email").unbind().click(function () {
             event.preventDefault();
-            console.log(formAddEmail)
+            let addEmail = formAddEmail.replace('disabled', '');
+            addEmail = addEmail.replace('{email}', '');
             if ($(".btn-delete-email").length <= 2)
-                $("#input-add-email").append(formAddEmail.replace('{email}', ''));
+                $("#input-add-email").append(addEmail);
         });
 
-        let phoneList = usersList[key].phone.split(',');
+        let phoneList = usersList[key].phone;
         let inputPhone = null;
         inputPhone = phoneList.map(phone => {
-            return formAddPhone.replace('{phone}', phone);
+            return formAddPhone.replace('{phone}', phone.phone_user);
         })
 
-        let emailList = usersList[key].email.split(',');
+        let emailList = usersList[key].email;
         let inputEmail = null;
         inputEmail = emailList.map(email => {
-            return formAddEmail.replace('{email}', email);
+            return formAddEmail.replace('{email}', email.email_user);
         })
 
         $('#edit-id').val(usersList[key].user_id);
@@ -389,7 +404,7 @@ var AdminRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalBlock);
         }
@@ -407,10 +422,10 @@ var AdminRepository = new (function () {
 
         $("#btn-block-submit").unbind().click(function () {
             blockSaveChange(key);
-        })
+        });
 
         $("#BlockUser").modal('show');
-    }
+    };
 
     var blockSaveChange = (key) => {
         var urlLink;
@@ -425,8 +440,7 @@ var AdminRepository = new (function () {
         $.ajax({
             url: urlLink,
             method: "PUT",
-            data:
-            {
+            data: {
                 user_id: usersList[key].user_id
             },
             success: () => {
@@ -459,19 +473,19 @@ var AdminRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalDelete);
         }
 
-        $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email + " ? ")
+        $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email[0].email_user + " ? ");
 
         $("#btn-delete-submit").unbind().click(function () {
             deleteSaveChange(key);
-        })
+        });
 
         $('#DeleteUser').modal('show');
-    }
+    };
 
     var deleteSaveChange = (key) => {
         $.ajax({
