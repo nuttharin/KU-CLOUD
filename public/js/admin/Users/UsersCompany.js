@@ -90,7 +90,7 @@ var CompanyRepository = new (function () {
         $("#btn-create").unbind().click(function () {
             onCreateClick();
         });
-    }
+    };
 
     var showLoadingStatus = (show) => {
         if (show) {
@@ -103,10 +103,10 @@ var CompanyRepository = new (function () {
             $('.lds-roller').hide();
             $('.text-loading').hide();
         }
-    }
+    };
 
     var updateDatatableData = (userList) => {
-        var Datatable = new Array();
+        var Datatable = [];
         datatableObject.fnClearTable();
 
         $.each(userList.users, function (index, item) {
@@ -156,14 +156,14 @@ var CompanyRepository = new (function () {
 
         $('#datatable-company').on('click', '.btn-block-user', function () {
             onBlockClick($(this).attr('index'));
-        })
+        });
 
         $('#datatable-company').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
         });
 
         $('[data-toggle="tooltip"]').tooltip();
-    }
+    };
 
     /* Action Function */
     var onCreateClick = () => {
@@ -206,17 +206,17 @@ var CompanyRepository = new (function () {
                         </div>          
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modelCreate);
         }
 
         $("#btn-create-save").unbind().click(function () {
             createSaveChange($(this));
-        })
+        });
 
         $('#addUser').modal('show');
-    }
+    };
 
     var createSaveChange = () => {
         let email_input = $("#add_email_val").val();
@@ -245,8 +245,8 @@ var CompanyRepository = new (function () {
             error: (res) => {
                 console.log(res);
             }
-        })
-    }
+        });
+    };
 
     var onDetailClick = (key) => {
         if (modalDetail === null) {
@@ -282,7 +282,7 @@ var CompanyRepository = new (function () {
         $('#update-user').html(usersList[key].updated_at);
 
         $("#detailUser").modal('show');
-    }
+    };
 
     var onEditClick = (key) => {
         if (modalEdit === null) {
@@ -328,7 +328,7 @@ var CompanyRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalEdit);
         }
@@ -354,13 +354,13 @@ var CompanyRepository = new (function () {
         let inputPhone = null;
         inputPhone = phoneList.map(phone => {
             return formAddPhone.replace('{phone}', phone);
-        })
+        });
 
         let emailList = usersList[key].email.split(',');
         let inputEmail = null;
         inputEmail = emailList.map(email => {
             return formAddEmail.replace('{email}', email);
-        })
+        });
 
         $.each(companyList, function (key, value) {
             $('#add_company_val')
@@ -377,10 +377,10 @@ var CompanyRepository = new (function () {
 
         $("#btn-edit-submit").unbind().click(function () {
             editSaveChange($(this));
-        })
+        });
 
         $('#editUser').modal('show');
-    }
+    };
 
     var editSaveChange = () => {
         let user_id_input = $("#edit-id").val();
@@ -435,7 +435,7 @@ var CompanyRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalBlock);
         }
@@ -453,26 +453,25 @@ var CompanyRepository = new (function () {
 
         $("#btn-block-submit").unbind().click(function () {
             blockSaveChange(key);
-        })
+        });
 
         $("#BlockUser").modal('show');
-    }
+    };
 
     var blockSaveChange = (key) => {
         var urlLink;
 
         if (usersList[key].block) {
-            urlLink = "http://localhost:8000/api/admin/users/unblock"
+            urlLink = "http://localhost:8000/api/admin/users/unblock";
         }
         else {
-            urlLink = "http://localhost:8000/api/admin/users/block"
+            urlLink = "http://localhost:8000/api/admin/users/block";
         }
 
         $.ajax({
             url: urlLink,
             method: "PUT",
-            data:
-            {
+            data: {
                 user_id: usersList[key].user_id
             },
             success: () => {
@@ -483,7 +482,7 @@ var CompanyRepository = new (function () {
                 console.log(res);
             }
         });
-    }
+    };
 
     var onDeleteClick = (key) => {
         if (modalDelete === null) {
@@ -505,26 +504,25 @@ var CompanyRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalDelete);
         }
 
-        $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email + " ? ")
+        $('#span-text-confirm').html("Are you sure to delete " + usersList[key].email + " ? ");
 
         $("#btn-delete-submit").unbind().click(function () {
             deleteSaveChange(key);
-        })
+        });
 
         $('#DeleteUser').modal('show');
-    }
+    };
 
     var deleteSaveChange = (key) => {
         $.ajax({
             url: "http://localhost:8000/api/admin/users/delete",
             method: "DELETE",
-            data:
-            {
+            data: {
                 user_id: usersList[key].user_id
             },
             success: () => {
@@ -535,7 +533,7 @@ var CompanyRepository = new (function () {
                 console.log(res);
             }
         });
-    }
+    };
 })
 
 /* Set initial value */

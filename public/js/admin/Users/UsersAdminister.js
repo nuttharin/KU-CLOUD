@@ -33,6 +33,7 @@ var AdminRepository = new (function () {
             url: "http://localhost:8000/api/admin/administer",
             method: 'GET',
             success: function (result) {
+                console.log(result);
                 initialDatatable();
                 usersList = result.users;
                 showLoadingStatus(false);
@@ -78,7 +79,7 @@ var AdminRepository = new (function () {
         });
 
         datatableObject = $('#datatable-admin').dataTable();
-    }
+    };
 
     var showLoadingStatus = (show) => {
         if (show) {
@@ -91,7 +92,7 @@ var AdminRepository = new (function () {
             $('.lds-roller').hide();
             $('.text-loading').hide();
         }
-    }
+    };
 
     var updateDatatableData = (userList) => {
         var Datatable = [];
@@ -151,7 +152,7 @@ var AdminRepository = new (function () {
         });
 
         $('[data-toggle="tooltip"]').tooltip();
-    }
+    };
 
     /* Action Function */
     var onCreateClick = () => {
@@ -191,17 +192,17 @@ var AdminRepository = new (function () {
                         </div>          
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modelCreate);
         }
 
         $("#btn-create-save").unbind().click(function () {
             createSaveChange($(this));
-        })
+        });
 
         $('#addUser').modal('show');
-    }
+    };
 
     var createSaveChange = () => {
         let email_input = $("#add_email_val").val();
@@ -230,8 +231,8 @@ var AdminRepository = new (function () {
             error: (res) => {
                 console.log(res);
             }
-        })
-    }
+        });
+    };
 
     var onDetailClick = (key) => {
         if (modalDetail === null) {
@@ -270,7 +271,7 @@ var AdminRepository = new (function () {
         $('#update-user').html(usersList[key].updated_at);
 
         $("#detailUser").modal('show');
-    }
+    };
 
     var onEditClick = (key) => {
         if (modalEdit === null) {
@@ -334,13 +335,13 @@ var AdminRepository = new (function () {
         let inputPhone = null;
         inputPhone = phoneList.map(phone => {
             return formAddPhone.replace('{phone}', phone.phone_user);
-        })
+        });
 
         let emailList = usersList[key].email;
         let inputEmail = null;
         inputEmail = emailList.map(email => {
             return formAddEmail.replace('{email}', email.email_user);
-        })
+        });
 
         $('#edit-id').val(usersList[key].user_id);
         $('#edit-fname').val(usersList[key].fname);
@@ -350,10 +351,10 @@ var AdminRepository = new (function () {
 
         $("#btn-edit-submit").unbind().click(function () {
             editSaveChange($(this));
-        })
+        });
 
         $('#editUser').modal('show');
-    }
+    };
 
     var editSaveChange = () => {
         let user_id_input = $("#edit-id").val();
@@ -381,8 +382,8 @@ var AdminRepository = new (function () {
             error: (res) => {
                 console.log(res);
             }
-        })
-    }
+        });
+    };
 
     var onBlockClick = (key) => {
         if (modalBlock === null) {
@@ -431,10 +432,10 @@ var AdminRepository = new (function () {
         var urlLink;
 
         if (usersList[key].block) {
-            urlLink = "http://localhost:8000/api/admin/users/unblock"
+            urlLink = "http://localhost:8000/api/admin/users/unblock";
         }
         else {
-            urlLink = "http://localhost:8000/api/admin/users/block"
+            urlLink = "http://localhost:8000/api/admin/users/block";
         }
 
         $.ajax({
@@ -451,7 +452,7 @@ var AdminRepository = new (function () {
                 console.log(res);
             }
         });
-    }
+    };
 
     var onDeleteClick = (key) => {
         if (modalDelete === null) {
@@ -503,7 +504,7 @@ var AdminRepository = new (function () {
                 console.log(res);
             }
         });
-    }
+    };
 })
 
 /* Set initial value */
