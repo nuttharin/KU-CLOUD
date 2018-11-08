@@ -158,7 +158,7 @@ var CustomerRepository = new (function () {
 
         $('#datatable-customer').on('click', '.btn-block-user', function () {
             onBlockClick($(this).attr('index'));
-        })
+        });
 
         $('#datatable-customer').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
@@ -436,7 +436,7 @@ var CustomerRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalBlock);
         }
@@ -444,12 +444,12 @@ var CustomerRepository = new (function () {
         if (usersList[key].block) {
             $("#span-text-confirm-block").html("Are you sure to unblock " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Unblock");
-            $("#title-text").html("Unblock User Company");
+            $("#title-text").html("Unblock User Customer");
         }
         else {
             $("#span-text-confirm-block").html("Are you sure to block " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Block");
-            $("#title-text").html("Block User Company");
+            $("#title-text").html("Block User Customer");
         }
 
         $("#btn-block-submit").unbind().click(function () {
