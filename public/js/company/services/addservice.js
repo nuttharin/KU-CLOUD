@@ -1,16 +1,17 @@
 class Service {
-    constructor() {
+    constructor(url) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
+        
 
 
 
-        this.initService = (url) => {
+        this.initService = () => {
             console.log("init service")
             let treeView = new TreeView();
             treeView.clearValue();
-            dataFromUrl = treeView.getDataFormUrl();
+            dataFromUrl = treeView.getDataFormUrl(url);
             dataHeader = treeView.getHeaderFormData(dataFromUrl);
             dataHeaderList = treeView.getDataHeaderAll();
             dataHeader = JSON.stringify(dataHeader);
@@ -39,10 +40,12 @@ class Service {
                 },
                 "plugins": ["checkbox", "wholerow", "search"]
             });
+
             $('#check').on('ready.jstree', function() {
                 $("#check").jstree("open_all");
                 $("#check").jstree("check_all");           
             });
+
             document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
             $('#submit').on("click", function () {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
@@ -83,7 +86,7 @@ class Service {
                     //console.log("num I - "+i+" --- "+list[j].text+" len"+list[j].parents.length)
                     if(list[j].parents.length === i)
                     { 
-                        console.log("+")
+                       
                         //console.log(" 1 st "+list[j].text)
                        
                         let lengthChild = list[j].children_d.length ;
@@ -98,9 +101,9 @@ class Service {
                                        
                                 if(idDelect == list[q].id.toString())
                                 {  
-                                    console.log("+"+list[q].text)
+                                    //console.log("+"+list[q].text)
                                     //list.splice(q, 1);
-                                    //list[q].text = null
+                                    list[q].text = null
                                     break;                                           
                                 }
                             } 
@@ -111,7 +114,7 @@ class Service {
                 }
             }
            
-            console.log(list)
+            //console.log(list)
             createQueryHeader(list);
 
             
@@ -119,14 +122,14 @@ class Service {
            
         }
 
-       let createQueryHeader = (list) =>{
+        let createQueryHeader = (list) =>{
            // header,Stations
             //header.Url,Stations.Latitude.Value
            let arrData = []; // list new
            let str ="";
            let tempNameParents ;
            // take-out value list[i] == text 
-           console.log(list)
+           //console.log(list)
            for(let i =0 ;i<list.length;i++)
            {
                if(list[i].text != null)
@@ -134,41 +137,71 @@ class Service {
                    arrData.push(list[i]);
                }
            }
-           console.log(arrData)
-           for(let i = 0 ; i <arrData.length ;i++)
-           {
+           //console.log(arrData)
+
+           // Create data to be stored in database DB
+            for(let i = 0 ; i <arrData.length ;i++)
+            {
+
                if(str != "")
                {
                     str = str+",";
                }
-               else if(arrData[i].parents.length == 1)
+               if(arrData[i].parents.length == 1)
                {
-                   //str = str+list[i].text ;
-                   console.log("if -- "+arrData[i].text);
+                   str = str+list[i].text ;
+                   //console.log("if -- "+arrData[i].text);
                }
                else if(arrData[i].parents.length > 1)
                {
-                    console.log("if -- ddddd");
-                   for(let j = arrData[i].parents.length-2 ; j >=0;j++)
+                   //console.log("else if")
+                   for(let j = arrData[i].parents.length-2; j>=0 ;j--)
                    {
-                       for(let k = 0 ; k < dataHeaderList.length ;k++)
+                       //console.log(arrData[i].parents[j])
+                       for(let k =0 ;k<dataHeaderList.length;k++)
                        {
                            if(arrData[i].parents[j] == dataHeaderList[k].id)
                            {
-                               console.log("if in-- "+dataHeaderList[k].text);
+                               str = str + dataHeaderList[k].text ;
+                               str = str +".";
                                break;
                            }
                        }
-                       
                    }
+                   //console.log("if -- length "+arrData[i].parents.length+" ++ ."+arrData[i].text);
+                   str =str +arrData[i].text;
+                
                }
             
                
             
             }
       
-        console.log(str)
+        //console.log(str)
+        //console.log(url)
+        $.ajax({
+            url: "http://localhost:8000/api/company/webservice/addRegisWebServive",
+            dataType: 'json',
+            method: "POST",
+            data:
+            {
+                url:url,
+                header:str
+            },
+            success: (res) => {
+                console.log("test")
+            },
+            error: (res) => {
+                console.log(res);
+            }
+        });
+        
        }
+
+       let increaseDataTable = ()=>{
+           
+       }
+
     }
 }
 
@@ -195,7 +228,7 @@ class TreeView {
             return dataHeaderAll;
         }
 
-        this.getDataFormUrl = () => {
+        this.getDataFormUrl = (strurl) => {
             let dataTemp;
             $.ajax({
                 url: "https://data.tmd.go.th/api/Weather3Hours/V1/?type=json",
@@ -254,7 +287,13 @@ class TreeView {
             }
             else {
                 Object.keys(dataIn).forEach(function (key) {
-
+                    
+                    if(Array.isArray(dataIn[key]) == true)
+                    {
+                        console.log("--"+key)
+                        console.log(dataIn[key][0]);
+                        dataIn[key] = dataIn[key][0];
+                    }
                     if (typeof (dataIn[key]) === 'object') {
                         
 
@@ -297,7 +336,7 @@ $(document).ready(function () {
         let url = $("#url-webservice").val();
         //console.log(url);
 
-        let service = new Service();
+        let service = new Service(url);
         service.initService();
     })
 
