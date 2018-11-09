@@ -60,7 +60,7 @@
 
   
 
-    .from-input-detail h6,input {
+    .from-input-detail h6,input,.from-treeView h6 {
        
         font-weight: normal;
 
@@ -198,17 +198,22 @@
     </div>
 </div>
 <hr>
+<div>
+</div>
 <div class = 'from-treeView'>
     <div class="row">
         <div class="col-sm-8 treeView-list" id="checkshow">
         </div>
-        <div class="col-sm-4"  >
+        <div id="showtext" class="col-sm-4"  >
+        <!-- ขีดข้าง css #detail ,detail-show1,detail-show2 = code in addservice.js เเสดงวิธีใช้ -->
+            <div class = "col-sm-12" id="detail" >  
+                <div id="detail-show1">
+                </div>
+                <div id="detail-show2">
+                </div>
+            </div>
         </div>
-
-
-    </div>
-
-    
+    </div> 
 </div>
 <script type="text/javascript" src="{{url('js/company/services/addservice.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
