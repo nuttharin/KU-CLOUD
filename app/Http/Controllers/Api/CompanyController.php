@@ -220,4 +220,12 @@ class CompanyController extends Controller
         ];
         return response()->json(compact('data'),200);
     }
+
+    public function addRegisWebService(Request $request){
+        $data = [
+            "status" =>"OK",
+            "message"=> "test"
+        ];
+        return response()->json(compact('data'),200);
+    }
 }
