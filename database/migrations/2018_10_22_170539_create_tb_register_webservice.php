@@ -17,8 +17,8 @@ class CreateTbRegisterWebservice extends Migration
             $table->increments('register_webservice_id')->unsigned();
             $table->string('service name',100);
             $table->string('alias',100);
-            $table->string('URL',100);
-            $table->timestamps();
+            $table->string('URL',200);
+            $table->dateTime('create_date');
         });
     }
 
