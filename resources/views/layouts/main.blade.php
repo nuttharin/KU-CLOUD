@@ -206,7 +206,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{action('AdminController@UsersCompany')}}">
+                            <a href="#">
                                 Datawarehouse Logs
                             </a>
                         </li>
@@ -223,7 +223,8 @@
         <script src="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.js')}}"></script>
         <script src="{{url('js/company/minicolors.js')}}"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>-->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
 
         <script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
@@ -235,9 +236,11 @@
         <script type="text/javascript" src="{{url('fabric/fabric.js')}}"></script>
         <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
         <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script type="text/javascript" src="{{url('js/chartjs/chart.js')}}"></script>
 
         <script type="text/javascript" src="{{url('freetrans/Matrix.js')}}"></script>
         <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
+        <script type="text/javascript" src="{{url('circlejson/circular-json.js')}}"></script>
         <!-- Page Content  -->
         <div id="content">
             @yield('content')

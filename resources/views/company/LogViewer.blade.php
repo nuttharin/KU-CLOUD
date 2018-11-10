@@ -36,7 +36,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-striped table-bordered table-hover" id="table-file-log" style="display: none">
+                            <table style="width: 100% ;display: none" class="table table-striped table-bordered table-hover" id="table-file-log">
                                 <thead>
                                 <th>File</th>
                                 <th>Size</th>
@@ -97,7 +97,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="table-log">
+                            <table style="width: 100% ;display: none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="table-log">
                                 <thead>
                                 <tr>
                                     <th>Level</th>

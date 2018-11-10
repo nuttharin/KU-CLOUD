@@ -10,13 +10,13 @@ var CustomerRepository = new (function () {
     var modalDelete = null;
     const formAddEmail = `
                             <div class="input-group mb-2">
-                                <input type="text" class="add_email_val form-control mt-1" value={email}>
+                                <input type="text" class="add_email_val form-control mt-1" value={email} disabled>
                                     <div class="input-group-append">
                                         <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
                                     </div>
                             </div>`;
     const formAddPhone = `  <div class="input-group mb-2">
-                                <input type="text" class="add_phone_val form-control mt-1" value={phone}>
+                                <input type="text" class="add_phone_val form-control mt-1" value={phone} disabled>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                                 </div>
@@ -89,11 +89,12 @@ var CustomerRepository = new (function () {
         });
 
         datatableObject = $('#datatable-customer').dataTable();
-    }
+    };
 
     var showLoadingStatus = (show) => {
         if (show) {
             $('#datatable-customer').hide();
+            $('.lds-roller').show();
         }
         else {
             $('#datatable-customer').show();
@@ -101,19 +102,29 @@ var CustomerRepository = new (function () {
             $('.lds-roller').hide();
             $('.text-loading').hide();
         }
-    }
+    };
 
     var updateDatatableData = (userList) => {
-        var Datatable = new Array();
+        var Datatable = [];
         datatableObject.fnClearTable();
 
         $.each(userList.users, function (index, item) {
             var ret = [];
+            let btnBlock = `                            
+            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
+                <i class="fas fa-times"></i>
+            </button>`;
+            if (item.block) {
+                btnBlock = `                            
+                <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="UnBlock">
+                    <i class="fas fa-unlock"></i>
+                </button>`;
+            }
             ret[0] = item.fname + " " + item.lname;
             ret[1] = item.email.split(',')[0];
             ret[2] = item.phone.split(',')[0];
-            ret[3] = item.block ? "Block" : "Unblock";
-            ret[4] = item.online ? '<span class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></span>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
+            ret[3] = item.block ? '<b class="text-danger">Block</b>' : 'Unblock';
+            ret[4] = item.online ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
             ret[5] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
@@ -147,14 +158,14 @@ var CustomerRepository = new (function () {
 
         $('#datatable-customer').on('click', '.btn-block-user', function () {
             onBlockClick($(this).attr('index'));
-        })
+        });
 
         $('#datatable-customer').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
         });
 
         $('[data-toggle="tooltip"]').tooltip();
-    }
+    };
 
     /* Action Function */
     var onCreateClick = () => {
@@ -195,7 +206,7 @@ var CustomerRepository = new (function () {
                         </div>          
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modelCreate);
         }
@@ -209,10 +220,10 @@ var CustomerRepository = new (function () {
 
         $("#btn-create-save").unbind().click(function () {
             createSaveChange($(this));
-        })
+        });
 
         $('#addUser').modal('show');
-    }
+    };
 
     var createSaveChange = () => {
         let email_input = $("#add_email_val").val();
@@ -241,8 +252,8 @@ var CustomerRepository = new (function () {
             error: (res) => {
                 console.log(res);
             }
-        })
-    }
+        });
+    };
 
     var onDetailClick = (key) => {
         if (modalDetail === null) {
@@ -259,13 +270,10 @@ var CustomerRepository = new (function () {
                             <h6>Phone : <span id="phone-user"><span></h6>
                             <h6>Email : <span id="email-user"><span></h6>
                             <h6>Company Name : <span id="company-name"><span></h6>
-                            <h6>Active : <span id="active-user"><span></h6>
-                            <h6>Create Date : <span id="create-user"><span></h6>
-                            <h6>Update Date : <span id="update-user"><span></h6>
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalDetail);
         }
@@ -279,7 +287,7 @@ var CustomerRepository = new (function () {
         $('#update-user').html(usersList[key].updated_at);
 
         $("#detailUser").modal('show');
-    }
+    };
 
     var onEditClick = (key) => {
         if (modalEdit === null) {
@@ -322,36 +330,40 @@ var CustomerRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalEdit);
         }
 
         $("#btn-add-phone").unbind().click(function () {
             event.preventDefault();
-            console.log(formAddPhone)
-            if ($(".btn-delete-phone").length <= 2)
-                $("#input-add-phone").append(formAddPhone.replace('{phone}', ''));
-        })
+            let addPhone = formAddPhone.replace('disabled', '');
+            addPhone = addPhone.replace('{phone}', '');
+            if ($(".btn-delete-phone").length <= 2) {
+                $("#input-add-phone").append(addPhone);
+            }
+        });
 
         $("#btn-add-email").unbind().click(function () {
             event.preventDefault();
-            console.log(formAddEmail)
+            let addEmail = formAddEmail.replace('disabled', '');
+            addEmail = addEmail.replace('{email}', '');
             if ($(".btn-delete-email").length <= 2)
-                $("#input-add-email").append(formAddEmail.replace('{email}', ''));
-        })
+                $("#input-add-email").append(addEmail);
+        });
+
 
         let phoneList = usersList[key].phone.split(',');
         let inputPhone = null;
         inputPhone = phoneList.map(phone => {
             return formAddPhone.replace('{phone}', phone);
-        })
+        });
 
         let emailList = usersList[key].email.split(',');
         let inputEmail = null;
         inputEmail = emailList.map(email => {
             return formAddEmail.replace('{email}', email);
-        })
+        });
 
         $.each(companyList, function (key, value) {
             $('#add_company_val')
@@ -368,10 +380,10 @@ var CustomerRepository = new (function () {
 
         $("#btn-edit-submit").unbind().click(function () {
             editSaveChange($(this));
-        })
+        });
 
         $('#editUser').modal('show');
-    }
+    };
 
     var editSaveChange = () => {
         let user_id_input = $("#edit-id").val();
@@ -401,8 +413,8 @@ var CustomerRepository = new (function () {
             error: (res) => {
                 console.log(res);
             }
-        })
-    }
+        });
+    };
 
     var onBlockClick = (key) => {
         if (modalBlock === null) {
@@ -424,7 +436,7 @@ var CustomerRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalBlock);
         }
@@ -432,36 +444,35 @@ var CustomerRepository = new (function () {
         if (usersList[key].block) {
             $("#span-text-confirm-block").html("Are you sure to unblock " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Unblock");
-            $("#title-text").html("Unblock User Company");
+            $("#title-text").html("Unblock User Customer");
         }
         else {
             $("#span-text-confirm-block").html("Are you sure to block " + usersList[key].fname + " " + usersList[key].lname + " ?");
             $("#btn-text").html("Block");
-            $("#title-text").html("Block User Company");
+            $("#title-text").html("Block User Customer");
         }
 
         $("#btn-block-submit").unbind().click(function () {
             blockSaveChange(key);
-        })
+        });
 
         $("#BlockUser").modal('show');
-    }
+    };
 
     var blockSaveChange = (key) => {
         var urlLink;
 
         if (usersList[key].block) {
-            urlLink = "http://localhost:8000/api/admin/users/unblock"
+            urlLink = "http://localhost:8000/api/admin/users/unblock";
         }
         else {
-            urlLink = "http://localhost:8000/api/admin/users/block"
+            urlLink = "http://localhost:8000/api/admin/users/block";
         }
 
         $.ajax({
             url: urlLink,
             method: "PUT",
-            data:
-            {
+            data: {
                 user_id: usersList[key].user_id
             },
             success: () => {
@@ -472,7 +483,7 @@ var CustomerRepository = new (function () {
                 console.log(res);
             }
         });
-    }
+    };
 
     var onDeleteClick = (key) => {
         if (modalDelete === null) {
@@ -494,7 +505,7 @@ var CustomerRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalDelete);
         }
@@ -503,10 +514,10 @@ var CustomerRepository = new (function () {
 
         $("#btn-delete-submit").unbind().click(function () {
             deleteSaveChange(key);
-        })
+        });
 
         $('#DeleteUser').modal('show');
-    }
+    };
 
     var deleteSaveChange = (key) => {
         $.ajax({
@@ -524,7 +535,7 @@ var CustomerRepository = new (function () {
                 console.log(res);
             }
         });
-    }
+    };
 })
 
 /* Set initial value */

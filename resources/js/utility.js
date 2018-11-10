@@ -17,10 +17,12 @@ export const showLoadingModal = (el, status) => {
 
     if (status) {
         _el.find("form").hide();
+        _el.find(".modal-footer").hide();
         _el.find("#loading-save").show();
     }
     else {
         _el.find("form").show();
+        _el.find(".modal-footer").show();
         _el.find("#loading-save").hide();
     }
 };

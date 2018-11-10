@@ -62,11 +62,16 @@
     {{--
     <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}"> --}}
 
-
     <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+
+    <!-- toastr -->
+    <link href="{{url('js/toastr/toastr.min.css')}}" rel="stylesheet" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script src="{{url('js/socket.js')}}"></script>
+
+    <link rel="stylesheet" href="{{url('freetrans/jquery.freetrans.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
 </head>
 
 <body>
@@ -185,6 +190,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="{{action('CompanyController@infographic')}}">
+                        <i class="fas fa-file-image"></i>
+                        <span class="link_hide">Infographic</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{action('CompanyController@static')}}">
                         <i class="fas fa-chart-line"></i>
                         <span class="link_hide">Static</span>
@@ -231,6 +242,12 @@
         <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
         <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
 
+        <!--toastr.min.js -->
+        <script src="{{url('js/toastr/toastr.min.js')}}"></script>
+
+        <script type="text/javascript" src="{{url('freetrans/Matrix.js')}}"></script>
+        <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
+        <script type="text/javascript" src="{{url('circlejson/circular-json.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">

@@ -287,7 +287,7 @@
 
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5>((title_name))</h5>
+                    <h5 class="title-widget">((title_name))</h5>
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi" title="Edit widget" item="div_id"></i>

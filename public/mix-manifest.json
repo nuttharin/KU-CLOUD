@@ -1,5 +1,6 @@
 {
-    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=2d9a19588db3dc60f544",
-    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=0f631f587adeadd65e20",
-    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=d9280e92cf4130295a27"
+    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=7dcb4d75dff1ca2fbad4",
+    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=261fe8a3467a385c89bd",
+    "/js/admin/static/dashboard.min.js": "/js/admin/static/dashboard.min.js?id=261fe8a3467a385c89bd",
+    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=ca2481ac8f66f00592cf"
 }

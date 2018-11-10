@@ -32,6 +32,7 @@ Route::get('/Auth','AuthController@index');
 Route::group(['middleware' => ['jwt.verify.web']], function() {
 
     Route::get('/Compnay/Customer','CompanyController@customer');
+    Route::get('/Compnay/Infographic','CompanyController@infographic');
     Route::get('/Company/Static','CompanyController@static');
     
     Route::get('/Company/Service','CompanyController@service');

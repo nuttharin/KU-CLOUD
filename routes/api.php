@@ -42,6 +42,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
 
+    Route::post('company/webservice/addRegisWebServive','Api\CompanyController@addRegisWebService');
+
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
     Route::get('company/database/logfile','Api\CompanyController@getFileLog');
 
@@ -78,5 +80,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('admin/database/log/file','Api\AdminController@getFileLogByFolder');
     Route::get('admin/database/logfile','Api\AdminController@getFileLog');
     Route::post('admin/database/log/file/download','Api\AdminController@downloadFileLog');
+    Route::delete('admin/database/log/file/delete','Api\AdminController@deleteFileLog');
 });
 
