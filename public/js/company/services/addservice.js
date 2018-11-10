@@ -48,15 +48,10 @@ class Service {
 
             document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
             $('#submit').on("click", function () {
-<<<<<<< HEAD
-                var selectedElmsIds = $('#check').jstree("get_selected",true);
-                console.log(selectedElmsIds);
-=======
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 //console.log(selectedElmsIds);
                 createListQuery(selectedElmsIds);
                 
->>>>>>> e18c5fff78db0affd185eb52bb9964704eaf8fd3
                 //instance.deselect_all();
                 //instance.select_node('1');
             });
