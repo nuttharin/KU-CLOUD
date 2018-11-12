@@ -36,7 +36,7 @@ class Service {
                     'themes': {
                         'name': 'proton',
                         "icons": false,
-                        'responsive': true
+                        // 'responsive': true
                     },
                 },
                 "plugins": ["checkbox", "wholerow", "search"]
