@@ -1,8 +1,9 @@
 class Service {
-    constructor(url) {
+    constructor(url,alias,ServiceName,description) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
+        let idDB ;
         
 
 
@@ -177,30 +178,61 @@ class Service {
             
             }
       
-        //console.log(str)
-        //console.log(url)
-        $.ajax({
-            url: "http://localhost:8000/api/company/webservice/addRegisWebServive",
-            dataType: 'json',
-            method: "POST",
-            data:
-            {
-                url:url,
-                header:str
-            },
-            success: (res) => {
-                console.log("test")
-            },
-            error: (res) => {
-                console.log(res);
-            }
-        });
+            //console.log(str)
+            //console.log(url)
+           
+
+            increaseDataTableDW();
+            increaseDataTableDB();
         
        }
+       let increaseDataTableDB= () =>{
+            $.ajax({
+                url: "http://localhost:8000/api/company/webservice/addRegisWebService",
+                dataType: 'json',
+                method: "POST",
+                async:false,
+                data:
+                {
+                    url = url,
+                    alias = alias,
+                    ServiceName = ServiceName,
+                    description = description
+                },
+                success: (res) => {
+                    console.log("success DB")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
 
-       let increaseDataTable = ()=>{
-           
        }
+
+       
+
+       let increaseDataTableDW = ()=>
+        {    
+            $.ajax({
+                url: "http://localhost:8081/webService/createWebService",
+                dataType: 'json',
+                method: "POST",
+                data:
+                {
+                    url = url,
+                    alias = alias,
+                    ServiceName = ServiceName,
+                    description = description
+                },
+                success: (res) => {
+                    console.log("success DW")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+
+        }
 
     }
 }
@@ -326,24 +358,46 @@ class TreeView {
 
         }
 
+        
+
     }
 }
 
 $(document).ready(function () {
 
     $(".show-header").click(function () {
-        //console.log("kuy");
+        
         let url = $("#url-webservice").val();
-        //console.log(url);
-
-        let service = new Service(url);
+        let alias = $('#alias-webservice').val();
+        let ServiceName = $('#name-webservice').val();
+        let description = $("#description-webservice").val();
+        let service = new Service(url,alias,ServiceName,description);
         service.initService();
+        // let url = "www.nut.com";
+        // let name = "tharin";
+        // let col = "col";
+        // console.log("test api");
+        // $.ajax({
+        //     url: "http://localhost:8081/webService/createWebService",
+        //     dataType: 'json',
+        //     method: "POST",
+        //     data:
+        //     {
+        //         url:url,
+        //         name:name,
+        //         column:col
+
+        //     },
+        //     success: (res) => {
+        //         console.log("sucess");
+        //     },
+        //     error: (res) => {
+        //         console.log(res);
+        //     }
+        // });
     })
 
-    // $(".show-header").click(function(){
-
-    // })
-
+   
 
 
 })

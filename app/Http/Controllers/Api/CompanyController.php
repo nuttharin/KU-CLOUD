@@ -222,10 +222,14 @@ class CompanyController extends Controller
     }
 
     public function addRegisWebService(Request $request){
+        // $companyID = $this->auth->user_company()->first()->company_id;
+        // $companyName = $this->auth->user_company()->first()->company_name;
         $data = [
-            "status" =>"OK",
-            "message"=> "test"
+            "status" =>"ssss",
+            "message"=> "sscswq"
         ];
         return response()->json(compact('data'),200);
     }
+
+    
 }
