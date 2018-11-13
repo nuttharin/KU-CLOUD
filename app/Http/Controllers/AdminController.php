@@ -52,6 +52,14 @@ class AdminController extends Controller
     {
         return view('admin.Static');
     }
+    public function service()
+    {
+        return view('admin.service')->with('user', Auth::user());
+    }
+    public function Add_service()
+    {
+        return view('admin.add_webService')->with('user', Auth::user());
+    }
 
     public  function LogViewer(){
         $folderFiles = $this->log_viewer->getFolderFiles();
