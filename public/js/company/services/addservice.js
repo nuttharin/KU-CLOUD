@@ -1,5 +1,5 @@
 class Service {
-    constructor(url,alias,ServiceName,description) {
+    constructor(strUrl,alias,ServiceName,description) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
@@ -12,7 +12,7 @@ class Service {
             console.log("init service")
             let treeView = new TreeView();
             treeView.clearValue();
-            dataFromUrl = treeView.getDataFormUrl(url);
+            dataFromUrl = treeView.getDataFormUrl(strUrl);
             dataHeader = treeView.getHeaderFormData(dataFromUrl);
             dataHeaderList = treeView.getDataHeaderAll();
             dataHeader = JSON.stringify(dataHeader);
@@ -182,7 +182,7 @@ class Service {
             //console.log(url)
            
 
-            increaseDataTableDW();
+            //increaseDataTableDW();
             increaseDataTableDB();
         
        }
@@ -194,12 +194,13 @@ class Service {
                 async:false,
                 data:
                 {
-                    url = url,
-                    alias = alias,
-                    ServiceName = ServiceName,
-                    description = description
+                    strUrl : strUrl,
+                    alias : alias,
+                    ServiceName : ServiceName,
+                    description : description
                 },
                 success: (res) => {
+                    console.log(res)
                     console.log("success DB")
                 },
                 error: (res) => {
@@ -211,28 +212,28 @@ class Service {
 
        
 
-       let increaseDataTableDW = ()=>
-        {    
-            $.ajax({
-                url: "http://localhost:8081/webService/createWebService",
-                dataType: 'json',
-                method: "POST",
-                data:
-                {
-                    url = url,
-                    alias = alias,
-                    ServiceName = ServiceName,
-                    description = description
-                },
-                success: (res) => {
-                    console.log("success DW")
-                },
-                error: (res) => {
-                    console.log(res);
-                }
-            });
+    //    let increaseDataTableDW = ()=>
+    //     {    
+    //         $.ajax({
+    //             url: "http://localhost:8081/webService/createWebService",
+    //             dataType: 'json',
+    //             method: "POST",
+    //             data:
+    //             {
+    //                 url = url,
+    //                 alias = alias,
+    //                 ServiceName = ServiceName,
+    //                 description = description
+    //             },
+    //             success: (res) => {
+    //                 console.log("success DW")
+    //             },
+    //             error: (res) => {
+    //                 console.log(res);
+    //             }
+    //         });
 
-        }
+    //     }
 
     }
 }
@@ -388,7 +389,7 @@ $(document).ready(function () {
         //         column:col
 
         //     },
-        //     success: (res) => {
+        //     success: (res) => {2
         //         console.log("sucess");
         //     },
         //     error: (res) => {
