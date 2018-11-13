@@ -224,19 +224,19 @@ class CompanyController extends Controller
 
     public function addRegisWebService(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
-        $companyName = $this->auth->user_company()->first()->company_name;
         $data = [
             "status" =>$companyID,
-            "message"=> $companyName
         ];
-        //$header = $request->get('header_row')+"."+$companyID;
-        // $webService = TB_WEBSERVICE::create([
-        //     'webservice_id' => null,            
-        //     'header_row'  => "xxxxxx", 
-            
-        // ]);
         
-        return response()->json(compact('data'),200);
+        $webService = TB_WEBSERVICE::create([
+            'service_name' => $request->get('ServiceName'),	
+            'alias' =>$request->get('alias'),
+            'URL'=> $request->get('strUrl'),
+            'description'=> $request->get('description'),
+            'header_row'=> $request->get('header'),
+        ]);
+        
+        return response()->json(compact('webService'),200);
     }
 
     

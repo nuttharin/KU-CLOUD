@@ -4,6 +4,7 @@ class Service {
         let dataHeader;
         var dataHeaderList;
         let idDB ;
+        let headerLow ;
         
 
 
@@ -143,6 +144,7 @@ class Service {
            // Create data to be stored in database DB
             for(let i = 0 ; i <arrData.length ;i++)
             {
+                //console.log(str)
 
                if(str != "")
                {
@@ -150,8 +152,9 @@ class Service {
                }
                if(arrData[i].parents.length == 1)
                {
-                   str = str+list[i].text ;
-                   //console.log("if -- "+arrData[i].text);
+                   str = str+arrData[i].text ;
+                   //console.log(str)
+                  // console.log("if -- "+arrData[i].text);
                }
                else if(arrData[i].parents.length > 1)
                {
@@ -181,7 +184,9 @@ class Service {
             //console.log(str)
             //console.log(url)
            
-
+            headerLow = str;
+            str = "";
+            console.log(headerLow);
             //increaseDataTableDW();
             increaseDataTableDB();
         
@@ -197,7 +202,8 @@ class Service {
                     strUrl : strUrl,
                     alias : alias,
                     ServiceName : ServiceName,
-                    description : description
+                    description : description,
+                    header : headerLow
                 },
                 success: (res) => {
                     console.log(res)

@@ -23,6 +23,8 @@ class CreateTbRegisterWebservice extends Migration
             $table->foreign('webservice_id')
             ->references('webservice_id')->on('TB_WEBSERVICE')
             ->onDelete('cascade');
+            $table->timestamps();
+
         });
     }
 

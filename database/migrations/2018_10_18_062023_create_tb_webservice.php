@@ -20,9 +20,9 @@ class CreateTbWebservice extends Migration
             $table->string('URL',200);
             $table->string('description',1000);
             $table->text('header_row');
-            $table->dateTime('modify_date');
+            $table->timestamps();
 
-           
+          
             
         });
     }
