@@ -82,5 +82,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('admin/database/logfile','Api\AdminController@getFileLog');
     Route::post('admin/database/log/file/download','Api\AdminController@downloadFileLog');
     Route::delete('admin/database/log/file/delete','Api\AdminController@deleteFileLog');
+    Route::post('admin/webservice/addRegisWebService','Api\AdminController@addRegisWebService');
 });
 
