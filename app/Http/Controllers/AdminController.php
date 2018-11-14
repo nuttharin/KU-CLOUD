@@ -20,7 +20,6 @@ class AdminController extends Controller
     {
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');
-        Log::debug('test');
     }
 
     public function UsersAdminister()
