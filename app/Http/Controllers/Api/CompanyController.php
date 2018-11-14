@@ -194,13 +194,13 @@ class CompanyController extends Controller
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
         ]);
-        if($webService->id){
-            $regisWebservice = TB_REGISTER_WEBSERVICE::create([
-                'user_id'=>$userID,	
-                'webservice_id'=>$webService->id
-            ]);
+        // if($webService->id){
+        //     $regisWebservice = TB_REGISTER_WEBSERVICE::create([
+        //         'user_id'=>$userID,	
+        //         'webservice_id'=>$webService->id
+        //     ]);
 
-        }
+        // }
         return response()->json(compact('data'),200);
     }
 
