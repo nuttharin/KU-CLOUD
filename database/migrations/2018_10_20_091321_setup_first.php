@@ -107,6 +107,13 @@ class SetupFirst extends Migration
         TB_PHONE::insert($phone_list);
 
         TB_USER_COMPANY::insert([
+            'user_id'=>1,
+            'is_user_main'=>true,
+            'company_id'=>1,
+            'sub_type_user'=>'ADMIN'
+        ]);
+
+        TB_USER_COMPANY::insert([
             'user_id'=>2,
             'is_user_main'=>true,
             'company_id'=>2,

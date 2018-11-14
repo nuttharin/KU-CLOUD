@@ -120,11 +120,11 @@ class CompanyController extends Controller
     }
 
     public function getAllCustomer(Request $request){
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
+        // $token = $request->cookie('token');
+        // $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
 
-        $customer = $this->users->getByTypeForCompany('CUSTOMER',$payload['user']->company_id);
+        $customer = $this->users->getByTypeForCompany('CUSTOMER',$this->auth->user_company()->first()->company_id);
         if(!empty($customer)){
             $this->log_viewer->logRequest($request);
             return response()->json(compact('customer'),200);
@@ -133,8 +133,8 @@ class CompanyController extends Controller
     }
 
     public function addUserCustomer(Request $request){
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
+        // $token = $request->cookie('token');
+        // $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
         
         $data = [
@@ -142,7 +142,7 @@ class CompanyController extends Controller
             'lname' => $request->get('lname'),
             'password' => $request->get('password'),
             'type_user' => 'CUSTOMER',
-            'company_id' => $payload["user"]->company_id,
+            'company_id' => $this->auth->user_company()->first()->company_id,
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone')
         ];
