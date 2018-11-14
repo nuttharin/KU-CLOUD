@@ -1,11 +1,11 @@
 class Service {
-    constructor(strUrl,alias,ServiceName,description) {
+    constructor(strUrl, alias, ServiceName, description) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
-        let idDB ;
-        let headerLow ;
-        
+        let idDB;
+        let headerLow;
+
 
 
 
@@ -43,9 +43,9 @@ class Service {
                 "plugins": ["checkbox", "wholerow", "search"]
             });
 
-            $('#check').on('ready.jstree', function() {
+            $('#check').on('ready.jstree', function () {
                 $("#check").jstree("open_all");
-                $("#check").jstree("check_all");           
+                $("#check").jstree("check_all");
             });
 
             document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
@@ -53,7 +53,7 @@ class Service {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 //console.log(selectedElmsIds);
                 createListQuery(selectedElmsIds);
-                
+
                 //instance.deselect_all();
                 //instance.select_node('1');
             });
@@ -65,145 +65,128 @@ class Service {
 
         let createListQuery = (listSelect) => {
             let list = listSelect;
-            let list2 = listSelect;     
-            let lengthMaxList = 0 ;
+            let list2 = listSelect;
+            let lengthMaxList = 0;
             //console.log(list)
             // find max length parents
-            for(let i = 0 ;i<list.length;i++)
-            {    
-                
-                if(list[i].parents.length >= lengthMaxList)
-                {
+            for (let i = 0; i < list.length; i++) {
+
+                if (list[i].parents.length >= lengthMaxList) {
                     lengthMaxList = list[i].parents.length;
-                    
+
                 }
             }
-           
-            for(let i =1 ;i<=lengthMaxList;i++)
-            {
-               //=1 #
-               //=2 45,#
-               for(let j =0 ; j<list.length ;j++)
-               {
+
+            for (let i = 1; i <= lengthMaxList; i++) {
+                //=1 #
+                //=2 45,#
+                for (let j = 0; j < list.length; j++) {
                     //console.log("num I - "+i+" --- "+list[j].text+" len"+list[j].parents.length)
-                    if(list[j].parents.length === i)
-                    { 
-                       
+                    if (list[j].parents.length === i) {
+
                         //console.log(" 1 st "+list[j].text)
-                       
-                        let lengthChild = list[j].children_d.length ;
-                        for(let k =lengthChild-1 ; k >=0 ; k-- )
-                        {
+
+                        let lengthChild = list[j].children_d.length;
+                        for (let k = lengthChild - 1; k >= 0; k--) {
                             //console.log(list)
-                            let idDelect = list[j].children_d[k].toString() ;
-                            for(let q =0;q<list.length;q++)
-                            {
+                            let idDelect = list[j].children_d[k].toString();
+                            for (let q = 0; q < list.length; q++) {
                                 //console.log(idDelect+"------------"+list[q].id+"***"+list[q].text)
 
-                                       
-                                if(idDelect == list[q].id.toString())
-                                {  
+
+                                if (idDelect == list[q].id.toString()) {
                                     //console.log("+"+list[q].text)
                                     //list.splice(q, 1);
                                     list[q].text = null
-                                    break;                                           
+                                    break;
                                 }
-                            } 
+                            }
 
                         }
-                         
+
                     }
                 }
             }
-           
+
             //console.log(list)
             createQueryHeader(list);
 
-            
-            
-           
+
+
+
         }
 
-        let createQueryHeader = (list) =>{
-           // header,Stations
+        let createQueryHeader = (list) => {
+            // header,Stations
             //header.Url,Stations.Latitude.Value
-           let arrData = []; // list new
-           let str ="";
-           let tempNameParents ;
-           // take-out value list[i] == text 
-           //console.log(list)
-           for(let i =0 ;i<list.length;i++)
-           {
-               if(list[i].text != null)
-               {
-                   arrData.push(list[i]);
-               }
-           }
-           //console.log(arrData)
+            let arrData = []; // list new
+            let str = "";
+            let tempNameParents;
+            // take-out value list[i] == text 
+            //console.log(list)
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].text != null) {
+                    arrData.push(list[i]);
+                }
+            }
+            //console.log(arrData)
 
-           // Create data to be stored in database DB
-            for(let i = 0 ; i <arrData.length ;i++)
-            {
+            // Create data to be stored in database DB
+            for (let i = 0; i < arrData.length; i++) {
                 //console.log(str)
 
-               if(str != "")
-               {
-                    str = str+",";
-               }
-               if(arrData[i].parents.length == 1)
-               {
-                   str = str+arrData[i].text ;
-                   //console.log(str)
-                  // console.log("if -- "+arrData[i].text);
-               }
-               else if(arrData[i].parents.length > 1)
-               {
-                   //console.log("else if")
-                   for(let j = arrData[i].parents.length-2; j>=0 ;j--)
-                   {
-                       //console.log(arrData[i].parents[j])
-                       for(let k =0 ;k<dataHeaderList.length;k++)
-                       {
-                           if(arrData[i].parents[j] == dataHeaderList[k].id)
-                           {
-                               str = str + dataHeaderList[k].text ;
-                               str = str +".";
-                               break;
-                           }
-                       }
-                   }
-                   //console.log("if -- length "+arrData[i].parents.length+" ++ ."+arrData[i].text);
-                   str =str +arrData[i].text;
-                
-               }
-            
-               
-            
+                if (str != "") {
+                    str = str + ",";
+                }
+                if (arrData[i].parents.length == 1) {
+                    str = str + arrData[i].text;
+                    //console.log(str)
+                    // console.log("if -- "+arrData[i].text);
+                }
+                else if (arrData[i].parents.length > 1) {
+                    //console.log("else if")
+                    for (let j = arrData[i].parents.length - 2; j >= 0; j--) {
+                        //console.log(arrData[i].parents[j])
+                        for (let k = 0; k < dataHeaderList.length; k++) {
+                            if (arrData[i].parents[j] == dataHeaderList[k].id) {
+                                str = str + dataHeaderList[k].text;
+                                str = str + ".";
+                                break;
+                            }
+                        }
+                    }
+                    //console.log("if -- length "+arrData[i].parents.length+" ++ ."+arrData[i].text);
+                    str = str + arrData[i].text;
+
+                }
+
+
+
             }
-      
+
             //console.log(str)
             //console.log(url)
-           
+
             headerLow = str;
             str = "";
             console.log(headerLow);
             //increaseDataTableDW();
             increaseDataTableDB();
-        
-       }
-       let increaseDataTableDB= () =>{
+
+        }
+        let increaseDataTableDB = () => {
             $.ajax({
                 url: "http://localhost:8000/api/company/webservice/addRegisWebService",
                 dataType: 'json',
                 method: "POST",
-                async:false,
+                async: false,
                 data:
                 {
-                    strUrl : strUrl,
-                    alias : alias,
-                    ServiceName : ServiceName,
-                    description : description,
-                    header : headerLow
+                    strUrl: strUrl,
+                    alias: alias,
+                    ServiceName: ServiceName,
+                    description: description,
+                    header: headerLow
                 },
                 success: (res) => {
                     console.log(res)
@@ -214,32 +197,32 @@ class Service {
                 }
             });
 
-       }
+        }
 
-       
 
-    //    let increaseDataTableDW = ()=>
-    //     {    
-    //         $.ajax({
-    //             url: "http://localhost:8081/webService/createWebService",
-    //             dataType: 'json',
-    //             method: "POST",
-    //             data:
-    //             {
-    //                 url = url,
-    //                 alias = alias,
-    //                 ServiceName = ServiceName,
-    //                 description = description
-    //             },
-    //             success: (res) => {
-    //                 console.log("success DW")
-    //             },
-    //             error: (res) => {
-    //                 console.log(res);
-    //             }
-    //         });
 
-    //     }
+        //    let increaseDataTableDW = ()=>
+        //     {    
+        //         $.ajax({
+        //             url: "http://localhost:8081/webService/createWebService",
+        //             dataType: 'json',
+        //             method: "POST",
+        //             data:
+        //             {
+        //                 url = url,
+        //                 alias = alias,
+        //                 ServiceName = ServiceName,
+        //                 description = description
+        //             },
+        //             success: (res) => {
+        //                 console.log("success DW")
+        //             },
+        //             error: (res) => {
+        //                 console.log(res);
+        //             }
+        //         });
+
+        //     }
 
     }
 }
@@ -290,7 +273,7 @@ class TreeView {
         this.getHeaderFormData = (data) => {
             let dataTemp;
             arrData = [];
-            if (typeof(data) !== 'object') {
+            if (typeof (data) !== 'object') {
 
             }
             else {
@@ -326,15 +309,14 @@ class TreeView {
             }
             else {
                 Object.keys(dataIn).forEach(function (key) {
-                    
-                    if(Array.isArray(dataIn[key]) == true)
-                    {
-                        console.log("--"+key)
+
+                    if (Array.isArray(dataIn[key]) == true) {
+                        console.log("--" + key)
                         console.log(dataIn[key][0]);
                         dataIn[key] = dataIn[key][0];
                     }
                     if (typeof (dataIn[key]) === 'object') {
-                        
+
 
                         getHeader(dataIn[key]);
                         num2++;
@@ -342,18 +324,18 @@ class TreeView {
                         dataHeaderAll.push({ 'id': num2, 'text': key });
                     }
                     else {
-                        
+
                         // if(key == "Value" || key == "Unit")
                         // {
 
                         // }
                         // else 
                         // {
-                            num2++;
-                            arrDataIn.push({ 'id': num2, 'text': key, 'children': null });
-                            dataHeaderAll.push({ 'id': num2, 'text': key });
+                        num2++;
+                        arrDataIn.push({ 'id': num2, 'text': key, 'children': null });
+                        dataHeaderAll.push({ 'id': num2, 'text': key });
                         //}
-                        
+
                     }
                 });
                 dataChild = arrDataIn;
@@ -365,7 +347,7 @@ class TreeView {
 
         }
 
-        
+
 
     }
 }
@@ -373,12 +355,12 @@ class TreeView {
 $(document).ready(function () {
 
     $(".show-header").click(function () {
-        
+
         let url = $("#url-webservice").val();
         let alias = $('#alias-webservice').val();
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
-        let service = new Service(url,alias,ServiceName,description);
+        let service = new Service(url, alias, ServiceName, description);
         service.initService();
         // let url = "www.nut.com";
         // let name = "tharin";
@@ -404,7 +386,7 @@ $(document).ready(function () {
         // });
     })
 
-   
+
 
 
 })
