@@ -25,6 +25,8 @@ Route::post('login', 'UserController@authenticate');
 Route::get('open', 'DataController@open'); //test
 
 
+
+
 Route::group(['middleware' => ['jwt.verify']], function() {
    
 
@@ -32,7 +34,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //Company
     Route::get('company/test', 'Api\CompanyController@test'); //test
-
     Route::get('company/users','Api\CompanyController@getAllUser');
     Route::post('company/users', 'Api\CompanyController@addUserCompany');
     Route::put('company/users/block','Api\CompanyController@blockUserCompany');

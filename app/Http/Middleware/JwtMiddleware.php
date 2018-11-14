@@ -19,10 +19,13 @@
          */
         public function handle($request, Closure $next)
         {
-            
             try {
                 $user = JWTAuth::parseToken()->authenticate();
-                
+                if($request->cookie('token') != ''){
+                    $request->headers->set("Authorization", "Bearer ".$request->cookie('token'));
+                    $response = $next($request);
+                    return $response;
+                }
             } catch (Exception $e) {
                 if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
                     return response()->json(['status' => 'Token is Invalid']);
@@ -32,8 +35,6 @@
                     return response()->json(['status' => $e]);
                 }
             }         
-            //$response = $next($request);
-            //$response->headers->set('Authorization', 'Bearer '.$request->cookie('token'));
             return $next($request);
         }
     }
