@@ -197,17 +197,31 @@
 </div>
 
 
+
 <script type="text/javascript" src="{{mix('js/company/users/users.min.js')}}"></script>
+{{--
+<script type="text/javascript" src="{{mix('js/ManagementUsers.js')}}"></script> --}}
 
 <script>
     $(document).ready(function () {
-        $("#btn-add-user").click(() => {
-            $("#addUser").modal('show');
-        })
+        // $("#btn-add-user").click(() => {
+        //     $("#addUser").modal('show');
+        // })
 
-        $(document).on('click',".btn-delete-email ,.btn-delete-phone",function(){
-            $(this).parent().parent().remove();
-        })
+        // $(document).on('click',".btn-delete-email ,.btn-delete-phone",function(){
+        //     $(this).parent().parent().remove();
+        // })
+        // config = {
+        //     getUsers:"company/users",
+        //     getOnlineUsers:"company/users/online",
+        //     create:"",
+        //     edit:"company/users/edit",
+        //     block:"",
+        //     unblock:"",
+        //     delete:"",
+        //     type:"COMPANY",
+        // }
+        // let managementUsers = new ManagementUsers(config);
     });
 
 </script>

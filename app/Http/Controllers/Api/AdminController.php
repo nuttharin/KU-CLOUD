@@ -25,6 +25,8 @@ use email;
 use Mail;
 use Illuminate\Mail\Message;
 use Symfony\Component\Translation\Dumper\QtFileDumper;
+use Gate;
+
 use Auth;
 
 class AdminController extends Controller
@@ -39,6 +41,9 @@ class AdminController extends Controller
 
     public  function __construct(UsersRepository $users,CompanyRepository $company)
     {
+        if(!Gate::allows('isAdmin')){
+            abort('403',"Sorry, You can do this actions");
+        }
         $this->users = $users;
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');

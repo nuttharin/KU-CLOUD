@@ -184,7 +184,11 @@ class EloquentUsers implements UsersRepository
     
             if($attributes['type_user'] == "ADMIN"){
                 if($user->user_id) {
-    
+                    TB_USER_COMPANY::create([
+                        'user_id' => $user->user_id,
+                        'company_id' => '1',
+                        'sub_type_user' => 'ADMIN',
+                    ]);
                 }
             }
             else if($attributes['type_user'] == "COMPANY"){
