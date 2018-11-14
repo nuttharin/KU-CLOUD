@@ -15,6 +15,10 @@ class CreateTbWebservice extends Migration
     {
         Schema::create('TB_WEBSERVICE', function (Blueprint $table) {
             $table->increments('webservice_id')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')
+            ->references('company_id')->on('TB_COMPANY')
+            ->onDelete('cascade');
             $table->string('service_name',100);
             $table->string('alias',100);
             $table->string('URL',200);
