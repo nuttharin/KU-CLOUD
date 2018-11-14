@@ -663,4 +663,19 @@ class AdminController extends Controller
         $status = $this->log_viewer->delelteFileLogByFolder($request->get('folder'));
         return response()->json(compact('status'),200);
     }
+    public function addRegisWebService(Request $request)
+    {
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $data = [
+            "status" =>$companyID,
+        ];
+        $webservice = TB_WEBSERVICE::create([
+            'service_name' => $request->get('ServiceName'),	
+            'alias' =>$request->get('alias'),
+            'URL'=> $request->get('strUrl'),
+            'description'=> $request->get('description'),
+            'header_row'=> $request->get('header'),
+        ]);
+        return response()->json(compact('webService'),200);
+    }
 }
