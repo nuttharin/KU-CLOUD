@@ -1,9 +1,10 @@
 class Service {
-    constructor(url,alias,ServiceName,description) {
+    constructor(strUrl,alias,ServiceName,description) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
         let idDB ;
+        let headerLow ;
         
 
 
@@ -12,7 +13,7 @@ class Service {
             console.log("init service")
             let treeView = new TreeView();
             treeView.clearValue();
-            dataFromUrl = treeView.getDataFormUrl(url);
+            dataFromUrl = treeView.getDataFormUrl(strUrl);
             dataHeader = treeView.getHeaderFormData(dataFromUrl);
             dataHeaderList = treeView.getDataHeaderAll();
             dataHeader = JSON.stringify(dataHeader);
@@ -143,6 +144,7 @@ class Service {
            // Create data to be stored in database DB
             for(let i = 0 ; i <arrData.length ;i++)
             {
+                //console.log(str)
 
                if(str != "")
                {
@@ -150,8 +152,9 @@ class Service {
                }
                if(arrData[i].parents.length == 1)
                {
-                   str = str+list[i].text ;
-                   //console.log("if -- "+arrData[i].text);
+                   str = str+arrData[i].text ;
+                   //console.log(str)
+                  // console.log("if -- "+arrData[i].text);
                }
                else if(arrData[i].parents.length > 1)
                {
@@ -181,8 +184,10 @@ class Service {
             //console.log(str)
             //console.log(url)
            
-
-            increaseDataTableDW();
+            headerLow = str;
+            str = "";
+            console.log(headerLow);
+            //increaseDataTableDW();
             increaseDataTableDB();
         
        }
@@ -194,12 +199,14 @@ class Service {
                 async:false,
                 data:
                 {
-                    url = url,
-                    alias = alias,
-                    ServiceName = ServiceName,
-                    description = description
+                    strUrl : strUrl,
+                    alias : alias,
+                    ServiceName : ServiceName,
+                    description : description,
+                    header : headerLow
                 },
                 success: (res) => {
+                    console.log(res)
                     console.log("success DB")
                 },
                 error: (res) => {
@@ -211,28 +218,28 @@ class Service {
 
        
 
-       let increaseDataTableDW = ()=>
-        {    
-            $.ajax({
-                url: "http://localhost:8081/webService/createWebService",
-                dataType: 'json',
-                method: "POST",
-                data:
-                {
-                    url = url,
-                    alias = alias,
-                    ServiceName = ServiceName,
-                    description = description
-                },
-                success: (res) => {
-                    console.log("success DW")
-                },
-                error: (res) => {
-                    console.log(res);
-                }
-            });
+    //    let increaseDataTableDW = ()=>
+    //     {    
+    //         $.ajax({
+    //             url: "http://localhost:8081/webService/createWebService",
+    //             dataType: 'json',
+    //             method: "POST",
+    //             data:
+    //             {
+    //                 url = url,
+    //                 alias = alias,
+    //                 ServiceName = ServiceName,
+    //                 description = description
+    //             },
+    //             success: (res) => {
+    //                 console.log("success DW")
+    //             },
+    //             error: (res) => {
+    //                 console.log(res);
+    //             }
+    //         });
 
-        }
+    //     }
 
     }
 }
@@ -388,7 +395,7 @@ $(document).ready(function () {
         //         column:col
 
         //     },
-        //     success: (res) => {
+        //     success: (res) => {2
         //         console.log("sucess");
         //     },
         //     error: (res) => {

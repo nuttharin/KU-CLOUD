@@ -15,6 +15,7 @@ use App\TB_EMAIL;
 use App\TB_PHONE;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
+use App\TB_WEBSERVICE;
 
 use email;
 use Mail;
@@ -222,13 +223,20 @@ class CompanyController extends Controller
     }
 
     public function addRegisWebService(Request $request){
-        // $companyID = $this->auth->user_company()->first()->company_id;
-        // $companyName = $this->auth->user_company()->first()->company_name;
+        $companyID = $this->auth->user_company()->first()->company_id;
         $data = [
-            "status" =>"ssss",
-            "message"=> "sscswq"
+            "status" =>$companyID,
         ];
-        return response()->json(compact('data'),200);
+        
+        $webService = TB_WEBSERVICE::create([
+            'service_name' => $request->get('ServiceName'),	
+            'alias' =>$request->get('alias'),
+            'URL'=> $request->get('strUrl'),
+            'description'=> $request->get('description'),
+            'header_row'=> $request->get('header'),
+        ]);
+        
+        return response()->json(compact('webService'),200);
     }
 
     
