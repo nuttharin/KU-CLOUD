@@ -43,20 +43,18 @@ class CompanyController extends Controller
         $this->companies = $companies;
 
         $this->log_viewer = new LogViewer();
+        
         $this->auth = Auth::user();
-
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $this->log_viewer->setFolder('COMPANY_'.$payload["user"]->company_id);
+        $company_id = $this->auth->user_company()->first()->company_id;
+        $this->log_viewer->setFolder('COMPANY_'.$company_id);
     }
 
-    public function test(Request $request){
-        dd($request);
-        return response()->json(compact('compnay_id'),201);
+    public function test(){
+        return response()->json(["test"=>'1234'],201);
     }
 
     public function getAllUser(Request $request){
-        $token = $request->cookie('token');
+        $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
 
         $users = $this->users->getByTypeForCompany('COMPANY',$payload["user"]->company_id);
@@ -99,6 +97,7 @@ class CompanyController extends Controller
         // });
         
         //$request->bearerToken(),201
+
         return response()->json(["status_code","201"],201);
     }
 
