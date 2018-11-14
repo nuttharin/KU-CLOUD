@@ -16,6 +16,7 @@ use App\TB_PHONE;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\TB_WEBSERVICE;
+use App\TB_REGISTER_WEBSERVICE;
 
 use email;
 use Mail;
@@ -43,20 +44,18 @@ class CompanyController extends Controller
         $this->companies = $companies;
 
         $this->log_viewer = new LogViewer();
+        
         $this->auth = Auth::user();
-
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $this->log_viewer->setFolder('COMPANY_'.$payload["user"]->company_id);
+        $company_id = $this->auth->user_company()->first()->company_id;
+        $this->log_viewer->setFolder('COMPANY_'.$company_id);
     }
 
-    public function test(Request $request){
-        dd($request);
-        return response()->json(compact('compnay_id'),201);
+    public function test(){
+        return response()->json(["test"=>'1234'],201);
     }
 
     public function getAllUser(Request $request){
-        $token = $request->cookie('token');
+        $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
 
         $users = $this->users->getByTypeForCompany('COMPANY',$payload["user"]->company_id);
@@ -99,6 +98,7 @@ class CompanyController extends Controller
         // });
         
         //$request->bearerToken(),201
+
         return response()->json(["status_code","201"],201);
     }
 
@@ -182,8 +182,9 @@ class CompanyController extends Controller
 
     public function addRegisWebService(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
+        $userID = $this->auth->user_id;
         $data = [
-            "status" =>$companyID,
+            "status" =>$userID,
         ];
         
         $webService = TB_WEBSERVICE::create([
@@ -193,8 +194,14 @@ class CompanyController extends Controller
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
         ]);
-        
-        return response()->json(compact('webService'),200);
+        if($webService->id){
+            $regisWebservice = TB_REGISTER_WEBSERVICE::create([
+                'user_id'=>$userID,	
+                'webservice_id'=>$webService->id
+            ]);
+
+        }
+        return response()->json(compact('data'),200);
     }
 
     
