@@ -182,6 +182,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                        <i class="fas fa-database"></i>
+                        <span>Input Service</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled sub" id="homeSubmenu">
+                        <li class="nav-item">
+                            <a href="{{action('AdminController@service')}}">Web Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">Mobile phone</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">Micro</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="{{action('AdminController@Infographic')}}">
                         <i class="fas fa-file-image"></i>
                         <span class="link_hide">Infographic</span>
