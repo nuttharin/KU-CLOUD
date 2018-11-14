@@ -18,6 +18,8 @@ use App\TB_PHONE;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\TB_COMPANY;
+use App\TB_WEBSERVICE;
+use App\TB_REGISTER_WEBSERVICE;
 use App\LogViewer\LogViewer;
 use email;
 use Mail;
@@ -25,6 +27,7 @@ use Illuminate\Mail\Message;
 use Symfony\Component\Translation\Dumper\QtFileDumper;
 use Gate;
 
+use Auth;
 
 class AdminController extends Controller
 {
@@ -33,6 +36,8 @@ class AdminController extends Controller
     private $log_viewer;
 
     private $company;
+
+    private $auth;
 
     public  function __construct(UsersRepository $users,CompanyRepository $company)
     {
@@ -43,6 +48,8 @@ class AdminController extends Controller
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');
         $this->company = $company;
+
+        $this->auth = Auth::user();
     }
 
     public function getAllAdminister(Request $request)
@@ -670,16 +677,26 @@ class AdminController extends Controller
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
+        // $userID = $this->auth->user_id;
         $data = [
             "status" =>$companyID,
         ];
-        $webservice = TB_WEBSERVICE::create([
-            'service_name' => $request->get('ServiceName'),	
-            'alias' =>$request->get('alias'),
-            'URL'=> $request->get('strUrl'),
-            'description'=> $request->get('description'),
-            'header_row'=> $request->get('header'),
-        ]);
-        return response()->json(compact('webService'),200);
+        
+        // $webService = TB_WEBSERVICE::create([
+        //     'company_id' => $companyID,
+        //     'service_name' => $request->get('ServiceName'),	
+        //     'alias' =>$request->get('alias'),
+        //     'URL'=> $request->get('strUrl'),
+        //     'description'=> $request->get('description'),
+        //     'header_row'=> $request->get('header'),
+        // ]);
+        // if($webService->id){
+        //     $regisWebservice = TB_REGISTER_WEBSERVICE::create([
+        //         'user_id'=>$userID,	
+        //         'webservice_id'=>$webService->id
+        //     ]);
+
+        // }
+        return response()->json(compact('data'),200);
     }
 }
