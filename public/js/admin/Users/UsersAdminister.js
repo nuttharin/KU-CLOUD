@@ -260,12 +260,16 @@ var AdminRepository = new (function () {
         }
 
         $('#name-user').html(usersList[key].fname + " " + usersList[key].lname);
-        $('#phone-user').html(usersList[key].phone.map(data => {
-            return `${data.phone_user}`;
-        }));
-        $('#email-user').html(usersList[key].email.map(data => {
-            return `${data.email_user}`;
-        }));
+
+        let phone_list = usersList[key].phone.map(data => {
+            return data.phone_user;
+        });
+        $('#phone-user').html(phone_list.join(','));
+        let email_list = usersList[key].email.map(data => {
+            return data.email_user;
+        });
+        $('#email-user').html(email_list.join(','));
+
         $('#active-user').html(usersList[key].block ? "No" : "Yes");
         $('#create-user').html(usersList[key].created_at);
         $('#update-user').html(usersList[key].updated_at);
