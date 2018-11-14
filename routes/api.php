@@ -25,6 +25,8 @@ Route::post('login', 'UserController@authenticate');
 Route::get('open', 'DataController@open'); //test
 
 
+
+
 Route::group(['middleware' => ['jwt.verify']], function() {
    
 
@@ -32,7 +34,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //Company
     Route::get('company/test', 'Api\CompanyController@test'); //test
-
     Route::get('company/users','Api\CompanyController@getAllUser');
     Route::post('company/users', 'Api\CompanyController@addUserCompany');
     Route::put('company/users/block','Api\CompanyController@blockUserCompany');
@@ -42,7 +43,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
 
-    Route::post('company/webservice/addRegisWebServive','Api\CompanyController@addRegisWebService');
+    Route::post('company/webservice/addRegisWebService','Api\CompanyController@addRegisWebService');
 
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
     Route::get('company/database/logfile','Api\CompanyController@getFileLog');

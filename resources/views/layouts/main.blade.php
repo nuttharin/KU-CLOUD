@@ -241,6 +241,8 @@
         <script type="text/javascript" src="{{url('freetrans/Matrix.js')}}"></script>
         <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
         <script type="text/javascript" src="{{url('circlejson/circular-json.js')}}"></script>
+
+
         <!-- Page Content  -->
         <div id="content">
             @yield('content')
