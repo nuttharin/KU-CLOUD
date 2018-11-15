@@ -124,7 +124,7 @@
                     <a class="dropdown-item">
                       Check Inbox
                     </a>
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" href="{{action('CompanyController@Logout')}}">
                       Sign Out
                     </a>
                 </div>

@@ -43,6 +43,8 @@ Route::group(['middleware' => ['jwt.verify.web']], function() {
 
     Route::get('/Company/LogViewer','CompanyController@LogViewer');
 
+    Route::get('/Company/Logout','CompanyController@Logout');
+
     /* Admin */
     Route::get('/Admin/UsersAdminister','AdminController@UsersAdminister');
     Route::get('/Admin/UsersCompany','AdminController@UsersCompany');

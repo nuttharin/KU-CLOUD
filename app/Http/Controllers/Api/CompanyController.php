@@ -29,6 +29,7 @@ use Auth;
 use Log;
 use App\LogViewer\SizeLog;
 
+use Gate;
 class CompanyController extends Controller
 {
     /**
@@ -40,6 +41,10 @@ class CompanyController extends Controller
 
     public  function __construct(UsersRepository $users,CompanyRepository $companies,Request $request)
     {
+        if(!Gate::allows('isCompanyAdmin')){
+            abort('403',"Sorry, You can do this actions");
+        }
+        
         $this->users = $users;
         $this->companies = $companies;
 
@@ -58,10 +63,10 @@ class CompanyController extends Controller
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
 
-        $users = $this->users->getByTypeForCompany('COMPANY',$payload["user"]->company_id);
-        if(!empty($users)){
+        $data = $this->users->getByTypeForCompany('COMPANY',$payload["user"]->company_id);
+        if(!empty($data)){
             $this->log_viewer->logRequest($request);
-            return response()->json(compact('users'),200);
+            return response()->json(compact('data'),200);
         }
         return response()->json(['message' => 'not have data'],200);
     }
@@ -124,10 +129,10 @@ class CompanyController extends Controller
         // $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
 
-        $customer = $this->users->getByTypeForCompany('CUSTOMER',$this->auth->user_company()->first()->company_id);
-        if(!empty($customer)){
+        $data = $this->users->getByTypeForCompany('CUSTOMER',$this->auth->user_company()->first()->company_id);
+        if(!empty($data)){
             $this->log_viewer->logRequest($request);
-            return response()->json(compact('customer'),200);
+            return response()->json(compact('data'),200);
         }
         return response()->json(['message' => 'not have data'],200);
     }
@@ -182,26 +187,20 @@ class CompanyController extends Controller
 
     public function addRegisWebService(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
-        $userID = $this->auth->user_id;
-        $data = [
-            "status" =>$userID,
-        ];
+        $nameDW = $request->get('ServiceName').".".$companyID;
+        
         
         $webService = TB_WEBSERVICE::create([
+            'company_id'=>$companyID,
             'service_name' => $request->get('ServiceName'),	
+            'service_name_DW' => $nameDW,	
             'alias' =>$request->get('alias'),
             'URL'=> $request->get('strUrl'),
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
         ]);
-        // if($webService->id){
-        //     $regisWebservice = TB_REGISTER_WEBSERVICE::create([
-        //         'user_id'=>$userID,	
-        //         'webservice_id'=>$webService->id
-        //     ]);
-
-        // }
-        return response()->json(compact('data'),200);
+       
+        return response()->json(compact('webService'),200);
     }
 
     
