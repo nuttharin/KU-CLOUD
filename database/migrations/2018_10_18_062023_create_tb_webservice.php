@@ -20,6 +20,7 @@ class CreateTbWebservice extends Migration
             ->references('company_id')->on('TB_COMPANY')
             ->onDelete('cascade');
             $table->string('service_name',100);
+            $table->string('service_name_DW',100);
             $table->string('alias',100);
             $table->string('URL',200);
             $table->string('description',1000);
