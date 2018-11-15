@@ -209,7 +209,7 @@ var AdminRepository = new (function () {
         let pwd_input = $("#add_pwd_val").val();
         let fname_input = $("#add_fname_val").val();
         let lname_input = $("#add_lname_val").val();
-        let type_user_input = $("#add_type_user_val").val();
+        //let type_user_input = $("#add_type_user_val").val();
         let phone_input = $("#add_phone_val").val();
         $.ajax({
             url: "http://localhost:8000/api/admin/administer/create",
@@ -222,7 +222,6 @@ var AdminRepository = new (function () {
                 fname: fname_input,
                 lname: lname_input,
                 phone: phone_input,
-                type_user: type_user_input
             },
             success: (res) => {
                 this.refreshDatatable();
@@ -364,8 +363,12 @@ var AdminRepository = new (function () {
         let user_id_input = $("#edit-id").val();
         let fname_input = $("#edit-fname").val();
         let lname_input = $("#edit-lname").val();
-        let email_input = $(".add_email_val").map(function () { return $(this).val(); }).get().join();
-        let phone_input = $(".add_phone_val").map(function () { return $(this).val(); }).get().join();
+        let phone_input = $(".add_phone_val").map(function () {
+            return $(this).val();
+        }).get();
+        let email_input = $(".add_email_val").map(function () {
+            return $(this).val();
+        }).get();
 
         $.ajax({
             url: "http://localhost:8000/api/admin/administer/edit",
