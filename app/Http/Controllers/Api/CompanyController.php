@@ -187,26 +187,20 @@ class CompanyController extends Controller
 
     public function addRegisWebService(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
-        $userID = $this->auth->user_id;
-        $data = [
-            "status" =>$userID,
-        ];
+        $nameDW = $request->get('ServiceName').".".$companyID;
+        
         
         $webService = TB_WEBSERVICE::create([
+            'company_id'=>$companyID,
             'service_name' => $request->get('ServiceName'),	
+            'service_name_DW' => $nameDW,	
             'alias' =>$request->get('alias'),
             'URL'=> $request->get('strUrl'),
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
         ]);
-        // if($webService->id){
-        //     $regisWebservice = TB_REGISTER_WEBSERVICE::create([
-        //         'user_id'=>$userID,	
-        //         'webservice_id'=>$webService->id
-        //     ]);
-
-        // }
-        return response()->json(compact('data'),200);
+       
+        return response()->json(compact('webService'),200);
     }
 
     
