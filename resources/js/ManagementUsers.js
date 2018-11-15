@@ -354,10 +354,12 @@ export class ManagementUsers {
 
         let showDatatableLoadingStatus = (showOrHide) => {
             if (showOrHide) {
+                $(".dataTables_wrapper").hide();
                 $('#example').hide();
                 $('.lds-roller').show();
             }
             else {
+                $(".dataTables_wrapper").show();
                 $('.lds-roller').hide();
                 $('.text-loading').hide();
                 $('#example').show();
@@ -492,7 +494,7 @@ export class ManagementUsers {
             let fname_input = $("#add_fname_val").val();
             let lname_input = $("#add_lname_val").val();
             let phone_input = $("#add_phone_val").val();
-            let type_user_input = null
+            let type_user_input = null;
             if (config.type === 'COMPANY') {
                 type_user_input = $("#add_type_user_val").val();
             }
@@ -618,21 +620,3 @@ export function FatoryCreateManagmentUser(config) {
     managementUsers = new ManagementUsers(config);
     managementUsers.initialAndRun();
 }
-
-// let config = {
-//     getUsers: "company/users",
-//     getOnlineUsers: "company/users/online",
-//     create: "",
-//     edit: "company/users/edit",
-//     block: "",
-//     unblock: "",
-//     delete: "",
-//     type: "COMPANY",
-// };
-
-// let managementUsers = null;
-
-// $(document).ready(function () {
-//     managementUsers = new ManagementUsers(config);
-//     managementUsers.initialAndRun();
-// });

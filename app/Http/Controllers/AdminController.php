@@ -11,6 +11,9 @@ use App\LogViewer\LogViewer;
 use Log;
 
 
+use Gate;
+
+
 class AdminController extends Controller
 {
 
@@ -18,6 +21,9 @@ class AdminController extends Controller
 
     public function __construct()
     {
+        if(!Gate::allows('isAdmin')){
+            abort('403',"Sorry, You can do this actions");
+        }
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');
     }

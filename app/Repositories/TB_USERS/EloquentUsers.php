@@ -189,6 +189,17 @@ class EloquentUsers implements UsersRepository
                         'company_id' => '1',
                         'sub_type_user' => 'ADMIN',
                     ]);
+
+                    TB_EMAIL::create([
+                        'user_id' => $user->user_id,
+                        'email_user' => $attributes['email_user'],
+                        'is_verify' => false,
+                    ]);
+        
+                    TB_PHONE::create([
+                        'user_id' => $user->user_id,
+                        'phone_user' => $attributes['phone_user']
+                    ]);
                 }
             }
             else if($attributes['type_user'] == "COMPANY"){
@@ -257,7 +268,7 @@ class EloquentUsers implements UsersRepository
         foreach($attributes['email_user'] as $value){
             TB_EMAIL::firstOrCreate([
                 'user_id' =>$attributes['user_id'],
-                'email_user' => $value
+                'email_user' => $value,
             ]);
         }
     }
