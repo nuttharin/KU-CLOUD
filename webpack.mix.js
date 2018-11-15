@@ -44,7 +44,8 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/company/static/dashboard.min.js', 'public/js/admin/static')
     .js('resources/js/company/users/users.min.js', 'public/js/company/users')
-    .js('resources/js/company/customer/customer.min.js', 'public/js/company/customer');
+    .js('resources/js/company/customer/customer.min.js', 'public/js/company/customer')
+    .js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js');
 
 
 if (mix.inProduction) {

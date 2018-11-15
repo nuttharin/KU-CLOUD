@@ -18,12 +18,16 @@ use App\TB_PHONE;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\TB_COMPANY;
+use App\TB_WEBSERVICE;
+use App\TB_REGISTER_WEBSERVICE;
 use App\LogViewer\LogViewer;
 use email;
 use Mail;
 use Illuminate\Mail\Message;
 use Symfony\Component\Translation\Dumper\QtFileDumper;
+use Gate;
 
+use Auth;
 
 class AdminController extends Controller
 {
@@ -33,12 +37,19 @@ class AdminController extends Controller
 
     private $company;
 
+    private $auth;
+
     public  function __construct(UsersRepository $users,CompanyRepository $company)
     {
+        if(!Gate::allows('isAdmin')){
+            abort('403',"Sorry, You can do this actions");
+        }
         $this->users = $users;
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');
         $this->company = $company;
+
+        $this->auth = Auth::user();
     }
 
     public function getAllAdminister(Request $request)
@@ -57,108 +68,30 @@ class AdminController extends Controller
 
     public function createAdminister(Request $request) 
     {
-        $token      = $request->cookie('token');
-        $payload    = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
+        $attributes = [
+            'fname'         =>  $request->get('fname'),
+            'lname'         =>  $request->get('lname'),
+            'password'      =>  $request->get('password'),
+            'type_user'     =>  'ADMIN',
+            'email_user'    =>  $request->get('email'),
+            'phone_user'    =>  $request->get('phone')
+        ];
 
-        $user = TB_USERS::create([
-            'fname'     => $request->get('fname'),
-            'lname'     => $request->get('lname'),
-            'password'  => Hash::make($request->get('password')),
-            'type_user' => $request->get('type_user')
-        ]);
-        
-        if($user->user_id)
-        {
-            $email = TB_EMAIL::create([
-                'user_id'       => $user->user_id,
-                'email_user'    => $request->get('email'),
-                'is_verify'     => false
-            ]);
-
-            $phone = TB_PHONE::create([
-                'user_id'       => $user->user_id,
-                'phone_user'    => $request->get('phone')
-            ]);
-        }
-
+        $this->users->create($attributes);
         return response()->json(["status_code","201"],201);
     }
 
     public function editAdminister(Request $request) 
     {
-        $token      = $request->cookie('token');
-        $payload    = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
-        
-        $user = TB_USERS::where('user_id', $request->get('user_id'))
-                            ->update([
-                                'fname'     => $request->get('fname'),
-                                'lname'     => $request->get('lname')
-                            ]);
-
-        $delPhone = TB_PHONE::where('user_id', $request->get('user_id'))
-                            ->delete();
-
-        $delEmail = TB_EMAIL::where('user_id', $request->get('user_id'))
-                            ->delete();
-        
-        $arrayPhone = explode(",", $request->get('phone'));
-
-        if(!empty($arrayPhone[0]))
-        {
-            $createP1 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[0]
-            ]);
-        }
-
-        if(!empty($arrayPhone[1]))
-        {
-            $createP2 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[1]
-            ]);
-        }
-
-        if(!empty($arrayPhone[2]))
-        {
-            $createP3 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[2]
-            ]);
-        }
-
-        $arrayEmail = explode(",", $request->get('email'));
-
-        if(!empty($arrayEmail[0]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[0],
-                'is_verify'     => false
-            ]);
-        }
-
-        if(!empty($arrayEmail[1]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[1],
-                'is_verify'     => false
-            ]);
-        }
-
-        if(!empty($arrayEmail[2]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[2],
-                'is_verify'     => false
-            ]);
-        }
-        
-        return response()->json(["status_code","201"],201);
+        $attributes = [
+            'user_id'       => $request->get('user_id'),
+            'fname'         =>  $request->get('fname'),
+            'lname'         =>  $request->get('lname'),
+            'email_user'    =>  $request->get('email'),
+            'phone_user'    =>  $request->get('phone')
+        ];
+        $this->users->update($attributes);
+        return response()->json(["status_code","200"],200);
     }
 
     public function getAllCompanies(Request $request)
@@ -180,7 +113,14 @@ class AdminController extends Controller
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
-        
+
+//        $attributes = [
+//            'fname'     => $request->get('fname'),
+//            'lname'     => $request->get('lname'),
+//            'password'  => $request->get('password'),
+//            'type_user' => 'COMPANY',
+//        ];
+
         $user = TB_USERS::create([
             'fname'     => $request->get('fname'),
             'lname'     => $request->get('lname'),
@@ -666,16 +606,26 @@ class AdminController extends Controller
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
+        // $userID = $this->auth->user_id;
         $data = [
             "status" =>$companyID,
         ];
-        $webservice = TB_WEBSERVICE::create([
-            'service_name' => $request->get('ServiceName'),	
-            'alias' =>$request->get('alias'),
-            'URL'=> $request->get('strUrl'),
-            'description'=> $request->get('description'),
-            'header_row'=> $request->get('header'),
-        ]);
-        return response()->json(compact('webService'),200);
+        
+        // $webService = TB_WEBSERVICE::create([
+        //     'company_id' => $companyID,
+        //     'service_name' => $request->get('ServiceName'),	
+        //     'alias' =>$request->get('alias'),
+        //     'URL'=> $request->get('strUrl'),
+        //     'description'=> $request->get('description'),
+        //     'header_row'=> $request->get('header'),
+        // ]);
+        // if($webService->id){
+        //     $regisWebservice = TB_REGISTER_WEBSERVICE::create([
+        //         'user_id'=>$userID,	
+        //         'webservice_id'=>$webService->id
+        //     ]);
+
+        // }
+        return response()->json(compact('data'),200);
     }
 }

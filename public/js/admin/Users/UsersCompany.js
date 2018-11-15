@@ -331,6 +331,13 @@ var CompanyRepository = new (function () {
             </div>`;
 
             $('body').append(modalEdit);
+
+            $.each(companyList, function (key, value) {
+                $('#add_company_val')
+                    .append($("<option></option>")
+                        .attr("value", value.id)
+                        .text(value.name));
+            });
         }
 
         $("#btn-add-phone").unbind().click(function () {
@@ -360,13 +367,6 @@ var CompanyRepository = new (function () {
         let inputEmail = null;
         inputEmail = emailList.map(email => {
             return formAddEmail.replace('{email}', email);
-        });
-
-        $.each(companyList, function (key, value) {
-            $('#add_company_val')
-                .append($("<option></option>")
-                    .attr("value", value.id)
-                    .text(value.name));
         });
 
         $('#edit-id').val(usersList[key].user_id);

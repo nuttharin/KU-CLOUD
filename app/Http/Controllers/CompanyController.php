@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use Gate;
+use Cookie;
 
 use Log;
 
@@ -60,5 +61,10 @@ class CompanyController extends Controller
     public  function LogViewer()
     {
         return view('company.LogViewer')->with('user', Auth::user());
+    }
+
+    public function Logout(){
+        JWTAuth::invalidate(JWTAuth::getToken());
+        return view('auth.index')->withCookie(Cookie::forget('token'));
     }
 }
