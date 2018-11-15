@@ -172,6 +172,7 @@ class Service {
             console.log(headerLow);
             //increaseDataTableDW();
             increaseDataTableDB();
+            increaseDataTableDW();
 
         }
         let increaseDataTableDB = () => {
@@ -196,33 +197,30 @@ class Service {
                     console.log(res);
                 }
             });
-
         }
+           let increaseDataTableDW = ()=>
+            {    
+                $.ajax({
+                    url: "http://localhost:8081/webService/createWebService",
+                    dataType: 'json',
+                    method: "POST",
+                    data:
+                    {
+                        strUrl: strUrl,
+                        alias : alias,
+                        ServiceName : ServiceName,
+                        description : description,
+                        header: headerLow
+                    },
+                    success: (res) => {
+                        console.log("success DW")
+                    },
+                    error: (res) => {
+                        console.log(res);
+                    }
+                });
 
-
-
-        //    let increaseDataTableDW = ()=>
-        //     {    
-        //         $.ajax({
-        //             url: "http://localhost:8081/webService/createWebService",
-        //             dataType: 'json',
-        //             method: "POST",
-        //             data:
-        //             {
-        //                 url = url,
-        //                 alias = alias,
-        //                 ServiceName = ServiceName,
-        //                 description = description
-        //             },
-        //             success: (res) => {
-        //                 console.log("success DW")
-        //             },
-        //             error: (res) => {
-        //                 console.log(res);
-        //             }
-        //         });
-
-        //     }
+            }
 
     }
 }
