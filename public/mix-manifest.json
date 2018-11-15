@@ -1,8 +1,8 @@
 {
     "/js/app.js": "/js/app.js?id=93b33d5521070e53e0c6",
-    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=84991d331cde0a732fa2",
-    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=75ede67482d29d537546",
-    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=0b0769c33bdadb9e926b",
-    "/js/admin/static/dashboard.min.js": "/js/admin/static/dashboard.min.js?id=0b0769c33bdadb9e926b",
-    "/js/ManagementUsers.js": "/js/ManagementUsers.js?id=36fac59ebe6d9f796b25"
+    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=e6df24318e3c6ad89d4b",
+    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=d2d8f16c9dae95ab9a94",
+    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=2ceeeff171239b9d0fdf",
+    "/js/admin/static/dashboard.min.js": "/js/admin/static/dashboard.min.js?id=2ceeeff171239b9d0fdf",
+    "/js/ManagementUsers.js": "/js/ManagementUsers.js?id=f346a50af7f450b95c2d"
 }
