@@ -526,3 +526,7 @@ ul ul a {
     transition:all 0.3s;
     transform: scale(1.1);
 }
+
+.input-error{
+    border-color: #d9534f;
+}

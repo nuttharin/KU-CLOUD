@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\UsersRequest;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_USERS\UsersRepository;
 use Illuminate\Http\Request;
@@ -71,7 +72,7 @@ class CompanyController extends Controller
         return response()->json(['message' => 'not have data'],200);
     }
 
-    public function addUserCompany(Request $request) {
+    public function addUserCompany(UsersRequest $request) {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
         
