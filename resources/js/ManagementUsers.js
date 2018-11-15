@@ -1,5 +1,6 @@
-import { showLoadingModal } from './utility';
+import { showLoadingModal, LOADING, ERROR_INPUT } from './utility';
 
+let modalCreate = null;
 let modalDetail = null;
 let modalEdit = null;
 let modalBlock = null;
@@ -40,6 +41,22 @@ toastr.options = {
 };
 
 const END_POINT = 'http://localhost:8000/api/';
+
+class ModalCreate {
+    constructor(config) {
+        if (modalCreate) {
+            return modalCreate;
+        }
+
+        this.resetModal = () => {
+            $("#add_email_val").val('');
+            $("#add_fname_val").val('');
+            $("#add_phone_val").val('');
+            $("#add_pwd_val").val('');
+            $("#add_lname_val").val('');
+        };
+    }
+}
 
 class ModalDetail {
     constructor() {
@@ -130,34 +147,34 @@ class ModalEdit {
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" id="btn-edit-submit" class="btn btn-success btn-block btn-submit-edit">Save</button>
+                                <button type="button" id="btn-edit-submit" class="btn btn-success btn-block btn-submit-edit" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
                             </div>
                         </div>
                     </div>
                 </div>`;
                 $('body').append(modal);
-
-                $("#btn-edit-submit").unbind().click(function () {
-                    onSubmitEditClick(key);
-                });
-
-                $("#btn-add-phone").unbind().click(function () {
-                    event.preventDefault();
-                    let addPhone = FormAddPhone.replace('disabled', '');
-                    addPhone = addPhone.replace('{phone}', '');
-                    if ($(".btn-delete-phone").length <= 2) {
-                        $("#input-add-phone").append(addPhone);
-                    }
-                });
-
-                $("#btn-add-email").unbind().click(function () {
-                    event.preventDefault();
-                    let addEmail = FormAddEmail.replace('disabled', '');
-                    addEmail = addEmail.replace('{email}', '');
-                    if ($(".btn-delete-email").length <= 2)
-                        $("#input-add-email").append(addEmail);
-                });
             }
+
+            $("#btn-edit-submit").unbind().click(function () {
+                onSubmitEditClick(key);
+            });
+
+            $("#btn-add-phone").unbind().click(function () {
+                event.preventDefault();
+                let addPhone = FormAddPhone.replace('disabled', '');
+                addPhone = addPhone.replace('{phone}', '');
+                if ($(".btn-delete-phone").length <= 2) {
+                    $("#input-add-phone").append(addPhone);
+                }
+            });
+
+            $("#btn-add-email").unbind().click(function () {
+                event.preventDefault();
+                let addEmail = FormAddEmail.replace('disabled', '');
+                addEmail = addEmail.replace('{email}', '');
+                if ($(".btn-delete-email").length <= 2)
+                    $("#input-add-email").append(addEmail);
+            });
 
             let phoneList = UsersList[key].phone;
             let inputPhone = null;
@@ -179,6 +196,7 @@ class ModalEdit {
         };
 
         let onSubmitEditClick = (index) => {
+            LOADING.set($("#btn-edit-submit"));
             let fname = $("#edit-fname").val();
             let lname = $("#edit-lname").val();
             let phone = $(".add_phone_val").map(function () {
@@ -187,7 +205,6 @@ class ModalEdit {
             let email = $(".add_email_val").map(function () {
                 return $(this).val();
             }).get();
-            showLoadingModal($("#editUser"), true);
             $.ajax({
                 url: END_POINT + config.edit,
                 method: "PUT",
@@ -200,11 +217,12 @@ class ModalEdit {
                 },
                 success: (res) => {
                     toastr["success"]("Edit user success");
-                    showLoadingModal($("#editUser"), false);
+                    LOADING.reset($("#btn-edit-submit"));
                     $("#editUser").modal('hide');
                     ManagementUsers.refreshData();
                 },
                 error: (res) => {
+                    LOADING.reset($("#btn-edit-submit"));
                     console.log(res);
                 }
             });
@@ -246,10 +264,10 @@ class ModalToggleActive {
             }
             let active = UsersList[key].block ? 'block' : 'unblock';
             if (UsersList[key].block) {
-                $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-info btn-block">UnBlock</button>`);
+                $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-info btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">UnBlock</button>`);
             }
             else {
-                $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-danger btn-block">Block</button>`);
+                $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-danger btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Block</button>`);
             }
 
             $('#btn-toggle-active-submit').unbind().click(function () {
@@ -261,7 +279,7 @@ class ModalToggleActive {
         };
 
         let onSubmitToggleActiveUser = (key) => {
-            showLoadingModal($("#BlockUser"), true);
+            LOADING.set($("#btn-toggle-active-submit"));
             $.ajax({
                 url: END_POINT + config.block,
                 method: "put",
@@ -272,10 +290,11 @@ class ModalToggleActive {
                 success: (res) => {
                     toastr["success"]("Blcok user success");
                     $("#BlockUser").modal('hide');
-                    showLoadingModal($("#BlockUser"), false);
+                    LOADING.reset($("#btn-toggle-active-submit"));
                     ManagementUsers.refreshData();
                 },
                 error: (res) => {
+                    LOADING.reset($("#btn-toggle-active-submit"));
                     console.log(res);
                 }
             });
@@ -306,7 +325,7 @@ class ModalDelete {
                                         </div>
     
                                         <div class="modal-footer">
-                                            <button type="button" id="btn-delete-submit" class="btn btn-danger btn-block">Delete</button>
+                                            <button type="button" id="btn-delete-submit" class="btn btn-danger btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Delete</button>
                                         </div>
                                     </div>
                                 </div>
@@ -345,11 +364,6 @@ export class ManagementUsers {
             }
 
             UsersDATATABLE = $('#example').dataTable({});
-
-
-            $("#btn-save-add-user").unbind().click(function () {
-                onSaveUserClick($(this));
-            });
         };
 
         let showDatatableLoadingStatus = (showOrHide) => {
@@ -488,7 +502,8 @@ export class ManagementUsers {
             });
         };
 
-        let onSaveUserClick = () => {
+        let onSaveUserClick = (el) => {
+            LOADING.set(el);
             let email_input = $("#add_email_val").val();
             let pwd_input = $("#add_pwd_val").val();
             let fname_input = $("#add_fname_val").val();
@@ -498,7 +513,6 @@ export class ManagementUsers {
             if (config.type === 'COMPANY') {
                 type_user_input = $("#add_type_user_val").val();
             }
-            showLoadingModal($("#addUser"), true);
             $.ajax({
                 url: END_POINT + config.create,
                 dataType: 'json',
@@ -514,11 +528,35 @@ export class ManagementUsers {
                 success: (res) => {
                     toastr["success"]("Create user success");
                     this.showLastestDatatable();
-                    showLoadingModal($("#addUser"), false);
+                    LOADING.reset(el);
                     $("#addUser").modal('hide');
                 },
                 error: (res) => {
                     console.log(res);
+                    LOADING.reset(el);
+                    let errorList = res.responseJSON.errors;
+                    let error_target = {
+                        email: {
+                            el: $("#add_email_val"),
+                        },
+                        password: {
+                            el: $("#add_pwd_val"),
+                        },
+                        fname: {
+                            el: $("#add_fname_val"),
+                        },
+                        lname: {
+                            el: $("#add_lname_val"),
+                        },
+                        phone: {
+                            el: $("#add_phone_val"),
+                        },
+                        sub_type_user: {
+                            el: $("#add_type_user_val"),
+                        }
+                    };
+                    console.log(errorList);
+                    ERROR_INPUT.set(error_target, errorList);
                 }
             });
         };
@@ -555,10 +593,10 @@ export class ManagementUsers {
 
         this.initialAndRun = () => {
             this.showLastestDatatable();
-
-
             $('#btn-add-user').unbind().click(function () {
-                $('#addUser').modal('show');
+                modalCreate = new ModalCreate(config);
+                modalCreate.resetModal();
+                $("#addUser").modal('show');
             });
 
             $('#btn-save-add-user').unbind().click(function () {
@@ -572,7 +610,7 @@ export class ManagementUsers {
                 url: END_POINT + config.getUsers,
                 method: 'GET',
                 success: function (result) {
-                    console.log(result);
+                    //console.log(result);
                     initialDatatable();
                     UsersList = result.data;
                     showDatatableLoadingStatus(false);

@@ -1,8 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=93b33d5521070e53e0c6",
-    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=e6df24318e3c6ad89d4b",
-    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=d2d8f16c9dae95ab9a94",
-    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=2ceeeff171239b9d0fdf",
-    "/js/admin/static/dashboard.min.js": "/js/admin/static/dashboard.min.js?id=2ceeeff171239b9d0fdf",
-    "/js/ManagementUsers.js": "/js/ManagementUsers.js?id=f346a50af7f450b95c2d"
+    "/js/app.js": "/js/app.js?id=33dbea63f0e76d187dc8",
+    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=3c7445bbabaea14ca48e",
+    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=85aa6637cbfce33313e8",
+    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=bbbe9f9457fb431e93ab",
+    "/js/admin/static/dashboard.min.js": "/js/admin/static/dashboard.min.js?id=bbbe9f9457fb431e93ab",
+    "/js/ManagementUsers.js": "/js/ManagementUsers.js?id=a71fd686edde49ff15b8"
 }
