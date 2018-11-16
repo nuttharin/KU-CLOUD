@@ -1,3 +1,4 @@
+
 class Service {
     constructor(strUrl, alias, ServiceName, description) {
         let dataFromUrl;
@@ -5,6 +6,7 @@ class Service {
         var dataHeaderList;
         let idDB;
         let headerLow;
+        let companyID;
 
 
 
@@ -176,6 +178,7 @@ class Service {
 
         }
         let increaseDataTableDB = () => {
+            
             $.ajax({
                 url: "http://localhost:8000/api/admin/webservice/addRegisWebService",
                 dataType: 'json',
@@ -198,22 +201,41 @@ class Service {
                 }
             });
         }
+        
            let increaseDataTableDW = ()=>
-            {    
+            {
+                //console.log(getCookie('token'))
                 $.ajax({
-                    url: "http://localhost:8081/webService/createWebService",
+                    url: "http://localhost:8000/api/admin/webservice/getCompanyID",
+                    dataType: 'json',
+                    method: "GET",
+                    async: false,
+                    success: (res) => {
+                        companyID = res.companyID
+                        console.log(companyID);
+
+                    },
+                    error: (res) => {
+                        console.log(res);
+                    }
+                });
+                $.ajax({
+                    url: "http://localhost:8081/webService/createRegisterTable",
                     dataType: 'json',
                     method: "POST",
+                    headers: {"Authorization": getCookie('token')},
                     data:
                     {
                         strUrl: strUrl,
-                        alias : alias,
-                        ServiceName : ServiceName,
-                        description : description,
+                        alias: alias,
+                        ServiceName: ServiceName,
+                        ServiceNameDW: ServiceName+"."+companyID,
+                        description: description,
                         header: headerLow
                     },
                     success: (res) => {
                         console.log("success DW")
+                        
                     },
                     error: (res) => {
                         console.log(res);
