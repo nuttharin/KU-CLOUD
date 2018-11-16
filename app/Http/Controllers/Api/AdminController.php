@@ -603,17 +603,23 @@ class AdminController extends Controller
         $status = $this->log_viewer->delelteFileLogByFolder($request->get('folder'));
         return response()->json(compact('status'),200);
     }
+    public function getCompanyID(Request $request){
+        $companyID = $this->auth->user_company()->first()->company_id;
+        return response()->json(compact('companyID'),200);
+    }
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
-        $userID = $this->auth->user_id;
-        $data = [
-            "status" =>$userID,
-        ];
+        $nameDW = $request->get('ServiceName').".".$companyID;
+        // $userID = $this->auth->user_id;
+        // $data = [
+        //     "status" =>$userID,
+        // ];
         
         $webService = TB_WEBSERVICE::create([
             'company_id' => $companyID,
             'service_name' => $request->get('ServiceName'),	
+            'service_name_DW' => $nameDW,
             'alias' =>$request->get('alias'),
             'URL'=> $request->get('strUrl'),
             'description'=> $request->get('description'),
@@ -626,6 +632,6 @@ class AdminController extends Controller
         //     ]);
 
         // }
-        return response()->json(compact('data'),200);
+        return response()->json(compact('webService'),200);
     }
 }

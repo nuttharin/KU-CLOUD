@@ -204,5 +204,12 @@ class CompanyController extends Controller
         return response()->json(compact('webService'),200);
     }
 
+    public function getCompanyID(Request $request){
+        $companyID = $this->auth->user_company()->first()->company_id;
+
+        return response()->json(compact('companyID'),200);
+    }
+
+
     
 }

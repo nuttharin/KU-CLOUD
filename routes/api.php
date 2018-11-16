@@ -44,6 +44,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
 
     Route::post('company/webservice/addRegisWebService','Api\CompanyController@addRegisWebService');
+    Route::get('company/webservice/getCompnyID','Api\CompanyController@getCompanyID');
 
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
     Route::get('company/database/logfile','Api\CompanyController@getFileLog');
@@ -52,7 +53,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
     Route::post('admin/administer/create','Api\AdminController@createAdminister');
     Route::put('admin/administer/edit','Api\AdminController@editAdminister');
-
+    Route::get('admin/webservice/getCompanyID','Api\AdminController@getCompanyID');
     Route::get('admin/companies','Api\AdminController@getAllCompanies');
     Route::post('admin/company/create','Api\AdminController@createCompany');
     Route::put('admin/company/edit','Api\AdminController@editCompany');
