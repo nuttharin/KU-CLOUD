@@ -108,8 +108,8 @@ class EloquentUsers implements UsersRepository
                     'created_at'=>$user->created_at,
                     'updated_at'=>$user->updated_at,
                     'online'=>$user->online,
-                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->get(),
-                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->get(),
+                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
                 ];
             }
             return $data;
@@ -194,11 +194,13 @@ class EloquentUsers implements UsersRepository
                         'user_id' => $user->user_id,
                         'email_user' => $attributes['email_user'],
                         'is_verify' => false,
+                        'is_primary'=>true
                     ]);
         
                     TB_PHONE::create([
                         'user_id' => $user->user_id,
-                        'phone_user' => $attributes['phone_user']
+                        'phone_user' => $attributes['phone_user'],
+                        'is_primary'=>true
                     ]);
                 }
             }
@@ -214,11 +216,13 @@ class EloquentUsers implements UsersRepository
                         'user_id' => $user->user_id,
                         'email_user' => $attributes['email_user'],
                         'is_verify' => false,
+                        'is_primary'=>true
                     ]);
         
                     TB_PHONE::create([
                         'user_id' => $user->user_id,
-                        'phone_user' => $attributes['phone_user']
+                        'phone_user' => $attributes['phone_user'],
+                        'is_primary'=>true
                     ]);
                 }
             }
@@ -233,11 +237,13 @@ class EloquentUsers implements UsersRepository
                         'user_id' => $user->user_id,
                         'email_user' => $attributes['email_user'],
                         'is_verify' => false,
+                        'is_primary'=>true
                     ]);
         
                     TB_PHONE::create([
                         'user_id' => $user->user_id,
-                        'phone_user' => $attributes['phone_user']
+                        'phone_user' => $attributes['phone_user'],
+                        'is_primary'=>true
                     ]);
                 }
             }

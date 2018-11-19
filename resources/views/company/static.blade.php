@@ -10,6 +10,8 @@
 
 <script src="{{url('js/company/gauge/gauge.min.js')}}"></script>
 
+<script src="{{url('js/canvas-toBlob/canvas-toBlob.js')}}"></script>
+
 <style type="text/css">
     .grid-stack-item {}
 

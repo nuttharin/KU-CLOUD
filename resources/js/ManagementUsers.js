@@ -68,7 +68,7 @@ class ModalDetail {
             if ($("#detailUser").length === 0) {
                 let modal = `
                                 <div class="modal fade" id="detailUser">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="title-user"></h5>
@@ -77,8 +77,15 @@ class ModalDetail {
         
                                             <div class="modal-body">
                                                 <h6>Name : <span  id="name-user"><span></h6>
-                                                <h6>Phone : <span id="phone-user"><span></h6>
-                                                <h6>Email : <span id="email-user"><span></h6>
+                                                <h6>Phone</h6>
+                                                <ul class="list-group" id="phone-user">
+                                                    
+                                                </ul>
+                                                <hr/>
+                                                <h6>Email</h6>
+                                                <ul class="list-group" id="email-user">
+                                                    
+                                                </ul>
                                             </div>
         
                                             <div class="modal-footer">
@@ -93,15 +100,53 @@ class ModalDetail {
 
             $('#title-user').html(UsersList[key].email[0].email_user);
             $('#name-user').html(UsersList[key].fname + " " + UsersList[key].lname);
-
+            let status = "";
             let phone_list = UsersList[key].phone.map(data => {
-                return data.phone_user;
+                status = "";
+                if (data.is_primary) {
+                    status = `<span class="badge badge-pill badge-primary d-flex justify-content-center align-items-center">Primary</span>`;
+                }
+                if (data.is_verify) {
+                    status += `<span class="badge badge-pill badge-success d-flex justify-content-center align-items-center">Verify success</span>`;
+                }
+                else {
+                    status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
+                }
+                return `<li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6">
+                                ${data.phone_user} 
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                ${status}
+                                </div>
+                            </div>
+                        </li>`;
             });
-            $('#phone-user').html(phone_list.join(','));
+            $('#phone-user').html(phone_list.join(''));
             let email_list = UsersList[key].email.map(data => {
-                return data.email_user;
+                status = "";
+                if (data.is_primary) {
+                    status += `<span class="badge badge-pill badge-primary d-flex justify-content-center align-items-center">Primary</span>`;
+                }
+                if (data.is_verify) {
+                    status += `<span class="badge badge-pill badge-success d-flex justify-content-center align-items-center">Verify success</span>`;
+                }
+                else {
+                    status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
+                }
+                return `<li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6">
+                                ${data.email_user} 
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                ${status}
+                                </div>
+                            </div>
+                        </li>`;
             });
-            $('#email-user').html(email_list.join(','));
+            $('#email-user').html(email_list.join(''));
 
             $("#detailUser").modal('show');
         };
@@ -311,7 +356,7 @@ class ModalDelete {
         this.create = (key) => {
             if ($("#DeleteUser").length === 0) {
                 let modal = `<div class="modal fade" id="DeleteUser">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title">Delete User Company</h4>
@@ -332,7 +377,7 @@ class ModalDelete {
                             </div>`;
                 $("body").append(modal);
             }
-            $('#span-text-confirm').html("Are you sure to delete " + UsersList[key].email[0].email_user + " ? ");
+            $('#span-text-confirm').html("Are you sure to delete this account name : " + UsersList[key].email[0].email_user + " ? ");
             $('#DeleteUser').modal('show');
         };
 
@@ -420,26 +465,6 @@ export class ManagementUsers {
                 Datatable.push(ret);
             });
             UsersDATATABLE.fnAddData(Datatable);
-
-            $('#example').on('click', '.btn-detail', function () {
-                onDetailClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-edit', function () {
-                onEditClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-block-user', function () {
-                onBlockClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-unblock-user', function () {
-                onUnBlockClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-delete', function () {
-                onDeleteClick($(this).attr('index'));
-            });
         };
 
         let createTableUsersCustomer = () => {
@@ -480,26 +505,6 @@ export class ManagementUsers {
                 Datatable.push(ret);
             });
             UsersDATATABLE.fnAddData(Datatable);
-
-            $('#example').on('click', '.btn-detail', function () {
-                onDetailClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-edit', function () {
-                onEditClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-block-user', function () {
-                onBlockClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-unblock-user', function () {
-                onUnBlockClick($(this).attr('index'));
-            });
-
-            $('#example').on('click', '.btn-delete', function () {
-                onDeleteClick($(this).attr('index'));
-            });
         };
 
         let onSaveUserClick = (el) => {
@@ -588,6 +593,27 @@ export class ManagementUsers {
             else if (config.type === "CUSTOMER") {
                 createTableUsersCustomer();
             }
+
+            $('#example').on('click', '.btn-detail', function () {
+                onDetailClick($(this).attr('index'));
+            });
+
+            $('#example').on('click', '.btn-edit', function () {
+                onEditClick($(this).attr('index'));
+            });
+
+            $('#example').on('click', '.btn-block-user', function () {
+                onBlockClick($(this).attr('index'));
+            });
+
+            $('#example').on('click', '.btn-unblock-user', function () {
+                onUnBlockClick($(this).attr('index'));
+            });
+
+            $('#example').on('click', '.btn-delete', function () {
+                onDeleteClick($(this).attr('index'));
+            });
+
             $('[data-toggle="tooltip"]').tooltip();
         };
 
