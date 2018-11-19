@@ -16,7 +16,8 @@ class CreateTBEMAILTable extends Migration
         Schema::create('TB_EMAIL', function (Blueprint $table) {
             $table->string('email_user',50);
             $table->integer('user_id')->unsigned();
-            $table->boolean('is_verify');
+            $table->boolean('is_verify')->default(false);
+            $table->boolean('is_primary')->default(false);
             $table->timestamps();
             $table->unique(['email_user']);
             $table->foreign('user_id')
