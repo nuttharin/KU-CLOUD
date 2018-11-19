@@ -48,7 +48,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
     Route::get('company/database/logfile','Api\CompanyController@getFileLog');
-
+    Route::get('company/webservicedata','Api\CompanyController@getAllWebserviceData');
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
     Route::post('admin/administer/create','Api\AdminController@createAdminister');
@@ -61,6 +61,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('admin/customers','Api\AdminController@getAllCustomers');
     Route::post('admin/customer/create','Api\AdminController@createCustomer');
     Route::put('admin/customer/edit','Api\AdminController@editCustomer');
+
+    Route::get('admin/webservicedata','Api\AdminController@getAllWebserviceData');
 
     Route::get('admin/companydata','Api\AdminController@getAllCompanyData');
     Route::post('admin/companydata/create','Api\AdminController@createCompanyData');
@@ -84,5 +86,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('admin/database/log/file/download','Api\AdminController@downloadFileLog');
     Route::delete('admin/database/log/file/delete','Api\AdminController@deleteFileLog');
     Route::post('admin/webservice/addRegisWebService','Api\AdminController@addRegisWebService');
+    Route::post('admin/webservice/editRegisWebService','Api\AdminController@editRegisWebService');
 });
 

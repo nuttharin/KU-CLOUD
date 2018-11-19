@@ -41,6 +41,8 @@ var CompanyRepository = new (function () {
         datatableObject = $('#datatable-company').dataTable();
     }
 
+
+
     var showLoadingStatus = (show) => {
         if (show) {
             $('#datatable-company').hide();
@@ -280,7 +282,7 @@ var CompanyRepository = new (function () {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
 
             $('body').append(modalDelete);
         }

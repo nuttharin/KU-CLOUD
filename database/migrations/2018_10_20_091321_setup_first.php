@@ -74,16 +74,19 @@ class SetupFirst extends Migration
                 'user_id'=>1,
                 'email_user'=>'admin@hotmail.com',
                 'is_verify'=>true,
+                'is_primary'=>true
             ],
             [
                 'user_id'=>2,
                 'email_user'=>'company@hotmail.com',
                 'is_verify'=>true,
+                'is_primary'=>true
             ],
             [
                 'user_id'=>3,
                 'email_user'=>'customer@hotmail.com',
                 'is_verify'=>true,
+                'is_primary'=>true
             ]
         ];
 
@@ -93,14 +96,20 @@ class SetupFirst extends Migration
             [
                 'user_id'=>1,
                 'phone_user'=>'0818515125',
+                'is_primary'=>true,
+                'is_verify'=>true
             ],
             [
                 'user_id'=>2,
                 'phone_user'=>'0818515126',
+                'is_primary'=>true,
+                'is_verify'=>true
             ],
             [
                 'user_id'=>3,
                 'phone_user'=>'0818515127',
+                'is_primary'=>true,
+                'is_verify'=>true
             ]
         ];
 
