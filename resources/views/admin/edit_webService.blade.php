@@ -13,7 +13,7 @@
         background-color: #EBF5FB    ;        
     }
 
-    #detail-show p {
+    #edit-detail-show p {
         font-size: 13px;
         color : #616A6B  ;
         padding-left : 10px;
@@ -21,7 +21,7 @@
 
     }       
      
-    #detail{
+    #edit-detail{
         border-left-style: solid;
         border-left-color: #AED6F1 ;
         border-width: 2px;
@@ -46,12 +46,12 @@
         height: 40px;
     }
 
-    #alias-webservice{
+    #edit-alias-webservice{
         width: 100%;
         height: 40px;
     }
 
-    #url-webservice{
+    #edit-url-webservice{
         width: 100%;
         height: 40px;
     }
@@ -148,6 +148,7 @@
 <br>
 <h4>Edit Webservice</h4><hr>
 @foreach($webService as $webService)
+<input type="hidden" class="mb-2" id="edit-id-webservice" value="{{ $webService->id }}" name="id" placeholder="Webservice name" >
 <div class="from-input-detail">
 <form name="form_regiswebservice" id="form_regiswebservice">
     <div class="row">

@@ -1,6 +1,6 @@
 
 class Service {
-    constructor(strUrl, alias, ServiceName, description) {
+    constructor(id,strUrl, alias, ServiceName, description) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
@@ -186,6 +186,7 @@ class Service {
                 async: false,
                 data:
                 {
+                    id:id,
                     strUrl: strUrl,
                     alias: alias,
                     ServiceName: ServiceName,
@@ -226,6 +227,7 @@ class Service {
                     headers: {"Authorization": getCookie('token')},
                     data:
                     {
+                        id:id,
                         strUrl: strUrl,
                         alias: alias,
                         ServiceName: ServiceName,
@@ -375,12 +377,12 @@ class TreeView {
 $(document).ready(function () {
 
     $(".show-header").click(function () {
-
+        let id = $("#edit-id-webservice").val();
         let url = $("#edit-url-webservice").val();
         let alias = $('#edit-alias-webservice').val();
         let ServiceName = $('#edit-name-webservice').val();
         let description = $("#edit-description-webservice").val();
-        let service = new Service(url, alias, ServiceName, description);
+        let service = new Service(id,url, alias, ServiceName, description);
         service.initService();
         
     })
