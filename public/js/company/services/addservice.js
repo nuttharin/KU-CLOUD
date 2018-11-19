@@ -54,6 +54,7 @@ class Service {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 //console.log(selectedElmsIds);
                 createListQuery(selectedElmsIds);
+                
 
                 //instance.deselect_all();
                 //instance.select_node('1');
@@ -203,8 +204,8 @@ class Service {
         }
 
         let increaseDataTableDW = ()=>
-            {    
-                $.ajax({
+        {    
+            $.ajax({
                     url: "http://localhost:8000/api/company/webservice/getCompnyID",
                     dataType: 'json',
                     method: "GET",
@@ -217,48 +218,52 @@ class Service {
                     error: (res) => {
                         console.log(res);
                     }
-                });
-
-                $.ajax({
-                    url: "http://localhost:8081/webService/createWebService",
-                    dataType: 'json',
-                    method: "POST",
-                    data:
-                    {
-                        strUrl: strUrl,
-                        alias : alias,
-                        ServiceName : ServiceName,
-                        description : description,
-                        header: headerLow
-                    },
-                    success: (res) => {
-                        console.log("success DW")
-                    },
-                    error: (res) => {
-                        console.log(res);
-                    }
-                });
-
-                $.ajax({
-                    url: "http://localhost:8081/webService//insertFirstDataTable",
-                    dataType: 'json',
-                    method: "POST",
-                    headers: {"Authorization": getCookie('token')},
-                    data:
-                    {
-                        strUrl: strUrl,
-                        nameDataTable :ServiceName+"."+companyID
-                    },
-                    success: (res) => {
-                        console.log("success insert Table")
+            });
+            //ลงทะเทียนฝั่ง dw
+            $.ajax({
+                url: "http://localhost:8081/webService/createRegisterTable",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    strUrl: strUrl,
+                    alias: alias,
+                    ServiceName: ServiceName,
+                    ServiceNameDW: ServiceName+"."+companyID,
+                    description: description,
+                    header: headerLow
+                },
+                success: (res) => {
+                    console.log("success DW")
                         
-                    },
-                    error: (res) => {
-                        console.log(res);
-                    }
+                },
+                error: (res) => {
+                    console.log(res);
+                }
                 });
+                // เพิ่มค่าในตารางข้อมูลครั้งเเรก
+            $.ajax({
+                url: "http://localhost:8081/webService//insertFirstDataTable",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    strUrl: strUrl,
+                    nameDataTable :ServiceName+"."+companyID
+                },
+                success: (res) => {
+                    console.log("success insert Table")
+                    console.log(res);
+                        
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
 
-            }
+        }
 
           
 
@@ -402,28 +407,8 @@ $(document).ready(function () {
         let description = $("#description-webservice").val();
         let service = new Service(url, alias, ServiceName, description);
         service.initService();
-        // let url = "www.nut.com";
-        // let name = "tharin";
-        // let col = "col";
-        // console.log("test api");
-        // $.ajax({
-        //     url: "http://localhost:8081/webService/createWebService",
-        //     dataType: 'json',
-        //     method: "POST",
-        //     data:
-        //     {
-        //         url:url,
-        //         name:name,
-        //         column:col
-
-        //     },
-        //     success: (res) => {2
-        //         console.log("sucess");
-        //     },
-        //     error: (res) => {
-        //         console.log(res);
-        //     }
-        // });
+       
+        
     })
 
 
