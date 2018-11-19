@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Controller;
 use App\LogViewer\LogViewer;
 
 use Log;
 
-
+use DB;
 use Gate;
-
+use App\TB_WEBSERVICE;
 
 class AdminController extends Controller
 {
@@ -91,7 +91,13 @@ class AdminController extends Controller
 
     public function AddService()
     {
-        return view('admin.addService');
+        return view('admin.add_webService');
+    }
+    public function EditService($id)
+    {
+        $webService = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
+        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.webservice_id='$id'");
+        return view('admin.edit_webService')->with('webService',$webService);
     }
 
 
