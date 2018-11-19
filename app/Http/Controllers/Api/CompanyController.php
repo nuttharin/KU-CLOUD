@@ -221,8 +221,8 @@ class CompanyController extends Controller
 
     public function getCompanyID(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
-        return response()->json(compact('companyID'),200);
 
+        return response()->json(compact('companyID'),200);
     }
 
 

@@ -210,7 +210,8 @@ class Service {
                     method: "GET",
                     async: false,
                     success: (res) => {
-                        console.log(res.companyID);
+                        //console.log(res.companyID);
+                        companyID = res.companyID ;
 
                     },
                     error: (res) => {
@@ -222,50 +223,44 @@ class Service {
                     url: "http://localhost:8081/webService/createWebService",
                     dataType: 'json',
                     method: "POST",
-                    headers: {"Authorization": getCookie('token')},
                     data:
                     {
                         strUrl: strUrl,
-                        alias: alias,
-                        ServiceName: ServiceName,
-                        description: description,
+                        alias : alias,
+                        ServiceName : ServiceName,
+                        description : description,
                         header: headerLow
                     },
                     success: (res) => {
                         console.log("success DW")
-                        
                     },
                     error: (res) => {
                         console.log(res);
                     }
                 });
 
-            }
-
-            let increasefirstDW = () => {
                 $.ajax({
-                    url: "http://localhost:8081/webService/createWebService",
+                    url: "http://localhost:8081/webService//insertFirstDataTable",
                     dataType: 'json',
                     method: "POST",
                     headers: {"Authorization": getCookie('token')},
                     data:
                     {
                         strUrl: strUrl,
-                        alias: alias,
-                        ServiceName: ServiceName,
-                        description: description,
-                        header: headerLow
+                        nameDataTable :ServiceName+"."+companyID
                     },
                     success: (res) => {
-                        console.log("success DW")
+                        console.log("success insert Table")
                         
                     },
                     error: (res) => {
                         console.log(res);
                     }
                 });
+
             }
 
+          
 
            
 
