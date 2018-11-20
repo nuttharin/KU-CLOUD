@@ -130,6 +130,10 @@ var WebserviceRepository = new (function () {
 
         $("#detailCompany").modal('show');
     }
+
+    var onEditClick = (key) => {
+        window.location.href = "http://localhost:8000/Admin/Service/EditService/"+webserviceList[key].id;
+    }
     
 
 });

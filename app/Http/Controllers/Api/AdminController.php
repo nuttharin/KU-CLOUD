@@ -625,14 +625,22 @@ class AdminController extends Controller
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
         ]);
-        // if($webService->id){
-        //     $regisWebservice = TB_REGISTER_WEBSERVICE::create([
-        //         'user_id'=>$userID,	
-        //         'webservice_id'=>$webService->id
-        //     ]);
-
-        // }
         return response()->json(compact('webService'),200);
+    }
+    public function editRegisWebService(Request $request)
+    {
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $nameDW = $request->get('ServiceName').".".$companyID;
+        $webService = TB_WEBSERVICE::where('webservice_id',$request->get('id') )
+        ->update([
+            'service_name' => $request->get('ServiceName'),	
+            'service_name_DW' => $nameDW,
+            'alias' =>$request->get('alias'),
+            'URL'=> $request->get('strUrl'),
+            'description'=> $request->get('description'),
+            'header_row'=> $request->get('header'),
+        ]);
+        return response()->json(["status","success"],200);
     }
     public function getAllWebserviceData(Request $request)
     {
