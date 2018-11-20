@@ -67,4 +67,9 @@ class CompanyController extends Controller
         JWTAuth::invalidate(JWTAuth::getToken());
         return view('auth.index')->withCookie(Cookie::forget('token'));
     }
+
+    public function test()
+    {
+        return view('company.test')->with('user', Auth::user());
+    }
 }
