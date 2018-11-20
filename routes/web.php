@@ -57,6 +57,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function() {
     Route::get('/Admin/AddService','AdminController@AddService');
     Route::get('/Admin/Service','AdminController@service');
     Route::get('/Admin/Service/AddService','AdminController@Add_service');
+    Route::get('/Admin/Service/EditService/{id}','AdminController@EditService');
 });
 
 

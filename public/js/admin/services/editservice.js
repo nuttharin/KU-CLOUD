@@ -1,5 +1,6 @@
+
 class Service {
-    constructor(strUrl, alias, ServiceName, description) {
+    constructor(id,strUrl, alias, ServiceName, description) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
@@ -27,12 +28,12 @@ class Service {
         this.createTreeView = () => {
             //console.log("Sssssss");
             //console.log(dataHeader);
-            let str = "<a href='select'></a><div id='select'><form id='search'><input class='mb-2 mr-2' type='search' id='id_search' placeholder='Search'/><button class='btn btn-primary' type='submit'>Search</button></form><div id='check'></div><div id='submitcheck'></div>"
+            let str = "<a href='select'></a><div id='edit-select'><form id='edit-search'><input class='mb-2 mr-2' type='search' id='edit-id_search' placeholder='Search'/><button class='btn btn-primary' type='submit'>Search</button></form><div id='edit-check'></div><div id='edit-submitcheck'></div>"
             document.getElementById('checkshow').innerHTML = str;
-            document.getElementById('detail-show1').innerHTML = "<h6 style='font-style: oblique;'> Where is tree from?</h6><div id='detail-show'><p>Tree comes from URL that you input in the form to get API.</p></div>"
-            document.getElementById('detail-show2').innerHTML = "<h6 style='font-style: oblique;'> How to use? </h6><div id='detail-show'><p>Click check on the left side to select the column that you are interested in and you can search keyword that you want to find.When done,click Submit.</p></div></div>"
+            document.getElementById('detail-show1').innerHTML = "<h6 style='font-style: oblique;'> Where is tree from?</h6><div id='edit-detail-show'><p>Tree comes from URL that you input in the form to get API.</p></div>"
+            document.getElementById('detail-show2').innerHTML = "<h6 style='font-style: oblique;'> How to use? </h6><div id='edit-detail-show'><p>Click check on the left side to select the column that you are interested in and you can search keyword that you want to find.When done,click Submit.</p></div></div>"
 
-            $('#check').jstree({
+            $('#edit-check').jstree({
                 'core': {
                     'data': JSON.parse(dataHeader),
                     'themes': {
@@ -44,24 +45,23 @@ class Service {
                 "plugins": ["checkbox", "wholerow", "search"]
             });
 
-            $('#check').on('ready.jstree', function () {
-                $("#check").jstree("open_all");
-                $("#check").jstree("check_all");
+            $('#edit-check').on('ready.jstree', function () {
+                $("#edit-check").jstree("open_all");
+                $("#edit-check").jstree("check_all");
             });
 
-            document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
-            $('#submit').on("click", function () {
-                var selectedElmsIds = $('#check').jstree("get_selected", true);
+            document.getElementById('edit-submitcheck').innerHTML = "<button id='edit-submit' class='btn btn-primary' type='submit'>Submit</button></div>";
+            $('#edit-submit').on("click", function () {
+                var selectedElmsIds = $('#edit-check').jstree("get_selected", true);
                 //console.log(selectedElmsIds);
                 createListQuery(selectedElmsIds);
-                
 
                 //instance.deselect_all();
                 //instance.select_node('1');
             });
-            $("#search").submit(function (e) {
+            $("#edit-search").submit(function (e) {
                 e.preventDefault();
-                $("#check").jstree(true).search($("#id_search").val());
+                $("#edit-check").jstree(true).search($("#edit-id_search").val());
             });
         }
 
@@ -172,21 +172,21 @@ class Service {
             headerLow = str;
             str = "";
             console.log(headerLow);
-            console.log(getCookie('token'));
-
-            increaseDataTableDW();
+            //increaseDataTableDW();
             increaseDataTableDB();
-            //increasefirstDW();
+            increaseDataTableDW();
 
         }
         let increaseDataTableDB = () => {
+            
             $.ajax({
-                url: "http://localhost:8000/api/company/webservice/addRegisWebService",
+                url: "http://localhost:8000/api/admin/webservice/editRegisWebService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
                 data:
                 {
+                    id:id,
                     strUrl: strUrl,
                     alias: alias,
                     ServiceName: ServiceName,
@@ -194,80 +194,57 @@ class Service {
                     header: headerLow
                 },
                 success: (res) => {
+                    console.log(res)
                     console.log("success DB")
                 },
                 error: (res) => {
                     console.log(res);
                 }
             });
-
         }
-
-        let increaseDataTableDW = ()=>
-        {    
-            $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/getCompnyID",
+        
+           let increaseDataTableDW = ()=>
+            {
+                //console.log(getCookie('token'))
+                $.ajax({
+                    url: "http://localhost:8000/api/admin/webservice/getCompanyID",
                     dataType: 'json',
                     method: "GET",
                     async: false,
                     success: (res) => {
-                        //console.log(res.companyID);
-                        companyID = res.companyID ;
+                        companyID = res.companyID
+                        console.log(companyID);
 
                     },
                     error: (res) => {
                         console.log(res);
                     }
-            });
-            //ลงทะเทียนฝั่ง dw
-            $.ajax({
-                url: "http://localhost:8081/webService/createRegisterTable",
-                dataType: 'json',
-                method: "POST",
-                headers: {"Authorization": getCookie('token')},
-                data:
-                {
-                    strUrl: strUrl,
-                    alias: alias,
-                    ServiceName: ServiceName,
-                    ServiceNameDW: ServiceName+"."+companyID,
-                    description: description,
-                    header: headerLow
-                },
-                success: (res) => {
-                    console.log("success DW")
-                        
-                },
-                error: (res) => {
-                    console.log(res);
-                }
                 });
-                // เพิ่มค่าในตารางข้อมูลครั้งเเรก
-            $.ajax({
-                url: "http://localhost:8081/webService//insertFirstDataTable",
-                dataType: 'json',
-                method: "POST",
-                headers: {"Authorization": getCookie('token')},
-                data:
-                {
-                    strUrl: strUrl,
-                    nameDataTable :ServiceName+"."+companyID
-                },
-                success: (res) => {
-                    console.log("success insert Table")
-                    console.log(res);
+                $.ajax({
+                    url: "http://localhost:8081/webService/createRegisterTable",
+                    dataType: 'json',
+                    method: "POST",
+                    headers: {"Authorization": getCookie('token')},
+                    data:
+                    {
+                        id:id,
+                        strUrl: strUrl,
+                        alias: alias,
+                        ServiceName: ServiceName,
+                        ServiceNameDW: ServiceName+"."+companyID,
+                        description: description,
+                        header: headerLow
+                    },
+                    success: (res) => {
+                        console.log("success DW")
                         
-                },
-                error: (res) => {
-                    console.log(res);
-                }
-            });
+                    },
+                    error: (res) => {
+                        console.log(res);
+                    }
+                });
 
-        }
-
-          
-
-           
+            }
 
     }
 }
@@ -400,14 +377,13 @@ class TreeView {
 $(document).ready(function () {
 
     $(".show-header").click(function () {
-
-        let url = $("#url-webservice").val();
-        let alias = $('#alias-webservice').val();
-        let ServiceName = $('#name-webservice').val();
-        let description = $("#description-webservice").val();
-        let service = new Service(url, alias, ServiceName, description);
+        let id = $("#edit-id-webservice").val();
+        let url = $("#edit-url-webservice").val();
+        let alias = $('#edit-alias-webservice').val();
+        let ServiceName = $('#edit-name-webservice').val();
+        let description = $("#edit-description-webservice").val();
+        let service = new Service(id,url, alias, ServiceName, description);
         service.initService();
-       
         
     })
 
