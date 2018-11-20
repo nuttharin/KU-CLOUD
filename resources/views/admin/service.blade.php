@@ -1,12 +1,13 @@
-@extends('layouts.main')
-@section('title','Web Service | Admin')
+@extends('layouts.main') 
+@section('title','Web Service | Admin') 
 @section('content')
 <style>
-    table{
-        font-size:14px; 
+    table {
+        font-size: 14px;
     }
+
     .dataTables_wrapper {
-    font-size: 12px;
+        font-size: 12px;
     }
 </style>
 
@@ -19,9 +20,11 @@
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
                         <span class="h3">WebService</span>
                         <div class="text-loading">
-                        <div class="text-line md"></div>
+                            <div class="text-line md"></div>
                         </div>
-                        <h6><p id="total-webservice"></p></h6>
+                        <h6>
+                            <p id="total-webservice"></p>
+                        </h6>
                     </div>
                     <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
                         <a href="{{action('AdminController@Add_service')}}" class="btn btn-success btn-radius">
@@ -32,18 +35,15 @@
                 </div>
             </div>
             <div class="card-body">
-                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="datatable-webservice">
+                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-webservice">
                     <thead>
                         <tr>
                             <th>NameService(EN)</th>
                             <th>Alias</th>
                             <th>Description</th>
                             <th></th>
-
-
                         </tr>
-                        </thead>
+                    </thead>
                     <tbody>
                     </tbody>
                 </table>
@@ -69,5 +69,4 @@
     });
 
 </script>
-
 @endsection
