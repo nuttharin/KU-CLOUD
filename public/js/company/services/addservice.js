@@ -6,6 +6,7 @@ class Service {
         let idDB;
         let headerLow;
         let companyID;
+        let listSelect2;
 
 
 
@@ -20,13 +21,17 @@ class Service {
             dataHeader = JSON.stringify(dataHeader);
 
             this.createTreeView();
+
             //console.log(dataHeader);
             // console.log(dataHeaderList);
+          
         }
 
         this.createTreeView = () => {
+
             //console.log("Sssssss");
             //console.log(dataHeader);
+            $('loading').show();
             let str = "<a href='select'></a><div id='select'><form id='search'><input class='mb-2 mr-2' type='search' id='id_search' placeholder='Search'/><button class='btn btn-primary' type='submit'>Search</button></form><div id='check'></div><div id='submitcheck'></div>"
             document.getElementById('checkshow').innerHTML = str;
             document.getElementById('detail-show1').innerHTML = "<h6 style='font-style: oblique;'> Where is tree from?</h6><div id='detail-show'><p>Tree comes from URL that you input in the form to get API.</p></div>"
@@ -45,6 +50,7 @@ class Service {
             });
 
             $('#check').on('ready.jstree', function () {
+                $('loading').hide();
                 $("#check").jstree("open_all");
                 $("#check").jstree("check_all");
             });
@@ -52,9 +58,18 @@ class Service {
             document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
             $('#submit').on("click", function () {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
-                //console.log(selectedElmsIds);
+                console.log(selectedElmsIds);
+               
+                // listtest = selectedElmsIds ;
+                
+                listSelect2 = deepCopy(selectedElmsIds);
+                //console.log(listtest)
+
+               
                 createListQuery(selectedElmsIds);
                 
+                //window.location.href = "http://localhost:8000/Company/Service";
+
 
                 //instance.deselect_all();
                 //instance.select_node('1');
@@ -64,6 +79,15 @@ class Service {
                 $("#check").jstree(true).search($("#id_search").val());
             });
         }
+
+        let deepCopy = (data) => {
+            let obj = data.map((item) => {
+                return Object.assign({}, item);
+            });
+            return obj;
+        };
+
+            
 
         let createListQuery = (listSelect) => {
             let list = listSelect;
@@ -117,7 +141,7 @@ class Service {
 
 
         }
-
+        
         let createQueryHeader = (list) => {
             // header,Stations
             //header.Url,Stations.Latitude.Value
@@ -125,14 +149,14 @@ class Service {
             let str = "";
             let tempNameParents;
             // take-out value list[i] == text 
-            //console.log(list)
+            console.log(list)
             for (let i = 0; i < list.length; i++) {
                 if (list[i].text != null) {
                     arrData.push(list[i]);
                 }
             }
-            //console.log(arrData)
-
+            console.log(arrData)
+            
             // Create data to be stored in database DB
             for (let i = 0; i < arrData.length; i++) {
                 //console.log(str)
@@ -141,9 +165,39 @@ class Service {
                     str = str + ",";
                 }
                 if (arrData[i].parents.length == 1) {
-                    str = str + arrData[i].text;
+                    //str = str + arrData[i].text;
                     //console.log(str)
                     // console.log("if -- "+arrData[i].text);
+                    for(let k =0 ;k<arrData[i].children_d.length; k++)
+                    {
+                        //console.log(arrData[i].children_d[k])
+                        if (str != "") {
+                            str = str + ",";
+                        }
+                        for(let l =0 ;l<listSelect2.length;l++)
+                        {
+                            if(arrData[i].children_d[k] == listSelect2[l].id)
+                            {
+                                //console.log( listSelect2[l])
+                                for (let m = listSelect2[l].parents.length - 2; m >= 0; m--) {
+                                    //console.log(arrData[i].parents[j])
+                                    for (let n = 0; n < dataHeaderList.length; n++) {
+                                        if (listSelect2[l].parents[m] == dataHeaderList[n].id) {
+                                            str = str + dataHeaderList[n].text;
+                                            str = str + ".";
+                                            break;
+                                        }
+                                    }
+                                }
+                                //console.log("if -- length "+arrData[i].parents.length+" ++ ."+arrData[i].text);
+                                str = str + listSelect2[l].text;
+
+
+                            }
+                        }
+                        
+                    }
+                    
                 }
                 else if (arrData[i].parents.length > 1) {
                     //console.log("else if")
@@ -407,7 +461,28 @@ $(document).ready(function () {
         let description = $("#description-webservice").val();
         let service = new Service(url, alias, ServiceName, description);
         service.initService();
-       
+        // let data = {
+        //     api : null,
+        // }
+    
+        // function saveData(res){
+        //     data.api = res;
+        //     let a = eval('data.api')
+        //     //console.log(eval('data.api'));
+        //     console.log(a)
+
+        // }
+    
+        // $.ajax({
+        //     url:"https://data.tmd.go.th/api/WeatherToday/V1/?type=json",
+        //     success:(res) => {
+        //         console.log(res)
+        //         saveData(res);
+        //     },
+        //     error:(res)=> {
+        //         console.log(res);
+        //     }
+        // })
         
     })
 

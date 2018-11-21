@@ -201,8 +201,19 @@
 <div>
 </div>
 <div class = 'from-treeView'>
+
     <div class="row">
+        
         <div class="col-sm-8 treeView-list" id="checkshow">
+            <div id="loading" style="display:none;">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <h6 class='text-center'>Loading Tree ...</h6>
+            </div>
         </div>
         <div id="showtext" class="col-sm-4"  >
         <!-- ขีดข้าง css #detail ,detail-show1,detail-show2 = code in addservice.js เเสดงวิธีใช้ -->
