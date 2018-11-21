@@ -194,6 +194,7 @@ class Service {
                 },
                 success: (res) => {
                     console.log(res)
+                    idDB = res.webservice_id
                     console.log("success DB")
                 },
                 error: (res) => {
@@ -226,6 +227,7 @@ class Service {
                     headers: {"Authorization": getCookie('token')},
                     data:
                     {
+                        idDB:idDB,
                         strUrl: strUrl,
                         alias: alias,
                         ServiceName: ServiceName,
