@@ -7,6 +7,7 @@ class Service {
         let idDB;
         let headerLow;
         let companyID;
+        let listSelect2;
 
 
 
@@ -54,8 +55,8 @@ class Service {
             $('#submit').on("click", function () {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 //console.log(selectedElmsIds);
+                listSelect2 = deepCopy(selectedElmsIds);
                 createListQuery(selectedElmsIds);
-
                 //instance.deselect_all();
                 //instance.select_node('1');
             });
@@ -64,6 +65,13 @@ class Service {
                 $("#check").jstree(true).search($("#id_search").val());
             });
         }
+
+        let deepCopy = (data) => {
+            let obj = data.map((item) => {
+                return Object.assign({}, item);
+            });
+            return obj;
+        };
 
         let createListQuery = (listSelect) => {
             let list = listSelect;
@@ -125,14 +133,14 @@ class Service {
             let str = "";
             let tempNameParents;
             // take-out value list[i] == text 
-            //console.log(list)
+            console.log(list)
             for (let i = 0; i < list.length; i++) {
                 if (list[i].text != null) {
                     arrData.push(list[i]);
                 }
             }
-            //console.log(arrData)
-
+            console.log(arrData)
+            
             // Create data to be stored in database DB
             for (let i = 0; i < arrData.length; i++) {
                 //console.log(str)
@@ -141,9 +149,39 @@ class Service {
                     str = str + ",";
                 }
                 if (arrData[i].parents.length == 1) {
-                    str = str + arrData[i].text;
+                    //str = str + arrData[i].text;
                     //console.log(str)
                     // console.log("if -- "+arrData[i].text);
+                    for(let k =0 ;k<arrData[i].children_d.length; k++)
+                    {
+                        //console.log(arrData[i].children_d[k])
+                        if (str != "") {
+                            str = str + ",";
+                        }
+                        for(let l =0 ;l<listSelect2.length;l++)
+                        {
+                            if(arrData[i].children_d[k] == listSelect2[l].id)
+                            {
+                                //console.log( listSelect2[l])
+                                for (let m = listSelect2[l].parents.length - 2; m >= 0; m--) {
+                                    //console.log(arrData[i].parents[j])
+                                    for (let n = 0; n < dataHeaderList.length; n++) {
+                                        if (listSelect2[l].parents[m] == dataHeaderList[n].id) {
+                                            str = str + dataHeaderList[n].text;
+                                            str = str + ".";
+                                            break;
+                                        }
+                                    }
+                                }
+                                //console.log("if -- length "+arrData[i].parents.length+" ++ ."+arrData[i].text);
+                                str = str + listSelect2[l].text;
+
+
+                            }
+                        }
+                        
+                    }
+                    
                 }
                 else if (arrData[i].parents.length > 1) {
                     //console.log("else if")
@@ -172,11 +210,14 @@ class Service {
             headerLow = str;
             str = "";
             console.log(headerLow);
-            //increaseDataTableDW();
+            console.log(getCookie('token'));
+
             increaseDataTableDB();
             increaseDataTableDW();
+            //increasefirstDW();
 
         }
+
         let increaseDataTableDB = () => {
             
             $.ajax({
@@ -193,8 +234,8 @@ class Service {
                     header: headerLow
                 },
                 success: (res) => {
-                    console.log(res)
-                    idDB = res.webservice_id
+                    idDB = res.webService.webservice_id;
+                    console.log(idDB)
                     console.log("success DB")
                 },
                 error: (res) => {
@@ -205,7 +246,7 @@ class Service {
         
            let increaseDataTableDW = ()=>
             {
-                //console.log(getCookie('token'))
+                console.log(idDB)
                 $.ajax({
                     url: "http://localhost:8000/api/admin/webservice/getCompanyID",
                     dataType: 'json',
@@ -213,7 +254,7 @@ class Service {
                     async: false,
                     success: (res) => {
                         companyID = res.companyID
-                        console.log(companyID);
+                        // console.log(companyID);
 
                     },
                     error: (res) => {
@@ -238,6 +279,25 @@ class Service {
                     success: (res) => {
                         console.log("success DW")
                         
+                    },
+                    error: (res) => {
+                        console.log(res);
+                    }
+                });
+                $.ajax({
+                    url: "http://localhost:8081/webService//insertFirstDataTable",
+                    dataType: 'json',
+                    method: "POST",
+                    headers: {"Authorization": getCookie('token')},
+                    data:
+                    {
+                        strUrl: strUrl,
+                        nameDataTable :ServiceName+"."+companyID
+                    },
+                    success: (res) => {
+                        console.log("success insert Table")
+                        console.log(res);
+                            
                     },
                     error: (res) => {
                         console.log(res);
