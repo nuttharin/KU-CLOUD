@@ -76,17 +76,17 @@ var WebserviceRepository = new (function () {
             total_company++;
         });
         datatableObject.fnAddData(Datatable);
-        $("#total-company").html(`Total ${total_company} Company`);
-        $('#datatable-company').on('click', '.btn-detail', function () {
+        $("#total-webservice").html(`Total ${total_company} Webservices`);
+        $('#datatable-webservice').on('click', '.btn-detail', function () {
             onDetailClick($(this).attr('index'));
         });
 
-        $('#datatable-company').on('click', '.btn-edit', function () {
+        $('#datatable-webservice').on('click', '.btn-edit', function () {
             onEditClick($(this).attr('index'));
         });
 
 
-        $('#datatable-company').on('click', '.btn-delete', function () {
+        $('#datatable-webservice').on('click', '.btn-delete', function () {
             onDeleteClick($(this).attr('index'));
         });
 
@@ -129,6 +129,10 @@ var WebserviceRepository = new (function () {
         $('#update-company').html(webserviceList[key].updated_at);
 
         $("#detailCompany").modal('show');
+    }
+
+    var onEditClick = (key) => {
+        window.location.href = "http://localhost:8000/Company/Service/EditService/"+webserviceList[key].id;
     }
     
 

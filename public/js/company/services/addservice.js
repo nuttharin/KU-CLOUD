@@ -228,8 +228,9 @@ class Service {
             console.log(headerLow);
             console.log(getCookie('token'));
 
-            increaseDataTableDW();
+            
             increaseDataTableDB();
+            increaseDataTableDW();
             //increasefirstDW();
 
         }
@@ -248,6 +249,7 @@ class Service {
                     header: headerLow
                 },
                 success: (res) => {
+                    idDB = res.webService.webservice_id;
                     console.log("success DB")
                 },
                 error: (res) => {
@@ -281,6 +283,7 @@ class Service {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
+                    idDB:idDB,
                     strUrl: strUrl,
                     alias: alias,
                     ServiceName: ServiceName,
