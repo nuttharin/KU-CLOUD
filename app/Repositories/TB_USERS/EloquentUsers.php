@@ -127,8 +127,8 @@ class EloquentUsers implements UsersRepository
                     'created_at'=>$user->created_at,
                     'updated_at'=>$user->updated_at,
                     'online'=>$user->online,
-                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->get(),
-                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->get(),
+                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
                 ];
             }
             return $data;
@@ -263,19 +263,23 @@ class EloquentUsers implements UsersRepository
                 'fname' => $attributes['fname'],
                 'lname' => $attributes['lname'],
             ]);
-        
-        foreach($attributes['phone_user'] as $value){
-            TB_PHONE::firstOrCreate([
-                'user_id' => $attributes['user_id'],
-                'phone_user' => $value
-            ]);
+
+        if(!empty($attributes['phone_user'])){
+            foreach($attributes['phone_user'] as $value){
+                TB_PHONE::firstOrCreate([
+                    'user_id' => $attributes['user_id'],
+                    'phone_user' => $value
+                ]);
+            }
         }
 
-        foreach($attributes['email_user'] as $value){
-            TB_EMAIL::firstOrCreate([
-                'user_id' =>$attributes['user_id'],
-                'email_user' => $value,
-            ]);
+        if(!empty($attributes['email_user'])){
+            foreach($attributes['email_user'] as $value){
+                TB_EMAIL::firstOrCreate([
+                    'user_id' =>$attributes['user_id'],
+                    'email_user' => $value,
+                ]);
+            }
         }
     }
 

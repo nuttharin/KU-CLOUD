@@ -8,11 +8,11 @@
     <title>@yield('title')</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href={{url( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
-    <script type="text/javascript" src="{{url('jquery/jquery-3.3.1.min.js')}}">
+    <link rel="stylesheet" href={{asset( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
+    <script type="text/javascript" src="{{asset('jquery/jquery-3.3.1.min.js')}}">
 
     </script>
-    <script type="text/javascript" src="{{url('bootstrap-4.1.3/js/bootstrap.min.js')}}">
+    <script type="text/javascript" src="{{asset('bootstrap-4.1.3/js/bootstrap.min.js')}}">
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -20,9 +20,9 @@
     <script type="text/javascript" src="{{url('js/test.js')}}"></script> --}}
 
     <!-- Font Awesome JS -->
-    <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
-    <link rel="stylesheet" href={{url( 'css/style4.css')}}>
-    <link rel="stylesheet" href={{url( 'css/style-theme.css')}}>
+    <link href="{{asset('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href={{asset( 'css/style4.css')}}>
+    <link rel="stylesheet" href={{asset( 'css/style-theme.css')}}>
 
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
@@ -49,7 +49,7 @@
         </div>
     </nav>
 
-    <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/Global.js')}}"></script>
     <!-- Page Content  -->
     <div id="content">
         @yield('content')
