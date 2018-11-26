@@ -89,5 +89,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('admin/database/log/file/delete','Api\AdminController@deleteFileLog');
     Route::post('admin/webservice/addRegisWebService','Api\AdminController@addRegisWebService');
     Route::post('admin/webservice/editRegisWebService','Api\AdminController@editRegisWebService');
+    Route::post('admin/webservice/deletewebservice','Api\AdminController@deletewebservice');
 });
 

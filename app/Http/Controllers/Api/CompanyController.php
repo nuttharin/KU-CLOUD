@@ -54,6 +54,7 @@ class CompanyController extends Controller
         $this->auth = Auth::user();
         $company_id = $this->auth->user_company()->first()->company_id;
         $this->log_viewer->setFolder('COMPANY_'.$company_id);
+
     }
 
     public function test(){
@@ -200,7 +201,7 @@ class CompanyController extends Controller
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
         ]);
-       
+        Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('webService'),200);
     }
     public function getAllWebserviceData(Request $request)
@@ -237,12 +238,14 @@ class CompanyController extends Controller
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
         ]);
+        Log::info('Edit Web Service - [] SUCCESS');
         return response()->json(["status","success"],200);
     }
     public function deletewebservice(Request $request)
     {
         $webService = TB_WEBSERVICE::where('webservice_id',$request->get('id') )
         ->delete();
+        Log::info('Delete Web Service - [] SUCCESS');
         return response()->json(["status","success"],200);
     }
 
