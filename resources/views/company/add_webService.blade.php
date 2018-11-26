@@ -228,7 +228,7 @@
 </div>
 <script type="text/javascript" src="{{url('js/company/services/addservice.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
-
+<script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 
 <script>
     

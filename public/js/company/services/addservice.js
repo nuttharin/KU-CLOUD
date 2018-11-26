@@ -1,3 +1,21 @@
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "3000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
+
 class Service {
     constructor(strUrl, alias, ServiceName, description) {
         let dataFromUrl;
@@ -60,13 +78,14 @@ class Service {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 console.log(selectedElmsIds);
                
+                listSelect2 = deepCopy(selectedElmsIds);
+                createListQuery(selectedElmsIds);
+                $(".swal-button--confirm").click(function (){
+                    window.location.href="http://localhost:8000/Company/Service";
+                })
+                // window.location.href="http://localhost:8000/Company/Service";
                 // listtest = selectedElmsIds ;
                 
-                listSelect2 = deepCopy(selectedElmsIds);
-                //console.log(listtest)
-
-               
-                createListQuery(selectedElmsIds);
                 
                 //window.location.href = "http://localhost:8000/Company/Service";
 
@@ -249,6 +268,8 @@ class Service {
                     header: headerLow
                 },
                 success: (res) => {
+                    swal("Good job!", "You clicked the button!", "success");
+                    // toastr["success"]("Success");
                     idDB = res.webService.webservice_id;
                     console.log("success DB")
                 },

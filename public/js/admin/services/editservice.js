@@ -1,4 +1,20 @@
-
+// toastr.options = {
+//     "closeButton": false,
+//     "debug": false,
+//     "newestOnTop": false,
+//     "progressBar": true,
+//     "positionClass": "toast-top-right",
+//     "preventDuplicates": false,
+//     "onclick": null,
+//     "showDuration": "300",
+//     "hideDuration": "1000",
+//     "timeOut": "3000",
+//     "extendedTimeOut": "1000",
+//     "showEasing": "swing",
+//     "hideEasing": "linear",
+//     "showMethod": "fadeIn",
+//     "hideMethod": "fadeOut"
+// };
 class Service {
     constructor(id,strUrl, alias, ServiceName, description) {
         let dataFromUrl;
@@ -57,7 +73,9 @@ class Service {
                 //console.log(selectedElmsIds);
                 listSelect2 = deepCopy(selectedElmsIds);
                 createListQuery(selectedElmsIds);
-
+                $(".swal-button--confirm").click(function (){
+                    window.location.href="http://localhost:8000/Company/Service";
+                })
                 //instance.deselect_all();
                 //instance.select_node('1');
             });
@@ -235,6 +253,8 @@ class Service {
                 },
                 success: (res) => {
                     // console.log(res)
+                    // toastr["success"]("Success");
+                    swal("Good job!", "You clicked the button!", "success");
                     console.log("success DB")
                 },
                 error: (res) => {

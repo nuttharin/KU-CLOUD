@@ -634,7 +634,7 @@ class AdminController extends Controller
     {
         $companyID = $this->auth->user_company()->first()->company_id;
         $nameDW = $request->get('ServiceName').".".$companyID;
-        $webService = TB_WEBSERVICE::where('webservice_id',$request->get('id') )
+        $webService = TB_WEBSERVICE::where('webservice_id',$request->get('idDB') )
         ->update([
             'service_name' => $request->get('ServiceName'),	
             'service_name_DW' => $nameDW,
