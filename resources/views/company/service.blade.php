@@ -65,6 +65,7 @@
 </div>
 
 <script type="text/javascript" src="{{url('js/company/services/service.js')}}"></script>
+<script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 
 <script>
     $(document).ready(function () {

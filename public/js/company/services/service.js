@@ -1,8 +1,24 @@
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "3000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
 var WebserviceRepository = new (function () {
     var webserviceList = [];
     var datatableObject = null;
     var modalDetail = null;
-    var modalEdit = null;
     var modalDelete = null;
 
     this.initialAndRun = () => {
@@ -135,6 +151,68 @@ var WebserviceRepository = new (function () {
         window.location.href = "http://localhost:8000/Company/Service/EditService/"+webserviceList[key].id;
     }
     
+    let onDeleteClick = (key) => {
+        if (modalDelete === null) {
+            modalDelete = `
+                        <div class="modal fade" id="DeleteUser">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Delete Web Service</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form id="form-delete-user">
+                                            <h6 id="span-text-confirm"></h6>
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" id="btn-delete-submit" class="btn btn-danger btn-block">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+            $('body').append(modalDelete);
+        }
+
+        $('#span-text-confirm').html("Are you sure to delete " + webserviceList[key].name + " ? ");
+        $('#DeleteUser').modal('show');
+
+        $('#btn-delete-submit').click(function () {
+            // alert('fffff')
+            $.ajax({
+                url: "http://localhost:8000/api/company/webservice/deletewebservice",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    id:webserviceList[key].id,
+                },
+                success: (res) => {
+                    swal("Delete Success!", "You clicked the button!", "success");
+                    // toastr["success"]("Delete Success");
+                    console.log("delete success")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            $(".swal-button--confirm").click(function (){
+                window.location.href="http://localhost:8000/Company/Service";
+            })
+            
+        });
+        
+    };
+    
+    
+
+
+
+
 
 });
 $(document).ready(function () {
