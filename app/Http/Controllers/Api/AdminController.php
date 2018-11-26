@@ -603,10 +603,12 @@ class AdminController extends Controller
         $status = $this->log_viewer->delelteFileLogByFolder($request->get('folder'));
         return response()->json(compact('status'),200);
     }
+    
     public function getCompanyID(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
         return response()->json(compact('companyID'),200);
     }
+
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
@@ -627,6 +629,7 @@ class AdminController extends Controller
         ]);
         return response()->json(compact('webService'),200);
     }
+
     public function editRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
@@ -642,6 +645,7 @@ class AdminController extends Controller
         ]);
         return response()->json(["status","success"],200);
     }
+
     public function getAllWebserviceData(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;

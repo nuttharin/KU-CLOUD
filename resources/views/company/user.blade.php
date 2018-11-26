@@ -177,7 +177,7 @@
                             <label for="">Type User</label>
                             <select id="add_type_user_val" class="form-control">
                                 <option>ADMIN</option>
-                                <option selected>NORMAL</option>
+                                <option selected>GENERAL</option>
                             </select>
                         </div>
                     </div>
@@ -196,9 +196,8 @@
 
 
 
-<script type="text/javascript" src="{{mix('js/company/users/users.min.js')}}"></script>
-{{--
-<script type="text/javascript" src="{{mix('js/ManagementUsers.js')}}"></script> --}}
+
+<script type="text/javascript" src="{{elixir('js/company/users/users.min.js')}}"></script>
 
 <script>
     $(document).ready(function () {

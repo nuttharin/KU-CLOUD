@@ -14,7 +14,7 @@ class CreateTBCOMPANYTable extends Migration
     public function up()
     {
         Schema::create('TB_COMPANY', function (Blueprint $table) {
-            $table->increments('company_id')->unsigned();;
+            $table->increments('company_id')->unsigned();
             $table->string('company_name',50);
             $table->string('alias',50);
             $table->string('address',200);

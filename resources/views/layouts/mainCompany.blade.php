@@ -11,21 +11,21 @@
     <meta name="user_id" content="{{ $user->user_id }}">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href={{url( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
-    <script type="text/javascript" src="{{url('jquery/jquery-3.3.1.min.js')}}"></script>
-    <script src="{{url('bootstrap-4.1.3/js/popper.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('bootstrap-4.1.3/js/bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('js/test.js')}}"></script>
+    <link rel="stylesheet" href={{asset( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
+    <script type="text/javascript" src="{{asset('jquery/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{asset('bootstrap-4.1.3/js/popper.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.1.3/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/test.js')}}"></script>
 
     <!-- Font Awesome JS -->
-    <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
-    <link rel="stylesheet" href={{url( 'css/style4.css')}}>
-    <link rel="stylesheet" href={{url( 'css/style-theme.css')}}>
-
+    <link href="{{asset('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href={{asset( 'css/style4.css')}}>
+    <link rel="stylesheet" href={{asset( 'css/style-theme.css')}}>
 
     <!-- I-check -->
-    <link rel="stylesheet" href={{url( 'css/i-check.min.css')}}>
+    <link rel="stylesheet" href={{asset( 'css/i-check.min.css')}}>
 
+    <!-- font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
@@ -34,20 +34,20 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.js"></script>
 
     <!-- gridstack -->
-    <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
-    <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
+    <link rel="stylesheet" href="{{asset('js/gridstack/gridstack.css')}}">
+    <link rel="stylesheet" href="{{asset('js/gridstack/css/index.css')}}">
 
     <!-- Minicolor -->
-    <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
+    <link rel="stylesheet" href="{{asset('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
 
     <!-- Leaflet -->
-    <link rel="stylesheet" href="{{url('leaflet/leaflet.css')}}" />
-    <script src="{{url('leaflet/leaflet.js')}}"></script>
-    <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
-    <link rel="stylesheet" href="{{url('mappadcontrol/L.Control.Pan.css')}}" />
-    <script src="{{url('mappadcontrol/L.Control.Pan.js')}}"></script>
-    <script src="{{url('mappadcontrol/leaflet-tilejson.js')}}"></script>
-    <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('leaflet/leaflet.css')}}" />
+    <link rel="stylesheet" href="{{asset('mappadcontrol/L.Control.Pan.css')}}" />
+    <script src="{{asset('leaflet/leaflet.js')}}"></script>
+    <script src="{{asset('leaflet/BoundaryCanvas.js')}}"></script>
+    <script src="{{asset('mappadcontrol/L.Control.Pan.js')}}"></script>
+    <script src="{{asset('mappadcontrol/leaflet-tilejson.js')}}"></script>
+    <script src="{{asset('leaflet/BoundaryCanvas.js')}}"></script>
 
     <!-- materialdesignicons -->
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.min.css">
@@ -56,21 +56,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
     <!-- loading -->
-    <link rel="stylesheet" href="{{url('css/loading.css')}}">
+    <link rel="stylesheet" href="{{asset('css/loading.css')}}">
 
-    <!-- sweetalert -->
-    {{--
-    <link rel="stylesheet" href="{{url('js/sweetalert/sweetalert.min.js')}}"> --}}
-
-    <script type="text/javascript" src="{{url('js/Global.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/Global.js')}}"></script>
 
     <!-- toastr -->
-    <link href="{{url('js/toastr/toastr.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('js/toastr/toastr.min.css')}}" rel="stylesheet" />
 
+    <!-- socket -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-    <script src="{{url('js/socket.js')}}"></script>
+    <script src="{{asset('js/socket.js')}}"></script>
 
-    <link rel="stylesheet" href="{{url('freetrans/jquery.freetrans.css')}}">
+    <link rel="stylesheet" href="{{asset('freetrans/jquery.freetrans.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
 </head>
 
@@ -222,37 +219,28 @@
                 </li>
             </ul>
         </nav>
-        <script src="{{url('js/utility.js')}}"></script>
-
 
         <!-- jQuery Custom Scroller CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-        <!-- Minicolors -->
-        {{--
-        <script src="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.js')}}"></script>
-        <script src="{{url('js/company/minicolors.js')}}"></script> --}}
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
 
-        <script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
-        <script type="text/javascript" src="{{url('js/gridstack/gridstack.jQueryUI.js')}}"></script>
-
-        <link rel="stylesheet" href="{{url('js/circliful/jquery.circliful.css')}}" />
-        <script type="text/javascript" src="{{url('js/circliful/jquery.circliful.min.js')}}"></script>
+        <link rel="stylesheet" href="{{asset('js/circliful/jquery.circliful.css')}}" />
+        <script type="text/javascript" src="{{asset('js/circliful/jquery.circliful.min.js')}}"></script>
 
         <!--toastr.min.js -->
-        <script src="{{url('js/toastr/toastr.min.js')}}"></script>
+        <script src="{{asset('js/toastr/toastr.min.js')}}"></script>
 
-        <script type="text/javascript" src="{{url('freetrans/Matrix.js')}}"></script>
-        <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
-        <script type="text/javascript" src="{{url('circlejson/circular-json.js')}}"></script>
+        <script type="text/javascript" src="{{asset('freetrans/Matrix.js')}}"></script>
+        <script type="text/javascript" src="{{asset('freetrans/jquery.freetrans.js')}}"></script>
+        <script type="text/javascript" src="{{asset('circlejson/circular-json.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">
             @yield('content')
         </div>
+
 </body>
 
 </html>
