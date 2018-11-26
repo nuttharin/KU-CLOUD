@@ -244,12 +244,13 @@ class ModalEdit {
             LOADING.set($("#btn-edit-submit"));
             let fname = $("#edit-fname").val();
             let lname = $("#edit-lname").val();
-            let phone = $(".add_phone_val").map(function () {
+            let phone = $(".add_phone_val:enabled").map(function () {
                 return $(this).val();
             }).get();
-            let email = $(".add_email_val").map(function () {
+            let email = $(".add_email_val:enabled").map(function () {
                 return $(this).val();
             }).get();
+
             $.ajax({
                 url: END_POINT + config.edit,
                 method: "PUT",
@@ -537,7 +538,7 @@ export class ManagementUsers {
                     $("#addUser").modal('hide');
                 },
                 error: (res) => {
-                    console.log(res);
+                    //console.log(res);
                     LOADING.reset(el);
                     let errorList = res.responseJSON.errors;
                     let error_target = {
@@ -560,7 +561,7 @@ export class ManagementUsers {
                             el: $("#add_type_user_val"),
                         }
                     };
-                    console.log(errorList);
+                    //console.log(errorList);
                     ERROR_INPUT.set(error_target, errorList);
                 }
             });

@@ -46,10 +46,10 @@
             <div class="row">
               <div class="col-6">
                 <select class="form-control">
-                                            <option>รายวัน</option>
-                                            <option>รายเดือน</option>
-                                            <option>รายปี</option>
-                                </select>
+                    <option>รายวัน</option>
+                    <option>รายเดือน</option>
+                    <option>รายปี</option>
+                </select>
               </div>
             </div>
           </div>

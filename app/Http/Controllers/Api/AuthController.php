@@ -43,7 +43,7 @@ class AuthController extends Controller
                 $payload = JWTFactory::make($factory);
                 $token = JWTAuth::encode($payload);
                 
-                Log::debug('An informational message.',['id'=>$user[0]->type_user]);
+                //Log::debug('An informational message.',['id'=>$user[0]->type_user]);
                 //$payload = JWTAuth::decode($token);
                 if($user[0]->type_user == "ADMIN"){
                     return response()->json(['token' => $token->get(),'path'=>'/Admin/UsersAdminister','status'=>200],200);

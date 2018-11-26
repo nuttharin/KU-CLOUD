@@ -12,6 +12,7 @@
 
 <script src="{{url('js/canvas-toBlob/canvas-toBlob.js')}}"></script>
 
+
 <style type="text/css">
     .grid-stack-item {}
 
@@ -33,6 +34,16 @@
     .card {
         box-shadow: none;
     }
+
+    #btn-detail-toggle {
+        -moz-transition: transform 0.3s;
+        -webkit-transition: transform 0.3s;
+        transition: transform 0.3s;
+    }
+
+    .flip {
+        transform: rotate(180deg);
+    }
 </style>
 
 <div id="layout-full-screen">
@@ -48,9 +59,9 @@
                         <div class="row">
                             <div class="col-6">
                                 <select class="form-control">
-                                            <option>รายวัน</option>
-                                            <option>รายเดือน</option>
-                                            <option>รายปี</option>
+                                    <option>รายวัน</option>
+                                    <option>รายเดือน</option>
+                                    <option>รายปี</option>
                                 </select>
                             </div>
                         </div>
@@ -63,16 +74,22 @@
         </div>
     </div>
 </div>
-<div class="row border-bottom">
-    <div class="col-6" style="padding: 30px 0px 10px 15px">
-        <span class="h3">Static</span>
+<div class="row border-bottom" style="padding: 30px 0px 10px 15px">
+    <div class="col-6 d-flex align-content-center">
+        <h3 class="mr-2">Static</h3>
+        <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button>
     </div>
-    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px">
+    <div class="col-6 text-right">
         <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add Widget</button>
         <button class="btn btn-warning btn-radius" id="settingW"><i class="fas fa-cog"></i></button>
         <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
         <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i class="fas fa-times"></i></button>
     </div>
+
+    <div class="col-12 d-flex justify-content-center">
+        <i class="fas fa-angle-up fa-lg" id="btn-detail-toggle" style="cursor:pointer"></i>
+    </div>
+
 </div>
 <br />
 
@@ -381,14 +398,15 @@
     </div>
 </div>
 
-{{--
-<script src="{{url('js/company/widget.js')}}"></script> --}} {{--
-<script src="{{url('js/test1234.js')}}"></script> --}}
 <script src="{{ mix('/js/company/static/dashboard.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(document).ready(function(){
-    })
 
-</script>
+<script src="{{ url('/js/justgage-1.2.2/justgage.js') }}"></script>
+<script src="{{ url('/js/justgage-1.2.2/raphael-2.1.4.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
+<script type="text/javascript" src="{{url('js/gridstack/gridstack.jQueryUI.js')}}"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 @endsection
