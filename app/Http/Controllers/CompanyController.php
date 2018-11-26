@@ -76,6 +76,8 @@ class CompanyController extends Controller
     {
         $webService = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
         FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.webservice_id='$id'");
-        return view('company.edit_webService')->with('webService',$webService);
+        return view('company.edit_webService')
+        ->with('user',Auth::user())
+        ->with('webService',$webService);
     }
 }

@@ -1,4 +1,20 @@
-
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "3000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
 class Service {
     constructor(id,strUrl, alias, ServiceName, description) {
         let dataFromUrl;
@@ -57,7 +73,10 @@ class Service {
                 //console.log(selectedElmsIds);
                 listSelect2 = deepCopy(selectedElmsIds);
                 createListQuery(selectedElmsIds);
-
+                $(".swal-button--confirm").click(function (){
+                    window.location.href="http://localhost:8000/Company/Service";
+                })
+                // window.location.href="http://localhost:8000/Company/Service";
                 //instance.deselect_all();
                 //instance.select_node('1');
             });
@@ -220,7 +239,7 @@ class Service {
         let increaseDataTableDB = () => {
             
             $.ajax({
-                url: "http://localhost:8000/api/admin/webservice/editRegisWebService",
+                url: "http://localhost:8000/api/company/webservice/editRegisWebService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -235,6 +254,8 @@ class Service {
                 },
                 success: (res) => {
                     // console.log(res)
+                    swal("Good job!", "You clicked the button!", "success");
+                    // toastr["success"]("Success");
                     console.log("success DB")
                 },
                 error: (res) => {
@@ -247,7 +268,7 @@ class Service {
             {
                 //console.log(getCookie('token'))
                 $.ajax({
-                    url: "http://localhost:8000/api/admin/webservice/getCompanyID",
+                    url: "http://localhost:8000/api/company/webservice/getCompanyID",
                     dataType: 'json',
                     method: "GET",
                     async: false,
@@ -426,7 +447,6 @@ $(document).ready(function () {
         service.initService();
         
     })
-
 
 
 

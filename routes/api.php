@@ -44,11 +44,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
 
     Route::post('company/webservice/addRegisWebService','Api\CompanyController@addRegisWebService');
-    Route::get('company/webservice/getCompnyID','Api\CompanyController@getCompanyID');
+    Route::get('company/webservice/getCompanyID','Api\CompanyController@getCompanyID');
 
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
     Route::get('company/database/logfile','Api\CompanyController@getFileLog');
     Route::get('company/webservicedata','Api\CompanyController@getAllWebserviceData');
+    Route::post('company/webservice/editRegisWebService','Api\CompanyController@editRegisWebService');
+    Route::post('company/webservice/deletewebservice','Api\CompanyController@deletewebservice');
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
     Route::post('admin/administer/create','Api\AdminController@createAdminister');
