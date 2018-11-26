@@ -661,4 +661,10 @@ class AdminController extends Controller
         
         return response()->json(compact('webService'),200);
     }
+    public function deletewebservice(Request $request)
+    {
+        $webService = TB_WEBSERVICE::where('webservice_id',$request->get('id') )
+        ->delete();
+        return response()->json(["status","success"],200);
+    }
 }
