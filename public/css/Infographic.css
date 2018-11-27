@@ -181,6 +181,11 @@ headline{
   display: inline-block;
 }
 
+/* Property - Position*/
+.positionset{
+  margin: 6px;
+}
+
 /* Property - Edit data*/
 .fontalign{
   text-align: left;

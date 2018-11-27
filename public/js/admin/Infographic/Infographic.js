@@ -1,3 +1,4 @@
+
 var path = $("#pathImg").val();
 let widgetObjectList = [];
 var CircularJSON = window.CircularJSON;
@@ -43,9 +44,40 @@ class Workspace
             widgetObjectList[i].spanTag =  document.getElementById("span_"+ widgetObjectList[i].id).outerHTML;
           }
         }
+        console.log(widgetObjectList[0].chartData);
         /* Save to localstorage */
         localStorage.setItem("saveObject", CircularJSON.stringify(widgetObjectList));
-        console.log("save");
+
+        var object = CircularJSON.parse(localStorage.getItem("saveObject"));
+      });
+
+      $("#btn_fullscreen").unbind().click(function () {
+        var popup = window.open();
+        popup.document.write("<h1 id='loading'>Loading...</h1>");
+        html2canvas(document.querySelector("#workfull")).then(canvas => {
+          var myImage = canvas.toDataURL("image/png");
+          var img = '<img src="'+ myImage +'">';
+          popup.document.write(img); 
+          popup.document.title = "Preview";
+          popup.document.getElementById("loading").remove();
+        });
+
+      });
+
+      $("#btn_download").unbind().click(function () {
+        var popup = window.open();
+        popup.document.write("<h1>Please wait for download...</h1>");
+
+        html2canvas(document.querySelector("#workfull")).then(canvas => {
+          popup.close();
+          var myLinkImage = canvas.toDataURL("image/png");
+          var a = $("<a>")
+                  .attr("href", myLinkImage)
+                  .attr("download", "ImageDownload.png")
+                  .appendTo("body");
+          a[0].click();
+          a.remove();
+        });
       });
     };
 
@@ -56,7 +88,7 @@ class Workspace
         if(object[i].type == "line")
         {
           var lineGraph = new Graph();
-          lineGraph.loadLineGraph(object[i].id, object[i].canvasTag, object[i].chartData);        
+          lineGraph.loadLineGraph(object[i].id, object[i].canvasTag, object[i].chartData, object[i].options);        
         }
         else if(object[i].type == "head")
         {
@@ -320,10 +352,14 @@ class Graph extends Widget
         datasets: [{
           label: "Car Speed",
           data: [0, 59, 75, 20, 20, 55, 40],
+        },{
+          label: "Car Speed2",
+          data: [0, 29, 25, 20, 20, 25, 20],
         }]
       };
         
       var chartOptions = {
+        responsive: true,
         legend: {
           display: true,
           position: 'top',
@@ -345,11 +381,7 @@ class Graph extends Widget
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createGraphProp(id, myChart);
-
-      /* Set property value */
-      $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
-      $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));
+      property.createGraphProp(id, myChart, "#canvas_"+ id);
 
       /* Click each widget event */
       var widgetObject = this.createWidget(id, "canvas_");
@@ -362,11 +394,7 @@ class Graph extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));     
+        property.createGraphProp(id, myChart, "#canvas_"+ id);    
       })
       .on('dragmove',function (event){
         /* Change focus */
@@ -391,37 +419,32 @@ class Graph extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));    
+        property.createGraphProp(id, myChart, "#canvas_"+ id);  
       })
 
       /* Save widget */
       let saveObject = new WidgetObject();
       console.log(myChart.data);
-      saveObject.LineGraphObject(id, null, myChart.data, "line");
+      saveObject.LineGraphObject(id, null, myChart.data, myChart.options, "line");
       widgetObjectList.push(saveObject);
-      console.log(widgetObjectList[0].chartData.data);
+      console.log(widgetObjectList[0].chartData);
     }
 
-    this.loadLineGraph = (id, canvasTag, chartData) =>
+    this.loadLineGraph = (id, canvasTag, chartData, chartOptions) =>
     {
       this.clearfocus();
 
-      /* Create dummy chart prevent error */
-      var dummy = createDummyChart(id, chartData);
-
       $("#workspace").append(canvasTag);
-      
-      let ctx = document.getElementById("canvas_"+ id);
+
+      let ctx = document.getElementById("canvas_"+ id);   
       var myChart2 = new Chart(ctx, {
         type: 'line',
-        data: dummy.data,
-        options: dummy.options
+        options: chartOptions
       });
 
+      addLabel(myChart2, chartData.labels);
+      addDatasets(myChart2, chartData.datasets);
+      
       /* Clear other property */
       $(".propertyMenu").html(``);
       this.clearfocus();
@@ -437,11 +460,7 @@ class Graph extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart2);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));       
+        property.createGraphProp(id, myChart2, "#canvas_"+ id);       
       })
       .on('dragmove',function (event){
         /* Change focus */
@@ -466,48 +485,37 @@ class Graph extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart2);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#canvas_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#canvas_"+ id).height()));    
+        property.createGraphProp(id, myChart2, "#canvas_"+ id); 
       })
-
-      destroyDummyChart(dummy, id);
 
       /* Save widget */
       let saveObject = new WidgetObject();
-      saveObject.LineGraphObject(id, null, myChart2, "line");
+      saveObject.LineGraphObject(id, null, myChart2.data, myChart2.options, "line");
       widgetObjectList.push(saveObject);
     }
 
-    let createDummyChart = (id, chartData) =>
+    let addLabel = (chart, labels) =>
     {
-      $("#workspace").append(`<canvas id="dummy_${id}"></canvas>`);
-      
-      var speedData = {
-        labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
-        datasets: [{
-          label: "Car Speed",
-          data: [0, 59, 75, 20, 20, 55, 40],
-        }]
-      };
-
-      let ctx = document.getElementById("dummy_" + id);
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: speedData,
-        options: chartData.options
-      });
-
-      return myChart;
+      for(var i = 0; i < labels.length; i++)
+      {
+        chart.data.labels.push(labels[i]);
+      }
+      chart.update();
     }
 
-    let destroyDummyChart = (myChart, id) =>
-    {      
-      let ctx = document.getElementById("dummy_" + id);
-      myChart.destroy();
-      ctx.remove();
+    let addDatasets = (chart, dataSets) =>
+    {    
+      for(var i = 0; i < dataSets.length; i++)
+      {
+        var newData = 
+        {
+          label: dataSets[i].label,
+          data: dataSets[i].data,
+        };
+
+        chart.data.datasets.push(newData);
+      }
+      chart.update();
     }
   }
 }
@@ -529,11 +537,7 @@ class Font extends Widget
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createTextProp(id);
-
-      /* Set property value */
-      $("#width_" + id).val(Math.round($("#span_"+ id).width()));
-      $("#height_" + id).val(Math.round($("#span_"+ id).height()));
+      property.createTextProp(id, "#span_"+ id);
 
       /* Click each widget event */
       var widgetObject = this.createWidget(id, "span_");
@@ -546,13 +550,7 @@ class Font extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createTextProp(id);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
-
-        $("#inputtext_" + id).val($("#span_" + id).html());
+        property.createTextProp(id, "#span_"+ id);
       })
       .on('dragmove',function (event){
         /* Change focus */
@@ -577,13 +575,7 @@ class Font extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createTextProp(id);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
-
-        $("#inputtext_" + id).val($("#span_" + id).html());   
+        property.createTextProp(id, "#span_"+ id);
       })
 
       /* Save widget */
@@ -613,13 +605,7 @@ class Font extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createTextProp(id);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
-
-        $("#inputtext_" + id).val($("#span_" + id).html());
+        property.createTextProp(id, "#span_"+ id);
       })
       .on('dragmove',function (event){
         /* Change focus */
@@ -644,13 +630,7 @@ class Font extends Widget
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createTextProp(id);
-
-        /* Set property value */
-        $("#width_" + id).val(Math.round($("#span_"+ id).width()));
-        $("#height_" + id).val(Math.round($("#span_"+ id).height()));
-
-        $("#inputtext_" + id).val($("#span_" + id).html());   
+        property.createTextProp(id, "#span_"+ id);
       })
      
       /* Save widget */
@@ -668,7 +648,159 @@ class Property
     /* Create function property */
     $("#propertySpace").html('<div class="propertyMenu"></div>');
 
-    this.createEditdata = (id, myChart) =>
+    this.createPosition = (id, full_id) =>
+    {
+      $(".propertyMenu").append(`                
+          <div class="Editdatacrispy">
+            <button type="button" id="backest_widget_${id}" class="btn btn-default positionset" ><i class="far fa-caret-square-down"></i></button>
+            <button type="button" id="topest_widget_${id}" class="btn btn-default positionset" ><i class="far fa-caret-square-up"></i></button>
+            <button type="button" id="align_left_widget_${id}" class="btn btn-default positionset" ><i class="fas fa-align-left"></i></button>
+            <button type="button" id="align_center_widget_${id}" class="btn btn-default positionset" ><i class="fas fa-align-center"></i></button>
+            <button type="button" id="align_right_widget_${id}" class="btn btn-default positionset" ><i class="fas fa-align-right"></i></button>
+          </div>`);
+
+          $("#backest_widget_" + id).click(function () {
+
+            $(".sPosition").each(function( index ) {
+
+              if($(this).hasClass("fCorner"))
+              {
+                $(this).css("z-index", 0);
+              }
+              else
+              {
+                $(this).css("z-index", index + 1);
+              }
+            });
+          });
+
+          $("#topest_widget_" + id).click(function () {
+
+            $(".sPosition").each(function( index ) {
+
+              if($(this).hasClass("fCorner"))
+              {
+                $(this).css("z-index", $(".sPosition").length);
+              }
+              else
+              {
+                $(this).css("z-index", index);
+              }
+            });
+          });
+
+          $("#align_left_widget_" + id).click(function () {       
+            var transform = $(full_id).css('transform').split(',');
+            var transformY = transform[5].split(')')[0];
+
+            $(full_id).css('transform', 'translate(0px, ' + transformY + 'px)');
+            $(full_id).attr('data-x', 0);
+            $(full_id).attr('data-y', transformY);         
+          });
+
+          $("#align_center_widget_" + id).click(function () {       
+            var transform = $(full_id).css('transform').split(',');
+            var transformY = transform[5].split(')')[0];
+            var transformX = (517 / 2) - ($(full_id).width() / 2);
+
+            $(full_id).css('transform', 'translate(' + transformX + 'px, ' + transformY + 'px)');
+            $(full_id).attr('data-x', transformX);
+            $(full_id).attr('data-y', transformY);      
+          });
+
+          $("#align_right_widget_" + id).click(function () {       
+            var transform = $(full_id).css('transform').split(',');
+            var transformY = transform[5].split(')')[0];
+            var transformX = 517 - $(full_id).width();
+
+            $(full_id).css('transform', 'translate(' + transformX + 'px, ' + transformY + 'px)');
+            $(full_id).attr('data-x', transformX);
+            $(full_id).attr('data-y', transformY);      
+          });
+    }
+
+    this.createDownload = (id, full_id) =>
+    {
+      $(".propertyMenu").append(`
+          <div class="Editdatacrispy">
+            <button type="button" id="download_widget_${id}" class="btn btn-primary Editdata" >Download</button>
+            <button type="button" id="preview_widget_${id}" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
+          </div>`);
+
+
+          $("#download_widget_" + id).click(function () {
+            var popup = window.open();
+            popup.document.write("<h1>Please wait for download...</h1>");
+
+            var transform = $(full_id).css('transform');
+            var data_x = $(full_id).css('data-x');
+            var data_y = $(full_id).css('data-y');
+            var width = $(full_id).css('width');
+            var height = $(full_id).css('height');
+
+            $(full_id).css('transform', 'translate(0px, 0px)');
+            $(full_id).css('data-x', 0);
+            $(full_id).css('data-y', 0);
+            $(full_id).css('width', 800);
+            $(full_id).css('height', 450);
+            $(full_id).removeClass("fCorner");
+
+            html2canvas(document.querySelector(full_id)).then(canvas => {
+              $(full_id).css('transform', transform);
+              $(full_id).css('data-x', data_x);
+              $(full_id).css('data-y', data_y);
+              $(full_id).css('width', width);
+              $(full_id).css('height', height);
+              $(full_id).addClass("fCorner");
+
+              popup.close();
+
+              var myLinkImage = canvas.toDataURL("image/png");
+              var a = $("<a>")
+                      .attr("href", myLinkImage)
+                      .attr("download", "ImageDownload.png")
+                      .appendTo("body");
+              a[0].click();
+              a.remove();
+            });
+          });
+
+          $("#preview_widget_" + id).click(function () {
+            var popup = window.open(); 
+            popup.document.write("<h1 id='loading'>Loading...</h1>");
+
+            var transform = $(full_id).css('transform');
+            var data_x = $(full_id).css('data-x');
+            var data_y = $(full_id).css('data-y');
+            var width = $(full_id).css('width');
+            var height = $(full_id).css('height');
+
+            $(full_id).css('transform', 'translate(0px, 0px)');
+            $(full_id).css('data-x', 0);
+            $(full_id).css('data-y', 0);
+            $(full_id).css('width', 800);
+            $(full_id).css('height', 450);
+            $(full_id).removeClass("fCorner");
+
+            html2canvas(document.querySelector(full_id)).then(canvas => {
+              $(full_id).css('transform', transform);
+              $(full_id).css('data-x', data_x);
+              $(full_id).css('data-y', data_y);
+              $(full_id).css('width', width);
+              $(full_id).css('height', height);
+              $(full_id).addClass("fCorner");
+
+              var myImage = canvas.toDataURL("image/png");
+              var img = '<img src="'+ myImage +'">';            
+              popup.document.write(img); 
+              popup.document.title = "Preview";
+              popup.document.getElementById("loading").remove();
+            });
+          });
+    
+    }
+
+    this.createEditdata = (id, myChart, full_id) =>
     {
       $(".propertyMenu").append(`                
           <div class="Editdatacrispy">
@@ -687,7 +819,7 @@ class Property
 
     }
 
-    this.createTextchange = (id) =>
+    this.createTextchange = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -704,6 +836,8 @@ class Property
             </div>
           </div>`);
 
+      $("#inputtext_" + id).val($("#span_" + id).html()); 
+
       $("#inputtext_" + id).keyup(function () {
         $("#span_" + id).html($("#inputtext_" + id).val());
       });
@@ -718,7 +852,7 @@ class Property
 
     }
 
-    this.createChartType = (id) =>
+    this.createChartType = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -735,7 +869,7 @@ class Property
           </div>`);
     }
 
-    this.createScale = (id) => 
+    this.createScale = (id, full_id) => 
     {
       $(".propertyMenu").append(`                
         <div class="Scaling">
@@ -751,18 +885,21 @@ class Property
           </div>
         </div>`);
 
+      $("#width_" + id).val(Math.round($(full_id).width()));
+      $("#height_" + id).val(Math.round($(full_id).height()));
+
       $("#width_" + id).unbind().change(function () {
-        $("#canvas_" + id).css('width',$("#width_" + id).val());
-        $("#canvas_" + id).css('height',$("#height_" + id).val());
+        $(full_id).css('width',$("#width_" + id).val());
+        $(full_id).css('height',$("#height_" + id).val());
       });
 
       $("#height_" + id).unbind().change(function () {
-        $("#canvas_" + id).css('width',$("#width_" + id).val());
-        $("#canvas_" + id).css('height',$("#height_" + id).val());
+        $(full_id).css('width',$("#width_" + id).val());
+        $(full_id).css('height',$("#height_" + id).val());
       });
     }
 
-    this.createColorAndFont = (id) =>
+    this.createColorAndFont = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -776,7 +913,7 @@ class Property
             </div>
             <div class="row inputalign">
                 <div class="col-4">
-                    <input type="color" class="colorSP" value="#000000">
+                    <input type="color" id="color_font_${id}" class="colorSP">
                 </div>
                 <div class="col-8">
                     <select type="text" class="form-control">
@@ -785,29 +922,79 @@ class Property
                 </div>
             </div>
           </div>`);
+
+          $("#color_font_" + id).val(rgbToHex($("#span_" + id).css('color')));
+
+          $("#color_font_" + id).unbind().change(function () {
+            $("#span_" + id).css('color',$(this).val());
+          });
+
+          function rgbToHex(color) 
+          {
+            color = ""+ color;
+            if (!color || color.indexOf("rgb") < 0) {
+                return;
+            }
+        
+            if (color.charAt(0) == "#") {
+                return color;
+            }
+        
+            var nums = /(.*?)rgb\((\d+),\s*(\d+),\s*(\d+)\)/i.exec(color),
+                r = parseInt(nums[2], 10).toString(16),
+                g = parseInt(nums[3], 10).toString(16),
+                b = parseInt(nums[4], 10).toString(16);
+        
+            return "#"+ (
+                (r.length == 1 ? "0"+ r : r) +
+                (g.length == 1 ? "0"+ g : g) +
+                (b.length == 1 ? "0"+ b : b)
+            );
+          }
+
     }
 
-    this.createFontSize = (id) =>
+    this.createFontSize = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
           <div class="Scaling">
             <div class="row">
                 <div class="col-8 rotates">
-                    <span>Font size (pt)</span>
+                    <span>Font size (px)</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-8">
-                    <input type="range" min="9" max="120" value="9" class="slider"/>
+                    <input type="range" min="9" max="120" value="9" id="slider_font_widget_${id}" class="slider"/>
                 </div>
                 <div class="col-4">
-                    <input type="text" class="form-control crispysilde" />
+                    <input type="text" id="slider_font_input_widget_${id}" class="form-control crispysilde" />
                 </div>
             </div>
           </div>`);
+
+          $("#slider_font_widget_" + id).val($(full_id).css('font-size'));        
+          $("#slider_font_input_widget_" + id).val($(full_id).css('font-size').replace('px',''));        
+    
+          $("#slider_font_widget_" + id).unbind().change(function () {
+              $("#slider_font_input_widget_" + id).val($(this).val());
+              $(full_id).css('font-size', $(this).val() + "px");
+          });
+    
+          $("#slider_font_input_widget_" + id).unbind().change(function () {
+            if($(this).val() < 9 || $(this).val() > 120)
+            {
+              alert("test : 9 - 120");
+            }
+            else
+            {
+              $("#slider_font_widget_" + id).val($(this).val());
+              $(full_id).css('font-size', $(this).val() + "px");
+            }
+          });
     }
 
-    this.createRotation = (id) =>
+    this.createRotation = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -827,7 +1014,7 @@ class Property
           </div>`);
     }
 
-    this.createTransparency = (id) =>
+    this.createTransparency = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -838,16 +1025,38 @@ class Property
             </div>
             <div class="row">
                 <div class="col-8">
-                    <input type="range" min="0" max="100" value="0" class="slider"/>
+                    <input type="range" min="0" max="100" value="1" id="slider_tran_widget_${id}" class="slider"/>
                 </div>
                 <div class="col-4">
-                    <input type="text" class="form-control crispysilde" />
+                    <input type="text" id="slider_tran_input_widget_${id}" class="form-control crispysilde" value="0" />
                 </div>
             </div>
           </div>`);
+
+      $("#slider_tran_widget_" + id).val(100 - ($(full_id).css('opacity') * 100));        
+      $("#slider_tran_input_widget_" + id).val(100 - ($(full_id).css('opacity') * 100));        
+
+      $("#slider_tran_widget_" + id).unbind().change(function () {
+        var opacityValue = (100 - $(this).val()) / 100;
+         $("#slider_tran_input_widget_" + id).val($(this).val());
+         $(full_id).css('opacity', opacityValue);
+      });
+
+      $("#slider_tran_input_widget_" + id).unbind().change(function () {
+        if($(this).val() < 0 || $(this).val() > 100)
+        {
+          alert("test : 0 - 100");
+        }
+        else
+        {
+          var opacityValue = (100 - $(this).val()) / 100;
+          $("#slider_tran_widget_" + id).val($(this).val());
+          $(full_id).css('opacity', opacityValue);
+        }
+      });
     }
 
-    this.createChartDetail = (id) =>
+    this.createChartDetail = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
         <div class="Grouping">
@@ -860,7 +1069,7 @@ class Property
         </div>`);
     }
 
-    this.createColor = (id) =>
+    this.createColor = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
         <div class="Grouping">
@@ -873,7 +1082,7 @@ class Property
         </div>`);
     }
 
-    this.createLegend = (id) =>
+    this.createLegend = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
         <div class="Grouping">
@@ -886,7 +1095,7 @@ class Property
         </div>`);
     }
 
-    this.createTooltips = (id) =>
+    this.createTooltips = (id, full_id) =>
     {
       $(".propertyMenu").append(`                
         <div class="Grouping">
@@ -907,27 +1116,31 @@ class ContentProperty extends Property
   {
     /* Call function property */
     super();
-    this.createGraphProp = (id, myChart) =>
+    this.createGraphProp = (id, myChart, full_id) =>
     {
-      this.createEditdata(id, myChart);
-      this.createChartType(id);
-      this.createScale(id);
-      this.createRotation(id);
-      this.createTransparency(id);
-      this.createChartDetail(id);
-      this.createColor(id);
-      this.createLegend(id);
-      this.createTooltips(id);
+      this.createPosition(id, full_id);
+      this.createDownload(id, full_id);
+      this.createEditdata(id, myChart, full_id);
+      this.createChartType(id, full_id);
+      this.createScale(id, full_id);
+      this.createRotation(id, full_id);
+      this.createTransparency(id, full_id);
+      this.createChartDetail(id, full_id);
+      this.createColor(id, full_id);
+      this.createLegend(id, full_id);
+      this.createTooltips(id, full_id);
     }   
 
-    this.createTextProp = (id) =>
+    this.createTextProp = (id, full_id) =>
     {
-      this.createTextchange(id);
-      this.createScale(id);
-      this.createRotation(id);
-      this.createTransparency(id);
-      this.createColorAndFont(id);
-      this.createFontSize(id);
+      this.createPosition(id, full_id);
+      this.createDownload(id, full_id);
+      this.createTextchange(id, full_id);
+      this.createScale(id, full_id);
+      this.createRotation(id, full_id);
+      this.createTransparency(id, full_id);
+      this.createColorAndFont(id, full_id);
+      this.createFontSize(id, full_id);
     }
   }
 }

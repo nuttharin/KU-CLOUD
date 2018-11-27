@@ -5,11 +5,12 @@ class WidgetObject
   { 
   }
 
-  LineGraphObject(id, canvasTag, chartData, type)
+  LineGraphObject(id, canvasTag, chartData, chartOption, type)
   {
     this.id = id;
     this.canvasTag = canvasTag;
     this.chartData = chartData;
+    this.chartOption = chartOption;
     this.type = type;
   }
 
