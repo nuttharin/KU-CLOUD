@@ -259,7 +259,7 @@
         <script type="text/javascript" src="{{url('freetrans/Matrix.js')}}"></script>
         <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
         <script type="text/javascript" src="{{url('circlejson/circular-json.js')}}"></script>
-
+        <script type="text/javascript" src="{{url('htmltocanvas/htmltocanvas.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">

@@ -4,18 +4,16 @@
 
 <style>
 </style>
-
 <link href="{{url('css/Infographic.css')}}" rel="stylesheet">
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
-
 <div class="row border-bottom">
     <div class="col-4 text-left" style="padding: 30px 0px 10px 15px">
         <span class="h4">Create Infographic</span>
     </div>
     <div class="col-8 text-right">
-        <button type="button" class="btn btn-default btn-md" style="margin: 20px;"><i class="fas fa-desktop"></i></button>
-        <button type="button" class="btn btn-primary btn-md">Download</button>
+        <button type="button" id="btn_fullscreen" class="btn btn-default btn-md" style="margin: 20px;">Preview</button>
+        <button type="button" id="btn_download" class="btn btn-primary btn-md">Download</button>
         <button type="button" id="btn_save" class="btn btn-success btn-md">Save</button>
     </div>
 </div>
@@ -34,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-6" id="workfull">
         <!-- A4 Size -->
         <page size="A4_115" id="workspace">
 
@@ -42,7 +40,19 @@
     </div>
     <div class="col-3">
         <div class="row" id="propertySpace">
+            <!--Comment-->
             <!--<div class="propertyMenu">
+                <div class="Editdatacrispy">
+                    <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-down"></i></button>
+                    <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-up"></i></button>
+                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-left"></i></button>
+                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-center"></i></button>
+                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-right"></i></button>
+                </div>
+                <div class="Editdatacrispy">
+                    <button type="button" class="btn btn-primary Editdata" >Download</button>
+                    <button type="button" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
+                </div>
                 <div class="Editdatacrispy">
                     <button type="button" class="btn btn-default Editdata" >Edit data</button>
                     <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
@@ -183,10 +193,11 @@
                         Lorem ipsum
                     </div>
                 </div>             
-            </div>
-        </div>-->
+            </div>-->
+            <!--Comment-->
         </div>
     </div>
+</div>
 
     <script type="text/javascript" src="{{url('js/admin/Infographic/WidgetObject.js')}}"></script>
     <script type="text/javascript" src="{{url('js/admin/Infographic/Infographic.js')}}"></script>
