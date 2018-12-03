@@ -9,6 +9,8 @@ use App\TB_USERS;
 use App\TB_EMAIL;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
+use App\TB_STATIC;
+use App\TB_STATIC_COMPANY;
 
 class SetupFirst extends Migration
 {
@@ -132,6 +134,17 @@ class SetupFirst extends Migration
         TB_USER_CUSTOMER::insert([
             'user_id'=>3,
             'company_id'=>2
+        ]);
+
+        TB_STATIC::insert([
+            'static_id'=>1,
+            'name'=>'test',
+            'dashboard'=>'[{"x":0,"y":0,"width":12,"height":1,"widget":{"type":"TextBox","timeInterval":null,"textbox":"สถานีตัวอย่าง","fontsize":"35"}},{"x":0,"y":1,"width":4,"height":4,"widget":{"type":"Gauges","timeInterval":"1","title_name":"ความชื้น","opts":{"angle":0,"lineWidth":0.23,"radiusScale":1,"pointer":{"length":0.6,"strokeWidth":0.035,"color":"#000000"},"limitMax":false,"limitMin":false,"colorStart":"#6FADCF","colorStop":"#8FC0DA","strokeColor":"#E0E0E0","generateGradient":true,"highDpiSupport":true,"staticLabels":{"font":"10px Poppins","labels":[0,100],"color":"#000000","fractionDigits":0}},"limitMin":"0","limitMax":"100","unit":"H"}},{"x":4,"y":1,"width":4,"height":4,"widget":{"type":"TextValue","timeInterval":"0.01","title_name":"ความเร็วลม","unit":"m/s","rgb":"#ff0000"}},{"x":8,"y":1,"width":4,"height":4,"widget":{"type":"text-line","timeInterval":"4500","title_name":"สมุทรปราการ","unit":"rh","rgb":"#0080c0"}},{"x":0,"y":5,"width":12,"height":7,"widget":{"type":"Map","timeInterval":"","title_name":"ประเทศไทย"}},{"x":0,"y":12,"width":12,"height":7,"widget":{"type":"MutiLine","timeInterval":"3","title_name":"อุณหภูมิ","datasets":[{"label":"กรุงเทพ","backgroundColor":"rgba(255,255,255,0.0)","borderColor":"#00fa32","borderWidth":2},{"label":"สระบุรี","backgroundColor":"rgba(255,255,255,0.0)","borderColor":"#ff00cc","borderWidth":2}]}}]',  
+        ]);
+
+        TB_STATIC_COMPANY::insert([
+            'static_id'=>1,
+            'company_id'=>2,
         ]);
         
     }

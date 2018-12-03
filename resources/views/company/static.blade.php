@@ -75,16 +75,19 @@
     </div>
 </div>
 <div class="row border-bottom" style="padding: 30px 0px 10px 15px">
-    <div class="col-6 d-flex align-content-center">
-        <h3 class="mr-2">Static</h3>
-        <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button>
+    <div class="row" style="width:100%" id="top-header">
+        <div class="col-6 d-flex align-content-center">
+            <h3 class="mr-2">Static</h3>
+            <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button>
+        </div>
+        <div class="col-6 text-right">
+            <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add Widget</button>
+            <button class="btn btn-warning btn-radius" id="settingW"><i class="fas fa-cog"></i></button>
+            <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
+            <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i class="fas fa-times"></i></button>
+        </div>
     </div>
-    <div class="col-6 text-right">
-        <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add Widget</button>
-        <button class="btn btn-warning btn-radius" id="settingW"><i class="fas fa-cog"></i></button>
-        <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
-        <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i class="fas fa-times"></i></button>
-    </div>
+
 
     <div class="col-12 d-flex justify-content-center">
         <i class="fas fa-angle-up fa-lg" id="btn-detail-toggle" style="cursor:pointer"></i>
@@ -271,6 +274,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="addDatasource">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Datasource</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Channel</label>
+                            <select name="" id="channel-data" class="form-control">
+                                <option value="">--Select Channel--</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="">Method</label>
+                            <select name="" id="" class="form-control">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-success btn-block" id="add-new-datasource" href="#">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="line_value_layout" hidden>
@@ -398,6 +441,7 @@
     </div>
 </div>
 
+<span id="static_id" hidden>{{$id}}</span>
 <script src="{{ mix('/js/company/static/dashboard.min.js') }}"></script>
 
 <script src="{{ url('/js/justgage-1.2.2/justgage.js') }}"></script>

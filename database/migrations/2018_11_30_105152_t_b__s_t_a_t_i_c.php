@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTbStaticCustomer extends Migration
+class TBSTATIC extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTbStaticCustomer extends Migration
      */
     public function up()
     {
-        Schema::create('TB_STATIC_CUSTOMER', function (Blueprint $table) {
+        Schema::create('TB_STATIC', function (Blueprint $table) {
             $table->increments('static_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->string('name',50);
             $table->longText('dashboard');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateTbStaticCustomer extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('TB_STATIC_CUSTOMER');
+        Schema::dropIfExists('TB_STATIC');
     }
 }

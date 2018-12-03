@@ -193,7 +193,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('CompanyController@static')}}">
+                    {{-- {{action('CompanyController@static')}} --}}
+                    <a href="{{action('CompanyController@staticDatatable')}}">
                         <i class="fas fa-chart-line"></i>
                         <span class="link_hide">Static</span>
                     </a>
