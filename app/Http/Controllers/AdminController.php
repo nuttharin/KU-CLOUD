@@ -52,15 +52,17 @@ class AdminController extends Controller
     {
         return view('admin.Infographic');
     }
-
+    
     public function Static()
     {
         return view('admin.Static');
     }
+
     public function service()
     {
         return view('admin.service')->with('user', Auth::user());
     }
+
     public function Add_service()
     {
         return view('admin.add_webService')->with('user', Auth::user());
@@ -77,7 +79,6 @@ class AdminController extends Controller
             'current_file' => $this->log_viewer->getFileName(),
             'standardFormat' => true,
         ];
-      
 
         if (is_array($data['logs'])) {
             $firstLog = reset($data['logs']);

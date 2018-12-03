@@ -4,7 +4,6 @@ let modalCreate = null;
 let modalDetail = null;
 let modalEdit = null;
 let modalBlock = null;
-let modalUnblock = null;
 let modalDelete = null;
 const FormAddEmail = `
                     <div class="input-group mb-2">
@@ -262,7 +261,7 @@ class ModalEdit {
                     email_user: email
                 },
                 success: (res) => {
-                    toastr["success"]("Edit user success");
+                    toastr["success"]("Success");
                     LOADING.reset($("#btn-edit-submit"));
                     $("#editUser").modal('hide');
                     ManagementUsers.refreshData();
@@ -286,10 +285,10 @@ class ModalToggleActive {
             if ($("#BlockUser").length === 0) {
                 let modal = `
                 <div class="modal fade" id="BlockUser">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Block User Company</h4>
+                                <h4 class="modal-title" id="title-block">Block </h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
@@ -308,7 +307,8 @@ class ModalToggleActive {
 
                 $('body').append(modal);
             }
-            let active = UsersList[key].block ? 'block' : 'unblock';
+            let active = UsersList[key].block ? 'unblock' : 'block';
+            $("#title-block").html(`${active} User`);
             if (UsersList[key].block) {
                 $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-info btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">UnBlock</button>`);
             }
@@ -320,7 +320,7 @@ class ModalToggleActive {
                 onSubmitToggleActiveUser(key);
             });
 
-            $("#span-text-confirm-block").html("Are you sure to " + active + " " + UsersList[key].fname + " " + UsersList[key].lname + " ?");
+            $("#span-text-confirm-block").html(`Are you sure to ${active} this account name : ${UsersList[key].fname} ${UsersList[key].lname} ?`);
             $("#BlockUser").modal('show');
         };
 
@@ -334,7 +334,7 @@ class ModalToggleActive {
                     block: UsersList[key].block ? 0 : 1
                 },
                 success: (res) => {
-                    toastr["success"]("Blcok user success");
+                    toastr["success"]("Success");
                     $("#BlockUser").modal('hide');
                     LOADING.reset($("#btn-toggle-active-submit"));
                     ManagementUsers.refreshData();
@@ -532,7 +532,7 @@ export class ManagementUsers {
                     sub_type_user: type_user_input,
                 },
                 success: (res) => {
-                    toastr["success"]("Create user success");
+                    toastr["success"]("Success");
                     this.showLastestDatatable();
                     LOADING.reset(el);
                     $("#addUser").modal('hide');

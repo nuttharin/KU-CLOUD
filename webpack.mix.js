@@ -41,6 +41,7 @@ mix.webpackConfig({
  */
 
 mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static')
+    .js('resources/js/company/static/staticDataTable.min.js', 'public/js/company/static')
     .js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/company/static/dashboard.min.js', 'public/js/admin/static')
     .js('resources/js/company/users/users.min.js', 'public/js/company/users')
@@ -48,8 +49,12 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js');
 
 
-if (mix.inProduction) {
-    if (process.env.npm_lifecycle_event !== 'hot') {
-        mix.version();
-    }
+// if (mix.inProduction) {
+//     if (process.env.npm_lifecycle_event !== 'hot') {
+//         mix.version();
+//     }
+// }
+
+if (mix.inProduction()) {
+    mix.version();
 }

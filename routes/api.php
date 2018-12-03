@@ -43,14 +43,22 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
 
-    Route::post('company/webservice/addRegisWebService','Api\CompanyController@addRegisWebService');
-    Route::get('company/webservice/getCompanyID','Api\CompanyController@getCompanyID');
 
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
     Route::get('company/database/logfile','Api\CompanyController@getFileLog');
+
+    Route::get('company/webservices','Api\CompanyController@getWebServiceByCompany');
     Route::get('company/webservicedata','Api\CompanyController@getAllWebserviceData');
     Route::post('company/webservice/editRegisWebService','Api\CompanyController@editRegisWebService');
+    Route::post('company/webservice/addRegisWebService','Api\CompanyController@addRegisWebService');
+    Route::get('company/webservice/getCompanyID','Api\CompanyController@getCompanyID');
     Route::post('company/webservice/deletewebservice','Api\CompanyController@deletewebservice');
+
+    Route::get('company/static','Api\CompanyController@getStaticDashboard');
+    Route::get('company/static/{static_id}','Api\CompanyController@getStaticDashboardById');
+    Route::post('company/static','Api\CompanyController@addStatic');
+
+    
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
     Route::post('admin/administer/create','Api\AdminController@createAdminister');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\UsersRequest;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_USERS\UsersRepository;
+use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,8 @@ use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\TB_WEBSERVICE;
 use App\TB_REGISTER_WEBSERVICE;
+use App\TB_STATIC;
+use App\TB_STATIC_COMPANY;
 
 use email;
 use Mail;
@@ -39,8 +42,9 @@ class CompanyController extends Controller
     private $users;
     private $companies;
     private $auth;
+    private $webservices;
 
-    public  function __construct(UsersRepository $users,CompanyRepository $companies,Request $request)
+    public  function __construct(UsersRepository $users,CompanyRepository $companies,WebServiceRepository $webservices,Request $request)
     {
         if(!Gate::allows('isCompanyAdmin')){
             abort('403',"Sorry, You can do this actions");
@@ -48,6 +52,7 @@ class CompanyController extends Controller
         
         $this->users = $users;
         $this->companies = $companies;
+        $this->webservices = $webservices;
 
         $this->log_viewer = new LogViewer();
         
@@ -204,11 +209,21 @@ class CompanyController extends Controller
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('webService'),200);
     }
+    
+    public function getWebServiceByCompany(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+
+        $data = $this->webservices->getWebServiceByCompany($companyID);
+        return response()->json(compact('data'),200);
+    }
+    
     public function getAllWebserviceData(Request $request)
     {
-        $token      = $request->cookie('token');
-        $companyID = $this->auth->user_company()->first()->company_id;
-        $payload    = JWTAuth::setToken($token)->getPayload();
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
         $webService    = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
         FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.company_id='$companyID'");
         
@@ -225,6 +240,7 @@ class CompanyController extends Controller
 
         return response()->json(compact('companyID'),200);
     }
+
     public function editRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
@@ -241,6 +257,7 @@ class CompanyController extends Controller
         Log::info('Edit Web Service - [] SUCCESS');
         return response()->json(["status","success"],200);
     }
+
     public function deletewebservice(Request $request)
     {
         $webService = TB_WEBSERVICE::where('webservice_id',$request->get('id') )
@@ -249,5 +266,64 @@ class CompanyController extends Controller
         return response()->json(["status","success"],200);
     }
 
-    
+    public function addStatic(Request $request)
+    {
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+
+        $data =  TB_STATIC::create([
+            'name'=>$request->get('name'),
+            'dashboard'=>'[]',
+        ]);
+
+        if(!empty($data)){
+            TB_STATIC_COMPANY::insert([
+                'static_id'=>$data->static_id,
+                'company_id'=>$companyID
+            ]);
+        }
+
+        return response()->json(["status","success"],201);
+    }
+
+    public function updateStatic(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+
+        $data =  TB_STATIC::where('static_id',$request->get('static_id'))
+                 ->update(['dashboard'=>$request->get('dashboard')]);
+
+        // if(!empty($data)){
+        //     TB_STATIC_COMPANY::insert([
+        //         'static_id'=>$data->static_id,
+        //         'company_id'=>$companyID
+        //     ]);
+        // }
+
+        return response()->json(["status","success"],201);
+    }
+
+    public function getStaticDashboard(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+
+        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name,TB_STATIC.dashboard FROM TB_STATIC
+                            INNER JOIN TB_STATIC_COMPANY ON TB_STATIC_COMPANY.static_id = TB_STATIC.static_id
+                            WHERE TB_STATIC_COMPANY.company_id = ?", [$companyID]);
+
+        return response()->json(compact('data'),200);
+    }
+
+    public function getStaticDashboardById(Request $request,$static_id){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name,TB_STATIC.dashboard FROM TB_STATIC
+                            INNER JOIN TB_STATIC_COMPANY ON TB_STATIC_COMPANY.static_id = TB_STATIC.static_id
+                            WHERE TB_STATIC_COMPANY.company_id = ? AND TB_STATIC_COMPANY.static_id = ?", [$companyID,$static_id]);
+        return response()->json(compact('data'),200);
+    }
 }

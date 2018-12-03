@@ -6,6 +6,8 @@ use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_COMPANY\EloquentCompany;
 use App\Repositories\TB_USERS\EloquentUsers;
 use App\Repositories\TB_USERS\UsersRepository;
+use App\Repositories\TB_WEBSERVICE\EloquentWebService;
+use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -31,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UsersRepository::class,EloquentUsers::class);
         $this->app->singleton(CompanyRepository::class,EloquentCompany::class);
+        $this->app->singleton(WebServiceRepository::class,EloquentWebService::class);
     }
 
 }

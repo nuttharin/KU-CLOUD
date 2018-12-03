@@ -14,9 +14,16 @@ class CreateTbStaticCompany extends Migration
     public function up()
     {
         Schema::create('TB_STATIC_COMPANY', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
+            $table->integer('static_id')->unsigned();
             $table->integer('company_id')->unsigned();
-            $table->longText('dashboard');
-            $table->timestamps();
+            $table->foreign('static_id')
+            ->references('static_id')->on('TB_STATIC')
+            ->onDelete('cascade');
+            $table->foreign('company_id')
+            ->references('company_id')->on('TB_COMPANY')
+            ->onDelete('cascade');
+            //$table->timestamps();
         });
     }
 

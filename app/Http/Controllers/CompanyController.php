@@ -35,12 +35,18 @@ class CompanyController extends Controller
 
     public function infographic()
     {
-        return view('company.infographic')->with('user', Auth::user());;
+        return view('company.infographic')->with('user', Auth::user());
     }
 
-    public function static()
+    public function staticDatatable(){
+        return view('company.staticDataTable')->with('user',Auth::user());
+    }
+
+    public function static($id)
     {
-        return view('company.static')->with('user', Auth::user());
+        return view('company.static')
+        ->with('id',$id)
+        ->with('user', Auth::user());
     }
 
     public function service()
