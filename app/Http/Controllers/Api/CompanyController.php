@@ -310,7 +310,7 @@ class CompanyController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
 
-        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name,TB_STATIC.dashboard FROM TB_STATIC
+        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name FROM TB_STATIC
                             INNER JOIN TB_STATIC_COMPANY ON TB_STATIC_COMPANY.static_id = TB_STATIC.static_id
                             WHERE TB_STATIC_COMPANY.company_id = ?", [$companyID]);
 

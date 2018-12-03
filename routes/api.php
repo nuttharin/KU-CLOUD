@@ -56,7 +56,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('company/static','Api\CompanyController@getStaticDashboard');
     Route::get('company/static/{static_id}','Api\CompanyController@getStaticDashboardById');
-    Route::post('company/static','Api\CompanyController@addStatic');
+    Route::put('company/static','Api\CompanyController@updateStatic');
 
     
     /* Admin */
