@@ -291,6 +291,28 @@ class CompanyController extends Controller
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
+       
+        $checkData = TB_STATIC_COMPANY::where([
+            ['static_id','=',$request->get('static_id')],
+            ['company_id','=',$companyID]
+        ])->get();
+
+        if(!empty($checkData)){
+            $data = TB_STATIC::where([
+                ['static_id','=',$request->get('static_id')],
+            ])->update(['name'=>$request->get('name')]);
+        }
+        else {
+            return response()->json(["status","Can not edit this static"],201);
+        }
+
+        return response()->json(["status","success"],201);
+    }
+
+    public function updateStaticDashboard(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
 
         $data =  TB_STATIC::where('static_id',$request->get('static_id'))
                  ->update(['dashboard'=>$request->get('dashboard')]);
@@ -301,6 +323,19 @@ class CompanyController extends Controller
         //         'company_id'=>$companyID
         //     ]);
         // }
+
+        return response()->json(["status","success"],201);
+    }
+
+    public function deleteStatic(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+
+        $data = TB_STATIC_COMPANY::where([
+            ['static_id','=',$request->get('static_id')],
+            ['company_id','=',$companyID]
+        ])->delete();
 
         return response()->json(["status","success"],201);
     }
