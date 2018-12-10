@@ -317,13 +317,6 @@ class CompanyController extends Controller
         $data =  TB_STATIC::where('static_id',$request->get('static_id'))
                  ->update(['dashboard'=>$request->get('dashboard')]);
 
-        // if(!empty($data)){
-        //     TB_STATIC_COMPANY::insert([
-        //         'static_id'=>$data->static_id,
-        //         'company_id'=>$companyID
-        //     ]);
-        // }
-
         return response()->json(["status","success"],201);
     }
 

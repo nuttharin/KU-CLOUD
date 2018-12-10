@@ -6,16 +6,16 @@ let modalEdit = null;
 let modalBlock = null;
 let modalDelete = null;
 const FormAddEmail = `
-                    <div class="input-group mb-2">
-                        <input type="text" class="add_email_val form-control mt-1" value={email} disabled>
+                    <div class="input-group">
+                        <input type="text" class="add_email_val form-control mt-1" value={email}  disabled>
                             <div class="input-group-append">
                                 <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
                             </div>
                     </div>
                     `;
 const FormAddPhone = ` 
-                    <div class="input-group mb-2">
-                        <input type="text" class="add_phone_val form-control mt-1" value={phone} disabled>
+                    <div class="input-group">
+                        <input type="text" class="add_phone_val form-control mt-1" value={phone}  disabled>
                         <div class="input-group-append">
                             <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                         </div>
@@ -82,7 +82,7 @@ class ModalDetail {
                                                 </ul>
                                                 <hr/>
                                                 <h6>Email</h6>
-                                                <ul class="list-group" id="email-user">
+                                                <ul class="list-group" id="email-user" >
                                                     
                                                 </ul>
                                             </div>
@@ -111,7 +111,7 @@ class ModalDetail {
                 else {
                     status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
                 }
-                return `<li class="list-group-item">
+                return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
                             <div class="row">
                                 <div class="col-6">
                                 ${data.phone_user} 
@@ -134,7 +134,7 @@ class ModalDetail {
                 else {
                     status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
                 }
-                return `<li class="list-group-item">
+                return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
                             <div class="row">
                                 <div class="col-6">
                                 ${data.email_user} 
@@ -154,6 +154,9 @@ class ModalDetail {
 
 class ModalEdit {
     constructor(config) {
+        let count_phone = 0;
+        let count_email = 0;
+
         if (modalEdit) {
             return modalEdit;
         }
@@ -199,37 +202,100 @@ class ModalEdit {
                 $('body').append(modal);
             }
 
+            count_phone = 0;
+            count_email = 0;
+
             $("#btn-edit-submit").unbind().click(function () {
                 onSubmitEditClick(key);
+            });
+
+            let phoneList = UsersList[key].phone;
+            count_phone = phoneList.length;
+            let inputPhone = null;
+            inputPhone = phoneList.map(phone => {
+                if (phone.is_primary) {
+                    return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
+                                <div class="row">
+                                    <div class="col-6">
+                                    ${phone.phone_user} 
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <span class="badge badge-pill badge-primary d-flex justify-content-center align-items-center">Primary</span>
+                                    </div>
+                                </div>
+                            </li>`;
+                }
+                return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
+                            <div class="row">
+                                <div class="col-6">
+                                ${phone.phone_user} 
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <i class="far fa-trash-alt btn-submit-delete-phone" style="color:#e65251;cursor:pointer"></i>
+                                </div>
+                            </div>
+                        </li>`;
+                //return FormAddPhone.replace('{phone}', phone.phone_user);
+            });
+
+            let emailList = UsersList[key].email;
+            count_email = emailList.length;
+            let inputEmail = null;
+            inputEmail = emailList.map(email => {
+                if (email.is_primary) {
+                    return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
+                                <div class="row">
+                                    <div class="col-6">
+                                    ${email.email_user} 
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <span class="badge badge-pill badge-primary d-flex justify-content-center align-items-center">Primary</span>
+                                    </div>
+                                </div>
+                            </li>`;
+                }
+                return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
+                            <div class="row">
+                                <div class="col-6">
+                                ${email.email_user} 
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <i class="far fa-trash-alt btn-submit-delete-email" style="color:#e65251;cursor:pointer"></i>
+                                </div>
+                            </div>
+                        </li>`;
+                //return FormAddEmail.replace('{email}', email.email_user);
             });
 
             $("#btn-add-phone").unbind().click(function () {
                 event.preventDefault();
                 let addPhone = FormAddPhone.replace('disabled', '');
                 addPhone = addPhone.replace('{phone}', '');
-                if ($(".btn-delete-phone").length <= 2) {
+                if (count_phone <= 2) {
+                    count_phone++;
                     $("#input-add-phone").append(addPhone);
                 }
             });
+
 
             $("#btn-add-email").unbind().click(function () {
                 event.preventDefault();
                 let addEmail = FormAddEmail.replace('disabled', '');
                 addEmail = addEmail.replace('{email}', '');
-                if ($(".btn-delete-email").length <= 2)
+                if (count_email <= 2) {
+                    count_email++;
                     $("#input-add-email").append(addEmail);
+                }
             });
 
-            let phoneList = UsersList[key].phone;
-            let inputPhone = null;
-            inputPhone = phoneList.map(phone => {
-                return FormAddPhone.replace('{phone}', phone.phone_user);
-            });
-
-            let emailList = UsersList[key].email;
-            let inputEmail = null;
-            inputEmail = emailList.map(email => {
-                return FormAddEmail.replace('{email}', email.email_user);
+            $(document).unbind().on('click', ".btn-delete-email ,.btn-delete-phone", function () {
+                if ($(this).hasClass('btn-delete-email')) {
+                    --count_email;
+                }
+                else if ($(this).hasClass('btn-delete-phone')) {
+                    --count_phone;
+                }
+                $(this).parent().parent().remove();
             });
 
             $('#edit-fname').val(UsersList[key].fname);

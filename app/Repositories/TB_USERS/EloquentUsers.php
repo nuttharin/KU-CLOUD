@@ -258,29 +258,37 @@ class EloquentUsers implements UsersRepository
     public function update(array $attributes)
     {
         // TODO: Implement update() method.
-        $user = TB_USERS::where('user_id', $attributes['user_id'])
-        ->update([
-                'fname' => $attributes['fname'],
-                'lname' => $attributes['lname'],
-            ]);
-
-        if(!empty($attributes['phone_user'])){
-            foreach($attributes['phone_user'] as $value){
-                TB_PHONE::firstOrCreate([
-                    'user_id' => $attributes['user_id'],
-                    'phone_user' => $value
+        DB::beginTransaction();
+        try{
+            $user = TB_USERS::where('user_id', $attributes['user_id'])
+            ->update([
+                    'fname' => $attributes['fname'],
+                    'lname' => $attributes['lname'],
                 ]);
+
+            if(!empty($attributes['phone_user'])){
+                foreach($attributes['phone_user'] as $value){
+                    TB_PHONE::firstOrCreate([
+                        'user_id' => $attributes['user_id'],
+                        'phone_user' => $value
+                    ]);
+                }
+            }
+
+            if(!empty($attributes['email_user'])){
+                foreach($attributes['email_user'] as $value){
+                    TB_EMAIL::firstOrCreate([
+                        'user_id' =>$attributes['user_id'],
+                        'email_user' => $value,
+                    ]);
+                }
             }
         }
-
-        if(!empty($attributes['email_user'])){
-            foreach($attributes['email_user'] as $value){
-                TB_EMAIL::firstOrCreate([
-                    'user_id' =>$attributes['user_id'],
-                    'email_user' => $value,
-                ]);
-            }
+        catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
+        DB::commit();
     }
 
     public function delete($id)
