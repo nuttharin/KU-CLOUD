@@ -380,6 +380,7 @@
                 </div>
                 <div class="full-screen">
                     <i class="fas fa-expand btn-full-screen" title="Full screen" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-download btn-download" title="Full screen" style="cursor:pointer" item="div_id"></i>
                 </div>
             </div>
 
@@ -422,9 +423,10 @@
                     <i class="fas fa-cog btn-edit-wi" title="Edit widget" item="div_id"></i>
                     <i class="fas fa-trash-alt btn-delete-wi" title="Delete widget" item="div_id"></i>
                 </div>
+                {{--
                 <div class="full-screen">
                     <i class="fas fa-expand btn-full-screen" title="Full screen" style="cursor:pointer" item="div_id"></i>
-                </div>
+                </div> --}}
             </div>
 
             <div class="card-body d-flex align-items-center align-content-center justify-content-center" style="overflow:hidden">
