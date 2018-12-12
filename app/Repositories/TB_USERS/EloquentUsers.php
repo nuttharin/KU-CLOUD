@@ -200,6 +200,7 @@ class EloquentUsers implements UsersRepository
                     TB_PHONE::create([
                         'user_id' => $user->user_id,
                         'phone_user' => $attributes['phone_user'],
+                        'is_verify' => false,
                         'is_primary'=>true
                     ]);
                 }
@@ -222,6 +223,7 @@ class EloquentUsers implements UsersRepository
                     TB_PHONE::create([
                         'user_id' => $user->user_id,
                         'phone_user' => $attributes['phone_user'],
+                        'is_verify' => false,
                         'is_primary'=>true
                     ]);
                 }
@@ -295,6 +297,37 @@ class EloquentUsers implements UsersRepository
     {
         // TODO: Implement delete() method.
     }
+
+    public function deleteEmailUser(array $attributes){
+        DB::beginTransaction();
+        try{
+            $data = TB_EMAIL::where([
+                ['email_user','=',$attributes['email_user']],
+                ['is_primary','=',false],
+            ])->delete();
+        }
+        catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+    }
+
+    public function deletePhoneUser(array $attributes){
+        DB::beginTransaction();
+        try{
+            $data = TB_PHONE::where([
+                ['phone_user','=',$attributes['phone_user']],
+                ['is_primary','=',false],
+            ])->delete();
+        }
+        catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+    }
+
 
 
 }

@@ -11,7 +11,7 @@ class TB_PHONE extends Model
     protected  $table = "TB_PHONE";
 
     protected $fillable = [
-        'phone_user','user_id',
+        'phone_user','user_id','is_verify','is_primary'
     ];
 
     public function TB_USRES(){

@@ -212,7 +212,7 @@ class ModalEdit {
             let phoneList = UsersList[key].phone;
             count_phone = phoneList.length;
             let inputPhone = null;
-            inputPhone = phoneList.map(phone => {
+            inputPhone = phoneList.map((phone, index) => {
                 if (phone.is_primary) {
                     return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
                                 <div class="row">
@@ -225,13 +225,21 @@ class ModalEdit {
                                 </div>
                             </li>`;
                 }
-                return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
+                return `<li class="list-group-item mt-1" id="phone-${phone.phone_user}" style="padding:.375rem .75rem;">
                             <div class="row">
                                 <div class="col-6">
                                 ${phone.phone_user} 
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <i class="far fa-trash-alt btn-submit-delete-phone" style="color:#e65251;cursor:pointer"></i>
+                                    <div class="form-submit-delete-phone" style="display:none">
+                                        <button type="button" class="btn btn-success btn-sm btn-radius btn-submit-delete-phone" phone="${phone.phone_user}">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm btn-radius btn-cancel-delete-phone">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <i class="far fa-trash-alt btn-confirm-delete-phone" style="color:#e65251;cursor:pointer"></i>
                                 </div>
                             </div>
                         </li>`;
@@ -241,9 +249,9 @@ class ModalEdit {
             let emailList = UsersList[key].email;
             count_email = emailList.length;
             let inputEmail = null;
-            inputEmail = emailList.map(email => {
+            inputEmail = emailList.map((email, index) => {
                 if (email.is_primary) {
-                    return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
+                    return `<li class="list-group-item mt-1"  style="padding:.375rem .75rem;">
                                 <div class="row">
                                     <div class="col-6">
                                     ${email.email_user} 
@@ -254,13 +262,21 @@ class ModalEdit {
                                 </div>
                             </li>`;
                 }
-                return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
+                return `<li class="list-group-item mt-1" id="email-${index}" style="padding:.375rem .75rem;">
                             <div class="row">
                                 <div class="col-6">
                                 ${email.email_user} 
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <i class="far fa-trash-alt btn-submit-delete-email" style="color:#e65251;cursor:pointer"></i>
+                                    <div class="form-submit-delete-email" style="display:none">
+                                        <button type="button" class="btn btn-success btn-sm btn-radius btn-submit-delete-email" email="${email.email_user}" item="email-${index}">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm btn-radius btn-cancel-delete-email">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <i class="far fa-trash-alt btn-confirm-delete-email" style="color:#e65251;cursor:pointer"></i>
                                 </div>
                             </div>
                         </li>`;
@@ -303,6 +319,71 @@ class ModalEdit {
             $('#input-add-phone').html(inputPhone.join(''));
             $('#input-add-email').html(inputEmail.join(''));
             $('#editUser').modal('show');
+
+
+            $(".btn-confirm-delete-email").unbind().click(function () {
+                $(this).hide();
+                $(this).parent().find('.form-submit-delete-email').show();
+            });
+
+            $(".btn-cancel-delete-email").unbind().click(function () {
+                $(this).parent().hide();
+                $(this).parent().parent().find('.btn-confirm-delete-email').show();
+            });
+
+            $(".btn-submit-delete-email").unbind().click(function () {
+                onSubmitDeleteEmail($(this).attr('email'), $(this).attr('item'));
+            });
+
+            $(".btn-confirm-delete-phone").unbind().click(function () {
+                $(this).hide();
+                $(this).parent().find('.form-submit-delete-phone').show();
+            });
+
+            $(".btn-cancel-delete-phone").unbind().click(function () {
+                $(this).parent().hide();
+                $(this).parent().parent().find('.btn-confirm-delete-phone').show();
+            });
+
+            $(".btn-submit-delete-phone").unbind().click(function () {
+                onSubmitDeletePhone($(this).attr('phone'));
+            });
+        };
+
+        let onSubmitDeleteEmail = (email, item) => {
+            $.ajax({
+                url: END_POINT + "company/users/email",
+                method: "DELETE",
+                data: {
+                    email_user: email,
+                },
+                success: (res) => {
+                    $("#" + item).remove();
+                    ManagementUsers.refreshData();
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+
+            });
+        };
+
+        let onSubmitDeletePhone = (phone) => {
+            $.ajax({
+                url: END_POINT + "company/users/phone",
+                method: "DELETE",
+                data: {
+                    phone_user: phone,
+                },
+                success: (res) => {
+                    $("#phone-" + phone).remove();
+                    ManagementUsers.refreshData();
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+
+            });
         };
 
         let onSubmitEditClick = (index) => {
@@ -466,6 +547,9 @@ export class ManagementUsers {
             delete: config.delete,
             type: config.type,
         };
+
+        let ModalDeleteEmail = null;
+        let ModalDeletePhone = null;
 
         let UsersDATATABLE = null;
 
@@ -684,8 +768,59 @@ export class ManagementUsers {
             $('[data-toggle="tooltip"]').tooltip();
         };
 
+        let createModalDelete = () => {
+            if (ModalDeleteEmail == null && ModalDeletePhone == null) {
+                ModalDeleteEmail = `
+                                    <div class="modal" id="modal-delete-email">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+        
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete Email</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+            
+                                            <div class="modal-body">
+                                                Are you sure to delete this email account : <span id="email-delete"></span> ?
+                                            </div>
+            
+                                            <div class="modal-footer">
+                                                <button type="button" id="modal-btn-delete-email" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                        
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+                ModalDeletePhone = `
+                                    <div class="modal" id="modal-delete-phone">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete Phone</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                            Are you sure to delete this phone number : <span id="phone-delete"></span> ?
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button"  id="modal-btn-delete-phone" class="btn btn-danger btn-block">Delete</button>
+                                            </div>
+                                        
+                                            </div>
+                                        </div>
+                                    </div>`;
+                $('body').append(ModalDeleteEmail);
+                $('body').append(ModalDeletePhone);
+            }
+        };
+
         this.initialAndRun = () => {
             this.showLastestDatatable();
+            //createModalDelete();
             $('#btn-add-user').unbind().click(function () {
                 modalCreate = new ModalCreate(config);
                 modalCreate.resetModal();
