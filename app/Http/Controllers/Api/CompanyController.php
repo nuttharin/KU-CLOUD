@@ -125,6 +125,26 @@ class CompanyController extends Controller
         $this->users->update($data);
     }
 
+    public function deleteEmailUser(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $user_id = $payload["sub"];
+        $data = [
+            'email_user' => $request->get('email_user'),
+        ];
+        $this->users->deleteEmailUser($data);
+    }
+
+    public function deletePhoneUser(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $user_id = $payload["sub"];
+        $data = [
+            'phone_user' => $request->get('phone_user'),
+        ];
+        $this->users->deletePhoneUser($data);
+    }
+
     public function blockUserCompany(Request $request){
         $user = TB_USERS::where('user_id', $request->get('user_id'))
                         ->update(['block' => $request->get('block')]);
