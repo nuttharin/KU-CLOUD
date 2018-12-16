@@ -56,14 +56,14 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users      = $this->users->getByTypeForAdmin('ADMIN');
+        $data      = $this->users->getByTypeForAdmin('ADMIN');
 
-        if(empty($users))
+        if(empty($data))
         {           
             return response()->json(['message' => 'not have data'],200);
         }
         
-        return response()->json(compact('users'),200);
+        return response()->json(compact('data'),200);
     }
 
     public function createAdminister(Request $request) 
@@ -98,14 +98,14 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users      = $this->users->getByTypeForAdmin('COMPANY');
+        $data      = $this->users->getByTypeForAdmin('COMPANY');
 
-        if(empty($users))
+        if(empty($data))
         {           
             return response()->json(['message' => 'not have data'],200);
         }
         
-        return response()->json(compact('users'),200);
+        return response()->json(compact('data'),200);
     }
 
     public function createCompany(Request $request) 
@@ -262,14 +262,14 @@ class AdminController extends Controller
     {
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
-        $users   = $this->users->getByTypeForAdmin('CUSTOMER');
+        $data   = $this->users->getByTypeForAdmin('CUSTOMER');
         
-        if(empty($users))
+        if(empty($data))
         {           
             return response()->json(['message' => 'not have data'],200);
         }
         
-        return response()->json(compact('users'),200);
+        return response()->json(compact('data'),200);
     }
 
     public function createCustomer(Request $request)
