@@ -54,6 +54,9 @@
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
+    <!-- toastr -->
+    <link href="{{asset('js/toastr/toastr.min.css')}}" rel="stylesheet" />
+    
     <!-- loading -->
     <link rel="stylesheet" href="{{url('css/loading.css')}}">
 
@@ -260,6 +263,9 @@
         <script type="text/javascript" src="{{url('freetrans/jquery.freetrans.js')}}"></script>
         <script type="text/javascript" src="{{url('circlejson/circular-json.js')}}"></script>
         <script type="text/javascript" src="{{url('htmltocanvas/htmltocanvas.js')}}"></script>
+
+        <!--toastr.min.js -->
+        <script src="{{asset('js/toastr/toastr.min.js')}}"></script>
 
         <!-- Page Content  -->
         <div id="content">
