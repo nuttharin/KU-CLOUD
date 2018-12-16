@@ -270,11 +270,12 @@ class Widget {
             y = (parseFloat(target.getAttribute('data-y')) || 0);
 
           // update the element's style
-          target.style.width = event.rect.width + 'vw';
-          target.style.height = event.rect.height + 'vh';
+          target.style.width = event.rect.width + 'px';
+          target.style.height = event.rect.height + 'px';
+
           //console.log(target);
-          // $(target).attr('width', event.rect.width);
-          // $(target).attr('height', event.rect.height);
+          //$(target).attr('width', event.rect.width);
+          //$(target).attr('height', event.rect.height);
 
           // translate when resizing from top or left edges
           x += event.deltaRect.left;

@@ -65,12 +65,13 @@ class EloquentUsers implements UsersRepository
                     'block'=>$user->block,
                     'created_at'=>$user->created_at,
                     'updated_at'=>$user->updated_at,
+                    'sub_type_user'=>$user->user_company()->get()[0]->sub_type_user,
                     'online'=>$user->online,
-                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->get(),
-                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->get(),
+                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
                     'company'=> DB::select('SELECT TB_COMPANY.company_id,TB_COMPANY.company_name FROM TB_USER_COMPANY 
                                             INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
-                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_COMPANY.user_id = ?',[$user->user_id]),
+                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_COMPANY.user_id = ?',[$user->user_id])[0],
                 ];
             }
             return $data;
@@ -100,11 +101,11 @@ class EloquentUsers implements UsersRepository
                     'created_at'=>$user->created_at,
                     'updated_at'=>$user->updated_at,
                     'online'=>$user->online,
-                    'email'=> TB_EMAIL::where('user_id',$user->user_id)->get(),
-                    'phone'=> TB_PHONE::where('user_id',$user->user_id)->get(),
-                    'company'=> DB::select('SELECT TB_COMPANY.company_id,TB_COMPANY.company_name FROM TB_USER_COMPANY 
-                                            INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
-                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_COMPANY.user_id = ?',[$user->user_id]),
+                    'email'=> TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    'phone'=> TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    'company'=> DB::select('SELECT TB_COMPANY.company_id,TB_COMPANY.company_name FROM TB_USER_CUSTOMER 
+                                            INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
+                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_CUSTOMER.user_id = ?',[$user->user_id])[0],
                 ];
             }
             return $data;
