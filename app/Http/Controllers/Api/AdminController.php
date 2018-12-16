@@ -272,6 +272,7 @@ class AdminController extends Controller
             'type_user' => 'CUSTOMER',
             'company_id' => $request->get('company_id'),
         ];
+        //dd($attributes);
         $this->users->create($attributes);
 
         // $user = TB_USERS::create([

@@ -46,9 +46,13 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/company/static/dashboard.min.js', 'public/js/admin/static')
     .js('resources/js/company/users/users.min.js', 'public/js/company/users')
     .js('resources/js/company/customer/customer.min.js', 'public/js/company/customer')
-    .js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js');
+    .js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js')
 
-
+    //AdminUser
+    .js('resources/js/admin/Users/AdminUser.min.js', 'public/js/admin/Users/AdminUser.min.js')
+    .js('resources/js/admin/Users/CompanyUser.min.js', 'public/js/admin/Users/CompanyUser.min.js')
+    .js('resources/js/admin/Users/CustomerUser.min.js', 'public/js/admin/Users/CustomerUser.min.js')
+    .js('resources/js/ManagementAdminUsers.min.js', 'public/js/ManagementAdminUsers.min.js');
 // if (mix.inProduction) {
 //     if (process.env.npm_lifecycle_event !== 'hot') {
 //         mix.version();
