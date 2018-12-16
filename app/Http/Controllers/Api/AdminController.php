@@ -114,39 +114,45 @@ class AdminController extends Controller
         $payload    = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
 
-//        $attributes = [
-//            'fname'     => $request->get('fname'),
-//            'lname'     => $request->get('lname'),
-//            'password'  => $request->get('password'),
-//            'type_user' => 'COMPANY',
-//        ];
+       $attributes = [
+           'fname'     => $request->get('fname'),
+           'lname'     => $request->get('lname'),
+           'password'  => $request->get('password'),
+           'type_user' => 'COMPANY',
+           'company_id'    => $request->get('company_id'),
+           'email_user'    => $request->get('email'),
+           'phone_user'    => $request->get('phone'),
+           'sub_type_user' => $request->get('sub_type_user')
+       ];
 
-        $user = TB_USERS::create([
-            'fname'     => $request->get('fname'),
-            'lname'     => $request->get('lname'),
-            'password'  => Hash::make($request->get('password')),
-            'type_user' => 'COMPANY'
-        ]);
+       $this->users->create($attributes);
+
+        // $user = TB_USERS::create([
+        //     'fname'     => $request->get('fname'),
+        //     'lname'     => $request->get('lname'),
+        //     'password'  => Hash::make($request->get('password')),
+        //     'type_user' => 'COMPANY'
+        // ]);
         
-        if($user->user_id)
-        {
-            $user_company = TB_USER_COMPANY::create([
-                'user_id'       => $user->user_id,
-                'company_id'    => $payload["user"]->company_id,
-                'sub_type_user' => $request->get('sub_type_user')
-            ]);
+        // if($user->user_id)
+        // {
+        //     $user_company = TB_USER_COMPANY::create([
+        //         'user_id'       => $user->user_id,
+        //         'company_id'    => $payload["user"]->company_id,
+        //         'sub_type_user' => $request->get('sub_type_user')
+        //     ]);
 
-            $email = TB_EMAIL::create([
-                'user_id'       => $user->user_id,
-                'email_user'    => $request->get('email'),
-                'is_verify'     => false,
-            ]);
+        //     $email = TB_EMAIL::create([
+        //         'user_id'       => $user->user_id,
+        //         'email_user'    => $request->get('email'),
+        //         'is_verify'     => false,
+        //     ]);
 
-            $phone = TB_PHONE::create([
-                'user_id'       => $user->user_id,
-                'phone_user'    => $request->get('phone')
-            ]);
-        }
+        //     $phone = TB_PHONE::create([
+        //         'user_id'       => $user->user_id,
+        //         'phone_user'    => $request->get('phone')
+        //     ]);
+        // }
 
         //$request->bearerToken(),201
         return response()->json(["status_code","201"],201);
@@ -157,79 +163,87 @@ class AdminController extends Controller
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
+        $attributes = [
+            'user_id'   => $request->get('user_id'),
+            'fname'     => $request->get('fname'),
+            'lname'     => $request->get('lname'),
+            'phone_user' => $request->get('phone'),
+            'email_user' => $request->get('email')
+        ];
+        $this->users->update($attributes);
+    
+        // $user = TB_USERS::where('user_id', $request->get('user_id'))
+        //                     ->update([
+        //                         'fname'     => $request->get('fname'),
+        //                         'lname'     => $request->get('lname')
+        //                     ]);
+
+        // $delPhone = TB_PHONE::where('user_id', $request->get('user_id'))
+        //                     ->delete();
+
+        // $delEmail = TB_EMAIL::where('user_id', $request->get('user_id'))
+        //                     ->delete();
         
-        $user = TB_USERS::where('user_id', $request->get('user_id'))
-                            ->update([
-                                'fname'     => $request->get('fname'),
-                                'lname'     => $request->get('lname')
-                            ]);
+        // $arrayPhone = explode(",", $request->get('phone'));
 
-        $delPhone = TB_PHONE::where('user_id', $request->get('user_id'))
-                            ->delete();
+        // if(!empty($arrayPhone[0]))
+        // {
+        //     $createP1 = TB_PHONE::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'phone_user'    => $arrayPhone[0]
+        //     ]);
+        // }
 
-        $delEmail = TB_EMAIL::where('user_id', $request->get('user_id'))
-                            ->delete();
-        
-        $arrayPhone = explode(",", $request->get('phone'));
+        // if(!empty($arrayPhone[1]))
+        // {
+        //     $createP2 = TB_PHONE::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'phone_user'    => $arrayPhone[1]
+        //     ]);
+        // }
 
-        if(!empty($arrayPhone[0]))
-        {
-            $createP1 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[0]
-            ]);
-        }
+        // if(!empty($arrayPhone[2]))
+        // {
+        //     $createP3 = TB_PHONE::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'phone_user'    => $arrayPhone[2]
+        //     ]);
+        // }
 
-        if(!empty($arrayPhone[1]))
-        {
-            $createP2 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[1]
-            ]);
-        }
+        // $arrayEmail = explode(",", $request->get('email'));
 
-        if(!empty($arrayPhone[2]))
-        {
-            $createP3 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[2]
-            ]);
-        }
+        // if(!empty($arrayEmail[0]))
+        // {
+        //     $createE1 = TB_EMAIL::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'email_user'    => $arrayEmail[0],
+        //         'is_verify'     => false
+        //     ]);
+        // }
 
-        $arrayEmail = explode(",", $request->get('email'));
+        // if(!empty($arrayEmail[1]))
+        // {
+        //     $createE1 = TB_EMAIL::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'email_user'    => $arrayEmail[1],
+        //         'is_verify'     => false
+        //     ]);
+        // }
 
-        if(!empty($arrayEmail[0]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[0],
-                'is_verify'     => false
-            ]);
-        }
+        // if(!empty($arrayEmail[2]))
+        // {
+        //     $createE1 = TB_EMAIL::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'email_user'    => $arrayEmail[2],
+        //         'is_verify'     => false
+        //     ]);
+        // }
 
-        if(!empty($arrayEmail[1]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[1],
-                'is_verify'     => false
-            ]);
-        }
-
-        if(!empty($arrayEmail[2]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[2],
-                'is_verify'     => false
-            ]);
-        }
-
-        $userCompany = TB_USER_COMPANY::where('user_id', $request->get('user_id'))
-                                            ->update([
-                                                'company_id'     => $request->get('company'),
-                                                'sub_type_user'  => $request->get('sub_type_user')
-                                            ]);
+        // $userCompany = TB_USER_COMPANY::where('user_id', $request->get('user_id'))
+        //                                     ->update([
+        //                                         'company_id'     => $request->get('company'),
+        //                                         'sub_type_user'  => $request->get('sub_type_user')
+        //                                     ]);
         
         return response()->json(["status_code","201"],201);
     }
@@ -278,31 +292,41 @@ class AdminController extends Controller
         $payload    = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
         
-        $user = TB_USERS::create([
+        $attributes = [
             'fname'     => $request->get('fname'),
             'lname'     => $request->get('lname'),
-            'password'  => Hash::make($request->get('password')),
-            'type_user' => 'CUSTOMER'
-        ]);
+            'password'  => $request->get('password'),
+            'phone_user' => $request->get('phone'),
+            'email_user' => $request->get('email'),
+            'type_user' => 'CUSTOMER',
+        ];
+        $this->users->create($attributes);
+
+        // $user = TB_USERS::create([
+        //     'fname'     => $request->get('fname'),
+        //     'lname'     => $request->get('lname'),
+        //     'password'  => Hash::make($request->get('password')),
+        //     'type_user' => 'CUSTOMER'
+        // ]);
         
-        if($user->user_id)
-        {
-            $user_company = TB_USER_CUSTOMER::create([
-                'user_id'       => $user->user_id,
-                'company_id'    => $request->get('company'),
-            ]);
+        // if($user->user_id)
+        // {
+        //     $user_company = TB_USER_CUSTOMER::create([
+        //         'user_id'       => $user->user_id,
+        //         'company_id'    => $request->get('company'),
+        //     ]);
 
-            $email = TB_EMAIL::create([
-                'user_id'       => $user->user_id,
-                'email_user'    => $request->get('email'),
-                'is_verify'     => true,
-            ]);
+        //     $email = TB_EMAIL::create([
+        //         'user_id'       => $user->user_id,
+        //         'email_user'    => $request->get('email'),
+        //         'is_verify'     => true,
+        //     ]);
 
-            $phone = TB_PHONE::create([
-                'user_id'       => $user->user_id,
-                'phone_user'    => $request->get('phone')
-            ]);
-        }
+        //     $phone = TB_PHONE::create([
+        //         'user_id'       => $user->user_id,
+        //         'phone_user'    => $request->get('phone')
+        //     ]);
+        // }
         //$request->bearerToken(),201
         return response()->json(["status_code","201"],201);
     }
@@ -312,78 +336,86 @@ class AdminController extends Controller
         $token      = $request->cookie('token');
         $payload    = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
+        $attributes = [
+            'user_id'   => $request->get('user_id'),
+            'fname'     => $request->get('fname'),
+            'lname'     => $request->get('lname'),
+            'phone_user' => $request->get('phone'),
+            'email_user' => $request->get('email')
+        ];
+        $this->users->update($attributes);
+
+        // $user = TB_USERS::where('user_id', $request->get('user_id'))
+        //                     ->update([
+        //                         'fname'     => $request->get('fname'),
+        //                         'lname'     => $request->get('lname')
+        //                     ]);
+
+        // $delPhone = TB_PHONE::where('user_id', $request->get('user_id'))
+        //                     ->delete();
+
+        // $delEmail = TB_EMAIL::where('user_id', $request->get('user_id'))
+        //                     ->delete();
         
-        $user = TB_USERS::where('user_id', $request->get('user_id'))
-                            ->update([
-                                'fname'     => $request->get('fname'),
-                                'lname'     => $request->get('lname')
-                            ]);
+        // $arrayPhone = explode(",", $request->get('phone'));
 
-        $delPhone = TB_PHONE::where('user_id', $request->get('user_id'))
-                            ->delete();
+        // if(!empty($arrayPhone[0]))
+        // {
+        //     $createP1 = TB_PHONE::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'phone_user'    => $arrayPhone[0]
+        //     ]);
+        // }
 
-        $delEmail = TB_EMAIL::where('user_id', $request->get('user_id'))
-                            ->delete();
-        
-        $arrayPhone = explode(",", $request->get('phone'));
+        // if(!empty($arrayPhone[1]))
+        // {
+        //     $createP2 = TB_PHONE::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'phone_user'    => $arrayPhone[1]
+        //     ]);
+        // }
 
-        if(!empty($arrayPhone[0]))
-        {
-            $createP1 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[0]
-            ]);
-        }
+        // if(!empty($arrayPhone[2]))
+        // {
+        //     $createP3 = TB_PHONE::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'phone_user'    => $arrayPhone[2]
+        //     ]);
+        // }
 
-        if(!empty($arrayPhone[1]))
-        {
-            $createP2 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[1]
-            ]);
-        }
+        // $arrayEmail = explode(",", $request->get('email'));
 
-        if(!empty($arrayPhone[2]))
-        {
-            $createP3 = TB_PHONE::create([
-                'user_id'       => $request->get('user_id'),
-                'phone_user'    => $arrayPhone[2]
-            ]);
-        }
+        // if(!empty($arrayEmail[0]))
+        // {
+        //     $createE1 = TB_EMAIL::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'email_user'    => $arrayEmail[0],
+        //         'is_verify'     => false
+        //     ]);
+        // }
 
-        $arrayEmail = explode(",", $request->get('email'));
+        // if(!empty($arrayEmail[1]))
+        // {
+        //     $createE1 = TB_EMAIL::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'email_user'    => $arrayEmail[1],
+        //         'is_verify'     => false
+        //     ]);
+        // }
 
-        if(!empty($arrayEmail[0]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[0],
-                'is_verify'     => false
-            ]);
-        }
+        // if(!empty($arrayEmail[2]))
+        // {
+        //     $createE1 = TB_EMAIL::create([
+        //         'user_id'       => $request->get('user_id'),
+        //         'email_user'    => $arrayEmail[2],
+        //         'is_verify'     => false
+        //     ]);
+        // }
 
-        if(!empty($arrayEmail[1]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[1],
-                'is_verify'     => false
-            ]);
-        }
-
-        if(!empty($arrayEmail[2]))
-        {
-            $createE1 = TB_EMAIL::create([
-                'user_id'       => $request->get('user_id'),
-                'email_user'    => $arrayEmail[2],
-                'is_verify'     => false
-            ]);
-        }
-
-        $userCompany = TB_USER_CUSTOMER::where('user_id', $request->get('user_id'))
-                                            ->update([
-                                                'company_id'     => $request->get('company'),
-                                            ]);
+        // $userCompany = TB_USER_CUSTOMER::where('user_id', $request->get('user_id'))
+        //                                     ->update([
+        //                                         'company_id'     => $request->get('company'),
+        //                                     ]);
         
         return response()->json(["status_code","201"],201);
     }
@@ -494,7 +526,7 @@ class AdminController extends Controller
     public function blockUser(Request $request) 
     {
         $user = TB_USERS::where('user_id', $request->get('user_id'))
-                            ->update(['block' => true]);
+                        ->update(['block' => $request->get('block')]);
         return response()->json(["status","success"],200);
     }
 
