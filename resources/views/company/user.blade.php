@@ -164,20 +164,32 @@
                         <div class="col-6">
                             <label for="">Email</label>
                             <input type="text" class="form-control" id="add_email_val" />
-                            <label for="">Firstname</label>
-                            <input type="text" class="form-control" id="add_fname_val" />
-                            <label for="">Phone</label>
-                            <input type="text" class="form-control" id="add_phone_val" />
                         </div>
                         <div class="col-6">
                             <label for="">Password</label>
                             <input type="text" class="form-control" id="add_pwd_val" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Firstname</label>
+                            <input type="text" class="form-control" id="add_fname_val" />
+                        </div>
+                        <div class="col-6">
                             <label for="">Lastname</label>
                             <input type="text" class="form-control" id="add_lname_val" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Phone</label>
+                            <input type="text" class="form-control" id="add_phone_val" />
+                        </div>
+                        <div class="col-6">
                             <label for="">Type User</label>
                             <select id="add_type_user_val" class="form-control">
-                                <option>ADMIN</option>
-                                <option selected>GENERAL</option>
+                                    <option>ADMIN</option>
+                                    <option selected>GENERAL</option>
                             </select>
                         </div>
                     </div>
@@ -195,31 +207,5 @@
 </div>
 
 
-
-
 <script type="text/javascript" src="{{elixir('js/company/users/users.min.js')}}"></script>
-
-<script>
-    $(document).ready(function () {
-        // $("#btn-add-user").click(() => {
-        //     $("#addUser").modal('show');
-        // })
-
-        // $(document).on('click',".btn-delete-email ,.btn-delete-phone",function(){
-        //     $(this).parent().parent().remove();
-        // })
-        // config = {
-        //     getUsers:"company/users",
-        //     getOnlineUsers:"company/users/online",
-        //     create:"",
-        //     edit:"company/users/edit",
-        //     block:"",
-        //     unblock:"",
-        //     delete:"",
-        //     type:"COMPANY",
-        // }
-        // let managementUsers = new ManagementUsers(config);
-    });
-
-</script>
 @endsection

@@ -304,7 +304,7 @@ class ModalEdit {
                 }
             });
 
-            $(document).unbind().on('click', ".btn-delete-email ,.btn-delete-phone", function () {
+            $('body').unbind().on('click', ".btn-delete-email ,.btn-delete-phone", function () {
                 if ($(this).hasClass('btn-delete-email')) {
                     --count_email;
                 }

@@ -270,6 +270,7 @@ class AdminController extends Controller
             'phone_user' => $request->get('phone'),
             'email_user' => $request->get('email'),
             'type_user' => 'CUSTOMER',
+            'company_id' => $request->get('company_id'),
         ];
         $this->users->create($attributes);
 

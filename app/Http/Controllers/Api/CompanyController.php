@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\UsersRequest;
 use App\Repositories\TB_COMPANY\CompanyRepository;
+use App\Repositories\TB_STATIC\StaticRepository;
 use App\Repositories\TB_USERS\UsersRepository;
 use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
 use Illuminate\Http\Request;
@@ -36,15 +37,17 @@ use App\LogViewer\SizeLog;
 use Gate;
 class CompanyController extends Controller
 {
-    /**
-     * @var UsersRepository
-     */
     private $users;
     private $companies;
     private $auth;
     private $webservices;
+    private $static;
 
-    public  function __construct(UsersRepository $users,CompanyRepository $companies,WebServiceRepository $webservices,Request $request)
+    public  function __construct(UsersRepository $users,
+                                 CompanyRepository $companies,
+                                 WebServiceRepository $webservices,
+                                 StaticRepository $static,
+                                 Request $request)
     {
         if(!Gate::allows('isCompanyAdmin')){
             abort('403',"Sorry, You can do this actions");
@@ -53,17 +56,18 @@ class CompanyController extends Controller
         $this->users = $users;
         $this->companies = $companies;
         $this->webservices = $webservices;
+        $this->static = $static;
 
         $this->log_viewer = new LogViewer();
         
         $this->auth = Auth::user();
         $company_id = $this->auth->user_company()->first()->company_id;
         $this->log_viewer->setFolder('COMPANY_'.$company_id);
-
     }
 
     public function test(){
-        return response()->json(["test"=>'1234'],201);
+        $user = $this->auth;
+        return response()->json(compact('user'),201);
     }
 
     public function getAllUser(Request $request){
@@ -152,10 +156,6 @@ class CompanyController extends Controller
     }
 
     public function getAllCustomer(Request $request){
-        // $token = $request->cookie('token');
-        // $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
-
         $data = $this->users->getByTypeForCompany('CUSTOMER',$this->auth->user_company()->first()->company_id);
         if(!empty($data)){
             $this->log_viewer->logRequest($request);
@@ -286,47 +286,24 @@ class CompanyController extends Controller
         return response()->json(["status","success"],200);
     }
 
+    //Static
     public function addStatic(Request $request)
     {
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
 
-        $data =  TB_STATIC::create([
-            'name'=>$request->get('name'),
-            'dashboard'=>'[]',
-        ]);
+        $message = $this->static->createStatic($request->get('name'),$companyID);
 
-        if(!empty($data)){
-            TB_STATIC_COMPANY::insert([
-                'static_id'=>$data->static_id,
-                'company_id'=>$companyID
-            ]);
-        }
-
-        return response()->json(["status","success"],201);
+        return response()->json(["message",$message['message']],$message['status']);
     }
 
     public function updateStatic(Request $request){
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
-       
-        $checkData = TB_STATIC_COMPANY::where([
-            ['static_id','=',$request->get('static_id')],
-            ['company_id','=',$companyID]
-        ])->get();
 
-        if(!empty($checkData)){
-            $data = TB_STATIC::where([
-                ['static_id','=',$request->get('static_id')],
-            ])->update(['name'=>$request->get('name')]);
-        }
-        else {
-            return response()->json(["status","Can not edit this static"],201);
-        }
-
-        return response()->json(["status","success"],201);
+        $this->static->updateStatic($request->get('static_id'),$request->get('name'),$companyID);
     }
 
     public function updateStaticDashboard(Request $request){
@@ -336,8 +313,6 @@ class CompanyController extends Controller
 
         $data =  TB_STATIC::where('static_id',$request->get('static_id'))
                  ->update(['dashboard'=>$request->get('dashboard')]);
-
-        return response()->json(["status","success"],201);
     }
 
     public function deleteStatic(Request $request){
@@ -345,12 +320,7 @@ class CompanyController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
 
-        $data = TB_STATIC_COMPANY::where([
-            ['static_id','=',$request->get('static_id')],
-            ['company_id','=',$companyID]
-        ])->delete();
-
-        return response()->json(["status","success"],201);
+        $this->static->deleteStatic($request->get('static_id'),$companyID);
     }
 
     public function getStaticDashboard(Request $request){
@@ -358,20 +328,32 @@ class CompanyController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
 
-        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name FROM TB_STATIC
-                            INNER JOIN TB_STATIC_COMPANY ON TB_STATIC_COMPANY.static_id = TB_STATIC.static_id
-                            WHERE TB_STATIC_COMPANY.company_id = ?", [$companyID]);
-
-        return response()->json(compact('data'),200);
+       $data = $this->static->getStaticByCompanyId($companyID);
+       return response()->json(compact('data'),200);
     }
 
     public function getStaticDashboardById(Request $request,$static_id){
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
-        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name,TB_STATIC.dashboard FROM TB_STATIC
-                            INNER JOIN TB_STATIC_COMPANY ON TB_STATIC_COMPANY.static_id = TB_STATIC.static_id
-                            WHERE TB_STATIC_COMPANY.company_id = ? AND TB_STATIC_COMPANY.static_id = ?", [$companyID,$static_id]);
+        $data = $this->static->getStaticDashboardById($static_id,$companyID);
         return response()->json(compact('data'),200);
+    }
+
+    public function getDatasourceStatic(Request $request){
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+        $data = $this->static->getDatasoureByStaticId($request->get('static_id'),$companyID);
+        return response()->json(compact('data'),200);
+    }
+
+    public function addDatasourceStatic(Request $request){
+        $data = [
+            'static_id' => $request->get('static_id'),
+            'name' => $request->get('name'),
+            'webservice_id' => $request->get('webservice_id')
+        ];
+        $this->static->createDatasource($data);
     }
 }
