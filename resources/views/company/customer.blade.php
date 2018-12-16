@@ -161,16 +161,27 @@
                         <div class="col-6">
                             <label for="">Email</label>
                             <input type="text" class="form-control" id="add_email_val" />
-                            <label for="">Firstname</label>
-                            <input type="text" class="form-control" id="add_fname_val" />
-                            <label for="">Phone</label>
-                            <input type="text" class="form-control" id="add_phone_val" />
                         </div>
                         <div class="col-6">
                             <label for="">Password</label>
                             <input type="text" class="form-control" id="add_pwd_val" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Firstname</label>
+                            <input type="text" class="form-control" id="add_fname_val" />
+                        </div>
+                        <div class="col-6">
+
                             <label for="">Lastname</label>
                             <input type="text" class="form-control" id="add_lname_val" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Phone</label>
+                            <input type="text" class="form-control" id="add_phone_val" />
                         </div>
                     </div>
                 </form>
@@ -178,7 +189,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block">Save</button>
+                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
             </div>
 
         </div>

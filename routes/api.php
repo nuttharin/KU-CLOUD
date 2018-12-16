@@ -63,6 +63,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put('company/static/dashboard','Api\CompanyController@updateStaticDashboard');
     Route::delete('company/static','Api\CompanyController@deleteStatic');
 
+    Route::get('company/staticDatasource','Api\CompanyController@getDatasourceStatic');
+    Route::post('company/static/datasource','Api\CompanyController@addDatasourceStatic');
+
     
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');

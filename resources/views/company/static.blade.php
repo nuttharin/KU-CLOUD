@@ -86,8 +86,10 @@
             <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
             <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i class="fas fa-times"></i></button>
         </div>
-    </div>
+        <div class="col-12" id="list-datasource">
 
+        </div>
+    </div>
 
     <div class="col-12 d-flex justify-content-center">
         <i class="fas fa-angle-up fa-lg" id="btn-detail-toggle" style="cursor:pointer"></i>
@@ -288,13 +290,13 @@
                     <div class="row">
                         <div class="col-12">
                             <label for="">Name</label>
-                            <input type="text" class="form-control">
+                            <input type="text" id="name_datasource" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <label for="">Channel</label>
-                            <select name="" id="channel-data" class="form-control">
+                            <select name="" id="webservice_id" class="form-control">
                                 <option value="">--Select Channel--</option>
                             </select>
                         </div>
@@ -309,7 +311,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a class="btn btn-success btn-block" id="add-new-datasource" href="#">Save</a>
+                    <a class="btn btn-success btn-block" id="btn-add-new-datasource" href="#">Save</a>
                 </div>
             </div>
         </div>
