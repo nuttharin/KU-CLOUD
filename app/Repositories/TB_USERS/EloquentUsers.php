@@ -49,43 +49,65 @@ class EloquentUsers implements UsersRepository
                     'created_at'=>$user->created_at,
                     'updated_at'=>$user->updated_at,
                     'online'=>$user->online,
-                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->get(),
-                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->get(),
+                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
                 ];
             }
             return $data;
         }
         else if($type == "COMPANY"){
-            return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email  ,TB_USERS.online
-                                    FROM TB_USERS 
-                                    LEFT JOIN TB_PHONE 
-                                    ON TB_USERS.user_id =TB_PHONE.user_id
-                                    LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
-                                                FROM TB_EMAIL 
-                                                GROUP BY TB_EMAIL.user_id) AS T1 
-                                    ON T1.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_USER_COMPANY 
-                                    ON TB_USER_COMPANY.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_COMPANY 
-                                    ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
-                                    WHERE TB_USERS.type_user = ?
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name ,TB_USERS.online',['COMPANY'] );
+            $users = $this->model::where('type_user','COMPANY')->get();
+            foreach($users as $user){ 
+                $data[] = [
+                    'user_id'=>$user->user_id,
+                    'fname'=>$user->fname,
+                    'lname'=>$user->lname,
+                    'block'=>$user->block,
+                    'created_at'=>$user->created_at,
+                    'updated_at'=>$user->updated_at,
+                    'online'=>$user->online,
+                    'email'=>TB_EMAIL::where('user_id',$user->user_id)->get(),
+                    'phone'=>TB_PHONE::where('user_id',$user->user_id)->get(),
+                    'company'=> DB::select('SELECT TB_COMPANY.company_id,TB_COMPANY.company_name FROM TB_USER_COMPANY 
+                                            INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
+                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_COMPANY.user_id = ?',[$user->user_id]),
+                ];
+            }
+            return $data;
+            // return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email  ,TB_USERS.online
+            //                         FROM TB_USERS 
+            //                         LEFT JOIN TB_PHONE 
+            //                         ON TB_USERS.user_id =TB_PHONE.user_id
+            //                         LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
+            //                                     FROM TB_EMAIL 
+            //                                     GROUP BY TB_EMAIL.user_id) AS T1 
+            //                         ON T1.user_id = TB_USERS.user_id
+            //                         INNER JOIN TB_USER_COMPANY 
+            //                         ON TB_USER_COMPANY.user_id = TB_USERS.user_id
+            //                         INNER JOIN TB_COMPANY 
+            //                         ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
+            //                         WHERE TB_USERS.type_user = ?
+            //                         GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name ,TB_USERS.online',['COMPANY'] );
         }
         else if($type == "CUSTOMER"){
-            return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_COMPANY.company_name,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email  ,TB_USERS.online
-                                    FROM TB_USERS 
-                                    LEFT JOIN TB_PHONE 
-                                    ON TB_USERS.user_id =TB_PHONE.user_id
-                                    LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
-                                                FROM TB_EMAIL
-                                                GROUP BY TB_EMAIL.user_id) AS T1 
-                                    ON T1.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_USER_CUSTOMER 
-                                    ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
-                                    INNER JOIN TB_COMPANY 
-                                    ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
-                                    WHERE TB_USERS.type_user = ?
-                                    GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_COMPANY.company_name ,TB_USERS.online',['CUSTOMER']);
+            $users = $this->model::where('type_user','CUSTOMER')->get();
+            foreach($users as $user){ 
+                $data[] = [
+                    'user_id'=>$user->user_id,
+                    'fname'=>$user->fname,
+                    'lname'=>$user->lname,
+                    'block'=>$user->block,
+                    'created_at'=>$user->created_at,
+                    'updated_at'=>$user->updated_at,
+                    'online'=>$user->online,
+                    'email'=> TB_EMAIL::where('user_id',$user->user_id)->get(),
+                    'phone'=> TB_PHONE::where('user_id',$user->user_id)->get(),
+                    'company'=> DB::select('SELECT TB_COMPANY.company_id,TB_COMPANY.company_name FROM TB_USER_COMPANY 
+                                            INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
+                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_COMPANY.user_id = ?',[$user->user_id]),
+                ];
+            }
+            return $data;
         }
         return;
 
@@ -147,7 +169,7 @@ class EloquentUsers implements UsersRepository
 
     public function countUserOnline($type, $company_id = null)
     {
-        if($company_id == null){
+        if($company_id == 1){
             return DB::select('SELECT if(TB_USERS.online,?,?) as online,COUNT(user_id) as count FROM TB_USERS
                                     WHERE type_user = ?
                                     GROUP BY TB_USERS.online',['online','offline',$type]);
