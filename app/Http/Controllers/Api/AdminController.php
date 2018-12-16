@@ -126,35 +126,6 @@ class AdminController extends Controller
        ];
 
        $this->users->create($attributes);
-
-        // $user = TB_USERS::create([
-        //     'fname'     => $request->get('fname'),
-        //     'lname'     => $request->get('lname'),
-        //     'password'  => Hash::make($request->get('password')),
-        //     'type_user' => 'COMPANY'
-        // ]);
-        
-        // if($user->user_id)
-        // {
-        //     $user_company = TB_USER_COMPANY::create([
-        //         'user_id'       => $user->user_id,
-        //         'company_id'    => $payload["user"]->company_id,
-        //         'sub_type_user' => $request->get('sub_type_user')
-        //     ]);
-
-        //     $email = TB_EMAIL::create([
-        //         'user_id'       => $user->user_id,
-        //         'email_user'    => $request->get('email'),
-        //         'is_verify'     => false,
-        //     ]);
-
-        //     $phone = TB_PHONE::create([
-        //         'user_id'       => $user->user_id,
-        //         'phone_user'    => $request->get('phone')
-        //     ]);
-        // }
-
-        //$request->bearerToken(),201
         return response()->json(["status_code","201"],201);
     }
 
@@ -567,7 +538,7 @@ class AdminController extends Controller
 
     public function countUserOnline(Request $request){
         $type_user = $request->get('type_user');
-        $users = $this->users->countUserOnline($type_user);
+        $users = $this->users->countUserOnline($type_user,1);
         return response()->json(compact('users'),200);
     }
 
