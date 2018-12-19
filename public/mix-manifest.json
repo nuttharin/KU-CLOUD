@@ -8,6 +8,7 @@
     "/js/admin/Users/CompanyUser.min.js": "/js/admin/Users/CompanyUser.min.js",
     "/js/admin/Users/AdminUser.min.js": "/js/admin/Users/AdminUser.min.js",
     "/js/company/static/staticDataTable.min.js": "/js/company/static/staticDataTable.min.js",
+    "/js/admin/Infographic/infographicDataTable.min.js": "/js/admin/Infographic/infographicDataTable.min.js",
     "/js/ManagementUsers.js": "/js/ManagementUsers.js",
     "/js/ManagementAdminUsers.min.js": "/js/ManagementAdminUsers.min.js"
 }

@@ -3,209 +3,84 @@
 @section('content')
 
 <style>
+    table {
+        font-size: 14px;
+    }
+
+    .dataTables_wrapper {
+        font-size: 12px;
+    }
+
+    }
 </style>
-<link href="{{url('css/Infographic.css')}}" rel="stylesheet">
-<link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
-<link href="{{url('css/animate.css')}}" rel="stylesheet">
-<div class="row border-bottom">
-    <div class="col-4 text-left" style="padding: 30px 0px 10px 15px">
-        <span class="h4">Create Infographic</span>
-    </div>
-    <div class="col-8 text-right">
-        <button type="button" id="btn_fullscreen" class="btn btn-default btn-md" style="margin: 20px;">Preview</button>
-        <button type="button" id="btn_download" class="btn btn-primary btn-md">Download</button>
-        <button type="button" id="btn_save" class="btn btn-success btn-md">Save</button>
-    </div>
-</div>
-<div class="row" style="padding: 30px 0px 10px 0px">
-    <div class="col-3">
+
+<div class="card bg-white" style="margin-top:30px;">
+    <div class="card-header bg-white">
         <div class="row">
-            <div class="col-4 vertical-menu">
-                <a href="#" id="btnGraph"><i class="fas fa-chart-line fa-2x"></i></a>
-                <a href="#" id="btnMap"><i class="fas fa-map-marker-alt fa-2x"></i></a>
-                <a href="#" id="btnFont"><i class="fas fa-font fa-2x"></i></a>
-                <a href="#" id="btnImage"><i class="far fa-image fa-2x"></i></a>
-                <a href="#" id="btnShapes"><i class="fab fa-microsoft fa-2x"></i></a>
+            <div class="col-6" style="padding: 30px 0px 10px 15px">
+                <span class="h3">Infographic</span>
             </div>
-            <div class="col-8 select-menu" id="selectMenu" style="display:none">
-                <input type="hidden" id="pathImg" value="{{url('img_test.png')}}" />
+            <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
+                <button type="button" class="btn btn-success btn-radius" id="btn-add-info">
+                    <i class="fa fa-plus"></i>
+                    Create
+                </button>
             </div>
         </div>
     </div>
-    <div class="col-6" id="workfull">
-        <!-- A4 Size -->
-        <page size="A4_115" id="workspace">
+</div>
+<div class="row" style="">
 
-        </page>
-    </div>
-    <div class="col-3">
-        <div class="row" id="propertySpace">
-            <!--Comment-->
-            <!--<div class="propertyMenu">
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-down"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-up"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-left"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-center"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-right"></i></button>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="lds-roller text-center">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-primary Editdata" >Download</button>
-                    <button type="button" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
-                </div>
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default Editdata" >Edit data</button>
-                    <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Chart type</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="bgbright"><img src="{{url('img_test.png')}}" style="width:70%; height:70%;" />
-                                <title>Line</title>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Text change</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control crispyText"/>
-                            <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-6">
-                            <span>Width (px)</span>
-                            <input type="text" class="form-control crispy" />
-                        </div>
-                        <div class="col-6">
-                            <span>Height (px)</span>
-                            <input type="text" class="form-control crispy" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row fontalign">
-                        <div class="col-4">
-                            <span>Color</span>
-                        </div>
-                        <div class="col-8">
-                            <span>Font</span>
-                        </div>
-                    </div>
-                    <div class="row inputalign">
-                        <div class="col-4">
-                            <input type="color" class="colorSP" value="#f6b73c">
-                        </div>
-                        <div class="col-8">
-                            <select type="text" class="form-control">
-                                <option>test</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Font size (pt)</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="9" max="120" value="9" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Rotation</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="0" max="360" value="0" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Transparency (%)</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="0" max="100" value="0" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demo">
-                        <i class="far fa-chart-bar"></i><span>Chart properties</span>
-                    </div>
-                    <div class="GroupBody" id="demo" class="collapse">
-                        Lorem ipsum
-                    </div>
-                </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                        <i class="fas fa-palette"></i><span>Color</span>
-                    </div>
-                    <div class="GroupBody" id="demox" class="collapse">
-                        Lorem ipsum
-                    </div>
-                </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                        <i class="fas fa-list-ul"></i><span>Legend</span>
-                    </div>
-                    <div class="GroupBody" id="demox" class="collapse">
-                        Lorem ipsum
-                    </div>
-                </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                        <i class="fas fa-comment"></i><span>Tooltips</span>
-                    </div>
-                    <div class="GroupBody" id="demox" class="collapse">
-                        Lorem ipsum
-                    </div>
-                </div>             
-            </div>-->
-            <!--Comment-->
+            </div>
         </div>
     </div>
 </div>
 
-    <script type="text/javascript" src="{{url('js/admin/Infographic/WidgetObject.js')}}"></script>
-    <script type="text/javascript" src="{{url('js/admin/Infographic/Infographic.js')}}"></script>
-    <script>
-        $(document).ready(function () {
-        $("#sidebarCollapse").click();
-        $("#selectMenu").hide();
-    });
-
-    </script>
+<div class="modal fade" id="addInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create Infographic</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label>Name</label>
+                        <input type="text" id="info-name" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-save-add-info" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
+                    Save                
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ mix('/js/admin/Infographic/infographicDataTable.min.js') }}"></script>
 @endsection
