@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\LogViewer\SizeLog;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_USERS\UsersRepository;
+use App\Repositories\TB_INFOGRAPHIC\InfographicRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,7 @@ use App\TB_USER_CUSTOMER;
 use App\TB_COMPANY;
 use App\TB_WEBSERVICE;
 use App\TB_REGISTER_WEBSERVICE;
+use App\TB_INFOGRAPHIC;
 use App\LogViewer\LogViewer;
 use email;
 use Mail;
@@ -39,7 +41,9 @@ class AdminController extends Controller
 
     private $auth;
 
-    public  function __construct(UsersRepository $users,CompanyRepository $company)
+    private $info;
+
+    public  function __construct(UsersRepository $users, CompanyRepository $company, InfographicRepository $info )
     {
         if(!Gate::allows('isAdmin')){
             abort('403',"Sorry, You can do this actions");
@@ -48,6 +52,7 @@ class AdminController extends Controller
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');
         $this->company = $company;
+        $this->info = $info;
 
         $this->auth = Auth::user();
     }
@@ -670,6 +675,54 @@ class AdminController extends Controller
     {
         $webService = TB_WEBSERVICE::where('webservice_id',$request->get('id') )
         ->delete();
+        return response()->json(["status","success"],200);
+    }
+
+    public function getAllInfograpic(Request $request)
+    {
+        $token      = $request->cookie('token');
+        $payload    = JWTAuth::setToken($token)->getPayload();
+        $data      = $this->info->getInfographicByUserID($payload["sub"]);
+
+
+        if(empty($data))
+        {           
+            return response()->json(['message' => 'not have data'],200);
+        }
+        
+        return response()->json(compact('data'),200);
+    }
+
+    public function createInfograpic(Request $request)
+    {
+        $token      = $request->cookie('token');
+        $payload    = JWTAuth::setToken($token)->getPayload();
+
+        $addinfo = TB_INFOGRAPHIC::create([
+            'user_id'  => $payload["sub"],
+            'name'     => $request->get('name')
+        ]);
+
+        return response()->json(["status_code","201"],201);
+    }
+
+    public function updateInfograpic(Request $request)
+    {
+        $token      = $request->cookie('token');
+        $payload    = JWTAuth::setToken($token)->getPayload();
+      
+        $info = TB_INFOGRAPHIC::where('info_id', $request->get('info_id'))
+                            ->update([
+                                'name'  => $request->get('name'),
+                            ]);
+
+        return response()->json(["status_code","201"],201);
+    }
+
+    public function deleteInfograpic(Request $request)
+    {
+        $info = TB_INFOGRAPHIC::where('info_id', $request->get('info_id'))
+                                ->delete();
         return response()->json(["status","success"],200);
     }
 }

@@ -32,13 +32,13 @@ class Workspace {
         /* Update widget data */
         for (var i = 0; i < widgetObjectList.length; i++) {
           if (widgetObjectList[i].type == "line") {
-            widgetObjectList[i].canvasTag = document.getElementById("canvas_" + widgetObjectList[i].id).outerHTML;
+            widgetObjectList[i].canvasTag = document.getElementById("div_canvas_" + widgetObjectList[i].id).outerHTML;
           }
           else if (widgetObjectList[i].type == "head") {
             widgetObjectList[i].spanTag = document.getElementById("span_" + widgetObjectList[i].id).outerHTML;
           }
         }
-        console.log(widgetObjectList[0].chartData);
+
         /* Save to localstorage */
         localStorage.setItem("saveObject", CircularJSON.stringify(widgetObjectList));
 
@@ -48,7 +48,10 @@ class Workspace {
       $("#btn_fullscreen").unbind().click(function () {
         var popup = window.open();
         popup.document.write("<h1 id='loading'>Loading...</h1>");
-        html2canvas(document.querySelector("#workfull")).then(canvas => {
+        $(".sPosition").removeClass("fCorner");
+        $(".propertyMenu").html(``);
+
+        html2canvas(document.querySelector("#workspace")).then(canvas => {
           var myImage = canvas.toDataURL("image/png");
           var img = '<img src="' + myImage + '">';
           popup.document.write(img);
@@ -61,8 +64,10 @@ class Workspace {
       $("#btn_download").unbind().click(function () {
         var popup = window.open();
         popup.document.write("<h1>Please wait for download...</h1>");
+        $(".sPosition").removeClass("fCorner");
+        $(".propertyMenu").html(``);
 
-        html2canvas(document.querySelector("#workfull")).then(canvas => {
+        html2canvas(document.querySelector("#workspace")).then(canvas => {
           popup.close();
           var myLinkImage = canvas.toDataURL("image/png");
           var a = $("<a>")
@@ -79,7 +84,8 @@ class Workspace {
       for (var i = 0; i < object.length; i++) {
         if (object[i].type == "line") {
           var lineGraph = new Graph();
-          lineGraph.loadLineGraph(object[i].id, object[i].canvasTag, object[i].chartData, object[i].options);
+
+          lineGraph.loadLineGraph(object[i].id, object[i].canvasTag, object[i].chartData, object[i].chartOption);
         }
         else if (object[i].type == "head") {
           var fontHead = new Font();
@@ -242,7 +248,7 @@ class Widget {
         })
         .resizable({
           // resize from all edges and corners
-          edges: { left: true, right: true, bottom: true, top: true },
+          edges: {left: true, right: true, bottom: true, top: true},
 
           // keep the edges inside the parent
           restrictEdges: {
@@ -314,7 +320,7 @@ class Graph extends Widget {
       var id = Math.floor(100000 + Math.random() * 900000);
       this.clearfocus();
 
-      $("#workspace").append(`<canvas id="canvas_${id}" class="sPosition fCorner"/>`);
+      $("#workspace").append(`<div id="div_canvas_${id}" class="sPosition fCorner"><canvas id="canvas_${id}"/></div>`);
 
       var speedData = {
         labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
@@ -329,6 +335,7 @@ class Graph extends Widget {
 
       var chartOptions = {
         responsive: true,
+        maintainAspectRatio: false,
         legend: {
           display: true,
           position: 'top',
@@ -350,25 +357,25 @@ class Graph extends Widget {
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createGraphProp(id, myChart, "#canvas_" + id);
+      property.createGraphProp(id, myChart, "#div_canvas_" + id);
 
       /* Click each widget event */
-      var widgetObject = this.createWidget(id, "canvas_");
+      var widgetObject = this.createWidget(id, "div_canvas_");
       widgetObject.on('tap', function (event) {
         /* Change focus */
         $(".sPosition").removeClass("fCorner");
-        $("#canvas_" + id).addClass("fCorner");
+        $("#div_canvas_" + id).addClass("fCorner");
 
         /* Clear other property */
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#canvas_" + id);
+        property.createGraphProp(id, myChart, "#div_canvas_" + id);
       })
         .on('dragmove', function (event) {
           /* Change focus */
           $(".sPosition").removeClass("fCorner");
-          $("#canvas_" + id).addClass("fCorner");
+          $("#div_canvas_" + id).addClass("fCorner");
 
           var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
@@ -388,20 +395,23 @@ class Graph extends Widget {
           $(".propertyMenu").html(``);
 
           var property = new ContentProperty();
-          property.createGraphProp(id, myChart, "#canvas_" + id);
+          property.createGraphProp(id, myChart, "#div_canvas_" + id);
         })
+
+
 
       /* Save widget */
       let saveObject = new WidgetObject();
-      console.log(myChart.data);
+      console.log(myChart.options);
       saveObject.LineGraphObject(id, null, myChart.data, myChart.options, "line");
+      console.log(saveObject.chartOption);
       widgetObjectList.push(saveObject);
-      console.log(widgetObjectList[0].chartData);
+      widgetObjectList = deepCopy(widgetObjectList);    
+      console.log(widgetObjectList[0].chartOption);
     }
 
     this.loadLineGraph = (id, canvasTag, chartData, chartOptions) => {
       this.clearfocus();
-
       $("#workspace").append(canvasTag);
 
       let ctx = document.getElementById("canvas_" + id);
@@ -418,22 +428,22 @@ class Graph extends Widget {
       this.clearfocus();
 
       /* Click each widget event */
-      var widgetObject = this.createWidget(id, "canvas_");
+      var widgetObject = this.createWidget(id, "div_canvas_");
       widgetObject.on('tap', function (event) {
         /* Change focus */
         $(".sPosition").removeClass("fCorner");
-        $("#canvas_" + id).addClass("fCorner");
+        $("#div_canvas_" + id).addClass("fCorner");
 
         /* Clear other property */
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart2, "#canvas_" + id);
+        property.createGraphProp(id, myChart2, "#div_canvas_" + id);
       })
         .on('dragmove', function (event) {
           /* Change focus */
           $(".sPosition").removeClass("fCorner");
-          $("#canvas_" + id).addClass("fCorner");
+          $("#div_canvas_" + id).addClass("fCorner");
 
           var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
@@ -453,13 +463,14 @@ class Graph extends Widget {
           $(".propertyMenu").html(``);
 
           var property = new ContentProperty();
-          property.createGraphProp(id, myChart2, "#canvas_" + id);
+          property.createGraphProp(id, myChart2, "#div_canvas_" + id);
         })
 
       /* Save widget */
       let saveObject = new WidgetObject();
       saveObject.LineGraphObject(id, null, myChart2.data, myChart2.options, "line");
       widgetObjectList.push(saveObject);
+      widgetObjectList = deepCopy(widgetObjectList);  
     }
 
     let addLabel = (chart, labels) => {
@@ -733,8 +744,8 @@ class Property {
         $(full_id).css('width', 800);
         $(full_id).css('height', 450);
         $(full_id).removeClass("fCorner");
-
-        html2canvas(document.querySelector(full_id)).then(canvas => {
+        
+        html2canvas(document.querySelector(full_id)).then(div => {
           $(full_id).css('transform', transform);
           $(full_id).css('data-x', data_x);
           $(full_id).css('data-y', data_y);
@@ -742,7 +753,7 @@ class Property {
           $(full_id).css('height', height);
           $(full_id).addClass("fCorner");
 
-          var myImage = canvas.toDataURL("image/png");
+          var myImage = div.toDataURL("image/png");
           var img = '<img src="' + myImage + '">';
           popup.document.write(img);
           popup.document.title = "Preview";
@@ -1088,6 +1099,7 @@ $(document).ready(function () {
   if (object != null) {
     /* Load saved widget */
     //console.log(object[0].data);
+    console.log(object);
     workspace.loadWidgetData(object);
   }
   else {
@@ -1102,3 +1114,10 @@ function arrayRemove(arr, value) {
     return ele.id != value;
   });
 }
+
+let deepCopy = (data) => {
+  return data.map((item) => {
+      return Object.assign({}, item);
+  });
+};
+
