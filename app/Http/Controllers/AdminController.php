@@ -52,7 +52,12 @@ class AdminController extends Controller
     {
         return view('admin.Infographic');
     }
-    
+
+    public function InfographicCustom($id)
+    {
+        return view('admin.Infographic_customize')
+        ->with('id',$id);
+    }
     public function Static()
     {
         return view('admin.Static');

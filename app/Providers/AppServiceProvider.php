@@ -10,6 +10,8 @@ use App\Repositories\TB_USERS\EloquentUsers;
 use App\Repositories\TB_USERS\UsersRepository;
 use App\Repositories\TB_WEBSERVICE\EloquentWebService;
 use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
+use App\Repositories\TB_INFOGRAPHIC\EloquentInfographic;
+use App\Repositories\TB_INFOGRAPHIC\InfographicRepository;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -37,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CompanyRepository::class,EloquentCompany::class);
         $this->app->singleton(WebServiceRepository::class,EloquentWebService::class);
         $this->app->singleton(StaticRepository::class,EloquentStatic::class);
+        $this->app->singleton(InfographicRepository::class,EloquentInfographic::class);
     }
 
 }

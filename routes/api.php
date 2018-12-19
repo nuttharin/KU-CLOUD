@@ -106,5 +106,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('admin/webservice/addRegisWebService','Api\AdminController@addRegisWebService');
     Route::post('admin/webservice/editRegisWebService','Api\AdminController@editRegisWebService');
     Route::post('admin/webservice/deletewebservice','Api\AdminController@deletewebservice');
+
+    Route::get('admin/infographic/getInfoByUserID','Api\AdminController@getAllInfograpic');
+    Route::post('admin/infographic/create','Api\AdminController@createInfograpic');
+    Route::put('admin/infographic/update','Api\AdminController@updateInfograpic');
+    Route::delete('admin/infographic/delete','Api\AdminController@deleteInfograpic');
 });
 
