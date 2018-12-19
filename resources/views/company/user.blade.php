@@ -123,7 +123,8 @@
                     <tbody>
                     </tbody>
                 </table>
-                <div class="lds-roller text-center">
+                {{--
+                <div class="lds-roller text-center" style="">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -132,7 +133,7 @@
                     <div></div>
                     <div></div>
                     <div></div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

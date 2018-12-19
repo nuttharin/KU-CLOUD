@@ -570,7 +570,7 @@ export class ManagementUsers {
             }
             else {
                 $(".dataTables_wrapper").show();
-                $('.lds-roller').hide();
+                //$('.lds-roller').hide();
                 $('.text-loading').hide();
                 $('#example').show();
                 $('.text-static').show();
@@ -578,84 +578,232 @@ export class ManagementUsers {
         };
 
         let createTableUsersCompany = () => {
-            let Datatable = [];
-            UsersDATATABLE.fnClearTable();
-            $.each(UsersList, function (index, item) {
-                let ret = [];
-                let btnBlock = `                            
-                <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
-                    <i class="fas fa-times"></i>
-                </button>`;
-                if (item.block) {
-                    btnBlock = `                            
-                    <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="UnBlock">
-                        <i class="fas fa-unlock"></i>
-                    </button>`;
-                }
-                ret[0] = item.fname + " " + item.lname;
-                ret[1] = item.phone[0].phone_user;
-                ret[2] = item.email[0].email_user;
-                ret[3] = item.block ? '<b class="text-danger">Block</b>' : 'Unblock';
-                ret[4] = item.sub_type_user;
-                ret[5] = item.online ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
-                ret[6] = `<center>
-                                <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
-                                    data-placement="top" title="Detail">
-                                    <i class="fas fa-list"></i>
-                                </button>
-                                <button type="button" class="btn btn-success btn-sm btn-edit" index=${index}  data-toggle="tooltip"
-                                    data-placement="top" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                ${btnBlock}
-                                <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
-                                    data-placement="top" title="Delete">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </center>`;
-                Datatable.push(ret);
-            });
-            UsersDATATABLE.fnAddData(Datatable);
+            if (UsersDATATABLE != null) {
+                let page = UsersDATATABLE.page.info().page;
+                UsersDATATABLE.ajax.reload();
+                UsersDATATABLE.page(page).draw('page');
+            }
+            else {
+                UsersDATATABLE = $('#example').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "destroy": true,
+                    "responsive": true,
+                    "oLanguage": {
+                        sProcessing: `<h5>Loading . . .</h5>`
+                    },
+                    "ajax": {
+                        url: END_POINT + config.getUsers,
+                        "dataSrc": function (json) {
+                            UsersList = json.data;
+                            return json.data;
+                        }
+                    },
+                    "columns": [
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.fname + " " + row.lname;
+                            }
+                        },
+                        { data: 'phone[0].phone_user' },
+                        { data: 'email[0].email_user' },
+                        {
+                            "mData": "block",
+                            "mRender": function (data, type, row) {
+                                return data ? '<b class="text-danger">Block</b>' : 'Unblock';
+                            }
+                        },
+                        { data: 'sub_type_user' },
+                        {
+                            "mData": "online",
+                            "mRender": function (data, type, row) {
+                                return data ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
+                            }
+                        },
+                        {
+                            "mRender": function (data, type, row, index) {
+                                let btnBlock = `                            
+                            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index.row} data-toggle="tooltip" data-placement="top" title="Block">
+                                <i class="fas fa-times"></i>
+                            </button>`;
+                                if (row.block) {
+                                    btnBlock = `                            
+                                <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index.row} data-toggle="tooltip" data-placement="top" title="UnBlock">
+                                    <i class="fas fa-unlock"></i>
+                                </button>`;
+                                }
+                                return `<center>
+                                            <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index.row} data-toggle="tooltip"
+                                                data-placement="top" title="Detail">
+                                                <i class="fas fa-list"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-sm btn-edit" index=${index.row}  data-toggle="tooltip"
+                                                data-placement="top" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            ${btnBlock}
+                                            <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index.row}  data-toggle="tooltip"
+                                                data-placement="top" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </center>`;
+                            }
+                        }
+                    ]
+                });
+            }
+
+            // let Datatable = [];
+            // UsersDATATABLE.fnClearTable();
+            // $.each(UsersList, function (index, item) {
+            //     let ret = [];
+            //     let btnBlock = `                            
+            //     <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
+            //         <i class="fas fa-times"></i>
+            //     </button>`;
+            //     if (item.block) {
+            //         btnBlock = `                            
+            //         <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="UnBlock">
+            //             <i class="fas fa-unlock"></i>
+            //         </button>`;
+            //     }
+            //     ret[0] = item.fname + " " + item.lname;
+            //     ret[1] = item.phone[0].phone_user;
+            //     ret[2] = item.email[0].email_user;
+            //     ret[3] = item.block ? '<b class="text-danger">Block</b>' : 'Unblock';
+            //     ret[4] = item.sub_type_user;
+            //     ret[5] = item.online ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
+            //     ret[6] = `<center>
+            //                     <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
+            //                         data-placement="top" title="Detail">
+            //                         <i class="fas fa-list"></i>
+            //                     </button>
+            //                     <button type="button" class="btn btn-success btn-sm btn-edit" index=${index}  data-toggle="tooltip"
+            //                         data-placement="top" title="Edit">
+            //                         <i class="fas fa-edit"></i>
+            //                     </button>
+            //                     ${btnBlock}
+            //                     <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
+            //                         data-placement="top" title="Delete">
+            //                         <i class="fas fa-trash-alt"></i>
+            //                     </button>
+            //                 </center>`;
+            //     Datatable.push(ret);
+            // });
+            // UsersDATATABLE.fnAddData(Datatable);
         };
 
         let createTableUsersCustomer = () => {
-            let Datatable = [];
-            UsersDATATABLE.fnClearTable();
-            $.each(UsersList, function (index, item) {
-                let ret = [];
-                let btnBlock = `                            
-                <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
-                    <i class="fas fa-times"></i>
-                </button>`;
-                if (item.block) {
-                    btnBlock = `                            
-                    <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="UnBlock">
-                        <i class="fas fa-unlock"></i>
-                    </button>`;
-                }
-                ret[0] = item.fname + " " + item.lname;
-                ret[1] = item.phone[0].phone_user;
-                ret[2] = item.email[0].email_user;
-                ret[3] = item.block ? '<b class="text-danger">Block</b>' : 'Unblock';
-                ret[4] = item.online ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
-                ret[5] = `<center>
-                                <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
-                                    data-placement="top" title="Detail">
-                                    <i class="fas fa-list"></i>
-                                </button>
-                                <button type="button" class="btn btn-success btn-sm btn-edit" index=${index}  data-toggle="tooltip"
-                                    data-placement="top" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                ${btnBlock}
-                                <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
-                                    data-placement="top" title="Delete">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </center>`;
-                Datatable.push(ret);
-            });
-            UsersDATATABLE.fnAddData(Datatable);
+            if (UsersDATATABLE != null) {
+                let page = UsersDATATABLE.page.info().page;
+                UsersDATATABLE.ajax.reload();
+                UsersDATATABLE.page(page).draw('page');
+            }
+            else {
+                UsersDATATABLE = $('#example').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "destroy": true,
+                    "responsive": true,
+                    "oLanguage": {
+                        sProcessing: `<h5>Loading . . .</h5>`
+                    },
+                    "ajax": {
+                        url: END_POINT + config.getUsers,
+                        "dataSrc": function (json) {
+                            UsersList = json.data;
+                            return json.data;
+                        }
+                    },
+                    "columns": [
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.fname + " " + row.lname;
+                            }
+                        },
+                        { data: 'phone[0].phone_user' },
+                        { data: 'email[0].email_user' },
+                        {
+                            "mData": "block",
+                            "mRender": function (data, type, row) {
+                                return data ? '<b class="text-danger">Block</b>' : 'Unblock';
+                            }
+                        },
+                        {
+                            "mData": "online",
+                            "mRender": function (data, type, row) {
+                                return data ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
+                            }
+                        },
+                        {
+                            "mRender": function (data, type, row, index) {
+                                let btnBlock = `                            
+                            <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index.row} data-toggle="tooltip" data-placement="top" title="Block">
+                                <i class="fas fa-times"></i>
+                            </button>`;
+                                if (row.block) {
+                                    btnBlock = `                            
+                                <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index.row} data-toggle="tooltip" data-placement="top" title="UnBlock">
+                                    <i class="fas fa-unlock"></i>
+                                </button>`;
+                                }
+                                return `<center>
+                                            <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index.row} data-toggle="tooltip"
+                                                data-placement="top" title="Detail">
+                                                <i class="fas fa-list"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-sm btn-edit" index=${index.row}  data-toggle="tooltip"
+                                                data-placement="top" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            ${btnBlock}
+                                            <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index.row}  data-toggle="tooltip"
+                                                data-placement="top" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </center>`;
+                            }
+                        }
+                    ]
+                });
+            }
+            // let Datatable = [];
+            // UsersDATATABLE.fnClearTable();
+            // $.each(UsersList, function (index, item) {
+            //     let ret = [];
+            //     let btnBlock = `                            
+            //     <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="Block">
+            //         <i class="fas fa-times"></i>
+            //     </button>`;
+            //     if (item.block) {
+            //         btnBlock = `                            
+            //         <button type="button" class="btn btn-secondary btn-sm btn-block-user" index=${index} data-toggle="tooltip" data-placement="top" title="UnBlock">
+            //             <i class="fas fa-unlock"></i>
+            //         </button>`;
+            //     }
+            //     ret[0] = item.fname + " " + item.lname;
+            //     ret[1] = item.phone[0].phone_user;
+            //     ret[2] = item.email[0].email_user;
+            //     ret[3] = item.block ? '<b class="text-danger">Block</b>' : 'Unblock';
+            //     ret[4] = item.online ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
+            //     ret[5] = `<center>
+            //                     <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
+            //                         data-placement="top" title="Detail">
+            //                         <i class="fas fa-list"></i>
+            //                     </button>
+            //                     <button type="button" class="btn btn-success btn-sm btn-edit" index=${index}  data-toggle="tooltip"
+            //                         data-placement="top" title="Edit">
+            //                         <i class="fas fa-edit"></i>
+            //                     </button>
+            //                     ${btnBlock}
+            //                     <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
+            //                         data-placement="top" title="Delete">
+            //                         <i class="fas fa-trash-alt"></i>
+            //                     </button>
+            //                 </center>`;
+            //     Datatable.push(ret);
+            // });
+            // UsersDATATABLE.fnAddData(Datatable);
         };
 
         let onSaveUserClick = (el) => {
@@ -688,31 +836,31 @@ export class ManagementUsers {
                     $("#addUser").modal('hide');
                 },
                 error: (res) => {
-                    //console.log(res);
+                    console.log(res);
                     LOADING.reset(el);
-                    let errorList = res.responseJSON.errors;
-                    let error_target = {
-                        email: {
-                            el: $("#add_email_val"),
-                        },
-                        password: {
-                            el: $("#add_pwd_val"),
-                        },
-                        fname: {
-                            el: $("#add_fname_val"),
-                        },
-                        lname: {
-                            el: $("#add_lname_val"),
-                        },
-                        phone: {
-                            el: $("#add_phone_val"),
-                        },
-                        sub_type_user: {
-                            el: $("#add_type_user_val"),
-                        }
-                    };
-                    //console.log(errorList);
-                    ERROR_INPUT.set(error_target, errorList);
+                    // let errorList = res.responseJSON.errors;
+                    // let error_target = {
+                    //     email: {
+                    //         el: $("#add_email_val"),
+                    //     },
+                    //     password: {
+                    //         el: $("#add_pwd_val"),
+                    //     },
+                    //     fname: {
+                    //         el: $("#add_fname_val"),
+                    //     },
+                    //     lname: {
+                    //         el: $("#add_lname_val"),
+                    //     },
+                    //     phone: {
+                    //         el: $("#add_phone_val"),
+                    //     },
+                    //     sub_type_user: {
+                    //         el: $("#add_type_user_val"),
+                    //     }
+                    // };
+                    // //console.log(errorList);
+                    // ERROR_INPUT.set(error_target, errorList);
                 }
             });
         };
@@ -833,21 +981,24 @@ export class ManagementUsers {
         };
 
         this.showLastestDatatable = () => {
-            showDatatableLoadingStatus(true);
-            $.ajax({
-                url: END_POINT + config.getUsers,
-                method: 'GET',
-                success: function (result) {
-                    //console.log(result);
-                    initialDatatable();
-                    UsersList = result.data;
-                    showDatatableLoadingStatus(false);
-                    updateDatatableData();
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+            //showDatatableLoadingStatus(true);
+            updateDatatableData();
+
+            // $.ajax({
+            //     url: END_POINT + config.getUsers,
+            //     method: 'GET',
+            //     success: function (result) {
+            //         //console.log(result);
+            //         initialDatatable();
+            //         UsersList = result.data;
+            //         showDatatableLoadingStatus(false);
+            //         updateDatatableData();
+            //     },
+            //     error: function (error) {
+            //         console.log(error);
+            //     }
+            // });
+
 
             $.ajax({
                 url: END_POINT + config.getOnlineUsers,
@@ -856,6 +1007,7 @@ export class ManagementUsers {
                     type_user: config.type,
                 },
                 success: function (result) {
+                    showDatatableLoadingStatus(false);
                     let sum = 0;
                     for (let i in result.users) {
                         sum += Number(result.users[i].count);

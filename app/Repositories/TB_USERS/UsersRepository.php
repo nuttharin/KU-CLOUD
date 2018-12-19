@@ -15,9 +15,13 @@ interface UsersRepository
 
     public  function getByTypeForAdmin($type);
 
-    public  function getByTypeForCompany($type,$company_id);
+    public  function getByTypeForCompany($type,$company_id,$start,$length);
+
+    public  function searchByTypeForCompany($type,$company_id,$start,$length,$search);
 
     public  function countUserOnline($type,$company_id = null);
+
+    public  function countUser($type,$company_id);
 
     public  function create(array $attributes);
 
