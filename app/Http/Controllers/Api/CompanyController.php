@@ -74,12 +74,47 @@ class CompanyController extends Controller
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
 
-        $data = $this->users->getByTypeForCompany('COMPANY',$payload["user"]->company_id);
-        if(!empty($data)){
-            $this->log_viewer->logRequest($request);
-            return response()->json(compact('data'),200);
+        $draw = $request->input('draw');
+        $start = $request->input('start');
+        $length = $request->input('length');
+        $search = $request->input('search.value');
+        $total_user = $this->users->countUser('COMPANY', $payload["user"]->company_id)[0]->count;
+
+        if(empty($search)) {
+            $data = $this->users->getByTypeForCompany('COMPANY', $payload["user"]->company_id, $start, $length);
+            
+            if (!empty($data)) {
+                $this->log_viewer->logRequest($request);
+                $test = array(
+                    'draw' => $draw,
+                    'recordsTotal' => $total_user,
+                    'recordsFiltered' => $total_user,
+                    'data' => $data,
+                );
+
+                return response()->json($test, 200);
+            }
         }
-        return response()->json(['message' => 'not have data'],200);
+        else{
+            $data = $this->users->searchByTypeForCompany('COMPANY', $payload["user"]->company_id, $start, $length,$search);
+            if (!empty($data)) {
+                $this->log_viewer->logRequest($request);
+                $test = array(
+                    'draw' => $draw,
+                    'recordsTotal' => $total_user,
+                    'recordsFiltered' => count($data),
+                    'data' => $data,
+                );
+
+                return response()->json($test, 200);
+            }
+        }
+        return response()->json([ 
+            'draw' => 0,
+            'recordsTotal' => 0,
+            'recordsFiltered' => 0,
+            'data' => []
+        ],200);
     }
 
     public function addUserCompany(UsersRequest $request) {
@@ -156,12 +191,49 @@ class CompanyController extends Controller
     }
 
     public function getAllCustomer(Request $request){
-        $data = $this->users->getByTypeForCompany('CUSTOMER',$this->auth->user_company()->first()->company_id);
-        if(!empty($data)){
-            $this->log_viewer->logRequest($request);
-            return response()->json(compact('data'),200);
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        
+        $draw = $request->input('draw');
+        $start = $request->input('start');
+        $length = $request->input('length');
+        $search = $request->input('search.value');
+        $total_user = $this->users->countUser('CUSTOMER', $payload["user"]->company_id)[0]->count;
+
+        if(empty($search)) {
+            $data = $this->users->getByTypeForCompany('CUSTOMER', $payload["user"]->company_id, $start, $length);
+            if (!empty($data)) {
+                $this->log_viewer->logRequest($request);
+                $test = array(
+                    'draw' => $draw,
+                    'recordsTotal' => $total_user,
+                    'recordsFiltered' => $total_user,
+                    'data' => $data,
+                );
+
+                return response()->json($test, 200);
+            }
         }
-        return response()->json(['message' => 'not have data'],200);
+        else{
+            $data = $this->users->searchByTypeForCompany('CUSTOMER', $payload["user"]->company_id, $start, $length,$search);
+            if (!empty($data)) {
+                $this->log_viewer->logRequest($request);
+                $test = array(
+                    'draw' => $draw,
+                    'recordsTotal' => $total_user,
+                    'recordsFiltered' => count($data),
+                    'data' => $data,
+                );
+
+                return response()->json($test, 200);
+            }
+        }
+        return response()->json([ 
+            'draw' => 0,
+            'recordsTotal' => 0,
+            'recordsFiltered' => 0,
+            'data' => []
+        ],200);
     }
 
     public function addUserCustomer(Request $request){

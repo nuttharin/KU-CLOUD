@@ -70,6 +70,7 @@
             let js = apiSelect + "['"+api+"']";
             $("#data").html(js);
             let key = Object.keys(eval(js));
+            console.log(key);
             key.map(_key => {
                 let test = js + "['"+_key+"']";
                 $("#data-list").append(`<li class="value-data list-group-item" style="cursor:pointer" value="${_key}">${_key} : ${eval(test)}</li>`)
