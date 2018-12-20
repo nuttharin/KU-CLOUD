@@ -44,6 +44,22 @@
     .flip {
         transform: rotate(180deg);
     }
+
+    #data-list {
+        height: 200px;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        z-index: 50;
+    }
+
+    .list-group-item:hover {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
 </style>
 
 <div id="layout-full-screen">
@@ -176,11 +192,14 @@
                             <div class="row" id="Mutiline_value">
                                 <div class="col-3">
                                     <label for="">Channel</label>
-                                    <input type="text" class="form-control">
+                                    <select class="form-control select-datasource">
+                                        
+                                    </select>
                                 </div>
                                 <div class="col-3">
-                                    <label for="">Resource</label>
-                                    <select name="" id="" class="form-control value-y-chart-line"></select>
+                                    <label for="">Value</label>
+                                    <input class="form-control value-datasource">
+                                    <ul id="data-list" class="list-group">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Label</label>
@@ -321,11 +340,14 @@
 <div id="line_value_layout" hidden>
     <div class="col-3">
         <label for="">Channel</label>
-        <input type="text" class="form-control">
+        <select class="form-control select-datasource">
+                    
+                </select>
     </div>
     <div class="col-3">
-        <label for="">Resource</label>
-        <select name="" id="" class="form-control value-y-chart-line"></select>
+        <label for="">Value</label>
+        <input class="form-control value-datasource">
+        <ul id="data-list" class="list-group">
     </div>
     <div class="col-3">
         <label for="">Label</label>

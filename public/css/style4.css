@@ -530,3 +530,12 @@ ul ul a {
 .input-error{
     border-color: #d9534f;
 }
+
+/* dataTable */
+
+.dataTables_processing {
+    background-color: transparent !important;
+    border: none;
+    box-shadow:none;
+
+}

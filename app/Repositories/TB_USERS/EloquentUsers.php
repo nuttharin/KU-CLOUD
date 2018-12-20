@@ -18,6 +18,10 @@ use App\TB_USER_CUSTOMER;
 use DB;
 use Log;
 
+use email;
+use Mail;
+use Illuminate\Mail\Message;
+
 class EloquentUsers implements UsersRepository
 {
 
@@ -39,7 +43,8 @@ class EloquentUsers implements UsersRepository
     {
         $data = [];
         if($type == "ADMIN") {
-            $users = $this->model::where('type_user','ADMIN')->get();
+            $users = $this->model::where('type_user','ADMIN')
+                    ->get();
             foreach($users as $user){ 
                 $data[] = [
                     'user_id'=>$user->user_id,
@@ -111,16 +116,21 @@ class EloquentUsers implements UsersRepository
             return $data;
         }
         return;
-
         // TODO: Implement getByTypeAdmin() method.
     }
 
-    public function getByTypeForCompany($type,$company_id)
+    public function getByTypeForCompany($type,$company_id,$start = null,$length =null)
     {
         if($type == "COMPANY") {
-            $users = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USER_COMPANY.sub_type_user,TB_USERS.block,TB_USERS.online,TB_USERS.created_at,TB_USERS.updated_at FROM TB_USERS
-                                 INNER JOIN TB_USER_COMPANY ON TB_USER_COMPANY.user_id = TB_USERS.user_id
-                                 WHERE TB_USERS.type_user = ? AND TB_USER_COMPANY.company_id = ?',[$type,$company_id]);
+            $users =   DB::table('TB_USERS')->where([
+                                                        ['TB_USERS.type_user','=',$type],
+                                                        ['TB_USER_COMPANY.company_id','=',$company_id]
+                                                    ])
+            ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_USERS.user_id')
+            ->offset($start)
+            ->limit($length)
+            ->get();
+
             foreach($users as $user){ 
                 $data[] = [
                     'user_id'=>$user->user_id,
@@ -138,9 +148,15 @@ class EloquentUsers implements UsersRepository
             return $data;
         }
         else if($type == "CUSTOMER"){
-            $users = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.online,TB_USERS.created_at,TB_USERS.updated_at FROM TB_USERS
-                                 INNER JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
-                                 WHERE TB_USERS.type_user = ? AND TB_USER_CUSTOMER.company_id = ?',[$type,$company_id]);
+            $users =   DB::table('TB_USERS')->where([
+                ['TB_USERS.type_user','=',$type],
+                ['TB_USER_CUSTOMER.company_id','=',$company_id]
+            ])
+            ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_USERS.user_id')
+            ->offset($start)
+            ->limit($length)
+            ->get();
+
             foreach($users as $user){ 
                 $data[] = [
                     'user_id'=>$user->user_id,
@@ -155,17 +171,106 @@ class EloquentUsers implements UsersRepository
                 ];
             }
             return $data;
-
-            // return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email,TB_USERS.block,TB_USERS.online FROM TB_USERS 
-            //                       LEFT JOIN TB_PHONE ON TB_USERS.user_id =TB_PHONE.user_id
-            //                       LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email FROM TB_EMAIL
-            //                       GROUP BY TB_EMAIL.user_id) AS T1 ON T1.user_id = TB_USERS.user_id
-            //                       INNER JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
-            //                       INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
-            //                       WHERE TB_USERS.type_user = ? AND TB_COMPANY.company_id = ?
-            //                       GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.online',[$type,$company_id]);
         }
-        // TODO: Implement getByTypeForCompany() method.
+    }
+
+    public  function searchByTypeForCompany($type,$company_id,$start,$length,$search){
+        $data = null;
+        $table = null;
+        
+        switch (strtolower($search)){
+            case 'unblock':
+            case 'offline':
+                $search = false;
+                break;
+            case 'block':
+            case 'online':
+                $search = true;
+                break;   
+        }
+
+        if($type == 'COMPANY') {
+            $users =   DB::table('TB_USERS')->where([
+                                                        ['TB_USERS.type_user','=',$type],
+                                                        ['TB_USER_COMPANY.company_id','=',$company_id],     
+                                                        
+                                            ])
+                                            ->where(function($query) use ($search)
+                                            {
+                                                $query->orWhere('TB_USERS.fname','LIKE',"%{$search}%")  
+                                                      ->orWhere('TB_USERS.lname','LIKE',"%{$search}%")
+                                                      ->orWhere('TB_USERS.block','=',$search)
+                                                      ->orWhere('TB_USERS.online','=',$search)
+                                                      ->orWhere('TB_PHONE.phone_user','LIKE',"%{$search}%")
+                                                      ->orWhere('TB_EMAIL.email_user','LIKE',"%{$search}%");
+                                            })
+            ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_USERS.user_id')
+            ->join('TB_PHONE','TB_PHONE.user_id','=','TB_USERS.user_id')
+            ->join('TB_EMAIL','TB_EMAIL.user_id','=','TB_USERS.user_id')
+            ->offset($start)
+            ->limit($length)
+            ->get();        
+
+            $user_id = null;
+            foreach($users as $user){
+                if($user_id != $user->user_id){
+                    $user_id = $user->user_id;
+                    $data[] = [
+                        'user_id'=>$user->user_id,
+                        'fname'=>$user->fname,
+                        'lname'=>$user->lname,
+                        'sub_type_user'=>$user->sub_type_user,
+                        'block'=>$user->block,
+                        'created_at'=>$user->created_at,
+                        'updated_at'=>$user->updated_at,
+                        'online'=>$user->online,
+                        'email'=>TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                        'phone'=>TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    ];
+                }
+            }
+            return $data;
+        }
+        else if($type == 'CUSTOMER'){
+            $users =   DB::table('TB_USERS')->where([
+                                                        ['TB_USERS.type_user','=',$type],
+                                                        ['TB_USER_CUSTOMER.company_id','=',$company_id],     
+                                            ])
+                                            ->where(function($query) use ($search)
+                                            {
+                                                $query->orWhere('TB_USERS.fname','LIKE',"%{$search}%")  
+                                                      ->orWhere('TB_USERS.lname','LIKE',"%{$search}%")
+                                                      ->orWhere('TB_USERS.block','=',$search)
+                                                      ->orWhere('TB_USERS.online','=',$search)
+                                                      ->orWhere('TB_PHONE.phone_user','LIKE',"%{$search}%")
+                                                      ->orWhere('TB_EMAIL.email_user','LIKE',"%{$search}%");
+                                            })    
+            ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_USERS.user_id')
+            ->join('TB_PHONE','TB_PHONE.user_id','=','TB_USERS.user_id')
+            ->join('TB_EMAIL','TB_EMAIL.user_id','=','TB_USERS.user_id')
+            ->offset($start)
+            ->limit($length)
+            ->get();        
+
+            $user_id = null;
+            foreach($users as $user){
+                if($user_id != $user->user_id){
+                $user_id = $user->user_id;
+                $data[] = [
+                        'user_id'=>$user->user_id,
+                        'fname'=>$user->fname,
+                        'lname'=>$user->lname,
+                        'block'=>$user->block,
+                        'created_at'=>$user->created_at,
+                        'updated_at'=>$user->updated_at,
+                        'online'=>$user->online,
+                        'email'=>TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                        'phone'=>TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    ];
+                }
+            }
+            return $data;
+        }
     }
 
     public function countUserOnline($type, $company_id = null)
@@ -191,6 +296,26 @@ class EloquentUsers implements UsersRepository
         }
         return;
         // TODO: Implement countUserOnline() method.
+    }
+
+    public  function countUser($type,$company_id){
+        if($company_id == 1){
+            return DB::select('SELECT COUNT(user_id) as count FROM TB_USERS
+                                    WHERE type_user = ?',[$type]);
+        }
+        else{
+            if($type == 'COMPANY') {
+                return DB::select('SELECT COUNT(TB_USERS.user_id) as count FROM TB_USERS
+                                        INNER JOIN TB_USER_COMPANY ON TB_USER_COMPANY.user_id = TB_USERS.user_id
+                                        WHERE type_user = ? AND TB_USER_COMPANY.company_id = ?',[$type,$company_id]);
+            }
+            else if($type == 'CUSTOMER'){
+                return DB::select('SELECT COUNT(TB_USERS.user_id) as count FROM TB_USERS
+                                        INNER JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
+                                        WHERE type_user = ? AND TB_USER_CUSTOMER.company_id = ?', [$type,$company_id]);
+            }
+        }
+        return;
     }
 
     public function create(array $attributes)
@@ -272,6 +397,21 @@ class EloquentUsers implements UsersRepository
                     ]);
                 }
             }
+
+            // $name = $attributes['fname']." ".$attributes['lname'];
+            // $email = $attributes['email_user'];
+
+            // $verification_code = str_random(30); //Generate verification code
+            
+            // DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
+            // $subject = "Please verify your email address.";
+            // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email],
+            //     function($mail) use ($email, $name, $subject){            
+            //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD Name Goes Here");
+            //         $mail->to($email, $name);
+            //         $mail->subject($subject);
+            // });
+
         }
         catch(Exception $e) {
             DB::rollBack();
