@@ -69,6 +69,8 @@
 
     <link rel="stylesheet" href="{{url('freetrans/jquery.freetrans.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
+
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 </head>
 
 <body>

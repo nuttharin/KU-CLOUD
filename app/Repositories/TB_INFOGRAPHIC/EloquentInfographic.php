@@ -49,7 +49,14 @@ class EloquentInfographic implements InfographicRepository
         }
 
         return $data;
-
     }
+
+    public function getInfographicByInfoID($info_id)
+    {
+        $infoDataList = $this->model::where('info_id', $info_id)->first();
+
+        return $infoDataList;
+    }
+
 
 }

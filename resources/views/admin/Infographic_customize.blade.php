@@ -2,11 +2,14 @@
 @section('title','Admin | Company') 
 @section('content')
 
-<style>
-</style>
 <link href="{{url('css/Infographic.css')}}" rel="stylesheet">
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
+
+<!-- Hidden Value -->
+<input type="hidden" id="pathImg" value="{{url('imagemenu')}}" />
+<input type="hidden" id="infoID" value="{{$id}}" />
+
 <div class="row border-bottom">
     <div class="col-4 text-left" style="padding: 30px 0px 10px 15px">
         <span class="h4">Custom Infographic</span>
@@ -28,13 +31,13 @@
                 <a href="#" id="btnShapes"><i class="fab fa-microsoft fa-2x"></i></a>
             </div>
             <div class="col-8 select-menu" id="selectMenu" style="display:none">
-                <input type="hidden" id="pathImg" value="{{url('img_test.png')}}" />
+            
             </div>
         </div>
     </div>
     <div class="col-6" id="workfull">
         <!-- A4 Size -->
-        <page size="A4_115" id="workspace">
+        <page size="A4" id="workspace">
 
         </page>
     </div>

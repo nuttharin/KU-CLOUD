@@ -108,8 +108,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('admin/webservice/deletewebservice','Api\AdminController@deletewebservice');
 
     Route::get('admin/infographic/getInfoByUserID','Api\AdminController@getAllInfograpic');
+    Route::get('admin/infographic/getInfoByInfoID','Api\AdminController@getInfograpicData');
     Route::post('admin/infographic/create','Api\AdminController@createInfograpic');
     Route::put('admin/infographic/update','Api\AdminController@updateInfograpic');
+    Route::put('admin/infographic/updateInfoData','Api\AdminController@updateInfograpicData');
     Route::delete('admin/infographic/delete','Api\AdminController@deleteInfograpic');
 });
 
