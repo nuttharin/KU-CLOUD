@@ -1,7 +1,8 @@
-
-var path = $("#pathImg").val();
-let widgetObjectList = [];
-var CircularJSON = window.CircularJSON;
+const END_POINT       = 'http://localhost:8000/api/';
+var path              = $("#pathImg").val();
+var infoID            = $("#infoID").val();
+var CircularJSON      = window.CircularJSON;
+let widgetObjectList  = [];
 
 class Workspace {
   constructor() {
@@ -28,8 +29,7 @@ class Workspace {
       });
 
       $("#btn_save").unbind().click(function () {
-
-        /* Update widget data */
+        /* Update position widget data */
         for (var i = 0; i < widgetObjectList.length; i++) {
           if (widgetObjectList[i].type == "line") {
             widgetObjectList[i].canvasTag = document.getElementById("div_canvas_" + widgetObjectList[i].id).outerHTML;
@@ -39,47 +39,64 @@ class Workspace {
           }
         }
 
-        /* Save to localstorage */
-        localStorage.setItem("saveObject", CircularJSON.stringify(widgetObjectList));
-
-        var object = CircularJSON.parse(localStorage.getItem("saveObject"));
-      });
+        /* Save info data to database  */
+        $.ajax({
+          url: END_POINT + 'admin/infographic/updateInfoData',
+          method: 'PUT',
+          data: {
+              info_id:   infoID,
+              info_data: CircularJSON.stringify(widgetObjectList),
+          },
+          success: (res) => {
+            console.log("success");
+          },
+          error: (res) => {
+            console.log("error");
+          }
+        }); //Ajax
+      }); //Btn save
 
       $("#btn_fullscreen").unbind().click(function () {
         var popup = window.open();
         popup.document.write("<h1 id='loading'>Loading...</h1>");
+
+        //Set object for fullscreen
         $(".sPosition").removeClass("fCorner");
         $(".propertyMenu").html(``);
 
+        //Generate to image
         html2canvas(document.querySelector("#workspace")).then(canvas => {
           var myImage = canvas.toDataURL("image/png");
-          var img = '<img src="' + myImage + '">';
+          var img     = '<img src="' + myImage + '">';
+
           popup.document.write(img);
           popup.document.title = "Preview";
           popup.document.getElementById("loading").remove();
-        });
-
-      });
+        }); //Html2canvas
+      }); //Btn fullscreen
 
       $("#btn_download").unbind().click(function () {
         var popup = window.open();
         popup.document.write("<h1>Please wait for download...</h1>");
+
+        //Set object for fullscreen
         $(".sPosition").removeClass("fCorner");
         $(".propertyMenu").html(``);
 
+        //Generate to image
         html2canvas(document.querySelector("#workspace")).then(canvas => {
           popup.close();
           var myLinkImage = canvas.toDataURL("image/png");
-          var a = $("<a>")
-            .attr("href", myLinkImage)
-            .attr("download", "ImageDownload.png")
-            .appendTo("body");
-          a[0].click();
-          a.remove();
-        });
-      });
-    };
+          var pdf         = new jsPDF();
 
+          pdf.addImage(myLinkImage, 'JPEG', 0, 0);
+          pdf.save("ImageDownload.pdf");
+        }); //Html2canvas
+      }); //BTn download
+
+    }; // Initial and run
+
+    /* Load saved widget data */
     this.loadWidgetData = (object) => {
       for (var i = 0; i < object.length; i++) {
         if (object[i].type == "line") {
@@ -92,10 +109,9 @@ class Workspace {
           fontHead.loadHeadGraph(object[i].id, object[i].spanTag);
         }
       }
+    } // Load widget data
 
-    }
-
-    /* Initial Action Function */
+    /* Initial Element Action Function */
     var graphMenu = () => {
       if ($("#btnGraph").hasClass("actives")) {
         UnActive("btnGraph");
@@ -104,10 +120,10 @@ class Workspace {
         SetActive("btnGraph");
 
         $("#selectMenu").html(`<top class="head">Add Graph<close><i class="fas fa-times"></i></close></top>
-                                <sub id="g1"><img src="${path}" style="width:100%; height:100%;"/><title>Line</title></sub>
-                                <sub id="g2"><img src="${path}" style="width:100%; height:100%;"/><title>Bar</title></sub>
-                                <sub id="g3"><img src="${path}" style="width:100%; height:100%;"/><title>Circle</title></sub>
-                                <sub id="g4"><img src="${path}" style="width:100%; height:100%;"/><title>Stack</title></sub>`);
+                                <sub id="g1"><img src="${path}/graph/line.png" style="width:60%; height:60%;"/><title>Line</title></sub>
+                                <sub id="g2"><img src="${path}/graph/bar.png" style="width:60%; height:60%;"/><title>Bar</title></sub>
+                                <sub id="g3"><img src="${path}/graph/pie.png" style="width:60%; height:60%;"/><title>Pie</title></sub>
+                                <sub id="g4"><img src="${path}/graph/radar.png" style="width:60%; height:60%;"/><title>Radar</title></sub>`);
 
         $(".fa-times").unbind().click(function () {
           UnActive("btnGraph");
@@ -140,10 +156,7 @@ class Workspace {
         SetActive("btnMap");
 
         $("#selectMenu").html(`<top href="#" class="head">Add Map<close><i class="fas fa-times"></i></close></top>
-                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>North</title></sub>
-                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>South</title></sub>
-                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>East</title></sub>
-                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Wast</title></sub>`);
+                                <sub href="#"><img src="${path}/map/map.png" style="width:60%; height:60%;"/><title>Map</title></sub>`);
 
         $(".fa-times").unbind().click(function () {
           UnActive("btnMap");
@@ -158,10 +171,10 @@ class Workspace {
       else {
         SetActive("btnFont");
 
-        $("#selectMenu").html(`<top href="#" class="head">Add Font<close><i class="fas fa-times"></i></close></top>
-                                <sub id="f1"><img src="${path}" style="width:100%; height:100%;"/><title>Head</title></sub>
-                                <sub id="f2"><img src="${path}" style="width:100%; height:100%;"/><title>Title</title></sub>
-                                <sub id="f3"><img src="${path}" style="width:100%; height:100%;"/><title>Subtitle</title></sub>`);
+        $("#selectMenu").html(`<top href="#" class="head">Add Text<close><i class="fas fa-times"></i></close></top>
+                                <sub id="f1"><img src="${path}/font/head.png" style="width:60%; height:60%;"/><title>Title</title></sub>
+                                <sub id="f2"><img src="${path}/font/subtitle.png" style="width:60%; height:60%;"/><title>Subtitle</title></sub>
+                                <sub id="f3"><img src="${path}/font/table.png" style="width:60%; height:60%;"/><title>Table</title></sub>`);
 
         $(".fa-times").unbind().click(function () {
           UnActive("btnFont");
@@ -179,7 +192,6 @@ class Workspace {
         $("#f3").unbind().click(function () {
           alert("f3");
         });
-
       }
     }
 
@@ -191,7 +203,7 @@ class Workspace {
         SetActive("btnImage");
 
         $("#selectMenu").html(`<top href="#" class="head">Add Image<close><i class="fas fa-times"></i></close></top>
-                                <sub href="#"><button type="button" class="btn btn-default btn-lg" >Browse</button></sub>`);
+                                <sub href="#">Browse</sub>`);
 
         $(".fa-times").unbind().click(function () {
           UnActive("btnImage");
@@ -207,9 +219,10 @@ class Workspace {
         SetActive("btnShapes");
 
         $("#selectMenu").html(`<top href="#" class="head">Add Shape<close><i class="fas fa-times"></i></close></top>
-                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Square</title></sub>
-                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Triangle</title></sub>
-                                <sub href="#"><img src="${path}" style="width:100%; height:100%;"/><title>Line</title></sub>`);
+                                <sub href="#"><img src="${path}/shape/square.png" style="width:60%; height:60%;"/><title>Square</title></sub>
+                                <sub href="#"><img src="${path}/shape/circle.png" style="width:60%; height:60%;"/><title>Circle</title></sub>
+                                <sub href="#"><img src="${path}/shape/triangle.png" style="width:60%; height:60%;"/><title>Triangle</title></sub>
+                                <sub href="#"><img src="${path}/shape/string.png" style="width:60%; height:60%;"/><title>Line</title></sub>`);
 
         $(".fa-times").unbind().click(function () {
           UnActive("btnShapes");
@@ -229,8 +242,9 @@ class Workspace {
       $(".vertical-menu").find("a").removeClass("actives");
       $("#" + id).addClass("actives");
     }
-  }
-}
+
+  } // Constructor
+} // Workspace
 
 class Widget {
   constructor() {
@@ -493,7 +507,7 @@ class Graph extends Widget {
       chart.update();
     }
   }
-}
+} //Widget class
 
 /* Font */
 class Font extends Widget {
@@ -609,12 +623,12 @@ class Font extends Widget {
       saveObject.HeadFontObject(id, null, "head");
       widgetObjectList.push(saveObject);
     }
-  }
-}
+  } //Constructor
+} //Font class
 
 class Property {
   constructor() {
-    /* Create function property */
+    /* Create UI & function property */
     $("#propertySpace").html('<div class="propertyMenu"></div>');
 
     this.createPosition = (id, full_id) => {
@@ -628,9 +642,7 @@ class Property {
           </div>`);
 
       $("#backest_widget_" + id).click(function () {
-
         $(".sPosition").each(function (index) {
-
           if ($(this).hasClass("fCorner")) {
             $(this).css("z-index", 0);
           }
@@ -641,9 +653,7 @@ class Property {
       });
 
       $("#topest_widget_" + id).click(function () {
-
         $(".sPosition").each(function (index) {
-
           if ($(this).hasClass("fCorner")) {
             $(this).css("z-index", $(".sPosition").length);
           }
@@ -654,8 +664,8 @@ class Property {
       });
 
       $("#align_left_widget_" + id).click(function () {
-        var transform = $(full_id).css('transform').split(',');
-        var transformY = transform[5].split(')')[0];
+        var transform   = $(full_id).css('transform').split(',');
+        var transformY  = transform[5].split(')')[0];
 
         $(full_id).css('transform', 'translate(0px, ' + transformY + 'px)');
         $(full_id).attr('data-x', 0);
@@ -663,9 +673,9 @@ class Property {
       });
 
       $("#align_center_widget_" + id).click(function () {
-        var transform = $(full_id).css('transform').split(',');
-        var transformY = transform[5].split(')')[0];
-        var transformX = (517 / 2) - ($(full_id).width() / 2);
+        var transform   = $(full_id).css('transform').split(',');
+        var transformY  = transform[5].split(')')[0];
+        var transformX  = (517 / 2) - ($(full_id).width() / 2);
 
         $(full_id).css('transform', 'translate(' + transformX + 'px, ' + transformY + 'px)');
         $(full_id).attr('data-x', transformX);
@@ -673,9 +683,9 @@ class Property {
       });
 
       $("#align_right_widget_" + id).click(function () {
-        var transform = $(full_id).css('transform').split(',');
-        var transformY = transform[5].split(')')[0];
-        var transformX = 517 - $(full_id).width();
+        var transform   = $(full_id).css('transform').split(',');
+        var transformY  = transform[5].split(')')[0];
+        var transformX  = 517 - $(full_id).width();
 
         $(full_id).css('transform', 'translate(' + transformX + 'px, ' + transformY + 'px)');
         $(full_id).attr('data-x', transformX);
@@ -690,41 +700,32 @@ class Property {
             <button type="button" id="preview_widget_${id}" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
           </div>`);
 
-
       $("#download_widget_" + id).click(function () {
         var popup = window.open();
         popup.document.write("<h1>Please wait for download...</h1>");
 
         var transform = $(full_id).css('transform');
-        var data_x = $(full_id).css('data-x');
-        var data_y = $(full_id).css('data-y');
-        var width = $(full_id).css('width');
-        var height = $(full_id).css('height');
+        var data_x    = $(full_id).css('data-x');
+        var data_y    = $(full_id).css('data-y');
 
         $(full_id).css('transform', 'translate(0px, 0px)');
         $(full_id).css('data-x', 0);
         $(full_id).css('data-y', 0);
-        $(full_id).css('width', 800);
-        $(full_id).css('height', 450);
         $(full_id).removeClass("fCorner");
 
         html2canvas(document.querySelector(full_id)).then(canvas => {
           $(full_id).css('transform', transform);
           $(full_id).css('data-x', data_x);
           $(full_id).css('data-y', data_y);
-          $(full_id).css('width', width);
-          $(full_id).css('height', height);
           $(full_id).addClass("fCorner");
 
-          popup.close();
-
           var myLinkImage = canvas.toDataURL("image/png");
-          var a = $("<a>")
-            .attr("href", myLinkImage)
-            .attr("download", "ImageDownload.png")
-            .appendTo("body");
-          a[0].click();
-          a.remove();
+          var pdf         = new jsPDF();
+
+          pdf.addImage(myLinkImage, 'JPEG', 0, 0);
+          pdf.save("ImageDownload.pdf");
+
+          popup.close();
         });
       });
 
@@ -735,32 +736,26 @@ class Property {
         var transform = $(full_id).css('transform');
         var data_x = $(full_id).css('data-x');
         var data_y = $(full_id).css('data-y');
-        var width = $(full_id).css('width');
-        var height = $(full_id).css('height');
 
         $(full_id).css('transform', 'translate(0px, 0px)');
         $(full_id).css('data-x', 0);
         $(full_id).css('data-y', 0);
-        $(full_id).css('width', 800);
-        $(full_id).css('height', 450);
         $(full_id).removeClass("fCorner");
-        
+
         html2canvas(document.querySelector(full_id)).then(div => {
+          var myImage = div.toDataURL("image/png");
+
           $(full_id).css('transform', transform);
           $(full_id).css('data-x', data_x);
           $(full_id).css('data-y', data_y);
-          $(full_id).css('width', width);
-          $(full_id).css('height', height);
           $(full_id).addClass("fCorner");
 
-          var myImage = div.toDataURL("image/png");
           var img = '<img src="' + myImage + '">';
           popup.document.write(img);
           popup.document.title = "Preview";
           popup.document.getElementById("loading").remove();
         });
       });
-
     }
 
     this.createEditdata = (id, myChart, full_id) => {
@@ -771,14 +766,14 @@ class Property {
           </div>`);
 
       $("#delete_canvas_widget_" + id).click(function () {
-        widgetObjectList = arrayRemove(widgetObjectList, id);
-        let ctx = document.getElementById("canvas_" + id);
+        widgetObjectList  = arrayRemove(widgetObjectList, id);
+        let ctx           = document.getElementById("canvas_" + id);
+        
         myChart.destroy();
         ctx.remove();
-        console.log(widgetObjectList);
+
         $(".propertyMenu").html(``);
       });
-
     }
 
     this.createTextchange = (id, full_id) => {
@@ -797,6 +792,7 @@ class Property {
             </div>
           </div>`);
 
+      // Set start value
       $("#inputtext_" + id).val($("#span_" + id).html());
 
       $("#inputtext_" + id).keyup(function () {
@@ -804,10 +800,11 @@ class Property {
       });
 
       $("#delete_text_widget_" + id).click(function () {
-        widgetObjectList = arrayRemove(widgetObjectList, id);
-        let ctx = document.getElementById("span_" + id);
+        widgetObjectList  = arrayRemove(widgetObjectList, id);
+        let ctx           = document.getElementById("span_" + id);
+
         ctx.remove();
-        console.log(widgetObjectList);
+
         $(".propertyMenu").html(``);
       });
 
@@ -844,6 +841,7 @@ class Property {
           </div>
         </div>`);
 
+      // Set start value
       $("#width_" + id).val(Math.round($(full_id).width()));
       $("#height_" + id).val(Math.round($(full_id).height()));
 
@@ -881,12 +879,14 @@ class Property {
             </div>
           </div>`);
 
+      // Set start value
       $("#color_font_" + id).val(rgbToHex($("#span_" + id).css('color')));
 
       $("#color_font_" + id).unbind().change(function () {
         $("#span_" + id).css('color', $(this).val());
       });
 
+      // Convert rgb code to hex code
       function rgbToHex(color) {
         color = "" + color;
         if (!color || color.indexOf("rgb") < 0) {
@@ -908,7 +908,6 @@ class Property {
           (b.length == 1 ? "0" + b : b)
         );
       }
-
     }
 
     this.createFontSize = (id, full_id) => {
@@ -929,6 +928,7 @@ class Property {
             </div>
           </div>`);
 
+      // Set start value
       $("#slider_font_widget_" + id).val($(full_id).css('font-size'));
       $("#slider_font_input_widget_" + id).val($(full_id).css('font-size').replace('px', ''));
 
@@ -984,7 +984,8 @@ class Property {
                 </div>
             </div>
           </div>`);
-
+          
+      // Set start value
       $("#slider_tran_widget_" + id).val(100 - ($(full_id).css('opacity') * 100));
       $("#slider_tran_input_widget_" + id).val(100 - ($(full_id).css('opacity') * 100));
 
@@ -1053,18 +1054,18 @@ class Property {
           </div>
         </div>  `);
     }
-  }
-}
+  } // Constructor
+} // Property class
 
 class ContentProperty extends Property {
   constructor() {
     /* Call function property */
+    /* Select property for each widget type */
     super();
     this.createGraphProp = (id, myChart, full_id) => {
       this.createPosition(id, full_id);
       this.createDownload(id, full_id);
       this.createEditdata(id, myChart, full_id);
-      this.createChartType(id, full_id);
       this.createScale(id, full_id);
       this.createRotation(id, full_id);
       this.createTransparency(id, full_id);
@@ -1084,29 +1085,36 @@ class ContentProperty extends Property {
       this.createColorAndFont(id, full_id);
       this.createFontSize(id, full_id);
     }
-  }
-}
+  } // Constructor
+} // ContentProperty class
 
 /* Set initial value */
 $(document).ready(function () {
-  //localStorage.clear();
   let workspace = new Workspace();
+  var object    = null;
+
+  /* Setting element */
   workspace.initialAndRun({});
 
   /* Get saved data */
-  var object = CircularJSON.parse(localStorage.getItem("saveObject"));
-
-  if (object != null) {
-    /* Load saved widget */
-    //console.log(object[0].data);
-    console.log(object);
-    workspace.loadWidgetData(object);
-  }
-  else {
-    console.log("null");
-  }
-
-});
+  $.ajax({
+    url: END_POINT + 'admin/infographic/getInfoByInfoID',
+    method: 'GET',
+    data: {
+        info_id: infoID
+    },
+    success: (res) => {
+      if(res.data.info_data != null)
+      {
+        object = CircularJSON.parse(res.data.info_data);
+        workspace.loadWidgetData(object);
+      }
+    },
+    error: (res) => {
+      console.log("error");
+    }
+  }); //Ajax
+}); //Document ready
 
 /* Globle function */
 function arrayRemove(arr, value) {

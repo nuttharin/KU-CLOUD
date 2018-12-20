@@ -13,5 +13,7 @@ interface InfographicRepository
 {
     public function getAll();
 
-    public  function getInfographicByUserID($user_id);
+    public function getInfographicByUserID($user_id);
+
+    public function getInfographicByInfoID($info_id);
 }

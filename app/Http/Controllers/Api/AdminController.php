@@ -693,6 +693,20 @@ class AdminController extends Controller
         return response()->json(compact('data'),200);
     }
 
+    public function getInfograpicData(Request $request)
+    {
+        $token      = $request->cookie('token');
+        $payload    = JWTAuth::setToken($token)->getPayload();
+        $data      = $this->info->getInfographicByInfoID($request->get('info_id'));
+
+        if(empty($data))
+        {           
+            return response()->json(['message' => 'not have data'],200);
+        }
+        
+        return response()->json(compact('data'),200);
+    }
+
     public function createInfograpic(Request $request)
     {
         $token      = $request->cookie('token');
@@ -714,6 +728,19 @@ class AdminController extends Controller
         $info = TB_INFOGRAPHIC::where('info_id', $request->get('info_id'))
                             ->update([
                                 'name'  => $request->get('name'),
+                            ]);
+
+        return response()->json(["status_code","201"],201);
+    }
+
+    public function updateInfograpicData(Request $request)
+    {
+        $token      = $request->cookie('token');
+        $payload    = JWTAuth::setToken($token)->getPayload();
+      
+        $info = TB_INFOGRAPHIC::where('info_id', $request->get('info_id'))
+                            ->update([
+                                'info_data'  => $request->get('info_data'),
                             ]);
 
         return response()->json(["status_code","201"],201);
