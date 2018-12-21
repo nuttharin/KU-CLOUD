@@ -122,6 +122,7 @@ class ModalDetail {
                             </div>
                         </li>`;
             });
+
             $('#phone-user').html(phone_list.join(''));
             let email_list = UsersList[key].email.map(data => {
                 status = "";

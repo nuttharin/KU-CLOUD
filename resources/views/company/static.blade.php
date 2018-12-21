@@ -60,6 +60,34 @@
         background-color: #007bff;
         border-color: #007bff;
     }
+
+    .remove-value {
+        cursor: pointer;
+    }
+
+    .remove-value:hover {
+        transition: all 0.3s;
+        color: #e65251
+    }
+
+    .activeApi {
+        color: #00a855
+    }
+
+    .unActiveApi {
+        color: #e65251
+    }
+
+    .grow:hover {
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    .edit-datasource:hover {
+        font-weight: bold;
+        color: #007bff;
+    }
 </style>
 
 <div id="layout-full-screen">
@@ -130,7 +158,7 @@
     <div class="grid-stack"></div>
     <!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
 
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="addWidget">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -147,12 +175,12 @@
                             <select class="form-control" id="widget_type">
                             <option value="">--Select Widget Type--</option>
                             <option value="MutiLine">MutiLine</option>
-                            <option value="text-line">Text Line</option>
+                            <option value="TextLine">Text Line</option>
+                            <option value="Rader">Rader</option>
                             <option value="Gauges">Gauges</option>
                             <option value="Map">Map</option>
                             <option value="TextValue">TextValue</option>
                             <option value="TextBox">TextBox</option>
-                            {{-- <option value="Half Circle">Half Circle</option> --}}   
                         </select>
                         </div>
                     </div>
@@ -182,16 +210,15 @@
                     </div>
 
                     <div id="MutiLine" class="value_widget" style="display:none;">
-                        <br />
                         <h5>Select Value Of Y</h5>
                         <button class="btn btn-primary btn-sm btn-radius" id="btn-add-value-Mutiline">
                             <i class="fa fa-plus"></i> 
                             Add Line Value Of Y
                         </button>
-                        <div>
-                            <div class="row" id="Mutiline_value">
+                        <div id="Mutiline_value">
+                            <div class="row">
                                 <div class="col-3">
-                                    <label for="">Channel</label>
+                                    <label for="">Datasource</label>
                                     <select class="form-control select-datasource">
                                         
                                     </select>
@@ -205,7 +232,7 @@
                                     <label for="">Label</label>
                                     <input type="text" class="form-control label-y-chart-line">
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <label for="">RGB</label>
                                     <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
                                 </div>
@@ -229,6 +256,20 @@
                                 <input type="text" name="unit" id="unit" class="form-control">
                             </div>
                         </div>
+                        <h5>Select Datasource</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Datasource</label>
+                                <select class="form-control select-datasource">
+                                            
+                                        </select>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Value</label>
+                                <input class="form-control value-datasource">
+                                <ul id="data-list" class="list-group">
+                            </div>
+                        </div>
                     </div>
                     <div id="text-line" class="value_widget" style="display:none;">
                         <div class="row">
@@ -239,14 +280,18 @@
                             <div class="col-6">
                             </div>
                         </div>
+                        <h5>Select Datasource</h5>
                         <div class="row" id="value-text-line">
                             <div class="col-4">
-                                <label for="">Channel</label>
-                                <input type="text" class="form-control">
+                                <label for="">Datasource</label>
+                                <select class="form-control select-datasource">
+                                            
+                                        </select>
                             </div>
                             <div class="col-4">
-                                <label for="">Resource</label>
-                                <select name="" id="" class="form-control value-y-chart-line"></select>
+                                <label for="">Value</label>
+                                <input class="form-control value-datasource">
+                                <ul id="data-list" class="list-group">
                             </div>
                             <div class="col-4">
                                 <label for="">RGB</label>
@@ -265,14 +310,18 @@
                                 <input id="rgb" type="color" class="form-control" value="#f6b73c">
                             </div>
                         </div>
+                        <h5>Select Datasource</h5>
                         <div class="row">
                             <div class="col-6">
-                                <label for="">Channel</label>
-                                <input type="text" class="form-control">
+                                <label for="">Datasource</label>
+                                <select class="form-control select-datasource">
+                                    
+                                </select>
                             </div>
                             <div class="col-6">
-                                <label for="">Resource</label>
-                                <select name="" id="" class="form-control value-y-chart-line"></select>
+                                <label for="">Value</label>
+                                <input class="form-control value-datasource">
+                                <ul id="data-list" class="list-group">
                             </div>
                         </div>
                     </div>
@@ -320,11 +369,8 @@
                             </select>
                         </div>
                         <div class="col-6">
-                            <label for="">Method</label>
-                            <select name="" id="" class="form-control">
-                                <option value="GET">GET</option>
-                                <option value="POST">POST</option>
-                            </select>
+                            <label for="">Set time interval (s)</label>
+                            <input type="number" id="add-data-time-interval" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -338,24 +384,29 @@
 </div>
 
 <div id="line_value_layout" hidden>
-    <div class="col-3">
-        <label for="">Channel</label>
-        <select class="form-control select-datasource">
+    <div class="row">
+        <div class="col-3">
+            <label for="">Datasource</label>
+            <select class="form-control select-datasource">
                     
-                </select>
-    </div>
-    <div class="col-3">
-        <label for="">Value</label>
-        <input class="form-control value-datasource">
-        <ul id="data-list" class="list-group">
-    </div>
-    <div class="col-3">
-        <label for="">Label</label>
-        <input type="text" class="form-control label-y-chart-line">
-    </div>
-    <div class="col-3">
-        <label for="">RGB</label>
-        <input type="color" class="form-control  rgb-chart-line" value="#f6b73c">
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="">Value</label>
+            <input class="form-control value-datasource">
+            <ul id="data-list" class="list-group">
+        </div>
+        <div class="col-3">
+            <label for="">Label</label>
+            <input type="text" class="form-control label-y-chart-line">
+        </div>
+        <div class="col-2">
+            <label for="">RGB</label>
+            <input type="color" class="form-control  rgb-chart-line" value="#f6b73c">
+        </div>
+        <div class="col-1 d-flex align-items-center" style="margin-top:30px">
+            <i class="fas fa-trash-alt remove-value"></i>
+        </div>
     </div>
 </div>
 {{--
@@ -399,12 +450,12 @@
                     <h5 class="title-widget">((title_name))</h5>
                 </div>
                 <div class="edit-widget" style="display:none">
-                    <i class="fas fa-cog btn-edit-wi" title="Edit widget" item="div_id"></i>
-                    <i class="fas fa-trash-alt btn-delete-wi" title="Delete widget" item="div_id"></i>
+                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                 </div>
                 <div class="full-screen">
-                    <i class="fas fa-expand btn-full-screen" title="Full screen" style="cursor:pointer" item="div_id"></i>
-                    <i class="fas fa-download btn-download" title="Full screen" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-expand btn-full-screen grow" title="Full screen" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
                 </div>
             </div>
 
@@ -426,8 +477,8 @@
     <div>
         <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
             <div class="panel__header__min ml-auto edit-widget">
-                <i class="fas fa-cog btn-edit-wi" item="div_id"></i>
-                <i class="fas fa-trash-alt btn-delete-wi" item="div_id"></i>
+                <i class="fas fa-cog btn-edit-wi grow" item="div_id"></i>
+                <i class="fas fa-trash-alt btn-delete-wi grow" item="div_id"></i>
             </div>
             <div class="panel__content d-flex align-items-center align-content-center">
                 ((wi))
@@ -444,8 +495,8 @@
                     <h5 class="title-widget">((title_name))</h5>
                 </div>
                 <div class="edit-widget" style="display:none">
-                    <i class="fas fa-cog btn-edit-wi" title="Edit widget" item="div_id"></i>
-                    <i class="fas fa-trash-alt btn-delete-wi" title="Delete widget" item="div_id"></i>
+                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                 </div>
                 {{--
                 <div class="full-screen">

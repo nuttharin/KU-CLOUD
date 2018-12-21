@@ -10,7 +10,7 @@ class TB_STATIC_DATASOURCE extends Model
     protected  $table = "TB_STATIC_DATASOURCE";
     //
     protected $fillable = [
-        'id','static_id','name','webservice_id','body','headers'
+        'id','static_id','name','webservice_id','timeInterval','body','headers'
     ];
 
     protected $hidden = [

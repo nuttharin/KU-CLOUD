@@ -41,6 +41,7 @@ class EloquentUsers implements UsersRepository
 
     public function getByTypeForAdmin($type)
     {
+        // TODO: Implement getByTypeAdmin() method.
         $data = [];
         if($type == "ADMIN") {
             $users = $this->model::where('type_user','ADMIN')
@@ -80,20 +81,6 @@ class EloquentUsers implements UsersRepository
                 ];
             }
             return $data;
-            // return DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name,GROUP_CONCAT(TB_PHONE.phone_user) as phone,T1.email  ,TB_USERS.online
-            //                         FROM TB_USERS 
-            //                         LEFT JOIN TB_PHONE 
-            //                         ON TB_USERS.user_id =TB_PHONE.user_id
-            //                         LEFT JOIN (SELECT TB_EMAIL.user_id,GROUP_CONCAT(TB_EMAIL.email_user) AS email 
-            //                                     FROM TB_EMAIL 
-            //                                     GROUP BY TB_EMAIL.user_id) AS T1 
-            //                         ON T1.user_id = TB_USERS.user_id
-            //                         INNER JOIN TB_USER_COMPANY 
-            //                         ON TB_USER_COMPANY.user_id = TB_USERS.user_id
-            //                         INNER JOIN TB_COMPANY 
-            //                         ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
-            //                         WHERE TB_USERS.type_user = ?
-            //                         GROUP BY TB_USERS.user_id,T1.email,TB_USERS.fname,TB_USERS.lname,TB_USERS.block,TB_USERS.created_at,TB_USERS.updated_at,TB_USER_COMPANY.sub_type_user,TB_COMPANY.company_name ,TB_USERS.online',['COMPANY'] );
         }
         else if($type == "CUSTOMER"){
             $users = $this->model::where('type_user','CUSTOMER')->get();
@@ -116,7 +103,7 @@ class EloquentUsers implements UsersRepository
             return $data;
         }
         return;
-        // TODO: Implement getByTypeAdmin() method.
+        
     }
 
     public function getByTypeForCompany($type,$company_id,$start = null,$length =null)
@@ -175,19 +162,19 @@ class EloquentUsers implements UsersRepository
     }
 
     public  function searchByTypeForCompany($type,$company_id,$start,$length,$search){
-        $data = null;
+        $data = [];
         $table = null;
         
-        switch (strtolower($search)){
-            case 'unblock':
-            case 'offline':
-                $search = false;
-                break;
-            case 'block':
-            case 'online':
-                $search = true;
-                break;   
-        }
+        // switch (strtolower($search)){
+        //     case 'unblock':
+        //     case 'offline':
+        //         $search = false;
+        //         break;
+        //     case 'block':
+        //     case 'online':
+        //         $search = true;
+        //         break;   
+        // }
 
         if($type == 'COMPANY') {
             $users =   DB::table('TB_USERS')->where([
@@ -199,8 +186,6 @@ class EloquentUsers implements UsersRepository
                                             {
                                                 $query->orWhere('TB_USERS.fname','LIKE',"%{$search}%")  
                                                       ->orWhere('TB_USERS.lname','LIKE',"%{$search}%")
-                                                      ->orWhere('TB_USERS.block','=',$search)
-                                                      ->orWhere('TB_USERS.online','=',$search)
                                                       ->orWhere('TB_PHONE.phone_user','LIKE',"%{$search}%")
                                                       ->orWhere('TB_EMAIL.email_user','LIKE',"%{$search}%");
                                             })
@@ -240,8 +225,6 @@ class EloquentUsers implements UsersRepository
                                             {
                                                 $query->orWhere('TB_USERS.fname','LIKE',"%{$search}%")  
                                                       ->orWhere('TB_USERS.lname','LIKE',"%{$search}%")
-                                                      ->orWhere('TB_USERS.block','=',$search)
-                                                      ->orWhere('TB_USERS.online','=',$search)
                                                       ->orWhere('TB_PHONE.phone_user','LIKE',"%{$search}%")
                                                       ->orWhere('TB_EMAIL.email_user','LIKE',"%{$search}%");
                                             })    
