@@ -18,6 +18,7 @@ class TBSTATICDATASOURCE extends Migration
             $table->integer('static_id')->unsigned();
             $table->string('name','50');
             $table->integer('webservice_id')->unsigned();
+            $table->integer('timeInterval')->unsigned();
             $table->string('body',200)->nullable();
             $table->string('headers',200)->nullable();
             $table->foreign('static_id')
