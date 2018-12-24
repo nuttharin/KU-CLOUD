@@ -45,7 +45,7 @@
         transform: rotate(180deg);
     }
 
-    #data-list {
+    .data-list {
         height: 200px;
         position: absolute;
         padding: 0;
@@ -87,6 +87,22 @@
     .edit-datasource:hover {
         font-weight: bold;
         color: #007bff;
+    }
+
+    .form-radar-value {
+        padding: 20px;
+        border: 2px solid #308ee0;
+        border-radius: 27px;
+        margin-bottom: 10px;
+    }
+
+    .remove-datasource-radar {
+        cursor: pointer;
+    }
+
+    .remove-datasource-radar:hover {
+        transition: all 0.3s;
+        color: #e65251
     }
 </style>
 
@@ -176,7 +192,7 @@
                             <option value="">--Select Widget Type--</option>
                             <option value="MutiLine">MutiLine</option>
                             <option value="TextLine">Text Line</option>
-                            <option value="Rader">Rader</option>
+                            <option value="Radar">Radar</option>
                             <option value="Gauges">Gauges</option>
                             <option value="Map">Map</option>
                             <option value="TextValue">TextValue</option>
@@ -226,7 +242,7 @@
                                 <div class="col-3">
                                     <label for="">Value</label>
                                     <input class="form-control value-datasource">
-                                    <ul id="data-list" class="list-group">
+                                    <ul class="list-group data-list">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Label</label>
@@ -235,6 +251,60 @@
                                 <div class="col-2">
                                     <label for="">RGB</label>
                                     <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Radar" class="value_widget" style="display:none;">
+                        <div class="row">
+                            <div class="col-6">
+                                <h5>Label Radar</h5>
+                                <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn-add-label-radar">
+                                    <i class="fa fa-plus"></i> 
+                                    Add label
+                                </button>
+                                <button class="btn btn-success btn-sm btn-radius mb-2" id="btn-edit-label-radar" style="display: none">
+                                        <i class="fa fa-plus"></i> 
+                                        Edit label
+                                </button>
+                                <div id="Radar_label">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control radar-labels mt-2" value="">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control radar-labels mt-2" value="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i class="fas fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control radar-labels mt-2" value="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i class="fas fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control radar-labels mt-2" value="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i class="fas fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5>Example</h5>
+                                <canvas id="example-radar"></canvas>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>Datasource Radar</h5>
+                                <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn-add-datasource-radar">
+                                            <i class="fa fa-plus"></i> 
+                                            Add datasource
+                                            </button>
+                                <div id="Radar_value">
+
                                 </div>
                             </div>
                         </div>
@@ -262,12 +332,12 @@
                                 <label for="">Datasource</label>
                                 <select class="form-control select-datasource">
                                             
-                                        </select>
+                                </select>
                             </div>
                             <div class="col-6">
                                 <label for="">Value</label>
                                 <input class="form-control value-datasource">
-                                <ul id="data-list" class="list-group">
+                                <ul class="list-group data-list">
                             </div>
                         </div>
                     </div>
@@ -286,12 +356,12 @@
                                 <label for="">Datasource</label>
                                 <select class="form-control select-datasource">
                                             
-                                        </select>
+                                </select>
                             </div>
                             <div class="col-4">
                                 <label for="">Value</label>
                                 <input class="form-control value-datasource">
-                                <ul id="data-list" class="list-group">
+                                <ul class="list-group data-list">
                             </div>
                             <div class="col-4">
                                 <label for="">RGB</label>
@@ -321,7 +391,7 @@
                             <div class="col-6">
                                 <label for="">Value</label>
                                 <input class="form-control value-datasource">
-                                <ul id="data-list" class="list-group">
+                                <ul class="list-group data-list">
                             </div>
                         </div>
                     </div>
@@ -394,7 +464,7 @@
         <div class="col-3">
             <label for="">Value</label>
             <input class="form-control value-datasource">
-            <ul id="data-list" class="list-group">
+            <ul class="list-group data-list">
         </div>
         <div class="col-3">
             <label for="">Label</label>
@@ -407,6 +477,45 @@
         <div class="col-1 d-flex align-items-center" style="margin-top:30px">
             <i class="fas fa-trash-alt remove-value"></i>
         </div>
+    </div>
+</div>
+
+<div id="layout-radar-value" hidden>
+    <div class="form-radar-value">
+        <i class="fas fa-times d-flex justify-content-end remove-datasource-radar"></i>
+        <h6>Select Datasource</h6>
+        <div class="row">
+            <div class="col-4">
+                <label for="">Label</label>
+                <input type="text" class="form-control label-radar">
+            </div>
+            <div class="col-4">
+                <label for="">Datasource</label>
+                <select class="form-control select-datasource">
+                                                        
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="">Color</label>
+                <input type="color" class="form-control radar-color">
+            </div>
+        </div>
+        <h6>Set Value</h6>
+        <div class="row add-value-radar">
+
+        </div>
+    </div>
+</div>
+
+<div id="layout-add-value-radar" hidden>
+    <div class="col-6">
+        <label for="">Label</label>
+        <input class="form-control label-radar-select" readonly value=((value-radar))>
+    </div>
+    <div class="col-6">
+        <label for="">Value</label>
+        <input class="form-control value-datasource">
+        <ul class="list-group data-list" style="display: none">
     </div>
 </div>
 {{--
@@ -527,7 +636,7 @@
 <script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
 <script type="text/javascript" src="{{url('js/gridstack/gridstack.jQueryUI.js')}}"></script>
 
-
+<script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 @endsection
