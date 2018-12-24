@@ -268,7 +268,6 @@ class Service {
                     header: headerLow
                 },
                 success: (res) => {
-                    swal("Good job!", "You clicked the button!", "success");
                     // toastr["success"]("Success");
                     idDB = res.webService.webservice_id;
                     console.log("success DB")
@@ -283,7 +282,7 @@ class Service {
         let increaseDataTableDW = ()=>
         {    
             $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/getCompnyID",
+                    url: "http://localhost:8000/api/company/webservice/getCompanyID",
                     dataType: 'json',
                     method: "GET",
                     async: false,
@@ -297,6 +296,7 @@ class Service {
                     }
             });
             //ลงทะเทียนฝั่ง dw
+            console.log(ServiceName)
             $.ajax({
                 url: "http://localhost:8081/webService/createRegisterTable",
                 dataType: 'json',
@@ -313,6 +313,7 @@ class Service {
                     header: headerLow
                 },
                 success: (res) => {
+                    swal("Good job!", "You clicked the button!", "success");
                     console.log("success DW")
                         
                 },
@@ -322,14 +323,16 @@ class Service {
                 });
                 // เพิ่มค่าในตารางข้อมูลครั้งเเรก
             $.ajax({
-                url: "http://localhost:8081/webService//insertFirstDataTable",
+                url: "http://localhost:8081/webService/insertFirstDataTable",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
+                    
                     strUrl: strUrl,
-                    nameDataTable :ServiceName+"."+companyID
+                    ServiceNameDW :ServiceName+"."+companyID,
+                    header : headerLow
                 },
                 success: (res) => {
                     console.log("success insert Table")
