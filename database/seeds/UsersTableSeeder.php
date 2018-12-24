@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\TB_USERS::class, 10000)->create()->each(function ($user) {
+        factory(App\TB_USERS::class, 200)->create()->each(function ($user) {
             $user->phone()->save(factory(App\TB_PHONE::class)->make());
             $user->email()->save(factory(App\TB_EMAIL::class)->make());
             if($user->type_user == "ADMIN"){
