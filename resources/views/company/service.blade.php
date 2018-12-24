@@ -41,6 +41,7 @@
                             <th>NameService(EN)</th>
                             <th>Alias</th>
                             <th>Description</th>
+                            <th>Status</th>
                             <th></th>
 
 
