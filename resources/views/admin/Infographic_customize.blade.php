@@ -38,13 +38,12 @@
     <div class="col-6" id="workfull">
         <!-- A4 Size -->
         <page size="A4" id="workspace">
-
         </page>
     </div>
     <div class="col-3">
         <div class="row" id="propertySpace">
             <!--Comment-->
-            <!--<div class="propertyMenu">
+            <!-- <div class="propertyMenu">
                 <div class="Editdatacrispy">
                     <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-down"></i></button>
                     <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-up"></i></button>
@@ -120,6 +119,21 @@
                     </div>
                 </div>
                 <div class="Scaling">
+                    <div class="row fontalign">
+                        <div class="col-4">
+                            <span>Color</span>
+                        </div>
+                    </div>
+                    <div class="row inputalign">
+                        <div class="col-8">
+                            <input type="color" class="colorSP" value="#f6b73c" style="width:100%;">
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
                     <div class="row">
                         <div class="col-8 rotates">
                             <span>Font size (pt)</span>
@@ -164,6 +178,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Border Radius (%)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="range" min="0" max="50" value="0" class="slider" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control crispysilde" />
+                        </div>
+                    </div>
+                </div>
                 <div class="Grouping">
                     <div class="GroupTitle" data-toggle="collapse" data-target="#demo">
                         <i class="far fa-chart-bar"></i><span>Chart properties</span>
@@ -196,7 +225,7 @@
                         Lorem ipsum
                     </div>
                 </div>             
-            </div>-->
+            </div> -->
             <!--Comment-->
         </div>
     </div>
