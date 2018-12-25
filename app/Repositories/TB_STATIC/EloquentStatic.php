@@ -116,7 +116,7 @@ class EloquentStatic implements StaticRepository
     public function getDatasoureByStaticId($static_id,$company_id)
     {
          // TODO: Implement getDatasoureByStaticId() method.
-        $data = DB::select("SELECT TB_STATIC_DATASOURCE.id,TB_STATIC_DATASOURCE.name,TB_STATIC_DATASOURCE.body,TB_STATIC_DATASOURCE.headers,TB_WEBSERVICE.URL
+        $data = DB::select("SELECT TB_STATIC_DATASOURCE.id,TB_STATIC_DATASOURCE.name,TB_STATIC_DATASOURCE.timeInterval,TB_STATIC_DATASOURCE.body,TB_STATIC_DATASOURCE.headers,TB_WEBSERVICE.URL
                             FROM TB_STATIC_COMPANY
                             INNER JOIN TB_STATIC_DATASOURCE ON TB_STATIC_DATASOURCE.static_id = TB_STATIC_COMPANY.static_id
                             INNER JOIN TB_WEBSERVICE ON TB_WEBSERVICE.webservice_id = TB_STATIC_DATASOURCE.webservice_id

@@ -424,7 +424,8 @@ class CompanyController extends Controller
         $data = [
             'static_id' => $request->get('static_id'),
             'name' => $request->get('name'),
-            'webservice_id' => $request->get('webservice_id')
+            'webservice_id' => $request->get('webservice_id'),
+            'timeInterval' => $request->get('timeInterval')
         ];
         $this->static->createDatasource($data);
     }

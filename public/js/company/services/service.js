@@ -74,7 +74,8 @@ var WebserviceRepository = new (function () {
             ret[0] = item.name;
             ret[1] = item.alias;
             ret[2] = item.description;
-            ret[3] = ` <center>
+            ret[3] = item.description;
+            ret[4] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
@@ -86,6 +87,10 @@ var WebserviceRepository = new (function () {
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-sm btn-download"  index=${index}  data-toggle="tooltip"
+                                data-placement="top" title="Download">
+                                <i class="fas fa-download"></i>
                             </button>
                         </center>`;
             Datatable.push(ret);
@@ -106,12 +111,52 @@ var WebserviceRepository = new (function () {
             onDeleteClick($(this).attr('index'));
         });
 
+        $('#datatable-webservice').on('click', '.btn-download', function () {
+            onDownloadClick($(this).attr('index'));
+        });
+
         $('[data-toggle="tooltip"]').tooltip();
         
     }
 
     /* Action Function */
     var onDetailClick = (key) => {
+
+        if (modalDetail === null) {
+            modalDetail =
+                `<div class="modal fade" id="detailCompany">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="title-company">Webservice Details</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>Service Name : <span id="name-company"><span></h6>
+                            <h6>Alias : <span id="alias-company"><span></h6>
+                            <h6>URL : <span id="address-company"><span></h6>
+                            <h6>Description : <span id="note-company"><span></h6>
+                            <h6>Create Date : <span id="create-company"><span></h6>
+                            <h6>Update Date : <span id="update-company"><span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            $('body').append(modalDetail);
+        }
+
+        $('#name-company').html(webserviceList[key].name);
+        $('#alias-company').html(webserviceList[key].alias);
+        $('#address-company').html(webserviceList[key].URL);
+        $('#note-company').html(webserviceList[key].description);
+        $('#create-company').html(webserviceList[key].created_at);
+        $('#update-company').html(webserviceList[key].updated_at);
+
+        $("#detailCompany").modal('show');
+    }
+
+    var onDownloadClick = (key) => {
 
         if (modalDetail === null) {
             modalDetail =
