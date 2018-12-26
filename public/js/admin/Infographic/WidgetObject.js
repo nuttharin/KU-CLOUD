@@ -5,7 +5,8 @@ class WidgetObject
   { 
   }
 
-  LineGraphObject(id, canvasTag, chartData, chartOption, type)
+  // Garph
+  WidgetGraphObject(id, canvasTag, chartData, chartOption, type)
   {
     this.id = id;
     this.canvasTag = canvasTag;
@@ -14,10 +15,19 @@ class WidgetObject
     this.type = type;
   }
 
+  // Text
   HeadFontObject(id, spanTag, type)
   {
     this.id = id;
     this.spanTag = spanTag;
+    this.type = type;
+  }
+
+  // Shape
+  WidgetShapeObject(id, divTag, type)
+  {
+    this.id = id;
+    this.divTag = divTag;
     this.type = type;
   }
 }
