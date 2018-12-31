@@ -58,6 +58,11 @@ class CompanyController extends Controller
     {
         return view('company.add_webService')->with('user', Auth::user());
     }
+
+    public function Output_service()
+    {
+        return view('company.outputService')->with('user',Auth::user());
+    }    
     
     public function Show_service()
     {

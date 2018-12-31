@@ -1,13 +1,7 @@
 @extends('layouts.mainCompany')
 @section('title','Add WebService | Company')
 @section('content')
-<?php
-    
-    $Weather3Hours = array("StationNameTh","Province","Observe","Temperature","StationPressure",
-    "RelativeHumidity","WindSpeed","Rainfall","TotolCloud");
-    $service = array("Weather3Hours","WeatherToday","WeatherForecast7DaysByRegion","WeatherForecast7Days","WeatherForecastDaily");
-    
-?>
+
 <style>
     #detail-show{
         background-color: #EBF5FB    ;        
