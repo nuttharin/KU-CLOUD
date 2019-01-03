@@ -219,10 +219,29 @@ class Workspace {
         SetActive("btnImage");
 
         $("#selectMenu").html(`<top href="#" class="head">Add Image<close><i class="fas fa-times"></i></close></top>
-                                <sub href="#">Browse</sub>`);
+                                <sub id="i1">Browse</sub>
+                                <input type="file" id="file_image" style="display:none;" />`);
 
         $(".fa-times").unbind().click(function () {
           UnActive("btnImage");
+        });
+
+        $("#i1").unbind().click(function () {
+          var imageWidget = new Image();
+          
+          $("#file_image").click();
+
+          $('#file_image').change(function () {
+            var reader = new FileReader();
+            reader.readAsDataURL($(this)[0].files[0]);
+            reader.onload = function (e) 
+            {
+              imageWidget.createImageWidget(e.target.result);
+              /*Reset button */
+              $("#btnImage").click();
+              $("#btnImage").click();
+            }
+          });
         });
       }
     }
@@ -1031,6 +1050,71 @@ class Font extends Widget {
   } //Constructor
 } //Font class
 
+class Image extends Widget{
+  constructor(){
+    super();
+    this.createImageWidget = (src_image) => {
+      var id = Math.floor(100000 + Math.random() * 900000);
+      this.clearfocus();
+
+      $("#workspace").append(`<div id="div_${id}" class="sPosition fCorner"><img id="image_${id}" src="${src_image}" class="scaleImage" /></div>`);
+      
+      $('#div_' + id).css('height', 150);
+      $('#div_' + id).css('width', 150);
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+
+      var property = new ContentProperty();
+      property.createImageProp(id, "#div_" + id, "#image_" + id, "image");
+
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "div_");
+      widgetObject.on('tap', function (event) {
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#div_" + id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createImageProp(id, "#div_" + id, "#image_" + id, "image");
+      })
+        .on('dragmove', function (event) {
+          /* Change focus */
+          $(".sPosition").removeClass("fCorner");
+          $("#div_" + id).addClass("fCorner");
+
+          var target = event.target,
+            // keep the dragged position in the data-x/data-y attributes
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+          // translate the element
+          target.style.webkitTransform =
+            target.style.transform =
+            'translate(' + x + 'px, ' + y + 'px)';
+
+          // update the posiion attributes
+          target.setAttribute('data-x', x);
+          target.setAttribute('data-y', y);
+
+          /* Clear other property */
+          $(".propertyMenu").html(``);
+
+          var property = new ContentProperty();
+          property.createImageProp(id, "#div_" + id, "#image_" + id, "image");
+        })
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.WidgetShapeObject(id, null, "image");
+      widgetObjectList.push(saveObject);
+    }   
+  } //Constructor
+} //Image class
+
 class Shape extends Widget{
   constructor(){
     super();
@@ -1048,7 +1132,8 @@ class Shape extends Widget{
       }
       else if(type == "string")
       {
-        $("#workspace").append(`<div id="div_${id}" class="sPosition fCorner string"></div>`);
+        $("#workspace").append(`<div id="div_${id}" class="sPosition fCorner"><div id="shape_${id}" class="string"></div></div>`);
+
       }
 
       $('#div_' + id).css('height', 150);
@@ -1311,6 +1396,64 @@ class Property {
       });
     }
 
+    this.createCropImage = (id, full_id, full_id_image) => {
+      let cropObject;
+
+      $(".propertyMenu").append(`                
+          <div class="Editdatacrispy">
+            <button type="button" id="crop_image_widget_${id}" class="btn btn-default Editdata" >Crop image</button>
+            <button type="button" id="delete_image_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+          </div>`);
+
+      $("#crop_image_widget_" + id).click(function () {
+        $("#modelCrop_" + id).remove();
+        var modalCrop = `
+        <div class="modal" id="modelCrop_${id}" class="modelcropper">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crop image</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-11 text-center">
+                                <img id="image_crop_${id}" style="max-width: 100%; max-height:50%;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="save_image_crop_${id}" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        $('body').append(modalCrop);
+        $("#modelCrop_" + id).modal('show');
+        $("#image_crop_" + id).attr("src", $(full_id_image).attr("src"));
+        let image = document.getElementById('image_crop_' + id);
+        cropObject = new Cropper(image, {});
+
+        $("#save_image_crop_" + id).click(function () {
+          $(full_id_image).attr("src", cropObject.getCroppedCanvas({width: 500, height: 500}).toDataURL());
+          cropObject.destroy();
+          $("#modelCrop_" + id).modal('hide');
+          $("#modelCrop_" + id).modal('dispose');
+          $("#modelCrop_" + id).remove();
+        });
+      });
+
+      $("#delete_image_widget_" + id).click(function () {
+        let ctx = document.getElementById("div_" + id);   
+        ctx.remove();
+        
+        $(".propertyMenu").html(``);
+      });
+    }
+
     this.createTextchange = (id, full_id) => {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -1485,13 +1628,13 @@ class Property {
           $(full_id_shape).css('background-color', $(this).val());
         });
       }
-      else if(type == "line")
+      else if(type == "string")
       {
         // Set start value
-        $("#color_shape_" + id).val(rgbToHex($(full_id_shape).css('border-left-color')));
+        $("#color_shape_" + id).val(rgbToHex($(full_id_shape).css('border-right-color')));
 
         $("#color_shape_" + id).unbind().change(function () {
-          $(full_id_shape).css('border-left-color', $(this).val());
+          $(full_id_shape).css('border-right-color', $(this).val());
         });
       }
 
@@ -1528,6 +1671,27 @@ class Property {
       }
     }
 
+    this.createStringStyle = (id, full_id, full_id_shape) => {
+      $(".propertyMenu").append(`                
+          <div class="Editdatacrispy">
+            <button type="button" id="solid_style_${id}" class="btn btn-default positionset" ><i class="fas fa-minus"></i></button>
+            <button type="button" id="dotted_style_${id}" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
+            <button type="button" id="dashed_style_${id}" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
+          </div>`);
+          
+      $("#solid_style_" + id).unbind().click(function () {
+        $(full_id_shape).css('border-right-style', "solid");
+      });
+
+      $("#dotted_style_" + id).unbind().click(function () {
+        $(full_id_shape).css('border-right-style', "dotted");
+      });
+
+      $("#dashed_style_" + id).unbind().click(function () {
+        $(full_id_shape).css('border-right-style', "dashed");
+      });
+    }
+
     this.createFontSize = (id, full_id) => {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -1547,7 +1711,7 @@ class Property {
           </div>`);
 
       // Set start value
-      $("#slider_font_widget_" + id).val($(full_id).css('font-size'));
+      $("#slider_font_widget_" + id).val($(full_id).css('font-size').replace('px', ''));
       $("#slider_font_input_widget_" + id).val($(full_id).css('font-size').replace('px', ''));
 
       $("#slider_font_widget_" + id).unbind().change(function () {
@@ -1644,8 +1808,8 @@ class Property {
           </div>`);
           
       // Set start value
-      $("#slider_radius_widget_" + id).val($(full_id_shape).css('border-radius').split("%")[0]);
-      $("#slider_radius_input_widget_" + id).val($(full_id_shape).css('border-radius').split("%")[0]);
+      $("#slider_radius_widget_" + id).val($(full_id_shape).css('border-radius').replace('%', ''));
+      $("#slider_radius_input_widget_" + id).val($(full_id_shape).css('border-radius').replace('%', ''));
 
       $("#slider_radius_widget_" + id).unbind().change(function () {
         var radiusValue = $(this).val();
@@ -1661,6 +1825,46 @@ class Property {
           var radiusValue = $(this).val();
           $("#slider_radius_widget_" + id).val($(this).val());
           $(full_id_shape).css('border-radius', radiusValue + "%");
+        }
+      });
+    }
+
+    this.createBorderWidth = (id, full_id, full_id_shape) => {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>Border Width (px)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <input type="range" min="5" max="20" value="0" id="slider_width_widget_${id}" class="slider" />
+                </div>
+                <div class="col-4">
+                    <input type="text" id="slider_width_input_widget_${id}" class="form-control crispysilde" />
+                </div>
+            </div>
+          </div>`);
+          
+      // Set start value
+      $("#slider_width_widget_" + id).val($(full_id_shape).css('border-right-width').replace('px', ''));
+      $("#slider_width_input_widget_" + id).val($(full_id_shape).css('border-right-width').replace('px', ''));
+
+      $("#slider_width_widget_" + id).unbind().change(function () {
+        var widthValue = $(this).val();
+        $("#slider_width_input_widget_" + id).val($(this).val());
+        $(full_id_shape).css('border-right-width', widthValue + "px");
+      });
+
+      $("#slider_width_input_widget_" + id).unbind().change(function () {
+        if ($(this).val() < 5 || $(this).val() > 20) {
+          alert("test : 0 - 50");
+        }
+        else {
+          var widthValue = $(this).val();
+          $("#slider_width_widget_" + id).val($(this).val());
+          $(full_id_shape).css('border-right-width', widthValue + "px");
         }
       });
     }
@@ -1768,18 +1972,37 @@ class ContentProperty extends Property {
       this.createFontSize(id, full_id);
     }
 
+    this.createImageProp = (id, full_id, full_id_image, type) =>{
+      this.createPosition(id, full_id);
+      this.createDownload(id, full_id);
+      this.createCropImage(id, full_id, full_id_image);
+      this.createScale(id, full_id, type);
+      this.createRotation(id, full_id);
+      this.createTransparency(id, full_id);
+      this.createBorderRadius(id, full_id, full_id_image);
+    }
+
     this.createShapeProp = (id, full_id, full_id_shape, type) =>{
       this.createPosition(id, full_id);
       this.createDownload(id, full_id);
       this.createColorAndDeleteForShape(id, full_id, full_id_shape, type);
+
+      if(type == "string")
+      {
+        this.createStringStyle(id, full_id, full_id_shape);
+      }
+
       this.createScale(id, full_id, type);
       this.createRotation(id, full_id);
       this.createTransparency(id, full_id);
 
-      // For shape type : Square, Circle
-      if(type != "line")
+      if(type == "string")
       {
-        this.createBorderRadius(id, full_id, full_id_shape);
+        this.createBorderWidth(id, full_id, full_id_shape);
+      }
+      else
+      {
+        this.createBorderRadius(id, full_id, full_id_shape);   
       }
     }
   } // Constructor
