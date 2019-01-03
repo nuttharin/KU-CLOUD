@@ -59,6 +59,10 @@
                     <button type="button" class="btn btn-default Editdata" >Edit data</button>
                     <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
                 </div>
+                <div class="Editdatacrispy">
+                    <button type="button" class="btn btn-default Editdata" >Crop image</button>
+                    <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+                </div>
                 <div class="Scaling">
                     <div class="row">
                         <div class="col-8 rotates">
@@ -133,6 +137,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="Editdatacrispy">
+                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
+                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
+                </div>
                 <div class="Scaling">
                     <div class="row">
                         <div class="col-8 rotates">
@@ -187,6 +196,21 @@
                     <div class="row">
                         <div class="col-8">
                             <input type="range" min="0" max="50" value="0" class="slider" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control crispysilde" />
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Border Width (px)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="range" min="5" max="20" value="0" class="slider" />
                         </div>
                         <div class="col-4">
                             <input type="text" class="form-control crispysilde" />

@@ -71,6 +71,10 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
 
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+    <!-- Croppie -->
+    <link rel="stylesheet" href="{{url('cropper/cropper.css')}}">
+    <script src="{{url('cropper/cropper.js')}}"></script>
 </head>
 
 <body>
