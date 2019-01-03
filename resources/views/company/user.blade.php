@@ -46,7 +46,7 @@
                                 <div class="text-static animated fadeIn" style="display:none">
                                     <p class="mb-0 text-right">Total User</p>
                                     <div class="fluid-container">
-                                        <h3 class="font-weight-medium text-right mb-0" id="total-user">0 User</h3>
+                                        <h2 class="font-weight-medium text-right mb-0" id="total-user">0 User</h2>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                 <div class="text-static animated fadeIn" style="display:none">
                                     <p class="mb-0 text-right">Total User Online</p>
                                     <div class="fluid-container">
-                                        <h3 class="font-weight-medium text-right mb-0" id="total-user-online">0 User</h3>
+                                        <h2 class="font-weight-medium text-right mb-0" id="total-user-online">0 User</h2>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                 <div class="text-static animated fadeIn" style="display:none">
                                     <p class="mb-0 text-right">Total User Offline</p>
                                     <div class="fluid-container">
-                                        <h3 class="font-weight-medium text-right mb-0" id="total-user-offline">0 User</h3>
+                                        <h2 class="font-weight-medium text-right mb-0" id="total-user-offline">0 User</h2>
                                     </div>
                                 </div>
                             </div>

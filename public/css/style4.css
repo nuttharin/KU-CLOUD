@@ -533,9 +533,3 @@ ul ul a {
 
 /* dataTable */
 
-.dataTables_processing {
-    background-color: transparent !important;
-    border: none;
-    box-shadow:none;
-
-}

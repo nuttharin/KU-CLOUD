@@ -27,13 +27,8 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-
-        </div>
-    </div>
 </div>
-<div class="row" style="">
+<div class="row mt-3" style="">
 
     <div class="col-12">
         <div class="card">
