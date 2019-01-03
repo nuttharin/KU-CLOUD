@@ -178,11 +178,12 @@
                         <li class="nav-item">
                             <a href="{{action('CompanyController@service')}}">Web Service</a>
                         </li>
+                        
                         <li class="nav-item">
-                            <a href="#">Mobile phone</a>
+                            <a href="#">IOT</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">Micro</a>
+                            <a href="{{action('CompanyController@Output_service')}}">Output Service</a>
                         </li>
                     </ul>
                 </li>
