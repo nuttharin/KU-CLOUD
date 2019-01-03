@@ -606,7 +606,11 @@ export class ManagementUsers {
                                 return row.fname + " " + row.lname;
                             }
                         },
-                        { data: 'phone[0].phone_user' },
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.phone[0].phone_user;
+                            }
+                        },
                         { data: 'email[0].email_user' },
                         {
                             "mData": "block",
@@ -722,7 +726,11 @@ export class ManagementUsers {
                                 return row.fname + " " + row.lname;
                             }
                         },
-                        { data: 'phone[0].phone_user' },
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.phone[0].phone_user;
+                            }
+                        },
                         { data: 'email[0].email_user' },
                         {
                             "mData": "block",
@@ -839,29 +847,29 @@ export class ManagementUsers {
                 error: (res) => {
                     console.log(res);
                     LOADING.reset(el);
-                    // let errorList = res.responseJSON.errors;
-                    // let error_target = {
-                    //     email: {
-                    //         el: $("#add_email_val"),
-                    //     },
-                    //     password: {
-                    //         el: $("#add_pwd_val"),
-                    //     },
-                    //     fname: {
-                    //         el: $("#add_fname_val"),
-                    //     },
-                    //     lname: {
-                    //         el: $("#add_lname_val"),
-                    //     },
-                    //     phone: {
-                    //         el: $("#add_phone_val"),
-                    //     },
-                    //     sub_type_user: {
-                    //         el: $("#add_type_user_val"),
-                    //     }
-                    // };
-                    // //console.log(errorList);
-                    // ERROR_INPUT.set(error_target, errorList);
+                    let errorList = res.responseJSON.errors;
+                    let error_target = {
+                        email: {
+                            el: $("#add_email_val"),
+                        },
+                        password: {
+                            el: $("#add_pwd_val"),
+                        },
+                        fname: {
+                            el: $("#add_fname_val"),
+                        },
+                        lname: {
+                            el: $("#add_lname_val"),
+                        },
+                        phone: {
+                            el: $("#add_phone_val"),
+                        },
+                        sub_type_user: {
+                            el: $("#add_type_user_val"),
+                        }
+                    };
+                    //console.log(errorList);
+                    ERROR_INPUT.set(error_target, errorList);
                 }
             });
         };
@@ -980,6 +988,7 @@ export class ManagementUsers {
                 onSaveUserClick($(this));
             });
         };
+
 
         this.showLastestDatatable = () => {
             //showDatatableLoadingStatus(true);

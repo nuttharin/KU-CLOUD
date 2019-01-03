@@ -104,6 +104,24 @@
         transition: all 0.3s;
         color: #e65251
     }
+
+    .widget-type-data:hover {
+        transition: 0.3s;
+        opacity: 0.8;
+    }
+
+    .widget-type-data {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #FFFF;
+        height: 50px;
+        width: 200px;
+        padding: 50px;
+        margin: 30px;
+        border-radius: 5px;
+    }
 </style>
 
 <div id="layout-full-screen">
@@ -184,18 +202,29 @@
                 </div>
 
                 <div class="modal-body">
+                    {{--
+                    <div id="select-type">
+                        <div class="row text-center d-flex justify-content-center">
+                            <div class="bg-success widget-type-data" type="RealTime">
+                                Real time
+                            </div>
+                            <div class="bg-primary widget-type-data" type="Static">
+                                Static
+                            </div>
+                        </div>
+                    </div> --}}
 
                     <div class="row">
                         <div class="col-12">
                             <label>Widget Type</label>
                             <select class="form-control" id="widget_type">
                             <option value="">--Select Widget Type--</option>
-                            <option value="MutiLine">MutiLine</option>
-                            <option value="TextLine">Text Line</option>
-                            <option value="Radar">Radar</option>
-                            <option value="Gauges">Gauges</option>
-                            <option value="Map">Map</option>
-                            <option value="TextValue">TextValue</option>
+                            <option value="MutiLine">MutiLine (Real time / Static)</option>
+                            <option value="Radar">Radar (Real time / Static)</option>
+                            <option value="Map">Map (Real time / Static)</option>
+                            <option value="TextLine">Text Line (Real time)</option>
+                            <option value="Gauges">Gauges (Real time)</option>
+                            <option value="TextValue">TextValue (Real time)</option>
                             <option value="TextBox">TextBox</option>
                         </select>
                         </div>
@@ -236,9 +265,11 @@
                                 <div class="col-3">
                                     <label for="">Datasource</label>
                                     <select class="form-control select-datasource">
-                                        
+                                
                                     </select>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-3">
                                     <label for="">Value</label>
                                     <input class="form-control value-datasource">
@@ -248,13 +279,14 @@
                                     <label for="">Label</label>
                                     <input type="text" class="form-control label-y-chart-line">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label for="">RGB</label>
                                     <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div id="Radar" class="value_widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
@@ -296,6 +328,7 @@
                                 <canvas id="example-radar"></canvas>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-12">
                                 <h5>Datasource Radar</h5>
@@ -309,6 +342,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="Gauges" class="value_widget" style="display:none;">
                         <div class="row">
                             <div class="col-4">
@@ -341,6 +375,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="text-line" class="value_widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
@@ -355,7 +390,7 @@
                             <div class="col-4">
                                 <label for="">Datasource</label>
                                 <select class="form-control select-datasource">
-                                            
+                                    
                                 </select>
                             </div>
                             <div class="col-4">
@@ -369,6 +404,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="TextValue" class="value_widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
@@ -395,6 +431,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="map" class="value_widget" style="display:none;">
                         <!--<div class="row">
                         <div class="col-6">
@@ -456,12 +493,6 @@
 <div id="line_value_layout" hidden>
     <div class="row">
         <div class="col-3">
-            <label for="">Datasource</label>
-            <select class="form-control select-datasource">
-                    
-            </select>
-        </div>
-        <div class="col-3">
             <label for="">Value</label>
             <input class="form-control value-datasource">
             <ul class="list-group data-list">
@@ -470,11 +501,11 @@
             <label for="">Label</label>
             <input type="text" class="form-control label-y-chart-line">
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <label for="">RGB</label>
-            <input type="color" class="form-control  rgb-chart-line" value="#f6b73c">
+            <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
         </div>
-        <div class="col-1 d-flex align-items-center" style="margin-top:30px">
+        <div class="col-3 d-flex align-items-center" style="margin-top:30px">
             <i class="fas fa-trash-alt remove-value"></i>
         </div>
     </div>
@@ -518,41 +549,40 @@
         <ul class="list-group data-list" style="display: none">
     </div>
 </div>
-{{--
-<div class="panel__header__min ml-auto edit-widget">
-    <i class="fas fa-cog btn-edit-wi" item="div_id"></i>
-    <i class="fas fa-trash-alt btn-delete-wi" item="div_id"></i>
-</div>
-<header class="panel__header__min">
-    <h5>((title_name))</h5>
-</header>
-<div class="panel__content">
-    ((wi))
-</div> --}}
-<div id="layout-widget" hidden>
+
+<div id="layout-widget-static" hidden>
     <div>
         <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
 
-
-            {{--
-            <div class="panel__header__min ml-auto edit-widget">
-                <i class="fas fa-cog btn-edit-wi" item="div_id"></i>
-                <i class="fas fa-trash-alt btn-delete-wi" item="div_id"></i>
+            <div class="card-header d-flex justify-content-between">
+                <div>
+                    <h5 class="title-widget">((title_name))</h5>
+                </div>
+                <div class="edit-widget" style="display:none">
+                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                </div>
+                <div class="static-mm">
+                    <i class="far fa-clock btn-edit-time grow" title="Time" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
+                </div>
             </div>
-            <header class="panel__header__min">
-                <h5>((title_name))</h5>
-            </header>
-            <div class="panel__content">
+
+            <div class="card-body" style="overflow:hidden">
                 ((wi))
             </div>
-
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
                 <div class="text-right">
-                    <span>Last Update <span id="{last_update}">00:00:00</span></span>
+                    <span>{{--Last Update --}}<span id="{last_update}">00:00:00</span></span>
                 </div>
-            </div> --}}
+            </div>
+        </div>
+    </div>
+</div>
 
-
+<div id="layout-widget" hidden>
+    <div>
+        <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
 
             <div class="card-header d-flex justify-content-between">
                 <div>
@@ -576,8 +606,6 @@
                     <span>{{--Last Update --}}<span id="{last_update}">00:00:00</span></span>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
