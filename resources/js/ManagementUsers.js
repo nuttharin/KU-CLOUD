@@ -1,4 +1,10 @@
-import { showLoadingModal, LOADING, ERROR_INPUT } from './utility';
+import {
+    showLoadingModal,
+    LOADING,
+    ERROR_INPUT
+} from './utility';
+
+
 
 let modalCreate = null;
 let modalDetail = null;
@@ -107,8 +113,7 @@ class ModalDetail {
                 }
                 if (data.is_verify) {
                     status += `<span class="badge badge-pill badge-success d-flex justify-content-center align-items-center">Verify success</span>`;
-                }
-                else {
+                } else {
                     status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
                 }
                 return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
@@ -131,8 +136,7 @@ class ModalDetail {
                 }
                 if (data.is_verify) {
                     status += `<span class="badge badge-pill badge-success d-flex justify-content-center align-items-center">Verify success</span>`;
-                }
-                else {
+                } else {
                     status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
                 }
                 return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
@@ -308,8 +312,7 @@ class ModalEdit {
             $('body').unbind().on('click', ".btn-delete-email ,.btn-delete-phone", function () {
                 if ($(this).hasClass('btn-delete-email')) {
                     --count_email;
-                }
-                else if ($(this).hasClass('btn-delete-phone')) {
+                } else if ($(this).hasClass('btn-delete-phone')) {
                     --count_phone;
                 }
                 $(this).parent().parent().remove();
@@ -459,8 +462,7 @@ class ModalToggleActive {
             $("#title-block").html(`${active} User`);
             if (UsersList[key].block) {
                 $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-info btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">UnBlock</button>`);
-            }
-            else {
+            } else {
                 $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-danger btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Block</button>`);
             }
 
@@ -568,8 +570,7 @@ export class ManagementUsers {
                 $(".dataTables_wrapper").hide();
                 $('#example').hide();
                 $('.lds-roller').show();
-            }
-            else {
+            } else {
                 $(".dataTables_wrapper").show();
                 //$('.lds-roller').hide();
                 $('.text-loading').hide();
@@ -583,8 +584,7 @@ export class ManagementUsers {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
                 UsersDATATABLE.page(page).draw('page');
-            }
-            else {
+            } else {
                 UsersDATATABLE = $('#example').DataTable({
                     "processing": true,
                     "serverSide": true,
@@ -600,8 +600,7 @@ export class ManagementUsers {
                             return json.data;
                         }
                     },
-                    "columns": [
-                        {
+                    "columns": [{
                             "mRender": function (data, type, row) {
                                 return row.fname + " " + row.lname;
                             }
@@ -611,14 +610,20 @@ export class ManagementUsers {
                                 return row.phone[0].phone_user;
                             }
                         },
-                        { data: 'email[0].email_user' },
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.email[0].email_user;
+                            }
+                        },
                         {
                             "mData": "block",
                             "mRender": function (data, type, row) {
                                 return data ? '<b class="text-danger">Block</b>' : 'Unblock';
                             }
                         },
-                        { data: 'sub_type_user' },
+                        {
+                            data: 'sub_type_user'
+                        },
                         {
                             "mData": "online",
                             "mRender": function (data, type, row) {
@@ -655,6 +660,10 @@ export class ManagementUsers {
                             }
                         }
                     ]
+                });
+
+                $('#example').tooltip({
+                    selector: '[data-toggle="tooltip"]'
                 });
             }
 
@@ -703,8 +712,7 @@ export class ManagementUsers {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
                 UsersDATATABLE.page(page).draw('page');
-            }
-            else {
+            } else {
                 UsersDATATABLE = $('#example').DataTable({
                     "processing": true,
                     "serverSide": true,
@@ -720,8 +728,7 @@ export class ManagementUsers {
                             return json.data;
                         }
                     },
-                    "columns": [
-                        {
+                    "columns": [{
                             "mRender": function (data, type, row) {
                                 return row.fname + " " + row.lname;
                             }
@@ -731,7 +738,9 @@ export class ManagementUsers {
                                 return row.phone[0].phone_user;
                             }
                         },
-                        { data: 'email[0].email_user' },
+                        {
+                            data: 'email[0].email_user'
+                        },
                         {
                             "mData": "block",
                             "mRender": function (data, type, row) {
@@ -774,6 +783,10 @@ export class ManagementUsers {
                             }
                         }
                     ]
+                });
+
+                $('#example').tooltip({
+                    selector: '[data-toggle="tooltip"]'
                 });
             }
             // let Datatable = [];
@@ -897,8 +910,7 @@ export class ManagementUsers {
         let updateDatatableData = () => {
             if (config.type === "COMPANY") {
                 createTableUsersCompany();
-            }
-            else if (config.type === "CUSTOMER") {
+            } else if (config.type === "CUSTOMER") {
                 createTableUsersCustomer();
             }
 
@@ -922,7 +934,7 @@ export class ManagementUsers {
                 onDeleteClick($(this).attr('index'));
             });
 
-            $('[data-toggle="tooltip"]').tooltip();
+
         };
 
         let createModalDelete = () => {
@@ -1023,8 +1035,7 @@ export class ManagementUsers {
                         sum += Number(result.users[i].count);
                         if (result.users[i].online === "online") {
                             $("#total-user-online").html(`${result.users[i].count} user`);
-                        }
-                        else {
+                        } else {
                             $("#total-user-offline").html(`${result.users[i].count} user`);
                         }
                     }
@@ -1036,6 +1047,8 @@ export class ManagementUsers {
             });
         };
     }
+
+
 
     static refreshData() {
         return managementUsers.showLastestDatatable();

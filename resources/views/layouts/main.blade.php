@@ -56,7 +56,7 @@
 
     <!-- toastr -->
     <link href="{{asset('js/toastr/toastr.min.css')}}" rel="stylesheet" />
-    
+
     <!-- loading -->
     <link rel="stylesheet" href="{{url('css/loading.css')}}">
 
@@ -81,10 +81,10 @@
     <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <a class="navbar-brand brand-logo" style="margin-top:10px" href="{{action('AdminController@UsersAdminister')}}">
-                <h4 class="text-center"><span style="color:green">KU</span> CLOUD</h4>
+                <h3 class="text-center"><span style="color:#00ce68">KU</span> CLOUD</h3>
             </a>
             <a class="navbar-brand brand-logo-mini" style="margin-top:10px" href="{{action('AdminController@UsersAdminister')}}">
-                <h4 class="text-center" span style="color:green">KU</h4>
+                <h3 class="text-center" style="color:#00ce68">KU</h3>
                 <!-- <img src="./logo.png" alt="" height="30px"> -->
             </a>
         </div>

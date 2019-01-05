@@ -44,7 +44,21 @@ a.active {
     color: #FFFFFF !important;
 }
 
-
+.navbar-nav .nav-item.show .navbar-dropdown {
+    font-size: 0.9rem;
+    margin-top: 0;
+    position: absolute;
+    top: calc(63px - 6px);
+    right: 0;
+    left: auto;
+    border: 1px solid rgba(182, 182, 182, 0.1);
+    padding: 0 0 20px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+    overflow: hidden;
+}
 
 .navbar.default-layout {
     transition: width 0.25s ease, background 0.25s ease;
@@ -52,7 +66,13 @@ a.active {
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
     box-shadow: none !important;
-    background: linear-gradient(120deg, #556cdc, #128bfc, #18bef1);
+    background: linear-gradient(120deg, #00e4d0, #5983e8);
+}
+
+.navbar.default-layout .nav-link {
+    color: inherit;
+    font-size: 14px;
+    vertical-align: middle;
 }
 
 .navbar.default-layout .navbar-brand-wrapper {
@@ -383,7 +403,7 @@ ul ul a {
         display: none !important;
     }
 
-    .navbar.default-layout .navbar-brand-wrapper{
+    .navbar.default-layout .navbar-brand-wrapper {
         width: 80px;
     }
 
@@ -406,8 +426,8 @@ ul ul a {
 }
 
 /* brand */
-.navbar.default-layout .navbar-brand-wrapper .navbar-brand{
-    color: #2383f3 !important;
+.navbar.default-layout .navbar-brand-wrapper .navbar-brand {
+    color: #308ee0 !important;
     margin-right: 0 !important;
     padding: 0.25rem 0;
     display: -webkit-box;
@@ -415,9 +435,10 @@ ul ul a {
     display: flex;
 }
 
-.navbar.default-layout .navbar-brand-wrapper .brand-logo-mini{
+.navbar.default-layout .navbar-brand-wrapper .brand-logo-mini {
     display: none;
 }
+
 .sidebar .list-unstyled .nav-item.nav-profile .nav-link {
     display: -webkit-flex;
     display: flex;
@@ -519,17 +540,40 @@ ul ul a {
     font-size: 1rem;
 }
 
-.grow:hover
-{
+.grow:hover {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
-    transition:all 0.3s;
+    transition: all 0.3s;
     transform: scale(1.1);
 }
 
-.input-error{
+.input-error {
     border-color: #d9534f;
 }
 
-/* dataTable */
+@keyframes dropdownAnimation {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -30px, 0);
+    }
 
+    to {
+        opacity: 1;
+        transform: none;
+        transform: translate3d(0, 0px, 0);
+    }
+}
+
+.navbar-dropdown {
+    animation-name: dropdownAnimation;
+    -webkit-animation-duration: 0.25s;
+    -moz-animation-duration: 0.25s;
+    -ms-animation-duration: 0.25s;
+    -o-animation-duration: 0.25s;
+    animation-duration: 0.25s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
