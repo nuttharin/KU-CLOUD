@@ -22,7 +22,7 @@
             <div class="card-header bg-white">
                 <div class="row">
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
-                        <span class="h3">Customer</span>
+                        <h3>Customer</h3>
                     </div>
                     <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
                         <button type="button" class="btn btn-success btn-radius" id="btn-add-user">

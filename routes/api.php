@@ -32,8 +32,20 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('closed', 'DataController@closed'); //test
 
+    //account
+    Route::get('account','Api\AccountsController@getAccount');
+
+    Route::put('account/email','Api\AccountsController@changePrimaryEmail');
+    Route::post('account/email','Api\AccountsController@addEmail');
+    Route::delete('account/email','Api\AccountsController@deleteEmail');
+
+    Route::put('account/phone','Api\AccountsController@changePrimaryPhone');
+    Route::post('account/phone','Api\AccountsController@addPhone');
+    Route::delete('account/phone','Api\AccountsController@deletePhone');
+
     //Company
     Route::get('company/test', 'Api\CompanyController@test'); //test
+
     Route::get('company/users','Api\CompanyController@getAllUser');
     Route::post('company/users', 'Api\CompanyController@addUserCompany');
     Route::put('company/users/block','Api\CompanyController@blockUserCompany');

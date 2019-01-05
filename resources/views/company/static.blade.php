@@ -6,11 +6,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
-<script src="{{url('js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}}"></script>
+<script src="{{asset('js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}}"></script>
 
-<script src="{{url('js/company/gauge/gauge.min.js')}}"></script>
+<script src="{{asset('js/company/gauge/gauge.min.js')}}"></script>
 
-<script src="{{url('js/canvas-toBlob/canvas-toBlob.js')}}"></script>
+<script src="{{asset('js/canvas-toBlob/canvas-toBlob.js')}}"></script>
 
 
 <style type="text/css">
@@ -54,6 +54,8 @@
         overflow-y: auto;
         z-index: 50;
     }
+
+    .value-datasource:focus {}
 
     .list-group-item:hover {
         color: #fff;
@@ -121,6 +123,10 @@
         padding: 50px;
         margin: 30px;
         border-radius: 5px;
+    }
+
+    .required {
+        color: #e65251;
     }
 </style>
 
@@ -216,12 +222,13 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <label>Widget Type</label>
+                            <label>Widget Type <span class="required">*</span></label>
                             <select class="form-control" id="widget_type">
                             <option value="">--Select Widget Type--</option>
                             <option value="MutiLine">MutiLine (Real time / Static)</option>
                             <option value="Radar">Radar (Real time / Static)</option>
                             <option value="Map">Map (Real time / Static)</option>
+                            <option value="Table">Table (Real time / Static)</option>
                             <option value="TextLine">Text Line (Real time)</option>
                             <option value="Gauges">Gauges (Real time)</option>
                             <option value="TextValue">TextValue (Real time)</option>
@@ -230,25 +237,25 @@
                         </div>
                     </div>
 
-                    <div id="default-value" class="row">
+                    <div id="default-value" class="row" style="display: none">
                         <div class="col-6">
-                            <label>Title</label>
+                            <label>Title <span class="required">*</span></label>
                             <input type="text" name="title-name" id="title-name" class="form-control">
                         </div>
                         <div class="col-6">
-                            <label for="">Set time interval (s)</label>
-                            <input type="number" id="time-interval" class="form-control">
+                            <label for="">Set time interval (s) <span class="required">*</span></label>
+                            <input type="number" id="time-interval" class="form-control" value="1">
                         </div>
                     </div>
 
                     <div id="text-box" class="value_widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
-                                <label>Text</label>
+                                <label>Text <span class="required">*</span></label>
                                 <input type="text" id="text-custom" class="form-control" />
                             </div>
                             <div class="col-6">
-                                <label>Font Size (px)</label>
+                                <label>Font Size (px) <span class="required">*</span></label>
                                 <input type="number" id="font-size" class="form-control" />
                             </div>
                         </div>
@@ -262,25 +269,25 @@
                         </button>
                         <div id="Mutiline_value">
                             <div class="row">
-                                <div class="col-3">
-                                    <label for="">Datasource</label>
+                                <div class="col-5">
+                                    <label for="">Datasource <span class="required">*</span></label>
                                     <select class="form-control select-datasource">
                                 
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3">
-                                    <label for="">Value</label>
+                                <div class="col-5">
+                                    <label for="">Value <span class="required">*</span></label>
                                     <input class="form-control value-datasource">
                                     <ul class="list-group data-list">
                                 </div>
-                                <div class="col-3">
-                                    <label for="">Label</label>
+                                <div class="col-5">
+                                    <label for="">Label <span class="required">*</span></label>
                                     <input type="text" class="form-control label-y-chart-line">
                                 </div>
-                                <div class="col-3">
-                                    <label for="">RGB</label>
+                                <div class="col-1">
+                                    <label for="">RGB <span class="required">*</span></label>
                                     <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
                                 </div>
                             </div>
@@ -341,6 +348,28 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div id="Table" class="value_widget" style="display:none;">
+                        <h5>Select Datasource</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Datasource</label>
+                                <select class="form-control select-datasource">
+                                            
+                                </select>
+                                <div class="mt-2" id="btn-mm-table">
+                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn-add-col">Add column</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn-add-col">Add row</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="example-table">
+
+
+                        </div>
+
                     </div>
 
                     <div id="Gauges" class="value_widget" style="display:none;">
@@ -412,20 +441,20 @@
                                 <input id="unit" type="text" class="form-control" />
                             </div>
                             <div class="col-6">
-                                <label>Color</label>
+                                <label>Color <span class="required">*</span></label>
                                 <input id="rgb" type="color" class="form-control" value="#f6b73c">
                             </div>
                         </div>
                         <h5>Select Datasource</h5>
                         <div class="row">
                             <div class="col-6">
-                                <label for="">Datasource</label>
+                                <label for="">Datasource <span class="required">*</span></label>
                                 <select class="form-control select-datasource">
                                     
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label for="">Value</label>
+                                <label for="">Value <span class="required">*</span></label>
                                 <input class="form-control value-datasource">
                                 <ul class="list-group data-list">
                             </div>
@@ -446,7 +475,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-success btn-block" id="add-new-widget" href="#">Add Widget</a>
+                    <button class="btn btn-success btn-block" id="add-new-widget" style="display:none">Add Widget</button>
                 </div>
             </div>
         </div>
@@ -492,20 +521,20 @@
 
 <div id="line_value_layout" hidden>
     <div class="row">
-        <div class="col-3">
-            <label for="">Value</label>
+        <div class="col-5">
+            <label for="">Value <span class="required">*</span></label>
             <input class="form-control value-datasource">
             <ul class="list-group data-list">
         </div>
-        <div class="col-3">
-            <label for="">Label</label>
+        <div class="col-5">
+            <label for="">Label <span class="required">*</span></label>
             <input type="text" class="form-control label-y-chart-line">
         </div>
-        <div class="col-3">
-            <label for="">RGB</label>
+        <div class="col-1">
+            <label for="">RGB <span class="required">*</span></label>
             <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
         </div>
-        <div class="col-3 d-flex align-items-center" style="margin-top:30px">
+        <div class="col-1 d-flex justify-content-center align-items-center" style="margin-top:30px">
             <i class="fas fa-trash-alt remove-value"></i>
         </div>
     </div>
