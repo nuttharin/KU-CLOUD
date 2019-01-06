@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Gate;
 
+use App\TB_USERS;
+use File;
+use Response;
+
 use Auth;
 
 class AccountsController extends Controller
@@ -27,6 +31,34 @@ class AccountsController extends Controller
     public function getAccount(Request $request){
         $data = $this->account->getAccount(Auth::user()->user_id);
         return response()->json(compact('data'),200);
+    }
+
+    public function getProfile($filename){
+        $path = storage_path('app/upload/' . $filename);
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+    
+        $file = File::get($path);
+        $type = File::mimeType($path);
+    
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+    
+        return $response;
+    }
+
+    public function uploadProfile(Request $request){
+        if ($request->hasFile('img-profile')) {
+            if(Auth::user()->img_profile != 'default-profile.jpg'){
+                $path =  storage_path('app/upload/' . Auth::user()->img_profile);
+                File::delete($path);
+            }
+            $path = $request->file('img-profile')->store('upload');
+            $this->account->uploadProfile(str_replace('upload/','',$path),Auth::user()->user_id);
+            return response()->json(compact('image'),200);
+        }
     }
 
     public function changePrimaryEmail(Request $request){
