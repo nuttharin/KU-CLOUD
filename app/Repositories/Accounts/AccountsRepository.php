@@ -14,6 +14,8 @@ interface AccountsRepository
 
     public function getAccount($user_id);
 
+    public function uploadProfile($path,$user_id);
+
     public function changePassword($newPassword,$user_id);
 
     public function changePrimaryEmail($user_id,$email_user);

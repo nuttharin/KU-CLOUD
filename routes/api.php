@@ -35,6 +35,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //account
     Route::get('account','Api\AccountsController@getAccount');
 
+    Route::get('account/profile/{filename}','Api\AccountsController@getProfile');
+    Route::post('account/profile','Api\AccountsController@uploadProfile');
+
     Route::put('account/email','Api\AccountsController@changePrimaryEmail');
     Route::post('account/email','Api\AccountsController@addEmail');
     Route::delete('account/email','Api\AccountsController@deleteEmail');

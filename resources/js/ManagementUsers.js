@@ -1002,9 +1002,9 @@ export class ManagementUsers {
         };
 
 
-        this.showLastestDatatable = () => {
+        this.showLastestDatatable = async () => {
             //showDatatableLoadingStatus(true);
-            updateDatatableData();
+            await updateDatatableData();
 
             // $.ajax({
             //     url: END_POINT + config.getUsers,
@@ -1022,7 +1022,7 @@ export class ManagementUsers {
             // });
 
 
-            $.ajax({
+            await $.ajax({
                 url: END_POINT + config.getOnlineUsers,
                 method: 'GET',
                 data: {
@@ -1054,6 +1054,7 @@ export class ManagementUsers {
         return managementUsers.showLastestDatatable();
     }
 }
+
 
 let managementUsers = null;
 

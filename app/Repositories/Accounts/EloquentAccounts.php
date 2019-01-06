@@ -28,6 +28,11 @@ class EloquentAccounts implements AccountsRepository
         // TODO: Implement getAccount() method.
     }
 
+    public function uploadProfile($path,$user_id){
+        $user = TB_USERS::where('user_id',$user_id)->update(['img_profile' => $path]);
+    }
+
+
     public function changePassword($newPassword, $user_id)
     {
         // TODO: Implement changePassword() method.
