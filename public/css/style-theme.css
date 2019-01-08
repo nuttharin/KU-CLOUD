@@ -2,8 +2,13 @@
     color: #308ee0;
 }
 
-.text-danger {
+.text-danger,
+.messages-error {
     color: #e13130;
+}
+
+.messages-error {
+    font-size: 12px;
 }
 
 .btn:focus {
@@ -158,6 +163,18 @@
 .bg-warning {
     background: #ffaf00 !important;
     border-color: #ffaf00 !important;
+}
+
+.text-danger {
+    color: #e65251;
+}
+
+.has-error {
+    border-color: #e65251;
+}
+
+.has-success {
+    border-color: #00ce68;
 }
 
 
@@ -964,4 +981,11 @@ p {
     border-right: none;
     border-left: none;
     border-bottom: 2px solid #ffffff;
+}
+
+
+
+/* Datatable */
+.dataTables_filter input[type=search] {
+    border-radius: 25px !important;
 }

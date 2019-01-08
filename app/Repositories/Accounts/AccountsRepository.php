@@ -16,7 +16,11 @@ interface AccountsRepository
 
     public function uploadProfile($path,$user_id);
 
-    public function changePassword($newPassword,$user_id);
+    public function updateName($user_id,$fname,$lname);
+
+    public function changePassword($new_password,$old_password);
+
+    public function checkOldPassword($old_password);
 
     public function changePrimaryEmail($user_id,$email_user);
 
@@ -29,5 +33,7 @@ interface AccountsRepository
     public function deleteEmail($user_id,$email_user);
 
     public function deletePhone($user_id,$phone_user);
+
+    
 
 }

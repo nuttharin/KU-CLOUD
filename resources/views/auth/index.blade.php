@@ -20,15 +20,16 @@
     }
 
     #btn-close-login {
+        transition: 0.3s;
         cursor: pointer;
     }
 
     #btn-close-login:hover {
-        transition: 0.3s;
+
         color: #e13130;
     }
 
-    header {
+    .header {
         text-align: center;
         color: #fff;
         background: linear-gradient(-45deg, #556cdc, #128bfc, #23A6D5, #23D5AB);
@@ -39,7 +40,7 @@
         position: fixed;
         width: 100%;
         z-index: 1;
-        height: 100%;
+        height: 100vh;
         overflow: hidden;
 
     }
@@ -123,8 +124,7 @@
     }
 </style>
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
-<header>
-
+<header class="header">
     <div class="d-flex flex-column justify-content-center align-items-center" id="header">
         <div id="div_header">
             <h1 class="display-1 animated fadeInDown ">KU CLOUD</h1>
@@ -194,10 +194,10 @@
 
 <div class="login-wrapper">
 
-    <div class="d-flex flex-column justify-content-center align-items-center" id="d-flex-login">
+    <div class="d-flex flex-column justify-content-center align-items-center " id="d-flex-login">
 
         <form id="form_login">
-            <i class="far fa-times-circle fa-2x" style="float:right" id="btn-close-login"></i>
+            <i class="fas fa-times fa-1x" style="float:right" id="btn-close-login"></i>
             <div class="alert alert-danger" style="display:none">
             </div>
             <h1 class="modal-title">Login</h1>

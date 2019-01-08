@@ -11,6 +11,10 @@ use App\TB_USERS;
 use App\TB_EMAIL;
 use App\TB_PHONE;
 use DB;
+use Auth;
+use Hash;
+
+use App\Exceptions\CheckOldPasswordExceptions;
 
 class EloquentAccounts implements AccountsRepository
 {
@@ -29,13 +33,54 @@ class EloquentAccounts implements AccountsRepository
     }
 
     public function uploadProfile($path,$user_id){
-        $user = TB_USERS::where('user_id',$user_id)->update(['img_profile' => $path]);
+        DB::beginTransaction();
+        try{
+            $user = TB_USERS::where('user_id',$user_id)->update(['img_profile' => $path]);
+        }
+        catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
     }
 
+    public function updateName($user_id,$fname,$lname){
+        DB::beginTransaction();
+        try{
+            TB_USERS::where('user_id',$user_id)->update(['fname'=>$fname,'lname'=>$lname]);
+        }catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+    }
 
-    public function changePassword($newPassword, $user_id)
+    public function changePassword($new_password, $old_password)
     {
         // TODO: Implement changePassword() method.
+        DB::beginTransaction();
+        try{
+            if(Hash::check($old_password,Auth::user()->password)){
+                Auth::user()->password = Hash::make($new_password);
+                Auth::user()->save();
+            }
+            else{
+                throw new CheckOldPasswordExceptions();
+            }
+            
+        }catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }catch(CheckOldPasswordExceptions $e){
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+      
+    }
+
+    public function checkOldPassword($old_password){
+        
     }
 
     public function changePrimaryEmail($user_id, $email_user)

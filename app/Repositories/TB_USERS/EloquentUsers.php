@@ -22,6 +22,8 @@ use email;
 use Mail;
 use Illuminate\Mail\Message;
 
+use Auth;
+
 class EloquentUsers implements UsersRepository
 {
 
@@ -110,6 +112,7 @@ class EloquentUsers implements UsersRepository
     {
         if($type == "COMPANY") {
             $users =   DB::table('TB_USERS')->where([
+                                                        ['TB_USERS.user_id','!=',Auth::user()->user_id],
                                                         ['TB_USERS.type_user','=',$type],
                                                         ['TB_USER_COMPANY.company_id','=',$company_id]
                                                     ])
@@ -136,6 +139,7 @@ class EloquentUsers implements UsersRepository
         }
         else if($type == "CUSTOMER"){
             $users =   DB::table('TB_USERS')->where([
+                ['TB_USERS.user_id','!=',Auth::user()->user_id],
                 ['TB_USERS.type_user','=',$type],
                 ['TB_USER_CUSTOMER.company_id','=',$company_id]
             ])
@@ -164,20 +168,10 @@ class EloquentUsers implements UsersRepository
     public  function searchByTypeForCompany($type,$company_id,$start,$length,$search){
         $data = [];
         $table = null;
-        
-        // switch (strtolower($search)){
-        //     case 'unblock':
-        //     case 'offline':
-        //         $search = false;
-        //         break;
-        //     case 'block':
-        //     case 'online':
-        //         $search = true;
-        //         break;   
-        // }
-
+    
         if($type == 'COMPANY') {
             $users =   DB::table('TB_USERS')->where([
+                                                        ['TB_USERS.user_id','!=',Auth::user()->user_id],
                                                         ['TB_USERS.type_user','=',$type],
                                                         ['TB_USER_COMPANY.company_id','=',$company_id],     
                                                         
@@ -218,6 +212,7 @@ class EloquentUsers implements UsersRepository
         }
         else if($type == 'CUSTOMER'){
             $users =   DB::table('TB_USERS')->where([
+                                                        ['TB_USERS.user_id','!=',Auth::user()->user_id],
                                                         ['TB_USERS.type_user','=',$type],
                                                         ['TB_USER_CUSTOMER.company_id','=',$company_id],     
                                             ])
@@ -381,16 +376,16 @@ class EloquentUsers implements UsersRepository
                 }
             }
 
-            // $name = $attributes['fname']." ".$attributes['lname'];
-            // $email = $attributes['email_user'];
+            $name = $attributes['fname']." ".$attributes['lname'];
+            $email = $attributes['email_user'];
 
-            // $verification_code = str_random(30); //Generate verification code
+            $verification_code = str_random(30); //Generate verification code
             
             // DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
-            // $subject = "Please verify your email address.";
+            // $subject = "Please verify your email address."; // หัวข้อเมล์
             // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email],
-            //     function($mail) use ($email, $name, $subject){            
-            //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD Name Goes Here");
+            //     function($mail) use ($email, $name, $subject){         
+            //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
             //         $mail->to($email, $name);
             //         $mail->subject($subject);
             // });

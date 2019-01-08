@@ -10,7 +10,8 @@ use Gate;
 use App\TB_USERS;
 use File;
 use Response;
-
+use Image;
+use DB;
 use Auth;
 
 class AccountsController extends Controller
@@ -50,15 +51,46 @@ class AccountsController extends Controller
     }
 
     public function uploadProfile(Request $request){
-        if ($request->hasFile('img-profile')) {
-            if(Auth::user()->img_profile != 'default-profile.jpg'){
-                $path =  storage_path('app/upload/' . Auth::user()->img_profile);
-                File::delete($path);
+        DB::beginTransaction();
+        try{
+            if ($request->get('imgProfile') != '') {
+                if(Auth::user()->img_profile != 'default-profile.jpg'){
+                    $path =  storage_path('app/upload/' . Auth::user()->img_profile);
+                    File::delete($path);
+                }
+
+                $data = $request->get('imgProfile');
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $data = base64_decode($data);
+                $imageName = str_random(10).'.'.'png';
+                \File::put(storage_path(). '/app/upload/' . $imageName, $data);
+                
+                $img= Image::make(storage_path('app/upload/'.$imageName));
+                $img->resize(400, 400);
+                $img->save();
+
+                $this->account->uploadProfile($imageName,Auth::user()->user_id);
+              
             }
-            $path = $request->file('img-profile')->store('upload');
-            $this->account->uploadProfile(str_replace('upload/','',$path),Auth::user()->user_id);
-            return response()->json(compact('image'),200);
+        } catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
+        DB::commit();
+        return response()->json(compact('image'),200);
+    }
+
+    public function updateName(Request $request){
+        $this->account->updateName(Auth::user()->user_id,$request->get('fname'),$request->get('lname'));
+    }
+
+    public function changePassword(Request $request){
+        return $this->account->changePassword($request->get('new_password'),$request->get('old_password'));
+    }
+
+    public function checkOldPassword(Request $request){
+        return $this->account->checkOldPassword($request->get('old_password'));
     }
 
     public function changePrimaryEmail(Request $request){
