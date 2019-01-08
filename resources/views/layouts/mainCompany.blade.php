@@ -69,9 +69,14 @@
 
     <link rel="stylesheet" href="{{asset('freetrans/jquery.freetrans.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
+
+    <!-- pace -->
+    <script src="{{asset('pace/pace.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('pace/pace.css')}}">
 </head>
 
 <body>
+    <div class="pace"></div>
     <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <a class="navbar-brand brand-logo" style="margin-top:10px" href="#d">
@@ -96,7 +101,7 @@
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
-                    <img class="img-xs rounded-circle" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}" alt="Profile image">
+                    <img class="img-xs rounded-circle" width="30" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}" alt="Profile image">
                   </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <a class="dropdown-item ">
@@ -114,9 +119,6 @@
                     </a>
                     <a class="dropdown-item mt-2" href="{{action('CompanyController@manageAccounts')}}">
                       Manage Accounts
-                    </a>
-                    <a class="dropdown-item">
-                      Change Password
                     </a>
                     <a class="dropdown-item">
                       Check Inbox
@@ -239,10 +241,25 @@
         <script type="text/javascript" src="{{asset('circlejson/circular-json.js')}}"></script>
         <script type="text/javascript" src="{{url('htmltocanvas/htmltocanvas.js')}}"></script>
 
+        <!-- validate -->
+        <script src="{{asset('js/validate/validate.js')}}"></script>
+
         <!-- Page Content  -->
         <div id="content">
             @yield('content')
         </div>
+
+        <script>
+            paceOptions = {
+            ajax: true,
+            document: true,
+            eventLag: false
+        };
+
+            Pace.on('done', function () {
+                $('#preloader').delay(500).fadeOut(800);
+            });
+        </script>
 
 </body>
 

@@ -48,6 +48,7 @@ class AdminController extends Controller
         if(!Gate::allows('isAdmin')){
             abort('403',"Sorry, You can do this actions");
         }
+        
         $this->users = $users;
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');
@@ -148,79 +149,6 @@ class AdminController extends Controller
         ];
         $this->users->update($attributes);
     
-        // $user = TB_USERS::where('user_id', $request->get('user_id'))
-        //                     ->update([
-        //                         'fname'     => $request->get('fname'),
-        //                         'lname'     => $request->get('lname')
-        //                     ]);
-
-        // $delPhone = TB_PHONE::where('user_id', $request->get('user_id'))
-        //                     ->delete();
-
-        // $delEmail = TB_EMAIL::where('user_id', $request->get('user_id'))
-        //                     ->delete();
-        
-        // $arrayPhone = explode(",", $request->get('phone'));
-
-        // if(!empty($arrayPhone[0]))
-        // {
-        //     $createP1 = TB_PHONE::create([
-        //         'user_id'       => $request->get('user_id'),
-        //         'phone_user'    => $arrayPhone[0]
-        //     ]);
-        // }
-
-        // if(!empty($arrayPhone[1]))
-        // {
-        //     $createP2 = TB_PHONE::create([
-        //         'user_id'       => $request->get('user_id'),
-        //         'phone_user'    => $arrayPhone[1]
-        //     ]);
-        // }
-
-        // if(!empty($arrayPhone[2]))
-        // {
-        //     $createP3 = TB_PHONE::create([
-        //         'user_id'       => $request->get('user_id'),
-        //         'phone_user'    => $arrayPhone[2]
-        //     ]);
-        // }
-
-        // $arrayEmail = explode(",", $request->get('email'));
-
-        // if(!empty($arrayEmail[0]))
-        // {
-        //     $createE1 = TB_EMAIL::create([
-        //         'user_id'       => $request->get('user_id'),
-        //         'email_user'    => $arrayEmail[0],
-        //         'is_verify'     => false
-        //     ]);
-        // }
-
-        // if(!empty($arrayEmail[1]))
-        // {
-        //     $createE1 = TB_EMAIL::create([
-        //         'user_id'       => $request->get('user_id'),
-        //         'email_user'    => $arrayEmail[1],
-        //         'is_verify'     => false
-        //     ]);
-        // }
-
-        // if(!empty($arrayEmail[2]))
-        // {
-        //     $createE1 = TB_EMAIL::create([
-        //         'user_id'       => $request->get('user_id'),
-        //         'email_user'    => $arrayEmail[2],
-        //         'is_verify'     => false
-        //     ]);
-        // }
-
-        // $userCompany = TB_USER_COMPANY::where('user_id', $request->get('user_id'))
-        //                                     ->update([
-        //                                         'company_id'     => $request->get('company'),
-        //                                         'sub_type_user'  => $request->get('sub_type_user')
-        //                                     ]);
-        
         return response()->json(["status_code","201"],201);
     }
 

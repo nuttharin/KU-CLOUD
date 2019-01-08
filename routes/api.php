@@ -32,11 +32,15 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('closed', 'DataController@closed'); //test
 
+    Route::post('account/password','Api\AccountsController@changePassword');
     //account
+    
     Route::get('account','Api\AccountsController@getAccount');
 
     Route::get('account/profile/{filename}','Api\AccountsController@getProfile');
     Route::post('account/profile','Api\AccountsController@uploadProfile');
+    
+    Route::post('account/name','Api\AccountsController@updateName');
 
     Route::put('account/email','Api\AccountsController@changePrimaryEmail');
     Route::post('account/email','Api\AccountsController@addEmail');
