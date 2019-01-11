@@ -41,6 +41,10 @@ export const convertHex = (hex, opacity) => {
     return result;
 };
 
+export const randomHexColor = () => {
+    return '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+}
+
 let resetText = null;
 
 export const LOADING = {

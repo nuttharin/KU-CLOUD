@@ -29,6 +29,18 @@ class AccountsController extends Controller
         $this->account = $account;
     }
 
+    public  function register(Request $request){
+        $attr = [
+            'fname'=>$request->get('fname'),
+            'lname'=>$request->get('lname'),
+            'password'=>$request->get('password'),
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+        ];
+
+        $this->account->register($attr);
+    }
+
     public function getAccount(Request $request){
         $data = $this->account->getAccount(Auth::user()->user_id);
         return response()->json(compact('data'),200);

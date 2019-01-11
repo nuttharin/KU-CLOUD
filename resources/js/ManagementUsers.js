@@ -996,7 +996,7 @@ export class ManagementUsers {
             modalDelete.create(key);
         };
 
-        let updateDatatableData = () => {
+        let updateDatatableData = async () => {
             if (config.type === "COMPANY") {
                 createTableUsersCompany();
             } else if (config.type === "CUSTOMER") {
@@ -1121,7 +1121,7 @@ export class ManagementUsers {
                     type_user: config.type,
                 },
                 success: function (result) {
-                    showDatatableLoadingStatus(false);
+
                     let sum = 0;
                     for (let i in result.users) {
                         sum += Number(result.users[i].count);
@@ -1137,6 +1137,8 @@ export class ManagementUsers {
                     console.log(error);
                 }
             });
+
+            showDatatableLoadingStatus(false);
         };
     }
 

@@ -470,5 +470,9 @@ class EloquentUsers implements UsersRepository
     }
 
 
-
+    public function getCustomerNoCompany()
+    {
+        // TODO: Implement getCustomerNoCompany() method.
+        $data = DB::select('select ');
+    }
 }

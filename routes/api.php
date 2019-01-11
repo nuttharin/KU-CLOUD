@@ -24,7 +24,7 @@ Route::post('login', 'UserController@authenticate');
 
 Route::get('open', 'DataController@open'); //test
 
-
+Route::post('account/register','Api\AccountsController@register');
 
 
 Route::group(['middleware' => ['jwt.verify']], function() {
@@ -32,8 +32,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('closed', 'DataController@closed'); //test
 
-    Route::post('account/password','Api\AccountsController@changePassword');
     //account
+    Route::post('account/password','Api\AccountsController@changePassword');
     
     Route::get('account','Api\AccountsController@getAccount');
 

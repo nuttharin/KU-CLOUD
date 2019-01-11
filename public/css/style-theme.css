@@ -165,9 +165,6 @@
     border-color: #ffaf00 !important;
 }
 
-.text-danger {
-    color: #e65251;
-}
 
 .has-error {
     border-color: #e65251;
@@ -988,4 +985,13 @@ p {
 /* Datatable */
 .dataTables_filter input[type=search] {
     border-radius: 25px !important;
+}
+
+
+.font-weight-semibold {
+    font-weight: 600;
+}
+
+.text-small {
+    font-size: 12px;
 }
