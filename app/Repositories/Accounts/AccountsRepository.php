@@ -34,6 +34,5 @@ interface AccountsRepository
 
     public function deletePhone($user_id,$phone_user);
 
-    
-
+    public function register(array $attr);
 }

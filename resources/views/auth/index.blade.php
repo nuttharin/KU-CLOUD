@@ -2,9 +2,13 @@
 @section('content')
 <style>
     #form_login {
-        width: 40%;
+        width: 35%;
         margin: auto;
-        padding: 50px;
+        padding: 40px 40px 10px;
+        -webkit-box-shadow: 0 -25px 37.7px 11.3px rgba(8, 143, 220, 0.07);
+        box-shadow: 0 -25px 37.7px 11.3px rgba(8, 143, 220, 0.07);
+        background: #FFF;
+        border-radius: 4px;
     }
 
     @media screen and (max-width: 850px) {
@@ -38,11 +42,12 @@
         -moz-animation: Gradient 15s ease infinite;
         animation: Gradient 15s ease infinite;
         position: fixed;
-        width: 100%;
+        width: 100vw;
         z-index: 1;
-        height: 100vh;
+        min-height: 100vh;
         overflow: hidden;
-
+        text-align: center;
+        box-sizing: border-box;
     }
 
     .content-wrapper {
@@ -57,7 +62,7 @@
     .login-wrapper {
         color: #000;
         top: 100%;
-        background: #f2f3f9;
+        background: linear-gradient(-45deg, #556cdc, #128bfc, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
@@ -200,12 +205,20 @@
             <i class="fas fa-times fa-1x" style="float:right" id="btn-close-login"></i>
             <div class="alert alert-danger" style="display:none">
             </div>
-            <h1 class="modal-title">Login</h1>
+
             <label>Username</label>
-            <input type="text" class="form-control" id="email">
+            <input type="text" class="form-control" id="email" placeholder="Username">
             <label>Password</label>
-            <input type="password" class="form-control" id="pwd">
+            <input type="password" class="form-control" id="pwd" placeholder="******">
             <button class="btn btn-success btn-block btn-radius mt-3" id="btn-submit-login">Login</button>
+            <div class="form-group d-flex justify-content-center mt-3 my-2">
+                <a href="#" class="text-small forgot-password text-black">Forgot Password</a>
+
+            </div>
+            <div class="text-block text-center my-3">
+                <span class="text-small font-weight-semibold">Not a member ?</span>
+                <a href="{{action('RegisterController@index')}}" class="text-black text-small">Create new account</a>
+            </div>
         </form>
     </div>
 </div>

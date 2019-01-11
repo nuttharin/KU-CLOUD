@@ -29,6 +29,8 @@ Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser
 Route::get('/','AuthController@index');
 Route::get('/Auth','AuthController@index');
 
+Route::get('/Register','RegisterController@index');
+
 
 
 Route::group(['middleware' => ['jwt.verify.web']], function() {

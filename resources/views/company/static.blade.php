@@ -261,13 +261,28 @@
                         </div>
                     </div>
 
-                    <div id="MutiLine" class="value_widget" style="display:none;">
-                        <h5>Select Value Of Y</h5>
-                        <button class="btn btn-primary btn-sm btn-radius" id="btn-add-value-Mutiline">
+                    <div id="MutiLine" class="value_widget mt-2" style="display:none;">
+                        <div class="form-group">
+                            <label>Do you want to group data ?</label>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                  <input type="radio" name="isGroupData" class="form-check-input" value="1">Yes
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                  <input type="radio" name="isGroupData" class="form-check-input" value="0" checked>No
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="Mutiline_value" class="form-group">
+                            <h5>Select Value Of Y</h5>
+                            <button class="btn btn-primary btn-sm btn-radius" id="btn-add-value-Mutiline">
                             <i class="fa fa-plus"></i> 
                             Add Line Value Of Y
-                        </button>
-                        <div id="Mutiline_value">
+                            </button>
+
                             <div class="row">
                                 <div class="col-5">
                                     <label for="">Datasource <span class="required">*</span></label>
@@ -289,6 +304,43 @@
                                 <div class="col-1">
                                     <label for="">RGB <span class="required">*</span></label>
                                     <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="Mutiline_group_data" class="form-group" style="display: none">
+                            <h6>Group data</h6>
+                            <div class="row form-group">
+                                <div class="col-4">
+                                    <label for="">Datasource <span class="text-danger">*</span></label>
+                                    <select class="form-control select-datasource">
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <label>Group data</label>
+                                    <input type="text" class="form-control value-group-data">
+                                    <ul class="list-group data-list">
+                                </div>
+                                <div class="col-4">
+                                    <label for="customRange">Length data</label>
+                                    <div id="range_data" class="d-flex justify-content-between">
+                                        <input type="number" name="start" id="start" min="0" value="0" class="form-control mr-2">                                        -
+                                        <input type="number" name="end" id="end" min="0" value="0" class="form-control ml-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <h6>Select data</h6>
+                            <div class="row form-group">
+                                <div class="col-6">
+                                    <label for="">Value <span class="text-danger">*</span></label>
+                                    <input class="form-control value-datasource" name="value-data">
+                                    <ul class="list-group data-list-value">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Label <span class="text-danger">*</span></label>
+                                    <input class="form-control value-datasource" name="label-data">
+                                    <ul class="list-group data-list-value">
                                 </div>
                             </div>
                         </div>
@@ -359,15 +411,21 @@
                                             
                                 </select>
                                 <div class="mt-2" id="btn-mm-table">
-                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn-add-col">Add column</button>
-                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn-add-col">Add row</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_col">Add column</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_col">Remove column</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_row">Add row</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_row">Remove row</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row" id="example-table">
-
-
+                        <div class="row container mt-3">
+                            <table class="table table-bordered" id="example_table">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
 
                     </div>

@@ -42,6 +42,7 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/company/static/staticDataTable.min.js', 'public/js/company/static')
     // .js('resources/js/app.js', 'public/js/app.js')
     // .js('resources/js/containers/company/Accounts/Accounts.js', 'public/js/company/account')
+    .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 
     .js('resources/js/company/account/account.min.js', 'public/js/company/account')
     .js('resources/js/company/static/dashboard.min.js', 'public/js/admin/static')

@@ -200,4 +200,37 @@ class EloquentAccounts implements AccountsRepository
         DB::commit();
         // TODO: Implement deletePhone() method.
     }
+
+    public function register(array $attr)
+    {
+        // TODO: Implement register() method.
+        DB::beginTransaction();
+        try{
+            $user = TB_USERS::create([
+                'fname'     =>  $attr['fname'],
+                'lname'     =>  $attr['lname'],
+                'password'  =>  Hash::make($attr['password']),
+                'type_user' =>  'CUSTOMER',
+            ]);
+
+            if($user->user_id) {
+                TB_PHONE::create([
+                    'user_id'       =>  $user->user_id,
+                    'phone_user'    =>  $attr['phone_user'],
+                    'is_primary'    =>  true,
+                ]);
+
+                TB_EMAIL::create([
+                    'user_id'       =>  $user->user_id,
+                    'email_user'    =>  $attr['email_user'],
+                    'is_primary'    =>  true,
+                ]);
+            }
+        }
+        catch(Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+    }
 }
