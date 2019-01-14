@@ -24,9 +24,13 @@
     "dependencies": {
         "babel-loader": "^7.1.5",
         "babel-preset-es2017": "^6.24.1",
+        "croppie": "^2.6.2",
         "file-loader": "^2.0.0",
         "file-saver": "^2.0.0",
         "laravel-mix": "^2.1.14",
+        "nouislider": "^12.1.0",
+        "object-path": "^0.11.4",
+        "regenerator-runtime": "^0.13.1",
         "update": "^0.7.4"
     }
 }

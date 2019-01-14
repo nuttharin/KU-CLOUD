@@ -27,6 +27,11 @@ class CompanyController extends Controller
         }
         return view('company.user')->with('user', Auth::user());
     }
+
+    public function manageAccounts()
+    {
+        return view('company.manageAccounts')->with('user', Auth::user());
+    }
     
     public function customer()
     {

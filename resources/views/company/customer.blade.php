@@ -22,7 +22,7 @@
             <div class="card-header bg-white">
                 <div class="row">
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
-                        <span class="h3">Customer</span>
+                        <h3>Customer</h3>
                     </div>
                     <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
                         <button type="button" class="btn btn-success btn-radius" id="btn-add-user">
@@ -49,7 +49,7 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User</p>
                                             <div class="fluid-container">
-                                                <h3 class="font-weight-medium text-right mb-0" id="total-user">0 User</h3>
+                                                <h2 class="font-weight-medium text-right mb-0" id="total-user">0 User</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User Online</p>
                                             <div class="fluid-container">
-                                                <h3 class="font-weight-medium text-right mb-0" id="total-user-online">0 User</h3>
+                                                <h2 class="font-weight-medium text-right mb-0" id="total-user-online">0 User</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User Offline</p>
                                             <div class="fluid-container">
-                                                <h3 class="font-weight-medium text-right mb-0" id="total-user-offline">0 User</h3>
+                                                <h2 class="font-weight-medium text-right mb-0" id="total-user-offline">0 User</h2>
                                             </div>
                                         </div>
                                     </div>

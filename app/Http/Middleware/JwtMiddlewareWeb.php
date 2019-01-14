@@ -20,7 +20,8 @@
          * @return mixed
          */
         public function handle($request, Closure $next)
-        {   try{   
+        {   
+            try{   
                 $token = isset($_COOKIE["token"]) ? $_COOKIE["token"]:"";
                 
                 $request->headers->set("Authorization", "Bearer $token");//this is working

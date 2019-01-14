@@ -1,6 +1,8 @@
 <?php
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +29,8 @@ Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser
 Route::get('/','AuthController@index');
 Route::get('/Auth','AuthController@index');
 
+Route::get('/Register','RegisterController@index');
+
 
 
 Route::group(['middleware' => ['jwt.verify.web']], function() {
@@ -42,6 +46,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function() {
     Route::get('/Company/Service/OutputService','CompanyController@Output_service');
     
     Route::get('/Company/User','CompanyController@user');
+    Route::get('/Company/ManageAccounts','CompanyController@manageAccounts');
 
     Route::get('/Company/LogViewer','CompanyController@LogViewer');
 

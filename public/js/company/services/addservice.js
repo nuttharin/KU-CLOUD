@@ -17,7 +17,7 @@ toastr.options = {
 };
 
 class Service {
-    constructor(strUrl, alias, ServiceName, description) {
+    constructor(strUrl, alias, ServiceName, description,status) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
@@ -253,6 +253,7 @@ class Service {
             //increasefirstDW();
 
         }
+        //console.log(status)
         let increaseDataTableDB = () => {
             $.ajax({
                 url: "http://localhost:8000/api/company/webservice/addRegisWebService",
@@ -265,7 +266,9 @@ class Service {
                     alias: alias,
                     ServiceName: ServiceName,
                     description: description,
-                    header: headerLow
+                    header: headerLow,
+                    valueCal: "sefef",
+                    status: status
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
@@ -486,7 +489,8 @@ $(document).ready(function () {
         let alias = $('#alias-webservice').val();
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
-        let service = new Service(url, alias, ServiceName, description);
+        let status = $('#status-webservice').val();
+        let service = new Service(url, alias, ServiceName, description,status);
         service.initService();
         // let data = {
         //     api : null,

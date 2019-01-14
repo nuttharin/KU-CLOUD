@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use DB;
 use App\TB_USERS;
@@ -49,6 +50,7 @@ class CompanyController extends Controller
                                  StaticRepository $static,
                                  Request $request)
     {
+        
         if(!Gate::allows('isCompanyAdmin')){
             abort('403',"Sorry, You can do this actions");
         }
@@ -63,6 +65,7 @@ class CompanyController extends Controller
         $this->auth = Auth::user();
         $company_id = $this->auth->user_company()->first()->company_id;
         $this->log_viewer->setFolder('COMPANY_'.$company_id);
+        
     }
 
     public function test(){
@@ -117,16 +120,13 @@ class CompanyController extends Controller
         ],200);
     }
 
-    public function addUserCompany(UsersRequest $request) {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        
+    public function addUserCompany(UsersRequest $request) {        
         $data = [
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'password' => $request->get('password'),
             'type_user' => 'COMPANY',
-            'company_id' => $payload["user"]->company_id,
+            'company_id' =>  $this->auth->user_company()->first()->company_id,
             'sub_type_user' => $request->get('sub_type_user'),
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone')
@@ -297,6 +297,8 @@ class CompanyController extends Controller
             'URL'=> $request->get('strUrl'),
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
+            'value_cal'=>$request->get('valueCal'),
+            'status'=>$request->get('status')
         ]);
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('webService'),200);
@@ -344,7 +346,7 @@ class CompanyController extends Controller
             'alias' =>$request->get('alias'),
             'URL'=> $request->get('strUrl'),
             'description'=> $request->get('description'),
-            'header_row'=> $request->get('header'),
+            'header_row'=> $request->get('header')
         ]);
         Log::info('Edit Web Service - [] SUCCESS');
         return response()->json(["status","success"],200);
