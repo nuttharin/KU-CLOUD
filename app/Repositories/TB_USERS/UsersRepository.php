@@ -17,6 +17,8 @@ interface UsersRepository
 
     public  function getByTypeForCompany($type,$company_id,$start,$length);
 
+    public  function getCustomerNoCompany();
+
     public  function searchByTypeForCompany($type,$company_id,$start,$length,$search);
 
     public  function countUserOnline($type,$company_id = null);

@@ -313,6 +313,13 @@ headline{
   transform: translate(-50%, -50%);
 }
 
+/* Image class */
+.scaleImage{
+  width:100%;
+  height: 100%;
+  border-radius: 0%;
+}
+
 /* Shape class */
 .square{
   background-color: rgb(85, 85, 85);
@@ -325,8 +332,6 @@ headline{
 }
 
 .circle{
-  width: 100px;
-  height: 100px;
   background-color: rgb(85, 85, 85);
   border-radius: 50%;
   margin: auto;
@@ -337,10 +342,12 @@ headline{
 }
 
 .string{
-  height: 200px;
-  border-left-width: 5px;
-  border-left-color: rgb(85, 85, 85);
-  border-left-style:solid;
+  position:relative;
+  width: 50%;
+  height: 100%;
+  border-right-width: 5px;
+  border-right-color: rgb(85, 85, 85);
+  border-right-style:solid;
 }
 
 

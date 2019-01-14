@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Accounts\AccountsRepository;
+use App\Repositories\Accounts\EloquentAccounts;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_COMPANY\EloquentCompany;
 use App\Repositories\TB_STATIC\EloquentStatic;
@@ -35,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(FakerGenerator::class, function () {
+            return FakerFactory::create('th_TH');
+          });
+        $this->app->singleton(AccountsRepository::class,EloquentAccounts::class);
         $this->app->singleton(UsersRepository::class,EloquentUsers::class);
         $this->app->singleton(CompanyRepository::class,EloquentCompany::class);
         $this->app->singleton(WebServiceRepository::class,EloquentWebService::class);

@@ -28,39 +28,45 @@ class AdminController extends Controller
         $this->log_viewer->setFolder('KU_CLOUD');
     }
 
+    public function manageAccounts()
+    {
+        return view('company.manageAccounts')->with('user', Auth::user());
+    }
+
     public function UsersAdminister()
     {
-        return view('admin.UsersAdminister');
+        return view('admin.UsersAdminister')->with('user', Auth::user());
     }
 
     public function UsersCompany()
     {
-        return view('admin.UsersCompany');
+        return view('admin.UsersCompany')->with('user', Auth::user());
     }
 
     public function UsersCustomer()
     {
-        return view('admin.UsersCustomer');
+        return view('admin.UsersCustomer')->with('user', Auth::user());
     }
 
     public function Company()
     {
-        return view('admin.Company');
+        return view('admin.Company')->with('user', Auth::user());
     }
 
     public function Infographic()
     {
-        return view('admin.Infographic');
+        return view('admin.Infographic')->with('user', Auth::user());
     }
 
     public function InfographicCustom($id)
     {
         return view('admin.Infographic_customize')
-        ->with('id',$id);
+        ->with('id',$id)
+        ->with('user', Auth::user());
     }
     public function Static()
     {
-        return view('admin.Static');
+        return view('admin.Static')->with('user', Auth::user());
     }
 
     public function service()
@@ -92,18 +98,20 @@ class AdminController extends Controller
             }
         }
         //dd($data);
-        return view('admin.LogViewer')->with(['data'=>$data]);
+        return view('admin.LogViewer')->with(['data'=>$data])
+        ->with('user', Auth::user());
     }
 
     public function AddService()
     {
-        return view('admin.add_webService');
+        return view('admin.add_webService')->with('user', Auth::user());
     }
     public function EditService($id)
     {
         $webService = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
         FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.webservice_id='$id'");
-        return view('admin.edit_webService')->with('webService',$webService);
+        return view('admin.edit_webService')->with('webService',$webService)
+        ->with('user', Auth::user());
     }
 
 

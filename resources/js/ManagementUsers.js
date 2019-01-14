@@ -1,4 +1,19 @@
-import { showLoadingModal, LOADING, ERROR_INPUT } from './utility';
+import {
+    showLoadingModal,
+    LOADING,
+    ERROR_INPUT,
+    addEventValidate,
+    resetInputValidate,
+    checkError
+} from './utility';
+
+const language = {
+    "sProcessing": `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`,
+    "oPaginate": {
+        "sNext": "<i class='mdi mdi-chevron-right'></i>",
+        "sPrevious": "<i class='mdi mdi-chevron-left'></i>"
+    },
+};
 
 let modalCreate = null;
 let modalDetail = null;
@@ -7,7 +22,7 @@ let modalBlock = null;
 let modalDelete = null;
 const FormAddEmail = `
                     <div class="input-group">
-                        <input type="text" class="add_email_val form-control mt-1" value={email}  disabled>
+                        <input type="text" name="email" class="add_email_val form-control mt-1" value={email}  disabled>
                             <div class="input-group-append">
                                 <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
                             </div>
@@ -15,7 +30,7 @@ const FormAddEmail = `
                     `;
 const FormAddPhone = ` 
                     <div class="input-group">
-                        <input type="text" class="add_phone_val form-control mt-1" value={phone}  disabled>
+                        <input type="text" name="phone" class="add_phone_val form-control mt-1" value={phone}  disabled>
                         <div class="input-group-append">
                             <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                         </div>
@@ -40,6 +55,99 @@ toastr.options = {
 };
 
 const END_POINT = 'http://localhost:8000/api/';
+
+validate.validators.presence.message = "is required";
+
+let validateInput = {
+    create: {
+        parent: "form#form-add-user",
+        validate: {
+            email: {
+                presence: true,
+                email: true
+            },
+            password: {
+                presence: {
+                    allowEmpty: false,
+                },
+                format: {
+                    pattern: "[a-zA-Z0-9]+",
+                    flags: "i",
+                    message: "can only contain a-Z and 0-9"
+                },
+                length: {
+                    minimum: 6,
+                    message: "must be at least 6 characters"
+                }
+            },
+            firstname: {
+                presence: {
+                    allowEmpty: false
+                },
+                length: {
+                    maximum: 50,
+                },
+            },
+            lastname: {
+                presence: {
+                    allowEmpty: false
+                },
+                length: {
+                    maximum: 50,
+                },
+            },
+            phone: {
+                presence: {
+                    allowEmpty: false
+                },
+                format: {
+                    pattern: "[0-9]+",
+                    flags: "i",
+                    message: "can only contain 0-9"
+                },
+                length: {
+                    minimum: 10,
+                    maximum: 10,
+                },
+            }
+        }
+    },
+    edit: {
+        parent: "form#form-edit-user",
+        validate: {
+            email: {
+                email: true
+            },
+            firstname: {
+                presence: {
+                    allowEmpty: false
+                },
+                length: {
+                    maximum: 50,
+                },
+            },
+            lastname: {
+                presence: {
+                    allowEmpty: false
+                },
+                length: {
+                    maximum: 50,
+                },
+            },
+            phone: {
+                format: {
+                    pattern: "[0-9]+",
+                    flags: "i",
+                    message: "can only contain 0-9"
+                },
+                length: {
+                    minimum: 10,
+                    maximum: 10,
+                },
+            }
+        }
+    }
+}
 
 class ModalCreate {
     constructor(config) {
@@ -107,8 +215,7 @@ class ModalDetail {
                 }
                 if (data.is_verify) {
                     status += `<span class="badge badge-pill badge-success d-flex justify-content-center align-items-center">Verify success</span>`;
-                }
-                else {
+                } else {
                     status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
                 }
                 return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
@@ -131,8 +238,7 @@ class ModalDetail {
                 }
                 if (data.is_verify) {
                     status += `<span class="badge badge-pill badge-success d-flex justify-content-center align-items-center">Verify success</span>`;
-                }
-                else {
+                } else {
                     status += `<span class="badge badge-pill badge-danger d-flex justify-content-center align-items-center">Verify not success</span>`;
                 }
                 return `<li class="list-group-item mt-1" style="padding:.375rem .75rem;">
@@ -177,15 +283,15 @@ class ModalEdit {
                                 <form id="form-edit-user">
                                     <div class="row">
                                         <div class="col-6">
-                                            <label>Firstname</label>
-                                            <input type="text" id="edit-fname" class="form-control"/>
+                                            <label>Firstname <span class="text-danger">*</span></label>
+                                            <input type="text" name="firstname" id="edit-fname" class="form-control"/>
                                             <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-email"><i class="fas fa-plus"></i> add email</button>
                                             <div id="input-add-email">
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <label>Lastname</label>
-                                            <input type="text" id="edit-lname" class="form-control"/>
+                                            <label>Lastname <span class="text-danger">*</span></label>
+                                            <input type="text" name="lastname" id="edit-lname" class="form-control"/>
                                             <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-phone"><i class="fas fa-plus"></i> add phone</button>
                                             <div id="input-add-phone">
                                             </div>
@@ -201,6 +307,8 @@ class ModalEdit {
                     </div>
                 </div>`;
                 $('body').append(modal);
+
+                addEventValidate(validateInput.edit);
             }
 
             count_phone = 0;
@@ -292,6 +400,7 @@ class ModalEdit {
                     count_phone++;
                     $("#input-add-phone").append(addPhone);
                 }
+                addEventValidate(validateInput.edit);
             });
 
 
@@ -303,13 +412,13 @@ class ModalEdit {
                     count_email++;
                     $("#input-add-email").append(addEmail);
                 }
+                addEventValidate(validateInput.edit);
             });
 
             $('body').unbind().on('click', ".btn-delete-email ,.btn-delete-phone", function () {
                 if ($(this).hasClass('btn-delete-email')) {
                     --count_email;
-                }
-                else if ($(this).hasClass('btn-delete-phone')) {
+                } else if ($(this).hasClass('btn-delete-phone')) {
                     --count_phone;
                 }
                 $(this).parent().parent().remove();
@@ -319,8 +428,9 @@ class ModalEdit {
             $('#edit-lname').val(UsersList[key].lname);
             $('#input-add-phone').html(inputPhone.join(''));
             $('#input-add-email').html(inputEmail.join(''));
-            $('#editUser').modal('show');
 
+            $('#editUser').modal('show');
+            resetInputValidate();
 
             $(".btn-confirm-delete-email").unbind().click(function () {
                 $(this).hide();
@@ -388,14 +498,19 @@ class ModalEdit {
         };
 
         let onSubmitEditClick = (index) => {
+            if (checkError(validateInput.edit)) return;
             LOADING.set($("#btn-edit-submit"));
             let fname = $("#edit-fname").val();
             let lname = $("#edit-lname").val();
             let phone = $(".add_phone_val:enabled").map(function () {
-                return $(this).val();
+                if ($(this).val().replace(' ', '') != '') {
+                    return $(this).val();
+                }
             }).get();
             let email = $(".add_email_val:enabled").map(function () {
-                return $(this).val();
+                if ($(this).val().replace(' ', '') != '') {
+                    return $(this).val();
+                }
             }).get();
 
             $.ajax({
@@ -459,8 +574,7 @@ class ModalToggleActive {
             $("#title-block").html(`${active} User`);
             if (UsersList[key].block) {
                 $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-info btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">UnBlock</button>`);
-            }
-            else {
+            } else {
                 $("#btn-toggle-active-footer").html(`<button type="button" id="btn-toggle-active-submit" class="btn btn-danger btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Block</button>`);
             }
 
@@ -568,8 +682,7 @@ export class ManagementUsers {
                 $(".dataTables_wrapper").hide();
                 $('#example').hide();
                 $('.lds-roller').show();
-            }
-            else {
+            } else {
                 $(".dataTables_wrapper").show();
                 //$('.lds-roller').hide();
                 $('.text-loading').hide();
@@ -583,16 +696,13 @@ export class ManagementUsers {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
                 UsersDATATABLE.page(page).draw('page');
-            }
-            else {
+            } else {
                 UsersDATATABLE = $('#example').DataTable({
                     "processing": true,
                     "serverSide": true,
                     "destroy": true,
                     "responsive": true,
-                    "oLanguage": {
-                        sProcessing: `<h5>Loading . . .</h5>`
-                    },
+                    "language": language,
                     "ajax": {
                         url: END_POINT + config.getUsers,
                         "dataSrc": function (json) {
@@ -600,21 +710,30 @@ export class ManagementUsers {
                             return json.data;
                         }
                     },
-                    "columns": [
-                        {
+                    "columns": [{
                             "mRender": function (data, type, row) {
                                 return row.fname + " " + row.lname;
                             }
                         },
-                        { data: 'phone[0].phone_user' },
-                        { data: 'email[0].email_user' },
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.phone[0].phone_user;
+                            }
+                        },
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.email[0].email_user;
+                            }
+                        },
                         {
                             "mData": "block",
                             "mRender": function (data, type, row) {
                                 return data ? '<b class="text-danger">Block</b>' : 'Unblock';
                             }
                         },
-                        { data: 'sub_type_user' },
+                        {
+                            data: 'sub_type_user'
+                        },
                         {
                             "mData": "online",
                             "mRender": function (data, type, row) {
@@ -651,6 +770,10 @@ export class ManagementUsers {
                             }
                         }
                     ]
+                });
+
+                $('#example').tooltip({
+                    selector: '[data-toggle="tooltip"]'
                 });
             }
 
@@ -699,16 +822,13 @@ export class ManagementUsers {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
                 UsersDATATABLE.page(page).draw('page');
-            }
-            else {
+            } else {
                 UsersDATATABLE = $('#example').DataTable({
                     "processing": true,
                     "serverSide": true,
                     "destroy": true,
                     "responsive": true,
-                    "oLanguage": {
-                        sProcessing: `<h5>Loading . . .</h5>`
-                    },
+                    "language": language,
                     "ajax": {
                         url: END_POINT + config.getUsers,
                         "dataSrc": function (json) {
@@ -716,14 +836,21 @@ export class ManagementUsers {
                             return json.data;
                         }
                     },
-                    "columns": [
-                        {
+                    "columns": [{
                             "mRender": function (data, type, row) {
                                 return row.fname + " " + row.lname;
                             }
                         },
-                        { data: 'phone[0].phone_user' },
-                        { data: 'email[0].email_user' },
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.phone[0].phone_user;
+                            }
+                        },
+                        {
+                            "mRender": function (data, type, row) {
+                                return row.email[0].email_user;
+                            }
+                        },
                         {
                             "mData": "block",
                             "mRender": function (data, type, row) {
@@ -767,6 +894,10 @@ export class ManagementUsers {
                         }
                     ]
                 });
+
+                $('#example').tooltip({
+                    selector: '[data-toggle="tooltip"]'
+                });
             }
             // let Datatable = [];
             // UsersDATATABLE.fnClearTable();
@@ -808,6 +939,7 @@ export class ManagementUsers {
         };
 
         let onSaveUserClick = (el) => {
+            if (checkError(validateInput.create)) return;
             LOADING.set(el);
             let email_input = $("#add_email_val").val();
             let pwd_input = $("#add_pwd_val").val();
@@ -831,6 +963,7 @@ export class ManagementUsers {
                     sub_type_user: type_user_input,
                 },
                 success: (res) => {
+                    console.log(res);
                     toastr["success"]("Success");
                     this.showLastestDatatable();
                     LOADING.reset(el);
@@ -839,29 +972,6 @@ export class ManagementUsers {
                 error: (res) => {
                     console.log(res);
                     LOADING.reset(el);
-                    // let errorList = res.responseJSON.errors;
-                    // let error_target = {
-                    //     email: {
-                    //         el: $("#add_email_val"),
-                    //     },
-                    //     password: {
-                    //         el: $("#add_pwd_val"),
-                    //     },
-                    //     fname: {
-                    //         el: $("#add_fname_val"),
-                    //     },
-                    //     lname: {
-                    //         el: $("#add_lname_val"),
-                    //     },
-                    //     phone: {
-                    //         el: $("#add_phone_val"),
-                    //     },
-                    //     sub_type_user: {
-                    //         el: $("#add_type_user_val"),
-                    //     }
-                    // };
-                    // //console.log(errorList);
-                    // ERROR_INPUT.set(error_target, errorList);
                 }
             });
         };
@@ -886,11 +996,10 @@ export class ManagementUsers {
             modalDelete.create(key);
         };
 
-        let updateDatatableData = () => {
+        let updateDatatableData = async () => {
             if (config.type === "COMPANY") {
                 createTableUsersCompany();
-            }
-            else if (config.type === "CUSTOMER") {
+            } else if (config.type === "CUSTOMER") {
                 createTableUsersCustomer();
             }
 
@@ -914,7 +1023,7 @@ export class ManagementUsers {
                 onDeleteClick($(this).attr('index'));
             });
 
-            $('[data-toggle="tooltip"]').tooltip();
+
         };
 
         let createModalDelete = () => {
@@ -971,6 +1080,7 @@ export class ManagementUsers {
             this.showLastestDatatable();
             //createModalDelete();
             $('#btn-add-user').unbind().click(function () {
+                resetInputValidate();
                 modalCreate = new ModalCreate(config);
                 modalCreate.resetModal();
                 $("#addUser").modal('show');
@@ -979,11 +1089,14 @@ export class ManagementUsers {
             $('#btn-save-add-user').unbind().click(function () {
                 onSaveUserClick($(this));
             });
+
+            addEventValidate(validateInput.create);
         };
 
-        this.showLastestDatatable = () => {
+
+        this.showLastestDatatable = async () => {
             //showDatatableLoadingStatus(true);
-            updateDatatableData();
+            await updateDatatableData();
 
             // $.ajax({
             //     url: END_POINT + config.getUsers,
@@ -1001,21 +1114,20 @@ export class ManagementUsers {
             // });
 
 
-            $.ajax({
+            await $.ajax({
                 url: END_POINT + config.getOnlineUsers,
                 method: 'GET',
                 data: {
                     type_user: config.type,
                 },
                 success: function (result) {
-                    showDatatableLoadingStatus(false);
+
                     let sum = 0;
                     for (let i in result.users) {
                         sum += Number(result.users[i].count);
                         if (result.users[i].online === "online") {
                             $("#total-user-online").html(`${result.users[i].count} user`);
-                        }
-                        else {
+                        } else {
                             $("#total-user-offline").html(`${result.users[i].count} user`);
                         }
                     }
@@ -1025,13 +1137,18 @@ export class ManagementUsers {
                     console.log(error);
                 }
             });
+
+            showDatatableLoadingStatus(false);
         };
     }
+
+
 
     static refreshData() {
         return managementUsers.showLastestDatatable();
     }
 }
+
 
 let managementUsers = null;
 

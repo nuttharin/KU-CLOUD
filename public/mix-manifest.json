@@ -1,14 +1,14 @@
 {
     "/js/app.js": "/js/app.js?id=24cbb3ce5920960bd391",
-    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=f32d3c7c29ef16645a07",
-    "/js/admin/static/dashboard.min.js": "/js/admin/static/dashboard.min.js?id=f32d3c7c29ef16645a07",
-    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=f08b80785035b1041366",
-    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=bb672d3ff4c6fe6ab125",
-    "/js/admin/Users/CustomerUser.min.js": "/js/admin/Users/CustomerUser.min.js?id=a5cb7507ae8687a86e7c",
-    "/js/admin/Users/CompanyUser.min.js": "/js/admin/Users/CompanyUser.min.js?id=8512e6d76415f77b2116",
-    "/js/admin/Users/AdminUser.min.js": "/js/admin/Users/AdminUser.min.js?id=9944fa787dccc452a610",
-    "/js/company/static/staticDataTable.min.js": "/js/company/static/staticDataTable.min.js?id=c6b676bf8591d2e79e82",
-    "/js/admin/Infographic/infographicDataTable.min.js": "/js/admin/Infographic/infographicDataTable.min.js?id=74a4f9da858679d477d7",
-    "/js/ManagementUsers.js": "/js/ManagementUsers.js?id=b424c648bb16960d3afe",
-    "/js/ManagementAdminUsers.min.js": "/js/ManagementAdminUsers.min.js?id=105397878129561b4bf1"
+    "/js/company/static/dashboard.min.js": "/js/company/static/dashboard.min.js?id=f582f39e8d5f055d14da",
+    "/js/admin/static/dashboard.min.js": "/js/admin/static/dashboard.min.js?id=f582f39e8d5f055d14da",
+    "/js/company/users/users.min.js": "/js/company/users/users.min.js?id=6cad7d873142de9b0053",
+    "/js/company/customer/customer.min.js": "/js/company/customer/customer.min.js?id=1cc3b2aa94cdee685df8",
+    "/js/admin/Users/CustomerUser.min.js": "/js/admin/Users/CustomerUser.min.js?id=a440c96024a2700c2749",
+    "/js/admin/Users/CompanyUser.min.js": "/js/admin/Users/CompanyUser.min.js?id=48e168d3c912a7cbcec4",
+    "/js/admin/Users/AdminUser.min.js": "/js/admin/Users/AdminUser.min.js?id=9628145df563e07f1fa5",
+    "/js/company/static/staticDataTable.min.js": "/js/company/static/staticDataTable.min.js?id=2e0bd84b12e15c654929",
+    "/js/admin/Infographic/infographicDataTable.min.js": "/js/admin/Infographic/infographicDataTable.min.js?id=908efd85e32be549c9f6",
+    "/js/ManagementUsers.js": "/js/ManagementUsers.js?id=193d029feed88823dcab",
+    "/js/ManagementAdminUsers.min.js": "/js/ManagementAdminUsers.min.js?id=c6357be576c0b8590ef0"
 }

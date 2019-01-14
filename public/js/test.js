@@ -2,8 +2,8 @@ $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal-dark"
     });
-    $('.brand-logo').show();
-    $('.brand-logo-mini').hide();
+    // $('.brand-logo').show();
+    // $('.brand-logo-mini').hide();
     var sidebar = $('#sidebar');
 
     //Add active class to nav-link based on url dynamically

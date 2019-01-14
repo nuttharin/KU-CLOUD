@@ -24,7 +24,7 @@ Route::post('login', 'UserController@authenticate');
 
 Route::get('open', 'DataController@open'); //test
 
-
+Route::post('account/register','Api\AccountsController@register');
 
 
 Route::group(['middleware' => ['jwt.verify']], function() {
@@ -32,8 +32,27 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('closed', 'DataController@closed'); //test
 
+    //account
+    Route::post('account/password','Api\AccountsController@changePassword');
+    
+    Route::get('account','Api\AccountsController@getAccount');
+
+    Route::get('account/profile/{filename}','Api\AccountsController@getProfile');
+    Route::post('account/profile','Api\AccountsController@uploadProfile');
+    
+    Route::post('account/name','Api\AccountsController@updateName');
+
+    Route::put('account/email','Api\AccountsController@changePrimaryEmail');
+    Route::post('account/email','Api\AccountsController@addEmail');
+    Route::delete('account/email','Api\AccountsController@deleteEmail');
+
+    Route::put('account/phone','Api\AccountsController@changePrimaryPhone');
+    Route::post('account/phone','Api\AccountsController@addPhone');
+    Route::delete('account/phone','Api\AccountsController@deletePhone');
+
     //Company
     Route::get('company/test', 'Api\CompanyController@test'); //test
+
     Route::get('company/users','Api\CompanyController@getAllUser');
     Route::post('company/users', 'Api\CompanyController@addUserCompany');
     Route::put('company/users/block','Api\CompanyController@blockUserCompany');

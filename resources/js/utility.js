@@ -1,4 +1,3 @@
-
 export const showLoadingModal = (el, status) => {
     let loading = ` <div id="loading-save" style="display:none;">
                         <div class="lds-ring">
@@ -19,8 +18,7 @@ export const showLoadingModal = (el, status) => {
         _el.find("form").hide();
         _el.find(".modal-footer").hide();
         _el.find("#loading-save").show();
-    }
-    else {
+    } else {
         _el.find("form").show();
         _el.find(".modal-footer").show();
         _el.find("#loading-save").hide();
@@ -42,6 +40,10 @@ export const convertHex = (hex, opacity) => {
     let result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
     return result;
 };
+
+export const randomHexColor = () => {
+    return '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+}
 
 let resetText = null;
 
@@ -84,4 +86,73 @@ export const ERROR_INPUT = {
         $(el).removeClass('input-error');
         $(".text-alert").remove();
     }
-} 
+}
+
+export function addEventValidate(validateInput) {
+    let inputs = $(validateInput.parent).find("input, textarea, select");
+    inputs.each(function () {
+        $(this).change(function () {
+            let attr = $(this).attr('name');
+            let val = $(this).val();
+            let check = {};
+            check[attr] = val == '' ? null : val;
+            let errors = validate(check, validateInput.validate) || {};
+
+            showErrorsForInput($(this), errors[attr]);
+        });
+    })
+}
+
+function showErrors(validateInput) {
+    let inputs = $(validateInput.parent).find("input, textarea, select");
+
+    let isError = true;
+    inputs.each(function () {
+        let attr = $(this).attr('name');
+        let val = $(this).val();
+        let check = {};
+        check[attr] = val == '' ? null : val;
+        let errors = validate(check, validateInput.validate) || {};
+        showErrorsForInput($(this), errors[attr]);
+    })
+    return isError;
+}
+
+export function checkError(validateInput) {
+    let inputs = $(validateInput.parent).find("input, textarea, select");
+    let isError = true;
+    let check = {};
+    inputs.each(function () {
+        let attr = $(this).attr('name');
+        let val = $(this).val();
+        check[attr] = val == '' ? null : val;
+    })
+    let errors = validate(check, validateInput.validate) || {};
+    if (!validate.isEmpty(errors)) {
+        showErrors(validateInput);
+        isError = true
+    } else {
+        isError = false;
+    }
+    console.log('isError = ' + isError);
+    return isError;
+}
+
+// Shows the errors for a specific input
+function showErrorsForInput(input, errors) {
+    if (errors) {
+        input.removeClass("has-success");
+        input.addClass("has-error");
+        input.parent().find(".messages-error").html(errors[0]);
+    } else {
+        input.removeClass("has-error");
+        input.addClass("has-success");
+        input.parent().find(".messages-error").html('');
+    }
+}
+
+export function resetInputValidate() {
+    $("input, textarea, select").removeClass('has-success');
+    $("input, textarea, select").removeClass('has-error');
+    $(".messages-error").html('');
+}

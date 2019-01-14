@@ -21,6 +21,7 @@ class CreateTBUSERSTable extends Migration
             $table->boolean('block')->default(false);
             $table->boolean('online')->default(false);
             $table->string('socketId',100)->nullable();
+            $table->string('img_profile',100)->default('default-profile.jpg')->nullable();
             $table->enum('type_user',['ADMIN','COMPANY','CUSTOMER']);
             $table->timestamps();
 
