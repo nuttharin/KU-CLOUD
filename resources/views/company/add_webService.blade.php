@@ -52,6 +52,11 @@
         height: 40px;
     }
 
+    #status-webservice {
+        width: 20%;
+        height: 40px;
+    }
+
   
 
     .from-input-detail h6,input,.from-treeView h6 {
@@ -60,7 +65,7 @@
 
     }
 
-    .from-input-detail input,.from-input-detail textarea{
+    .from-input-detail input,.from-input-detail textarea,.from-input-detail select{
         border: 1px solid #AED6F1 ;
     }
     
@@ -163,6 +168,12 @@
             <input type="text" class="mb-2" id="url-webservice" name="firstname" placeholder="Url of WebService">
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="Webservice description" ></textarea>
+            <h6>Status <span style="color:red">*</span></h6>
+            <select class="form-control mb-2" id="status-webservice" name="status">
+                <option>Public</option>
+                <option>Private</option>
+                
+            </select>
             <button type="button" id="showvalue" class="btn btn-primary show-header"><a href="#select">Show value</a></button>  
             
         </div>
