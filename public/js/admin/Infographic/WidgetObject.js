@@ -23,6 +23,22 @@ class WidgetObject
     this.type = type;
   }
 
+  // Text
+  WidgetTableObject(id, tableTag, type)
+  {
+    this.id = id;
+    this.tableTag = tableTag;
+    this.type = type;
+  }
+
+  // Image
+  WidgetImageObject(id, divImgTag, type)
+  {
+    this.id = id;
+    this.divImgTag = divImgTag;
+    this.type = type;
+  }
+
   // Shape
   WidgetShapeObject(id, divTag, type)
   {
