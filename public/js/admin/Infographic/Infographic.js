@@ -32,10 +32,23 @@ class Workspace {
         /* Update position widget data */
         for (var i = 0; i < widgetObjectList.length; i++) {
           if (widgetObjectList[i].type == "line" || widgetObjectList[i].type == "bar" || widgetObjectList[i].type == "pie" || widgetObjectList[i].type == "radar") {
+            var graph = $("#canvas_" + widgetObjectList[i].id).data('graph');
             widgetObjectList[i].canvasTag = document.getElementById("div_canvas_" + widgetObjectList[i].id).outerHTML;
+            console.log(graph.data);
+            console.log(graph.options);
+            widgetObjectList[i].chartData = graph.data;
+            widgetObjectList[i].chartOption = graph.options;
+            console.log(widgetObjectList[i].chartData);
+            console.log(widgetObjectList[i].chartOption);
           }
           else if (widgetObjectList[i].type == "head") {
             widgetObjectList[i].spanTag = document.getElementById("span_" + widgetObjectList[i].id).outerHTML;
+          }
+          else if (widgetObjectList[i].type == "table") {
+            widgetObjectList[i].tableTag = document.getElementById("table_" + widgetObjectList[i].id).outerHTML;
+          }
+          else if (widgetObjectList[i].type == "image") {
+            widgetObjectList[i].divImgTag = document.getElementById("div_" + widgetObjectList[i].id).outerHTML;
           }
           else if (widgetObjectList[i].type == "square" || widgetObjectList[i].type == "circle" || widgetObjectList[i].type == "string") {
             widgetObjectList[i].divTag = document.getElementById("div_" + widgetObjectList[i].id).outerHTML;
@@ -95,7 +108,7 @@ class Workspace {
           pdf.addImage(myLinkImage, 'JPEG', 0, 0);
           pdf.save("ImageDownload.pdf");
         }); //Html2canvas
-      }); //BTn download
+      }); //Btn download
 
     }; // Initial and run
 
@@ -109,6 +122,14 @@ class Workspace {
         else if (object[i].type == "head") {
           var fontHead = new Font();
           fontHead.loadHeadGraph(object[i].id, object[i].spanTag);
+        }
+        else if (object[i].type == "table") {
+          var fontHead = new Font();
+          fontHead.loadTableWidget(object[i].id, object[i].tableTag);
+        }
+        else if (object[i].type == "image") {
+          var imagewidget = new Image();
+          imagewidget.loadImageWidget(object[i].id, object[i].divImgTag);
         }
         else if (object[i].type == "square" || object[i].type == "circle" || object[i].type == "string") {
           var shapewidget = new Shape();
@@ -206,7 +227,8 @@ class Workspace {
         });
 
         $("#f3").unbind().click(function () {
-          alert("f3");
+          var tableGraph = new Font();
+          tableGraph.createTableGraph();
         });
       }
     }
@@ -336,7 +358,8 @@ class Widget {
           changefocus(id, typeid);
           var target = event.target,
             x = (parseFloat(target.getAttribute('data-x')) || 0),
-            y = (parseFloat(target.getAttribute('data-y')) || 0);
+            y = (parseFloat(target.getAttribute('data-y')) || 0),
+            z = (parseFloat(target.getAttribute('data-z')) || 0);
 
           // update the element's style
           target.style.width = event.rect.width + 'px';
@@ -351,10 +374,11 @@ class Widget {
           y += event.deltaRect.top;
 
           target.style.webkitTransform = target.style.transform =
-            'translate(' + x + 'px,' + y + 'px)';
+            'translate(' + x + 'px,' + y + 'px) rotate(' + z + 'deg)';
 
           target.setAttribute('data-x', x);
           target.setAttribute('data-y', y);
+          target.setAttribute('data-z', z);
 
           $("#width_" + id).val(Math.round(event.rect.width));
           $("#height_" + id).val(Math.round(event.rect.height));
@@ -392,9 +416,11 @@ class Graph extends Widget {
         datasets: [{
           label: "Car Speed",
           data: [0, 59, 75, 20, 20, 55, 40],
+          backgroundColor: '#bababa'
         }, {
           label: "Car Speed2",
           data: [0, 29, 25, 20, 20, 25, 20],
+          backgroundColor: '#bababa'
         }]
       };
 
@@ -411,13 +437,15 @@ class Graph extends Widget {
         }
       };
 
-      let ctx = document.getElementById("canvas_" + id);
+      let ctx = $("#canvas_" + id);
       var myChart = new Chart(ctx, {
         type: 'line',
         data: speedData,
         options: chartOptions
       });
 
+      ctx.data("graph", myChart);
+      
       /* Clear other property */
       $(".propertyMenu").html(``);
 
@@ -445,16 +473,18 @@ class Graph extends Widget {
           var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+            z = (parseFloat(target.getAttribute('data-z')) || 0);
 
           // translate the element
           target.style.webkitTransform =
             target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+            'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
           // update the posiion attributes
           target.setAttribute('data-x', x);
           target.setAttribute('data-y', y);
+          target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -463,12 +493,10 @@ class Graph extends Widget {
           property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
         })
 
-
-
       /* Save widget */
       let saveObject = new WidgetObject();
       console.log(myChart.options);
-      saveObject.WidgetGraphObject(id, null, myChart.data, myChart.options, "line");
+      saveObject.WidgetGraphObject(id, null, null, null, "line");
       console.log(saveObject.chartOption);
       widgetObjectList.push(saveObject);
       widgetObjectList = deepCopy(widgetObjectList);    
@@ -486,9 +514,11 @@ class Graph extends Widget {
         datasets: [{
           label: "Car Speed",
           data: [0, 59, 75, 20, 20, 55, 40],
+          backgroundColor: '#bababa'
         }, {
           label: "Car Speed2",
           data: [0, 29, 25, 20, 20, 25, 20],
+          backgroundColor: '#bababa'
         }]
       };
 
@@ -537,18 +567,20 @@ class Graph extends Widget {
         $("#div_canvas_" + id).addClass("fCorner");
 
         var target = event.target,
-          // keep the dragged position in the data-x/data-y attributes
-          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+        z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-        // translate the element
-        target.style.webkitTransform =
-          target.style.transform =
-          'translate(' + x + 'px, ' + y + 'px)';
+      // translate the element
+      target.style.webkitTransform =
+        target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-        // update the posiion attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
+      // update the posiion attributes
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+      target.setAttribute('data-z', z);
 
         /* Clear other property */
         $(".propertyMenu").html(``);
@@ -578,9 +610,11 @@ class Graph extends Widget {
         datasets: [{
           label: "Car Speed",
           data: [0, 59, 75, 20, 20, 55, 40],
+          backgroundColor: '#bababa'
         }, {
           label: "Car Speed2",
           data: [0, 29, 25, 20, 20, 25, 20],
+          backgroundColor: '#bababa'
         }]
       };
 
@@ -629,18 +663,20 @@ class Graph extends Widget {
         $("#div_canvas_" + id).addClass("fCorner");
 
         var target = event.target,
-          // keep the dragged position in the data-x/data-y attributes
-          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+        z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-        // translate the element
-        target.style.webkitTransform =
-          target.style.transform =
-          'translate(' + x + 'px, ' + y + 'px)';
+      // translate the element
+      target.style.webkitTransform =
+        target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-        // update the posiion attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
+      // update the posiion attributes
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+      target.setAttribute('data-z', z);
 
         /* Clear other property */
         $(".propertyMenu").html(``);
@@ -670,9 +706,11 @@ class Graph extends Widget {
         datasets: [{
           label: "Car Speed",
           data: [0, 59, 75, 20, 20, 55, 40],
+          backgroundColor: '#bababa'
         }, {
           label: "Car Speed2",
           data: [0, 29, 25, 20, 20, 25, 20],
+          backgroundColor: '#bababa'
         }]
       };
 
@@ -721,18 +759,20 @@ class Graph extends Widget {
         $("#div_canvas_" + id).addClass("fCorner");
 
         var target = event.target,
-          // keep the dragged position in the data-x/data-y attributes
-          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+        z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-        // translate the element
-        target.style.webkitTransform =
-          target.style.transform =
-          'translate(' + x + 'px, ' + y + 'px)';
+      // translate the element
+      target.style.webkitTransform =
+        target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-        // update the posiion attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
+      // update the posiion attributes
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+      target.setAttribute('data-z', z);
 
         /* Clear other property */
         $(".propertyMenu").html(``);
@@ -787,18 +827,20 @@ class Graph extends Widget {
           $("#div_canvas_" + id).addClass("fCorner");
 
           var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-          // translate the element
-          target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-          // update the posiion attributes
-          target.setAttribute('data-x', x);
-          target.setAttribute('data-y', y);
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -809,9 +851,9 @@ class Graph extends Widget {
 
       /* Save widget */
       let saveObject = new WidgetObject();
-      saveObject.WidgetGraphObject(id, null, myChart2.data, myChart2.options, chartType);
+      saveObject.WidgetGraphObject(id, null, null, null, chartType);
       widgetObjectList.push(saveObject);
-      widgetObjectList = deepCopy(widgetObjectList);  
+      widgetObjectList = deepCopy(widgetObjectList);    
     }
 
     let addLabel = (chart, labels) => {
@@ -898,18 +940,20 @@ class Map extends Widget{
           $("#div_map_" + id).addClass("fCorner");
 
           var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-          // translate the element
-          target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-          // update the posiion attributes
-          target.setAttribute('data-x', x);
-          target.setAttribute('data-y', y);
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -968,18 +1012,20 @@ class Font extends Widget {
           $("#span_" + id).addClass("fCorner");
 
           var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-          // translate the element
-          target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-          // update the posiion attributes
-          target.setAttribute('data-x', x);
-          target.setAttribute('data-y', y);
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -1022,18 +1068,20 @@ class Font extends Widget {
           $("#span_" + id).addClass("fCorner");
 
           var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-          // translate the element
-          target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-          // update the posiion attributes
-          target.setAttribute('data-x', x);
-          target.setAttribute('data-y', y);
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -1045,6 +1093,169 @@ class Font extends Widget {
       /* Save widget */
       let saveObject = new WidgetObject();
       saveObject.HeadFontObject(id, null, "head");
+      widgetObjectList.push(saveObject);
+    }
+
+    this.createTableGraph = () => {
+      var id = Math.floor(100000 + Math.random() * 900000);
+      this.clearfocus();
+
+      $("#workspace").append(`
+                                <table id="table_${id}" class="sPosition fCorner table" table-class="1">
+                                  <tr>
+                                    <th>Column1</th>
+                                    <th>Column2</th>
+                                    <th>Column3</th>
+                                  </tr>
+                                  <tr>
+                                    <td>Data1</td>
+                                    <td>Data2</td>
+                                    <td>Data3</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Data4</td>
+                                    <td>Data5</td>
+                                    <td>Data6</td>
+                                  </tr>
+                                </table>
+                              `);
+
+        const editor = new SimpleTableCellEditor("table_" + id);
+        editor.SetEditable("td",{
+          keys : {
+          validation: [13],
+          cancellation: [27]
+          }
+        });
+
+        editor.SetEditable("th",{
+          keys : {
+          validation: [13],
+          cancellation: [27]
+          }
+        });
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+
+      var property = new ContentProperty();
+      property.createTableProp(id, "#table_" + id, "table");
+
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "table_");
+      widgetObject.on('tap', function (event) {
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#table_" + id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createTableProp(id, "#table_" + id, "table");
+      })
+        .on('dragmove', function (event) {
+          /* Change focus */
+          $(".sPosition").removeClass("fCorner");
+          $("#table_" + id).addClass("fCorner");
+
+          var target = event.target,
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
+
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
+
+          /* Clear other property */
+          $(".propertyMenu").html(``);
+
+          var property = new ContentProperty();
+          property.createTableProp(id, "#table_" + id, "table");
+        })
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.WidgetTableObject(id, null, "table");
+      widgetObjectList.push(saveObject);
+    }
+
+    this.loadTableWidget = (id, tableTag) => {
+      this.clearfocus();
+
+      $("#workspace").append(tableTag);
+
+      const editor = new SimpleTableCellEditor("table_" + id);
+      editor.SetEditable("td",{
+        keys : {
+        validation: [13],
+        cancellation: [27]
+        }
+      });
+
+      editor.SetEditable("th",{
+        keys : {
+        validation: [13],
+        cancellation: [27]
+        }
+      });
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+      this.clearfocus();
+
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "table_");
+      widgetObject.on('tap', function (event) {
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#table_" + id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createTableProp(id, "#table_" + id, "table");
+      })
+        .on('dragmove', function (event) {
+          /* Change focus */
+          $(".sPosition").removeClass("fCorner");
+          $("#table_" + id).addClass("fCorner");
+
+          var target = event.target,
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
+
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
+
+          /* Clear other property */
+          $(".propertyMenu").html(``);
+
+          var property = new ContentProperty();
+          property.createTableProp(id, "#table_" + id, "table");
+        })
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.WidgetTableObject(id, null, "table");
       widgetObjectList.push(saveObject);
     }
   } //Constructor
@@ -1087,18 +1298,20 @@ class Image extends Widget{
           $("#div_" + id).addClass("fCorner");
 
           var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-          // translate the element
-          target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-          // update the posiion attributes
-          target.setAttribute('data-x', x);
-          target.setAttribute('data-y', y);
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -1109,9 +1322,69 @@ class Image extends Widget{
 
       /* Save widget */
       let saveObject = new WidgetObject();
-      saveObject.WidgetShapeObject(id, null, "image");
+      saveObject.WidgetImageObject(id, null, "image");
       widgetObjectList.push(saveObject);
     }   
+
+    this.loadImageWidget = (id, divImgTag) => {
+      this.clearfocus();
+      $("#workspace").append(divImgTag);
+
+      $('#div_' + id).css('height', 150);
+      $('#div_' + id).css('width', 150);
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+
+      var property = new ContentProperty();
+      property.createImageProp(id, "#div_" + id, "#image_" + id, "image");
+
+      /* Click each widget event */
+      var widgetObject = this.createWidget(id, "div_");
+      widgetObject.on('tap', function (event) {
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#div_" + id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createImageProp(id, "#div_" + id, "#image_" + id, "image");
+      })
+        .on('dragmove', function (event) {
+          /* Change focus */
+          $(".sPosition").removeClass("fCorner");
+          $("#div_" + id).addClass("fCorner");
+
+          var target = event.target,
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
+
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
+
+          /* Clear other property */
+          $(".propertyMenu").html(``);
+
+          var property = new ContentProperty();
+          property.createImageProp(id, "#div_" + id, "#image_" + id, "image");
+        })
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.WidgetImageObject(id, null, "image");
+      widgetObjectList.push(saveObject);
+    }
   } //Constructor
 } //Image class
 
@@ -1164,18 +1437,20 @@ class Shape extends Widget{
           $("#div_" + id).addClass("fCorner");
 
           var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-          // translate the element
-          target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-          // update the posiion attributes
-          target.setAttribute('data-x', x);
-          target.setAttribute('data-y', y);
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -1218,18 +1493,20 @@ class Shape extends Widget{
           $("#div_" + id).addClass("fCorner");
 
           var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
 
-          // translate the element
-          target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
 
-          // update the posiion attributes
-          target.setAttribute('data-x', x);
-          target.setAttribute('data-y', y);
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
 
           /* Clear other property */
           $(".propertyMenu").html(``);
@@ -1447,6 +1724,7 @@ class Property {
       });
 
       $("#delete_image_widget_" + id).click(function () {
+        widgetObjectList  = arrayRemove(widgetObjectList, id);
         let ctx = document.getElementById("div_" + id);   
         ctx.remove();
         
@@ -1485,7 +1763,30 @@ class Property {
 
         $(".propertyMenu").html(``);
       });
+    }
 
+    this.createImportData = (id, full_id) => {
+      $(".propertyMenu").append(`                
+          <div class="Editdatacrispy">
+            <button type="button" class="btn btn-default Editdata" >Import data</button>
+            <button type="button" id="delete_table_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+          </div>`);
+
+      // Set start value
+      // $("#inputtext_" + id).val($("#span_" + id).html());
+
+      // $("#inputtext_" + id).keyup(function () {
+      //   $("#span_" + id).html($("#inputtext_" + id).val());
+      // });
+
+      $("#delete_table_widget_" + id).click(function () {
+        widgetObjectList  = arrayRemove(widgetObjectList, id);
+        let ctx           = document.getElementById("table_" + id);
+
+        ctx.remove();
+
+        $(".propertyMenu").html(``);
+      });
     }
 
     this.createChartType = (id, full_id) => {
@@ -1546,6 +1847,83 @@ class Property {
       });
     }
 
+    this.createAddColumnAndRow = (id, full_id) => {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>New Column name</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="text" id="column_name_${id}" class="form-control crispyColumn"/>
+                    <button type="button" id="add_column_${id}" class="btn btn-default" ><i class="fas fa-angle-right"></i></button>
+                    <button type="button" id="add_row_${id}" class="btn btn-default" ><i class="fas fa-angle-down"></i></button>
+                </div>
+            </div>
+          </div>`);
+      var tableObject = document.getElementById('table_' + id);
+      console.log(tableObject.tagName);
+    }
+
+    this.createThemesTable = (id, full_id) => {
+      $(".propertyMenu").append(`                
+          <div class="Scaling">
+            <div class="row">
+                <div class="col-8 rotates">
+                    <span>Themes</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <select type="text" id="themes_table_${id}" class="form-control crispyThemes">
+                        <option value="1">Default</option>
+                        <option value="2">Striped</option>
+                        <option value="3">Bordered</option>
+                    </select>
+                </div>
+            </div>
+          </div>`);
+
+      var arrayClass = ["table-striped","table-bordered"];
+
+      // Set start value
+      document.getElementById("themes_table_" + id).selectedIndex = ($(full_id).attr('table-class') || 1) - 1;
+
+      $("#themes_table_" + id).unbind().change(function () {
+
+        // Remove table class
+        var classList = document.getElementById('table_' + id).className.split(/\s+/);
+
+        for (var i = 0; i < classList.length; i++) 
+        {
+            if(arrayClass.includes(classList[i]))
+            {
+              $(full_id).removeClass(classList[i]);
+            }
+        }
+  
+        // Add new table class
+        var classSelect = $("#themes_table_" + id).val();
+        
+        switch(classSelect)
+        {
+          case "1" :
+            $(full_id).attr('table-class', '1');
+            break;
+          case "2" :
+            $(full_id).addClass('table-striped');
+            $(full_id).attr('table-class', '2');
+            break;
+          case "3" :
+          $(full_id).addClass('table-bordered');
+            $(full_id).attr('table-class', '3');
+            break;
+        }
+      });
+    }
+
     this.createColorAndFont = (id, full_id) => {
       $(".propertyMenu").append(`                
           <div class="Scaling">
@@ -1562,8 +1940,15 @@ class Property {
                     <input type="color" id="color_font_${id}" class="colorSP">
                 </div>
                 <div class="col-8">
-                    <select type="text" class="form-control">
-                        <option>test</option>
+                    <select type="text" id="family_font_${id}" class="form-control">
+                        <option value="1">Poppins</option>
+                        <option value="2">Times New Roman</option>
+                        <option value="3">Arial</option>
+                        <option value="4">Arial Black</option>
+                        <option value="5">Georgia</option>
+                        <option value="6">Tahoma</option>
+                        <option value="7">Lucida Console</option>
+                        <option value="8">Courier New</option>
                     </select>
                 </div>
             </div>
@@ -1571,9 +1956,50 @@ class Property {
 
       // Set start value
       $("#color_font_" + id).val(rgbToHex($("#span_" + id).css('color')));
+      document.getElementById("family_font_" + id).selectedIndex = ($(full_id).attr('font-value') || 1) - 1;
 
       $("#color_font_" + id).unbind().change(function () {
         $("#span_" + id).css('color', $(this).val());
+      });
+
+      $("#family_font_" + id).unbind().change(function () {
+        var fontSelect = $("#family_font_" + id).val();
+        
+        switch(fontSelect)
+        {
+          case "1" :
+            $(full_id).css('font-family', 'Poppins, Kanit, sans-serif');
+            $(full_id).attr('font-value', '1');
+            break;
+          case "2" :
+            $(full_id).css('font-family', 'Times New Roman, Times, serif');
+            $(full_id).attr('font-value', '2');
+            break;
+          case "3" :
+            $(full_id).css('font-family', 'Arial, Helvetica, sans-serif');
+            $(full_id).attr('font-value', '3');
+            break;
+          case "4" :
+            $(full_id).css('font-family', 'Arial Black, Gadget, sans-serif');
+            $(full_id).attr('font-value', '4');
+            break;
+          case "5" :
+            $(full_id).css('font-family', 'Georgia, serif');
+            $(full_id).attr('font-value', '5');
+            break;
+          case "6" :
+            $(full_id).css('font-family', 'Tahoma, Geneva, sans-serif');
+            $(full_id).attr('font-value', '6');
+            break;
+          case "7" :
+            $(full_id).css('font-family', 'Lucida Console, Monaco, monospace');
+            $(full_id).attr('font-value', '7');
+            break;
+          case "8" :
+            $(full_id).css('font-family', 'Courier New, Courier, monospace');
+            $(full_id).attr('font-value', '8');
+            break;
+        }
       });
 
       // Convert rgb code to hex code
@@ -1676,7 +2102,7 @@ class Property {
           <div class="Editdatacrispy">
             <button type="button" id="solid_style_${id}" class="btn btn-default positionset" ><i class="fas fa-minus"></i></button>
             <button type="button" id="dotted_style_${id}" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
-            <button type="button" id="dashed_style_${id}" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
+            <button type="button" id="double_style_${id}" class="btn btn-default positionset" ><i class="fas fa-equals"></i></button>
           </div>`);
           
       $("#solid_style_" + id).unbind().click(function () {
@@ -1687,8 +2113,8 @@ class Property {
         $(full_id_shape).css('border-right-style', "dotted");
       });
 
-      $("#dashed_style_" + id).unbind().click(function () {
-        $(full_id_shape).css('border-right-style', "dashed");
+      $("#double_style_" + id).unbind().click(function () {
+        $(full_id_shape).css('border-right-style', "double");
       });
     }
 
@@ -1740,13 +2166,40 @@ class Property {
             </div>
             <div class="row">
                 <div class="col-8">
-                    <input type="range" min="0" max="360" value="0" class="slider"/>
+                    <input type="range" min="0" max="360" value="0" id="slider_rotation_widget_${id}" class="slider"/>
                 </div>
                 <div class="col-4">
-                    <input type="text" class="form-control crispysilde" />
+                    <input type="text" id="slider_rotation_input_widget_${id}" class="form-control crispysilde" value="0" />
                 </div>
             </div>
           </div>`);
+
+      var x = $(full_id).attr("data-x");
+      var y = $(full_id).attr("data-y");
+      var z = ($(full_id).attr("data-z") || 0);
+
+      // Set start value
+      $("#slider_rotation_widget_" + id).val(z);
+      $("#slider_rotation_input_widget_" + id).val(z);
+
+      $("#slider_rotation_widget_" + id).unbind().change(function () {
+        var rotationValue = $(this).val();
+        $("#slider_rotation_input_widget_" + id).val(rotationValue);
+        $(full_id).attr('data-z', rotationValue);
+        $(full_id).css('transform', 'translate(' + x + 'px, ' + y + 'px) rotate(' + rotationValue + 'deg)')
+      });
+
+      $("#slider_rotation_input_widget_" + id).unbind().change(function () {
+        if ($(this).val() < 0 || $(this).val() > 360) {
+          alert("test : 0 - 360");
+        }
+        else {
+          var rotationValue = $(this).val();
+          $("#slider_rotation_widget_" + id).val(rotationValue);
+          $(full_id).attr('data-z', rotationValue);
+          $(full_id).css('transform', 'translate(' + x + 'px, ' + y + 'px) rotate(' + rotationValue + 'deg)')
+        }
+      });
     }
 
     this.createTransparency = (id, full_id) => {
@@ -1802,7 +2255,7 @@ class Property {
                     <input type="range" min="0" max="50" value="0" id="slider_radius_widget_${id}" class="slider" />
                 </div>
                 <div class="col-4">
-                    <input type="text" id="slider_radius_input_widget_${id}" class="form-control crispysilde value= 0" />
+                    <input type="text" id="slider_radius_input_widget_${id}" class="form-control crispysilde" value= 0/>
                 </div>
             </div>
           </div>`);
@@ -1869,16 +2322,55 @@ class Property {
       });
     }
 
-    this.createChartDetail = (id, full_id) => {
+    this.createChartDetail = (id, full_id, myChart) => {
       $(".propertyMenu").append(`                
-        <div class="Grouping">
-          <div class="GroupTitle" data-toggle="collapse" data-target="#demo">
-              <i class="far fa-chart-bar"></i><span>Chart properties</span>
-          </div>
-          <div class="GroupBody" id="demo" class="collapse">
-              Lorem ipsum
-          </div>
-        </div>`);
+          <div class="Grouping">
+            <div class="GroupTitle" data-toggle="collapse" data-target="#color_and_text_${id}">
+                <i class="far fa-chart-bar"></i><span>Chart properties</span>
+            </div>
+            <div class="GroupBody" id="color_and_text_${id}" class="collapse">
+            </div>
+          </div>`);
+
+        for(var i = 0; i < myChart.data.datasets.length; i++)
+        {
+          $("#color_and_text_" + id).append(`                
+              <div class="row inputalign">
+                <div class="col-4">
+                    <input type="color" id="color_chart_${id}_${i}" class="colorChart" value="${myChart.data.datasets[i].backgroundColor}">
+                </div>
+                <div class="col-8">
+                    <input type="text" id="label_chart_${id}_${i}" class="form-control crispyTextChart" value="${myChart.data.datasets[i].label}"/>
+                </div>
+              </div>`);
+
+            $("#color_chart_" + id + "_" + i).change(colorChartUpdate(myChart, i));
+            $("#label_chart_" + id + "_" + i).keyup(labelChartUpdate(myChart, i));
+        }
+
+        function colorChartUpdate(myChart, index)
+        {
+          return function()
+          {
+            myChart.data.datasets[index].backgroundColor =  $("#color_chart_" + id + "_" + index).val();
+            myChart.update();
+
+            var ctx = $('#canvas_' + id);
+            ctx.data("graph", myChart);
+          };
+        }
+
+        function labelChartUpdate(myChart, index)
+        {
+          return function()
+          {
+            myChart.data.datasets[index].label =  $("#label_chart_" + id + "_" + index).val();
+            myChart.update();
+
+            var ctx = $('#canvas_' + id);
+            ctx.data("graph", myChart);
+          };
+        }
     }
 
     this.createColor = (id, full_id) => {
@@ -1946,10 +2438,7 @@ class ContentProperty extends Property {
       this.createScale(id, full_id, type);
       this.createRotation(id, full_id);
       this.createTransparency(id, full_id);
-      this.createChartDetail(id, full_id);
-      this.createColor(id, full_id);
-      this.createLegend(id, full_id);
-      this.createTooltips(id, full_id);
+      this.createChartDetail(id, full_id, myChart);
     }
 
     this.createMapProp = (id, full_id, type, mapObject) => {
@@ -1970,6 +2459,17 @@ class ContentProperty extends Property {
       this.createTransparency(id, full_id);
       this.createColorAndFont(id, full_id);
       this.createFontSize(id, full_id);
+    }
+
+    this.createTableProp = (id, full_id, type) => {
+      this.createPosition(id, full_id);
+      this.createDownload(id, full_id);
+      this.createImportData(id, full_id);
+      this.createScale(id, full_id, type);
+      this.createAddColumnAndRow(id, full_id);
+      this.createThemesTable(id, full_id);
+      this.createRotation(id, full_id);
+      this.createTransparency(id, full_id);
     }
 
     this.createImageProp = (id, full_id, full_id_image, type) =>{

@@ -58,6 +58,11 @@
             height: 40px;
         }
 
+        #status-webservice {
+            width: 20%;
+            height: 40px;
+        }
+
 
 
         .from-input-detail h6,
@@ -68,9 +73,8 @@
 
         }
 
-        .from-input-detail input,
-        .from-input-detail textarea {
-            border: 1px solid #AED6F1;
+        .from-input-detail input,.from-input-detail textarea,.from-input-detail select{
+            border: 1px solid #AED6F1 ;
         }
 
         .show-header {
@@ -175,8 +179,7 @@
                         </div>
                         <div class="col-sm-4">
                             <h6>Alias <span style="color:red">*</span></h6>
-                            <input type="text" class="mb-2" id="edit-alias-webservice" name="alias" value="{{ $webService->alias }}" placeholder={{ $webService->alias
-                            }}>
+                            <input type="text" class="mb-2" id="edit-alias-webservice" name="alias" value="{{ $webService->alias }}" placeholder={{ $webService->alias }}>
                         </div>
                     </div>
 
@@ -186,7 +189,11 @@
                     <h6>Description</h6>
                     <textarea type="text" rows="2" class="form-control mb-2" id="edit-description-webservice" placeholder="Webservice description">{{ $webService->description}}</textarea>
                     <button type="button" id="edit-btn-showvalue" class="btn btn-primary show-header"><a href="#select">Show value</a></button>
-
+                    <h6>Status <span style="color:red">*</span></h6>
+                    <select class="form-control mb-2" id="status-webservice" name="status">
+                        <option>Public</option>
+                        <option>Private</option>                        
+                    </select>
                 </div>
 
                 <div class="col-sm-4">

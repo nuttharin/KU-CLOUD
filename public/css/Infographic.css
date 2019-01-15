@@ -204,10 +204,39 @@ headline{
   cursor: pointer;
 }
 
+/* Property - Chart property group*/
+.colorChart{
+  margin-left: 6px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.crispyTextChart{
+  margin-top: 6px;
+  text-align: center;
+  display: inline-block;
+}
+
 /* Property - Text change*/
 .crispyText{
   margin: 6px;
   max-width: 75%;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Property - Themes*/
+.crispyThemes{
+  margin: 6px;
+  max-width: 90%;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Property - Column name*/
+.crispyColumn{
+  margin: 6px;
+  max-width: 60%;
   text-align: center;
   display: inline-block;
 }

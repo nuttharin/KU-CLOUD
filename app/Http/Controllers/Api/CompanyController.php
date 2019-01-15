@@ -297,6 +297,9 @@ class CompanyController extends Controller
             'URL'=> $request->get('strUrl'),
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
+            'value_cal'=>$request->get('valueCal'),
+            'status'=>$request->get('status'),
+            'update_time'=>$request->get('time')
         ]);
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('webService'),200);
@@ -344,7 +347,7 @@ class CompanyController extends Controller
             'alias' =>$request->get('alias'),
             'URL'=> $request->get('strUrl'),
             'description'=> $request->get('description'),
-            'header_row'=> $request->get('header'),
+            'header_row'=> $request->get('header')
         ]);
         Log::info('Edit Web Service - [] SUCCESS');
         return response()->json(["status","success"],200);

@@ -17,7 +17,7 @@ toastr.options = {
 };
 
 class Service {
-    constructor(strUrl, alias, ServiceName, description) {
+    constructor(strUrl, alias, ServiceName, description,status,time) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
@@ -249,10 +249,10 @@ class Service {
 
             
             increaseDataTableDB();
-            increaseDataTableDW();
-            //increasefirstDW();
+            // increaseDataTableDW();
 
         }
+        //console.log(status)
         let increaseDataTableDB = () => {
             $.ajax({
                 url: "http://localhost:8000/api/company/webservice/addRegisWebService",
@@ -265,14 +265,19 @@ class Service {
                     alias: alias,
                     ServiceName: ServiceName,
                     description: description,
-                    header: headerLow
+                    header: headerLow,
+                    valueCal: "sefef",
+                    status: status,
+                    time:time
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
                     idDB = res.webService.webservice_id;
                     console.log("success DB")
+                    increaseDataTableDW();
                 },
                 error: (res) => {
+                    swal("Good job!", "You clicked the button!", "error");
                     console.log(res);
                 }
             });
@@ -292,6 +297,7 @@ class Service {
 
                     },
                     error: (res) => {
+                        
                         console.log(res);
                     }
             });
@@ -310,7 +316,7 @@ class Service {
                     ServiceName: ServiceName,
                     ServiceNameDW: ServiceName+"."+companyID,
                     description: description,
-                    header: headerLow
+                    header: headerLow,
                 },
                 success: (res) => {
                     swal("Good job!", "You clicked the button!", "success");
@@ -318,6 +324,7 @@ class Service {
                         
                 },
                 error: (res) => {
+                    swal("Good job!", "You clicked the button!", "error");
                     console.log(res);
                 }
                 });
@@ -332,7 +339,8 @@ class Service {
                     
                     strUrl: strUrl,
                     ServiceNameDW :ServiceName+"."+companyID,
-                    header : headerLow
+                    header : headerLow,
+                    time:time
                 },
                 success: (res) => {
                     console.log("success insert Table")
@@ -486,7 +494,18 @@ $(document).ready(function () {
         let alias = $('#alias-webservice').val();
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
-        let service = new Service(url, alias, ServiceName, description);
+        let status = $('#status-webservice').val();
+        let time = $('#time-webservice').val();
+        console.log(status);
+        if(status=="on")
+        {
+            status="public";
+        }
+        else
+        {
+            status="private";
+        }
+        let service = new Service(url, alias, ServiceName, description,status,time);
         service.initService();
         // let data = {
         //     api : null,
