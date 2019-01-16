@@ -60,6 +60,10 @@
                     <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
                 </div>
                 <div class="Editdatacrispy">
+                    <button type="button" class="btn btn-default Editdata" >Import data</button>
+                    <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+                </div>
+                <div class="Editdatacrispy">
                     <button type="button" class="btn btn-default Editdata" >Crop image</button>
                     <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
                 </div>
@@ -87,6 +91,34 @@
                         <div class="col">
                             <input type="text" class="form-control crispyText"/>
                             <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>New Column name</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control crispyColumn"/>
+                            <button type="button" class="btn btn-default" ><i class="fas fa-angle-right"></i></button>
+                            <button type="button" class="btn btn-default" ><i class="fas fa-angle-down"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="Scaling">
+                    <div class="row">
+                        <div class="col-8 rotates">
+                            <span>Themes</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <select type="text" class="form-control crispyThemes">
+                                <option>test</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -222,7 +254,22 @@
                         <i class="far fa-chart-bar"></i><span>Chart properties</span>
                     </div>
                     <div class="GroupBody" id="demo" class="collapse">
-                        Lorem ipsum
+                        <div class="row inputalign">
+                            <div class="col-4">
+                                <input type="color" class="colorChart" value="#f6b73c">
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control crispyTextChart"/>
+                            </div>
+                        </div>
+                        <div class="row inputalign">
+                            <div class="col-4">
+                                <input type="color" class="colorChart" value="#f6b73c">
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control crispyTextChart"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="Grouping">
@@ -261,7 +308,6 @@
         $(document).ready(function () {
         $("#sidebarCollapse").click();
         $("#selectMenu").hide();
-    });
-
+        });
     </script>
 @endsection

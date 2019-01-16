@@ -75,6 +75,8 @@
     <!-- Croppie -->
     <link rel="stylesheet" href="{{url('cropper/cropper.css')}}">
     <script src="{{url('cropper/cropper.js')}}"></script>
+
+    <script src="{{url('livetable/SimpleTableCellEditor.js')}}"></script>
 </head>
 
 <body>
