@@ -207,10 +207,24 @@
 <link href="{{url('jstree/style.min.css')}}" rel="stylesheet" />
 <link href="{{url('jstree/style.css')}}" rel="stylesheet" />
 <br>
-<h4>Create a new webservice</h4><hr>
+
 <div class="from-input-detail">
     <div class="row">
         <div class="col-sm-8 " >
+        <div class ="row">
+                <div class="col-sm-8">
+                    <h4>Create a new webservice</h4>                
+                </div>
+                <div class="col-sm-4">
+                    <span>private &nbsp </span>
+                    <label class="switch">
+                    <input id="status-webservice" type="checkbox">
+                    <span class="slider round"></span>
+                    </label>
+                    <span>&nbsp public</span>                
+                </div>
+        </div>
+        <hr>
             <div class ="row">
                 <div class="col-sm-8">
                     <h6 >Service Name <span style="color:red">*</span></h6>
@@ -232,17 +246,9 @@
                 <div class="col-sm-6">
                         <h6 >Update times (Hours)<span style="color:red">*</span></h6>
                         <input type="number" min="1" class="mb-2" id="time-webservice" name="time-webservice" placeholder="time to update">
-                    </div>
-                    <div class="col-sm-6">
-                    <h6>Status <span style="color:red">*</span></h6>
-                    <span>private &nbsp </span>
-                    <label class="switch">
-                    <input id="status-webservice" type="checkbox">
-                    <span class="slider round"></span>
-                    </label>
-                    <span>&nbsp public</span>
-                    </div>
                 </div>
+        
+            </div>
             <button type="button" id="showvalue" class="btn btn-primary show-header"><a href="#select">Show value</a></button>  
             
         </div>
