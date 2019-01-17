@@ -17,7 +17,7 @@ toastr.options = {
 };
 
 class Service {
-    constructor(strUrl, alias, ServiceName, description,status) {
+    constructor(strUrl, alias, ServiceName, description,status,time) {
         let dataFromUrl;
         let dataHeader;
         var dataHeaderList;
@@ -249,8 +249,7 @@ class Service {
 
             
             increaseDataTableDB();
-            increaseDataTableDW();
-            //increasefirstDW();
+            // increaseDataTableDW();
 
         }
         //console.log(status)
@@ -268,14 +267,17 @@ class Service {
                     description: description,
                     header: headerLow,
                     valueCal: "sefef",
-                    status: status
+                    status: status,
+                    time:time
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
                     idDB = res.webService.webservice_id;
                     console.log("success DB")
+                    increaseDataTableDW();
                 },
                 error: (res) => {
+                    swal("Good job!", "You clicked the button!", "error");
                     console.log(res);
                 }
             });
@@ -295,6 +297,7 @@ class Service {
 
                     },
                     error: (res) => {
+                        
                         console.log(res);
                     }
             });
@@ -313,7 +316,7 @@ class Service {
                     ServiceName: ServiceName,
                     ServiceNameDW: ServiceName+"."+companyID,
                     description: description,
-                    header: headerLow
+                    header: headerLow,
                 },
                 success: (res) => {
                     swal("Good job!", "You clicked the button!", "success");
@@ -321,6 +324,7 @@ class Service {
                         
                 },
                 error: (res) => {
+                    swal("Good job!", "You clicked the button!", "error");
                     console.log(res);
                 }
                 });
@@ -335,7 +339,8 @@ class Service {
                     
                     strUrl: strUrl,
                     ServiceNameDW :ServiceName+"."+companyID,
-                    header : headerLow
+                    header : headerLow,
+                    time:time
                 },
                 success: (res) => {
                     console.log("success insert Table")
@@ -482,15 +487,25 @@ class TreeView {
 }
 
 $(document).ready(function () {
-
     $(".show-header").click(function () {
 
         let url = $("#url-webservice").val();
         let alias = $('#alias-webservice').val();
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
-        let status = $('#status-webservice').val();
-        let service = new Service(url, alias, ServiceName, description,status);
+        let status = $('#status-webservice').prop( "checked" );
+        let time = $('#time-webservice').val();
+        console.log("status");
+        console.log(status);
+        if(status == true)
+        {
+            status="public";
+        }
+        else
+        {
+            status="private";
+        }
+        let service = new Service(url, alias, ServiceName, description,status,time);
         service.initService();
         // let data = {
         //     api : null,

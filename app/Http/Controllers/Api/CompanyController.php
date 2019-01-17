@@ -298,7 +298,8 @@ class CompanyController extends Controller
             'description'=> $request->get('description'),
             'header_row'=> $request->get('header'),
             'value_cal'=>$request->get('valueCal'),
-            'status'=>$request->get('status')
+            'status'=>$request->get('status'),
+            'update_time'=>$request->get('time')
         ]);
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('webService'),200);
@@ -318,7 +319,7 @@ class CompanyController extends Controller
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
         $companyID = $payload["user"]->company_id;
-        $webService    = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
+        $webService    = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.status,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
         FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.company_id='$companyID'");
         
         if(empty($webService))

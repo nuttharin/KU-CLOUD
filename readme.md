@@ -1,7 +1,7 @@
 # KU CLOUD 
 1. ข้อ 2 ถึง 4 ทำเมื่อ clone project มาครั้งแรก
 2. composer install
-3. เปลี่ยน .env.example เป็น .env
+3. copy .env.example เป็น .env
 4. php artisan key:generate
 5. php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\JWTAuthServiceProvider"
 6. php artisan jwt:secret
