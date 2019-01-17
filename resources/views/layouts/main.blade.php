@@ -40,13 +40,13 @@
     <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
 
     <!-- Leaflet -->
-    <link rel="stylesheet" href="{{url('leaflet/leaflet.css')}}" />
-    <script src="{{url('leaflet/leaflet.js')}}"></script>
-    <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
-    <link rel="stylesheet" href="{{url('mappadcontrol/L.Control.Pan.css')}}" />
-    <script src="{{url('mappadcontrol/L.Control.Pan.js')}}"></script>
-    <script src="{{url('mappadcontrol/leaflet-tilejson.js')}}"></script>
-    <script src="{{url('leaflet/BoundaryCanvas.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('leaflet/leaflet.css')}}" />
+    <link rel="stylesheet" href="{{asset('mappadcontrol/L.Control.Pan.css')}}" />
+    <script src="{{asset('leaflet/leaflet.js')}}"></script>
+    <script src="{{asset('leaflet/BoundaryCanvas.js')}}"></script>
+    <script src="{{asset('mappadcontrol/L.Control.Pan.js')}}"></script>
+    <script src="{{asset('mappadcontrol/leaflet-tilejson.js')}}"></script>
+    <script src="{{asset('leaflet/BoundaryCanvas.js')}}"></script>
 
     <!-- materialdesignicons -->
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.min.css">
