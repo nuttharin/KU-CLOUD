@@ -23,7 +23,7 @@ class WidgetObject
     this.type = type;
   }
 
-  // Text
+  // Table
   WidgetTableObject(id, tableTag, type)
   {
     this.id = id;
