@@ -201,30 +201,31 @@
     .slider.round:before {
     border-radius: 50%;
     }
-
+    
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>
 <link href="{{url('jstree/style.min.css')}}" rel="stylesheet" />
 <link href="{{url('jstree/style.css')}}" rel="stylesheet" />
+<link href="{{url('css/togglebutton.css')}}" rel="stylesheet" />
 <br>
-
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Create a new webservice</h4>
+    </div>
+    <div class="col-sm-6">
+        <div class="onoffswitch2">
+        <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-webservice">
+        <label class="onoffswitch2-label" for="status-webservice">
+            <span class="onoffswitch2-inner"></span>
+            <span class="onoffswitch2-switch"></span>
+        </label>
+        </div>
+    </div>
+</div>
+<hr>
 <div class="from-input-detail">
     <div class="row">
         <div class="col-sm-8 " >
-        <div class ="row">
-                <div class="col-sm-8">
-                    <h4>Create a new webservice</h4>                
-                </div>
-                <div class="col-sm-4">
-                    <span>private &nbsp </span>
-                    <label class="switch">
-                    <input id="status-webservice" type="checkbox">
-                    <span class="slider round"></span>
-                    </label>
-                    <span>&nbsp public</span>                
-                </div>
-        </div>
-        <hr>
             <div class ="row">
                 <div class="col-sm-8">
                     <h6 >Service Name <span style="color:red">*</span></h6>
@@ -245,11 +246,10 @@
             <div class="row">
                 <div class="col-sm-6">
                         <h6 >Update times (Hours)<span style="color:red">*</span></h6>
-                        <input type="number" min="1" class="mb-2" id="time-webservice" name="time-webservice" placeholder="time to update">
+                        <input type="number" min="1" max="24" class="mb-2" id="time-webservice" name="time-webservice" placeholder="time">
                 </div>
-        
             </div>
-            <button type="button" id="showvalue" class="btn btn-primary show-header"><a href="#select">Show value</a></button>  
+            <button type="button" id="showvalue" class="btn btn-primary show-header"><a style="color:white" href="#select">Show value</a></button>  
             
         </div>
         

@@ -74,7 +74,7 @@ var WebserviceRepository = new (function () {
             ret[0] = item.name;
             ret[1] = item.alias;
             ret[2] = item.description;
-            ret[3] = item.description;
+            ret[3] = item.status;
             ret[4] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">

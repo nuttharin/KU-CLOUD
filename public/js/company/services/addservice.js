@@ -487,17 +487,17 @@ class TreeView {
 }
 
 $(document).ready(function () {
-
     $(".show-header").click(function () {
 
         let url = $("#url-webservice").val();
         let alias = $('#alias-webservice').val();
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
-        let status = $('#status-webservice').val();
+        let status = $('#status-webservice').prop( "checked" );
         let time = $('#time-webservice').val();
+        console.log("status");
         console.log(status);
-        if(status=="on")
+        if(status == true)
         {
             status="public";
         }
