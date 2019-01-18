@@ -98,8 +98,8 @@ class EloquentUsers implements UsersRepository
                     'email'=> TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
                     'phone'=> TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
                     'company'=> DB::select('SELECT TB_COMPANY.company_id,TB_COMPANY.company_name FROM TB_USER_CUSTOMER 
-                                            INNER JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
-                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_CUSTOMER.user_id = ?',[$user->user_id])[0],
+                                            LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
+                                            WHERE TB_COMPANY.company_id != 1 AND TB_USER_CUSTOMER.user_id = ? AND TB_USER_CUSTOMER.company_id IS NOT NULL',[$user->user_id]),
                 ];
             }
             return $data;
@@ -473,6 +473,12 @@ class EloquentUsers implements UsersRepository
     public function getCustomerNoCompany()
     {
         // TODO: Implement getCustomerNoCompany() method.
-        $data = DB::select('select ');
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $data = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_EMAIL.email_user FROM TB_USERS
+        INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
+        LEFT JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id  
+        LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
+        WHERE TB_USERS.type_user = ?  AND TB_EMAIL.is_primary = ? AND (TB_COMPANY.company_id IS NULL OR  TB_COMPANY.company_id != ?)',['CUSTOMER',true,$company_id]);
+        return $data;
     }
 }

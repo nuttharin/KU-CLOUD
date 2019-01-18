@@ -10,6 +10,9 @@
         font-size: 12px;
     }
 
+    .select2-search__field {
+        width: 100% !important;
+        padding: 0;
     }
 </style>
 
@@ -28,6 +31,10 @@
                         <button type="button" class="btn btn-success btn-radius" id="btn-add-user">
                             <i class="fa fa-plus"></i>
                             Create
+                        </button>
+                        <button type="button" class="btn btn-warning btn-radius" id="btn_bind_user">
+                            <i class="fas fa-link"></i>
+                            Bind
                         </button>
                     </div>
                 </div>
@@ -149,13 +156,11 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Create User Customer</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <!-- Modal body -->
             <div class="modal-body">
                 <form id="form-add-user">
                     <div class="row">
@@ -188,7 +193,31 @@
                 </form>
             </div>
 
-            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="bindUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Bind user customer</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form id="form_bind_user">
+
+
+                </form>
+            </div>
+
             <div class="modal-footer">
                 <button type="button" id="btn-save-add-user" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
             </div>
