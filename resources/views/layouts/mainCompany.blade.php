@@ -73,6 +73,7 @@
     <!-- pace -->
     <script src="{{asset('pace/pace.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('pace/pace.css')}}">
+
 </head>
 
 <body>
@@ -243,6 +244,8 @@
 
         <!-- validate -->
         <script src="{{asset('js/validate/validate.js')}}"></script>
+
+
 
         <!-- Page Content  -->
         <div id="content">

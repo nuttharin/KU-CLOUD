@@ -1090,6 +1090,14 @@ export class ManagementUsers {
                 onSaveUserClick($(this));
             });
 
+            if (config.type === 'CUSTOMER') {
+
+                $('#btn_bind_user').unbind().click(function () {
+                    $("#bindUser").modal('show');
+
+                });
+            }
+
             addEventValidate(validateInput.create);
         };
 

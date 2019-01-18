@@ -30,7 +30,7 @@ class AdminController extends Controller
 
     public function manageAccounts()
     {
-        return view('company.manageAccounts')->with('user', Auth::user());
+        return view('admin.manageAccounts')->with('user', Auth::user());
     }
 
     public function UsersAdminister()
