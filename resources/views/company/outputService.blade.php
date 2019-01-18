@@ -18,9 +18,9 @@
     }
 
     .list-output {
-        background-color: #FFFAFA  ;
-        padding-left: 2%;
-        border-color: black;
+        background-color: #E6E6FA  ;
+        /* padding-left: 2%; */
+        /* border-color: black; */
     }
     
     #header-detail {
@@ -66,30 +66,30 @@
 <h4>Output service</h4><hr>
 
 <br>
-<div class="container" >
-    <div class="panel-group collap-output">
+<div class="container " >
+    <div class="panel-group">
         <div class="panel panel-default">
         <div class="panel-heading">
         <a data-toggle="collapse" href="#collapse1">
-            <h4 class="panel-title">
+            <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
                 <div class="col-sm-1" >
                     <button type="button" class="btn btn-primary">GET</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
-                    <h5 style="color:black">Get data max</h5>
+                    <h6 style="color:black">Get data max</h6>
                 </div>
                 <div class="col-sm-9" id='header-detail'>
-                    <h5 style="color:gray">/webService/GetAlldata</h5>
+                    <h6 style="color:gray">/webService/GetAlldata</h6>
                 </div>
             </div>
             </h4>
         </a>
         </div>
-        <div id="collapse1" class="panel-collapse collapse">
+        <div id="collapse1" class="panel-collapse collapse list-output">
             <ul class="list-group">
             <br/>
-            <h5 style="color:black">This method allows you to retrieve data records from a resource</h5><br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
             <table id="paramater">
             <tr>
                 <th>Parameter</th>
@@ -116,29 +116,29 @@
 </div>
 <br>
 <div class="container" >
-    <div class="panel-group collap-output">
+    <div class="panel-group">
         <div class="panel panel-default">
         <div class="panel-heading">
         <a data-toggle="collapse" href="#collapse2">
-            <h4 class="panel-title">
+            <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
                 <div class="col-sm-1" >
                     <button type="button" class="btn btn-success">POST</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
-                    <h5 style="color:black">Get data max</h5>
+                    <h6 style="color:black">Get data max</h6>
                 </div>
                 <div class="col-sm-9" id='header-detail'>
-                    <h5 style="color:gray">/webService/GetAlldata</h5>
+                    <h6 style="color:gray">/webService/GetAlldata</h6>
                 </div>
             </div>
             </h4>
         </a>
         </div>
-        <div id="collapse2" class="panel-collapse collapse">
+        <div id="collapse2" class="panel-collapse collapse list-output">
             <ul class="list-group">
             <br/>
-            <h5 style="color:black">This method allows you to retrieve data records from a resource</h5><br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
             <table id="paramater">
             <tr>
                 <th>Parameter</th>
@@ -165,29 +165,29 @@
 </div>
 <br/>
 <div class="container" >
-    <div class="panel-group collap-output">
+    <div class="panel-group">
         <div class="panel panel-default">
         <div class="panel-heading">
         <a data-toggle="collapse" href="#collapse3">
-            <h4 class="panel-title">
-            <div class="row" id='header-output'>
+            <h4 class="panel-title collap-output">
+            <div class="row " id='header-output'>
                 <div class="col-sm-1" >
                     <button type="button" class="btn btn-danger">DELETE</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
-                    <h5 style="color:black">Get data max</h5>
+                    <h6 style="color:black">Get data max</h6>
                 </div>
                 <div class="col-sm-9" id='header-detail'>
-                    <h5 style="color:gray">/webService/GetAlldata</h5>
+                    <h6 style="color:gray">/webService/GetAlldata</h6>
                 </div>
             </div>
             </h4>
         </a>
         </div>
-        <div id="collapse3" class="panel-collapse collapse">
+        <div id="collapse3" class="panel-collapse collapse list-output">
             <ul class="list-group">
             <br/>
-            <h5 style="color:black">This method allows you to retrieve data records from a resource</h5><br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
             <table id="paramater">
             <tr>
                 <th>Parameter</th>
