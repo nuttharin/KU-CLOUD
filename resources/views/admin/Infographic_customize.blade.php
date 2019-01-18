@@ -30,8 +30,8 @@
                 <a href="#" id="btnImage"><i class="far fa-image fa-2x"></i></a>
                 <a href="#" id="btnShapes"><i class="fab fa-microsoft fa-2x"></i></a>
             </div>
-            <div class="col-8 select-menu" id="selectMenu" style="display:none">
-            
+            <div class="col-8 select-menu-2" id="selectMenu" style="display:none">
+
             </div>
         </div>
     </div>
@@ -43,259 +43,261 @@
     <div class="col-3">
         <div class="row" id="propertySpace">
             <!--Comment-->
-            <!-- <div class="propertyMenu">
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-down"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="far fa-caret-square-up"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-left"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-center"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-align-right"></i></button>
-                </div>
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-primary Editdata" >Download</button>
-                    <button type="button" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
-                </div>
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default Editdata" >Edit data</button>
-                    <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-                </div>
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default Editdata" >Import data</button>
-                    <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-                </div>
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default Editdata" >Crop image</button>
-                    <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Chart type</span>
+            <!-- <div class="propertyMenu-2">
+                <div class="propertyMenu-2-context">
+                    <div class="container">
+                        <div class="row row-block border-bottom-only">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-default"><i class="far fa-caret-square-down"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-default"><i class="far fa-caret-square-up"></i></button>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-default"><i class="fas fa-align-left"></i></button>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-default"><i class="fas fa-align-center"></i></button>
+                            </div>
+                            <div class="col-2">         
+                                <button type="button" class="btn btn-default"><i class="fas fa-align-right"></i></button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="bgbright"><img src="{{url('img_test.png')}}" style="width:70%; height:70%;" />
-                                <title>Line</title>
+                        <div class="row row-block">
+                            <div class="col-7">
+                                <button type="button" class="btn btn-default form-control">Download</button>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Text change</span>
-                        </div>
+                <div class="propertyMenu-2-paper">
+                    <div class="propertyMenu-2-block">
+                        <button type="button" class="btn btn-default form-control button-width">Edit data</button>     
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control crispyText"/>
-                            <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-                        </div>
+                    <div class="propertyMenu-2-block">
+                        <button type="button" class="btn btn-default form-control button-width">Import data</button>    
                     </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>New Column name</span>
-                        </div>
+                    <div class="propertyMenu-2-block">
+                        <button type="button" class="btn btn-default form-control button-width">Crop image</button>     
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <input type="text" class="form-control crispyColumn"/>
-                            <button type="button" class="btn btn-default" ><i class="fas fa-angle-right"></i></button>
-                            <button type="button" class="btn btn-default" ><i class="fas fa-angle-down"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Themes</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <select type="text" class="form-control crispyThemes">
-                                <option>test</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-6">
-                            <span>Width (px)</span>
-                            <input type="text" class="form-control crispy" />
-                        </div>
-                        <div class="col-6">
-                            <span>Height (px)</span>
-                            <input type="text" class="form-control crispy" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row fontalign">
-                        <div class="col-4">
-                            <span>Color</span>
-                        </div>
-                        <div class="col-8">
-                            <span>Font</span>
-                        </div>
-                    </div>
-                    <div class="row inputalign">
-                        <div class="col-4">
-                            <input type="color" class="colorSP" value="#f6b73c">
-                        </div>
-                        <div class="col-8">
-                            <select type="text" class="form-control">
-                                <option>test</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row fontalign">
-                        <div class="col-4">
-                            <span>Color</span>
-                        </div>
-                    </div>
-                    <div class="row inputalign">
-                        <div class="col-8">
-                            <input type="color" class="colorSP" value="#f6b73c" style="width:100%;">
-                        </div>
-                        <div class="col-4">
-                            <button type="button" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="Editdatacrispy">
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
-                    <button type="button" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Font size (pt)</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="9" max="120" value="9" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Rotation</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="0" max="360" value="0" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Transparency (%)</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="0" max="100" value="0" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Border Radius (%)</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="0" max="50" value="0" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Scaling">
-                    <div class="row">
-                        <div class="col-8 rotates">
-                            <span>Border Width (px)</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <input type="range" min="5" max="20" value="0" class="slider" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control crispysilde" />
-                        </div>
-                    </div>
-                </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demo">
-                        <i class="far fa-chart-bar"></i><span>Chart properties</span>
-                    </div>
-                    <div class="GroupBody" id="demo" class="collapse">
-                        <div class="row inputalign">
-                            <div class="col-4">
-                                <input type="color" class="colorChart" value="#f6b73c">
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Text change</span>
                             </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control crispyTextChart"/>
+                            <div class="row row-block">
+                                <input type="text" class="form-control"/>
                             </div>
-                        </div>
-                        <div class="row inputalign">
-                            <div class="col-4">
-                                <input type="color" class="colorChart" value="#f6b73c">
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>New column name</span>
                             </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control crispyTextChart"/>
+                            <div class="row row-block">
+                                <div class="col-7">
+                                    <input type="text" class="form-control"/>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-default" ><i class="fas fa-angle-right"></i></button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-default" ><i class="fas fa-angle-down"></i></button>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row-block">
+                                <button type="button" class="btn btn-default form-control button-width">Delete column</button>
+                            </div>
+                            <div class="row-block">
+                                <button type="button" class="btn btn-default form-control button-width">Delete row</button>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Themes</span>
+                            </div>
+                            <div class="row row-block">
+                                <select type="text" class="form-control">
+                                    <option>test</option>
+                                </select>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <div class="col-6">
+                                    <span>Width (px)</span>
+                                </div>
+                                <div class="col-6">
+                                    <span>Height (px)</span>
+                                </div>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-6">
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <div class="col-6 text-align-left">
+                                    <span>Color</span>
+                                </div>
+                                <div class="col-6 text-align-left">
+                                    <span>Font</span>
+                                </div>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-6">
+                                    <input type="color" class="form-control" value="#f6b73c">
+                                </div>
+                                <div class="col-6">
+                                    <select type="text" class="form-control">
+                                        <option>test</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Color</span>
+                            </div>
+                            <div class="row row-block">
+                                <input type="color" class="form-control" value="#f6b73c">
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-default" ><i class="fas fa-minus"></i></button>
+                                </div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-default" ><i class="fas fa-ellipsis-h"></i></button>
+                                </div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-default" ><i class="fas fa-equals"></i></button>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Font size (pt)</span>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-8" style="padding-left:0px;">
+                                    <input type="range" min="9" max="120" value="9" class="slider" />
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Rotation</span>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-8" style="padding-left:0px;">
+                                    <input type="range" min="0" max="360" value="0" class="slider" />
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Transparency (%)</span>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-8" style="padding-left:0px;">
+                                    <input type="range" min="0" max="100" value="0" class="slider" />
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Border radius (%)</span>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-8" style="padding-left:0px;">
+                                    <input type="range" min="0" max="50" value="0" class="slider" />
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Border width (px)</span>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-8" style="padding-left:0px;">
+                                    <input type="range" min="5" max="20" value="0" class="slider" />
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="propertyMenu-2-block">
+                        <div class="container">
+                            <div class="row row-block">
+                                <span>Chart properties</span>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-4">
+                                    <input type="color" class="form-control" value="#f6b73c">
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row row-block">
+                                <div class="col-4">
+                                    <input type="color" class="form-control" value="#f6b73c">
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>    
                     </div>
                 </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                        <i class="fas fa-palette"></i><span>Color</span>
-                    </div>
-                    <div class="GroupBody" id="demox" class="collapse">
-                        Lorem ipsum
-                    </div>
-                </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                        <i class="fas fa-list-ul"></i><span>Legend</span>
-                    </div>
-                    <div class="GroupBody" id="demox" class="collapse">
-                        Lorem ipsum
-                    </div>
-                </div>
-                <div class="Grouping">
-                    <div class="GroupTitle" data-toggle="collapse" data-target="#demox">
-                        <i class="fas fa-comment"></i><span>Tooltips</span>
-                    </div>
-                    <div class="GroupBody" id="demox" class="collapse">
-                        Lorem ipsum
-                    </div>
-                </div>             
             </div> -->
             <!--Comment-->
         </div>

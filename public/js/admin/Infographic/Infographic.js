@@ -103,9 +103,11 @@ class Workspace {
         html2canvas(document.querySelector("#workspace")).then(canvas => {
           popup.close();
           var myLinkImage = canvas.toDataURL("image/png");
-          var pdf         = new jsPDF();
+          var pdf         = new jsPDF("p", "mm", "a4");
+          var width       = pdf.internal.pageSize.getWidth();
+          var height      = pdf.internal.pageSize.getHeight();
 
-          pdf.addImage(myLinkImage, 'JPEG', 0, 0);
+          pdf.addImage(myLinkImage, 'JPEG', 0, 0, width, height);
           pdf.save("ImageDownload.pdf");
         }); //Html2canvas
       }); //Btn download
@@ -146,15 +148,32 @@ class Workspace {
       else {
         SetActive("btnGraph");
 
-        $("#selectMenu").html(`<top class="head">Add Graph<close><i class="fas fa-times"></i></close></top>
-                                <sub id="g1"><img src="${path}/graph/line.png" style="width:60%; height:60%;"/><title>Line</title></sub>
-                                <sub id="g2"><img src="${path}/graph/bar.png" style="width:60%; height:60%;"/><title>Bar</title></sub>
-                                <sub id="g3"><img src="${path}/graph/pie.png" style="width:60%; height:60%;"/><title>Pie</title></sub>
-                                <sub id="g4"><img src="${path}/graph/radar.png" style="width:60%; height:60%;"/><title>Radar</title></sub>`);
-
-        $(".fa-times").unbind().click(function () {
-          UnActive("btnGraph");
-        });
+        $("#selectMenu").html(`
+            <div class="row select-menu-2-context">
+              <span>Add graph</span>
+            </div>
+            <div class="row select-menu-2-paper">
+              <div id="g1" class="row select-menu-2-block">
+                <img src="${path}/graph/line.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Line</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <div id="g2" class="row select-menu-2-block">
+                <img src="${path}/graph/bar.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Bar</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <div id="g3" class="row select-menu-2-block">
+                <img  src="${path}/graph/pie.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Pie</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <div id="g4" class="row select-menu-2-block">
+                <img  src="${path}/graph/radar.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Radar</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+            </div>`);
 
         $("#g1").unbind().click(function () {
           var lineGraph = new Graph();
@@ -185,12 +204,17 @@ class Workspace {
       else {
         SetActive("btnMap");
 
-        $("#selectMenu").html(`<top href="#" class="head">Add Map<close><i class="fas fa-times"></i></close></top>
-                                <sub id="m1"><img src="${path}/map/map.png" style="width:60%; height:60%;"/><title>Map</title></sub>`);
-
-        $(".fa-times").unbind().click(function () {
-          UnActive("btnMap");
-        });
+        $("#selectMenu").html(`
+            <div class="row select-menu-2-context">
+              <span>Add map</span>
+            </div>
+            <div class="row select-menu-2-paper">
+              <div id="m1" class="row select-menu-2-block">
+                <img src="${path}/map/map.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Thailand</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+            </div>`);
 
         $("#m1").unbind().click(function () {
           var mapWidget = new Map();
@@ -207,14 +231,27 @@ class Workspace {
       else {
         SetActive("btnFont");
 
-        $("#selectMenu").html(`<top href="#" class="head">Add Text<close><i class="fas fa-times"></i></close></top>
-                                <sub id="f1"><img src="${path}/font/head.png" style="width:60%; height:60%;"/><title>Title</title></sub>
-                                <sub id="f2"><img src="${path}/font/subtitle.png" style="width:60%; height:60%;"/><title>Subtitle</title></sub>
-                                <sub id="f3"><img src="${path}/font/table.png" style="width:60%; height:60%;"/><title>Table</title></sub>`);
-
-        $(".fa-times").unbind().click(function () {
-          UnActive("btnFont");
-        });
+        $("#selectMenu").html(`
+            <div class="row select-menu-2-context">
+              <span>Add text</span>
+            </div>
+            <div class="row select-menu-2-paper">
+              <div id="f1" class="row select-menu-2-block">
+                <img src="${path}/font/head.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Title</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <div id="f2" class="row select-menu-2-block">
+                <img src="${path}/font/subtitle.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Subtitle</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <div id="f3" class="row select-menu-2-block">
+                <img src="${path}/font/table.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Table</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+            </div>`);
 
         $("#f1").unbind().click(function () {
           var fontHead = new Font();
@@ -240,20 +277,25 @@ class Workspace {
       else {
         SetActive("btnImage");
 
-        $("#selectMenu").html(`<top href="#" class="head">Add Image<close><i class="fas fa-times"></i></close></top>
-                                <sub id="i1">Browse</sub>
-                                <input type="file" id="file_image" style="display:none;" />`);
-
-        $(".fa-times").unbind().click(function () {
-          UnActive("btnImage");
-        });
+        $("#selectMenu").html(`
+            <div class="row select-menu-2-context">
+              <span>Add image</span>
+            </div>
+            <div class="row select-menu-2-paper">
+              <div id="i1" class="row select-menu-2-block">
+                <img src="${path}/image/browse.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Browse</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <input type="file" id="inputfile_image" style="display:none;" />
+            </div>`);
 
         $("#i1").unbind().click(function () {
-          var imageWidget = new Image();
+          var imageWidget = new Imagesy();
           
-          $("#file_image").click();
+          $("#inputfile_image").click();
 
-          $('#file_image').change(function () {
+          $('#inputfile_image').change(function () {
             var reader = new FileReader();
             reader.readAsDataURL($(this)[0].files[0]);
             reader.onload = function (e) 
@@ -275,14 +317,27 @@ class Workspace {
       else {
         SetActive("btnShapes");
 
-        $("#selectMenu").html(`<top href="#" class="head">Add Shape<close><i class="fas fa-times"></i></close></top>
-                                <sub id="s1"><img src="${path}/shape/square.png" style="width:60%; height:60%;"/><title>Square</title></sub>
-                                <sub id="s2"><img src="${path}/shape/circle.png" style="width:60%; height:60%;"/><title>Circle</title></sub>
-                                <sub id="s3"><img src="${path}/shape/string.png" style="width:60%; height:60%;"/><title>Line</title></sub>`);
-
-        $(".fa-times").unbind().click(function () {
-          UnActive("btnShapes");
-        });
+        $("#selectMenu").html(`
+            <div class="row select-menu-2-context">
+              <span>Add text</span>
+            </div>
+            <div class="row select-menu-2-paper">
+              <div id="s1" class="row select-menu-2-block">
+                <img src="${path}/shape/square.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Square</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <div id="s2" class="row select-menu-2-block">
+                <img src="${path}/shape/circle.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>Circle</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+              <div id="s3" class="row select-menu-2-block">
+                <img src="${path}/shape/string.png" class="image-back" style="width:60%; height:60%;"/>
+                <div class="row select-menu-2-title"><span>String</span></div>
+                <div class="middle-center"><div class="text-popup">Insert</div></div>
+              </div>
+            </div>`);
 
         $("#s1").unbind().click(function () {
           var shapeWidget = new Shape();
@@ -878,10 +933,13 @@ class Graph extends Widget {
   }
 } //Widget class
 
-class Map extends Widget{
-  constructor(){
+class Map extends Widget
+{
+  constructor()
+  {
     super();
-    this.createMapWidget = () => {
+    this.createMapWidget = () => 
+    {
       var id = Math.floor(100000 + Math.random() * 900000);
       this.clearfocus();
 
@@ -901,15 +959,16 @@ class Map extends Widget{
       });
 
       $.getJSON('https://raw.githubusercontent.com/apisit/thailand.json/master/thailand.json').then(function (geoJSON) {
-          var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
-              boundary: geoJSON,
-              minZoom: 5,
-              maxZoom: 9,
-              attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
-          });
-          mymap.addLayer(osm);
-          var ukLayer = L.geoJSON(geoJSON);
-          mymap.fitBounds(ukLayer.getBounds());
+        var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+            boundary: geoJSON,
+            minZoom: 5,
+            maxZoom: 9,
+            attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+        });
+
+        mymap.addLayer(osm);
+        var ukLayer = L.geoJSON(geoJSON);
+        mymap.fitBounds(ukLayer.getBounds());
       });
 
       // mymap.on('mouseover', console.log("in"));
@@ -1103,19 +1162,19 @@ class Font extends Widget {
       $("#workspace").append(`
                                 <table id="table_${id}" class="sPosition fCorner table" table-class="1">
                                   <tr>
-                                    <th>Column1</th>
-                                    <th>Column2</th>
-                                    <th>Column3</th>
+                                    <th>Column</th>
+                                    <th>Column</th>
+                                    <th>Column</th>
                                   </tr>
                                   <tr>
-                                    <td>Data1</td>
-                                    <td>Data2</td>
-                                    <td>Data3</td>
+                                    <td>Data</td>
+                                    <td>Data</td>
+                                    <td>Data</td>
                                   </tr>
                                   <tr>
-                                    <td>Data4</td>
-                                    <td>Data5</td>
-                                    <td>Data6</td>
+                                    <td>Data</td>
+                                    <td>Data</td>
+                                    <td>Data</td>
                                   </tr>
                                 </table>
                               `);
@@ -1261,7 +1320,7 @@ class Font extends Widget {
   } //Constructor
 } //Font class
 
-class Image extends Widget{
+class Imagesy extends Widget{
   constructor(){
     super();
     this.createImageWidget = (src_image) => {
@@ -1526,18 +1585,44 @@ class Shape extends Widget{
 class Property {
   constructor() {
     /* Create UI & function property */
-    $("#propertySpace").html('<div class="propertyMenu"></div>');
+    $("#propertySpace").html(`<div class="propertyMenu-2">
+                                <div class="propertyMenu-2-context"></div>
+                                <div class="propertyMenu-2-paper"></div>
+                              </div>`);
 
-    this.createPosition = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Editdatacrispy">
-            <button type="button" id="backest_widget_${id}" class="btn btn-default positionset" ><i class="far fa-caret-square-down"></i></button>
-            <button type="button" id="topest_widget_${id}" class="btn btn-default positionset" ><i class="far fa-caret-square-up"></i></button>
-            <button type="button" id="align_left_widget_${id}" class="btn btn-default positionset" ><i class="fas fa-align-left"></i></button>
-            <button type="button" id="align_center_widget_${id}" class="btn btn-default positionset" ><i class="fas fa-align-center"></i></button>
-            <button type="button" id="align_right_widget_${id}" class="btn btn-default positionset" ><i class="fas fa-align-right"></i></button>
-          </div>`);
-
+    this.createContext = (id, full_id, type, myChart) => {
+      $(".propertyMenu-2-context").append(`  
+            <div class="container">
+                <div class="row row-block border-bottom-only">
+                    <div class="col-2">
+                        <button type="button" id="backest_widget_${id}" class="btn btn-default"><i class="far fa-caret-square-down"></i></button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" id="topest_widget_${id}"  class="btn btn-default"><i class="far fa-caret-square-up"></i></button>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" id="align_left_widget_${id}" class="btn btn-default"><i class="fas fa-align-left"></i></button>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" id="align_center_widget_${id}" class="btn btn-default"><i class="fas fa-align-center"></i></button>
+                    </div>
+                    <div class="col-2">         
+                        <button type="button" id="align_right_widget_${id}" class="btn btn-default"><i class="fas fa-align-right"></i></button>
+                    </div>
+                </div>
+                <div class="row row-block">
+                    <div class="col-7">
+                        <button type="button" id="download_widget_${id}" class="btn btn-default form-control">Download</button>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" id="preview_widget_${id}" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" id="delete_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>`);
+      
       $("#backest_widget_" + id).click(function () {
         $(".sPosition").each(function (index) {
           if ($(this).hasClass("fCorner")) {
@@ -1588,14 +1673,6 @@ class Property {
         $(full_id).attr('data-x', transformX);
         $(full_id).attr('data-y', transformY);
       });
-    }
-
-    this.createDownload = (id, full_id) => {
-      $(".propertyMenu").append(`
-          <div class="Editdatacrispy">
-            <button type="button" id="download_widget_${id}" class="btn btn-primary Editdata" >Download</button>
-            <button type="button" id="preview_widget_${id}" class="btn btn-default" ><i class="fas fa-desktop"></i></button>
-          </div>`);
 
       $("#download_widget_" + id).click(function () {
         var popup = window.open();
@@ -1652,34 +1729,54 @@ class Property {
           popup.document.title = "Preview";
           popup.document.getElementById("loading").remove();
         });
+      });  
+      
+      $("#delete_widget_" + id).click(function () {
+        widgetObjectList  = arrayRemove(widgetObjectList, id);
+
+        if(type == "graph")
+        {
+          let ctx = document.getElementById("div_canvas_" + id);       
+          myChart.destroy();
+          ctx.remove();
+        }
+        else if(type == "text")
+        {
+          let ctx  = document.getElementById("span_" + id);
+          ctx.remove();
+        }
+        else if(type == "table")
+        {
+          let ctx = document.getElementById("table_" + id);
+          ctx.remove();
+        }
+        else if(type == "image")
+        {
+          let ctx = document.getElementById("div_" + id);   
+          ctx.remove();
+        }
+        else if(type == "square" || type == "circle" || type == "string")
+        {
+          let ctx  = document.getElementById("div_" + id);
+          ctx.remove();
+        }
+        $(".propertyMenu").html(``);
       });
     }
 
     this.createEditdata = (id, myChart, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Editdatacrispy">
-            <button type="button" class="btn btn-default Editdata" >Edit data</button>
-            <button type="button" id="delete_canvas_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+      $(".propertyMenu-2-paper").append(`                
+          <div class="propertyMenu-2-block">
+            <button type="button" class="btn btn-default form-control button-width">Edit data</button>     
           </div>`);
-
-      $("#delete_canvas_widget_" + id).click(function () {
-        widgetObjectList  = arrayRemove(widgetObjectList, id);
-        let ctx           = document.getElementById("div_canvas_" + id);
-        
-        myChart.destroy();
-        ctx.remove();
-
-        $(".propertyMenu").html(``);
-      });
     }
 
     this.createCropImage = (id, full_id, full_id_image) => {
       let cropObject;
 
-      $(".propertyMenu").append(`                
-          <div class="Editdatacrispy">
-            <button type="button" id="crop_image_widget_${id}" class="btn btn-default Editdata" >Crop image</button>
-            <button type="button" id="delete_image_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+      $(".propertyMenu-2-paper").append(`                
+          <div class="propertyMenu-2-block">
+            <button type="button" id="crop_image_widget_${id}" class="btn btn-default form-control button-width">Crop image</button>     
           </div>`);
 
       $("#crop_image_widget_" + id).click(function () {
@@ -1722,30 +1819,19 @@ class Property {
           $("#modelCrop_" + id).remove();
         });
       });
-
-      $("#delete_image_widget_" + id).click(function () {
-        widgetObjectList  = arrayRemove(widgetObjectList, id);
-        let ctx = document.getElementById("div_" + id);   
-        ctx.remove();
-        
-        $(".propertyMenu").html(``);
-      });
     }
 
     this.createTextchange = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
+      $(".propertyMenu-2-paper").append(`                      
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
                     <span>Text change</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input type="text" id="inputtext_${id}" class="form-control crispyText" value="Head"/>
-                    <button type="button" id="delete_text_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+                <div class="row row-block">
+                    <input type="text" id="inputtext_${id}" class="form-control"/>
                 </div>
-            </div>
+            </div>    
           </div>`);
 
       // Set start value
@@ -1754,71 +1840,37 @@ class Property {
       $("#inputtext_" + id).keyup(function () {
         $("#span_" + id).html($("#inputtext_" + id).val());
       });
-
-      $("#delete_text_widget_" + id).click(function () {
-        widgetObjectList  = arrayRemove(widgetObjectList, id);
-        let ctx           = document.getElementById("span_" + id);
-
-        ctx.remove();
-
-        $(".propertyMenu").html(``);
-      });
     }
 
     this.createImportData = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Editdatacrispy">
-            <button type="button" class="btn btn-default Editdata" >Import data</button>
-            <button type="button" id="delete_table_widget_${id}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
-          </div>`);
-
-      // Set start value
-      // $("#inputtext_" + id).val($("#span_" + id).html());
-
-      // $("#inputtext_" + id).keyup(function () {
-      //   $("#span_" + id).html($("#inputtext_" + id).val());
-      // });
-
-      $("#delete_table_widget_" + id).click(function () {
-        widgetObjectList  = arrayRemove(widgetObjectList, id);
-        let ctx           = document.getElementById("table_" + id);
-
-        ctx.remove();
-
-        $(".propertyMenu").html(``);
-      });
-    }
-
-    this.createChartType = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
-                    <span>Chart type</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="bgbright"><img src="${path}" style="width:70%; height:70%;"/><title>Line</title></div>
-                </div>
-            </div>
+      $(".propertyMenu-2-paper").append(`                
+          <div class="propertyMenu-2-block">
+            <button type="button" class="btn btn-default form-control button-width">Import data</button>    
           </div>`);
     }
 
     this.createScale = (id, full_id, type) => {
-      $(".propertyMenu").append(`                
-        <div class="Scaling">
-          <div class="row">
-              <div class="col-6">
-                  <span>Width (px)</span>
-                  <input type="text" id="width_${id}" class="form-control crispy"/>
-              </div>
-              <div class="col-6">
-                  <span>Height (px)</span>
-                  <input type="text" id="height_${id}" class="form-control crispy" />
-              </div>
-          </div>
-        </div>`);
+      $(".propertyMenu-2-paper").append(`  
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <div class="col-6">
+                        <span>Width (px)</span>
+                    </div>
+                    <div class="col-6">
+                        <span>Height (px)</span>
+                    </div>
+                </div>
+                <div class="row row-block">
+                    <div class="col-6">
+                        <input type="text" id="width_${id}" class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="height_${id}" class="form-control" />
+                    </div>
+                </div>
+            </div>    
+          </div>`);
 
       // Set start value
       $("#width_" + id).val(Math.round($(full_id).width()));
@@ -1848,42 +1900,120 @@ class Property {
     }
 
     this.createAddColumnAndRow = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
-                    <span>New Column name</span>
+      $(".propertyMenu-2-paper").append(`    
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <span>New column name</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <input type="text" id="column_name_${id}" class="form-control crispyColumn"/>
-                    <button type="button" id="add_column_${id}" class="btn btn-default" ><i class="fas fa-angle-right"></i></button>
-                    <button type="button" id="add_row_${id}" class="btn btn-default" ><i class="fas fa-angle-down"></i></button>
+                <div class="row row-block">
+                    <div class="col-7">
+                        <input type="text" id="column_name_${id}" class="form-control"/>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" id="add_column_${id}" class="btn btn-default" ><i class="fas fa-angle-right"></i></button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" id="add_row_${id}" class="btn btn-default" ><i class="fas fa-angle-down"></i></button>
+                    </div>
                 </div>
-            </div>
+                <div class="row-block">
+                    <button type="button" id="delete_column_${id}" class="btn btn-default form-control button-width">Delete column</button>
+                </div>
+                <div class="row-block">
+                    <button type="button" id="delete_row_${id}" class="btn btn-default form-control button-width">Delete row</button>
+                </div>
+            </div>    
           </div>`);
-      var tableObject = document.getElementById('table_' + id);
-      console.log(tableObject.tagName);
+
+      $("#add_column_" + id).unbind().click(function () {
+        var tableObject = $(full_id);
+        var countCells = tableObject[0].rows[0].cells.length;
+
+        for(var i = 0; i < tableObject[0].rows.length; i++)
+        {
+          var row = tableObject[0].rows[i];
+          var cells;
+
+          if(i == 0)
+          {
+            cells = row.cells[row.cells.length - 1];
+            cells.insertAdjacentHTML("afterend", "<th>" + $("#column_name_" + id).val() + "</th>");
+          }
+          else
+          {
+            cells = row.insertCell(countCells);
+            cells.innerHTML = "Data";
+          }
+        }  
+
+        editTable();
+      });
+
+      $("#add_row_" + id).unbind().click(function () {
+        var tableObject = $(full_id);
+        var tableHtml = document.getElementById("table_" + id);
+        var row = tableHtml.insertRow(tableObject[0].rows.length);
+
+        for(var i = 0; i < tableObject[0].rows[0].cells.length; i++)
+        {
+          var cells = row.insertCell(i);
+          cells.innerHTML = "Data";
+        }      
+
+        editTable();
+      });
+
+      $("#delete_column_" + id).unbind().click(function () {
+        var tableObject = $(full_id);
+        var countCells = tableObject[0].rows[0].cells.length;
+
+        for(var i = 0; i < tableObject[0].rows.length; i++)
+        {
+          var row = tableObject[0].rows[i];
+          row.deleteCell(countCells - 1);      
+        }  
+      });
+
+      $("#delete_row_" + id).unbind().click(function () {
+        var tableObject = $(full_id);
+        var tableHtml = document.getElementById("table_" + id);
+        tableHtml.deleteRow(tableObject[0].rows.length - 1);    
+      });
+      
+      function editTable(){
+        const editor = new SimpleTableCellEditor("table_" + id);
+        editor.SetEditable("td",{
+          keys : {
+          validation: [13],
+          cancellation: [27]
+          }
+        });
+
+        editor.SetEditable("th",{
+          keys : {
+          validation: [13],
+          cancellation: [27]
+          }
+        });
+      }
     }
 
     this.createThemesTable = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
+      $(".propertyMenu-2-paper").append(`  
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
                     <span>Themes</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <select type="text" id="themes_table_${id}" class="form-control crispyThemes">
-                        <option value="1">Default</option>
-                        <option value="2">Striped</option>
-                        <option value="3">Bordered</option>
+                <div class="row row-block">
+                    <select type="text" id="themes_table_${id}" class="form-control">
+                      <option value="1">Default</option>
+                      <option value="2">Striped</option>
+                      <option value="3">Bordered</option>
                     </select>
                 </div>
-            </div>
+            </div>    
           </div>`);
 
       var arrayClass = ["table-striped","table-bordered"];
@@ -1925,33 +2055,35 @@ class Property {
     }
 
     this.createColorAndFont = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row fontalign">
-                <div class="col-4">
-                    <span>Color</span>
+      $(".propertyMenu-2-paper").append(`    
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <div class="col-6 text-align-left">
+                        <span>Color</span>
+                    </div>
+                    <div class="col-6 text-align-left">
+                        <span>Font</span>
+                    </div>
                 </div>
-                <div class="col-8">
-                    <span>Font</span>
+                <div class="row row-block">
+                    <div class="col-6">
+                        <input type="color" id="color_font_${id}" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <select type="text" id="family_font_${id}" class="form-control">
+                          <option value="1">Poppins</option>
+                          <option value="2">Times New Roman</option>
+                          <option value="3">Arial</option>
+                          <option value="4">Arial Black</option>
+                          <option value="5">Georgia</option>
+                          <option value="6">Tahoma</option>
+                          <option value="7">Lucida Console</option>
+                          <option value="8">Courier New</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="row inputalign">
-                <div class="col-4">
-                    <input type="color" id="color_font_${id}" class="colorSP">
-                </div>
-                <div class="col-8">
-                    <select type="text" id="family_font_${id}" class="form-control">
-                        <option value="1">Poppins</option>
-                        <option value="2">Times New Roman</option>
-                        <option value="3">Arial</option>
-                        <option value="4">Arial Black</option>
-                        <option value="5">Georgia</option>
-                        <option value="6">Tahoma</option>
-                        <option value="7">Lucida Console</option>
-                        <option value="8">Courier New</option>
-                    </select>
-                </div>
-            </div>
+            </div>    
           </div>`);
 
       // Set start value
@@ -2027,22 +2159,17 @@ class Property {
     }
 
     this.createColorAndDeleteForShape = (id, full_id, full_id_shape, type) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row fontalign">
-                <div class="col-4">
-                    <span>Color</span>
-                </div>
+      $(".propertyMenu-2-paper").append(` 
+      <div class="propertyMenu-2-block">
+        <div class="container">
+            <div class="row row-block">
+                <span>Color</span>
             </div>
-            <div class="row inputalign">
-                <div class="col-8">
-                    <input type="color" class="colorSP" id="color_shape_${id}" value="#f6b73c" style="width:100%;">
-                </div>
-                <div class="col-4">
-                    <button type="button" id="delete_shape_widget_${id}" class="btn btn-default"><i class="fas fa-trash-alt"></i></button>
-                </div>
+            <div class="row row-block">
+                <input type="color" class="form-control" id="color_shape_${id}">
             </div>
-          </div>`);
+        </div>    
+      </div>`);
       
       if(type == "square" || type == "circle")
       {
@@ -2063,15 +2190,6 @@ class Property {
           $(full_id_shape).css('border-right-color', $(this).val());
         });
       }
-
-      $("#delete_shape_widget_" + id).click(function () {
-        widgetObjectList  = arrayRemove(widgetObjectList, id);
-        let ctx           = document.getElementById("div_" + id);
-
-        ctx.remove();
-
-        $(".propertyMenu").html(``);
-      });
 
       // Convert rgb code to hex code
       function rgbToHex(color) {
@@ -2098,11 +2216,21 @@ class Property {
     }
 
     this.createStringStyle = (id, full_id, full_id_shape) => {
-      $(".propertyMenu").append(`                
-          <div class="Editdatacrispy">
-            <button type="button" id="solid_style_${id}" class="btn btn-default positionset" ><i class="fas fa-minus"></i></button>
-            <button type="button" id="dotted_style_${id}" class="btn btn-default positionset" ><i class="fas fa-ellipsis-h"></i></button>
-            <button type="button" id="double_style_${id}" class="btn btn-default positionset" ><i class="fas fa-equals"></i></button>
+      $(".propertyMenu-2-paper").append(`          
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <div class="col-4">
+                        <button type="button" id="solid_style_${id}" class="btn btn-default" ><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" id="dotted_style_${id}" class="btn btn-default" ><i class="fas fa-ellipsis-h"></i></button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" id="double_style_${id}" class="btn btn-default" ><i class="fas fa-equals"></i></button>
+                    </div>
+                </div>
+            </div>    
           </div>`);
           
       $("#solid_style_" + id).unbind().click(function () {
@@ -2119,21 +2247,21 @@ class Property {
     }
 
     this.createFontSize = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
-                    <span>Font size (px)</span>
+      $(".propertyMenu-2-paper").append(` 
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <span>Font size (pt)</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <input type="range" min="9" max="120" value="9" id="slider_font_widget_${id}" class="slider"/>
+                <div class="row row-block">
+                    <div class="col-8" style="padding-left:0px;">
+                        <input type="range" min="9" max="120" value="9" id="slider_font_widget_${id}" class="slider" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="slider_font_input_widget_${id}" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-4">
-                    <input type="text" id="slider_font_input_widget_${id}" class="form-control crispysilde" />
-                </div>
-            </div>
+            </div>    
           </div>`);
 
       // Set start value
@@ -2157,21 +2285,21 @@ class Property {
     }
 
     this.createRotation = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
+      $(".propertyMenu-2-paper").append(` 
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
                     <span>Rotation</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <input type="range" min="0" max="360" value="0" id="slider_rotation_widget_${id}" class="slider"/>
+                <div class="row row-block">
+                    <div class="col-8" style="padding-left:0px;">
+                        <input type="range" min="0" max="360" value="0" id="slider_rotation_widget_${id}" class="slider" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="slider_rotation_input_widget_${id}" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-4">
-                    <input type="text" id="slider_rotation_input_widget_${id}" class="form-control crispysilde" value="0" />
-                </div>
-            </div>
+            </div>    
           </div>`);
 
       var x = $(full_id).attr("data-x");
@@ -2203,21 +2331,21 @@ class Property {
     }
 
     this.createTransparency = (id, full_id) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
+      $(".propertyMenu-2-paper").append(`    
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
                     <span>Transparency (%)</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <input type="range" min="0" max="100" value="1" id="slider_tran_widget_${id}" class="slider"/>
+                <div class="row row-block">
+                    <div class="col-8" style="padding-left:0px;">
+                        <input type="range" min="0" max="100" value="1" id="slider_tran_widget_${id}" class="slider" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="slider_tran_input_widget_${id}" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-4">
-                    <input type="text" id="slider_tran_input_widget_${id}" class="form-control crispysilde" value="0" />
-                </div>
-            </div>
+            </div>    
           </div>`);
           
       // Set start value
@@ -2243,21 +2371,21 @@ class Property {
     }
 
     this.createBorderRadius = (id, full_id, full_id_shape) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
-                    <span>Border Radius (%)</span>
+      $(".propertyMenu-2-paper").append(` 
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <span>Border radius (%)</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <input type="range" min="0" max="50" value="0" id="slider_radius_widget_${id}" class="slider" />
+                <div class="row row-block">
+                    <div class="col-8" style="padding-left:0px;">
+                        <input type="range" min="0" max="50" value="0" id="slider_radius_widget_${id}" class="slider" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="slider_radius_input_widget_${id}" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-4">
-                    <input type="text" id="slider_radius_input_widget_${id}" class="form-control crispysilde" value= 0/>
-                </div>
-            </div>
+            </div>    
           </div>`);
           
       // Set start value
@@ -2283,21 +2411,21 @@ class Property {
     }
 
     this.createBorderWidth = (id, full_id, full_id_shape) => {
-      $(".propertyMenu").append(`                
-          <div class="Scaling">
-            <div class="row">
-                <div class="col-8 rotates">
-                    <span>Border Width (px)</span>
+      $(".propertyMenu-2-paper").append(` 
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <span>Border width (px)</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <input type="range" min="5" max="20" value="0" id="slider_width_widget_${id}" class="slider" />
+                <div class="row row-block">
+                    <div class="col-8" style="padding-left:0px;">
+                        <input type="range" min="5" max="20" value="0" id="slider_width_widget_${id}" class="slider" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="slider_width_input_widget_${id}" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-4">
-                    <input type="text" id="slider_width_input_widget_${id}" class="form-control crispysilde" />
-                </div>
-            </div>
+            </div>    
           </div>`);
           
       // Set start value
@@ -2323,24 +2451,26 @@ class Property {
     }
 
     this.createChartDetail = (id, full_id, myChart) => {
-      $(".propertyMenu").append(`                
-          <div class="Grouping">
-            <div class="GroupTitle" data-toggle="collapse" data-target="#color_and_text_${id}">
-                <i class="far fa-chart-bar"></i><span>Chart properties</span>
-            </div>
-            <div class="GroupBody" id="color_and_text_${id}" class="collapse">
-            </div>
+      $(".propertyMenu-2-paper").append(`  
+          <div class="propertyMenu-2-block">
+            <div class="container">
+                <div class="row row-block">
+                    <span>Chart properties</span>
+                </div>
+                <div id="color_and_text_${id}">
+                </div>
+            </div>    
           </div>`);
 
         for(var i = 0; i < myChart.data.datasets.length; i++)
         {
-          $("#color_and_text_" + id).append(`                
-              <div class="row inputalign">
+          $("#color_and_text_" + id).append(`   
+              <div class="row row-block">
                 <div class="col-4">
-                    <input type="color" id="color_chart_${id}_${i}" class="colorChart" value="${myChart.data.datasets[i].backgroundColor}">
+                    <input type="color" id="color_chart_${id}_${i}" class="form-control" value="${myChart.data.datasets[i].backgroundColor}">
                 </div>
                 <div class="col-8">
-                    <input type="text" id="label_chart_${id}_${i}" class="form-control crispyTextChart" value="${myChart.data.datasets[i].label}"/>
+                    <input type="text" id="label_chart_${id}_${i}" class="form-control" value="${myChart.data.datasets[i].label}" />
                 </div>
               </div>`);
 
@@ -2373,42 +2503,6 @@ class Property {
         }
     }
 
-    this.createColor = (id, full_id) => {
-      $(".propertyMenu").append(`                
-        <div class="Grouping">
-          <div class="GroupTitle" data-toggle="collapse" data-target="#demo2">
-            <i class="fas fa-palette"></i><span>Color</span>
-          </div>
-          <div class="GroupBody" id="demo2" class="collapse">
-              Lorem ipsum
-          </div>
-        </div>`);
-    }
-
-    this.createLegend = (id, full_id) => {
-      $(".propertyMenu").append(`                
-        <div class="Grouping">
-          <div class="GroupTitle" data-toggle="collapse" data-target="#demo3">
-              <i class="fas fa-list-ul"></i><span>Legend</span>
-          </div>
-          <div class="GroupBody" id="demo3" class="collapse">
-              Lorem ipsum
-          </div>
-        </div>`);
-    }
-
-    this.createTooltips = (id, full_id) => {
-      $(".propertyMenu").append(`                
-        <div class="Grouping">
-          <div class="GroupTitle" data-toggle="collapse" data-target="#demo4">
-            <i class="fas fa-comment"></i><span>Tooltips</span>
-          </div>
-          <div class="GroupBody" id="demo4" class="collapse">
-              Lorem ipsum
-          </div>
-        </div>  `);
-    }
-
     this.createMapEvent = (mapObject, full_id) => {
       mapObject.on('mousemove', disableDraggable);
       mapObject.on('mouseout', enableDraggable);
@@ -2432,8 +2526,7 @@ class ContentProperty extends Property {
     /* Select property for each widget type */
     super();
     this.createGraphProp = (id, myChart, full_id, type) => {
-      this.createPosition(id, full_id);
-      this.createDownload(id, full_id);
+      this.createContext(id, full_id, type, myChart);
       this.createEditdata(id, myChart, full_id);
       this.createScale(id, full_id, type);
       this.createRotation(id, full_id);
@@ -2442,8 +2535,7 @@ class ContentProperty extends Property {
     }
 
     this.createMapProp = (id, full_id, type, mapObject) => {
-      this.createPosition(id, full_id);
-      this.createDownload(id, full_id);
+      this.createContext(id, full_id, type, null);
       this.createScale(id, full_id, type);
       this.createRotation(id, full_id);
       this.createTransparency(id, full_id);
@@ -2451,8 +2543,7 @@ class ContentProperty extends Property {
     }
 
     this.createTextProp = (id, full_id, type) => {
-      this.createPosition(id, full_id);
-      this.createDownload(id, full_id);
+      this.createContext(id, full_id, type, null);
       this.createTextchange(id, full_id);
       this.createScale(id, full_id, type);
       this.createRotation(id, full_id);
@@ -2462,8 +2553,7 @@ class ContentProperty extends Property {
     }
 
     this.createTableProp = (id, full_id, type) => {
-      this.createPosition(id, full_id);
-      this.createDownload(id, full_id);
+      this.createContext(id, full_id, type, null);
       this.createImportData(id, full_id);
       this.createScale(id, full_id, type);
       this.createAddColumnAndRow(id, full_id);
@@ -2473,8 +2563,7 @@ class ContentProperty extends Property {
     }
 
     this.createImageProp = (id, full_id, full_id_image, type) =>{
-      this.createPosition(id, full_id);
-      this.createDownload(id, full_id);
+      this.createContext(id, full_id, type, null);
       this.createCropImage(id, full_id, full_id_image);
       this.createScale(id, full_id, type);
       this.createRotation(id, full_id);
@@ -2483,8 +2572,7 @@ class ContentProperty extends Property {
     }
 
     this.createShapeProp = (id, full_id, full_id_shape, type) =>{
-      this.createPosition(id, full_id);
-      this.createDownload(id, full_id);
+      this.createContext(id, full_id, type, null);
       this.createColorAndDeleteForShape(id, full_id, full_id_shape, type);
 
       if(type == "string")
