@@ -2,7 +2,8 @@
 @section('title','Static | Company') 
 @section('content') {{--
 <script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
-<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script> --}}
+<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script> --}} {{--
+<link rel="stylesheet" href="{{asset('css/toggle-switches.css')}}"> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
@@ -11,6 +12,7 @@
 <script src="{{asset('js/company/gauge/gauge.min.js')}}"></script>
 
 <script src="{{asset('js/canvas-toBlob/canvas-toBlob.js')}}"></script>
+
 
 
 <style type="text/css">
@@ -23,9 +25,9 @@
         box-shadow: 1px 1px 10px 1px #aaaaaa;
     }
 
-    .modal-lg {
+    /* .modal-lg {
         max-width: 1100px !important;
-    }
+    } */
 
     .modal-header-custom {
         border-bottom: 0;
@@ -130,36 +132,46 @@
     }
 </style>
 
+
+
 <div id="layout-full-screen">
-    <div class="modal fade" id="modal-full-screen">
+    <div class="modal fade" id="modal_full_screen">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-header-custom">
+                    <h3>Time series</h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <div class="modal-body" id="body-full-screen">
                     <div>
                         <div class="row">
-                            <div class="col-6">
-                                <select class="form-control">
-                                    <option>รายวัน</option>
-                                    <option>รายเดือน</option>
-                                    <option>รายปี</option>
-                                </select>
+                            <div class="col-4">
+                                <input type="date" name="static_date" id="static_date" class="form-control form-control-sm">
                             </div>
                         </div>
-                    </div>
-                    <div id="content-widget" style="height:450px;width:auto">
+
+                        <div id="sliderTime" class="ul-slider slider-success mt-4 noUi-target noUi-ltr noUi-horizontal">
+
+                        </div>
 
                     </div>
+                    <div id="content-widget" class="mt-2" style="height:450px;width:auto">
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-block">Append</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="row border-bottom" style="padding: 30px 0px 10px 15px">
     <div class="row" style="width:100%" id="top-header">
+
         <div class="col-6 d-flex align-content-center">
             <h3 class="mr-2">Static</h3>
             <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button>
@@ -183,6 +195,7 @@
 <br />
 
 <div class="contrainner">
+
     <div class="d-flex flex-wrap align-content-center" id="loading" style="height:500px">
         <div class="lds-ring text-center mx-auto">
             <div></div>
@@ -238,7 +251,7 @@
                         </div>
                     </div>
 
-                    <div id="default_value" class="row" style="display: none">
+                    <div class="row" id="default_value" style="display: none">
                         <div class="col-6">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" name="title_name" id="title-name" class="form-control">
@@ -248,6 +261,24 @@
                             <input type="number" name="time_interval" id="time-interval" class="form-control" value="1">
                         </div>
                     </div>
+
+                    <div id="realtime_or_static" class="mt-2">
+                        <div class="form-group">
+                            <label>Select widget is realtime or static</label>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                  <input type="radio" name="isRealtime" class="form-check-input isRealtime" value="1" checked>Realtime
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                  <input type="radio" name="isRealtime" class="form-check-input isRealtime" value="0" >Static
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
 
                     <div id="text_box" class="value_widget" style="display:none;">
                         <div class="row">
@@ -788,18 +819,24 @@
 
 <div id="layout-widget" hidden>
     <div>
-        <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
+        <div class="panel grid-stack-item-content " id="div_id" data="((data_widget))">
 
             <div class="card-header d-flex justify-content-between">
                 <div>
                     <h5 class="title-widget">((title_name))</h5>
+                    {{-- <span class="switch switch-sm">
+                            <input type="checkbox" class="switch" id="<<switch>>" >
+                            <label for="<<switch>>">Realtime</label>
+                        </span> --}}
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
                     <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                 </div>
+
                 <div class="full-screen">
-                    <i class="fas fa-expand btn-full-screen grow" title="Full screen" style="cursor:pointer" item="div_id"></i>
+                    {{-- <i class="fas fa-history btn-full-screen grow" title="History" style="cursor:pointer" item="div_id"></i>--}}
+                    {{-- <i class="fas fa-file-excel" title="Download excel" style="cursor:pointer" item="div_id"></i> --}}
                     <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
                 </div>
             </div>
@@ -807,9 +844,17 @@
             <div class="card-body" style="overflow:hidden">
                 ((wi))
             </div>
-            <div class="card-footer" style="background-color:#FFFF;border-top:0">
+            <div class="card-footer" style="background-color:#FFFF;border-top:0;height:120px;">
                 <div class="text-right">
-                    <span>{{--Last Update --}}<span id="{last_update}">00:00:00</span></span>
+                    <span> <i class="fas fa-history btn-time-series grow" title="Time series" style="cursor:pointer" item="div_id"></i> <span id="{last_update}">00:00:00</span></span>
+                </div>
+                <div class="time-series-static" style=" display: none">
+                    <div class="col-4">
+                        <input type="date" name="" id="" class="form-control form-control-sm static_date">
+                    </div>
+                    <div id="<<sliderTime>>" class="ul-slider slider-success mt-4 noUi-target noUi-ltr noUi-horizontal">
+
+                    </div>
                 </div>
             </div>
         </div>
