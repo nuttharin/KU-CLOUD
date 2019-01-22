@@ -60,6 +60,38 @@ export const LOADING = {
     }
 };
 
+export function getTime(hours, minutes) {
+    var time = null;
+    minutes = minutes + "";
+    if (hours < 12) {
+        time = "AM";
+    } else {
+        time = "PM";
+    }
+    if (hours == 0) {
+        hours = 12;
+    }
+    if (hours > 12) {
+        hours = hours - 12;
+    }
+    if (minutes.length == 1) {
+        minutes = "0" + minutes;
+    }
+    return hours + ":" + minutes + " " + time;
+}
+
+export function aproximateHour(mins) {
+    let minutes = Math.round(mins % 60);
+    if (minutes == 60 || minutes == 0) {
+        return mins / 60;
+    }
+    return Math.trunc(mins / 60) + minutes / 100;
+}
+
+export function filter_hour(value, type) {
+    return (value % 60 == 0) ? 1 : 0;
+}
+
 export const ERROR_INPUT = {
     set: (target, errorList) => {
         $(".text-alert").remove();
@@ -87,6 +119,7 @@ export const ERROR_INPUT = {
         $(".text-alert").remove();
     }
 }
+
 
 export function addEventValidate(validateInput) {
     let inputs = $(validateInput.parent).find("input, textarea, select");
