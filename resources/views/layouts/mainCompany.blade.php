@@ -188,11 +188,12 @@
                             <a href="{{action('CompanyController@service')}}">Web Service</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#">IOT</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a href="{{action('CompanyController@Output_service')}}">Output Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('CompanyController@iot')}}">IoT</a>
                         </li>
                     </ul>
                 </li>
