@@ -76,10 +76,10 @@
 </style>
 
 <br>
-<h4>Output service</h4><hr>
+<h2>Output service</h2><hr>
 <br>
 <div class="container">
-    <h6>Web Service</h6>
+    <h4>Web Service</h4>
 </div>
 <br/>
 <div class="container " >
@@ -261,7 +261,7 @@
 </div>
 <br>
 <div class="container">
-    <h6>IOT Service</h6>
+    <h4>IOT Service</h4>
 </div>
 <br/>
 <div class="container " >

@@ -285,7 +285,7 @@ class Service {
             console.log(getCookie('token'));
 
             
-            increaseDataTableDB();
+            //increaseDataTableDB();
             // increaseDataTableDW();
 
         }
