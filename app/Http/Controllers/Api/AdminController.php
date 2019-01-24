@@ -680,4 +680,15 @@ class AdminController extends Controller
                                 ->delete();
         return response()->json(["status","success"],200);
     }
+
+    public function addDatasourceInfo(Request $request)
+    {
+        $data = [
+            'info_id' => $request->get('info_id'),
+            'name' => $request->get('name'),
+            'webservice_id' => $request->get('webservice_id'),
+            'timeInterval' => $request->get('timeInterval')
+        ];
+        $this->info->createInfoDatasource($data);
+    }
 }
