@@ -293,6 +293,7 @@ class CompanyController extends Controller
         return response()->json(compact('data'),200);
     }
 
+    // service
     public function addRegisWebService(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
         $nameDW = $request->get('ServiceName').".".$companyID;
@@ -343,7 +344,7 @@ class CompanyController extends Controller
         $companyID = $this->auth->user_company()->first()->company_id;
 
         return response()->json(compact('companyID'),200);
-    }
+    }    
 
     public function editRegisWebService(Request $request)
     {
