@@ -92,7 +92,7 @@ class Service {
                     else
                     {
                         // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
-            // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
+                        // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
                         $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label><br/>");
                     }
                     

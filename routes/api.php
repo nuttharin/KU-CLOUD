@@ -63,6 +63,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
+    Route::post('company/customers/company','Api\CompanyController@addCustomerInCompany');
+    Route::get('company/customers/email','Api\CompanyController@getAllEmailCustomer');
 
 
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');
@@ -132,5 +134,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put('admin/infographic/update','Api\AdminController@updateInfograpic');
     Route::put('admin/infographic/updateInfoData','Api\AdminController@updateInfograpicData');
     Route::delete('admin/infographic/delete','Api\AdminController@deleteInfograpic');
+
+    Route::post('admin/infographic/createDatasource','Api\AdminController@addDatasourceInfo');
 });
 

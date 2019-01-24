@@ -13,6 +13,7 @@
 <div class="row border-bottom">
     <div class="col-4 text-left" style="padding: 30px 0px 10px 15px">
         <span class="h4">Custom Infographic</span>
+        <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button>
     </div>
     <div class="col-8 text-right">
         <button type="button" id="btn_fullscreen" class="btn btn-default btn-md" style="margin: 20px;">Preview</button>
@@ -31,7 +32,6 @@
                 <a href="#" id="btnShapes"><i class="fab fa-microsoft fa-2x"></i></a>
             </div>
             <div class="col-8 select-menu-2" id="selectMenu" style="display:none">
-
             </div>
         </div>
     </div>
@@ -305,6 +305,7 @@
 </div>
 
     <script type="text/javascript" src="{{url('js/admin/Infographic/WidgetObject.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/admin/Infographic/DataSource.js')}}"></script>
     <script type="text/javascript" src="{{url('js/admin/Infographic/Infographic.js')}}"></script>
     <script>
         $(document).ready(function () {

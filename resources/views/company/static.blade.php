@@ -5,15 +5,6 @@
 <script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script> --}} {{--
 <link rel="stylesheet" href="{{asset('css/toggle-switches.css')}}"> --}}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-
-<script src="{{asset('js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}}"></script>
-
-<script src="{{asset('js/company/gauge/gauge.min.js')}}"></script>
-
-<script src="{{asset('js/canvas-toBlob/canvas-toBlob.js')}}"></script>
-
-
 
 <style type="text/css">
     .grid-stack-item {}
@@ -65,11 +56,13 @@
         border-color: #007bff;
     }
 
-    .remove-value {
+    .remove-value,
+    .remove-param {
         cursor: pointer;
     }
 
-    .remove-value:hover {
+    .remove-value:hover,
+    .remove-param:hover {
         transition: all 0.3s;
         color: #e65251
     }
@@ -80,12 +73,6 @@
 
     .unActiveApi {
         color: #e65251
-    }
-
-    .grow:hover {
-        -webkit-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        transform: scale(1.2);
     }
 
     .edit-datasource:hover {
@@ -125,10 +112,6 @@
         padding: 50px;
         margin: 30px;
         border-radius: 5px;
-    }
-
-    .required {
-        color: #e65251;
     }
 </style>
 
@@ -235,65 +218,54 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <label>Widget Type <span class="required">*</span></label>
+                            <label>Widget Type <span class="text-danger">*</span></label>
                             <select class="form-control" id="widget_type" name="widget_type">
-                            <option value="">--Select Widget Type--</option>
-                            {{-- <option value="Bar">Bar (Real time / Static)</option> --}}
-                            <option value="MutiLine">MutiLine (Real time / Static)</option>
-                            <option value="Radar">Radar (Real time / Static)</option>
-                            <option value="Map">Map (Real time / Static)</option>
-                            <option value="Table">Table (Real time / Static)</option>
-                            <option value="TextLine">Text Line (Real time)</option>
-                            <option value="Gauges">Gauges (Real time)</option>
-                            <option value="TextValue">TextValue (Real time)</option>
-                            <option value="TextBox">TextBox</option>
-                        </select>
+                                <option value="">--Select Widget Type--</option>
+                                <optgroup label="Realtime">
+                                    <option value="MutiLine">MutiLine</option>
+                                    <option value="Radar">Radar</option>
+                                    <option value="Map">Map</option>
+                                    <option value="Table">Table</option>
+                                    <option value="TextLine">Text Line</option>
+                                    <option value="Gauges">Gauges</option>
+                                    <option value="TextValue">TextValue</option>
+                                    <option value="TextBox">TextBox</option>
+                                </optgroup>
+                                <optgroup label="Static">
+                                    <option value="MutiLine_static">MutiLine</option>
+                                    <option value="Radar_static">Radar</option>
+                                    <option value="Map_static">Map</option>
+                                    <option value="Table_static">Table</option>
+                                </optgroup>
+                            </select>
                         </div>
                     </div>
 
                     <div class="row" id="default_value" style="display: none">
                         <div class="col-6">
-                            <label>Title <span class="text-danger">*</span></label>
+                            <label>Title</label>
                             <input type="text" name="title_name" id="title-name" class="form-control">
                         </div>
                         <div class="col-6">
-                            <label for="">Set time interval (s) <span class="required">*</span></label>
+                            <label for="">Set time interval (s) <span class="text-danger">*</span></label>
                             <input type="number" name="time_interval" id="time-interval" class="form-control" value="1">
                         </div>
                     </div>
 
-                    <div id="realtime_or_static" class="mt-2">
-                        <div class="form-group">
-                            <label>Select widget is realtime or static</label>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                  <input type="radio" name="isRealtime" class="form-check-input isRealtime" value="1" checked>Realtime
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                  <input type="radio" name="isRealtime" class="form-check-input isRealtime" value="0" >Static
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div id="text_box" class="value_widget" style="display:none;">
+                    <div id="text_box" class="value-widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
-                                <label>Text <span class="required">*</span></label>
+                                <label>Text <span class="text-danger">*</span></label>
                                 <input type="text" id="text_custom" class="form-control" />
                             </div>
                             <div class="col-6">
-                                <label>Font Size (px) <span class="required">*</span></label>
+                                <label>Font Size (px) <span class="text-danger">*</span></label>
                                 <input type="number" id="font_size" class="form-control" />
                             </div>
                         </div>
                     </div>
 
-                    <div id="MutiLine" class="value_widget mt-2" style="display:none;">
+                    <div id="MutiLine" class="value-widget mt-2" style="display:none;">
                         <div class="form-group">
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
@@ -380,7 +352,11 @@
                         </div>
                     </div>
 
-                    <div id="Radar" class="value_widget" style="display:none;">
+                    <div id="mutiLine_static" class="value-widget" style="display: none;">
+
+                    </div>
+
+                    <div id="Radar" class="value-widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
                                 <h5>Label Radar</h5>
@@ -436,7 +412,7 @@
                         </div>
                     </div>
 
-                    <div id="Table" class="value_widget" style="display:none;">
+                    <div id="Table" class="value-widget" style="display:none;">
                         <h5>Select Datasource</h5>
                         <div class="row">
                             <div class="col-6">
@@ -453,7 +429,7 @@
                             </div>
                         </div>
 
-                        <div class="row container mt-3">
+                        <div class="row mt-3">
                             <table class="table table-bordered" id="example_table">
                                 <thead>
                                 </thead>
@@ -464,7 +440,7 @@
 
                     </div>
 
-                    <div id="Gauges" class="value_widget" style="display:none;">
+                    <div id="Gauges" class="value-widget" style="display:none;">
                         <div class="row">
                             <div class="col-4">
                                 <label>limitMin</label>
@@ -497,7 +473,7 @@
                         </div>
                     </div>
 
-                    <div id="text-line" class="value_widget" style="display:none;">
+                    <div id="text-line" class="value-widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
                                 <label>Unit</label>
@@ -526,34 +502,34 @@
                         </div>
                     </div>
 
-                    <div id="TextValue" class="value_widget" style="display:none;">
+                    <div id="TextValue" class="value-widget" style="display:none;">
                         <div class="row">
                             <div class="col-6">
                                 <label>Unit</label>
                                 <input id="unit" type="text" class="form-control" />
                             </div>
                             <div class="col-6">
-                                <label>Color <span class="required">*</span></label>
+                                <label>Color <span class="text-danger">*</span></label>
                                 <input id="rgb" type="color" class="form-control" value="#f6b73c">
                             </div>
                         </div>
                         <h5>Select Datasource</h5>
                         <div class="row">
                             <div class="col-6">
-                                <label for="">Datasource <span class="required">*</span></label>
+                                <label for="">Datasource <span class="text-danger">*</span></label>
                                 <select class="form-control select-datasource">
                                     
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label for="">Value <span class="required">*</span></label>
+                                <label for="">Value <span class="text-danger">*</span></label>
                                 <input class="form-control value-datasource">
                                 <ul class="list-group data-list">
                             </div>
                         </div>
                     </div>
 
-                    <div id="map" class="value_widget mt-2" style="display:none;">
+                    <div id="map" class="value-widget mt-2" style="display:none;">
                         <div class="form-group">
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
@@ -672,22 +648,32 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="">Name</label>
-                            <input type="text" id="name_datasource" class="form-control">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Name</label>
+                                <input type="text" id="name_datasource" class="form-control">
+                            </div>
+                            <div class="col-6">
+                                <label for="">Channel</label>
+                                <select name="" id="webservice_id" class="form-control">
+                                                <option value="">--Select Channel--</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="">Channel</label>
-                            <select name="" id="webservice_id" class="form-control">
-                                <option value="">--Select Channel--</option>
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <label for="">Set time interval (s)</label>
-                            <input type="number" id="add-data-time-interval" class="form-control">
+                    <div class="form-group" id="form_add_param">
+                        <h5>Parameter</h5>
+                        <button class="btn btn-primary btn-sm btn-radius" id="btn_add_param">Add parameter</button>
+                        <div class="row">
+                            <div class="col-5">
+                                <label for="">Key</label>
+                                <input type="text" id="key" class="form-control">
+                            </div>
+                            <div class="col-5">
+                                <label for="">Channel</label>
+                                <input type="text" id="key_value" name="key_value" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -700,19 +686,35 @@
     </div>
 </div>
 
+<div id="layout_param_add" hidden>
+    <div class="row">
+        <div class="col-5">
+            <label for="">Key</label>
+            <input type="text" id="key" class="form-control">
+        </div>
+        <div class="col-5">
+            <label for="">Channel</label>
+            <input type="text" id="key_value" name="key_value" class="form-control">
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center" style="margin: auto;margin-top: 45px;">
+            <i class="fas fa-trash-alt remove-param"></i>
+        </div>
+    </div>
+</div>
+
 <div id="line_value_layout" hidden>
     <div class="row">
         <div class="col-5">
-            <label for="">Value <span class="required">*</span></label>
+            <label for="">Value <span class="text-danger">*</span></label>
             <input class="form-control value-datasource">
             <ul class="list-group data-list">
         </div>
         <div class="col-5">
-            <label for="">Label <span class="required">*</span></label>
+            <label for="">Label <span class="text-danger">*</span></label>
             <input type="text" class="form-control label-y-chart-line">
         </div>
         <div class="col-1">
-            <label for="">RGB <span class="required">*</span></label>
+            <label for="">RGB <span class="text-danger">*</span></label>
             <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center" style="margin-top:30px">
@@ -823,7 +825,7 @@
 
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5 class="title-widget">((title_name))</h5>
+                    <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-success">Realtime</span></h5>
                     {{-- <span class="switch switch-sm">
                             <input type="checkbox" class="switch" id="<<switch>>" >
                             <label for="<<switch>>">Realtime</label>
@@ -844,7 +846,7 @@
             <div class="card-body" style="overflow:hidden">
                 ((wi))
             </div>
-            <div class="card-footer" style="background-color:#FFFF;border-top:0;height:120px;">
+            <div class="card-footer" style="background-color:#FFFF;border-top:0">
                 <div class="text-right">
                     <span> <i class="fas fa-history btn-time-series grow" title="Time series" style="cursor:pointer" item="div_id"></i> <span id="{last_update}">00:00:00</span></span>
                 </div>
@@ -880,7 +882,7 @@
         <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5 class="title-widget">((title_name))</h5>
+                    <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-success">Realtime</span></h5>
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
@@ -906,16 +908,108 @@
     </div>
 </div>
 
+
+<div id="layout_widget_static" hidden>
+    <div>
+        <div class="panel grid-stack-item-content " id="div_id" data="((data_widget))">
+
+            <div class="card-header d-flex justify-content-between">
+                <div>
+                    <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-primary">Static</span></h5>
+                </div>
+                <div class="edit-widget" style="display:none">
+                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                </div>
+
+                <div class="full-screen">
+                    <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
+                </div>
+            </div>
+
+            <div class="card-body" style="overflow:hidden">
+                ((wi))
+            </div>
+            <div class="card-footer" style="background-color:#FFFF;border-top:0">
+                <div class="form-group">
+                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%">
+                        <option value="daily">Daily</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+                <div class="form-inline daily">
+                    <label for="start_day" class="mr-sm-2 ">Start day</label>
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="start_day">
+                    <label for="end_day " class="mr-sm-2 ">End day</label>
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="end_day">
+                </div>
+                <div class="form-inline monthly " style="display: none">
+                    <label for="start_month " class="mr-sm-2 ">Start month</label>
+                    <select name="start_month" id="start_month" class="form-control form-control-sm mb-2 mr-sm-2">
+                        <option value="0">-- Select month --</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <label for="end_month" class="mr-sm-2 ">End month</label>
+                    <select name="end_month" id="end_month" class="form-control form-control-sm mb-2 mr-sm-2">
+                        <option value="0">-- Select month --</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="form-inline yearly" style="display: none">
+                    <label for="start_year" class="mr-sm-2 ">Start year</label>
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="start_year">
+                    <label for="end_year" class="mr-sm-2 ">End year</label>
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="end_year">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <span id="static_id" hidden>{{$id}}</span>
-<script src="{{ mix('/js/company/static/dashboard.min.js') }}"></script>
 
-<script src="{{ url('/js/justgage-1.2.2/justgage.js') }}"></script>
-<script src="{{ url('/js/justgage-1.2.2/raphael-2.1.4.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 
-<script type="text/javascript" src="{{url('js/gridstack/gridstack.js')}}"></script>
-<script type="text/javascript" src="{{url('js/gridstack/gridstack.jQueryUI.js')}}"></script>
+<script src="{{asset( 'js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}} "></script>
 
-<script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset( 'js/company/gauge/gauge.min.js')}} "></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="{{asset( 'js/canvas-toBlob/canvas-toBlob.js')}} "></script>
+
+<script src="{{ mix( '/js/company/static/dashboard.min.js') }} "></script>
+
+<script src="{{ url( '/js/justgage-1.2.2/justgage.js') }} "></script>
+<script src="{{ url( '/js/justgage-1.2.2/raphael-2.1.4.min.js') }} "></script>
+
+<script type="text/javascript " src="{{url( 'js/gridstack/gridstack.js')}} "></script>
+<script type="text/javascript " src="{{url( 'js/gridstack/gridstack.jQueryUI.js')}} "></script>
+
+<script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 @endsection
