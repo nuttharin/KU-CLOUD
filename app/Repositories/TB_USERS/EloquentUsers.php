@@ -470,7 +470,7 @@ class EloquentUsers implements UsersRepository
     }
 
 
-    public function getCustomerNoCompany()
+    public function getAllEmailCustomer()
     {
         // TODO: Implement getCustomerNoCompany() method.
         $company_id = Auth::user()->user_company()->first()->company_id;
@@ -480,5 +480,22 @@ class EloquentUsers implements UsersRepository
         LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
         WHERE TB_USERS.type_user = ?  AND TB_EMAIL.is_primary = ? AND (TB_COMPANY.company_id IS NULL OR  TB_COMPANY.company_id != ?)',['CUSTOMER',true,$company_id]);
         return $data;
+    }
+
+    public function addCustomerInCompany(array $userList){
+            DB::beginTransaction();
+            try{
+                foreach($userList as $user_id){
+                    TB_USER_CUSTOMER::firstOrCreate([
+                        'user_id' => $user_id,
+                        'company_id' => Auth::user()->user_company()->first()->company_id,
+                    ]);
+                }
+            }
+            catch(Exception $e) {
+                DB::rollBack();
+                throw $e;
+            }
+            DB::commit();
     }
 }
