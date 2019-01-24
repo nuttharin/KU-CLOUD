@@ -63,6 +63,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('company/customers','Api\CompanyController@getAllCustomer');
     Route::post('company/customers','Api\CompanyController@addUserCustomer');
+    Route::post('company/customers/company','Api\CompanyController@addCustomerInCompany');
+    Route::get('company/customers/email','Api\CompanyController@getAllEmailCustomer');
 
 
     Route::get('company/database/log/file','Api\CompanyController@getFileLogByFolder');

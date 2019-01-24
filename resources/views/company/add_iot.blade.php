@@ -1,5 +1,5 @@
 @extends('layouts.mainCompany')
-@section('title','Add WebService | Company')
+@section('title','Add IoT | Company')
 @section('content')
 
 <style>
@@ -275,7 +275,7 @@
 <br>
 <div class="row">
     <div class="col-sm-6">
-        <h4>Create a new webservice</h4>
+        <h4>Create a new IoT</h4>
     </div>
     <div class="col-sm-6">
         <div class="onoffswitch2">
@@ -294,21 +294,19 @@
         <div class="col-sm-8 " >
             <div class ="row">
                 <div class="col-sm-8">
-                    <h6 >Service Name <span style="color:red">*</span></h6>
-                    <input type="text" class="mb-2" id="name-webservice" name="name" placeholder="Webservice name">
+                    <h6 >IoT Name <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="name-webservice" name="name" placeholder="IoT name">
                 </div>
                 <div class="col-sm-4">
                     <h6 >Alias <span style="color:red">*</span></h6>
-                    <input type="text" class="mb-2" id="alias-webservice" name="alias" placeholder="Webservice alias ">
+                    <input type="text" class="mb-2" id="alias-webservice" name="alias" placeholder="IoT alias ">
                 </div>
 
                 
             </div>
-
-            <h6>URL <span style="color:red">*</span></h6>
-            <input type="text" class="mb-2" id="url-webservice" name="firstname" placeholder="Url of WebService">
+            
             <h6>Description</h6>
-            <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="Webservice description" ></textarea>
+            <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="IoT description" ></textarea>
             <div class="row">
                 <div class="col-sm-6">
                         <h6 >Update times (Hours)<span style="color:red">*</span></h6>
@@ -346,33 +344,8 @@
 <hr>
 <div>
 </div>
-<div class = 'from-treeView'>
 
-    <div class="row">
-        
-        <div class="col-sm-8 treeView-list" id="checkshow">
-            <div id="loading" style="display:none;">
-                <div class="lds-ring">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <h6 class='text-center'>Loading Tree ...</h6>
-            </div>
-        </div>
-        <div id="showtext" class="col-sm-4"  >
-        <!-- ขีดข้าง css #detail ,detail-show1,detail-show2 = code in addservice.js เเสดงวิธีใช้ -->
-            <div class = "col-sm-12" id="detail" >  
-                <div id="detail-show1">
-                </div>
-                <div id="detail-show2">
-                </div>
-            </div>
-        </div>
-    </div> 
-</div>
-<script type="text/javascript" src="{{url('js/company/services/addservice.js')}}"></script>
+<script type="text/javascript" src="{{url('js/company/iot/addiot.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 

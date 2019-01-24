@@ -73,8 +73,44 @@ class Service {
                 $("#check").jstree("check_all");
             });
 
-            document.getElementById('submitcheck').innerHTML = "<button id='submit' class='btn btn-primary' type='submit'>Submit</button></div>";
-            $('#submit').on("click", function () {
+            document.getElementById('submitcheck').innerHTML = "<button type='button' id='submitcheckform' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Submit</button></div><div class='modal fade' id='myModal' role='dialog'><div class='modal-dialog'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>Modal Header</h4></div><div id='modal-body' class='modal-body'><p id='xxx'>Some text in the modal.</p></div><div class='modal-footer'><button type='submit' class='btn btn-info swal-button--confirm'>Submit</button><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></div></div></div></div>";
+            $('#submitcheckform').on("click", function () {
+                var selectedElmsIds = $('#check').jstree("get_selected", true);
+                console.log(selectedElmsIds);
+                listSelect2 = deepCopy(selectedElmsIds);
+                createListQuery(selectedElmsIds);
+                let headerList = headerLow.split(',');
+                console.log(listSelect2)
+            
+                for(var j=0;j<headerList.length;j++)
+                {
+                    console.log(headerList[j]);
+                    if(headerList[j] == "undefined" || headerList[j]=="")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
+                        // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
+                        $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label><br/>");
+                    }
+                    
+                }
+                $(".swal-button--confirm").click(function (){
+                    window.location.href="http://localhost:8000/Company/Service";
+                })
+                // window.location.href="http://localhost:8000/Company/Service";
+                // listtest = selectedElmsIds ;
+                
+                
+                //window.location.href = "http://localhost:8000/Company/Service";
+
+
+                //instance.deselect_all();
+                //instance.select_node('1');
+            });
+            $('#submitall').on("click", function () {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 console.log(selectedElmsIds);
                
@@ -114,6 +150,7 @@ class Service {
             let lengthMaxList = 0;
             //console.log(list)
             // find max length parents
+            console.log(list2)
             for (let i = 0; i < list.length; i++) {
 
                 if (list[i].parents.length >= lengthMaxList) {
@@ -248,7 +285,7 @@ class Service {
             console.log(getCookie('token'));
 
             
-            increaseDataTableDB();
+            // increaseDataTableDB();
             // increaseDataTableDW();
 
         }

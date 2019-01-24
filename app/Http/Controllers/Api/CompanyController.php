@@ -256,6 +256,15 @@ class CompanyController extends Controller
         return response()->json(["status_code","201"],201);
     }
 
+    public function getAllEmailCustomer(Request $request){
+        $data = $this->users->getAllEmailCustomer();
+        return response()->json(compact('data'), 200);
+    }
+
+    public function addCustomerInCompany(Request $request){
+        $this->users->addCustomerInCompany($request->get('userList'));
+    }
+
     public function countUserOnline(Request $request){
         $type_user = $request->get('type_user');
         $company_id = $this->auth->user_company()->first()->company_id;
@@ -284,6 +293,7 @@ class CompanyController extends Controller
         return response()->json(compact('data'),200);
     }
 
+    // service
     public function addRegisWebService(Request $request){
         $companyID = $this->auth->user_company()->first()->company_id;
         $nameDW = $request->get('ServiceName').".".$companyID;
@@ -334,7 +344,7 @@ class CompanyController extends Controller
         $companyID = $this->auth->user_company()->first()->company_id;
 
         return response()->json(compact('companyID'),200);
-    }
+    }    
 
     public function editRegisWebService(Request $request)
     {
