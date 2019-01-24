@@ -42,7 +42,7 @@
             <div class="card-body bg-white">
                 <div class="row">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                        <div class="card card-statistics bg-primary text-white">
+                        <div class="card card-statistics bg-primary text-white  grow grow-sm">
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                        <div class="card card-statistics bg-success text-white">
+                        <div class="card card-statistics bg-success text-white  grow grow-sm">
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                        <div class="card card-statistics bg-secondary text-white">
+                        <div class="card card-statistics bg-secondary text-white  grow grow-sm">
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
@@ -203,7 +203,7 @@
 
 
 <div class="modal fade" id="bindUser">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -213,18 +213,23 @@
 
             <div class="modal-body">
                 <form id="form_bind_user">
+                    <select multiple name="input_bind_email" id="input_bind_email" placeholder="Choose email address">
 
+                    </select>
 
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
+                <button type="button" id="btn_save_bind_user" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<link rel="stylesheet" href="{{asset('js/fastsearch/fastsearch.css')}}">
+<script src="{{asset('js/fastsearch/fastsearch.min.js')}}"></script>
 
 <script type="text/javascript" src="{{mix('js/company/customer/customer.min.js')}}"></script>
 @endsection

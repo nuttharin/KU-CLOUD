@@ -17,7 +17,9 @@ interface UsersRepository
 
     public  function getByTypeForCompany($type,$company_id,$start,$length);
 
-    public  function getCustomerNoCompany();
+    public  function getAllEmailCustomer();
+
+    public  function addCustomerInCompany(array $userList);
 
     public  function searchByTypeForCompany($type,$company_id,$start,$length,$search);
 

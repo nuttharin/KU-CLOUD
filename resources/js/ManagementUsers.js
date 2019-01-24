@@ -20,6 +20,7 @@ let modalDetail = null;
 let modalEdit = null;
 let modalBlock = null;
 let modalDelete = null;
+
 const FormAddEmail = `
                     <div class="input-group">
                         <input type="text" name="email" class="add_email_val form-control mt-1" value={email}  disabled>
@@ -668,6 +669,8 @@ export class ManagementUsers {
 
         let UsersDATATABLE = null;
 
+        let input_bind_email = null;
+
 
         let initialDatatable = () => {
             if (UsersDATATABLE !== null) {
@@ -1076,6 +1079,47 @@ export class ManagementUsers {
             }
         };
 
+        let getAllEmailCustomer = () => {
+            $.ajax({
+                url: END_POINT + config.getAllEmailCustomer,
+                method: "GET",
+                success: (res) => {
+                    input_bind_email = $('#input_bind_email');
+                    input_bind_email.empty();
+                    if (input_bind_email.data('fastselect')) {
+                        input_bind_email.data('fastselect').destroy();
+                    }
+                    res.data.map(data => {
+                        input_bind_email.append(`<option value="${data.user_id}">${data.email_user}</option>`);
+                    })
+                    input_bind_email.fastselect();
+                },
+                error: (res) => {
+
+                }
+            });
+        };
+
+        let addCustomerInCompany = () => {
+            LOADING.set($("#btn_save_bind_user"));
+            $.ajax({
+                url: END_POINT + config.addCustomerInCompany,
+                method: "POST",
+                data: {
+                    userList: input_bind_email.val(),
+                },
+                success: (res) => {
+                    $("#bindUser").modal('hide');
+                    getAllEmailCustomer();
+                    LOADING.reset($("#btn_save_bind_user"));
+                    this.showLastestDatatable();
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+        };
+
         this.initialAndRun = () => {
             this.showLastestDatatable();
             //createModalDelete();
@@ -1094,8 +1138,13 @@ export class ManagementUsers {
 
                 $('#btn_bind_user').unbind().click(function () {
                     $("#bindUser").modal('show');
-
                 });
+
+                $("#btn_save_bind_user").unbind().click(function () {
+                    addCustomerInCompany();
+                });
+
+                getAllEmailCustomer();
             }
 
             addEventValidate(validateInput.create);

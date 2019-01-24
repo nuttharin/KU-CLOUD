@@ -32,7 +32,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                <div class="card card-statistics bg-primary text-white">
+                <div class="card card-statistics bg-primary text-white  grow grow-sm">
                     <div class="card-body">
                         <div class="clearfix">
                             <div class="float-left">
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                <div class="card card-statistics bg-success text-white">
+                <div class="card card-statistics bg-success text-white  grow grow-sm">
                     <div class="card-body">
                         <div class="clearfix">
                             <div class="float-left">
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
-                <div class="card card-statistics  bg-secondary text-white">
+                <div class="card card-statistics  bg-secondary text-white  grow grow-sm">
                     <div class="card-body">
                         <div class="clearfix">
                             <div class="float-left">
