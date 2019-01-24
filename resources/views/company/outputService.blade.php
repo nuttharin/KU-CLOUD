@@ -58,14 +58,30 @@
         border-radius: 5px;
         border: 2px solid;
     }
-    
+    #summary_table,#table_DW
+    {
+        width:100%;
+        height:100%
+    }
+    p.solid 
+    {
+        border-style: solid;
+    }
+    #show_detail_tryit
+    {
+        padding-top:10px;
+    }
 
     
 </style>
-<br>
-<h4>Output service</h4><hr>
 
 <br>
+<h2>Output service</h2><hr>
+<br>
+<div class="container">
+    <h4>Web Service</h4>
+</div>
+<br/>
 <div class="container " >
     <div class="panel-group">
         <div class="panel panel-default">
@@ -91,22 +107,22 @@
             <br/>
             <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
             <table id="paramater">
-            <tr>
-                <th>Parameter</th>
-                <th>Value</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td>Value</td>
-                <td>column</td>
-                <td>Germany</td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>Giovanni Rovelli</td>
-                <td>Italy</td>
-            </tr>
-        </table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Value</td>
+                    <td>column</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>Giovanni Rovelli</td>
+                    <td>Italy</td>
+                </tr>
+            </table>
             </ul>
             <hr style='width:98%;align=center;'>
             <button type="button" class="" id='btn-try'>Try it</button>
@@ -126,7 +142,7 @@
                     <button type="button" class="btn btn-success">POST</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
-                    <h6 style="color:black">Get data max</h6>
+                    <h6 style="color:black">Get All Data</h6>
                 </div>
                 <div class="col-sm-9" id='header-detail'>
                     <h6 style="color:gray">/webService/GetAlldata</h6>
@@ -143,22 +159,53 @@
             <tr>
                 <th>Parameter</th>
                 <th>Value</th>
+                <th>Location</th>
                 <th>Description</th>
             </tr>
+            
             <tr>
-                <td>Value</td>
-                <td>column</td>
-                <td>Germany</td>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Table name (DW): 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="table_DW">
+                            </select>
+                        </div>
+                    </div>
+                <br/>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Summary Table: 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="summary_table">
+                                <option value="Day">Day</option>
+                                <option value="Month">Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
             </tr>
-            <tr>
-                <td>Description</td>
-                <td>Giovanni Rovelli</td>
-                <td>Italy</td>
-            </tr>
-        </table>
+            </table>
             </ul>
-            <hr style='width:98%;align=center;'>
-            <button type="button" class="" id='btn-try'>Try it</button>
+            <hr>
+            <button type="submit" id="try_it" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_result"></a>
+            <div id="show_detail_tryit">
+                <div id="call">
+                </div>
+            </div>
         </div>
     </div>
   </div>
@@ -213,7 +260,59 @@
   </div>
 </div>
 <br>
-
+<div class="container">
+    <h4>IOT Service</h4>
+</div>
+<br/>
+<div class="container " >
+    <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#collapse1">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-1" >
+                    <button type="button" class="btn btn-primary">GET</button>
+                </div>
+                <div class="col-sm-2" id='header-detail' >
+                    <h6 style="color:black">Get data max</h6>
+                </div>
+                <div class="col-sm-9" id='header-detail'>
+                    <h6 style="color:gray">/webService/GetAlldata</h6>
+                </div>
+            </div>
+            </h4>
+        </a>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Value</td>
+                    <td>column</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>Giovanni Rovelli</td>
+                    <td>Italy</td>
+                </tr>
+            </table>
+            </ul>
+            <hr style='width:98%;align=center;'>
+            <button type="button" class="" id='btn-try'>Try it</button>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
 <!-- <div href="#demo1" class="collap-output" data-toggle="collapse" >    
 
     <div class="row" id='header-output'>
@@ -306,4 +405,5 @@
 
     </div>
 </div> -->
+<script type="text/javascript" src="{{url('js/company/services/outputservice.js')}}"></script>
 @endsection

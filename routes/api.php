@@ -86,7 +86,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('company/staticDatasource','Api\CompanyController@getDatasourceStatic');
     Route::post('company/static/datasource','Api\CompanyController@addDatasourceStatic');
-
+    Route::post('company/gettabledw','Api\CompanyController@getAllWebserviceData');
     
     /* Admin */
     Route::get('admin/administer','Api\AdminController@getAllAdminister');
