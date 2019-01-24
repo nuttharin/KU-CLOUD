@@ -16,4 +16,6 @@ interface InfographicRepository
     public function getInfographicByUserID($user_id);
 
     public function getInfographicByInfoID($info_id);
+
+    public function createInfoDatasource(array  $attr);
 }

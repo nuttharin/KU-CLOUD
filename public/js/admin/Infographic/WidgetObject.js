@@ -16,6 +16,14 @@ class WidgetObject
   }
 
   // Text
+  MapWidgetObject(id, mapTag, type)
+  {
+    this.id = id;
+    this.mapTag = mapTag;
+    this.type = type;
+  }
+
+  // Text
   HeadFontObject(id, spanTag, type)
   {
     this.id = id;

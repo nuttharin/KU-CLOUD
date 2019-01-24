@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\TB_INFOGRAPHIC;
 use App\TB_USERS;
+use App\TB_INFO_DATASOURCE;
 
 use DB;
 use Log;
@@ -57,6 +58,12 @@ class EloquentInfographic implements InfographicRepository
 
         return $infoDataList;
     }
+
+    public function createInfoDatasource(array  $attr)
+    {
+        TB_INFO_DATASOURCE::create($attr);
+    }
+
 
 
 }
