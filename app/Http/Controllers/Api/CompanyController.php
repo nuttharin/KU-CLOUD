@@ -362,6 +362,12 @@ class CompanyController extends Controller
         return response()->json(["status","success"],200);
     }
 
+    public function getKeyiot() 
+    {
+        $key = 'klflvpekvlvep[clep[lc';
+        return response()->json(compact('key'),200);
+    }
+
     //Static
     public function addStatic(Request $request)
     {

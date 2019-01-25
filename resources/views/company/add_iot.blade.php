@@ -3,6 +3,10 @@
 @section('content')
 
 <style>
+    #CopyKey {
+        float: right;
+    }
+
     #detail-show{
         background-color: #EBF5FB    ;        
     }
@@ -313,7 +317,7 @@
                         <input type="number" min="1" max="24" class="mb-2" id="time-webservice" name="time-webservice" placeholder="time">
                 </div>
             </div>
-            <button type="button" id="showvalue" class="btn btn-primary show-header"><a style="color:white" href="#select">Show value</a></button>  
+            <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
             
         </div>
         
@@ -342,15 +346,64 @@
     </div>
 </div>
 <hr>
-<div>
+<!-- Modal -->
+<div class="modal fade" id="ShowDetailiotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Input</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label">Name IoT</label>
+                    <div class="col-sm-12">
+                        <input class="form-control" id="Nameiot" type="text" disabled>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label  class="col-sm-2 control-label">API</label>
+                    <div class="col-sm-12">
+                        <input class="form-control" id="Apiiot" type="text" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">Key</label>
+                    <div class="col-sm-12">
+                        <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
+                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot" disabled ></textarea>
+                                             
+                        <button class="" id="CopyKey" data-clipboard-target="#Keyiot">Copy Key</button>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script type="text/javascript" src="{{url('js/company/iot/addiot.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
+<script type="text/javascript" src="{{url('clipboard/clipboard.min.js')}}"></script>
+
 
 <script>
-    
+    var clipboard = new ClipboardJS('#btn');
+    // clipboard.on('success', function(e) {
+    //     console.log(e);
+    // });
+    // clipboard.on('error', function(e) {
+    //     console.log(e);
+    // });
 </script>
 
 
