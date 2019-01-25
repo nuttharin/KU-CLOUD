@@ -538,10 +538,19 @@ ul ul a {
     font-size: 1rem;
 }
 
+.grow {
+    transition: all .2s ease-in-out;
+}
+
 .grow:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.grow.grow-sm:hover {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
-    transition: all 0.3s;
     transform: scale(1.1);
 }
 

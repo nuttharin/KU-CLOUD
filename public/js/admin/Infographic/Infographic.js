@@ -8,6 +8,11 @@ class Workspace {
   constructor() {
     /* Initial Function */
     this.initialAndRun = () => {
+      $("#btn-add-datasource").unbind().click(function () {
+        var datasourceModel = new DataSource();
+        datasourceModel.DataSourceModel(infoID);
+      });
+
       $("#btnGraph").unbind().click(function () {
         graphMenu();
       });
@@ -41,6 +46,9 @@ class Workspace {
             console.log(widgetObjectList[i].chartData);
             console.log(widgetObjectList[i].chartOption);
           }
+          else if (widgetObjectList[i].type == "map") {
+            widgetObjectList[i].mapTag = document.getElementById("div_map_" + widgetObjectList[i].id).outerHTML;
+          }
           else if (widgetObjectList[i].type == "head") {
             widgetObjectList[i].spanTag = document.getElementById("span_" + widgetObjectList[i].id).outerHTML;
           }
@@ -64,10 +72,10 @@ class Workspace {
               info_data: CircularJSON.stringify(widgetObjectList),
           },
           success: (res) => {
-            console.log("success");
+            alert("success");
           },
           error: (res) => {
-            console.log("error");
+            alert("error");
           }
         }); //Ajax
       }); //Btn save
@@ -121,6 +129,10 @@ class Workspace {
           var Graphwidget = new Graph();
           Graphwidget.loadGraphData(object[i].id, object[i].canvasTag, object[i].chartData, object[i].chartOption, object[i].type);
         }
+        else if (object[i].type == "map") {
+          var mapwidget = new Map();
+          mapwidget.loadMapWidget(object[i].id, object[i].mapTag);
+        }
         else if (object[i].type == "head") {
           var fontHead = new Font();
           fontHead.loadHeadGraph(object[i].id, object[i].spanTag);
@@ -130,7 +142,7 @@ class Workspace {
           fontHead.loadTableWidget(object[i].id, object[i].tableTag);
         }
         else if (object[i].type == "image") {
-          var imagewidget = new Image();
+          var imagewidget = new Imagesy();
           imagewidget.loadImageWidget(object[i].id, object[i].divImgTag);
         }
         else if (object[i].type == "square" || object[i].type == "circle" || object[i].type == "string") {
@@ -505,7 +517,7 @@ class Graph extends Widget {
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+      property.createGraphProp(id, myChart, "#div_canvas_" + id, "line");
 
       /* Click each widget event */
       var widgetObject = this.createWidget(id, "div_canvas_");
@@ -518,7 +530,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart, "#div_canvas_" + id, "line");
       })
         .on('dragmove', function (event) {
           /* Change focus */
@@ -545,7 +557,7 @@ class Graph extends Widget {
           $(".propertyMenu").html(``);
 
           var property = new ContentProperty();
-          property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+          property.createGraphProp(id, myChart, "#div_canvas_" + id, "line");
         })
 
       /* Save widget */
@@ -590,18 +602,20 @@ class Graph extends Widget {
         }
       };
 
-      let ctx = document.getElementById("canvas_" + id);
+      let ctx = $("#canvas_" + id);
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: speedData,
         options: chartOptions
       });
 
+      ctx.data("graph", myChart);
+
       /* Clear other property */
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+      property.createGraphProp(id, myChart, "#div_canvas_" + id, "bar");
 
       /* Click each widget event */
       var widgetObject = this.createWidget(id, "div_canvas_");
@@ -614,7 +628,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart, "#div_canvas_" + id, "bar");
       })
       .on('dragmove', function (event) {
         /* Change focus */
@@ -641,7 +655,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart, "#div_canvas_" + id, "bar");
       })
 
       /* Save widget */
@@ -686,18 +700,20 @@ class Graph extends Widget {
         }
       };
 
-      let ctx = document.getElementById("canvas_" + id);
+      let ctx = $("#canvas_" + id);
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: speedData,
         options: chartOptions
       });
 
+      ctx.data("graph", myChart);
+
       /* Clear other property */
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+      property.createGraphProp(id, myChart, "#div_canvas_" + id, "pie");
 
       /* Click each widget event */
       var widgetObject = this.createWidget(id, "div_canvas_");
@@ -710,7 +726,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart, "#div_canvas_" + id, "pie");
       })
       .on('dragmove', function (event) {
         /* Change focus */
@@ -737,7 +753,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart, "#div_canvas_" + id, "pie");
       })
 
       /* Save widget */
@@ -782,18 +798,20 @@ class Graph extends Widget {
         }
       };
 
-      let ctx = document.getElementById("canvas_" + id);
+      let ctx = $("#canvas_" + id);
       var myChart = new Chart(ctx, {
         type: 'radar',
         data: speedData,
         options: chartOptions
       });
 
+      ctx.data("graph", myChart);
+      
       /* Clear other property */
       $(".propertyMenu").html(``);
 
       var property = new ContentProperty();
-      property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+      property.createGraphProp(id, myChart, "#div_canvas_" + id, "radar");
 
       /* Click each widget event */
       var widgetObject = this.createWidget(id, "div_canvas_");
@@ -806,7 +824,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart, "#div_canvas_" + id, "radar");
       })
       .on('dragmove', function (event) {
         /* Change focus */
@@ -833,7 +851,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart, "#div_canvas_" + id, "radar");
       })
 
       /* Save widget */
@@ -850,7 +868,7 @@ class Graph extends Widget {
       this.clearfocus();
       $("#workspace").append(canvasTag);
 
-      let ctx = document.getElementById("canvas_" + id);
+      let ctx = $("#canvas_" + id);
       var myChart2 = new Chart(ctx, {
         type: chartType,
         options: chartOptions
@@ -858,6 +876,8 @@ class Graph extends Widget {
 
       addLabel(myChart2, chartData.labels);
       addDatasets(myChart2, chartData.datasets);
+
+      ctx.data("graph", myChart2);
 
       /* Clear other property */
       $(".propertyMenu").html(``);
@@ -874,7 +894,7 @@ class Graph extends Widget {
         $(".propertyMenu").html(``);
 
         var property = new ContentProperty();
-        property.createGraphProp(id, myChart2, "#div_canvas_" + id, "graph");
+        property.createGraphProp(id, myChart2, "#div_canvas_" + id, chartType);
       })
         .on('dragmove', function (event) {
           /* Change focus */
@@ -901,12 +921,12 @@ class Graph extends Widget {
           $(".propertyMenu").html(``);
 
           var property = new ContentProperty();
-          property.createGraphProp(id, myChart2, "#div_canvas_" + id, "graph");
+          property.createGraphProp(id, myChart2, "#div_canvas_" + id, chartType);
         })
 
       /* Save widget */
       let saveObject = new WidgetObject();
-      saveObject.WidgetGraphObject(id, null, null, null, chartType);
+      saveObject.WidgetGraphObject(id, null, myChart2.data, myChart2.options, chartType);
       widgetObjectList.push(saveObject);
       widgetObjectList = deepCopy(widgetObjectList);    
     }
@@ -924,6 +944,7 @@ class Graph extends Widget {
         {
           label: dataSets[i].label,
           data: dataSets[i].data,
+          backgroundColor: dataSets[i].backgroundColor
         };
 
         chart.data.datasets.push(newData);
@@ -1023,7 +1044,90 @@ class Map extends Widget
 
       /* Save widget */
       let saveObject = new WidgetObject();
-      saveObject.HeadFontObject(id, null, "head");
+      saveObject.MapWidgetObject(id, null, "map");
+      widgetObjectList.push(saveObject);
+    }
+
+    this.loadMapWidget = (id, mapTag) => {
+      this.clearfocus();
+
+      $("#workspace").append(mapTag);
+
+      $('#map_' + id).css('height', 300);
+      $('#map_' + id).css('width', 300);
+
+      let mymap;
+      let mapid = "map_" + id;
+
+      mymap = L.map(mapid, {
+        dragging: true,
+        zoomControl: true,
+        scrollWheelZoom: false,
+        zoomAnimation: false,
+      });
+
+      $.getJSON('https://raw.githubusercontent.com/apisit/thailand.json/master/thailand.json').then(function (geoJSON) {
+        var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+            boundary: geoJSON,
+            minZoom: 5,
+            maxZoom: 9,
+            attribution: '&copy; Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+        });
+
+        mymap.addLayer(osm);
+        var ukLayer = L.geoJSON(geoJSON);
+        mymap.fitBounds(ukLayer.getBounds());
+      });
+
+      /* Clear other property */
+      $(".propertyMenu").html(``);
+      this.clearfocus();
+
+      /* Click each widget event */
+       /* Click each widget event */
+      var widgetObject = this.createWidget(id, "div_map_");
+      widgetObject.on('tap', function (event) {
+        /* Change focus */
+        $(".sPosition").removeClass("fCorner");
+        $("#div_map_" + id).addClass("fCorner");
+
+        /* Clear other property */
+        $(".propertyMenu").html(``);
+
+        var property = new ContentProperty();
+        property.createMapProp(id, "#div_map_" + id, "map", mymap);
+      })
+        .on('dragmove', function (event) {
+          /* Change focus */
+          $(".sPosition").removeClass("fCorner");
+          $("#div_map_" + id).addClass("fCorner");
+
+          var target = event.target,
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
+          z = (parseFloat(target.getAttribute('data-z')) || 0);
+
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px) rotate(' + z + 'deg)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        target.setAttribute('data-z', z);
+
+          /* Clear other property */
+          $(".propertyMenu").html(``);
+
+          var property = new ContentProperty();
+          property.createMapProp(id, "#div_map_" + id, "map", mymap);
+        })
+
+      /* Save widget */
+      let saveObject = new WidgetObject();
+      saveObject.MapWidgetObject(id, null, "map");
       widgetObjectList.push(saveObject);
     }
   }
@@ -1734,10 +1838,15 @@ class Property {
       $("#delete_widget_" + id).click(function () {
         widgetObjectList  = arrayRemove(widgetObjectList, id);
 
-        if(type == "graph")
+        if(type == "line" || type == "bar" || type == "pie" || type == "radar")
         {
           let ctx = document.getElementById("div_canvas_" + id);       
           myChart.destroy();
+          ctx.remove();
+        }
+        else if(type == "map")
+        {
+          let ctx  = document.getElementById("div_map_" + id);
           ctx.remove();
         }
         else if(type == "text")
@@ -1764,11 +1873,224 @@ class Property {
       });
     }
 
-    this.createEditdata = (id, myChart, full_id) => {
+    this.createEditdata = (id, myChart, full_id, type) => {
+      var countChartData = 0;
+
       $(".propertyMenu-2-paper").append(`                
           <div class="propertyMenu-2-block">
-            <button type="button" class="btn btn-default form-control button-width">Edit data</button>     
+            <button type="button" id="edit_chart_data_${id}" class="btn btn-default form-control button-width">Edit data</button>     
           </div>`);
+
+      $("#edit_chart_data_" + id).click(function () {
+        $("#model_edit_chart_data_" + id).remove();
+
+        var modalEditChartData = `
+        <div class="modal" id="model_edit_chart_data_${id}" class="modelcropper">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit data chart</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                      <div class="row">
+                          <div class="col-12" id="div_preview_canvas_${id}">
+                            <canvas id="preview_canvas_${id}"></canvas>
+                          </div>
+                      </div>
+                      <hr>
+                      <div class="row" style="padding-top:5px; padding-bottom:5px;">
+                        <div class="col-12">
+                          <span>Select datasource</span>
+                        </div>
+                      </div>
+                      <div class="row" style="padding-top:5px; padding-bottom:5px;">
+                        <div class="col-12">
+                          <select type="text" id="ddl_data_source_${id}" class="form-control">
+                            <option value="1">Default</option>
+                            <option value="2">Striped</option>
+                            <option value="3">Bordered</option>
+                          </select>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row" style="padding-top:5px; padding-bottom:5px;">
+                        <div class="col-3">
+                          <span>Start date</span>
+                        </div>
+                        <div class="col-3">
+                          <span>End date</span>
+                        </div>
+                        <div class="col-6">
+                          <span>Time</span>
+                        </div>
+                      </div>
+                      <div class="row" style="padding-top:5px; padding-bottom:5px;">
+                        <div class="col-3">
+                          <input type="text" class="form-control"/>
+                        </div>
+                        <div class="col-3">
+                          <input type="text" class="form-control"/>
+                        </div>
+                        <div class="col-6">
+                          <input type="text" class="form-control"/>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row" style="padding-top:5px; padding-bottom:5px;">
+                        <div class="col-6">
+                          <span>Line data</span>
+                          <button id="add_new_data_${id}" class="btn btn-default btn-sm btn-radius"><i class="fas fa-plus"></i>Add new line</button>
+                        </div>
+                      </div>
+                      <div id="chart_data_${id}" class="row" style="padding-top:5px; padding-bottom:5px;">
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="save_chart_data_${id}" class="btn btn-success">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        $('body').append(modalEditChartData);
+        $("#model_edit_chart_data_" + id).modal('show');
+
+        var myChart2 = cloneCanvas(myChart, id, type);
+        setDefaultData(myChart2);
+
+        $("#add_new_data_" + id).click(function () {
+
+          var newData =
+          {
+            label: "New data",
+            data: [100,80,60],
+            backgroundColor: "#343a40"
+          };
+  
+          myChart2.data.datasets.push(newData);
+          myChart2.update();
+
+          let ctx  = $("#chart_data_" + id);
+          ctx.contents().remove();
+
+          setDefaultData(myChart2);
+        });
+
+      });
+
+      function cloneCanvas(myChart, id, type) {
+
+        let ctx = document.getElementById("preview_canvas_" + id);
+        var myChart2 = new Chart(ctx, {
+          type: type,
+          options: myChart.options
+        });
+
+        addLabel(myChart2, myChart.data.labels);
+        addDatasets(myChart2, myChart.data.datasets);
+
+        return myChart2;
+      }
+
+      function addLabel(chart, labels){
+        for (var i = 0; i < labels.length; i++) {
+          chart.data.labels.push(labels[i]);
+        }
+        chart.update();
+      }
+  
+      function addDatasets(chart, dataSets){
+        for (var i = 0; i < dataSets.length; i++) {
+          var newData =
+          {
+            label: dataSets[i].label,
+            data: dataSets[i].data,
+            backgroundColor: dataSets[i].backgroundColor
+          };
+  
+          chart.data.datasets.push(newData);
+        }
+        chart.update();
+      }
+
+      function setDefaultData(chart)
+      {
+        for(var i = 0; i < chart.data.datasets.length; i++)
+        {
+          $("#chart_data_" + id).append(`
+              <div id="div_preview_chart_${id}_${i}" class="col-12">
+                <div class="row" style="padding-top:5px; padding-bottom:5px;">
+                  <div class="col-5">
+                    <span>Data</span>
+                  </div>
+                  <div class="col-3">
+                    <span>Label</span>
+                  </div>
+                  <div class="col-2">
+                    <span>Color</span>
+                  </div>
+                </div>
+                <div class="row" style="padding-top:5px; padding-bottom:5px;">
+                  <div class="col-5">
+                    <input type="text" class="form-control"/>
+                  </div>
+                  <div class="col-3">
+                    <input type="text" id="label_preview_chart_${id}_${i}" class="form-control" value="${chart.data.datasets[i].label}"/>
+                  </div>
+                  <div class="col-2">
+                    <input type="color" id="color_preview_chart_${id}_${i}" class="form-control" value="${chart.data.datasets[i].backgroundColor}"/>
+                  </div>
+                  <div class="col-1">
+                    <button type="button" id="delete_preview_chart_${id}_${i}" class="btn btn-default" ><i class="fas fa-trash-alt"></i></button>
+                  </div>
+                </div>
+              </div>`);
+
+          countChartData++;
+
+          $("#label_preview_chart_" + id + "_" + i).keyup(labelPreviewChartUpdate(chart, i));
+          $("#color_preview_chart_" + id + "_" + i).change(colorPreviewChartUpdate(chart, i));
+          $("#delete_preview_chart_" + id + "_" + i).click(deletePreviewChartUpdate(chart, i));
+
+          $("#delete_preview_chart_" + id + "_0").remove();
+        }
+      }
+
+      function colorPreviewChartUpdate(chart, index)
+      {
+        return function()
+        {
+          chart.data.datasets[index].backgroundColor =  $("#color_preview_chart_" + id + "_" + index).val();
+          chart.update();
+        };
+      }
+
+      function labelPreviewChartUpdate(chart, index)
+      {
+        return function()
+        {
+          chart.data.datasets[index].label =  $("#label_preview_chart_" + id + "_" + index).val();
+          chart.update();
+        };
+      }
+
+      function deletePreviewChartUpdate(chart, index)
+      {
+        return function()
+        {
+          chart.data.datasets.splice(index, 1);
+          chart.update();
+
+          let ctx  = $("#chart_data_" + id);
+          ctx.contents().remove();
+
+          setDefaultData(chart);
+        };
+      }
+
     }
 
     this.createCropImage = (id, full_id, full_id_image) => {
@@ -2527,7 +2849,7 @@ class ContentProperty extends Property {
     super();
     this.createGraphProp = (id, myChart, full_id, type) => {
       this.createContext(id, full_id, type, myChart);
-      this.createEditdata(id, myChart, full_id);
+      this.createEditdata(id, myChart, full_id, type);
       this.createScale(id, full_id, type);
       this.createRotation(id, full_id);
       this.createTransparency(id, full_id);
