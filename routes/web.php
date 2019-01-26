@@ -30,7 +30,7 @@ Route::get('/','AuthController@index');
 Route::get('/Auth','AuthController@index');
 
 Route::get('/Register','RegisterController@index');
-
+Route::get('/ForgetPassword','AuthController@forgetPassword');
 
 
 Route::group(['middleware' => ['jwt.verify.web']], function() {
