@@ -19,6 +19,10 @@ class AuthController extends Controller
         return view('auth.index');
     }
 
+    public function forgetPassword(){
+        return view('forgetPassword.index');
+    }
+
     public function verifyUser($verification_code,$email){
         $check = DB::table('USER_VERIFICATIONS')->where('token',$verification_code)->first();
         if(!is_null($check)){
