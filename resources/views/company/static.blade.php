@@ -1,5 +1,5 @@
-@extends('layouts.mainCompany') 
-@section('title','Static | Company') 
+@extends('layouts.mainCompany')
+@section('title','Static | Company')
 @section('content') {{--
 <script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
 <script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script> --}} {{--
@@ -113,6 +113,7 @@
         margin: 30px;
         border-radius: 5px;
     }
+
 </style>
 
 
@@ -157,10 +158,12 @@
 
         <div class="col-6 d-flex align-content-center">
             <h3 class="mr-2">Static</h3>
-            <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button>
+            <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add
+                Datasource</button>
         </div>
         <div class="col-6 text-right">
-            <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add Widget</button>
+            <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add
+                Widget</button>
             <button class="btn btn-warning btn-radius" id="settingW"><i class="fas fa-cog"></i></button>
             <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
             <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i class="fas fa-times"></i></button>
@@ -270,12 +273,14 @@
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                  <input type="radio" name="isGroupDataMutiLine" class="form-check-input isGroupDataMutiLine" value="1">Yes
+                                    <input type="radio" name="isGroupDataMutiLine" class="form-check-input isGroupDataMutiLine"
+                                        value="1">Yes
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                  <input type="radio" name="isGroupDataMutiLine" class="form-check-input isGroupDataMutiLine" value="0" checked>No
+                                    <input type="radio" name="isGroupDataMutiLine" class="form-check-input isGroupDataMutiLine"
+                                        value="0" checked>No
                                 </label>
                             </div>
                         </div>
@@ -287,13 +292,13 @@
                                 <div class="col-5">
                                     <label for="">Datasource <span class="text-danger">*</span></label>
                                     <select class="form-control select-datasource">
-                                
+
                                     </select>
                                 </div>
                             </div>
 
                             <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-value-Mutiline">
-                                <i class="fa fa-plus"></i> 
+                                <i class="fa fa-plus"></i>
                                 Add Line Value Of Y
                             </button>
 
@@ -320,7 +325,7 @@
                                 <div class="col-4">
                                     <label for="">Datasource <span class="text-danger">*</span></label>
                                     <select class="form-control select-datasource">
-                                        
+
                                     </select>
                                 </div>
                                 <div class="col-4">
@@ -331,7 +336,8 @@
                                 <div class="col-4">
                                     <label for="customRange">Length data</label>
                                     <div id="range_data" class="d-flex justify-content-between">
-                                        <input type="number" name="start" id="start" min="0" value="0" class="form-control mr-2">                                        -
+                                        <input type="number" name="start" id="start" min="0" value="0" class="form-control mr-2">
+                                        -
                                         <input type="number" name="end" id="end" min="0" value="0" class="form-control ml-2">
                                     </div>
                                 </div>
@@ -361,11 +367,11 @@
                             <div class="col-6">
                                 <h5>Label Radar</h5>
                                 <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn-add-label-radar">
-                                    <i class="fa fa-plus"></i> 
+                                    <i class="fa fa-plus"></i>
                                     Add label
                                 </button>
                                 <button class="btn btn-success btn-sm btn-radius mb-2" id="btn-edit-label-radar" style="display: none">
-                                    <i class="fa fa-plus"></i> 
+                                    <i class="fa fa-plus"></i>
                                     Edit label
                                 </button>
                                 <div id="Radar_label">
@@ -375,19 +381,22 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control radar-labels mt-2" value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i class="fas fa-times"></i></button>
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i
+                                                    class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group">
                                         <input type="text" class="form-control radar-labels mt-2" value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i class="fas fa-times"></i></button>
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i
+                                                    class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group">
                                         <input type="text" class="form-control radar-labels mt-2" value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i class="fas fa-times"></i></button>
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i
+                                                    class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -402,9 +411,9 @@
                             <div class="col-12">
                                 <h5>Datasource Radar</h5>
                                 <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn-add-datasource-radar">
-                                            <i class="fa fa-plus"></i> 
-                                            Add datasource
-                                            </button>
+                                    <i class="fa fa-plus"></i>
+                                    Add datasource
+                                </button>
                                 <div id="Radar_value">
 
                                 </div>
@@ -418,13 +427,17 @@
                             <div class="col-6">
                                 <label for="">Datasource</label>
                                 <select class="form-control select-datasource">
-                                            
+
                                 </select>
                                 <div class="mt-2" id="btn-mm-table">
-                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_col">Add column</button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_col">Remove column</button>
-                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_row">Add row</button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_row">Remove row</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_col">Add
+                                        column</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_col">Remove
+                                        column</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_row">Add
+                                        row</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_row">Remove
+                                        row</button>
                                 </div>
                             </div>
                         </div>
@@ -462,7 +475,7 @@
                             <div class="col-6">
                                 <label for="">Datasource</label>
                                 <select class="form-control select-datasource">
-                                            
+
                                 </select>
                             </div>
                             <div class="col-6">
@@ -487,7 +500,7 @@
                             <div class="col-4">
                                 <label for="">Datasource</label>
                                 <select class="form-control select-datasource">
-                                    
+
                                 </select>
                             </div>
                             <div class="col-4">
@@ -518,7 +531,7 @@
                             <div class="col-6">
                                 <label for="">Datasource <span class="text-danger">*</span></label>
                                 <select class="form-control select-datasource">
-                                    
+
                                 </select>
                             </div>
                             <div class="col-6">
@@ -534,12 +547,14 @@
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" name="isGroupDataMap"  class="form-check-input isGroupDataMap" value="1">Yes
+                                    <input type="radio" name="isGroupDataMap" class="form-check-input isGroupDataMap"
+                                        value="1">Yes
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" name="isGroupDataMap" class="form-check-input isGroupDataMap" value="0" checked>No
+                                    <input type="radio" name="isGroupDataMap" class="form-check-input isGroupDataMap"
+                                        value="0" checked>No
                                 </label>
                             </div>
                         </div>
@@ -550,14 +565,14 @@
                                 <div class="col-5">
                                     <label for="">Datasource <span class="text-danger">*</span></label>
                                     <select class="form-control select-datasource">
-                                
+
                                     </select>
                                 </div>
                             </div>
 
                             <button class="btn btn-primary btn-sm btn-radius mt-2 btn-add-point-map">
-                            <i class="fa fa-plus"></i> 
-                            Add Point
+                                <i class="fa fa-plus"></i>
+                                Add Point
                             </button>
 
                             <div class="row value-of-map">
@@ -589,7 +604,7 @@
                                 <div class="col-4">
                                     <label for="">Datasource <span class="text-danger">*</span></label>
                                     <select class="form-control select-datasource">
-                                        
+
                                     </select>
                                 </div>
                                 <div class="col-4">
@@ -600,7 +615,8 @@
                                 <div class="col-4">
                                     <label for="customRange">Length data</label>
                                     <div id="range_data" class="d-flex justify-content-between">
-                                        <input type="number" name="start" id="start" min="0" value="0" class="form-control mr-2">                                        -
+                                        <input type="number" name="start" id="start" min="0" value="0" class="form-control mr-2">
+                                        -
                                         <input type="number" name="end" id="end" min="0" value="0" class="form-control ml-2">
                                     </div>
                                 </div>
@@ -657,7 +673,7 @@
                             <div class="col-6">
                                 <label for="">Channel</label>
                                 <select name="" id="webservice_id" class="form-control">
-                                                <option value="">--Select Channel--</option>
+                                    <option value="">--Select Channel--</option>
                                 </select>
                             </div>
                         </div>
@@ -670,7 +686,7 @@
                                 <label for="">Key</label>
                                 <input type="text" id="key" class="form-control">
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
                                 <label for="">Channel</label>
                                 <input type="text" id="key_value" name="key_value" class="form-control">
                             </div>
@@ -692,7 +708,7 @@
             <label for="">Key</label>
             <input type="text" id="key" class="form-control">
         </div>
-        <div class="col-5">
+        <div class="col-6">
             <label for="">Channel</label>
             <input type="text" id="key_value" name="key_value" class="form-control">
         </div>
@@ -762,7 +778,7 @@
             <div class="col-4">
                 <label for="">Datasource</label>
                 <select class="form-control select-datasource">
-                                                        
+
                 </select>
             </div>
             <div class="col-4">
@@ -827,9 +843,9 @@
                 <div>
                     <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-success">Realtime</span></h5>
                     {{-- <span class="switch switch-sm">
-                            <input type="checkbox" class="switch" id="<<switch>>" >
-                            <label for="<<switch>>">Realtime</label>
-                        </span> --}}
+                        <input type="checkbox" class="switch" id="<<switch>>">
+                        <label for="<<switch>>">Realtime</label>
+                    </span> --}}
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
@@ -838,7 +854,8 @@
 
                 <div class="full-screen">
                     {{-- <i class="fas fa-history btn-full-screen grow" title="History" style="cursor:pointer" item="div_id"></i>--}}
-                    {{-- <i class="fas fa-file-excel" title="Download excel" style="cursor:pointer" item="div_id"></i> --}}
+                    {{-- <i class="fas fa-file-excel" title="Download excel" style="cursor:pointer" item="div_id"></i>
+                    --}}
                     <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
                 </div>
             </div>
@@ -848,7 +865,8 @@
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
                 <div class="text-right">
-                    <span> <i class="fas fa-history btn-time-series grow" title="Time series" style="cursor:pointer" item="div_id"></i> <span id="{last_update}">00:00:00</span></span>
+                    <span> <i class="fas fa-history btn-time-series grow" title="Time series" style="cursor:pointer"
+                            item="div_id"></i> <span id="{last_update}">00:00:00</span></span>
                 </div>
                 <div class="time-series-static" style=" display: none">
                     <div class="col-4">

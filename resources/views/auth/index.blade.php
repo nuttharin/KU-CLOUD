@@ -130,12 +130,10 @@
 </style>
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
 <header class="header">
-    <div class="d-flex flex-column justify-content-center align-items-center" id="header">
-        <div id="div_header">
-            <h1 class="display-1 animated fadeInDown ">KU CLOUD</h1>
-            <h1 class="display-4 animated fadeInUp ">Private cloud for you</h1>
-            <i class="fas fa-chevron-down fa-3x mt-5 animated flash"></i>
-        </div>
+    <div class="d-flex flex-column justify-content-center align-items-center" id="header" style="margin: 20px;height: 100vh;">
+        <h1 class="display-1 animated fadeInDown ">KU CLOUD</h1>
+        <h1 class="display-4 animated fadeInUp ">Private cloud for you</h1>
+        <i class="fas fa-chevron-down fa-3x mt-5 animated flash"></i>
         <button class="btn btn-success btn-lg btn-radius mt-3 animated fadeIn" id="Login" style="width:50% ">Go to Site</button>
     </div>
 </header>
@@ -198,9 +196,7 @@
 </div>
 
 <div class="login-wrapper">
-
-    <div class="d-flex flex-column justify-content-center align-items-center " id="d-flex-login">
-
+    <div class="d-flex flex-column justify-content-center align-items-center " style="margin: 20px;height: 100vh;">
         <form id="form_login">
             <i class="fas fa-times fa-1x" style="float:right" id="btn-close-login"></i>
             <div class="alert alert-danger" style="display:none">
@@ -212,7 +208,7 @@
             <input type="password" class="form-control" id="pwd" placeholder="******">
             <button class="btn btn-success btn-block btn-radius mt-3" id="btn-submit-login">Login</button>
             <div class="form-group d-flex justify-content-center mt-3 my-2">
-                <a href="#" class="text-small forgot-password text-black">Forgot Password</a>
+                <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot Password</a>
 
             </div>
             <div class="text-block text-center my-3">
@@ -227,12 +223,12 @@
 
 <script>
     $(document).ready(function () {
-        let height = $(window).height();
-        $("#header").height(height);
+        // let height = $(window).height();
+        // $("#header").height(height);
 
-        $(window).resize(function () {
-            $("#header").height(height);
-        });
+        // $(window).resize(function () {
+        //     $("#header").height(height);
+        // });
 
         $("#Login").click(function () {
             $(".login-wrapper").animate({ "top": "0" })
@@ -246,7 +242,7 @@
         $('#btn-submit-login').click(function () {
             event.preventDefault();
             $.ajax({
-                url: "http://localhost:8000/api/Auth",
+                url: "http://localhost:8000/api/Auth/Login",
                 method: "POST",
                 dataType: "json",
                 data: {
@@ -254,12 +250,10 @@
                     password: $("#pwd").val()
                 },
                 success: (res) => {
-                    console.log(res);
                     setCookie("token", res.token);
                     window.location = res.path;
                 },
                 error: (res) => {
-                    console.log(res);
                     if (res.status === 500) {
                         $(".alert ").show();
                         $(".alert ").html("<strong>Error!</strong> Please check email " + $("#email").val() + " to verify.");

@@ -2,28 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use JWTAuth;
-use Illuminate\Support\Facades\Auth;
-use Gate;
+use App\LogViewer\LogViewer;
 use Cookie;
 use DB;
-use Log;
+use Gate;
+use Illuminate\Support\Facades\Auth;
+use JWTAuth;
 
-use App\LogViewer\LogViewer;
-use App\TB_WEBSERVICE;
 class CompanyController extends Controller
 {
-    
+
     public function index()
-    {       
+    {
         return view('company.index');
     }
 
     public function user()
     {
-        if(!Gate::allows('isCompanyAdmin')){
-            abort('404',"Sorry, You can do this actions");
+        if (!Gate::allows('isCompanyAdmin')) {
+            abort('404', "Sorry, You can do this actions");
         }
         return view('company.user')->with('user', Auth::user());
     }
@@ -32,7 +29,7 @@ class CompanyController extends Controller
     {
         return view('company.manageAccounts')->with('user', Auth::user());
     }
-    
+
     public function customer()
     {
         return view('company.customer')->with('user', Auth::user());
@@ -43,15 +40,15 @@ class CompanyController extends Controller
         return view('company.infographic')->with('user', Auth::user());
     }
 
-    public function staticDatatable(){
-        return view('company.staticDataTable')->with('user',Auth::user());
+    public function staticDatatable()
+    {
+        return view('company.staticDataTable')->with('user', Auth::user());
     }
 
-    public function static($id)
-    {
+    function static($id) {
         return view('company.static')
-        ->with('id',$id)
-        ->with('user', Auth::user());
+            ->with('id', $id)
+            ->with('user', Auth::user());
     }
 
     public function service()
@@ -66,9 +63,9 @@ class CompanyController extends Controller
 
     public function Output_service()
     {
-        return view('company.outputService')->with('user',Auth::user());
-    }    
-    
+        return view('company.outputService')->with('user', Auth::user());
+    }
+
     public function Show_service()
     {
         return view('company.showService')->with('user', Auth::user());
@@ -84,12 +81,13 @@ class CompanyController extends Controller
         return view('company.add_iot')->with('user', Auth::user());
     }
 
-    public  function LogViewer()
+    public function LogViewer()
     {
         return view('company.LogViewer')->with('user', Auth::user());
     }
 
-    public function Logout(){
+    public function Logout()
+    {
         JWTAuth::invalidate(JWTAuth::getToken());
         return view('auth.index')->withCookie(Cookie::forget('token'));
     }
@@ -103,7 +101,7 @@ class CompanyController extends Controller
         $webService = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
         FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.webservice_id='$id'");
         return view('company.edit_webService')
-        ->with('user',Auth::user())
-        ->with('webService',$webService);
+            ->with('user', Auth::user())
+            ->with('webService', $webService);
     }
 }
