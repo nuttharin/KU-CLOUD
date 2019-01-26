@@ -466,6 +466,9 @@ class ModalEdit {
             $.ajax({
                 url: END_POINT + "company/users/email",
                 method: "DELETE",
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 data: {
                     email_user: email,
                 },
@@ -484,6 +487,9 @@ class ModalEdit {
             $.ajax({
                 url: END_POINT + "company/users/phone",
                 method: "DELETE",
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 data: {
                     phone_user: phone,
                 },
@@ -517,6 +523,9 @@ class ModalEdit {
             $.ajax({
                 url: END_POINT + config.edit,
                 method: "PUT",
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 data: {
                     user_id: UsersList[index].user_id,
                     fname: fname,
@@ -592,6 +601,9 @@ class ModalToggleActive {
             $.ajax({
                 url: END_POINT + config.block,
                 method: "put",
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 data: {
                     user_id: UsersList[key].user_id,
                     block: UsersList[key].block ? 0 : 1
@@ -708,6 +720,9 @@ export class ManagementUsers {
                     "language": language,
                     "ajax": {
                         url: END_POINT + config.getUsers,
+                        headers: {
+                            authorization: 'bearer ' + getCookie('token'),
+                        },
                         "dataSrc": function (json) {
                             UsersList = json.data;
                             return json.data;
@@ -834,6 +849,9 @@ export class ManagementUsers {
                     "language": language,
                     "ajax": {
                         url: END_POINT + config.getUsers,
+                        headers: {
+                            authorization: 'bearer ' + getCookie('token'),
+                        },
                         "dataSrc": function (json) {
                             UsersList = json.data;
                             return json.data;
@@ -957,6 +975,9 @@ export class ManagementUsers {
                 url: END_POINT + config.create,
                 dataType: 'json',
                 method: "POST",
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 data: {
                     email: email_input,
                     password: pwd_input,
@@ -1083,6 +1104,9 @@ export class ManagementUsers {
             $.ajax({
                 url: END_POINT + config.getAllEmailCustomer,
                 method: "GET",
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 success: (res) => {
                     input_bind_email = $('#input_bind_email');
                     input_bind_email.empty();
@@ -1105,6 +1129,9 @@ export class ManagementUsers {
             $.ajax({
                 url: END_POINT + config.addCustomerInCompany,
                 method: "POST",
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 data: {
                     userList: input_bind_email.val(),
                 },
@@ -1170,10 +1197,12 @@ export class ManagementUsers {
             //     }
             // });
 
-
             await $.ajax({
                 url: END_POINT + config.getOnlineUsers,
                 method: 'GET',
+                headers: {
+                    authorization: 'bearer ' + getCookie('token'),
+                },
                 data: {
                     type_user: config.type,
                 },

@@ -18,14 +18,25 @@ use Illuminate\Http\Request;
 // });
 
 
-Route::post('Auth','Api\AuthController@login');
+// Route::post('Auth','Api\AuthController@login');
 
-Route::post('login', 'UserController@authenticate');
+// Route::post('login', 'UserController@authenticate');
 
 Route::get('open', 'DataController@open'); //test
 
 Route::post('account/register','Api\AccountsController@register');
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'Auth'
+], function ($router) {
+
+    Route::post('Login', 'Api\AuthController@login');
+    Route::post('Logout', 'Api\AuthController@logout');
+    Route::post('Refresh', 'Api\AuthController@refresh');
+    Route::post('Me', 'Api\AuthController@me');
+
+});
 
 Route::group(['middleware' => ['jwt.verify']], function() {
    
