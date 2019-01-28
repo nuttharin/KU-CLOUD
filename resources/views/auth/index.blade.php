@@ -1,6 +1,12 @@
 @extends('layouts.login') 
 @section('content')
 <style>
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     #form_login {
         width: 35%;
         margin: auto;
@@ -36,13 +42,14 @@
     .header {
         text-align: center;
         color: #fff;
-        background: linear-gradient(-45deg, #556cdc, #128bfc, #23A6D5, #23D5AB);
+        background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
         animation: Gradient 15s ease infinite;
         position: fixed;
         width: 100vw;
+        height: 100vh;
         z-index: 1;
         min-height: 100vh;
         overflow: hidden;
@@ -62,7 +69,7 @@
     .login-wrapper {
         color: #000;
         top: 100%;
-        background: linear-gradient(-45deg, #556cdc, #128bfc, #23A6D5, #23D5AB);
+        background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
@@ -128,13 +135,14 @@
         }
     }
 </style>
+<link href="{{url('css/ku-cloud.css')}}" rel="stylesheet">
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
 <header class="header">
     <div class="d-flex flex-column justify-content-center align-items-center" id="header" style="margin: 20px;height: 100vh;">
         <h1 class="display-1 animated fadeInDown ">KU CLOUD</h1>
         <h1 class="display-4 animated fadeInUp ">Private cloud for you</h1>
         <i class="fas fa-chevron-down fa-3x mt-5 animated flash"></i>
-        <button class="btn btn-success btn-lg btn-radius mt-3 animated fadeIn" id="Login" style="width:50% ">Go to Site</button>
+        <a href="#" class="btn btn-white mt-3 animated fadeIn" id="Login">Go to Site</a>
     </div>
 </header>
 

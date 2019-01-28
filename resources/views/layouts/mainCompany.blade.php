@@ -23,7 +23,8 @@
 
     <!-- Font Awesome JS -->
     <link href="{{asset('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
-    <link rel="stylesheet" href={{asset( 'css/style4.css')}}>
+    <link rel="stylesheet" href={{asset( 'css/main.css')}}>
+    <!-- <link rel="stylesheet" href={{asset( 'css/style4.css')}}> -->
     <link rel="stylesheet" href={{asset( 'css/style-theme.css')}}>
 
     <!-- I-check -->
@@ -105,7 +106,8 @@
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
         <ul class="nav navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle user-dropdown" id="UserDropdown"  href="#" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-angle-right"></i>
                     <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
                     <img class="img-xs rounded-circle" width="30" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}"
                         alt="Profile image">
@@ -123,6 +125,7 @@
                                 <i class="far fa-bell text-muted"></i>
                             </div>
                         </div>
+                      
                     </a>
                     <a class="dropdown-item mt-2" href="{{action('CompanyController@manageAccounts')}}">
                         Manage Accounts
@@ -255,7 +258,7 @@
 
 
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" class="content">
             @yield('content')
         </div>
 
