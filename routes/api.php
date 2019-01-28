@@ -26,6 +26,8 @@ Route::get('open', 'DataController@open'); //test
 
 Route::post('account/register','Api\AccountsController@register');
 
+Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'Auth'

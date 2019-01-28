@@ -148,4 +148,19 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
         ]);
     }
+
+    public function getAllEmail(Request $request)
+    {
+        $checkEmail = DB::table('TB_EMAIL')
+        ->where('EMAIL_USER', $request->get('email'))
+        ->count();
+
+        if($checkEmail > 0){
+            return response()->json(['success' => true, 'detail' => "We are send email already."]);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'detail' => "This email is not in system."]);
+        }
+    }
 }
