@@ -8,30 +8,29 @@
 
 namespace App\Repositories\TB_USERS;
 
-
 interface UsersRepository
 {
     public function getAll();
 
-    public  function getByTypeForAdmin($type);
+    public function getByTypeForAdmin($type);
 
-    public  function getByTypeForCompany($type,$company_id,$start,$length);
+    public function getByTypeForCompany($type, $company_id, $start, $length, $order, $dir);
 
-    public  function getAllEmailCustomer();
+    public function getAllEmailCustomer();
 
-    public  function addCustomerInCompany(array $userList);
+    public function addCustomerInCompany(array $userList);
 
-    public  function searchByTypeForCompany($type,$company_id,$start,$length,$search);
+    public function searchByTypeForCompany($type, $company_id, $start, $length, $search, $order, $dir);
 
-    public  function countUserOnline($type,$company_id = null);
+    public function countUserOnline($type, $company_id = null);
 
-    public  function countUser($type,$company_id);
+    public function countUser($type, $company_id);
 
-    public  function create(array $attributes);
+    public function create(array $attributes);
 
-    public  function update(array $attributes);
+    public function update(array $attributes);
 
-    public  function delete($id);
+    public function delete($id);
 
     public function deleteEmailUser(array $attributes);
 

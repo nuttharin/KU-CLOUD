@@ -8,7 +8,16 @@ import {
 } from './utility';
 
 const language = {
-    "sProcessing": `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`,
+    "sProcessing": `<div class="lds-roller text-center">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>`,
     "oPaginate": {
         "sNext": "<i class='mdi mdi-chevron-right'></i>",
         "sPrevious": "<i class='mdi mdi-chevron-left'></i>"
@@ -696,10 +705,12 @@ export class ManagementUsers {
             if (showOrHide) {
                 $(".dataTables_wrapper").hide();
                 $('#example').hide();
-                $('.lds-roller').show();
+                $('#loading').show();
+                $('#card_table').height('100px');
             } else {
+                $('#card_table').height('auto');
                 $(".dataTables_wrapper").show();
-                //$('.lds-roller').hide();
+                $('#loading').hide();
                 $('.text-loading').hide();
                 $('#example').show();
                 $('.text-static').show();
@@ -728,7 +739,8 @@ export class ManagementUsers {
                             return json.data;
                         }
                     },
-                    "columns": [{
+                    "columns": [
+                        {
                             "mRender": function (data, type, row) {
                                 return row.fname + " " + row.lname;
                             }
@@ -741,7 +753,8 @@ export class ManagementUsers {
                         {
                             "mRender": function (data, type, row) {
                                 return row.email[0].email_user;
-                            }
+                            },
+                           
                         },
                         {
                             "mData": "block",
@@ -750,13 +763,13 @@ export class ManagementUsers {
                             }
                         },
                         {
-                            data: 'sub_type_user'
+                            data: 'sub_type_user',
                         },
                         {
                             "mData": "online",
                             "mRender": function (data, type, row) {
                                 return data ? '<b class="text-success">online <i class="fas fa-circle text-success fa-xs"></i></b>' : '<span class="text-secondary">offline <i class="fas fa-circle text-secondary fa-xs"></i></span>';
-                            }
+                            },
                         },
                         {
                             "mRender": function (data, type, row, index) {
@@ -785,7 +798,8 @@ export class ManagementUsers {
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </center>`;
-                            }
+                            },
+                            "orderable":false,
                         }
                     ]
                 });
@@ -911,7 +925,8 @@ export class ManagementUsers {
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </center>`;
-                            }
+                            },
+                            "orderable":false,
                         }
                     ]
                 });
@@ -1148,6 +1163,7 @@ export class ManagementUsers {
         };
 
         this.initialAndRun = () => {
+            showDatatableLoadingStatus(true);
             this.showLastestDatatable();
             //createModalDelete();
             $('#btn-add-user').unbind().click(function () {
@@ -1179,24 +1195,7 @@ export class ManagementUsers {
 
 
         this.showLastestDatatable = async () => {
-            //showDatatableLoadingStatus(true);
             await updateDatatableData();
-
-            // $.ajax({
-            //     url: END_POINT + config.getUsers,
-            //     method: 'GET',
-            //     success: function (result) {
-            //         //console.log(result);
-            //         initialDatatable();
-            //         UsersList = result.data;
-            //         showDatatableLoadingStatus(false);
-            //         updateDatatableData();
-            //     },
-            //     error: function (error) {
-            //         console.log(error);
-            //     }
-            // });
-
             await $.ajax({
                 url: END_POINT + config.getOnlineUsers,
                 method: 'GET',
@@ -1226,6 +1225,8 @@ export class ManagementUsers {
 
             showDatatableLoadingStatus(false);
         };
+
+       
     }
 
 

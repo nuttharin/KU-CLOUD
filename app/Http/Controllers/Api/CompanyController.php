@@ -59,15 +59,25 @@ class CompanyController extends Controller
 
     public function getAllUser(Request $request)
     {
+        $columns = array(
+            0 => 'fname',
+            1 => 'phone_user',
+            2 => 'email_user',
+            3 => 'block',
+            4 => 'sub_type_user',
+            5 => 'online',
+        );
         $companyID = $this->auth->user_company()->first()->company_id;
         $draw = $request->input('draw');
         $start = $request->input('start');
         $length = $request->input('length');
         $search = $request->input('search.value');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
         $total_user = $this->users->countUser('COMPANY', $companyID)[0]->count;
 
         if (empty($search)) {
-            $data = $this->users->getByTypeForCompany('COMPANY', $companyID, $start, $length);
+            $data = $this->users->getByTypeForCompany('COMPANY', $companyID, $start, $length, $order, $dir);
 
             if (!empty($data)) {
                 $this->log_viewer->logRequest($request);
@@ -81,7 +91,7 @@ class CompanyController extends Controller
                 return response()->json($test, 200);
             }
         } else {
-            $data = $this->users->searchByTypeForCompany('COMPANY', $companyID, $start, $length, $search);
+            $data = $this->users->searchByTypeForCompany('COMPANY', $companyID, $start, $length, $search, $order, $dir);
             if (!empty($data)) {
                 $this->log_viewer->logRequest($request);
                 $test = array(
@@ -173,15 +183,24 @@ class CompanyController extends Controller
 
     public function getAllCustomer(Request $request)
     {
+        $columns = array(
+            0 => 'fname',
+            1 => 'phone_user',
+            2 => 'email_user',
+            3 => 'block',
+            4 => 'online',
+        );
         $companyID = $this->auth->user_company()->first()->company_id;
         $draw = $request->input('draw');
         $start = $request->input('start');
         $length = $request->input('length');
         $search = $request->input('search.value');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
         $total_user = $this->users->countUser('CUSTOMER', $companyID)[0]->count;
 
         if (empty($search)) {
-            $data = $this->users->getByTypeForCompany('CUSTOMER', $companyID, $start, $length);
+            $data = $this->users->getByTypeForCompany('CUSTOMER', $companyID, $start, $length, $order, $dir);
             if (!empty($data)) {
                 $this->log_viewer->logRequest($request);
                 $test = array(
@@ -194,7 +213,7 @@ class CompanyController extends Controller
                 return response()->json($test, 200);
             }
         } else {
-            $data = $this->users->searchByTypeForCompany('CUSTOMER', $companyID, $start, $length, $search);
+            $data = $this->users->searchByTypeForCompany('CUSTOMER', $companyID, $start, $length, $search, $order, $dir);
             if (!empty($data)) {
                 $this->log_viewer->logRequest($request);
                 $test = array(
@@ -366,11 +385,7 @@ class CompanyController extends Controller
     //Static
     public function addStatic(Request $request)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
-
-        $message = $this->static->createStatic($request->get('name'), $companyID);
+        $message = $this->static->createStatic($request->get('name'));
 
         return response()->json(["message", $message['message']], $message['status']);
     }
@@ -386,10 +401,6 @@ class CompanyController extends Controller
 
     public function updateStaticDashboard(Request $request)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
-
         $data = TB_STATIC::where('static_id', $request->get('static_id'))
             ->update(['dashboard' => $request->get('dashboard')]);
     }
