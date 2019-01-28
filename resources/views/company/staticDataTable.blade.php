@@ -37,6 +37,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Create by</th>
                             <th>Action</th>
                         </tr>
                     </thead>

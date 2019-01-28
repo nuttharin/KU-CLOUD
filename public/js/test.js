@@ -28,7 +28,7 @@ $(document).ready(function () {
                 if ($(this).parents('.sub').length) {
                     $(this).closest('.collapse').addClass('show');
                     $(this).parents('.nav-item').children(".dropdown-toggle").attr('aria-expanded', 'true');
-                    $(this).addClass('active');
+                    $(this).parents('.nav-item').addClass('active');
                 }
             }
         }
@@ -56,4 +56,8 @@ $(document).ready(function () {
         $('#sidebar').toggleClass('active');
         $('#content').toggleClass('active');
     });
+
+    
 });
+
+

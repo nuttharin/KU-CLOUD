@@ -57,14 +57,17 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/admin/Users/CustomerUser.min.js', 'public/js/admin/Users/CustomerUser.min.js')
     .js('resources/js/ManagementAdminUsers.min.js', 'public/js/ManagementAdminUsers.min.js')
 
-    .js('resources/js/admin/Infographic/infographicDataTable.min.js', 'public/js/admin/Infographic/infographicDataTable.min.js');
+    .js('resources/js/admin/Infographic/infographicDataTable.min.js', 'public/js/admin/Infographic/infographicDataTable.min.js')
+
+    .sass('resources/sass/main.scss', 'public/css');
 
 // if (mix.inProduction) {
 //     if (process.env.npm_lifecycle_event !== 'hot') {
 //         mix.version();
 //     }
 // }
-// mix.browserSync('http://localhost:8000');
+
+//  mix.browserSync('http://localhost:8000');
 
 
 if (mix.inProduction()) {

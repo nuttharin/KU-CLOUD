@@ -8,26 +8,25 @@
 
 namespace App\Repositories\TB_STATIC;
 
-
 interface StaticRepository
 {
-    public  function getStaticByCompanyId($company_id);
+    public function getStaticByCompanyId($company_id);
 
-    public function createStatic($name,$company_id);
+    public function createStatic($name);
 
-    public  function updateStatic($static_id,$name,$company_id);
+    public function updateStatic($static_id, $name, $company_id);
 
-    public  function deleteStatic($static_id,$company_id);
+    public function deleteStatic($static_id, $company_id);
 
-    public  function getStaticDashboardById($static_id,$company_id);
+    public function getStaticDashboardById($static_id, $company_id);
 
-    public  function updateDashboard(array $attr);
+    public function updateDashboard(array $attr);
 
-    public  function  getDatasoureByStaticId($static_id,$company_id);
+    public function getDatasoureByStaticId($static_id, $company_id);
 
-    public  function createDatasource(array  $attr);
+    public function createDatasource(array $attr);
 
-    public  function  updateDatasource(array  $attr);
+    public function updateDatasource(array $attr);
 
-    public  function  deleteDatasource(array  $attr);
+    public function deleteDatasource(array $attr);
 }
