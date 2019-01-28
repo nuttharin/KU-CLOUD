@@ -1885,7 +1885,7 @@ class Property {
         $("#model_edit_chart_data_" + id).remove();
 
         var modalEditChartData = `
-        <div class="modal" id="model_edit_chart_data_${id}" class="modelcropper">
+        <div class="modal" id="model_edit_chart_data_${id}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -2023,7 +2023,7 @@ class Property {
           $("#chart_data_" + id).append(`
               <div id="div_preview_chart_${id}_${i}" class="col-12">
                 <div class="row" style="padding-top:5px; padding-bottom:5px;">
-                  <div class="col-5">
+                  <div class="col-6">
                     <span>Data</span>
                   </div>
                   <div class="col-3">
@@ -2034,7 +2034,7 @@ class Property {
                   </div>
                 </div>
                 <div class="row" style="padding-top:5px; padding-bottom:5px;">
-                  <div class="col-5">
+                  <div class="col-6">
                     <input type="text" class="form-control"/>
                   </div>
                   <div class="col-3">

@@ -12,6 +12,10 @@ use App\USER_VERIFICATIONS;
 use App\TB_EMAIL;
 use DB;
 
+use email;
+use Mail;
+use Illuminate\Mail\Message;
+
 class AuthController extends Controller
 {
 
@@ -21,6 +25,22 @@ class AuthController extends Controller
 
     public function forgetPassword(){
         return view('forgetPassword.index');
+    }
+
+    public function forgetPasswordSendMail(Request $request){
+        $email = $request->get('email');
+        $name = "testtest";
+        $verification_code = "123456";
+        $subject = "Please verify your email address.";
+        Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email],
+            function($mail) use ($email, $name, $subject){         
+                $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
+                $mail->to($email, $name);
+                $mail->subject($subject);
+        });
+   
+        $responseMessage = "true";
+        return view('forgetPassword.index')->with('responseMessage',$responseMessage);
     }
 
     public function verifyUser($verification_code,$email){

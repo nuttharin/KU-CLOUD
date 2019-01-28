@@ -10,25 +10,20 @@
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
 
-    .form-register {
-        width: 30%;
+    .form-email {
+        width: 50%;
         margin-bottom: 15px;
         -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
         box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
         background: #FFF;
         border-radius: 4px;
+
+        overflow-y: scroll;
+        max-height:90vh;
     }
 
-    @media screen and (max-width: 850px) {
-        .form-register {
-            width: 70%;
-        }
-    }
-
-    @media screen and (max-width: 600px) {
-        .form-register {
-            width: 100%;
-        }
+    .form-email::-webkit-scrollbar { 
+        display: none; 
     }
 
     .content {
@@ -39,60 +34,71 @@
         padding: 20px;
         padding-top: 0px;
     }
-
-    .swal-modal {
-        width: 580px;
-    }
 </style>
-<div class="content d-flex flex-column justify-content-center align-items-center" style="width: 100%;height: 100vh;">
-    <div class="form-register">
-        <form id="form_register" autocomplete="nope">
+
+<div class="content d-flex flex-column justify-content-center align-items-center" style="width:100%; height:100vh;">
+    <div class="form-email">
+        <form id="form_email" action="{{url('/ForgetPasswordSendMail')}}" method="post" autocomplete="nope">
             <div class="container">
                 <div class="row" style="padding: 20px; padding-bottom:0px;">
-                    <span style="font-size: 24px;">Register</span>
+                    <span style="font-size: 24px;">Forget password?</span>
                 </div>
                 <hr>
                 <div class="row input-data">
-                    <label for="email">Email address</label>
-                    <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
-                    <small class="messages-error"></small>
+                    <span>It happens to all of us. Just enter the email you registered with and we'll email the details to reset your password</span>
                 </div>
                 <div class="row input-data">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
+                    <input type="email" name="email" class="form-control" id="input_email" placeholder="Email address" autocomplete="nope">
                     <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="confirmPassword">Confirm password</label>
-                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="firstname">Firstname</label>
-                    <input type="text" name="firstname" class="form-control" id="fname">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="lname">Lastname</label>
-                    <input type="text" name="lastname" class="form-control" id="lname">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="phone">Phone</label>
-                    <input type="text" name="phone" class="form-control" id="phone">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <button class="btn btn-success btn-block btn-radius" id="btn_register" data-loading-text="Create my account <i class='fas fa-circle-notch fa-spin'></i>">Create your account</button>
                 </div>
             </div>
         </form>
+        <div class="row input-data">
+            <div class="col text-center">
+                <button class="btn btn-success btn-radius form-control" id="btn_send_email" data-loading-text="Sending..." style="max-width:60%;">Submit</button>
+            </div>
+        </div>
     </div>
     <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="{{action('AuthController@index')}}">Sing in</a></span>
+    @if (isset($responseMessage))
+    <input type="hidden" id="response_message" value="{{$responseMessage}}"/>
+    @endif
 </div>
 
 <!-- validate -->
-<script src="{{asset('js/validate/validate.js')}}"></script>
+<!-- <script src="{{asset('js/validate/validate.js')}}"></script>
 <script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
-<script src="{{asset('js/account/register.min.js')}}"></script>
+<script src="{{asset('js/account/register.min.js')}}"></script> -->
+
+<script>
+    $(document).ready(function() {
+        if($("#response_message").val() == "true")
+        {
+            alert("Send mail already.");
+        }
+    });
+
+    $('#btn_send_email').click(function() {
+        $.ajax({
+            url: 'http://localhost:8000/api/getAllEmail',
+            method: 'POST',
+            data: {
+                email: $("#input_email").val(),
+            },
+            success: (res) => {
+                if(res.success == true)
+                {
+                    $('#form_email').submit();
+                }
+                else
+                {
+                    $('#form_email').submit();
+                    alert(res.detail);
+                    return false;
+                }
+            }
+        });
+        return false;
+    });
+</script>
 @endsection
