@@ -20,7 +20,7 @@
 
 
 Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser');
-
+Route::get('forgetPassword/resetPassword/{verification_code}/{email}', 'AuthController@resetPassword');
 
 
 
@@ -32,7 +32,7 @@ Route::get('/Auth','AuthController@index');
 Route::get('/Register','RegisterController@index');
 Route::get('/ForgetPassword','AuthController@forgetPassword');
 Route::post('/ForgetPasswordSendMail', 'AuthController@forgetPasswordSendMail');
-
+Route::post('/ResetPasswordPost', 'AuthController@resetPasswordPost');
 
 Route::group(['middleware' => ['jwt.verify.web']], function() {
 

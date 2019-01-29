@@ -72,9 +72,9 @@
 
 <script>
     $(document).ready(function() {
-        if($("#response_message").val() == "true")
+        if($("#response_message").val() != null)
         {
-            alert("Send mail already.");
+            alert($("#response_message").val());
         }
     });
 
@@ -92,7 +92,6 @@
                 }
                 else
                 {
-                    $('#form_email').submit();
                     alert(res.detail);
                     return false;
                 }
