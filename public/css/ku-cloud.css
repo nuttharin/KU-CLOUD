@@ -1,4 +1,7 @@
 
+    .card p{
+        font-size: 14px;
+    }
     a.btn:link,
     a.btn:visited {
         text-transform: uppercase;
@@ -11,7 +14,7 @@
     }
 
     a.btn:hover {
-        color:#fff;
+        color:inherit;
         transform: translateY(-3px);
         box-shadow: 0 10px 20px rgba(0,0,0,.2);
     }
@@ -21,10 +24,16 @@
         box-shadow: 0 5px 10px rgba(0,0,0,.2);
     }
 
-    a.btn-white{
+    a.btn-green{
         width: 40%;
         background-color:#00ce68;
         color:#fff;
+    }
+
+    a.btn-white{
+        width: 40%;
+        background-color:#fff;
+        color:#777;
     }
 
     a.btn::after{
@@ -40,11 +49,46 @@
         transition: all .4s;
     }
 
-    a.btn-white::after{
+    a.btn-green::after{
         background-color: #00ce68;
+    }
+
+    a.btn-white::after{
+        background-color: #ffffff;
     }
 
     a.btn:hover::after{
         transform: scaleX(1.4) scaleY(1.6);
         opacity: 0;
     }
+
+    .card {
+        transition: all .4s;
+        background-color: rgba(255,255,255,.8);
+        height: 500px;
+        box-shadow: none;
+        border:0;
+    }
+    .card:hover{
+        box-shadow: 0 10px 20px rgba(0,0,0,.2);
+        transform: scale(1.1) !important;
+    }
+
+    .fa-gradient-blue {
+        background: linear-gradient(45deg,#4099ff,#73b4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .fa-gradient-green {
+        background: linear-gradient(45deg,#00ce68,#8eff94);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .fa-gradient-yellow {
+        background: linear-gradient(45deg,#FFB64D,#ffcb80);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
