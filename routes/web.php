@@ -73,6 +73,10 @@ Route::group(['middleware' => ['jwt.verify.web']], function() {
     Route::get('/Admin/Service/EditService/{id}','AdminController@EditService');
 
     Route::get('/Admin/Infographic/{id}','AdminController@InfographicCustom');
+
+    /* Customer */
+    Route::get('/Customer/User','CustomerController@index');
+    Route::get('/Customer/Infographic','CustomerController@Infographic');
 });
 
 
