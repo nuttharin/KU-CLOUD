@@ -452,4 +452,10 @@ class CompanyController extends Controller
         ];
         $this->static->createDatasource($data);
     }
+
+    public function deleteDatasourceByStatic(Request $request){
+        $static_id = $request->get('static_id');
+        $id = $request->get('id');
+        $this->static->deleteDatasourceByStatic($static_id,$id);
+    }
 }

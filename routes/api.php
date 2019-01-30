@@ -97,10 +97,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/static/{static_id}','Api\CompanyController@getStaticDashboardById');
     Route::put('company/static','Api\CompanyController@updateStatic');
     Route::put('company/static/dashboard','Api\CompanyController@updateStaticDashboard');
+    
     Route::delete('company/static','Api\CompanyController@deleteStatic');
 
     Route::get('company/staticDatasource','Api\CompanyController@getDatasourceStatic');
     Route::post('company/static/datasource','Api\CompanyController@addDatasourceStatic');
+    Route::delete('company/static/datasource','Api\CompanyController@deleteDatasourceByStatic');
+
     Route::post('company/gettabledw','Api\CompanyController@getAllWebserviceData');
     
     /* Admin */

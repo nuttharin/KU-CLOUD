@@ -28,5 +28,5 @@ interface StaticRepository
 
     public function updateDatasource(array $attr);
 
-    public function deleteDatasource(array $attr);
+    public function deleteDatasourceByStatic($static_id, $id);
 }

@@ -17,6 +17,12 @@ use Auth;
 use DB;
 use Illuminate\Support\Facades\Hash;
 
+
+use email;
+use Mail;
+use Illuminate\Mail\Message;
+
+
 class EloquentUsers implements UsersRepository
 {
 

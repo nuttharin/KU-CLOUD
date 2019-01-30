@@ -57,13 +57,16 @@
     }
 
     .remove-value,
-    .remove-param {
+    .remove-param,
+    .remove-datasource {
+        transition: all 0.3s;
         cursor: pointer;
     }
 
     .remove-value:hover,
-    .remove-param:hover {
-        transition: all 0.3s;
+    .remove-param:hover,
+    .remove-datasource:hover {
+        transform: scale(1.1);  
         color: #e65251
     }
 
@@ -159,7 +162,8 @@
         <div class="col-6 d-flex align-content-center">
             <h3 class="mr-2">Static</h3>
             <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add
-                Datasource</button>
+                Datasources
+            </button>
         </div>
         <div class="col-6 text-right">
             <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add
@@ -168,7 +172,7 @@
             <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
             <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i class="fas fa-times"></i></button>
         </div>
-        <div class="col-12" id="list-datasource">
+        <div class="col-12" id="list_datasource">
 
         </div>
     </div>
@@ -313,7 +317,7 @@
                                     <input type="text" class="form-control label-y-chart-line">
                                 </div>
                                 <div class="col-1">
-                                    <label for="">RGB <span class="text-danger">*</span></label>
+                                    <label for="">Color <span class="text-danger">*</span></label>
                                     <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
                                 </div>
                             </div>
@@ -730,7 +734,7 @@
             <input type="text" class="form-control label-y-chart-line">
         </div>
         <div class="col-1">
-            <label for="">RGB <span class="text-danger">*</span></label>
+            <label for="">Color <span class="text-danger">*</span></label>
             <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center" style="margin-top:30px">
