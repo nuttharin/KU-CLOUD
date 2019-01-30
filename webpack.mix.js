@@ -67,7 +67,7 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
 //     }
 // }
 
- mix.browserSync('http://localhost:8000');
+//  mix.browserSync('http://localhost:8000');
 
 
 if (mix.inProduction()) {

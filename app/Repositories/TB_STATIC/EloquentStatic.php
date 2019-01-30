@@ -138,8 +138,19 @@ class EloquentStatic implements StaticRepository
         // TODO: Implement updateDatasource() method.
     }
 
-    public function deleteDatasource(array $attr)
+    public function deleteDatasourceByStatic($static_id, $id)
     {
         // TODO: Implement deleteDatasource() method.
+        DB::beginTransaction();
+        try {
+            $data = TB_STATIC_DATASOURCE::where([
+                ['static_id', $static_id],
+                ['id', $id],
+            ])->delete();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
     }
 }

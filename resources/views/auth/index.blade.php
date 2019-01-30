@@ -1,10 +1,16 @@
-@extends('layouts.login')
+@extends('layouts.home')
 @section('content')
 <style>
     body{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        
+        background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
+        background-size: 400% 400%;
+        -webkit-animation: Gradient 15s ease infinite;
+        -moz-animation: Gradient 15s ease infinite;
+        animation: Gradient 15s ease infinite;
     }
 
     #form_login {
@@ -42,11 +48,11 @@
     .header {
         text-align: center;
         color: #fff;
-        background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
+        /* background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
-        animation: Gradient 15s ease infinite;
+        animation: Gradient 15s ease infinite; */
         
       
         height: 100vh;
@@ -58,7 +64,7 @@
     }
 
     .content-wrapper {
-        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+        /* background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); */
         top: 100%;
         z-index: 2;
         width: 100%;
@@ -69,11 +75,11 @@
     .login-wrapper {
         color: #000;
         top: 100%;
-        background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
+        /* background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
-        animation: Gradient 15s ease infinite; 
+        animation: Gradient 15s ease infinite;  */
         width: 100%;
         z-index: 3;
         height: 100vh;
@@ -128,9 +134,10 @@
         }
     }
 </style>
+
 <link href="{{url('css/ku-cloud.css')}}" rel="stylesheet">
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
-<link href="{{asset('js/aos/aos.css')}}"  rel="stylesheet">
+<link href="{{asset('js/aos/aos.css')}}" rel="stylesheet">
 
 
 <header class="header">
@@ -155,7 +162,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-4">
-                    <div class="card d-flex bg-c-blue" data-aos="fade-down">
+                    <div class="card d-flex" data-aos="fade-down">
                         <div class="card-body">
                             <div class="text-center">
                                 <i class="fas fa-shield-alt fa-6x fa-gradient-green"></i>
@@ -165,9 +172,11 @@
                             </div>
                             <div class="card-text mt-5">
                                 <p>
-                                    Data on KU CLOUD will encryption all data api and your iot device registered make sure you can trust us
-                                    to store data on KU CLOUD if you is private user not public user you can see more company at button 
-                                    SEE COMPANY IN 
+                                    Data on KU CLOUD will encryption all data api and your iot device registered make
+                                    sure you can trust us
+                                    to store data on KU CLOUD if you is private user not public user you can see more
+                                    company at button
+                                    SEE COMPANY IN
                                     KU CLOUD
                                 </p>
                             </div>
@@ -184,9 +193,10 @@
                                 <h4>Database storage NoSQL</h4>
                             </div>
                             <p class="card-text mt-5">
-                               You can register api from other where or your iot device to store in database KU CLOUD
-                               you can select value from api and set value form your iot device to access data and you can set
-                               public or private your api and iot device
+                                You can register api from other where or your iot device to store in database KU CLOUD
+                                you can select value from api and set value form your iot device to access data and you
+                                can set
+                                public or private your api and iot device
                             </p>
                         </div>
                     </div>
@@ -201,26 +211,28 @@
                                 <h4>Realtime and analysis data</h4>
                             </div>
                             <p class="card-text mt-5">
-                                You can access data from your api or iot device registered to show result to 
-                                realtime or static and we have widgets such as muti line , table , text/value , map , gauges, radar and textbox
-                                all of this make you to visualization data very easy. moreover we have infographic to make your report
+                                You can access data from your api or iot device registered to show result to
+                                realtime or static and we have widgets such as muti line , table , text/value , map ,
+                                gauges, radar and textbox
+                                all of this make you to visualization data very easy. moreover we have infographic to
+                                make your report
                                 and you can export to images , excel and pdf file
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 text-center mt-5" >
-                    <a href="#" class="btn btn-white mt-3 animated fadeIn" id="Login" >See company in KU CLOUD</a>
+                <div class="col-12 text-center mt-5">
+                    <a href="#" class="btn btn-white mt-3 animated fadeIn" id="Login">See company in KU CLOUD</a>
                 </div>
             </div>
         </div>
-       
+
     </section>
 </main>
 
 <div class="login-wrapper">
     <div class="d-flex flex-column justify-content-center align-items-center " style="margin: 20px;height: 100vh;">
-        <form id="form_login"  data-aos="zoom-in">
+        <form id="form_login" data-aos="zoom-in">
             <i class="fas fa-times fa-1x" style="float:right" id="btn-close-login"></i>
             <div class="alert alert-danger" style="display:none">
             </div>
@@ -245,76 +257,85 @@
 
 
 <footer>
-    
+
 </footer>
 
-    <script src="{{asset('js/aos/aos.js')}}"></script>
-    <script>
-        $(document).ready(function () {
-            // let height = $(window).height();
-            // $("#header").height(height);
+<script src="{{asset('js/aos/aos.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        // let height = $(window).height();
+        // $("#header").height(height);
 
-            // $(window).resize(function () {
-            //     $("#header").height(height);
-            // });
-            AOS.init();
-            $("#Login").click(function () {
-                // $(".login-wrapper").animate({
-                //     "top": "0"
-                // })
-                // $("#d-flex-login").animate({
-                //     "height": height
-                // })
-                $('html, body').animate({
-                    scrollTop: $(".login-wrapper").offset().top
-                    }, 800, function(){
+        // $(window).resize(function () {
+        //     $("#header").height(height);
+        // });
+        AOS.init();
+        $("#Login").click(function () {
+            // $(".login-wrapper").animate({
+            //     "top": "0"
+            // })
+            // $("#d-flex-login").animate({
+            //     "height": height
+            // })
+            $('html, body').animate({
+                scrollTop: $(".login-wrapper").offset().top
+            }, 800, function () {
 
-                    
-                } );
-            });
 
-            $("#btn-close-login").click(function () {
-                // $(".login-wrapper").animate({
-                //     "top": "100%"
-                // })
-                $('html, body').animate({
-                    scrollTop: $(".header").offset().top
-                    }, 800, function(){
-
-                    
-                } );
-
-            })
-
-            $('#btn-submit-login').click(function () {
-                event.preventDefault();
-                $.ajax({
-                    url: "http://localhost:8000/api/Auth/Login",
-                    method: "POST",
-                    dataType: "json",
-                    data: {
-                        email: $("#email").val(),
-                        password: $("#pwd").val()
-                    },
-                    success: (res) => {
-                        setCookie("token", res.token);
-                        window.location = res.path;
-                    },
-                    error: (res) => {
-                        if (res.status === 500) {
-                            $(".alert ").show();
-                            $(".alert ").html("<strong>Error!</strong> Please check email " +
-                                $(
-                                    "#email").val() + " to verify.");
-                        }
-                    }
-                });
-            })
-
-            $("input,button").focus(function () {
-                $(".alert").hide();
             });
         });
 
-    </script>
-    @endsection
+        $("#btn-close-login").click(function () {
+            // $(".login-wrapper").animate({
+            //     "top": "100%"
+            // })
+            $('html, body').animate({
+                scrollTop: $(".header").offset().top
+            }, 800, function () {
+
+
+            });
+
+        });
+
+        $("a#about").click(function () {
+            $('html, body').animate({
+                scrollTop: $(".content-wrapper").offset().top -25
+            }, 800, function () {
+
+
+            });
+        });
+
+        $('#btn-submit-login').click(function () {
+            event.preventDefault();
+            $.ajax({
+                url: "http://localhost:8000/api/Auth/Login",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    email: $("#email").val(),
+                    password: $("#pwd").val()
+                },
+                success: (res) => {
+                    setCookie("token", res.token);
+                    window.location = res.path;
+                },
+                error: (res) => {
+                    if (res.status === 500) {
+                        $(".alert ").show();
+                        $(".alert ").html("<strong>Error!</strong> Please check email " +
+                            $(
+                                "#email").val() + " to verify.");
+                    }
+                }
+            });
+        })
+
+        $("input,button").focus(function () {
+            $(".alert").hide();
+        });
+    });
+
+</script>
+@endsection
