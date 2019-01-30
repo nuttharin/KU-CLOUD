@@ -45,7 +45,7 @@ class AuthController extends Controller
                 } else if ($user[0]->type_user == "COMPANY") {
                     return response()->json(['token' => $token->get(), 'path' => '/Company/User', 'status' => 200], 200);
                 } else if ($user[0]->type_user == "CUSTOMER") {
-                    return response()->json(['token' => $token->get(), 'path' => '', 'status' => 200], 200);
+                    return response()->json(['token' => $token->get(), 'path' => '/Customer/User', 'status' => 200], 200);
                 }
 
                 //return response()->json(compact('payload'));
