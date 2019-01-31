@@ -18,14 +18,27 @@ use Illuminate\Http\Request;
 // });
 
 
-Route::post('Auth','Api\AuthController@login');
+// Route::post('Auth','Api\AuthController@login');
 
-Route::post('login', 'UserController@authenticate');
+// Route::post('login', 'UserController@authenticate');
 
 Route::get('open', 'DataController@open'); //test
 
 Route::post('account/register','Api\AccountsController@register');
 
+Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'Auth'
+], function ($router) {
+
+    Route::post('Login', 'Api\AuthController@login');
+    Route::post('Logout', 'Api\AuthController@logout');
+    Route::post('Refresh', 'Api\AuthController@refresh');
+    Route::post('Me', 'Api\AuthController@me');
+
+});
 
 Route::group(['middleware' => ['jwt.verify']], function() {
    
@@ -84,10 +97,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/static/{static_id}','Api\CompanyController@getStaticDashboardById');
     Route::put('company/static','Api\CompanyController@updateStatic');
     Route::put('company/static/dashboard','Api\CompanyController@updateStaticDashboard');
+    
     Route::delete('company/static','Api\CompanyController@deleteStatic');
 
     Route::get('company/staticDatasource','Api\CompanyController@getDatasourceStatic');
     Route::post('company/static/datasource','Api\CompanyController@addDatasourceStatic');
+    Route::delete('company/static/datasource','Api\CompanyController@deleteDatasourceByStatic');
+
     Route::post('company/gettabledw','Api\CompanyController@getAllWebserviceData');
     
     /* Admin */

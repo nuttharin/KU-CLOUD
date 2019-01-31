@@ -23,7 +23,7 @@
         {   
             try{   
                 $token = isset($_COOKIE["token"]) ? $_COOKIE["token"]:"";
-                
+    
                 $request->headers->set("Authorization", "Bearer $token");//this is working
                 $response = $next($request);
                 $user = JWTAuth::parseToken()->authenticate();

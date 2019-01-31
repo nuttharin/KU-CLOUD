@@ -10,7 +10,7 @@ namespace App\Repositories\TB_STATIC;
 
 use App\TB_STATIC;
 use App\TB_STATIC_DATASOURCE;
-use App\TB_STATIC_COMPANY;
+use Auth;
 use DB;
 
 class EloquentStatic implements StaticRepository
@@ -19,31 +19,27 @@ class EloquentStatic implements StaticRepository
     public function getStaticByCompanyId($company_id)
     {
         // TODO: Implement getStaticByCompanyId() method.
-        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name FROM TB_STATIC
-                            INNER JOIN TB_STATIC_COMPANY ON TB_STATIC_COMPANY.static_id = TB_STATIC.static_id
-                            WHERE TB_STATIC_COMPANY.company_id = ?", [$company_id]);
+        $data = DB::table('TB_STATIC')->where(
+            'TB_USER_COMPANY.company_id', $company_id
+        )
+            ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_STATIC.user_id')
+            ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_USERS.user_id')
+            ->get(['TB_STATIC.static_id', 'TB_STATIC.name', 'TB_USERS.fname', 'TB_USERS.lname']);
 
         return $data;
     }
 
-    public function createStatic($name,$company_id)
+    public function createStatic($name)
     {
         // TODO: Implement createStatic() method.
         DB::beginTransaction();
-        try{
-            $data =  TB_STATIC::create([
-                'name'=>$name,
-                'dashboard'=>$company_id,
+        try {
+            $data = TB_STATIC::create([
+                'name' => $name,
+                'user_id' => Auth::user()->user_id,
+                'dashboard' => '{}',
             ]);
-
-            if(!empty($data)){
-                TB_STATIC_COMPANY::insert([
-                    'static_id'=>$data->static_id,
-                    'company_id'=>$company_id,
-                ]);
-            }
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -54,14 +50,16 @@ class EloquentStatic implements StaticRepository
         ];
     }
 
-    public function updateStatic($static_id,$name,$company_id)
+    public function updateStatic($static_id, $name, $company_id)
     {
         // TODO: Implement updateStatic() method.
         try {
-            $checkData = TB_STATIC_COMPANY::where([
-                ['static_id', '=', $static_id],
-                ['company_id', '=', $company_id]
-            ])->get();
+            $checkData = DB::table('TB_STATIC')->where([
+                ['TB_STATIC.static_id', '=', $static_id],
+                ['TB_USER_COMPANY.company_id', '=', $company_id],
+            ])
+                ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_STATIC.user_id')
+                ->get();
 
             if (!empty($checkData)) {
                 TB_STATIC::where([
@@ -70,40 +68,42 @@ class EloquentStatic implements StaticRepository
             } else {
                 return response()->json(["status", "Can not edit this static"], 201);
             }
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
         DB::commit();
-        return response()->json(["status","success"],201);
+        return response()->json(["status", "success"], 201);
     }
 
-    public function deleteStatic($static_id,$company_id)
+    public function deleteStatic($static_id, $company_id)
     {
         // TODO: Implement deleteStatic() method.
-        try{
-            TB_STATIC_COMPANY::where([
-                ['static_id','=',$static_id],
-                ['company_id','=',$company_id]
-            ])->delete();
+        try {
+            DB::table('TB_STATIC')->where([
+                ['TB_STATIC.static_id', '=', $static_id],
+                ['TB_USER_COMPANY.company_id', '=', $company_id],
+            ])
+                ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_STATIC.user_id')
+                ->delete();
 
-
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
         DB::commit();
-        return response()->json(["status","success"],201);
+        return response()->json(["status", "success"], 201);
     }
 
-    public function getStaticDashboardById($static_id,$company_id)
+    public function getStaticDashboardById($static_id, $company_id)
     {
         // TODO: Implement getStaticDashboardById() method.
-        $data = DB::select("SELECT TB_STATIC.static_id, TB_STATIC.name,TB_STATIC.dashboard FROM TB_STATIC
-                            INNER JOIN TB_STATIC_COMPANY ON TB_STATIC_COMPANY.static_id = TB_STATIC.static_id
-                            WHERE TB_STATIC_COMPANY.company_id = ? AND TB_STATIC_COMPANY.static_id = ?", [$company_id,$static_id]);
+        $data = TB_STATIC::where([
+            ['TB_USER_COMPANY.company_id', $company_id],
+            ['TB_STATIC.static_id', $static_id],
+        ])
+            ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_STATIC.user_id')
+            ->get(['TB_STATIC.static_id', 'TB_STATIC.name', 'TB_STATIC.dashboard']);
         return $data;
     }
 
@@ -113,14 +113,17 @@ class EloquentStatic implements StaticRepository
 
     }
 
-    public function getDatasoureByStaticId($static_id,$company_id)
+    public function getDatasoureByStaticId($static_id, $company_id)
     {
-         // TODO: Implement getDatasoureByStaticId() method.
-        $data = DB::select("SELECT TB_STATIC_DATASOURCE.id,TB_STATIC_DATASOURCE.name,TB_STATIC_DATASOURCE.timeInterval,TB_STATIC_DATASOURCE.body,TB_STATIC_DATASOURCE.headers,TB_WEBSERVICE.URL
-                            FROM TB_STATIC_COMPANY
-                            INNER JOIN TB_STATIC_DATASOURCE ON TB_STATIC_DATASOURCE.static_id = TB_STATIC_COMPANY.static_id
-                            INNER JOIN TB_WEBSERVICE ON TB_WEBSERVICE.webservice_id = TB_STATIC_DATASOURCE.webservice_id
-                            WHERE TB_STATIC_COMPANY.static_id = ? AND TB_STATIC_COMPANY.company_id = ?",[$static_id,$company_id]);
+        // TODO: Implement getDatasoureByStaticId() method.
+        $data = TB_STATIC::where([
+            ['TB_USER_COMPANY.company_id', $company_id],
+            ['TB_STATIC.static_id', $static_id],
+        ])
+            ->join('TB_STATIC_DATASOURCE', 'TB_STATIC_DATASOURCE.static_id', '=', 'TB_STATIC.static_id')
+            ->join('TB_WEBSERVICE', 'TB_WEBSERVICE.webservice_id', '=', 'TB_STATIC_DATASOURCE.webservice_id')
+            ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_STATIC.user_id')
+            ->get(['TB_STATIC_DATASOURCE.id', 'TB_STATIC_DATASOURCE.name', 'TB_STATIC_DATASOURCE.timeInterval', 'TB_STATIC_DATASOURCE.body', 'TB_STATIC_DATASOURCE.headers', 'TB_WEBSERVICE.URL']);
         return $data;
     }
 
@@ -130,14 +133,24 @@ class EloquentStatic implements StaticRepository
         TB_STATIC_DATASOURCE::create($attr);
     }
 
-
     public function updateDatasource(array $attr)
     {
         // TODO: Implement updateDatasource() method.
     }
 
-    public function deleteDatasource(array $attr)
+    public function deleteDatasourceByStatic($static_id, $id)
     {
         // TODO: Implement deleteDatasource() method.
+        DB::beginTransaction();
+        try {
+            $data = TB_STATIC_DATASOURCE::where([
+                ['static_id', $static_id],
+                ['id', $id],
+            ])->delete();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
     }
 }

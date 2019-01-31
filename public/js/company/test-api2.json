@@ -7,8 +7,7 @@
         "CopyRight": "Thai Meteorology Department 2015",
         "Generator": "TMDData_API services"
     },
-    "Stations": [
-        {
+    "Stations": [{
             "WmoNumber": "48300",
             "StationNameTh": "แม่ฮ่องสอน",
             "StationNameEng": "MAE HONG SON",

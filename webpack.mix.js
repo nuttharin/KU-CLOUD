@@ -44,7 +44,8 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     // .js('resources/js/containers/company/Accounts/Accounts.js', 'public/js/company/account')
     .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 
-    .js('resources/js/company/account/account.min.js', 'public/js/company/account')
+    .js('resources/js/account/account.min.js', 'public/js/company/account')
+    .js('resources/js/account/register.min.js', 'public/js/account/')
     .js('resources/js/company/static/dashboard.min.js', 'public/js/admin/static')
     .js('resources/js/company/users/users.min.js', 'public/js/company/users')
     .js('resources/js/company/customer/customer.min.js', 'public/js/company/customer')
@@ -56,13 +57,18 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/admin/Users/CustomerUser.min.js', 'public/js/admin/Users/CustomerUser.min.js')
     .js('resources/js/ManagementAdminUsers.min.js', 'public/js/ManagementAdminUsers.min.js')
 
-    .js('resources/js/admin/Infographic/infographicDataTable.min.js', 'public/js/admin/Infographic/infographicDataTable.min.js');
+    .js('resources/js/admin/Infographic/infographicDataTable.min.js', 'public/js/admin/Infographic/infographicDataTable.min.js')
+
+    .sass('resources/sass/main.scss', 'public/css');
 
 // if (mix.inProduction) {
 //     if (process.env.npm_lifecycle_event !== 'hot') {
 //         mix.version();
 //     }
 // }
+
+//  mix.browserSync('http://localhost:8000');
+
 
 if (mix.inProduction()) {
     mix.version();

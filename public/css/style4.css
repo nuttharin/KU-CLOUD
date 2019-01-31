@@ -3,6 +3,8 @@
 */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+
+
 body {
     font-family: 'Poppins', 'Kanit', sans-serif;
     background: #f2f3f9;
@@ -325,7 +327,7 @@ ul ul a {
     padding: 20px;
     min-height: calc(100vh - 63px);
     transition: all 0.3s;
-    background-color: #f2f3f9;
+    background-color: #f2f8f9;
     margin-top: 50px;
     /* add by team */
     margin-left: 250px;
