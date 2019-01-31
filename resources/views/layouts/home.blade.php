@@ -76,16 +76,16 @@
                 <div class="col-4">
                     <div class="row">
                         <div class="col-3">
-                            <span class="nav-link" id="about" href="#">ABOUT</span>
+                            <span class="nav-link" id="about" href="#" style="cursor:pointer;">ABOUT</span>
                         </div>
                         <div class="col-3">
-                            <span class="nav-link" href="#">CONTACT</span>
+                            <span class="nav-link" href="#" style="cursor:pointer;">CONTACT</span>
                         </div>
                         <div class="col-3">
-                            <span class="nav-link" id="nav_register" href="#">REGISTER</span>
+                            <span class="nav-link" id="nav_register" href="#" style="cursor:pointer;">REGISTER</span>
                         </div>
                         <div class="col-3">
-                            <span class="nav-link nav_login" id="nav_login" href="#">LOGIN</span>
+                            <span class="nav-link nav_login" id="nav_login" href="#" style="cursor:pointer;">LOGIN</span>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
 
     <script type="text/javascript" src="{{asset('js/Global.js')}}"></script>
     <!-- Page Content  -->
-    <div id="content-login">
+    <div id="content-login" style="background-image: url('imagehome/startpagev3.jpg'); background-size:contain;">
         @yield('content')
     </div>
 

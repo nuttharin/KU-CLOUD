@@ -5,7 +5,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        background-image: url('imagehome/startpagev1.jpg');
+    
         /* background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;

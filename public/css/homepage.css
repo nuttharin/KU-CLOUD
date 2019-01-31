@@ -24,6 +24,18 @@
     border-radius: 4px;
 }
 
+@media screen and (max-width: 850px) {
+    .model {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .model {
+        width: 90%;
+    }
+}
+
 .model-content{
     background-color: #fefefe;
     margin: 5% auto;
