@@ -13,6 +13,16 @@ use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
 use App\TB_STATIC;
 use App\TB_USERS;
 use App\TB_WEBSERVICE;
+use App\TB_REGISTER_WEBSERVICE;
+use App\TB_STATIC;
+use App\TB_STATIC_COMPANY;
+use File;
+use email;
+use Mail;
+use Illuminate\Mail\Message;
+
+use App\LogViewer\LogViewer;
+
 use Auth;
 use DB;
 use Gate;
@@ -376,6 +386,35 @@ class CompanyController extends Controller
         return response()->json(["status", "success"], 200);
     }
 
+    public function downloadJSONFile(Request $request)
+    {
+        // $detail_tryit = $request->get('jsondata');
+        // $data = json_encode($detail_tryit);
+        // $fileName = time() . '_datafile.json';
+        // $headers = ['Content-Type' => 'application/่json',];
+        // return response()->json(compact('data'),200);
+        
+        $detail_tryit = $request->get('jsondata');
+        $filename = json_encode($detail_tryit);
+        $tempImage = tempnam(sys_get_temp_dir(), $filename);
+        return response()->download($tempImage, $filename);
+        
+        // $detail_tryit = $request->get('jsondata');
+        // $data = json_encode($detail_tryit);
+        // $fileName = time() . '_datafile.json';
+        // File::put(public_path('/upload/json/'.$fileName),$data);
+        // $headers = ['Content-Type' => 'application/่json',];
+        // return response()->download(File::put(public_path('/upload/json/'.$fileName),$data), $filename, $headers);
+        
+       
+        
+        // $detail_tryit = $request->get('jsondata');
+        // $data = json_encode($detail_tryit);
+        // $fileName = time() . '_datafile.json';
+        // File::put(public_path('/upload/json/'.$fileName),$data);
+        // return Response::download(public_path('/upload/jsonfile/'.$fileName));
+    }
+ 
     public function getKeyiot()
     {
         $key = 'klflvpekvlvep[clep[lc';

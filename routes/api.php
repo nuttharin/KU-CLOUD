@@ -102,7 +102,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::delete('company/static/datasource', 'Api\CompanyController@deleteDatasourceByStatic');
 
     Route::post('company/gettabledw', 'Api\CompanyController@getAllWebserviceData');
-
+    Route::post('company/webservice/downloadJSONFile', 'Api\CompanyController@downloadJSONFile');
     /* Admin */
     Route::get('admin/administer', 'Api\AdminController@getAllAdminister');
     Route::post('admin/administer/create', 'Api\AdminController@createAdminister');

@@ -267,6 +267,29 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+#paramater {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+    }
+
+    #paramater td, #paramater th {
+        border: 1px solid #308ee0;
+        padding: 8px;
+        color:black;
+    }
+
+    /* #paramater tr:nth-child(even){background-color: #f2f2f2;} */
+
+    #paramater tr:hover {background-color: #cedfed;}
+
+    #paramater th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #308ee0;
+        color: white;
+    }
+
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>
 <link href="{{url('jstree/style.min.css')}}" rel="stylesheet" />
@@ -310,9 +333,67 @@
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="Webservice description" ></textarea>
             <div class="row">
-                <div class="col-sm-6">
-                        <h6 >Update times (Hours)<span style="color:red">*</span></h6>
-                        <input type="number" min="1" max="24" class="mb-2" id="time-webservice" name="time-webservice" placeholder="time">
+                <div class="col-sm-12">
+                        <h6 >Update Data<span style="color:red">*</span></h6>
+                        <!-- Modal -->
+                        <div class="modal fade" id="howtouse-crontrab" role="dialog">
+                            <div class="modal-dialog">
+                            
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Cron Syntax</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                <h5>Allowed fields</h5><br/>
+                                <center>
+                                <img src="{{url('photos/crontab.jpg')}}" alt="Italian Trulli">
+                                </center>
+                                <hr/>
+                                <h5>Allowed values</h5><br/>
+                                <center>
+                                <table id="paramater">
+                                    <thead>
+                                        <th>field</th>
+                                        <th>value</th>
+                                    </thead>
+                                    <tbody>
+                                        <td>second</td>
+                                        <td>0-59</td>
+                                    <tr>
+                                        <td>minute</td>
+                                        <td>0-59</td>
+                                    <tr>
+                                        <td>hour</td>
+                                        <td>0-23</td>
+                                    <tr>
+                                        <td>day of month</td>
+                                        <td>1-31</td>
+                                    <tr>
+                                        <td>month</td>
+                                        <td>1-12 (or names)</td>
+                                    <tr>
+                                        <td>day of week</td>
+                                        <td>0-7 (or names, 0 or 7 are sunday)</td>
+                                    </tbody>
+                                </table>
+                                </center>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                        <input style="width:10%" title="second" class="" id="time-webservice" name="time-webservice" placeholder="*">
+                        <input style="width:10%" title="minute" class="" id="time-webservice" name="time-webservice" placeholder="*">
+                        <input style="width:10%" title="hour" class="" id="time-webservice" name="time-webservice" placeholder="*">
+                        <input style="width:10%" title="day of month" class="" id="time-webservice" name="time-webservice" placeholder="*">
+                        <input style="width:10%" title="month" class="" id="time-webservice" name="time-webservice" placeholder="*">
+                        <input style="width:10%" title="day of week" class="" id="time-webservice" name="time-webservice" placeholder="*">
+                        <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
                 </div>
             </div>
             <button type="button" id="showvalue" class="btn btn-primary show-header"><a style="color:white" href="#select">Show value</a></button>  

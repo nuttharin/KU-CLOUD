@@ -374,9 +374,9 @@
                     <label  class="col-sm-2 control-label">Key</label>
                     <div class="col-sm-12">
                         <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
-                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot" disabled ></textarea>
+                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot" ></textarea>
                                              
-                        <button class="" id="CopyKey" data-clipboard-target="#Keyiot">Copy Key</button>
+                        <button class="" id="CopyKey" data-clipboard-target="#Keyiot"><i class="far fa-copy"></i></button>
                     </div>
                     
                 </div>
@@ -397,13 +397,13 @@
 
 
 <script>
-    var clipboard = new ClipboardJS('#btn');
-    // clipboard.on('success', function(e) {
-    //     console.log(e);
-    // });
-    // clipboard.on('error', function(e) {
-    //     console.log(e);
-    // });
+    var clipboard = new ClipboardJS('#CopyKey');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
 </script>
 
 
