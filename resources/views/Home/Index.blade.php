@@ -6,11 +6,11 @@
         padding: 0;
         box-sizing: border-box;
     
-        /* background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
+        background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
-        animation: Gradient 15s ease infinite; */
+        animation: Gradient 15s ease infinite;
     }
 
     #form_login {
@@ -47,15 +47,13 @@
 
     .header {
         text-align: center;
-        color: black;
+        color: #fff;
         /* background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
         animation: Gradient 15s ease infinite; */    
-        height: 100vh;
         z-index: 50;
-        min-height: 100vh;
         overflow: hidden;
         text-align: center;
         box-sizing: border-box;
@@ -152,14 +150,14 @@
         </div>
         <!-- <a href="#" class="btn btn-green mt-3 animated fadeIn" id="Login">Go to Site</a> -->
     </div>
-    <div class="d-xl-none d-lg-none d-block text-center main-parent" id="header_sm" style="height: 90vh;">
-        <div class="col-12 child-parent" style="top:15%;">
+    <div class="d-xl-none d-lg-none d-block text-center main-parent" id="header_sm" style="height:50vh">
+        <div class="col-12 child-parent" style="top:40%;">
             <h3 class="animated fadeInDown" style="font-size:50px">KU CLOUD</h3>
         </div>
-        <div class="col-12 child-parent" style="top:25%;">
+        <div class="col-12 child-parent" style="top:55%;">
             <h3 class="animated" data-aos="fade-up" style="font-size:20px">Private cloud for you</h3>
         </div>
-        <div class="col-12 child-parent" style="top:30%; cursor:pointer;">
+        <div class="col-12 child-parent" style="top:60%; cursor:pointer;">
             <i class="fas fa-chevron-down fa-3x mt-5 animated flash"></i>
         </div>
         <!-- <a href="#" class="btn btn-green mt-3 animated fadeIn" id="Login">Go to Site</a> -->

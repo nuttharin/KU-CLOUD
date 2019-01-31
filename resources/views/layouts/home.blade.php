@@ -97,7 +97,7 @@
                     <h3 class="text-left"><span style="color:#00ce68">KU</span> CLOUD</h3>
                 </div>
                 <div class="col-4">
-                    <span class="nav-link nav_login" href="#" style="font-size:80%;">REGISTER / LOGIN</span>
+                    <span class="nav-link nav_login" href="#" style="font-size:80%; cursor:pointer;">REGISTER / LOGIN</span>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
 
     <script type="text/javascript" src="{{asset('js/Global.js')}}"></script>
     <!-- Page Content  -->
-    <div id="content-login" style="background-image: url('imagehome/startpagev3.jpg'); background-size:contain;">
+    <div id="content-login">
         @yield('content')
     </div>
 
