@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\LogViewer\LogViewer;
-use Cookie;
-use DB;
 use Gate;
 use Illuminate\Support\Facades\Auth;
-use JWTAuth;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('customer.index')->with('user', Auth::user());
+        if (!Gate::allows('isCustomer')) {
+            abort('403', "Sorry, You can do this actions");
+        }
+    }
+
+    public function Index()
+    {
+        return view('Customer.Index')->with('user', Auth::user());
+    }
+
+    public function ManageCompany(){
+         return view('Customer.ManageCompany')->with('user', Auth::user());
+    }
+
+    public function ManageAccounts()
+    {
+        return view('Customer.ManageAccounts')->with('user', Auth::user());
     }
 
     public function Infographic()
