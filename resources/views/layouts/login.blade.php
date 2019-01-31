@@ -37,18 +37,18 @@
 </head>
 
 <body>
-    {{--
-    <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    
+    <!-- <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style="background: #fff">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <a class="navbar-brand brand-logo" style="margin-top:10px" href="#d">
                 <h3 class="text-center"><span style="color:#00ce68">KU</span> CLOUD</h3>
             </a>
             <a class="navbar-brand brand-logo-mini" style="margin-top:10px" href="#">
                 <h3 class="text-center" style="color:#00ce68">KU</h3>
-                <!-- <img src="./logo.png" alt="" height="30px"> -->
+               
             </a>
         </div>
-    </nav> --}}
+    </nav>  -->
 
     <script type="text/javascript" src="{{asset('js/Global.js')}}"></script>
     <!-- Page Content  -->

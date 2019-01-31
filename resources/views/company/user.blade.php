@@ -107,7 +107,7 @@
 
     <div class="col-12">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="card_table">
                 <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
                     <thead>
                         <tr>
@@ -124,8 +124,8 @@
                     <tbody>
                     </tbody>
                 </table>
-                {{--
-                <div class="lds-roller text-center" style="">
+           
+                <!-- <div class="lds-roller text-center" id="loading">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -134,7 +134,7 @@
                     <div></div>
                     <div></div>
                     <div></div>
-                </div> --}}
+                </div>  -->
             </div>
         </div>
     </div>
@@ -163,37 +163,37 @@
 
                 <form id="form-add-user">
                     <div class="row">
-                        <div class="col-6">
-                            <label for="">Email <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="email" id="add_email_val" />
+                        <div class="col-12 col-md-6">
+                            <label for="email">Email <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="email" id="add_email_val" placeholder="example@domain.com" />
                             <div class="messages-error"></div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <label for="">Password <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="password" id="add_pwd_val" />
                             <div class="messages-error"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <label for="">Firstname <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="firstname" id="add_fname_val" />
                             <div class="messages-error"></div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <label for="">Lastname <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="lastname" id="add_lname_val" />
                             <div class="messages-error"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <label for="">Phone <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="phone" id="add_phone_val" />
+                            <input type="tel" class="form-control" name="phone" id="add_phone_val" />
                             <div class="messages-error"></div>
                         </div>
-                        <div class="col-6">
-                            <label for="">Type User <span class="text-danger">*</span></label>
+                        <div class="col-12 col-md-6">
+                            <label for="">Type user <span class="text-danger">*</span></label>
                             <select id="add_type_user_val" class="form-control">
                                     <option>ADMIN</option>
                                     <option selected>GENERAL</option>

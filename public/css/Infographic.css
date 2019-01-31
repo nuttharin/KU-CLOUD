@@ -19,6 +19,10 @@ page[size="A4_115"] {
   height: 732px; 
 }
 
+.modal-dialog {
+  max-width: 800px;
+}
+
 /* Main Menu */
 .vertical-menu {
   width: 10px;

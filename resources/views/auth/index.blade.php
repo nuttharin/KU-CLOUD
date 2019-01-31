@@ -1,6 +1,18 @@
-@extends('layouts.login') 
+@extends('layouts.home')
 @section('content')
 <style>
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        
+        background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
+        background-size: 400% 400%;
+        -webkit-animation: Gradient 15s ease infinite;
+        -moz-animation: Gradient 15s ease infinite;
+        animation: Gradient 15s ease infinite;
+    }
+
     #form_login {
         width: 35%;
         margin: auto;
@@ -36,13 +48,14 @@
     .header {
         text-align: center;
         color: #fff;
-        background: linear-gradient(-45deg, #556cdc, #128bfc, #23A6D5, #23D5AB);
+        /* background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
-        animation: Gradient 15s ease infinite;
-        position: fixed;
-        width: 100vw;
+        animation: Gradient 15s ease infinite; */
+        
+      
+        height: 100vh;
         z-index: 1;
         min-height: 100vh;
         overflow: hidden;
@@ -51,34 +64,27 @@
     }
 
     .content-wrapper {
-        background-color: #f2f3f9;
+        /* background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); */
         top: 100%;
-        position: absolute;
         z-index: 2;
         width: 100%;
+        height: 100vh;
         overflow: hidden;
     }
 
     .login-wrapper {
         color: #000;
         top: 100%;
-        background: linear-gradient(-45deg, #556cdc, #128bfc, #23A6D5, #23D5AB);
+        /* background: linear-gradient(-45deg, #00e4d0, #5983e8, #23A6D5, #23D5AB);
         background-size: 400% 400%;
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
-        animation: Gradient 15s ease infinite;
-        position: fixed;
+        animation: Gradient 15s ease infinite;  */
         width: 100%;
         z-index: 3;
-        height: 100%;
+        height: 100vh;
         overflow: hidden;
     }
-
-    #content {
-        position: unset !important;
-        padding: 0;
-    }
-
 
     .modal-content {
         border-radius: 15px !important;
@@ -128,80 +134,105 @@
         }
     }
 </style>
+
+<link href="{{url('css/ku-cloud.css')}}" rel="stylesheet">
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
+<link href="{{asset('js/aos/aos.css')}}" rel="stylesheet">
+
+
 <header class="header">
-    <div class="d-flex flex-column justify-content-center align-items-center" id="header">
-        <div id="div_header">
-            <h1 class="display-1 animated fadeInDown ">KU CLOUD</h1>
-            <h1 class="display-4 animated fadeInUp ">Private cloud for you</h1>
-            <i class="fas fa-chevron-down fa-3x mt-5 animated flash"></i>
-        </div>
-        <button class="btn btn-success btn-lg btn-radius mt-3 animated fadeIn" id="Login" style="width:50% ">Go to Site</button>
+    <div class="d-flex flex-column justify-content-center align-items-center" id="header" style="margin: 20px;height: 100vh;">
+        <h1 class="display-1 animated fadeInDown ">KU CLOUD</h1>
+        <h1 class="display-4 animated" data-aos="fade-up">Private cloud for you</h1>
+        <i class="fas fa-chevron-down fa-3x mt-5 animated flash"></i>
+        <a href="#" class="btn btn-green mt-3 animated fadeIn" id="Login">Go to Site</a>
     </div>
 </header>
 
+<!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla porta mauris et
+                                tincidunt. Ut ac viverra mi. Praesent
+                                quis vehicula tellus. Proin dapibus ornare orci, sed sollicitudin metus fringilla et.
+                                Mauris
+                                consectetur ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel,
+                                sollicitudin
+                                tristique lorem. Vestibulum -->
 
-
-<div class="content-wrapper d-flex flex-column justify-content-around align-items-center">
+<main class="content-wrapper d-flex flex-column justify-content-around">
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-12 text-center">
-                    <h2>ABOUT KU CLOUD</h2>
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="card">
+                <div class="col-12 col-md-4">
+                    <div class="card d-flex" data-aos="fade-down">
                         <div class="card-body">
-                            <h4 class="card-title">Lorem ipsum</h4>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent
-                                quis vehicula tellus. Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris
-                                consectetur ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
-                                tristique lorem. Vestibulum
+                            <div class="text-center">
+                                <i class="fas fa-shield-alt fa-6x fa-gradient-green"></i>
+                            </div>
+                            <div class="card-title text-center mt-4">
+                                <h4>Security</h4>
+                            </div>
+                            <div class="card-text mt-5">
+                                <p>
+                                    Data on KU CLOUD will encryption all data api and your iot device registered make
+                                    sure you can trust us
+                                    to store data on KU CLOUD if you is private user not public user you can see more
+                                    company at button
+                                    SEE COMPANY IN
+                                    KU CLOUD
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card" data-aos="fade-down">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <i class="fas fa-database fa-6x fa-gradient-blue"></i>
+                            </div>
+                            <div class="card-title text-center mt-4">
+                                <h4>Database storage NoSQL</h4>
+                            </div>
+                            <p class="card-text mt-5">
+                                You can register api from other where or your iot device to store in database KU CLOUD
+                                you can select value from api and set value form your iot device to access data and you
+                                can set
+                                public or private your api and iot device
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="card">
+                <div class="col-12 col-md-4">
+                    <div class="card" data-aos="fade-down">
                         <div class="card-body">
-                            <h4 class="card-title">Lorem ipsum</h4>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent
-                                quis vehicula tellus. Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris
-                                consectetur ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
-                                tristique lorem. Vestibulum
+                            <div class="text-center">
+                                <i class="fas fa-chart-line fa-6x fa-gradient-yellow"></i>
+                            </div>
+                            <div class="card-title text-center mt-4">
+                                <h4>Realtime and analysis data</h4>
+                            </div>
+                            <p class="card-text mt-5">
+                                You can access data from your api or iot device registered to show result to
+                                realtime or static and we have widgets such as muti line , table , text/value , map ,
+                                gauges, radar and textbox
+                                all of this make you to visualization data very easy. moreover we have infographic to
+                                make your report
+                                and you can export to images , excel and pdf file
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Lorem ipsum</h4>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla porta mauris et tincidunt. Ut ac viverra mi. Praesent
-                                quis vehicula tellus. Proin dapibus ornare orci, sed sollicitudin metus fringilla et. Mauris
-                                consectetur ultricies mi non condimentum. Aliquam lacus arcu, ornare a urna vel, sollicitudin
-                                tristique lorem. Vestibulum
-                            </p>
-                        </div>
-                    </div>
+                <div class="col-12 text-center mt-5">
+                    <a href="#" class="btn btn-white mt-3 animated fadeIn" id="Login">See company in KU CLOUD</a>
                 </div>
             </div>
         </div>
-    </section>
 
-</div>
+    </section>
+</main>
 
 <div class="login-wrapper">
-
-    <div class="d-flex flex-column justify-content-center align-items-center " id="d-flex-login">
-
-        <form id="form_login">
+    <div class="d-flex flex-column justify-content-center align-items-center " style="margin: 20px;height: 100vh;">
+        <form id="form_login" data-aos="zoom-in">
             <i class="fas fa-times fa-1x" style="float:right" id="btn-close-login"></i>
             <div class="alert alert-danger" style="display:none">
             </div>
@@ -212,7 +243,8 @@
             <input type="password" class="form-control" id="pwd" placeholder="******">
             <button class="btn btn-success btn-block btn-radius mt-3" id="btn-submit-login">Login</button>
             <div class="form-group d-flex justify-content-center mt-3 my-2">
-                <a href="#" class="text-small forgot-password text-black">Forgot Password</a>
+                <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot
+                    Password</a>
 
             </div>
             <div class="text-block text-center my-3">
@@ -224,29 +256,61 @@
 </div>
 
 
+<footer>
 
+</footer>
+
+<script src="{{asset('js/aos/aos.js')}}"></script>
 <script>
     $(document).ready(function () {
-        let height = $(window).height();
-        $("#header").height(height);
+        // let height = $(window).height();
+        // $("#header").height(height);
 
-        $(window).resize(function () {
-            $("#header").height(height);
-        });
-
+        // $(window).resize(function () {
+        //     $("#header").height(height);
+        // });
+        AOS.init();
         $("#Login").click(function () {
-            $(".login-wrapper").animate({ "top": "0" })
-            $("#d-flex-login").animate({ "height": height })
+            // $(".login-wrapper").animate({
+            //     "top": "0"
+            // })
+            // $("#d-flex-login").animate({
+            //     "height": height
+            // })
+            $('html, body').animate({
+                scrollTop: $(".login-wrapper").offset().top
+            }, 800, function () {
+
+
+            });
         });
 
         $("#btn-close-login").click(function () {
-            $(".login-wrapper").animate({ "top": "100%" })
-        })
+            // $(".login-wrapper").animate({
+            //     "top": "100%"
+            // })
+            $('html, body').animate({
+                scrollTop: $(".header").offset().top
+            }, 800, function () {
+
+
+            });
+
+        });
+
+        $("a#about").click(function () {
+            $('html, body').animate({
+                scrollTop: $(".content-wrapper").offset().top -25
+            }, 800, function () {
+
+
+            });
+        });
 
         $('#btn-submit-login').click(function () {
             event.preventDefault();
             $.ajax({
-                url: "http://localhost:8000/api/Auth",
+                url: "http://localhost:8000/api/Auth/Login",
                 method: "POST",
                 dataType: "json",
                 data: {
@@ -254,21 +318,23 @@
                     password: $("#pwd").val()
                 },
                 success: (res) => {
-                    console.log(res);
                     setCookie("token", res.token);
                     window.location = res.path;
                 },
                 error: (res) => {
-                    console.log(res);
                     if (res.status === 500) {
                         $(".alert ").show();
-                        $(".alert ").html("<strong>Error!</strong> Please check email " + $("#email").val() + " to verify.");
+                        $(".alert ").html("<strong>Error!</strong> Please check email " +
+                            $(
+                                "#email").val() + " to verify.");
                     }
                 }
             });
         })
 
-        $("input,button").focus(function () { $(".alert").hide(); });
+        $("input,button").focus(function () {
+            $(".alert").hide();
+        });
     });
 
 </script>

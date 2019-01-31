@@ -8,6 +8,7 @@ class DataSource
     DataSourceModel(infoID)
     {  
         let listDatasource = null;
+        $("#addDatasource").remove();
         let datasourceModel = `
         <div class="modal fade" id="addDatasource">
             <div class="modal-dialog modal-lg">
@@ -74,6 +75,7 @@ class DataSource
                 },
                 success: (res) => {
                     $("#addDatasource").modal('hide');
+                    $("#addDatasource").remove();
                 },
                 error: (res) => {
                     console.log(res);

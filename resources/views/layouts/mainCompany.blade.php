@@ -23,7 +23,8 @@
 
     <!-- Font Awesome JS -->
     <link href="{{asset('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
-    <link rel="stylesheet" href={{asset( 'css/style4.css')}}>
+    <link rel="stylesheet" href={{asset( 'css/main.css')}}>
+    <!-- <link rel="stylesheet" href={{asset( 'css/style4.css')}}> -->
     <link rel="stylesheet" href={{asset( 'css/style-theme.css')}}>
 
     <!-- I-check -->
@@ -33,8 +34,7 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.js"></script>
 
     <!-- gridstack -->
@@ -106,10 +106,12 @@
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
         <ul class="nav navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
-                    <img class="img-xs rounded-circle" width="30" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}" alt="Profile image">
-                  </a>
+                <a class="nav-link dropdown-toggle user-dropdown" id="UserDropdown"  href="#" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
+                    <img class="img-xs rounded-circle" width="30" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}"
+                        alt="Profile image">
+                </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <a class="dropdown-item ">
                         <div class="d-flex border-bottom">
@@ -123,15 +125,16 @@
                                 <i class="far fa-bell text-muted"></i>
                             </div>
                         </div>
+                      
                     </a>
                     <a class="dropdown-item mt-2" href="{{action('CompanyController@manageAccounts')}}">
-                      Manage Accounts
+                        Manage Accounts
                     </a>
                     <a class="dropdown-item">
-                      Check Inbox
+                        Check Inbox
                     </a>
                     <a class="dropdown-item" href="{{action('CompanyController@Logout')}}">
-                      Sign Out
+                        Sign Out
                     </a>
                 </div>
             </li>
@@ -188,7 +191,7 @@
                             <a href="{{action('CompanyController@service')}}">Web Service</a>
                         </li>
 
-                        
+
                         <li class="nav-item">
                             <a href="{{action('CompanyController@Output_service')}}">Output Service</a>
                         </li>
@@ -255,20 +258,21 @@
 
 
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" class="content">
             @yield('content')
         </div>
 
         <script>
             paceOptions = {
-            ajax: true,
-            document: true,
-            eventLag: false
-        };
+                ajax: true,
+                document: true,
+                eventLag: false
+            };
 
             Pace.on('done', function () {
                 $('#preloader').delay(500).fadeOut(800);
             });
+
         </script>
 
 </body>
