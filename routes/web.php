@@ -26,8 +26,10 @@ Route::get('forgetPassword/resetPassword/{verification_code}/{email}', 'AuthCont
 
 
 
-Route::get('/','AuthController@index');
-Route::get('/Auth','AuthController@index');
+Route::get('/','HomeController@index');
+Route::get('/Home','HomeController@index');
+
+
 
 Route::get('/Register','RegisterController@index');
 Route::get('/ForgetPassword','AuthController@forgetPassword');

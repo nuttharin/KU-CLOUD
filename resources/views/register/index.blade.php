@@ -88,7 +88,7 @@
             </div>
         </form>
     </div>
-    <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="{{action('AuthController@index')}}">Sing in</a></span>
+    <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="#">Sing in</a></span>
 </div>
 
 <!-- validate -->

@@ -49,7 +49,7 @@
 
     <!-- <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row " style="background: #fff">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-            <a class="navbar-brand brand-logo" style="margin-top:10px" href="{{action('AuthController@index')}}">
+            <a class="navbar-brand brand-logo" style="margin-top:10px" href="#">
                 <h3 class="text-center"><span style="color:#00ce68">KU</span> CLOUD</h3>
             </a>
         </div>
@@ -66,19 +66,40 @@
             </li>
         </ul>
     </nav> -->
-    <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0  fixed-top">
-        <div class="container">
-            <a class="navbar-brand brand-logo" href="{{action('AuthController@index')}}">
-                <h3 class="text-center"><span style="color:#00ce68">KU</span> CLOUD</h3>
-            </a>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" id="about" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
+
+    <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top nav_back" id="navbar_fixed" style="  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5) !important;">
+        <div class="container d-xl-block d-lg-block d-none">
+            <div class="row col-12">
+                <div class="col-8">
+                    <h3 class="text-left"><span style="color:#00ce68">KU</span> CLOUD</h3>
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-3">
+                            <span class="nav-link" id="about" href="#">ABOUT</span>
+                        </div>
+                        <div class="col-3">
+                            <span class="nav-link" href="#">CONTACT</span>
+                        </div>
+                        <div class="col-3">
+                            <span class="nav-link" id="nav_register" href="#">REGISTER</span>
+                        </div>
+                        <div class="col-3">
+                            <span class="nav-link nav_login" id="nav_login" href="#">LOGIN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container d-xl-none d-lg-none d-block">
+            <div class="row col-12">
+                <div class="col-8">
+                    <h3 class="text-left"><span style="color:#00ce68">KU</span> CLOUD</h3>
+                </div>
+                <div class="col-4">
+                    <span class="nav-link nav_login" href="#" style="font-size:80%;">REGISTER / LOGIN</span>
+                </div>
+            </div>
         </div>
     </nav>
 
