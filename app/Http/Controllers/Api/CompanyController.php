@@ -14,14 +14,12 @@ use App\TB_STATIC;
 use App\TB_USERS;
 use App\TB_WEBSERVICE;
 use App\TB_REGISTER_WEBSERVICE;
-use App\TB_STATIC;
 use App\TB_STATIC_COMPANY;
 use File;
 use email;
 use Mail;
 use Illuminate\Mail\Message;
 
-use App\LogViewer\LogViewer;
 
 use Auth;
 use DB;
