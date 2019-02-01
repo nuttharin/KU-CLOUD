@@ -90,7 +90,7 @@
             <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
                 <div class="col-sm-1" >
-                    <button type="button" class="btn btn-primary">GET</button>
+                    <button type="button" style="width:100%" class="btn btn-primary">GET</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get data max</h6>
@@ -139,7 +139,7 @@
             <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
                 <div class="col-sm-1" >
-                    <button type="button" class="btn btn-success">POST</button>
+                    <button type="button" style="width:100%" class="btn btn-success">POST</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get All Data</h6>
@@ -219,7 +219,7 @@
             <h4 class="panel-title collap-output">
             <div class="row " id='header-output'>
                 <div class="col-sm-1" >
-                    <button type="button" class="btn btn-danger">DELETE</button>
+                    <button type="button" style="width:100%" class="btn btn-danger">DELETE</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get data max</h6>
@@ -272,7 +272,7 @@
             <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
                 <div class="col-sm-1" >
-                    <button type="button" class="btn btn-primary">GET</button>
+                    <button type="button" style="width:100%" class="btn btn-primary">GET</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get data max</h6>

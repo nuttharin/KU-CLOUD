@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class TB_USER_CUSTOMER extends Model
 {
     //
-    protected  $table = "TB_USER_CUSTOMER";
+    protected $table = "TB_USER_CUSTOMER";
 
     protected $fillable = [
-        'user_id','company_id'
+        'user_id', 'company_id', 'is_approved',
     ];
 
-    
-    public function TB_USERS(){
-        return $this->hasMany('App\TB_USERS','user_id');
+    public function TB_USERS()
+    {
+        return $this->hasMany('App\TB_USERS', 'user_id');
     }
 }

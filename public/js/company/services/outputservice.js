@@ -1,5 +1,6 @@
 $(document).ready(function () {
     let data;
+    let jsondata;
     let detailtryit = (detail_tryit)=>
         { 
             $("#show_detail_tryit").show();
@@ -7,11 +8,32 @@ $(document).ready(function () {
             $('#clear_result').html( "clear result" );
            // $('#call').append( "Call<br/><p class='solid'>"+detail_tryit[0].data.header+"</p>" );
            //text='"+detail_tryit+"'
-            $('#call').append("<textarea type='text' rows='10' class='form-control mb-2'  id='result2'  ></textarea>");
+            $('#call').append("<textarea type='text' rows='10' class='form-control mb-2'  id='result2'></textarea><button class='btn btn-info' id='download-file'>Download</button>");
+            jsondata = JSON.stringify(detail_tryit);
+            //console.log(jsondata);
             $('#result2').val(JSON.stringify(detail_tryit, undefined, 2));
             $('#clear_result').on("click", function () {
                 $("#show_detail_tryit").hide();
-            });           
+            });
+            $('#download-file').on("click", function () {
+                
+                $.ajax({
+                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    dataType: 'json',
+                    method: "POST",
+                    data:
+                    {
+                        jsondata: jsondata
+                    },
+                    success: (res) => {
+                        //console.log("success")
+                        console.log(res);
+                    },
+                    error: (res) => {
+                        console.log(res);
+                    }
+                });
+            });             
         }
     let insertintoDW = (table_DW,summary_table)=>
         { 

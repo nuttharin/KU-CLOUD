@@ -64,7 +64,7 @@ class iotService {
 }
 
 $(document).ready(function () {
-    var clipboard = new ClipboardJS('#Keyiot');
+    //var clipboard = new ClipboardJS('#Keyiot');
 
     $('#showvalue').click(function(){
         let iot = new iotService();
