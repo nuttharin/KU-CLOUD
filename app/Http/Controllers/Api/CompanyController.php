@@ -14,7 +14,6 @@ use App\TB_STATIC;
 use App\TB_USERS;
 use App\TB_WEBSERVICE;
 use App\TB_REGISTER_WEBSERVICE;
-use App\TB_STATIC;
 use App\TB_STATIC_COMPANY;
 use File;
 use email;
