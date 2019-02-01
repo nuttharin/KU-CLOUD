@@ -29,16 +29,12 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.js"></script>
 
     <!-- gridstack -->
     <link rel="stylesheet" href="{{url('js/gridstack/gridstack.css')}}">
     <link rel="stylesheet" href="{{url('js/gridstack/css/index.css')}}">
-
-    <!-- Minicolor -->
-    <link rel="stylesheet" href="{{url('js/Color-Picker-Plugin-jQuery-MiniColors/jquery.minicolors.css')}}">
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="{{asset('leaflet/leaflet.css')}}" />
@@ -105,8 +101,9 @@
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                     <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
-                    <img class="img-xs rounded-circle" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}" alt="Profile image">
-                  </a>
+                    <img class="img-xs rounded-circle" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}"
+                        alt="Profile image">
+                </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <a class="dropdown-item ">
                         <div class="d-flex border-bottom">
@@ -121,14 +118,14 @@
                             </div>
                         </div>
                     </a>
-                    <a class="dropdown-item mt-2" href="{{action('AdminController@manageAccounts')}}">
-                      Manage Accounts
+                    <a class="dropdown-item mt-2" href="{{action('CustomerController@ManageAccounts')}}">
+                        Manage Accounts
                     </a>
-                    <a class="dropdown-item">
-                      Check Inbox
+                    <a class="dropdown-item mt-2" href="{{action('CustomerController@ManageCompany')}}">
+                        Manage Company
                     </a>
-                    <a class="dropdown-item">
-                      Sign Out
+                    <a class="dropdown-item mt-2">
+                        Sign Out
                     </a>
                 </div>
             </li>
@@ -184,12 +181,7 @@
                         </li>
                     </ul>
                 </li> -->
-                <li class="nav-item">
-                    <a href="{{action('AdminController@Company')}}">
-                        <i class="fas fa-briefcase"></i>
-                        <span class="link_hide">Company</span>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>

@@ -1,0 +1,80 @@
+.background-opar {
+    display: none;
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.model{
+    position: fixed;
+    z-index: 10; 
+    top: 20%;
+    width: 35%;
+    margin: auto;
+    -webkit-box-shadow: 0 -25px 37.7px 11.3px rgba(8, 143, 220, 0.07);
+    box-shadow: 0 -25px 37.7px 11.3px rgba(8, 143, 220, 0.07);
+    background: #FFF;
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 850px) {
+    .model {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .model {
+        width: 90%;
+    }
+}
+
+.model-content{
+    background-color: #fefefe;
+    margin: 5% auto;
+    width: 80%;
+}
+
+#content_register::-webkit-scrollbar { 
+    display: none; 
+}
+  
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+.input-data {
+    padding: 20px;
+    padding-top: 0px;
+}
+
+.swal-modal {
+    width: 580px;
+}
+
+.main-parent{
+    position: relative;
+}
+
+.child-parent{
+    position: absolute;
+}
+  

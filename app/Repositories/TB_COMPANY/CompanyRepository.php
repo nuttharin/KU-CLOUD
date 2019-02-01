@@ -8,12 +8,15 @@
 
 namespace App\Repositories\TB_COMPANY;
 
-
 interface CompanyRepository
 {
-    public  function getCompanyById($id);
+    public function getCompanyById($id);
 
-    public  function getCompanyList();
+    public function getCompanyList();
 
-    public  function getCompanyFolderLog();
+    public function getCompanyListForCustomer();
+
+    public function approveCompany($company_id);
+
+    public function getCompanyFolderLog();
 }

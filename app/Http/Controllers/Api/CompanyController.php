@@ -20,7 +20,6 @@ use email;
 use Mail;
 use Illuminate\Mail\Message;
 
-use App\LogViewer\LogViewer;
 
 use Auth;
 use DB;

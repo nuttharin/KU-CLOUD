@@ -118,7 +118,6 @@
                             <th>Type user</th>
                             <th>Status</th>
                             <th>Action</th>
-
                         </tr>
                     </thead>
                     <tbody>
