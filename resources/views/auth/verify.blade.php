@@ -219,6 +219,11 @@
                                 <tr>
                                     <td class="content-cell">
                                         <h1>Hello {{ $name }},</h1>
+                                        @if (isset($password) && isset($username))
+                                            <h3>This is username and password for first login</h3>
+                                            <h4>username : {{$username}}</h4>
+                                            <h4>password : {{$password}}</h4>
+                                        @endif
                                         <p>To complete your sign up, please verify your email.</p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">

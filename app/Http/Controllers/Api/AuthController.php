@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\TB_EMAIL;
 use App\TB_USERS;
+use App\USER_FIRST_CREATE;
 use Auth;
 use DB;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use JWTAuth;
@@ -17,44 +19,60 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        try {
+            $user = TB_USERS::where([
+                ['username', '=', $request->get('username')],
+            ])->first();
 
-        $user = DB::select('SELECT TB_USERS.user_id,TB_USERS.password,TB_USERS.type_user,TB_EMAIL.email_user,TB_COMPANY.company_id FROM TB_USERS
-                            LEFT JOIN TB_USER_COMPANY ON  TB_USER_COMPANY.user_id = TB_USERS.user_id
-                            LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_COMPANY.company_id
-                            INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
-                            WHERE TB_EMAIL.email_user = ? AND is_verify = ? limit 1', [$request->get('email'), true]);
-        if (!empty($user)) {
-            $hash_password = $user[0]->password;
-            if (Hash::check($request->get('password'), $hash_password)) {
-                $user_custom = [
-                    "email" => $request->get('email'),
-                    "company_id" => empty($user[0]->company_id) ? -1 : $user[0]->company_id,
-                    "type_user" => $user[0]->type_user,
-                ];
-                $factory = JWTFactory::customClaims([
-                    'sub' => $user[0]->user_id,
-                    'user' => $user_custom,
-                ]);
-                $payload = JWTFactory::make($factory);
-                $token = JWTAuth::encode($payload);
+            if (!empty($user) && $user->email()->where('is_primary', true)->first()->is_verify) {
 
-                //Log::debug('An informational message.',['id'=>$user[0]->type_user]);
-                //$payload = JWTAuth::decode($token);
-                if ($user[0]->type_user == "ADMIN") {
-                    return response()->json(['token' => $token->get(), 'path' => '/Admin/UsersAdminister', 'status' => 200], 200);
-                } else if ($user[0]->type_user == "COMPANY") {
-                    return response()->json(['token' => $token->get(), 'path' => '/Company/User', 'status' => 200], 200);
-                } else if ($user[0]->type_user == "CUSTOMER") {
-                    return response()->json(['token' => $token->get(), 'path' => '/Customer/User', 'status' => 200], 200);
+                $checkFirstCreate = $user->checkFirstCreate()->first();
+
+                if (!empty($checkFirstCreate)) {
+                    return response()->json(['path' => '/Auth/ResetPasswordFirst/' . $checkFirstCreate->user_id . '/' . $checkFirstCreate->token, 'status' => 200], 200);
                 }
 
-                //return response()->json(compact('payload'));
-            } else {
-                return response()->json(['error' => 'could_not_create_token'], 500);
-            }
-        }
-        return response()->json(['status' => 'error'], 500);
+                $hash_password = $user->password;
+                if (Hash::check($request->get('password'), $hash_password)) {
+                    $user_custom = [
+                        "email" => $user->email()->where('is_primary', true)->first()->email_user,
+                        "type_user" => $user->type_user,
+                    ];
+                    if ($user->type_user === "CUSTOMER") {
+                        $user_custom['compay_id'] = $user->user_customer()->get();
+                    } else {
+                        $user_custom['compay_id'] = $user->user_company()->first()->company_id;
+                    }
+                    $factory = JWTFactory::customClaims([
+                        'sub' => $user->user_id,
+                        'user' => $user_custom,
+                    ]);
+                    $payload = JWTFactory::make($factory);
+                    $token = JWTAuth::encode($payload);
 
+                    //Log::debug('An informational message.',['id'=>$user[0]->type_user]);
+                    //$payload = JWTAuth::decode($token);
+
+                    if ($user->type_user == "ADMIN") {
+                        return response()->json(['token' => $token->get(), 'path' => '/Admin/UsersAdminister', 'status' => 200], 200);
+                    } else if ($user->type_user == "COMPANY") {
+                        return response()->json(['token' => $token->get(), 'path' => '/Company/User', 'status' => 200], 200);
+                    } else if ($user->type_user == "CUSTOMER") {
+                        return response()->json(['token' => $token->get(), 'path' => '/Customer/User', 'status' => 200], 200);
+                    }
+                } else {
+                    throw new Exception('Password not corrent', 401);
+                }
+            } else {
+                if (empty($user)) {
+                    throw new Exception('Username not already ', 401);
+                } else if (!$user->email()->where('is_primary', true)->first()->is_verify) {
+                    throw new Exception('Email not verify', 401);
+                }
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
         /*$credentials = $request->only('email', 'password');
     try {
 
@@ -66,6 +84,31 @@ class AuthController extends Controller
     }
     //$payload = JWTAuth::setToken($token)->getPayload();
     return response()->json(compact('token'));*/
+    }
+
+    public function resetPasswordFirst(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $checkUserFirstCreate = USER_FIRST_CREATE::where([
+                ['user_id', '=', $request->get('user_id')],
+                ['token', '=', $request->get('token')],
+            ])->first();
+            if (!empty($checkUserFirstCreate)) {
+                $user_id = $request->get('user_id');
+                $checkUserFirstCreate->delete();
+                TB_USERS::where([
+                    ['user_id', '=', $user_id],
+                ])->update([
+                    'password' => Hash::make($request->get('password')),
+                ]);
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
     }
 
     /**
@@ -152,14 +195,12 @@ class AuthController extends Controller
     public function getAllEmail(Request $request)
     {
         $checkEmail = DB::table('TB_EMAIL')
-        ->where('EMAIL_USER', $request->get('email'))
-        ->count();
+            ->where('EMAIL_USER', $request->get('email'))
+            ->count();
 
-        if($checkEmail > 0){
+        if ($checkEmail > 0) {
             return response()->json(['success' => true, 'detail' => "We are send email already."]);
-        }
-        else
-        {
+        } else {
             return response()->json(['success' => false, 'detail' => "This email is not in system."]);
         }
     }

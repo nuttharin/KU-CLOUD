@@ -24,7 +24,7 @@
 
 
     <!-- I-check -->
-    <link rel="stylesheet" href={{url( 'css/i-check.min.css')}}>
+    <link rel="stylesheet" href="{{url( 'css/i-check.min.css')}}">
 
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
@@ -121,10 +121,10 @@
                     <a class="dropdown-item mt-2" href="{{action('CustomerController@ManageAccounts')}}">
                         Manage Accounts
                     </a>
-                    <a class="dropdown-item mt-2" href="{{action('CustomerController@ManageCompany')}}">
+                    <a class="dropdown-item" href="{{action('CustomerController@ManageCompany')}}">
                         Manage Company
                     </a>
-                    <a class="dropdown-item mt-2">
+                    <a class="dropdown-item">
                         Sign Out
                     </a>
                 </div>

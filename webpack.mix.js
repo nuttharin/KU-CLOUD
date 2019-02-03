@@ -62,6 +62,10 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     //Customer
     .js('resources/js/customer/manageCompany.min.js', 'public/js/customer/manageCompany')
 
+
+    //Auth
+    .js('resources/js/auth/resetPasswordFirst.min.js', 'public/js/auth')
+
     .sass('resources/sass/main.scss', 'public/css');
 
 

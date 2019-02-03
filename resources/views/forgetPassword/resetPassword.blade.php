@@ -1,7 +1,7 @@
 @extends('layouts.login') 
 @section('content')
 <style>
-    body {
+    html,body {
         background: #A1FFCE;
         /* fallback for old browsers */
         background: -webkit-linear-gradient(to bottom, #FAFFD1, #A1FFCE);
@@ -10,7 +10,7 @@
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
 
-    .form-email {
+    .fform-reset {
         width: 30%;
         margin-bottom: 15px;
         -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
@@ -22,7 +22,19 @@
         max-height:90vh;
     }
 
-    .form-email::-webkit-scrollbar { 
+    @media screen and (max-width: 850px) {
+        .form-reset{
+            width: 70%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .form-reset {
+            width: 100%;
+        }
+    }
+
+    .form-reset::-webkit-scrollbar { 
         display: none; 
     }
 
@@ -37,7 +49,7 @@
 </style>
 
 <div class="content d-flex flex-column justify-content-center align-items-center" style="width:100%; height:100vh;">
-    <div class="form-email">
+    <div class="form-reset">
         <form id="form_reset" action="{{url('/ResetPasswordPost')}}" method="post" autocomplete="nope">
             <div class="container">
                 <div class="row" style="padding: 20px; padding-bottom:0px;">

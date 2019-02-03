@@ -70,7 +70,7 @@ $(document).ready(function () {
             method: "POST",
             dataType: "json",
             data: {
-                email: $("#email_login").val(),
+                username: $("#email_login").val(),
                 password: $("#pwd_login").val()
             },
             success: (res) => {
@@ -78,10 +78,10 @@ $(document).ready(function () {
                 window.location = res.path;
             },
             error: (res) => {
-                if (res.status === 500) {
+                console.log(res);
+                if (res.status === 400) {
                     $(".alert ").show();
-                    $(".alert ").html("<strong>Error!</strong> Please check email " +
-                        $("#email_login").val() + " to verify.");
+                    $(".alert ").html(`<strong>Error!</strong> ${res.responseJSON.error.message}`);
                 }
             }
         });

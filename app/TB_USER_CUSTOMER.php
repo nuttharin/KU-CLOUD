@@ -15,6 +15,6 @@ class TB_USER_CUSTOMER extends Model
 
     public function TB_USERS()
     {
-        return $this->hasMany('App\TB_USERS', 'user_id');
+        return $this->belongsTo('App\TB_USERS', 'user_id');
     }
 }

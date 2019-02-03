@@ -94,6 +94,11 @@ class AccountsController extends Controller
         return response()->json(compact('image'), 200);
     }
 
+    public function updateUsername(Request $request)
+    {
+        $this->account->updateUsername(Auth::user()->user_id, $request->get('username'));
+    }
+
     public function updateName(Request $request)
     {
         $this->account->updateName(Auth::user()->user_id, $request->get('fname'), $request->get('lname'));
