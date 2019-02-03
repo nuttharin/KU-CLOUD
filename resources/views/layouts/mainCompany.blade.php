@@ -11,7 +11,7 @@
     <meta name="user_id" content="{{ $user->user_id }}">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href={{asset( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
+    <link rel="stylesheet" href="{{asset('bootstrap-4.1.3/css/bootstrap.min.css')}}">
     <script type="text/javascript" src="{{asset('jquery/jquery-3.3.1.min.js')}}"></script>
     <script src="{{asset('bootstrap-4.1.3/js/popper.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('bootstrap-4.1.3/js/bootstrap.min.js')}}"></script>
@@ -106,7 +106,8 @@
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
         <ul class="nav navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle user-dropdown" id="UserDropdown"  href="#" data-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle user-dropdown" id="UserDropdown" href="#" data-toggle="dropdown"
+                    aria-expanded="false">
                     <i class="fas fa-angle-right"></i>
                     <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
                     <img class="img-xs rounded-circle" width="30" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}"
@@ -125,7 +126,7 @@
                                 <i class="far fa-bell text-muted"></i>
                             </div>
                         </div>
-                      
+
                     </a>
                     <a class="dropdown-item mt-2" href="{{action('CompanyController@manageAccounts')}}">
                         Manage Accounts
@@ -207,10 +208,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    {{-- {{action('CompanyController@static')}} --}}
                     <a href="{{action('CompanyController@staticDatatable')}}">
                         <i class="fas fa-chart-line"></i>
                         <span class="link_hide">Static</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{action('CompanyController@Analysis')}}">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="link_hide">Analysis</span>
                     </a>
                 </li>
                 <li class="nav-item">

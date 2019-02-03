@@ -29,9 +29,20 @@ Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'Auth',
+    'prefix' => 'address',
 ], function ($router) {
 
+    Route::get('provinces', 'Api\AddressController@getAllProvinces');
+    Route::get('amphures/province/{province_id}', 'Api\AddressController@getAmphuresByProvince');
+    Route::get('districts/province/{province_id}/amphure/{amphure_id}', 'Api\AddressController@getDistrictsByAmphures');
+
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'Auth',
+], function ($router) {
+    Route::put('ResetPassword', 'Api\AuthController@resetPasswordFirst');
     Route::post('Login', 'Api\AuthController@login');
     Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
@@ -50,6 +61,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 
     Route::get('account/profile/{filename}', 'Api\AccountsController@getProfile');
     Route::post('account/profile', 'Api\AccountsController@uploadProfile');
+
+    Route::put('account/username', 'Api\AccountsController@updateUsername');
 
     Route::post('account/name', 'Api\AccountsController@updateName');
 

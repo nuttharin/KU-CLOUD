@@ -8,19 +8,20 @@
 
 namespace App\Repositories\TB_USERS;
 
+use DB;
+use Auth;
+use Mail;
+use email;
 use App\TB_EMAIL;
 use App\TB_PHONE;
 use App\TB_USERS;
 use App\TB_USER_COMPANY;
+
+
 use App\TB_USER_CUSTOMER;
-use Auth;
-use DB;
-use Illuminate\Support\Facades\Hash;
-
-
-use email;
-use Mail;
+use App\USER_FIRST_CREATE;
 use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Hash;
 
 
 class EloquentUsers implements UsersRepository
@@ -308,11 +309,18 @@ class EloquentUsers implements UsersRepository
         // TODO: Implement create() method.
         DB::beginTransaction();
         try {
+            $password =  str_random(10);
             $user = TB_USERS::create([
+                'username' => $attributes['username'],
                 'fname' => $attributes['fname'],
                 'lname' => $attributes['lname'],
-                'password' => Hash::make($attributes['password']),
+                'password' => Hash::make($password),
                 'type_user' => $attributes['type_user'],
+            ]);
+
+            USER_FIRST_CREATE::insert([
+                'user_id' => $user->user_id,
+                'token' => str_random(30),
             ]);
 
             if ($attributes['type_user'] == "ADMIN") {
@@ -381,14 +389,14 @@ class EloquentUsers implements UsersRepository
                 }
             }
 
-            $name = $attributes['fname'] . " " . $attributes['lname'];
-            $email = $attributes['email_user'];
+            // $name = $attributes['fname'] . " " . $attributes['lname'];
+            // $email = $attributes['email_user'];
 
-            $verification_code = str_random(30); //Generate verification code
+            // $verification_code = str_random(30); //Generate verification code
 
             // DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
             // $subject = "Please verify your email address."; // หัวข้อเมล์
-            // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email],
+            // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $attributes['username'],'password'=>$password],
             //     function($mail) use ($email, $name, $subject){
             //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
             //         $mail->to($email, $name);

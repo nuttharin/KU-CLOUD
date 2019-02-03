@@ -120,12 +120,13 @@ class CompanyController extends Controller
         ], 200);
     }
 
-    public function addUserCompany(UsersRequest $request)
+    public function addUserCompany(Request $request)
     {
         $data = [
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'password' => $request->get('password'),
+            // 'password' => $request->get('password'),
             'type_user' => 'COMPANY',
             'company_id' => $this->auth->user_company()->first()->company_id,
             'sub_type_user' => $request->get('sub_type_user'),
@@ -249,9 +250,9 @@ class CompanyController extends Controller
         //dd($payload["user"]->company_id);
 
         $data = [
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'password' => $request->get('password'),
             'type_user' => 'CUSTOMER',
             'company_id' => $this->auth->user_company()->first()->company_id,
             'email_user' => $request->get('email'),

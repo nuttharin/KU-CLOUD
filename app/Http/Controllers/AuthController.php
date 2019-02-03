@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\TB_EMAIL;
 use App\TB_TOKEN_FORGETPASSWORD;
 use App\TB_USERS;
+use App\USER_FIRST_CREATE;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use App\USER_VERIFICATIONS;
-use App\TB_EMAIL;
-use DB;
-use email;
 use Mail;
 
 class AuthController extends Controller
@@ -28,62 +24,78 @@ class AuthController extends Controller
         return view('forgetPassword.index');
     }
 
-    public function forgetPasswordSendMail(Request $request){
-        $userName =  DB::select('SELECT TB_USERS.fname as firstname, TB_USERS.lname as lastname, TB_USERS.user_id as userId FROM TB_USERS
+    public function forgetPasswordSendMail(Request $request)
+    {
+        $userName = DB::select('SELECT TB_USERS.fname as firstname, TB_USERS.lname as lastname, TB_USERS.user_id as userId FROM TB_USERS
                                     INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
                                     WHERE TB_EMAIL.email_user = ?', [$request->get('email')]);
 
-        $fullName =  $userName[0]->firstname." ".$userName[0]->lastname;
+        $fullName = $userName[0]->firstname . " " . $userName[0]->lastname;
         $email = $request->get('email');
         $verification_code = str_random(30);
         $subject = "Reset Password.";
 
-        Mail::send('forgetPassword.resetPasswordBody', ['fullname' => $fullName, 'verification_code' => $verification_code,'userId' => $userName[0]->userId],
-            function($mail) use ($email, $fullName, $subject){         
+        Mail::send('forgetPassword.resetPasswordBody', ['fullname' => $fullName, 'verification_code' => $verification_code, 'userId' => $userName[0]->userId],
+            function ($mail) use ($email, $fullName, $subject) {
                 $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
                 $mail->to($email, $fullName);
                 $mail->subject($subject);
-        });
-   
+            });
+
         $token = TB_TOKEN_FORGETPASSWORD::create([
-            'user_id'   => $userName[0]->userId,
-            'token'     => $verification_code
+            'user_id' => $userName[0]->userId,
+            'token' => $verification_code,
         ]);
 
         $responseMessage = "We're send email already.";
-        return view('forgetPassword.index')->with('responseMessage',$responseMessage);
+        return view('forgetPassword.index')->with('responseMessage', $responseMessage);
+    }
+
+    public function ResetPasswordFirst($user_id, $token)
+    {
+        $check = USER_FIRST_CREATE::where([
+            ['token', '=', $token],
+            ['user_id', '=', $user_id],
+        ])->first();
+
+        if (!empty($check)) {
+            return view('auth.ResetPasswordFirst')
+                ->with('user_id', $check->user_id)
+                ->with('token', $check->token);
+        }
     }
 
     public function resetPassword($verification_code, $userId)
     {
-        $check = DB::table('TB_TOKEN_FORGETPASSWORD')->where('token',$verification_code)->first();
+        $check = DB::table('TB_TOKEN_FORGETPASSWORD')->where('token', $verification_code)->first();
 
-        if($check != null)
-        {
-            DB::table('TB_TOKEN_FORGETPASSWORD')->where('token',$verification_code)->delete();
+        if ($check != null) {
+            DB::table('TB_TOKEN_FORGETPASSWORD')->where('token', $verification_code)->delete();
 
             return view('forgetPassword.resetPassword', ['userId' => $userId]);
         }
 
         $responseMessage = "Your token has expire. Please send email again.";
-        return view('forgetPassword.index')->with('responseMessage',$responseMessage);
+        return view('forgetPassword.index')->with('responseMessage', $responseMessage);
     }
 
-    public function resetPasswordPost(Request $request){
+    public function resetPasswordPost(Request $request)
+    {
 
         $user = TB_USERS::where('user_id', $request->get('user_id'))
-                    ->update([
-                        'password'     => Hash::make($request->get('password'))
-                    ]);
+            ->update([
+                'password' => Hash::make($request->get('password')),
+            ]);
 
         return view('auth.index');
     }
 
-    public function verifyUser($verification_code,$email){
-        $check = DB::table('USER_VERIFICATIONS')->where('token',$verification_code)->first();
-        if(!is_null($check)){
-            $email = TB_EMAIL::where('email_user','=',$email)->first();
-            if($email->is_verify == 1){
+    public function verifyUser($verification_code, $email)
+    {
+        $check = DB::table('USER_VERIFICATIONS')->where('token', $verification_code)->first();
+        if (!is_null($check)) {
+            $email = TB_EMAIL::where('email_user', '=', $email)->first();
+            if ($email->is_verify == 1) {
                 return response()->json([
                     'success' => true,
                     'message' => 'Account already verified..',

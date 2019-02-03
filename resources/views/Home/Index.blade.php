@@ -281,7 +281,8 @@
             <input type="password" class="form-control" id="pwd_login" placeholder="Password">
             <button class="btn btn-success btn-block btn-radius mt-3" id="btn_submit_login">Login</button>
             <div class="form-group d-flex justify-content-center mt-3 my-2">
-                <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot Password</a>
+                <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot
+                    Password</a>
             </div>
             <div class="text-block text-center my-2">
                 <span class="text-small font-weight-semibold">Not a member ?</span>
@@ -306,45 +307,72 @@
                     <div class="row">
                         <div class="col-6" style="border-right-style:solid; border-right-width:2px; border-right-color:#eaeaea;">
                             <div class="row input-data">
-                                <label for="email">Email address</label> 
+                                <label for="email">Email address <span class="text-danger">*</span></label>
                                 <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
                                 <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
-                                <label for="password">Password</label>
+                                <label for="password">Password <span class="text-danger">*</span></label>
                                 <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
                                 <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
-                                <label for="confirmPassword">Confirm password</label>
+                                <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
                                 <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
                                 <small class="messages-error"></small>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="row input-data">
-                                <label for="firstname">Firstname</label>
+                                <label for="firstname">Firstname <span class="text-danger">*</span></label>
                                 <input type="text" name="firstname" class="form-control" id="fname">
                                 <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
-                                <label for="lname">Lastname</label>
+                                <label for="lname">Lastname <span class="text-danger">*</span></label>
                                 <input type="text" name="lastname" class="form-control" id="lname">
                                 <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
-                                <label for="phone">Phone</label>
+                                <label for="phone">Phone <span class="text-danger">*</span></label>
                                 <input type="text" name="phone" class="form-control" id="phone">
                                 <small class="messages-error"></small>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="address">Address</label>
+                            <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="province">Province</label>
+                            <select name="province" id="province" class="form-control"></select>
+                        </div>
+                        <div class="col-12">
+                            <label for="amphure">Amphure</label>
+                            <select name="amphure" id="amphure" class="form-control">
+                                    <option value="">--Select amphure--</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="district">District</label>
+                            <select name="district" id="district" class="form-control">
+                                    <option value="">--Select district--</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                                <label for="zip_code">Zip code</label>
+                                <input name="zip_code" id="zip_code" class="form-control">
+                            </div>
                     </div>
                 </form>
             </div>
             <hr>
             <div class="container">
                 <div class="row">
-                    <button class="btn btn-success btn-block btn-radius" id="btn_register" data-loading-text="Create my account <i class='fas fa-circle-notch fa-spin'></i>">Create your account</button>
+                    <button class="btn btn-success btn-block btn-radius" id="btn_register" data-loading-text="Create my account <i class='fas fa-circle-notch fa-spin'></i>">Create
+                        your account</button>
                 </div>
             </div>
         </div>
@@ -359,9 +387,4 @@
 <script src="{{asset('js/validate/validate.js')}}"></script>
 <script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
 <script src="{{asset('js/account/register.min.js')}}"></script>
-<script>
-    $(document).ready(function () {
-    });
-
-</script>
 @endsection
