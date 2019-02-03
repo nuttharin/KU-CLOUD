@@ -1,7 +1,7 @@
 @extends('layouts.login') 
 @section('content')
 <style>
-        body {
+        html,body {
             background: #A1FFCE;
             /* fallback for old browsers */
             background: -webkit-linear-gradient(to bottom, #FAFFD1, #A1FFCE);
@@ -10,7 +10,7 @@
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         }
     
-        .form-register {
+        .form-reset-password {
             width: 30%;
             margin-bottom: 15px;
             -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
@@ -20,13 +20,13 @@
         }
     
         @media screen and (max-width: 850px) {
-            .form-register {
+            .form-reset-password {
                 width: 70%;
             }
         }
     
         @media screen and (max-width: 600px) {
-            .form-register {
+            .form-reset-password {
                 width: 100%;
             }
         }
@@ -45,7 +45,7 @@
         }
     </style>
     <div class="content d-flex flex-column justify-content-center align-items-center" style="width: 100%;height: 100vh;">
-        <div class="form-register">
+        <div class="form-reset-password">
             <form id="form_reset_password" autocomplete="nope">
                 <div class="container">
                     <div class="row" style="padding: 20px; padding-bottom:0px;">

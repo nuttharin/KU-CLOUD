@@ -10,7 +10,7 @@
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
 
-    .fform-reset {
+    .form-email {
         width: 30%;
         margin-bottom: 15px;
         -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
@@ -23,18 +23,18 @@
     }
 
     @media screen and (max-width: 850px) {
-        .form-reset{
+        .form-email{
             width: 70%;
         }
     }
 
     @media screen and (max-width: 600px) {
-        .form-reset {
+        .form-email {
             width: 100%;
         }
     }
 
-    .form-reset::-webkit-scrollbar { 
+    .form-email::-webkit-scrollbar { 
         display: none; 
     }
 
@@ -49,7 +49,7 @@
 </style>
 
 <div class="content d-flex flex-column justify-content-center align-items-center" style="width:100%; height:100vh;">
-    <div class="form-reset">
+    <div class="form-email">
         <form id="form_reset" action="{{url('/ResetPasswordPost')}}" method="post" autocomplete="nope">
             <div class="container">
                 <div class="row" style="padding: 20px; padding-bottom:0px;">
