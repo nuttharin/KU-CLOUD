@@ -1,4 +1,4 @@
-.background-opar {
+/* .background-opar {
     display: none;
     position: fixed;
     z-index: 9;
@@ -10,9 +10,9 @@
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
     padding-top: 60px;
-}
+} */
 
-.model{
+/* .model{
     position: fixed;
     z-index: 10; 
     top: 20%;
@@ -22,7 +22,7 @@
     box-shadow: 0 -25px 37.7px 11.3px rgba(8, 143, 220, 0.07);
     background: #FFF;
     border-radius: 4px;
-}
+} */
 
 @media screen and (max-width: 850px) {
     .model {
