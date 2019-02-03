@@ -67,7 +67,35 @@
         </ul>
     </nav> -->
 
-    <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top nav_back" id="navbar_fixed" style="  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5) !important;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" style="box-shadow: 0 0 0.5cm rgba(0,0,0,0.5) !important;"> 
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#"><h3 class="text-left"><span style="color:#00ce68">KU</span> CLOUD</h3></a>
+
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="about">ABOUT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav_register">REGISTER</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_login" href="#" id="nav_login">LOGIN</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </nav>
+
+    <!-- <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top nav_back" id="navbar_fixed" style="  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5) !important;">
         <div class="container d-xl-block d-lg-block d-none">
             <div class="row col-12">
                 <div class="col-8">
@@ -101,7 +129,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <script type="text/javascript" src="{{asset('js/Global.js')}}"></script>
     <!-- Page Content  -->

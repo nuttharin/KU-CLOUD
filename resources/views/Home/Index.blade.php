@@ -82,7 +82,7 @@
         overflow: hidden;
     }
 
-    .modal-content {
+    /* .modal-content {
         border-radius: 15px !important;
     }
 
@@ -92,7 +92,7 @@
 
     .modal-footer {
         border: 0;
-    }
+    } */
 
     @-webkit-keyframes Gradient {
         0% {
@@ -138,7 +138,7 @@
 
 
 <div class="header">
-    <div class="row d-xl-block d-lg-block d-none text-center main-parent" id="header_xl" style="height: 90vh;">
+    <div class="row d-xl-block d-lg-block d-none text-center main-parent" id="header_xl" style="height: 100vh;">
         <div class="col-12 child-parent" style="top:15%;">
             <span class="animated fadeInDown" style="font-size:150px">KU CLOUD</span>
         </div>
@@ -270,7 +270,7 @@
     </div>
 </div> -->
 
-<div class="background-opar" id="model_background_login">
+<!-- <div class="background-opar" id="model_background_login">
     <div class="model animate" id="model_body_login">
         <div class="model-content">
             <i class="fas fa-times fa-1x" style="float:right; cursor:pointer" id="btn_close_login"></i>
@@ -290,9 +290,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div class="background-opar" id="model_background_register">
+<!-- <div class="background-opar" id="model_background_register">
     <div class="model animate" id="model_body_register" style="top:5%; width:60%">
         <div class="model-content">
             <i class="fas fa-times fa-1x" style="float:right; cursor:pointer" id="btn_close_register"></i>
@@ -352,19 +352,19 @@
                         <div class="col-12">
                             <label for="amphure">Amphure</label>
                             <select name="amphure" id="amphure" class="form-control">
-                                    <option value="">--Select amphure--</option>
+                                <option value="">--Select amphure--</option>
                             </select>
                         </div>
                         <div class="col-6">
                             <label for="district">District</label>
                             <select name="district" id="district" class="form-control">
-                                    <option value="">--Select district--</option>
+                                <option value="">--Select district--</option>
                             </select>
                         </div>
                         <div class="col-6">
-                                <label for="zip_code">Zip code</label>
-                                <input name="zip_code" id="zip_code" class="form-control">
-                            </div>
+                            <label for="zip_code">Zip code</label>
+                            <input name="zip_code" id="zip_code" class="form-control">
+                        </div>
                     </div>
                 </form>
             </div>
@@ -377,10 +377,133 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <footer>
 </footer>
+
+<div class="modal fade" id="model_body_login">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header" style="border-bottom:0px">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="alert alert-danger" style="display:none"></div>
+                <label>Username</label>
+                <input type="text" class="form-control" id="email_login" placeholder="Username">
+                <label>Password</label>
+                <input type="password" class="form-control" id="pwd_login" placeholder="Password">
+                <button class="btn btn-success btn-block btn-radius mt-3" id="btn_submit_login">Login</button>
+                <div class="form-group d-flex justify-content-center mt-3 my-2">
+                    <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot
+                        Password
+                    </a>
+                </div>
+                <div class="text-block text-center my-2">
+                    <span class="text-small font-weight-semibold">Not a member ?</span>
+                    <a href="{{action('RegisterController@index')}}" class="text-black text-small">Create new account</a>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="border-top:0px">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="model_body_register">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Register</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+
+            <div class="modal-body">
+                <form id="form_register" autocomplete="nope">
+                    <div class="row">
+                        <div class="col-6" style="border-right-style:solid; border-right-width:2px; border-right-color:#eaeaea;">
+                            <div class="row input-data">
+                                <label for="email">Email address <span class="text-danger">*</span></label>
+                                <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="password">Password <span class="text-danger">*</span></label>
+                                <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
+                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                                <small class="messages-error"></small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row input-data">
+                                <label for="firstname">Firstname <span class="text-danger">*</span></label>
+                                <input type="text" name="firstname" class="form-control" id="fname">
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="lname">Lastname <span class="text-danger">*</span></label>
+                                <input type="text" name="lastname" class="form-control" id="lname">
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="phone">Phone <span class="text-danger">*</span></label>
+                                <input type="text" name="phone" class="form-control" id="phone">
+                                <small class="messages-error"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="address">Address</label>
+                            <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="province">Province</label>
+                            <select name="province" id="province" class="form-control"></select>
+                        </div>
+                        <div class="col-12">
+                            <label for="amphure">Amphure</label>
+                            <select name="amphure" id="amphure" class="form-control">
+                                <option value="">--Select amphure--</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="district">District</label>
+                            <select name="district" id="district" class="form-control">
+                                <option value="">--Select district--</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="zip_code">Zip code</label>
+                            <input name="zip_code" id="zip_code" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block btn-radius" id="btn_register" data-loading-text="Create my account <i class='fas fa-circle-notch fa-spin'></i>">Create
+                    your account
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <script src="{{asset('js/aos/aos.js')}}"></script>
 <script src="{{asset('js/home/home.js')}}"></script>
