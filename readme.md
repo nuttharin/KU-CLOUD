@@ -44,10 +44,11 @@
 5. php artisan db:seed --class=UsersTableSeeder 
 
 ## User Login
-| Email               | Password |
+| Username            | Password |
 | :------------------ | :------- |
-| admin@hotmail.com   | secret   |
-| company@hotmail.com | secret   |
+| admin               | secret   |
+| company             | secret   |
+| customer            | secret   |
 
 ## กรณีเขียน ES6
 
