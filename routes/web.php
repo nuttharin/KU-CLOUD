@@ -18,8 +18,12 @@
 Route::get('user/verify/{verification_code}/{email}', 'AuthController@verifyUser');
 Route::get('forgetPassword/resetPassword/{verification_code}/{email}', 'AuthController@resetPassword');
 
-Route::get('/', 'AuthController@index');
-Route::get('/Auth', 'AuthController@index');
+// Route::get('/', 'AuthController@index');
+
+ Route::get('/Auth/ResetPasswordFirst/{user_id}/{token}', 'AuthController@ResetPasswordFirst');
+
+Route::get('/', 'HomeController@Index');
+Route::get('/Home', 'HomeController@Index');
 
 Route::get('/Register', 'RegisterController@index');
 Route::get('/ForgetPassword', 'AuthController@forgetPassword');
@@ -32,6 +36,8 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Compnay/Infographic', 'CompanyController@infographic');
     Route::get('/Company/Static', 'CompanyController@staticDatatable');
     Route::get('/Company/Static/{id}', 'CompanyController@static');
+
+    Route::get('/Company/Analysis', 'CompanyController@Analysis');
 
     Route::get('/Company/Service', 'CompanyController@service');
     Route::get('/Company/Service/AddService', 'CompanyController@Add_service');
@@ -69,6 +75,6 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     /* Customer */
     Route::get('/Customer/User', 'CustomerController@Index');
     Route::get('/Customer/ManageAccounts', 'CustomerController@ManageAccounts');
-        Route::get('/Customer/ManageCompany', 'CustomerController@ManageCompany');
+    Route::get('/Customer/ManageCompany', 'CustomerController@ManageCompany');
     Route::get('/Customer/Infographic', 'CustomerController@Infographic');
 });

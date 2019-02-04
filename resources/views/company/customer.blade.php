@@ -1,5 +1,5 @@
-@extends('layouts.mainCompany') 
-@section('title','Customer | Company') 
+@extends('layouts.mainCompany')
+@section('title','Customer | Company')
 @section('content')
 <style>
     table {
@@ -79,7 +79,8 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User Online</p>
                                             <div class="fluid-container">
-                                                <h2 class="font-weight-medium text-right mb-0" id="total-user-online">0 User</h2>
+                                                <h2 class="font-weight-medium text-right mb-0" id="total-user-online">0
+                                                    User</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +103,8 @@
                                         <div class="text-static animated fadeIn" style="display:none">
                                             <p class="mb-0 text-right">Total User Offline</p>
                                             <div class="fluid-container">
-                                                <h2 class="font-weight-medium text-right mb-0" id="total-user-offline">0 User</h2>
+                                                <h2 class="font-weight-medium text-right mb-0" id="total-user-offline">0
+                                                    User</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +124,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body" id="card_table">
-                <table style="width: 100%;display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
+                <table style="width: 100%;display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
+                    id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -154,29 +157,30 @@
                 <form id="form-add-user">
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <label for="">Email <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="add_email_val" />
+                            <label for="">Username <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="username" id="add_username" />
+                            <div class="messages-error"></div>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label for="">Password <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="add_pwd_val" />
+                            <label for="">Email <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="email" id="add_email_val" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <label for="">Firstname <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="add_fname_val" />
+                            <input type="text" class="form-control" name="firstname" id="add_fname_val" />
                         </div>
                         <div class="col-12 col-md-6">
 
                             <label for="">Lastname <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="add_lname_val" />
+                            <input type="text" class="form-control"  name="lastname" id="add_lname_val" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <label for="">Phone <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="add_phone_val" />
+                            <input type="text" class="form-control" name="phone"  id="add_phone_val" />
                         </div>
                     </div>
                 </form>

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
-use Cookie;
+use App\Weka\Clusterers\SimpleKMeans;
 use DB;
 use Gate;
 use Illuminate\Support\Facades\Auth;
-use JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CompanyController extends Controller
 {
@@ -32,6 +32,9 @@ class CompanyController extends Controller
 
     public function customer()
     {
+        if (!Gate::allows('isCompanyAdmin')) {
+            abort('404', "Sorry, You can do this actions");
+        }
         return view('company.customer')->with('user', Auth::user());
     }
 
@@ -89,13 +92,24 @@ class CompanyController extends Controller
     public function Logout()
     {
         JWTAuth::invalidate(JWTAuth::getToken());
-        return view('auth.index')->withCookie(Cookie::forget('token'));
     }
 
     public function test()
     {
-        return view('company.test')->with('user', Auth::user());
+        $pathWekaLib = config('app.weka_lib');
+        $pathWekaInput = config('app.weka_input');
+
+        $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 3 -t " . $pathWekaInput . "weather.numeric.arff";
+        exec($cmd, $output);
+
+        $simpleKMeans = new SimpleKMeans();
+        $data = $simpleKMeans->getSimpleKMeansToJson($output);
+        echo $data;
+        // return view('company.test')
+        //     ->with('user', Auth::user())
+        //     ->with('output', $output);
     }
+
     public function EditService($id)
     {
         $webService = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
@@ -103,5 +117,12 @@ class CompanyController extends Controller
         return view('company.edit_webService')
             ->with('user', Auth::user())
             ->with('webService', $webService);
+    }
+
+    //Weka
+
+    public function Analysis()
+    {
+        return view('company.Analysis')->with('user', Auth::user());
     }
 }

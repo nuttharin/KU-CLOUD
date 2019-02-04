@@ -53,32 +53,32 @@
                 </div>
                 <hr>
                 <div class="row input-data">
-                    <label for="email">Email address</label>
+                    <label for="email">Email address <span class="text-danger">*</span> </label>
                     <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
                     <small class="messages-error"></small>
                 </div>
                 <div class="row input-data">
-                    <label for="password">Password</label>
+                    <label for="password">Password <span class="text-danger">*</span></label>
                     <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
                     <small class="messages-error"></small>
                 </div>
                 <div class="row input-data">
-                    <label for="confirmPassword">Confirm password</label>
+                    <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
                     <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
                     <small class="messages-error"></small>
                 </div>
                 <div class="row input-data">
-                    <label for="firstname">Firstname</label>
+                    <label for="firstname">Firstname <span class="text-danger">*</span></label>
                     <input type="text" name="firstname" class="form-control" id="fname">
                     <small class="messages-error"></small>
                 </div>
                 <div class="row input-data">
-                    <label for="lname">Lastname</label>
+                    <label for="lname">Lastname <span class="text-danger">*</span></label>
                     <input type="text" name="lastname" class="form-control" id="lname">
                     <small class="messages-error"></small>
                 </div>
                 <div class="row input-data">
-                    <label for="phone">Phone</label>
+                    <label for="phone">Phone <span class="text-danger">*</span></label>
                     <input type="text" name="phone" class="form-control" id="phone">
                     <small class="messages-error"></small>
                 </div>
@@ -88,7 +88,7 @@
             </div>
         </form>
     </div>
-    <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="{{action('AuthController@index')}}">Sing in</a></span>
+    <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="#">Sing in</a></span>
 </div>
 
 <!-- validate -->

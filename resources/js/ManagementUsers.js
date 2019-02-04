@@ -76,7 +76,7 @@ let validateInput = {
                 presence: true,
                 email: true
             },
-            password: {
+            username: {
                 presence: {
                     allowEmpty: false,
                 },
@@ -86,7 +86,7 @@ let validateInput = {
                     message: "can only contain a-Z and 0-9"
                 },
                 length: {
-                    minimum: 6,
+                    minimum: 4,
                     message: "must be at least 6 characters"
                 }
             },
@@ -977,8 +977,8 @@ export class ManagementUsers {
         let onSaveUserClick = (el) => {
             if (checkError(validateInput.create)) return;
             LOADING.set(el);
+            let username_input = $("#add_username").val();
             let email_input = $("#add_email_val").val();
-            let pwd_input = $("#add_pwd_val").val();
             let fname_input = $("#add_fname_val").val();
             let lname_input = $("#add_lname_val").val();
             let phone_input = $("#add_phone_val").val();
@@ -994,8 +994,8 @@ export class ManagementUsers {
                     authorization: 'bearer ' + getCookie('token'),
                 },
                 data: {
+                    username:username_input,
                     email: email_input,
-                    password: pwd_input,
                     fname: fname_input,
                     lname: lname_input,
                     phone: phone_input,

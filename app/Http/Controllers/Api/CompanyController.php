@@ -20,7 +20,6 @@ use email;
 use Mail;
 use Illuminate\Mail\Message;
 
-
 use Auth;
 use DB;
 use Gate;
@@ -120,12 +119,13 @@ class CompanyController extends Controller
         ], 200);
     }
 
-    public function addUserCompany(UsersRequest $request)
+    public function addUserCompany(Request $request)
     {
         $data = [
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'password' => $request->get('password'),
+            // 'password' => $request->get('password'),
             'type_user' => 'COMPANY',
             'company_id' => $this->auth->user_company()->first()->company_id,
             'sub_type_user' => $request->get('sub_type_user'),
@@ -249,9 +249,9 @@ class CompanyController extends Controller
         //dd($payload["user"]->company_id);
 
         $data = [
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'password' => $request->get('password'),
             'type_user' => 'CUSTOMER',
             'company_id' => $this->auth->user_company()->first()->company_id,
             'email_user' => $request->get('email'),
@@ -329,9 +329,7 @@ class CompanyController extends Controller
 
     public function getWebServiceByCompany(Request $request)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
+        $companyID =  $this->auth->user_company()->first()->company_id;
 
         $data = $this->webservices->getWebServiceByCompany($companyID);
         return response()->json(compact('data'), 200);
@@ -341,7 +339,7 @@ class CompanyController extends Controller
     {
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
+        $companyID =  $this->auth->user_company()->first()->company_id;
         $webService = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.status,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
         FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.company_id='$companyID'");
 
@@ -444,18 +442,14 @@ class CompanyController extends Controller
 
     public function deleteStatic(Request $request)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
+        $companyID = Auth::user()->user_company()->first()->company_id;
 
         $this->static->deleteStatic($request->get('static_id'), $companyID);
     }
 
     public function getStaticDashboard(Request $request)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
+        $companyID = Auth::user()->user_company()->first()->company_id;
 
         $data = $this->static->getStaticByCompanyId($companyID);
         return response()->json(compact('data'), 200);
@@ -463,18 +457,15 @@ class CompanyController extends Controller
 
     public function getStaticDashboardById(Request $request, $static_id)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
+
+        $companyID = Auth::user()->user_company()->first()->company_id;
         $data = $this->static->getStaticDashboardById($static_id, $companyID);
         return response()->json(compact('data'), 200);
     }
 
     public function getDatasourceStatic(Request $request)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $payload["user"]->company_id;
+        $companyID = Auth::user()->user_company()->first()->company_id;
         $data = $this->static->getDatasoureByStaticId($request->get('static_id'), $companyID);
         return response()->json(compact('data'), 200);
     }

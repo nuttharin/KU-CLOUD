@@ -16,6 +16,16 @@ use Log;
 
 class EloquentCompany implements CompanyRepository
 {
+    public function getAllCompany()
+    {
+        try {
+            $company = TB_COMPANY::all()->paginate(15);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return;
+        }
+        return $company;
+    }
 
     /**
      * @param $id

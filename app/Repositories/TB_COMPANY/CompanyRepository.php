@@ -10,6 +10,8 @@ namespace App\Repositories\TB_COMPANY;
 
 interface CompanyRepository
 {
+    public function getAllCompany();
+
     public function getCompanyById($id);
 
     public function getCompanyList();
