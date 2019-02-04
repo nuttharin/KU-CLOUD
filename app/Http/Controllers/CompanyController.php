@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
-use App\Weka\Pattern;
+use App\Weka\Clusterers\SimpleKMeans;
 use DB;
 use Gate;
 use Illuminate\Support\Facades\Auth;
@@ -96,14 +96,18 @@ class CompanyController extends Controller
 
     public function test()
     {
-        $cmd = "java -cp C:/inetpub/wwwroot/weka/weka.jar weka.clusterers.SimpleKMeans -N 2 -t  C:/inetpub/wwwroot/weka/data/weather.nominal.arff";
+        $pathWekaLib = config('app.weka_lib');
+        $pathWekaInput = config('app.weka_input');
+
+        $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 3 -t " . $pathWekaInput . "weather.numeric.arff";
         exec($cmd, $output);
-        $pattern = new Pattern();
-        $data = $pattern->getSimpleKMeansToJson($output);
+
+        $simpleKMeans = new SimpleKMeans();
+        $data = $simpleKMeans->getSimpleKMeansToJson($output);
         echo $data;
-        return view('company.test')
-            ->with('user', Auth::user())
-            ->with('output', $output);
+        // return view('company.test')
+        //     ->with('user', Auth::user())
+        //     ->with('output', $output);
     }
 
     public function EditService($id)
