@@ -221,4 +221,7 @@ return [
 
     'faker_locale' => 'th_TH',
 
+    'weka_lib' => env('WEKA_LIB', storage_path('weka/lib/weka.jar')),
+    'weka_input' => env('WEKA_INPUT', storage_path('weka/data/')),
+
 ];
