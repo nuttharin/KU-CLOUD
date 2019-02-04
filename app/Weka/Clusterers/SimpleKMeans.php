@@ -14,6 +14,11 @@ class SimpleKMeans
         $this->pathWekaInput = config('app.weka_input');
     }
 
+    public function exec($param)
+    {
+
+    }
+
     public function getTableSimpleKMeans($output, $start)
     {
         $table = [];

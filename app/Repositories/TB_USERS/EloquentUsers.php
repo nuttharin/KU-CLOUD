@@ -19,8 +19,10 @@ use App\TB_USER_COMPANY;
 
 
 use App\TB_USER_CUSTOMER;
+use App\Jobs\SendEmailJob;
 use App\USER_FIRST_CREATE;
 use Illuminate\Mail\Message;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -389,13 +391,16 @@ class EloquentUsers implements UsersRepository
                 }
             }
 
-            // $name = $attributes['fname'] . " " . $attributes['lname'];
-            // $email = $attributes['email_user'];
+            $name = $attributes['fname'] . " " . $attributes['lname'];
+            $email = $attributes['email_user'];
 
-            // $verification_code = str_random(30); //Generate verification code
+            $verification_code = str_random(30); //Generate verification code
 
-            // DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
-            // $subject = "Please verify your email address."; // หัวข้อเมล์
+            DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
+            $subject = "Please verify your email address."; // หัวข้อเมล์
+            //ส่ง Email run queue
+            dispatch(new SendEmailJob($subject,$name,$email,$verification_code,$attributes['username'],$password));
+           
             // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $attributes['username'],'password'=>$password],
             //     function($mail) use ($email, $name, $subject){
             //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
