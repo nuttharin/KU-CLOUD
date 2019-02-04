@@ -1,5 +1,5 @@
-@extends('layouts.mainCompany') 
-@section('title','Manage Accounts | Company') 
+@extends('layouts.mainCompany')
+@section('title','Manage Accounts | Company')
 @section('content')
 
 <style>
@@ -21,16 +21,20 @@
     <div class="card-body">
         <ul class="nav nav-tabs tab-basic" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active show" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                <a class="nav-link active show" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    aria-controls="profile" aria-selected="true">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Account</a>
+                <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account"
+                    aria-selected="false">Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="emails-tab" data-toggle="tab" href="#emails" role="tab" aria-controls="emails" aria-selected="false">Emails</a>
+                <a class="nav-link" id="emails-tab" data-toggle="tab" href="#emails" role="tab" aria-controls="emails"
+                    aria-selected="false">Emails</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="phones-tab" data-toggle="tab" href="#phones" role="tab" aria-controls="phones" aria-selected="false">Phones</a>
+                <a class="nav-link" id="phones-tab" data-toggle="tab" href="#phones" role="tab" aria-controls="phones"
+                    aria-selected="false">Phones</a>
             </li>
         </ul>
         <div class="tab-content tab-content-basic">
@@ -41,17 +45,18 @@
                         <input type="text" class="form-control" name="fname" value="{{$user->fname}}">
                         <label>Lastname</label>
                         <input type="text" class="form-control" name="lname" value="{{$user->lname}}">
-                        <button type="button" class="btn btn-success mt-2" id="btn-update-profile" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update profile</button>
+                        <button type="button" class="btn btn-success mt-2" id="btn-update-profile" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update
+                            profile</button>
                     </div>
                     <div class="col-12 col-md-6">
                         <h6>Profile picture</h6>
 
                         <img class="img-xs rounded-circle" height="200" width="200" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}"
-                            alt="Profile image"><br/>
+                            alt="Profile image"><br />
 
                         <label class="btn btn-primary mt-2">
-                                Upload new picture <input type="file" name="img-profile" id="img-profile" hidden>
-                            </label>
+                            Upload new picture <input type="file" name="img-profile" id="img-profile" hidden>
+                        </label>
                         <button type="button" class="btn mt-2" hidden>Upload new picture</button>
 
                     </div>
@@ -69,7 +74,15 @@
                         <input type="password" name="confirm_password" class="form-control">
                         <button type="button" class="btn btn-success mt-2" id="btn-update-password">Update password</button>
                     </div>
-
+                </div>
+                <hr>
+                <h4>Change Username</h4>
+                <div class="row mb-3">
+                    <div class="col-12 col-md-6">
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="username" value="{{$user->username}}">
+                        <button type="button" class="btn btn-success mt-2" id="btn_update_username" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update username</button>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="emails" role="tabpanel" aria-labelledby="emails-tab">
@@ -135,7 +148,8 @@
                     <form method="POST" enctype="multipart/form-data" id="imageUploadForm">
                         <div id="upload-demo"></div>
                         <input type="hidden" id="imagebase64" name="imagebase64">
-                        <button type="button" class="btn btn-success btn-block" id="btn-crop-save" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">Set new profile picture</button>
+                        <button type="button" class="btn btn-success btn-block" id="btn-crop-save" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">Set
+                            new profile picture</button>
                     </form>
                 </div>
 

@@ -7,48 +7,71 @@
  */
 
 namespace App\Repositories\Accounts;
-use App\TB_USERS;
-use App\TB_EMAIL;
-use App\TB_PHONE;
-use DB;
-use Auth;
-use Hash;
 
 use App\Exceptions\CheckOldPasswordExceptions;
+use App\TB_EMAIL;
+use App\TB_PHONE;
+use App\TB_USERS;
+use Auth;
+use DB;
+use Hash;
 
 class EloquentAccounts implements AccountsRepository
 {
 
     public function getAccount($user_id)
     {
-        $user = TB_USERS::where('user_id',$user_id)->first();
+        $user = TB_USERS::where('user_id', $user_id)->first();
         $data = [
-            'fname'     =>  $user->fname,
-            'lname'     =>  $user->lname,
-            'email'     =>  TB_EMAIL::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
-            'phone'     =>  TB_PHONE::where('user_id',$user->user_id)->orderByRaw('is_primary DESC')->get(),
+            'username' => $user->username,
+            'fname' => $user->fname,
+            'lname' => $user->lname,
+            'email' => TB_EMAIL::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
+            'phone' => TB_PHONE::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
         ];
         return $data;
         // TODO: Implement getAccount() method.
     }
 
-    public function uploadProfile($path,$user_id){
+    public function uploadProfile($path, $user_id)
+    {
         DB::beginTransaction();
-        try{
-            $user = TB_USERS::where('user_id',$user_id)->update(['img_profile' => $path]);
-        }
-        catch(Exception $e) {
+        try {
+            $user = TB_USERS::where('user_id', $user_id)->update(['img_profile' => $path]);
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
         DB::commit();
     }
 
-    public function updateName($user_id,$fname,$lname){
+    public function updateUsername($user_id, $username)
+    {
         DB::beginTransaction();
-        try{
-            TB_USERS::where('user_id',$user_id)->update(['fname'=>$fname,'lname'=>$lname]);
-        }catch(Exception $e) {
+        try {
+            TB_USERS::where('user_id', $user_id)->update(
+                [
+                    'username' => $username,
+                ]
+            );
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+    }
+
+    public function updateName($user_id, $fname, $lname)
+    {
+        DB::beginTransaction();
+        try {
+            TB_USERS::where('user_id', $user_id)->update(
+                [
+                    'fname' => $fname,
+                    'lname' => $lname,
+                ]
+            );
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -59,28 +82,28 @@ class EloquentAccounts implements AccountsRepository
     {
         // TODO: Implement changePassword() method.
         DB::beginTransaction();
-        try{
-            if(Hash::check($old_password,Auth::user()->password)){
+        try {
+            if (Hash::check($old_password, Auth::user()->password)) {
                 Auth::user()->password = Hash::make($new_password);
                 Auth::user()->save();
-            }
-            else{
+            } else {
                 throw new CheckOldPasswordExceptions();
             }
-            
-        }catch(Exception $e) {
+
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
-        }catch(CheckOldPasswordExceptions $e){
+        } catch (CheckOldPasswordExceptions $e) {
             DB::rollBack();
             throw $e;
         }
         DB::commit();
-      
+
     }
 
-    public function checkOldPassword($old_password){
-        
+    public function checkOldPassword($old_password)
+    {
+
     }
 
     public function changePrimaryEmail($user_id, $email_user)
@@ -96,8 +119,7 @@ class EloquentAccounts implements AccountsRepository
                 'user_id' => $user_id,
                 'email_user' => $email_user,
             ])->update(['is_primary' => true]);
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -118,8 +140,7 @@ class EloquentAccounts implements AccountsRepository
                 'user_id' => $user_id,
                 'phone_user' => $phone_user,
             ])->update(['is_primary' => true]);
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -135,10 +156,9 @@ class EloquentAccounts implements AccountsRepository
                 'user_id' => $user_id,
                 'email_user' => $email_user,
                 'is_verify' => false,
-                'is_primary' => false
+                'is_primary' => false,
             ]);
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -154,10 +174,9 @@ class EloquentAccounts implements AccountsRepository
                 'user_id' => $user_id,
                 'phone_user' => $phone_user,
                 'is_verify' => false,
-                'is_primary' => false
+                'is_primary' => false,
             ]);
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -168,14 +187,13 @@ class EloquentAccounts implements AccountsRepository
     public function deleteEmail($user_id, $email_user)
     {
         DB::beginTransaction();
-        try{
+        try {
             $data = TB_EMAIL::where([
-                ['user_id','=',$user_id],
-                ['email_user','=',$email_user],
-                ['is_primary','=',false],
+                ['user_id', '=', $user_id],
+                ['email_user', '=', $email_user],
+                ['is_primary', '=', false],
             ])->delete();
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -186,14 +204,13 @@ class EloquentAccounts implements AccountsRepository
     public function deletePhone($user_id, $phone_user)
     {
         DB::beginTransaction();
-        try{
+        try {
             $data = TB_PHONE::where([
-                ['user_id','=',$user_id],
-                ['phone_user','=',$phone_user],
-                ['is_primary','=',false],
+                ['user_id', '=', $user_id],
+                ['phone_user', '=', $phone_user],
+                ['is_primary', '=', false],
             ])->delete();
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
@@ -205,29 +222,28 @@ class EloquentAccounts implements AccountsRepository
     {
         // TODO: Implement register() method.
         DB::beginTransaction();
-        try{
+        try {
             $user = TB_USERS::create([
-                'fname'     =>  $attr['fname'],
-                'lname'     =>  $attr['lname'],
-                'password'  =>  Hash::make($attr['password']),
-                'type_user' =>  'CUSTOMER',
+                'fname' => $attr['fname'],
+                'lname' => $attr['lname'],
+                'password' => Hash::make($attr['password']),
+                'type_user' => 'CUSTOMER',
             ]);
 
-            if($user->user_id) {
+            if ($user->user_id) {
                 TB_PHONE::create([
-                    'user_id'       =>  $user->user_id,
-                    'phone_user'    =>  $attr['phone_user'],
-                    'is_primary'    =>  true,
+                    'user_id' => $user->user_id,
+                    'phone_user' => $attr['phone_user'],
+                    'is_primary' => true,
                 ]);
 
                 TB_EMAIL::create([
-                    'user_id'       =>  $user->user_id,
-                    'email_user'    =>  $attr['email_user'],
-                    'is_primary'    =>  true,
+                    'user_id' => $user->user_id,
+                    'email_user' => $attr['email_user'],
+                    'is_primary' => true,
                 ]);
             }
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }

@@ -3,25 +3,27 @@ $(document).ready(function () {
     $("#header_sm").css('margin-top',$("#navbar_fixed").css('height'));
 
     $(".nav_login").click(function() {
-        $("#model_background_register").hide();
-        var model_width = $("#model_body_login").css('width').replace('%','');
-        var body_width = $(window).width();
-        var model_width_px = body_width * (model_width / 100);
-        $("#model_body_login").css('left', (body_width / 2) - (model_width_px / 2) + "px");
-        $("#model_background_login").show();
-        $("#navbar_fixed").removeClass('fixed-top');   
+        $("#model_body_login").modal('show');
+        // $("#model_background_register").hide();
+        // var model_width = $("#model_body_login").css('width').replace('%','');
+        // var body_width = $(window).width();
+        // var model_width_px = body_width * (model_width / 100);
+        // $("#model_body_login").css('left', (body_width / 2) - (model_width_px / 2) + "px");
+        // $("#model_background_login").show();
+        // $("#navbar_fixed").removeClass('fixed-top');   
     });
 
 
 
     $("#nav_register").click(function() {
-        $("#model_background_login").hide();
-        var model_width = $("#model_body_register").css('width').replace('%','');
-        var body_width = $(window).width();
-        var model_width_px = body_width * (model_width / 100);
-        $("#model_body_register").css('left', (body_width / 2) - (model_width_px / 2) + "px");
-        $("#model_background_register").show();
-        $("#navbar_fixed").removeClass('fixed-top');   
+        $("#model_body_register").modal('show');
+        // $("#model_background_login").hide();
+        // var model_width = $("#model_body_register").css('width').replace('%','');
+        // var body_width = $(window).width();
+        // var model_width_px = body_width * (model_width / 100);
+        // $("#model_body_register").css('left', (body_width / 2) - (model_width_px / 2) + "px");
+        // $("#model_background_register").show();
+        // $("#navbar_fixed").removeClass('fixed-top');   
     });
 
     $("#btn_close_login").click(function() {
@@ -70,7 +72,7 @@ $(document).ready(function () {
             method: "POST",
             dataType: "json",
             data: {
-                email: $("#email_login").val(),
+                username: $("#email_login").val(),
                 password: $("#pwd_login").val()
             },
             success: (res) => {
@@ -78,10 +80,10 @@ $(document).ready(function () {
                 window.location = res.path;
             },
             error: (res) => {
-                if (res.status === 500) {
+                console.log(res);
+                if (res.status === 400) {
                     $(".alert ").show();
-                    $(".alert ").html("<strong>Error!</strong> Please check email " +
-                        $("#email_login").val() + " to verify.");
+                    $(".alert ").html(`<strong>Error!</strong> ${res.responseJSON.error.message}`);
                 }
             }
         });

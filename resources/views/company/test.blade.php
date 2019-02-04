@@ -1,6 +1,8 @@
 @extends('layouts.mainCompany') 
 @section('title','User | Company') 
 @section('content')
+
+
 <select id="select-resource">
     <option value=""></option>
 <select>
@@ -8,103 +10,103 @@
 <ul id="data-list" class="list-group">
 
 </ul>
-<style>
- .list-group-item:hover{
-    z-index: 2;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
- }
-</style>
+
+@for ($i = 0; $i < sizeof($output); $i++)
+    {{trim($output[$i])}}
+    <br>
+@endfor
+
 <script>
-    let datasources = {
-        api : null,
-    }
-
-    let tt = "datasources['api']['Stations']['2']['StationNameEng']"
-
-    let dataAccess = ['api','Stations','2','Observe','Temperature','Value'];
-
-    let apiSelect = "datasources";
-    let dataTest = "";
-
-    let keyTest = [];
-
-    let re = /([a-zA-Z0-9_]+)/g;
-
-    function saveData(res){
-        datasources.api = res;
-        //console.log(getData(1,datasources[dataAccess[0]]));
-        let key = Object.keys(datasources);
-        $("#select-resource").append(key.map(_key => {
-            return `<option value="${_key}">${_key}</option>`;
-        }))
-        
-    }
-
-    function getData(index,data){
-        // let re = /([a-zA-Z0-9_]+)/g;
-        // console.log( tt.match(re));
-        if(typeof(data[dataAccess[index]]) == 'object'){
-            return getData(index+1,data[dataAccess[index]]);
+function getFlatObject(object) {
+    function iter(o, p) {
+        if (Array.isArray(o) ){
+            o.forEach(function (a, i) {
+                iter(a, p.concat(i));
+            });
+            return;
         }
-        return data[dataAccess[index]];
-    };
-
-    function getKey(index,data){
-        if(typeof(data) == 'object'){
-            if(index == keyTest.length){
-                return  Object.keys(data) ? Object.keys(data) : [];
-            }
-            return getKey(index+1,data[keyTest[index]]);
+        if (o !== null && typeof o === 'object') {
+            Object.keys(o).forEach(function (k) {
+                iter(o[k], p.concat(k));
+            });
+            return;
         }
+        path[p.join('.')] = o;
     }
 
-    function checkType(value){
-        keyTest = value.match(re);
-        let key =  getKey(2,datasources[keyTest[1]])
-        $("#data-list").empty();
-        key.map(_key => {
-            let test = value + "['"+_key+"']";
-            $("#data-list").append(`<li class="value-data list-group-item" style="cursor:pointer" value="${_key}">${_key} : ${eval(test)}</li>`)
-        });
+    var path = {};
+    iter(object, []);
+    return path;
+}
 
-        $(".value-data").click(function(){
-            let a = $("#data").html();
-            a += `['${$(this).attr('value')}']`;
-            $("#data").html(a);
-            checkType($("#data").html());
-        });       
-    }
+var obj = {
+	"Stations" :{
+		"_id" : "5c51a53d46967b0d404ce91d",
+		"WmoNumber" : "48439",
+    		"StationNameTh" : "กบินทร์บุรี",
+    		"StationNameEng" : "KABIN BURI",
+    		"Province" : "ปราจีนบุรี",
+    "Latitude" : {
+        "Value" : "13.983333",
+        "Unit" : "decimal degree"
+    },
+    "Longitude" : {
+        "Value" : "101.707222",
+        "Unit" : "decimal degree"
 
-    $.ajax({
-        //https://data.tmd.go.th/api/WeatherToday/V1/?type=json
-        url:'/js/company/test-api2.json',
-        success:(res) => {
-            saveData(res);
-            
+    },
+    "Observe" : {
+        "Time" : "30/1/2019 19:00:00",
+        "Temperature" : {
+            "Value" : 30.3,
+            "Unit" : "celcius"
         },
-        error:(res)=> {
-            console.log(res);
-        }
-    })
+        "StationPressure" : {
+            "Value" : 1008.8,
+            "Unit" : "hPa"
+        },
+        "MeanSeaLevelPressure" : {
+            "Value" : 1010.2,
+            "Unit" : "hPa"
+        },
+        "DewPoint" : {
+            "Value" : 22.5,
+            "Unit" : "celcius"
+        },
+        "RelativeHumidity" : {
+            "Value" : 63,
+            "Unit" : "%"
+        },
+        "VaporPressure" : {
+            "Value" : 27.3,
+            "Unit" : "hPa"
+        },
+        "LandVisibility" : {
+            "Value" : 8,
+            "Unit" : "km"
+        },
+        "WindDirection" : {
+            "Value" : "000",
+            "Unit" : "degree"
+        },
+        "WindSpeed" : {
+            "Value" : 0,
+            "Unit" : "km/h"
+        },
+        "Rainfall" : {
+            "Value" : 0,
+            "Unit" : "mm"
+        },
+        "TotolCloud" : "ท้องฟ้าแจ่มใส"
+    }
+    
 
-    $(document).ready(function(){
-        function createDataList(api){
-            
-            $("#data-list").empty();
-            let js = apiSelect + "['"+api+"']";
-            $("#data").html(js);
-            checkType(js);       
-        }
-
-        $("#select-resource").change(function(){
-            createDataList($(this).val())
-        });
-
-       
-
-    });
+	}
+    
+},
+    path = getFlatObject(obj);
+	
+console.log(path);
 
 </script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.login') 
 @section('content')
 <style>
-    body {
+    html,body {
         background: #A1FFCE;
         /* fallback for old browsers */
         background: -webkit-linear-gradient(to bottom, #FAFFD1, #A1FFCE);
@@ -20,6 +20,18 @@
 
         overflow-y: scroll;
         max-height:90vh;
+    }
+
+    @media screen and (max-width: 850px) {
+        .form-email{
+            width: 70%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .form-email {
+            width: 100%;
+        }
     }
 
     .form-email::-webkit-scrollbar { 
