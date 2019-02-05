@@ -89,13 +89,13 @@
         <a data-toggle="collapse" href="#collapse1">
             <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
-                <div class="col-sm-1" >
-                    <button type="button" style="width:100%" class="btn btn-primary">GET</button>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-primary">GET</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get data max</h6>
                 </div>
-                <div class="col-sm-9" id='header-detail'>
+                <div class="col-sm-8" id='header-detail'>
                     <h6 style="color:gray">/webService/GetAlldata</h6>
                 </div>
             </div>
@@ -138,13 +138,13 @@
         <a data-toggle="collapse" href="#collapse2">
             <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
-                <div class="col-sm-1" >
-                    <button type="button" style="width:100%" class="btn btn-success">POST</button>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get All Data</h6>
                 </div>
-                <div class="col-sm-9" id='header-detail'>
+                <div class="col-sm-8" id='header-detail'>
                     <h6 style="color:gray">/webService/GetAlldata</h6>
                 </div>
             </div>
@@ -218,13 +218,13 @@
         <a data-toggle="collapse" href="#collapse3">
             <h4 class="panel-title collap-output">
             <div class="row " id='header-output'>
-                <div class="col-sm-1" >
-                    <button type="button" style="width:100%" class="btn btn-danger">DELETE</button>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-danger">DELETE</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get data max</h6>
                 </div>
-                <div class="col-sm-9" id='header-detail'>
+                <div class="col-sm-8" id='header-detail'>
                     <h6 style="color:gray">/webService/GetAlldata</h6>
                 </div>
             </div>
@@ -271,13 +271,13 @@
         <a data-toggle="collapse" href="#collapse1">
             <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
-                <div class="col-sm-1" >
-                    <button type="button" style="width:100%" class="btn btn-primary">GET</button>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-primary">GET</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
                     <h6 style="color:black">Get data max</h6>
                 </div>
-                <div class="col-sm-9" id='header-detail'>
+                <div class="col-sm-8" id='header-detail'>
                     <h6 style="color:gray">/webService/GetAlldata</h6>
                 </div>
             </div>
