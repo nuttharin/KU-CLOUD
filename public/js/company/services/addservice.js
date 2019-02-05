@@ -306,7 +306,7 @@ class Service {
                     header: headerLow,
                     valueCal: "sefef",
                     status: status,
-                    time:time
+                    time: 1
                 },
                 success: (res) => {
                     // toastr["success"]("Success");

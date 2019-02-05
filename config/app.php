@@ -52,7 +52,7 @@ return [
     |
      */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
 
     /*
     |--------------------------------------------------------------------------
@@ -220,5 +220,8 @@ return [
     ],
 
     'faker_locale' => 'th_TH',
+
+    'weka_lib' => env('WEKA_LIB', storage_path('weka/lib/weka.jar')),
+    'weka_input' => env('WEKA_INPUT', storage_path('weka/data/')),
 
 ];
