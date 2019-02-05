@@ -359,6 +359,18 @@
                                         <th>value</th>
                                     </thead>
                                     <tbody>
+                                        <td>*</td>
+                                        <td>any value</td>
+                                    <tr>
+                                        <td>,</td>
+                                        <td>value list separator</td>
+                                    <tr>
+                                        <td>-</td>
+                                        <td>range of values</td>
+                                    <tr>
+                                        <td>/</td>
+                                        <td>step values</td>
+                                    <tr>
                                         <td>second</td>
                                         <td>0-59</td>
                                     <tr>
@@ -379,6 +391,9 @@
                                     </tbody>
                                 </table>
                                 </center>
+                                <hr/>
+                                <h5>Example</h5>
+                                * */2 * * * * running a task every two minutes
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -387,13 +402,34 @@
                             
                             </div>
                         </div>
-                        <input style="width:10%" title="second" class="" id="time-webservice" name="time-webservice" placeholder="*">
-                        <input style="width:10%" title="minute" class="" id="time-webservice" name="time-webservice" placeholder="*">
-                        <input style="width:10%" title="hour" class="" id="time-webservice" name="time-webservice" placeholder="*">
-                        <input style="width:10%" title="day of month" class="" id="time-webservice" name="time-webservice" placeholder="*">
-                        <input style="width:10%" title="month" class="" id="time-webservice" name="time-webservice" placeholder="*">
-                        <input style="width:10%" title="day of week" class="" id="time-webservice" name="time-webservice" placeholder="*">
-                        <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
+                        <div class="row">
+                            <!-- <div class="col-sm-6">
+                                <input style="width:100%; text-align: center; " title="second" class="" id="time-webservice-second" name="time-webservice-second" value="* * * * * *" placeholder="*">
+                            </div> -->
+                            <div class="col-sm-2">
+                                <input style="width:100%; text-align: center; " title="second"  id="time-webservice-second" name="time-webservice-second" placeholder="*">
+                            </div>
+                            <div class="col-sm-2">
+                                <input style="width:100%; text-align: center; " title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
+                            </div>
+                            <div class="col-sm-2">
+                                <input style="width:100%; text-align: center; " title="hour" class="" id="time-webservice-hour" name="time-webservice-hour" placeholder="*">
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <center>second</center>
+                            </div>
+                            <div class="col-sm-2">
+                                <center>minute</center>
+                            </div>
+                            <div class="col-sm-2">
+                                <center>hour</center>
+                            </div>
+                        </div>
                 </div>
             </div>
             <button type="button" id="showvalue" class="btn btn-primary show-header"><a style="color:white" href="#select">Show value</a></button>  
