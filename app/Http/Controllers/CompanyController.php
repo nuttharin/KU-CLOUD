@@ -100,8 +100,8 @@ class CompanyController extends Controller
         $pathWekaLib = config('app.weka_lib');
         $pathWekaInput = config('app.weka_input');
 
-        // $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 2 -t " . $pathWekaInput . "glass.arff";
-        $cmd = "java -cp " . $pathWekaLib . " weka.core.Instances " . $pathWekaInput . "attempt1.arff";
+        $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 2 -t " . $pathWekaInput . "glass.arff";
+        //$cmd = "java -cp " . $pathWekaLib . " weka.core.Instances " . $pathWekaInput . "attempt1.arff";
         exec($cmd, $output);
         dd($cmd);
         $simpleKMeans = new SimpleKMeans();
@@ -123,7 +123,7 @@ class CompanyController extends Controller
 
         $cmd = "java -cp " . $pathWekaLib . " weka.associations.Apriori -N 10 -t " . $pathWekaInput . "vote.arff";
         exec($cmd, $output);
-        // dd($output);
+        dd($cmd);
         $asso = new Association();
         $data = $asso->getAssociationJsonFormat($output);
         echo $data;
@@ -151,8 +151,8 @@ class CompanyController extends Controller
         return view('company.AnalysisPrepareData')->with('user', Auth::user());
     }
 
-    public function AnalysisData()
+    public function DataAnalysis()
     {
-        return view('company.AnalysisPrepareData')->with('user', Auth::user());
+        return view('company.DataAnalysis')->with('user', Auth::user());
     }
 }

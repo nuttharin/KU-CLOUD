@@ -11,6 +11,6 @@ class TB_DATA_ANALYSIS extends Model
     protected $table = "TB_DATA_ANALYSIS";
 
     protected $fillable = [
-        'data_id', 'user_id', 'name', 'is_success',
+        'data_id', 'user_id', 'name', 'is_success', 'path_file',
     ];
 }
