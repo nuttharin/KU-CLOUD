@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
-use App\Weka\Clusterers\SimpleKMeans;
 use App\Weka\Clusterers\Association;
+use App\Weka\Clusterers\SimpleKMeans;
 use DB;
 use Gate;
 use Illuminate\Support\Facades\Auth;
@@ -100,16 +100,20 @@ class CompanyController extends Controller
         $pathWekaLib = config('app.weka_lib');
         $pathWekaInput = config('app.weka_input');
 
-        $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 3 -t " . $pathWekaInput . "weather.numeric.arff";
-        exec($cmd, $output);    
-        // dd($output);
-
+        // $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 2 -t " . $pathWekaInput . "glass.arff";
+        $cmd = "java -cp " . $pathWekaLib . " weka.core.Instances " . $pathWekaInput . "attempt1.arff";
+        exec($cmd, $output);
+        dd($cmd);
         $simpleKMeans = new SimpleKMeans();
         $data = $simpleKMeans->getSimpleKMeansToJson($output);
-        echo $data;
-        // return view('company.test')
-        //     ->with('user', Auth::user())
-        //     ->with('output', $output);
+        //echo $data;
+
+        // $t = new ConvertJsonToArff();
+        // $t->convertToAttr();
+
+        return view('company.test')
+            ->with('user', Auth::user())
+            ->with('output', $output);
     }
 
     public function testAsso()
@@ -142,8 +146,13 @@ class CompanyController extends Controller
 
     //Weka
 
-    public function Analysis()
+    public function AnalysisPrepareData()
     {
-        return view('company.Analysis')->with('user', Auth::user());
+        return view('company.AnalysisPrepareData')->with('user', Auth::user());
+    }
+
+    public function AnalysisData()
+    {
+        return view('company.AnalysisPrepareData')->with('user', Auth::user());
     }
 }
