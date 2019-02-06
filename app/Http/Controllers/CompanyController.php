@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
+use App\Weka\Clusterers\Association;
 use App\Weka\Clusterers\SimpleKMeans;
 use DB;
 use Gate;
@@ -113,6 +114,25 @@ class CompanyController extends Controller
         return view('company.test')
             ->with('user', Auth::user())
             ->with('output', $output);
+    }
+
+    public function testAsso()
+    {
+        $pathWekaLib = config('app.weka_lib');
+        $pathWekaInput = config('app.weka_input');
+
+        $cmd = "java -cp " . $pathWekaLib . " weka.associations.Apriori -N 10 -t " . $pathWekaInput . "vote.arff";
+        exec($cmd, $output);
+        // dd($output);
+        $asso = new Association();
+        $data = $asso->getAssociationJsonFormat($output);
+        echo $data;
+        // $simpleKMeans = new SimpleKMeans();
+        // $data = $simpleKMeans->getSimpleKMeansToJson($output);
+        // echo $data;
+        // return view('company.test')
+        //     ->with('user', Auth::user())
+        //     ->with('output', $output);
     }
 
     public function EditService($id)

@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="{{action('AuthController@index')}}">Sing in</a></span>
+    <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="{{action('HomeController@Index')}}">Sing in</a></span>
     @if (isset($responseMessage))
     <input type="hidden" id="response_message" value="{{$responseMessage}}"/>
     @endif

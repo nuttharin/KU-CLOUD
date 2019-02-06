@@ -26,16 +26,17 @@ class AuthController extends Controller
 
     public function forgetPasswordSendMail(Request $request)
     {
-        $userName = DB::select('SELECT TB_USERS.fname as firstname, TB_USERS.lname as lastname, TB_USERS.user_id as userId FROM TB_USERS
+        $userName = DB::select('SELECT TB_USERS.username as accountname, TB_USERS.fname as firstname, TB_USERS.lname as lastname, TB_USERS.user_id as userId FROM TB_USERS
                                     INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
                                     WHERE TB_EMAIL.email_user = ?', [$request->get('email')]);
 
         $fullName = $userName[0]->firstname . " " . $userName[0]->lastname;
+        $accountName = $userName[0]->accountname;
         $email = $request->get('email');
         $verification_code = str_random(30);
         $subject = "Reset Password.";
 
-        Mail::send('forgetPassword.resetPasswordBody', ['fullname' => $fullName, 'verification_code' => $verification_code, 'userId' => $userName[0]->userId],
+        Mail::send('forgetPassword.resetPasswordBody', ['accountname' => $accountName, 'fullname' => $fullName, 'verification_code' => $verification_code, 'userId' => $userName[0]->userId],
             function ($mail) use ($email, $fullName, $subject) {
                 $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
                 $mail->to($email, $fullName);
@@ -87,7 +88,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->get('password')),
             ]);
 
-        return view('auth.index');
+        return view('Home.Index');
     }
 
     public function verifyUser($verification_code, $email)

@@ -16,4 +16,6 @@ interface AddressRepository
 
     public function getDistrictsByAmphures($province_id, $amphure_id);
 
+    public function createAddressUser(array  $attr);
+
 }

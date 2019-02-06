@@ -25,11 +25,11 @@ class Districts extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::table('TB_USERS', function (Blueprint $table) {
-            $table->foreign('district_id')
-                ->references('district_id')->on('Districts')
-                ->onDelete('cascade');
-        });
+        // Schema::table('TB_USERS', function (Blueprint $table) {
+        //     $table->foreign('district_id')
+        //         ->references('district_id')->on('Districts')
+        //         ->onDelete('cascade');
+        // });
     }
 
     /**

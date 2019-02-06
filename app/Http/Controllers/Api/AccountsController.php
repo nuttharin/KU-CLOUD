@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Accounts\AccountsRepository;
+use App\Repositories\Address\AddressRepository;
 use Auth;
 use DB;
 use File;
@@ -15,28 +16,46 @@ class AccountsController extends Controller
 {
     /**
      * @var AccountsRepository
+     * @var AddressRepository
      */
     private $account;
+    private $address;
 
-    public function __construct(AccountsRepository $account)
+    public function __construct(AccountsRepository $account, AddressRepository $address)
     {
 //        if(!Gate::allows('isAdmin')){
         //            abort('403',"Sorry, You can do this actions");
         //        }
         $this->account = $account;
+        $this->address = $address;
     }
 
     public function register(Request $request)
     {
         $attr = [
+            'accountname' => $request->get('accountname'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'password' => $request->get('password'),
             'email_user' => $request->get('email'),
-            'phone_user' => $request->get('phone'),
+            'phone_user' => $request->get('phone')
         ];
 
-        $this->account->register($attr);
+        $user_id = $this->account->register($attr);
+
+        if($request->get('checkbox_address') == 'true')
+        {
+            $attr = [
+                'user_id' => $user_id,
+                'address_detail' => $request->get('address_detail'),
+                'district_id' => $request->get('district_id'),
+                'amphure_id' => $request->get('amphure_id'),
+                'province_id' => $request->get('province_id')
+            ];
+
+            $this->address->createAddressUser($attr);
+        }
+
     }
 
     public function getAccount(Request $request)

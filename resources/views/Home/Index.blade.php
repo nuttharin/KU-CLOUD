@@ -417,7 +417,7 @@
 </div>
 
 
-<div class="modal fade" id="model_body_register">
+<!-- <div class="modal fade" id="model_body_register">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
@@ -502,7 +502,7 @@
 
         </div>
     </div>
-</div>
+</div> -->
 
 
 <script src="{{asset('js/aos/aos.js')}}"></script>
