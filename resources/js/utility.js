@@ -228,7 +228,7 @@ export function getFlatObject(object) {
             });
             return;
         }
-        path[p.join('.')] = o;
+        path[p.join('/')] = o;
     }
 
     var path = {};

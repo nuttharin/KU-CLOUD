@@ -1,0 +1,8 @@
+@relation test
+@attribute Stations_Observe_MeanSeaLevelPressure_Value real
+@attribute Stations_Observe_RelativeHumidity_Value numeric
+@attribute Stations_Observe_LandVisibility_Value numeric
+
+@data
+1010.2,63,8
+1011.2,66,10
