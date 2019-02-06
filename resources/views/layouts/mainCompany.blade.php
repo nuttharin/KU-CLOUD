@@ -226,8 +226,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
-                                Analysis data
+                            <a href="{{action('CompanyController@DataAnalysis')}}">
+                                Data Analysis
                             </a>
                         </li>
                     </ul>
