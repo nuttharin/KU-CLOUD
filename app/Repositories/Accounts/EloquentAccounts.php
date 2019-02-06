@@ -221,9 +221,11 @@ class EloquentAccounts implements AccountsRepository
     public function register(array $attr)
     {
         // TODO: Implement register() method.
+        $user_id = null;
         DB::beginTransaction();
         try {
             $user = TB_USERS::create([
+                'username' =>$attr['accountname'],
                 'fname' => $attr['fname'],
                 'lname' => $attr['lname'],
                 'password' => Hash::make($attr['password']),
@@ -231,6 +233,7 @@ class EloquentAccounts implements AccountsRepository
             ]);
 
             if ($user->user_id) {
+                $user_id = $user->user_id;
                 TB_PHONE::create([
                     'user_id' => $user->user_id,
                     'phone_user' => $attr['phone_user'],
@@ -248,5 +251,7 @@ class EloquentAccounts implements AccountsRepository
             throw $e;
         }
         DB::commit();
+
+        return $user_id;
     }
 }

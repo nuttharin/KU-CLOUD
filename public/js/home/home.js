@@ -15,26 +15,26 @@ $(document).ready(function () {
 
 
 
-    $("#nav_register").click(function() {
-        $("#model_body_register").modal('show');
-        // $("#model_background_login").hide();
-        // var model_width = $("#model_body_register").css('width').replace('%','');
-        // var body_width = $(window).width();
-        // var model_width_px = body_width * (model_width / 100);
-        // $("#model_body_register").css('left', (body_width / 2) - (model_width_px / 2) + "px");
-        // $("#model_background_register").show();
-        // $("#navbar_fixed").removeClass('fixed-top');   
-    });
+    // $("#nav_register").click(function() {
+    //     $("#model_body_register").modal('show');
+    //     // $("#model_background_login").hide();
+    //     // var model_width = $("#model_body_register").css('width').replace('%','');
+    //     // var body_width = $(window).width();
+    //     // var model_width_px = body_width * (model_width / 100);
+    //     // $("#model_body_register").css('left', (body_width / 2) - (model_width_px / 2) + "px");
+    //     // $("#model_background_register").show();
+    //     // $("#navbar_fixed").removeClass('fixed-top');   
+    // });
 
     $("#btn_close_login").click(function() {
         $("#model_background_login").hide();
         $("#navbar_fixed").addClass('fixed-top');
     });
 
-    $("#btn_close_register").click(function() {
-        $("#model_background_register").hide();
-        $("#navbar_fixed").addClass('fixed-top');
-    });
+    // $("#btn_close_register").click(function() {
+    //     $("#model_background_register").hide();
+    //     $("#navbar_fixed").addClass('fixed-top');
+    // });
 
     $("#model_background_login").click(function () {
         $("#model_background_login").hide();
@@ -45,14 +45,14 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-    $("#model_background_register").click(function () {
-        $("#model_background_register").hide();
-        $("#navbar_fixed").addClass('fixed-top');
-    });
+    // $("#model_background_register").click(function () {
+    //     $("#model_background_register").hide();
+    //     $("#navbar_fixed").addClass('fixed-top');
+    // });
 
-    $("#model_body_register").click(function (e) {
-        e.stopPropagation();
-    });
+    // $("#model_body_register").click(function (e) {
+    //     e.stopPropagation();
+    // });
 
     AOS.init();
 

@@ -6,6 +6,7 @@ use App\Amphures;
 use App\Districts;
 use App\Geographies;
 use App\Provinces;
+use App\Address_users;
 
 class EloquentAddress implements AddressRepository
 {
@@ -52,5 +53,10 @@ class EloquentAddress implements AddressRepository
             ->join('Districts', 'Districts.amphure_id', '=', 'Amphures.amphure_id')
             ->get();
         return $districts;
+    }
+
+    public function createAddressUser(array  $attr)
+    {
+        Address_users::insert($attr);
     }
 }

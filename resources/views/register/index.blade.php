@@ -43,56 +43,132 @@
     .swal-modal {
         width: 580px;
     }
+
+
+
 </style>
+
+<link href="{{url('css/register.css')}}" rel="stylesheet">
+
+
 <div class="content d-flex flex-column justify-content-center align-items-center" style="width: 100%;height: 100vh;">
-    <div class="form-register">
-        <form id="form_register" autocomplete="nope">
-            <div class="container">
-                <div class="row" style="padding: 20px; padding-bottom:0px;">
-                    <span style="font-size: 24px;">Register</span>
-                </div>
-                <hr>
-                <div class="row input-data">
-                    <label for="email">Email address <span class="text-danger">*</span> </label>
-                    <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="password">Password <span class="text-danger">*</span></label>
-                    <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
-                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="firstname">Firstname <span class="text-danger">*</span></label>
-                    <input type="text" name="firstname" class="form-control" id="fname">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="lname">Lastname <span class="text-danger">*</span></label>
-                    <input type="text" name="lastname" class="form-control" id="lname">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <label for="phone">Phone <span class="text-danger">*</span></label>
-                    <input type="text" name="phone" class="form-control" id="phone">
-                    <small class="messages-error"></small>
-                </div>
-                <div class="row input-data">
-                    <button class="btn btn-success btn-block btn-radius" id="btn_register" data-loading-text="Create my account <i class='fas fa-circle-notch fa-spin'></i>">Create your account</button>
-                </div>
+<div class="modal" id="model_body_register">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 class="modal-title">Register</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-        </form>
+
+            <div class="modal-body">
+                <form id="form_register" autocomplete="nope">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-11 header-line">
+                            <span class="header-title">Account detail</span>
+                            <div class="row input-data">
+                                <label for="account">Account name<span class="text-danger">*</span></label>
+                                <input type="text" name="account" class="form-control" id="accountname">
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="password">Password <span class="text-danger">*</span></label>
+                                <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
+                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                                <small class="messages-error"></small>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-11 header-line">
+                            <span class="header-title">Profile detail</span>
+                            <div class="row input-data">
+                                <div class="col-6" style="padding-left:0px;">
+                                    <label for="firstname">Firstname <span class="text-danger">*</span></label>
+                                    <input type="text" name="firstname" class="form-control" id="fname">
+                                    <small class="messages-error"></small>
+                                </div>
+                                <div class="col-6" style="padding-right:0px;">
+                                    <label for="lname">Lastname <span class="text-danger">*</span></label>
+                                    <input type="text" name="lastname" class="form-control" id="lname">
+                                    <small class="messages-error"></small>
+                                </div>
+                            </div>
+                            <div class="row input-data">
+                                <label for="email">Email address <span class="text-danger">*</span></label>
+                                <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="phone">Phone <span class="text-danger">*</span></label>
+                                <input type="text" name="phone" class="form-control" id="phone">
+                                <small class="messages-error"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-left" style="margin-top:20px;">
+                        <div class="col-xl-11 col-11" style="padding-left:30px;">
+                            <div class="row input-data">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="checkbox_address" checked>
+                                    <label class="custom-control-label" for="checkbox_address">Include address detail, You can change address detail it later</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" style="margin-top:20px;">
+                        <div class="col-xl-11 header-line">
+                            <span class="header-title">Address detail</span>
+                            <div class="row input-data">
+                                <label for="address">Address</label>
+                                <textarea name="" id="address_detail" cols="30" rows="5" class="form-control"></textarea>
+                            </div>
+                            <div class="row input-data">
+                                <label for="province">Province</label>
+                                <select name="province" id="province" class="form-control"></select>
+                            </div>
+                            <div class="row input-data">
+                                <label for="amphure">Amphure</label>
+                                <select name="amphure" id="amphure" class="form-control">
+                                    <option value="">--Select amphure--</option>
+                                </select>
+                            </div>
+                            <div class="row input-data">
+                                <div class="col-6" style="padding-left:0px;">
+                                    <label for="district">District</label>
+                                    <select name="district" id="district" class="form-control">
+                                        <option value="">--Select district--</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="padding-right:0px;">
+                                    <label for="zip_code">Zip code</label>
+                                    <input name="zip_code" id="zip_code" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block btn-radius" id="btn_register" data-loading-text="Create my account <i class='fas fa-circle-notch fa-spin'></i>">Create
+                    your account
+                </button>
+            </div>
+
+        </div>
     </div>
-    <span> <span class="font-weight-semibold"> Already have an account ?</span> <a href="#">Sing in</a></span>
+</div>
 </div>
 
 <!-- validate -->
 <script src="{{asset('js/validate/validate.js')}}"></script>
 <script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
 <script src="{{asset('js/account/register.min.js')}}"></script>
+
+<script>
+$("#model_body_register").modal('show');
+</script>
 @endsection

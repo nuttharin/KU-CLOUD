@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href={{asset( 'bootstrap-4.1.3/css/bootstrap.min.css')}}>
+    <link rel="stylesheet" href="{{asset( 'bootstrap-4.1.3/css/bootstrap.min.css')}}"">
     <script type="text/javascript" src="{{asset('jquery/jquery-3.3.1.min.js')}}">
 
     </script>
