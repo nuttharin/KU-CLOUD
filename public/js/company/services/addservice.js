@@ -133,6 +133,7 @@ class Service {
                 e.preventDefault();
                 $("#check").jstree(true).search($("#id_search").val());
             });
+            
         }
 
         let deepCopy = (data) => {
@@ -305,7 +306,7 @@ class Service {
                     header: headerLow,
                     valueCal: "sefef",
                     status: status,
-                    time:time
+                    time: 1
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
@@ -524,6 +525,7 @@ class TreeView {
 }
 
 $(document).ready(function () {
+    
     $(".show-header").click(function () {
 
         let url = $("#url-webservice").val();
@@ -531,9 +533,12 @@ $(document).ready(function () {
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
         let status = $('#status-webservice').prop( "checked" );
-        let time = $('#time-webservice').val();
-        console.log("status");
-        console.log(status);
+        let second = $('#time-webservice-second').val();
+        let minute = $('#time-webservice-minute').val();
+        let hour = $('#time-webservice-hour').val();
+        let time = second+" "+minute+" "+hour+" * * *";
+        
+        console.log(time)
         if(status == true)
         {
             status="public";
