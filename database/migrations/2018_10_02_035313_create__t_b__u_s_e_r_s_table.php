@@ -16,7 +16,6 @@ class CreateTBUSERSTable extends Migration
         Schema::create('TB_USERS', function (Blueprint $table) {
             $table->increments('user_id')->unsigned();
             $table->string('username', 50);
-            $table->string('district_id', 6)->nullable();
             $table->string('password', 100);
             $table->string('fname', 50);
             $table->string('lname', 50);

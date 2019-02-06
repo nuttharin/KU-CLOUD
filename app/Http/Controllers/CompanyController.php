@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
 use App\Weka\Clusterers\SimpleKMeans;
+use App\Weka\Clusterers\Association;
 use DB;
 use Gate;
 use Illuminate\Support\Facades\Auth;
@@ -100,11 +101,31 @@ class CompanyController extends Controller
         $pathWekaInput = config('app.weka_input');
 
         $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 3 -t " . $pathWekaInput . "weather.numeric.arff";
-        exec($cmd, $output);
+        exec($cmd, $output);    
+        // dd($output);
 
         $simpleKMeans = new SimpleKMeans();
         $data = $simpleKMeans->getSimpleKMeansToJson($output);
         echo $data;
+        // return view('company.test')
+        //     ->with('user', Auth::user())
+        //     ->with('output', $output);
+    }
+
+    public function testAsso()
+    {
+        $pathWekaLib = config('app.weka_lib');
+        $pathWekaInput = config('app.weka_input');
+
+        $cmd = "java -cp " . $pathWekaLib . " weka.associations.Apriori -N 10 -t " . $pathWekaInput . "vote.arff";
+        exec($cmd, $output);
+        // dd($output);
+        $asso = new Association();
+        $data = $asso->getAssociationJsonFormat($output);
+        echo $data;
+        // $simpleKMeans = new SimpleKMeans();
+        // $data = $simpleKMeans->getSimpleKMeansToJson($output);
+        // echo $data;
         // return view('company.test')
         //     ->with('user', Auth::user())
         //     ->with('output', $output);

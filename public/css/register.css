@@ -1,0 +1,16 @@
+.header-line{
+    position:relative;
+    border:2px solid #b0c3c7;
+    margin:5px;
+    margin-top:10px;
+    padding:10px;
+    padding-top: 20px;
+}
+
+.header-title{
+    position:absolute;
+    top:-14px;
+    width:auto;
+    background:#f2f8f9;
+    text-align: center;
+}
