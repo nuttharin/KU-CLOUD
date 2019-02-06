@@ -219,6 +219,7 @@
                                 <tr>
                                     <td class="content-cell">
                                         <h1>Hello {{ $fullname }},</h1>
+                                        <p>Your account name : {{ $accountname }}</p>
                                         <p>Please click button below to reset password.</p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
