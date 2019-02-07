@@ -17,9 +17,8 @@ class CreateTBCOMPANYTable extends Migration
             $table->increments('company_id')->unsigned();
             $table->string('company_name', 50);
             $table->string('alias', 50);
-            $table->string('address', 200);
             $table->string('note', 100);
-            $table->string('folder_log', 50);
+            $table->string('folder_log', 50)->nullable();
             $table->timestamps();
         });
     }

@@ -92,6 +92,10 @@
         width: 100%;
         border-radius: 5px;
     }
+
+    /* .modal-header{
+        background: linear-gradient(120deg,#00e4d0,#5983e8);
+    } */
     .proton-demo{
             max-width: 100%;
             padding: 10px;

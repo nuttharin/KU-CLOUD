@@ -58,7 +58,7 @@
 
             <div class="modal-header">
                 <h3 class="modal-title">Register</h3>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" onclick="window.location.href='{{action('HomeController@Index')}}'">&times;</button>
             </div>
 
             <div class="modal-body">
@@ -68,7 +68,7 @@
                             <span class="header-title">Account detail</span>
                             <div class="row input-data">
                                 <label for="account">Account name<span class="text-danger">*</span></label>
-                                <input type="text" name="account" class="form-control" id="accountname">
+                                <input type="text" name="accountname" class="form-control" id="accountname">
                                 <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
@@ -109,31 +109,36 @@
                         </div>
                     </div>
                     <div class="row justify-content-left" style="margin-top:20px;">
-                        <div class="col-xl-11 col-11" style="padding-left:30px;">
+                        <div class="col-xl-11 col-11" style="padding-left:50px;">
                             <div class="row input-data">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="checkbox_address" checked>
+                                    <input type="checkbox" class="custom-control-input" id="checkbox_address" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                     <label class="custom-control-label" for="checkbox_address">Include address detail, You can change address detail it later</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="margin-top:20px;">
+                    <div class="row justify-content-center collapse" id="collapseExample" style="margin-top:20px;">
                         <div class="col-xl-11 header-line">
                             <span class="header-title">Address detail</span>
                             <div class="row input-data">
                                 <label for="address">Address</label>
-                                <textarea name="" id="address_detail" cols="30" rows="5" class="form-control"></textarea>
+                                <textarea name="address_detail" id="address_detail" cols="30" rows="5" class="form-control"></textarea>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
                                 <label for="province">Province</label>
-                                <select name="province" id="province" class="form-control"></select>
+                                <select name="province" id="province" class="form-control">
+                                    <option value="">--Select provice--</option>
+                                </select>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
                                 <label for="amphure">Amphure</label>
                                 <select name="amphure" id="amphure" class="form-control">
                                     <option value="">--Select amphure--</option>
                                 </select>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">
                                 <div class="col-6" style="padding-left:0px;">
@@ -141,10 +146,12 @@
                                     <select name="district" id="district" class="form-control">
                                         <option value="">--Select district--</option>
                                     </select>
+                                    <small class="messages-error"></small>
                                 </div>
                                 <div class="col-6" style="padding-right:0px;">
                                     <label for="zip_code">Zip code</label>
                                     <input name="zip_code" id="zip_code" class="form-control">
+                                    <small class="messages-error"></small>
                                 </div>
                             </div>
                         </div>

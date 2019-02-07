@@ -14,6 +14,7 @@
 
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
 <link href="{{url('css/animate.css')}}" rel="stylesheet">
+<link href="{{url('css/company.css')}}" rel="stylesheet">
 
 <div class="card bg-white" style="margin-top:30px;">
     <div class="card-header bg-white">
@@ -43,7 +44,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Alias</th>
-                            <th>Address</th>
+                            <th>Note</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -65,7 +66,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{url('js/admin/Company/Company.js')}}"></script>
+<script type="text/javascript" src="{{url('js/admin/Company/company.min.js')}}"></script>
 
 <script>
     $(document).ready(function () {
