@@ -1,5 +1,5 @@
 @extends('layouts.mainCompany')
-@section('title','User | PrepareData')
+@section('title','User | DataAnalysis')
 @section('content')
 <style>
     table {
@@ -18,6 +18,12 @@
             overflow-y: scroll;
         }
         
+        .result{
+            padding: 20px;
+            border:#eee 1px solid;
+            border-radius: 10px;
+        }  
+   
 </style>
 
 <div class="row" style="margin-top:30px;">
@@ -26,41 +32,59 @@
             <div class="card-header bg-white">
                 <div class="row">
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
-                        <span class="h3">Data for analysis </span>
+                        <span class="h3">Data analysis</span>
                     </div>
                     <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
-                        <button type="button" class="btn btn-success btn-radius" id="btn_add">
-                            <i class="fa fa-plus"></i>
-                            Create
+                        <button type="button" class="btn btn-success btn-radius" id="btn_save_output">
+                            Save
                         </button>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <h3><i class="fas fa-sync grow" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Refresh" id="refreshData"></i></h3> 
-                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="example">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Create by</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <div class="lds-roller text-center">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                <ul class="nav nav-tabs tab-basic" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="classify-tab" data-toggle="tab" href="#classify" role="tab"
+                            aria-controls="classify" aria-selected="true">Classify</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="cluster-tab" data-toggle="tab" href="#cluster" role="tab"
+                            aria-controls="cluster" aria-selected="false">Cluster</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="associate-tab" data-toggle="tab" href="#associate" role="tab"
+                            aria-controls="associate" aria-selected="false">Associate</a>
+                    </li>
+                </ul>
+                <div class="form-row">
+                    <div class="col-12">
+                        <select name="training_file" id="training_file" class="form-control">
+                            <option value="">--Select training file--</option>
+                        </select>
+                    </div>
                 </div>
+                <div class="tab-content tab-content-basic">
+                    
+
+                    <div class="tab-pane fade active show" id="classify" role="tabpanel" aria-labelledby="classify-tab">
+                        @include('company.DataAnalysisClassify')
+                    </div>
+                    <div class="tab-pane fade" id="cluster" role="tabpanel" aria-labelledby="cluster-tab">
+                            @include('company.DataAnalysisCluster')
+                    </div>
+                    <div class="tab-pane fade" id="associate" role="tabpanel" aria-labelledby="associate-tab">
+                        @include('company.DataAnalysisAssociate')
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-radius mt-2" id="btn_process" data-loading-text="<i class='fas fa-cog fa-spin'></i> Processing"><i
+                        class="fas fa-cog"></i> Process</button>
+                <h4>Result</h4>
+                <div class="form-row mt-2 result" style="display: none">
+                    <pre id="outputText"></pre>
+                </div>
+                <div id="graph" style="text-align: center;"></div>
+
             </div>
         </div>
     </div>
@@ -129,5 +153,8 @@
         </div>
     </div>
 </div>
-<script src="{{asset('js/company/analysis/DataAnalysis.min.js')}}"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://unpkg.com/viz.js@1.8.0/viz.js" type="javascript/worker"></script>
+<script src="https://unpkg.com/d3-graphviz@1.4.0/build/d3-graphviz.min.js"></script>
+<script src="{{asset('js/company/analysis/Analysis.min.js')}}"></script>
 @endsection

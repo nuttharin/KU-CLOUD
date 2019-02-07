@@ -2,8 +2,8 @@
 
 namespace App\Repositories\TB_DATA_ANALYSIS;
 
-use App\Jobs\PrepareDataAnalysis;
 use App\TB_DATA_ANALYSIS;
+use App\Weka\ConvertJsonToArff;
 use Auth;
 use DB;
 
@@ -46,9 +46,9 @@ class EloquentDataAnalysis implements DataAnalysisRepository
                 'user_id' => Auth::user()->user_id,
                 'name' => $attr['name'],
             ]);
-            // $convert = new ConvertJsonToArff();
-            // $convert->convertToAttr($attr['pathArray'], $attr['name'], $data->data_id);
-            dispatch(new PrepareDataAnalysis($data->data_id, $attr['pathArray'], $attr['name']));
+            $convert = new ConvertJsonToArff();
+            $convert->convertToAttr($attr['pathArray'], $attr['name'], $data->data_id);
+            //dispatch(new PrepareDataAnalysis($data->data_id, $attr['pathArray'], $attr['name']));
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;

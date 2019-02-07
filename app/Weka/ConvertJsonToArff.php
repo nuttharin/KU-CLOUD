@@ -82,9 +82,12 @@ class ConvertJsonToArff
             }
             $arffFile .= "\r\n";
         }
-        Storage::put($name . '.arff', $arffFile);
+
+        $nameSave = str_random(10) . $name . '.arff';
+        Storage::put("/weka/input/" . $nameSave, $arffFile);
         TB_DATA_ANALYSIS::where('data_id', $data_id)
             ->update([
+                'path_file' => $nameSave,
                 'is_success' => true,
             ]);
         return;
