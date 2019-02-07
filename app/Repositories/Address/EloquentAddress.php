@@ -7,6 +7,7 @@ use App\Districts;
 use App\Geographies;
 use App\Provinces;
 use App\Address_users;
+use App\Address_company;
 
 class EloquentAddress implements AddressRepository
 {
@@ -58,5 +59,10 @@ class EloquentAddress implements AddressRepository
     public function createAddressUser(array  $attr)
     {
         Address_users::insert($attr);
+    }
+
+    public function createAddressCompany(array  $attr)
+    {
+        Address_company::insert($attr);
     }
 }
