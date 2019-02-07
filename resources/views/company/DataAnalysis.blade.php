@@ -23,6 +23,11 @@
             border:#eee 1px solid;
             border-radius: 10px;
         }  
+
+        #graph > svg {
+            margin-top: 10px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        } 
    
 </style>
 
@@ -58,32 +63,55 @@
                 </ul>
                 <div class="form-row">
                     <div class="col-12">
+                        <h4>Training file <span class="text-danger">*</span></h4>
                         <select name="training_file" id="training_file" class="form-control">
                             <option value="">--Select training file--</option>
                         </select>
                     </div>
                 </div>
+                <hr>
                 <div class="tab-content tab-content-basic">
-                    
+                    <h4>Options</h4>
 
                     <div class="tab-pane fade active show" id="classify" role="tabpanel" aria-labelledby="classify-tab">
                         @include('company.DataAnalysisClassify')
                     </div>
                     <div class="tab-pane fade" id="cluster" role="tabpanel" aria-labelledby="cluster-tab">
-                            @include('company.DataAnalysisCluster')
+                        @include('company.DataAnalysisCluster')
                     </div>
                     <div class="tab-pane fade" id="associate" role="tabpanel" aria-labelledby="associate-tab">
                         @include('company.DataAnalysisAssociate')
                     </div>
                 </div>
 
-                <button class="btn btn-primary btn-radius mt-2" id="btn_process" data-loading-text="<i class='fas fa-cog fa-spin'></i> Processing"><i
-                        class="fas fa-cog"></i> Process</button>
+                <div class="row justify-content-end mt-3 mr-2" style="text-align: center; ">
+                    <button class="btn btn-primary btn-radius mt-2" id="btn_process" data-loading-text="<i class='fas fa-cog fa-spin'></i> Processing"><i class="fas fa-cog"></i> Process</button>
+                </div>
+
+                <hr>
+                
                 <h4>Result</h4>
                 <div class="form-row mt-2 result" style="display: none">
                     <pre id="outputText"></pre>
                 </div>
                 <div id="graph" style="text-align: center;"></div>
+                <div class="mt-3" id="visualize" style="display: none;">
+                    <h4>Visualize</h4>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label for="axis_x">Axis x</label>
+                            <select name="axis_x" id="axis_x" class="form-control"></select>
+                        </div>
+                        <div class="col-6">
+                                <label for="axis_y">Axis y</label>
+                            <select name="axis_y" id="axis_y" class="form-control"></select>
+                        </div>
+                        <div style="width:100%;height: auto;">
+                                <canvas id="scatter_chart"></canvas>
+                        </div>
+                       
+                    </div>
+                </div>
 
             </div>
         </div>

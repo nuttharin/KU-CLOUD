@@ -57,28 +57,28 @@
                 </div>
                 <hr>
                 <div class="row input-data" style="margin: 0px; padding-bottom:10px;">
-                    <span>New password</span>
+                    <label>New password</label>
                 </div>
                 <div class="input-group row input-data" style="margin: 0px;">
                     <input type="password" name="password" class="form-control" id="password" placeholder="Password" autocomplete="nope">
-                    <small class="messages-error"></small>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span style="cursor:pointer"><i class="fas fa-eye-slash" id="toggle_pwd"></i></span>
                         </div>
                     </div>
+                    <small class="messages-error"></small>
                 </div>
                 <div class="row input-data" style="margin: 0px; padding-bottom:10px;">
-                    <span>Confirm password</span>
+                    <label>Confirm password</label>
                 </div>
                 <div class="input-group row input-data" style="margin: 0px;">
                     <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Comfirm Password" autocomplete="nope">
-                    <small class="messages-error"></small>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span style="cursor:pointer"><i class="fas fa-eye-slash" id="toggle_confirm_pwd"></i></span>
                         </div>
                     </div>
+                    <small class="messages-error"></small>
                 </div>
             </div>
             <input type="hidden" id="user_id" name="user_id" value="{{$userId}}"/>

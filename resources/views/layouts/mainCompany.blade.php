@@ -215,7 +215,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#AnalysisSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
-                        <i class="far fa-file-alt"></i>
+                        <i class="fas fa-terminal"></i>
                         <span>Analysis</span>
                         <i class="fas fa-angle-right"></i>
                     </a>

@@ -8,6 +8,8 @@ use App\TB_STATIC_COMPANY;
 use App\TB_USERS;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
+use App\Address_company;
+
 use Illuminate\Database\Migrations\Migration;
 
 class SetupFirst extends Migration
@@ -25,7 +27,6 @@ class SetupFirst extends Migration
                 'company_id' => '1',
                 'company_name' => 'KU_CLOUD',
                 'alias' => 'KU_CLOUD',
-                'address' => 'กำแพงแสน',
                 'note' => 'KU_CLOUD',
                 'folder_log' => 'KU_CLOUD',
             ],
@@ -33,7 +34,6 @@ class SetupFirst extends Migration
                 'company_id' => '2',
                 'company_name' => 'TEST',
                 'alias' => 'TEST',
-                'address' => 'TEST',
                 'note' => 'TEST',
                 'folder_log' => 'COMPANY_2',
             ],

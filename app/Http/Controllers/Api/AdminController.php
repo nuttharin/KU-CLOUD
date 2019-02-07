@@ -16,11 +16,17 @@ use App\TB_USERS;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\TB_WEBSERVICE;
+use App\Address_company;
+use App\USER_FIRST_CREATE;
+use Illuminate\Support\Facades\Hash;
+
 use Auth;
 use DB;
 use Gate;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Mail;
+use email;
 
 class AdminController extends Controller
 {
@@ -338,7 +344,7 @@ class AdminController extends Controller
     {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
-        $company = DB::select('SELECT TB_COMPANY.company_id as id, TB_COMPANY.company_name as name, TB_COMPANY.alias, TB_COMPANY.address, TB_COMPANY.note, TB_COMPANY.created_at, TB_COMPANY.updated_at
+        $company = DB::select('SELECT TB_COMPANY.company_id as id, TB_COMPANY.company_name as name, TB_COMPANY.alias, TB_COMPANY.note, TB_COMPANY.created_at, TB_COMPANY.updated_at
                                     FROM TB_COMPANY');
 
         if (empty($company)) {
@@ -355,11 +361,72 @@ class AdminController extends Controller
         //dd($payload["user"]->company_id);
 
         $company = TB_COMPANY::create([
-            'company_name' => $request->get('company_name'),
-            'alias' => $request->get('alias'),
-            'address' => $request->get('address'),
-            'note' => $request->get('note'),
+            'company_name' => $request->get('company_name_input'),
+            'alias' => $request->get('alias_input'),
+            'note' => $request->get('note_input'),
         ]);
+
+        $company_update = TB_COMPANY::where('company_id', $company->company_id)
+        ->update([
+            'folder_log' => $company->company_name.'_'.$company->company_id,
+        ]);
+
+        $address_company = Address_company::insert([
+            'company_id' => $company->company_id,
+            'address_detail' => $request->get('address_detail'),
+            'district_id' => $request->get('district'),
+            'amphure_id' => $request->get('amphure'),
+            'province_id' => $request->get('province'),
+        ]);
+
+        $password = str_random(30);
+        
+        $user = TB_USERS::create([
+            'username' =>$request->get('accountname'),
+            'fname' => $request->get('firstname'),
+            'lname' => $request->get('lastname'),
+            'password' => Hash::make($password),
+            'type_user' => 'COMPANY',
+        ]);
+
+        $user_company = TB_USER_COMPANY::create([
+            'user_id'       => $user->user_id,
+            'is_user_main'  => 1,
+            'company_id'    => $company->company_id,
+            'sub_type_user'    => 'ADMIN',
+        ]);
+
+        $user_email = TB_EMAIL::create([
+            'user_id' => $user->user_id,
+            'email_user' => $request->get('email'),
+            'is_verify' => false,
+            'is_primary' => true,
+        ]);
+
+        $user_phone = TB_PHONE::create([
+            'user_id' => $user->user_id,
+            'phone_user' => $request->get('phone'),
+            'is_primary' => true,
+        ]);
+
+        $user_first = USER_FIRST_CREATE::insert([
+            'user_id' => $user->user_id,
+            'token' => str_random(30),
+        ]);
+
+        $name = $user->fname . " " . $user->lname;
+        $email = $request->get('email');
+        $username = $request->get('accountname');
+
+        $verification_code = str_random(30); //Generate verification code
+        $subject = "Please verify your email address."; 
+        
+        Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $username,'password'=>$password],
+            function($mail) use ($email, $name, $subject){
+                $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
+                $mail->to($email, $name);
+                $mail->subject($subject);
+        });
 
         //$request->bearerToken(),201
         return response()->json(["status_code", "201"], 201);
