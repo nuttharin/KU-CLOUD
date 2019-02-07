@@ -79,23 +79,23 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
-                        <label>Name</label>
+                        <label>Name <span class="text-danger">*</span></label>
                         <input type="text" id="data_name" class="form-control">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label for="datasource">Datasource</label>
+                        <label for="datasource">Datasource <span class="text-danger">*</span></label>
                         <select name="datasource" id="datasource" class="form-control"></select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label for="start_date">Start date</label>
+                        <label for="start_date">Start date <span class="text-danger">*</span></label>
                         <input type="date" name="start_date" id="start_date" class="form-control">
                     </div>
                     <div class="col-6">
-                        <label for="end_date">End date</label>
+                        <label for="end_date">End date <span class="text-danger">*</span></label>
                         <input type="date" name="end_date" id="end_date" class="form-control">
                     </div>
                 </div>

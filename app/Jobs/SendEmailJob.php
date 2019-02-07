@@ -50,6 +50,6 @@ class SendEmailJob implements ShouldQueue
                 $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
                 $mail->to($email, $name);
                 $mail->subject($subject);
-            });
+        });
     }
 }
