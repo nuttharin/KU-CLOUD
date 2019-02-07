@@ -214,10 +214,23 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('CompanyController@Analysis')}}">
-                        <i class="fas fa-chart-line"></i>
-                        <span class="link_hide">Analysis</span>
+                    <a href="#AnalysisSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                        <i class="far fa-file-alt"></i>
+                        <span>Analysis</span>
+                        <i class="fas fa-angle-right"></i>
                     </a>
+                    <ul class="collapse list-unstyled sub" id="AnalysisSubmenu">
+                        <li class="nav-item">
+                            <a href="{{action('CompanyController@AnalysisPrepareData')}}">
+                                Prepare data
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('CompanyController@DataAnalysis')}}">
+                                Data Analysis
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#LogSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">

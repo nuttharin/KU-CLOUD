@@ -114,6 +114,10 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('company/static/datasource', 'Api\CompanyController@addDatasourceStatic');
     Route::delete('company/static/datasource', 'Api\CompanyController@deleteDatasourceByStatic');
 
+    Route::get('company/analysis/data', 'Api\Company\AnalysisController@getAllDataAnalysis');
+    Route::post('company/analysis/data', 'Api\Company\AnalysisController@createDataAnalysis');
+    Route::post('company/analysis', 'Api\Company\AnalysisController@analysisProcess');
+
     Route::post('company/gettabledw', 'Api\CompanyController@getAllWebserviceData');
     Route::post('company/webservice/downloadJSONFile', 'Api\CompanyController@downloadJSONFile');
     /* Admin */

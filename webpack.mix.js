@@ -49,7 +49,11 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/company/static/dashboard.min.js', 'public/js/admin/static')
     .js('resources/js/company/users/users.min.js', 'public/js/company/users')
     .js('resources/js/company/customer/customer.min.js', 'public/js/company/customer')
-    .js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js')
+    
+    .js('resources/js/company/analysis/Analysis.min.js', 'public/js/company/analysis')
+    .js('resources/js/company/analysis/DataAnalysis.min.js', 'public/js/company/analysis')
+    .
+    js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js')
 
     //AdminUser
     .js('resources/js/admin/Users/AdminUser.min.js', 'public/js/admin/Users/AdminUser.min.js')

@@ -1,5 +1,5 @@
-@extends('layouts.mainCompany') 
-@section('title','Static | Company') 
+@extends('layouts.mainCompany')
+@section('title','Static | Company')
 @section('content')
 <style>
     table {
@@ -13,27 +13,27 @@
     }
 </style>
 
-<div class="card bg-white" style="margin-top:30px;">
-    <div class="card-header bg-white">
-        <div class="row">
-            <div class="col-6" style="padding: 30px 0px 10px 15px">
-                <span class="h3">Static</span>
-            </div>
-            <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
-                <button type="button" class="btn btn-success btn-radius" id="btn-add-static">
-                    <i class="fa fa-plus"></i>
-                    Create
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row mt-3" style="">
 
+
+<div class="row" style="margin-top:30px;">
     <div class="col-12">
-        <div class="card">
+        <div class="card bg-white">
+            <div class="card-header bg-white">
+                <div class="row">
+                    <div class="col-6" style="padding: 30px 0px 10px 15px">
+                        <span class="h3">Static</span>
+                    </div>
+                    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
+                        <button type="button" class="btn btn-success btn-radius" id="btn-add-static">
+                            <i class="fa fa-plus"></i>
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
-                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
+                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
+                    id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -80,7 +80,7 @@
 
             <div class="modal-footer">
                 <button type="button" id="btn-save-add-static" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
-                    Save                
+                    Save
                 </button>
             </div>
 
