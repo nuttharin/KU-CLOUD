@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
+use App\Weka\Classify\J48;
 use App\Weka\Clusterers\Association;
 use App\Weka\Clusterers\SimpleKMeans;
 use DB;
@@ -127,6 +128,29 @@ class CompanyController extends Controller
         $asso = new Association();
         $data = $asso->getAssociationJsonFormat($output);
         echo $data;
+        // $simpleKMeans = new SimpleKMeans();
+        // $data = $simpleKMeans->getSimpleKMeansToJson($output);
+        // echo $data;
+        // return view('company.test')
+        //     ->with('user', Auth::user())
+        //     ->with('output', $output);
+    }
+
+    public function testClassi()
+    {
+        $pathWekaLib = config('app.weka_lib');
+        $pathWekaInput = config('app.weka_input');
+
+        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.trees.J48 -v -t " . $pathWekaInput . "weather.nominal.arff";
+        exec($cmd, $output);
+
+        //dd($output);
+
+        $classify = new J48();
+        $data = $classify->getClassifyToJson($output);
+
+        echo json_encode($data);
+        //echo $data;
         // $simpleKMeans = new SimpleKMeans();
         // $data = $simpleKMeans->getSimpleKMeansToJson($output);
         // echo $data;
