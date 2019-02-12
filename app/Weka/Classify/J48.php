@@ -47,10 +47,25 @@ class J48
         // }
     }
 
+    // public function getJ48ToJson($output)
+    // {
+    //     $str = "";
+    //     $data = [
+    //         'outputText' => $output,
+    //     ];
+    //     $fileTree = str_random(10) . ".dot";
+    //     $this->cmd .= " -g > $this->pathWekaInput" . $fileTree;
+    //     exec($this->cmd);
+    //     $importFile = trim(File::get(storage_path('app/weka/input/') . $fileTree));
+    //     $data['tree'] = $importFile;
+    //     Storage::delete('/weka/input/' . $fileTree);
+    //     return $data;
+    // }
+
     public function getJ48ToJson($output)
     {
-        $str = "";
         $data = [
+            'name' => 'Classify : J48 Tree',
             'outputText' => $output,
         ];
         $fileTree = str_random(10) . ".dot";
@@ -59,21 +74,13 @@ class J48
         $importFile = trim(File::get(storage_path('app/weka/input/') . $fileTree));
         $data['tree'] = $importFile;
         Storage::delete('/weka/input/' . $fileTree);
-        return $data;
-    }
-
-    public function getClassifyToJson($output)
-    {
-        $data = [
-            'name' => 'Classify : J48 Tree',
-        ];
         // $data['Detailed Accuracy By Class']['TP Rate'][0]["value"] = null;
         // $data['Detailed Accuracy By Class']['TP Rate'][0]["type"] = "test";
         // $data['Detailed Accuracy By Class']['TP Rate'][1]["value"] = "test";
         // $data['Detailed Accuracy By Class']['TP Rate'][1]["type"] = "test";
         // $data['Detailed Accuracy By Class']['TP Rate'][0]["value"] = "Test";
         //return $data;
-        return self::convertToJson($output, $data, " ", 0);
+        return self::convertToJson($output,$data, " ", 0);
     }
 
     public function convertToJson($output, $data, $status, $index)
