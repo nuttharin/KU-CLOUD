@@ -124,7 +124,7 @@ class CompanyController extends Controller
 
         $cmd = "java -cp " . $pathWekaLib . " weka.associations.Apriori -N 10 -t " . $pathWekaInput . "vote.arff";
         exec($cmd, $output);
-        dd($cmd);
+        dd($output);
         $asso = new Association();
         $data = $asso->getAssociationJsonFormat($output);
         echo $data;
