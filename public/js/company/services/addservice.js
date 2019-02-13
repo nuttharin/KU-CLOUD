@@ -74,7 +74,7 @@ class Service {
                 $("#check").jstree("check_all");
             });
 
-            document.getElementById('submitcheck').innerHTML = "<button id='submitcheckform' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Submit</button></div><div class='modal fade' id='myModal' role='dialog'><div class='modal-dialog'><div class='modal-content'><div class='modal-header'><h4 class='modal-title'>Modal Header</h4><button type='button' class='close' data-dismiss='modal'>&times;</button></div><div id='modal-body' class='modal-body'><p id='xxx'>Some text in the modal.</p></div><div class='modal-footer'><button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' >Submit</button><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></div></div></div></div>";
+            document.getElementById('submitcheck').innerHTML = "<button id='submitcheckform' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Submit</button></div><div class='modal fade' id='myModal' role='dialog'><div class='modal-dialog'><div class='modal-content'><div id='modal-header-val' class='modal-header'><h4 class='modal-title'>Choose the value to calculate</h4><button type='button' class='close' data-dismiss='modal'>&times;</button></div><div id='modal-body' class='modal-body'><p id='xxx'>The selected value will be calculated in the summary table.</p></div><div class='modal-footer'><button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' >Submit</button><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></div></div></div></div>";
             $('#submitcheckform').on("click", function () {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 console.log(selectedElmsIds);
@@ -310,6 +310,7 @@ class Service {
         }
         //console.log(status)
         let increaseDataTableDB = () => {
+            
             $.ajax({
                 url: "http://localhost:8000/api/company/webservice/addRegisWebService",
                 dataType: 'json',
@@ -322,7 +323,7 @@ class Service {
                     ServiceName: ServiceName,
                     description: description,
                     header: headerLow,
-                    valueCal: "sefef",
+                    valueCal: strValCal,
                     status: status,
                     time: 1
                 },
@@ -342,6 +343,7 @@ class Service {
 
         let increaseDataTableDW = ()=>
         {    
+            // get companyID
             $.ajax({
                     url: "http://localhost:8000/api/company/webservice/getCompanyID",
                     dataType: 'json',
@@ -373,6 +375,7 @@ class Service {
                     ServiceNameDW: ServiceName+"."+companyID,
                     description: description,
                     header: headerLow,
+                    valueCal: strValCal
                 },
                 success: (res) => {
                     swal("Good job!", "You clicked the button!", "success");
@@ -396,6 +399,7 @@ class Service {
                     strUrl: strUrl,
                     ServiceNameDW :ServiceName+"."+companyID,
                     header : headerLow,
+                    strValCal : strValCal,
                     time:time
                 },
                 success: (res) => {

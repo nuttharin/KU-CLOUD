@@ -38,6 +38,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/Static/{id}', 'CompanyController@static');
 
     Route::get('/Company/Analysis/PrepareData', 'CompanyController@AnalysisPrepareData');
+    Route::get('/Company/Analysis/DataAnalysis', 'CompanyController@DataAnalysis');
 
     Route::get('/Company/Service', 'CompanyController@service');
     Route::get('/Company/Service/AddService', 'CompanyController@Add_service');
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/Logout', 'CompanyController@Logout');
     Route::get('/Company/test', 'CompanyController@test');
     Route::get('/Company/testAsso', 'CompanyController@testAsso');
+    Route::get('/Company/testClassi', 'CompanyController@testClassi');
     Route::get('/Company/Service/EditService/{id}', 'CompanyController@EditService');
 
     /* Admin */

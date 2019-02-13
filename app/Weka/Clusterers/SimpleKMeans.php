@@ -2,21 +2,54 @@
 
 namespace App\Weka\Clusterers;
 
+use App\TB_DATA_ANALYSIS;
+use Illuminate\Support\Facades\Storage;
+
 class SimpleKMeans
 {
+
+    private $cmd;
+
+    private $param;
+
     private $pathWekaLib;
 
     private $pathWekaInput;
 
+    private $file;
+
     public function __construct()
     {
+        $this->cmd = "";
+        $this->param = "";
         $this->pathWekaLib = config('app.weka_lib');
         $this->pathWekaInput = config('app.weka_input');
+
     }
 
-    public function exec($param)
+    public function exec($traningFile, $param)
     {
+        $this->file = TB_DATA_ANALYSIS::where('data_id', $traningFile)->first()->path_file;
+        self::getParam($param);
+        $this->cmd = "java -cp $this->pathWekaLib weka.clusterers.SimpleKMeans $this->param -t $this->pathWekaInput" . $this->file;
+        exec($this->cmd, $output);
+        return self::getSimpleKMeansToJson($output);
+    }
 
+    public function getParam($param)
+    {
+        if (!is_null($param['number_of_clusters'])) {
+            $this->param .= '-N ' . $param['number_of_clusters'] . ' ';
+        }
+        if (!is_null($param['method'])) {
+            $this->param .= '-init ' . $param['method'] . ' ';
+        }
+        if (!is_null($param['max_candidates'])) {
+            $this->param .= '-max-candidates ' . $param['max_candidates'] . ' ';
+        }
+        if (!is_null($param['min_density'])) {
+            $this->param .= '-min-density ' . $param['min_density'] . ' ';
+        }
     }
 
     public function getTableSimpleKMeans($output, $start)
@@ -52,6 +85,7 @@ class SimpleKMeans
                 'text' => 'Initial starting points (random)',
                 'value' => 0,
             ],
+            'outputText' => $output,
         ];
         $cluster_count = 0;
         for ($i = 0; $i < sizeof($output); $i++) {
@@ -91,6 +125,19 @@ class SimpleKMeans
             }
         }
 
-        return json_encode($data);
+        $nameFile = str_random(10);
+
+        $this->cmd = "java -cp $this->pathWekaLib weka.filters.unsupervised.attribute.AddCluster -W " . '"weka.clusterers.SimpleKMeans ' . "$this->param" . '"' . " -i $this->pathWekaInput" . $this->file . " -o $this->pathWekaInput" . $nameFile . ".arff";
+        exec($this->cmd);
+
+        $this->cmd = "java -cp $this->pathWekaLib weka.core.converters.JSONSaver -i $this->pathWekaInput" . $nameFile . ".arff"; //. " -o $this->pathWekaInput" . $nameFile . ".json"
+        exec($this->cmd, $json);
+
+        $clusterJson = implode("", $json);
+        Storage::delete('/weka/input/' . $nameFile . ".arff");
+        $outputCluster = json_decode($clusterJson, true);
+        $data['outputCluster'] = $outputCluster;
+
+        return $data;
     }
 }

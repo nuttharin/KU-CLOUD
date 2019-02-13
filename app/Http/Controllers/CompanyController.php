@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
+use App\Weka\Classify\J48;
 use App\Weka\Clusterers\Association;
 use App\Weka\Clusterers\SimpleKMeans;
 use DB;
@@ -100,8 +101,8 @@ class CompanyController extends Controller
         $pathWekaLib = config('app.weka_lib');
         $pathWekaInput = config('app.weka_input');
 
-        // $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 2 -t " . $pathWekaInput . "glass.arff";
-        $cmd = "java -cp " . $pathWekaLib . " weka.core.Instances " . $pathWekaInput . "attempt1.arff";
+        $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 2 -t " . $pathWekaInput . "glass.arff";
+        //$cmd = "java -cp " . $pathWekaLib . " weka.core.Instances " . $pathWekaInput . "attempt1.arff";
         exec($cmd, $output);
         dd($cmd);
         $simpleKMeans = new SimpleKMeans();
@@ -123,10 +124,33 @@ class CompanyController extends Controller
 
         $cmd = "java -cp " . $pathWekaLib . " weka.associations.Apriori -N 10 -t " . $pathWekaInput . "vote.arff";
         exec($cmd, $output);
-        // dd($output);
+        dd($output);
         $asso = new Association();
         $data = $asso->getAssociationJsonFormat($output);
         echo $data;
+        // $simpleKMeans = new SimpleKMeans();
+        // $data = $simpleKMeans->getSimpleKMeansToJson($output);
+        // echo $data;
+        // return view('company.test')
+        //     ->with('user', Auth::user())
+        //     ->with('output', $output);
+    }
+
+    public function testClassi()
+    {
+        $pathWekaLib = config('app.weka_lib');
+        $pathWekaInput = config('app.weka_input');
+
+        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.trees.J48 -v -t " . $pathWekaInput . "weather.nominal.arff";
+        exec($cmd, $output);
+
+        //dd($output);
+
+        $classify = new J48();
+        $data = $classify->getClassifyToJson($output);
+
+        echo json_encode($data);
+        //echo $data;
         // $simpleKMeans = new SimpleKMeans();
         // $data = $simpleKMeans->getSimpleKMeansToJson($output);
         // echo $data;
@@ -151,8 +175,8 @@ class CompanyController extends Controller
         return view('company.AnalysisPrepareData')->with('user', Auth::user());
     }
 
-    public function AnalysisData()
+    public function DataAnalysis()
     {
-        return view('company.AnalysisPrepareData')->with('user', Auth::user());
+        return view('company.DataAnalysis')->with('user', Auth::user());
     }
 }

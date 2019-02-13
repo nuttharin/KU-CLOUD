@@ -18,4 +18,6 @@ interface AddressRepository
 
     public function createAddressUser(array  $attr);
 
+    public function createAddressCompany(array  $attr);
+
 }

@@ -60,6 +60,7 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
     .js('resources/js/admin/Users/CompanyUser.min.js', 'public/js/admin/Users/CompanyUser.min.js')
     .js('resources/js/admin/Users/CustomerUser.min.js', 'public/js/admin/Users/CustomerUser.min.js')
     .js('resources/js/ManagementAdminUsers.min.js', 'public/js/ManagementAdminUsers.min.js')
+    .js('resources/js/admin/Company/company.min.js', 'public/js/admin/Company/company.min.js')
 
     .js('resources/js/admin/Infographic/infographicDataTable.min.js', 'public/js/admin/Infographic/infographicDataTable.min.js')
 
