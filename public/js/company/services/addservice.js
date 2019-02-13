@@ -515,12 +515,7 @@ class TreeView {
                     }
                     else {
 
-                        // if(key == "Value" || key == "Unit")
-                        // {
-
-                        // }
-                        // else 
-                        // {
+                    
                         num2++;
                         arrDataIn.push({ 'id': num2, 'text': key, 'children': null });
                         dataHeaderAll.push({ 'id': num2, 'text': key });

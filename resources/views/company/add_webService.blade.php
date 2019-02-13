@@ -407,9 +407,6 @@
                                 <input style="width:100%; text-align: center; " title="second" class="" id="time-webservice-second" name="time-webservice-second" value="* * * * * *" placeholder="*">
                             </div> -->
                             <div class="col-sm-2">
-                                <input style="width:100%; text-align: center; " title="second"  id="time-webservice-second" name="time-webservice-second" placeholder="*">
-                            </div>
-                            <div class="col-sm-2">
                                 <input style="width:100%; text-align: center; " title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
                             </div>
                             <div class="col-sm-2">
