@@ -312,11 +312,10 @@
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="IoT description" ></textarea>
             <div class="row">
-                <div class="col-sm-6">
-                        <h6 >Update times (Hours)<span style="color:red">*</span></h6>
-                        <input type="number" min="1" max="24" class="mb-2" id="time-webservice" name="time-webservice" placeholder="time">
-                </div>
+                
             </div>
+            <br>
+            <br>
             <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
             
         </div>
