@@ -13,6 +13,7 @@ use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
 use App\TB_STATIC;
 use App\TB_USERS;
 use App\TB_WEBSERVICE;
+use App\TB_IOTSERVICE;
 use App\TB_REGISTER_WEBSERVICE;
 use App\TB_STATIC_COMPANY;
 use File;
@@ -415,6 +416,25 @@ class CompanyController extends Controller
     {
         $key = 'klflvpekvlvep[clep[lc';
         return response()->json(compact('key'), 200);
+    }
+
+    public function addRegisIotService(Request $request)
+    {
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $nameDW = $request->get('ServiceName') . "." . $companyID;
+
+        $iotService = TB_IOTSERVICE::create([
+            'company_id' => $companyID,
+            'iot_name' => $request->get('ServiceName'),
+            'iot_name_DW' => $nameDW,
+            'alias' => $request->get('alias'),
+            'API' => $request->get('strUrl'),
+            'description' => $request->get('description'),
+            'value_cal' => $request->get('valueCal'),
+            'status' => $request->get('status'),
+        ]);
+        Log::info('Create Web Service - [] SUCCESS');
+        return response()->json(compact('iotService'), 200);
     }
 
     //Static
