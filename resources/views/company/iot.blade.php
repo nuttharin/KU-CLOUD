@@ -48,36 +48,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>test service</td>
-                            <td></td>
-                            <td>test Description</td>
-                            <td>public</td>
-                        </tr>
-                        <tr>
-                            <td>test service</td>
-                            <td></td>
-                            <td>test Description</td>
-                            <td>public</td>
-                        </tr>
-                        <tr>
-                            <td>test service</td>
-                            <td></td>
-                            <td>test Description</td>
-                            <td>public</td>
-                        </tr>
-                        <tr>
-                            <td>test service</td>
-                            <td></td>
-                            <td>test Description</td>
-                            <td>public</td>
-                        </tr>
-                        <tr>
-                            <td>test service</td>
-                            <td></td>
-                            <td>test Description</td>
-                            <td>public</td>
-                        </tr>
+                      
                     </tbody>
                 </table>
                  <!-- <div class="lds-roller text-center">

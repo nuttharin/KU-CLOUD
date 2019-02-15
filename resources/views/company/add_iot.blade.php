@@ -282,8 +282,8 @@
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
-            <span class="onoffswitch2-inner"></span>
-            <span class="onoffswitch2-switch"></span>
+            <span class="onoffswitchiot-inner"></span>
+            <span class="onoffswitchiot-switch"></span>
         </label>
         </div>
         
@@ -308,7 +308,23 @@
             
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
-            <div class="row">
+            <div class ="row">
+                <div class="col-sm-2" style="padding-top:5px" >
+                    <h6 >Update time <span style="color:red">*</span></h6>      
+                                 
+                </div>
+                <div class="col-sm-3">
+                    <div class="onoffswitch2">
+                        <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="checktime-iotservice">
+                        <label class="onoffswitch2-label" for="checktime-iotservice">
+                            <span class="onoffswitch2-inner"></span>
+                            <span class="onoffswitch2-switch"></span>
+                        </label>
+                    </div>
+
+                </div>
+                
+
                 
             </div>
             <br>

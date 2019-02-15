@@ -134,6 +134,7 @@
     border: 2px solid #999999; border-radius: 5px;
 }
 
+/* private public */
 .onoffswitch2-inner {
     display: block; width: 200%; margin-left: -100%;
     -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
@@ -147,17 +148,48 @@
 }
 
 .onoffswitch2-inner:before {
-    content: "Public";
+    content: "set";
     padding-left: 10px;
     background-color: #43dd0f; color: #FFFFFF;
 }
 
 .onoffswitch2-inner:after {
+    content: "No set";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+
+/* update time iot  */
+.onoffswitchiot-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitchiot-inner:before, .onoffswitchiot-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+.onoffswitchiot-inner:before {
+    content: "Public";
+    padding-left: 10px;
+    background-color: #43dd0f; color: #FFFFFF;
+}
+
+.onoffswitchiot-inner:after {
     content: "Private";
     padding-right: 10px;
     background-color: #EEEEEE; color: #999999;
     text-align: right;
 }
+
+.onoffswitch2-checkbox:checked + .onoffswitch2-label .onoffswitchiot-inner {
+    margin-left: 0;
+}
+/* ------------------------------------------- */
 
 .onoffswitch2-switch {
     display: block; width: 18px; margin: 0px;
