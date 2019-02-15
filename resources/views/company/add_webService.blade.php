@@ -293,6 +293,45 @@
         background-color: #308ee0;
         color: white;
     }
+    .tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>
@@ -350,11 +389,6 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                <h5>Allowed fields</h5><br/>
-                                <center>
-                                <img src="{{url('photos/crontab.jpg')}}" alt="Italian Trulli">
-                                </center>
-                                <hr/>
                                 <h5>Allowed values</h5><br/>
                                 <center>
                                 <table id="paramater">
@@ -375,29 +409,73 @@
                                         <td>/</td>
                                         <td>step values</td>
                                     <tr>
-                                        <td>second</td>
-                                        <td>0-59</td>
-                                    <tr>
                                         <td>minute</td>
                                         <td>0-59</td>
                                     <tr>
                                         <td>hour</td>
                                         <td>0-23</td>
-                                    <tr>
-                                        <td>day of month</td>
-                                        <td>1-31</td>
-                                    <tr>
-                                        <td>month</td>
-                                        <td>1-12 (or names)</td>
-                                    <tr>
-                                        <td>day of week</td>
-                                        <td>0-7 (or names, 0 or 7 are sunday)</td>
                                     </tbody>
                                 </table>
                                 </center>
                                 <hr/>
-                                <h5>Example</h5>
-                                * */2 * * * * running a task every two minutes
+                                <h5>Examples</h5>
+                                <p>How to write a crontab schedule expression for:</p>
+                                    <div class="row" >
+                                        <div class="col-sm-3">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" style="width:100%; text-align: center;" id="minute_input" readonly>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" style="width:100%; text-align: center;" id="hour_input" readonly>
+                                        </div>
+                                        <div class="col-sm-3">
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-3">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <center>minute</center>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <center>Hour</center>
+                                        </div>
+                                        <div class="col-sm-3">
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-12">
+                                            <center><p id="description_time"></p></center>
+                                        </div>
+                                        <div class="col-sm-3">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" id="every_minute">every minute</a>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="#" id="every_30_minute">every 30 minute</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" id="every_3_hour">every 3 hour</a>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="#" id="every_day">every day</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" id="every_day_at_1am">every day at 1am</a>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="#" id="between_certain_hours">between certain hours</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -406,27 +484,25 @@
                             
                             </div>
                         </div>
+                            <div class="row">
+                                <!-- <div class="col-sm-6">
+                                    <input style="width:100%; text-align: center; " title="second" class="" id="time-webservice-second" name="time-webservice-second" value="* * * * * *" placeholder="*">
+                                </div> -->
+                                    <div class="col-sm-2">
+                                        <input type="input" style="width:100%; text-align: center;" title="minute" class="" id="time-webservice-minute" value="*" name="time-webservice-minute" placeholder="*">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="input" style="width:100%; text-align: center;" title="hour" class="" id="time-webservice-hour" value="*" name="time-webservice-hour" placeholder="*">
+                                    </div>
+                                    <div class="col-sm-4">
+                                    <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
+                                    </div>
+                                </div>
+                
+                                
+                            
+                        
                         <div class="row">
-                            <!-- <div class="col-sm-6">
-                                <input style="width:100%; text-align: center; " title="second" class="" id="time-webservice-second" name="time-webservice-second" value="* * * * * *" placeholder="*">
-                            </div> -->
-                            <div class="col-sm-2">
-                                <input style="width:100%; text-align: center; " title="second"  id="time-webservice-second" name="time-webservice-second" placeholder="*">
-                            </div>
-                            <div class="col-sm-2">
-                                <input style="width:100%; text-align: center; " title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
-                            </div>
-                            <div class="col-sm-2">
-                                <input style="width:100%; text-align: center; " title="hour" class="" id="time-webservice-hour" name="time-webservice-hour" placeholder="*">
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <center>second</center>
-                            </div>
                             <div class="col-sm-2">
                                 <center>minute</center>
                             </div>
