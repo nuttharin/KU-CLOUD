@@ -112,7 +112,21 @@ class iotService {
 
 $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
+    $(".set-time").hide()
+    $('#checktime-iotservice').change(function(){
+        let checkUpTime = $('#checktime-iotservice').prop("checked");
+        if(checkUpTime==true)
+        {
+            $(".set-time").slideDown("fast");            
+        }
+        else 
+        {
+            $(".set-time").hide()
+            console.log('scvv')
 
+        }
+        
+    })
     $('#showvalue').click(function(){
         
         let iotName = $('#name-iotservice').val();
@@ -122,11 +136,14 @@ $(document).ready(function () {
         if(status == true)
         {
             status="public";
+            console.log('sssss')
         }
         else
         {
             status="private";
         }
+
+       
         let iot = new iotService(iotName,iotAlias,iotdescription,status);
         iot.getDataforInsert();
         iot.showDetail();

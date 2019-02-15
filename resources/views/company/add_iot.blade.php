@@ -282,8 +282,8 @@
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
-            <span class="onoffswitchiot-inner"></span>
-            <span class="onoffswitchiot-switch"></span>
+            <span class="onoffswitch2-inner"></span>
+            <span class="onoffswitch2-switch"></span>
         </label>
         </div>
         
@@ -310,23 +310,31 @@
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
             <div class ="row">
                 <div class="col-sm-2" style="padding-top:5px" >
-                    <h6 >Update time <span style="color:red">*</span></h6>      
-                                 
+                    <h6 >Update time <span style="color:red">*</span></h6>                                       
                 </div>
                 <div class="col-sm-3">
                     <div class="onoffswitch2">
-                        <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="checktime-iotservice">
-                        <label class="onoffswitch2-label" for="checktime-iotservice">
-                            <span class="onoffswitch2-inner"></span>
-                            <span class="onoffswitch2-switch"></span>
+                        <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
+                        <label class="checktime-label" for="checktime-iotservice">
+                            <span class="checktime-inner"></span>
+                            <span class="checktime-switch"></span>
                         </label>
                     </div>
 
                 </div>
-                
-
-                
             </div>
+            <div> 
+                <div class ="row">
+                    <div class="set-time col-sm-5">
+                        <div class='card bg-light text-dark'>
+                            <div class='card-body'>
+                                Basic card
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            
             <br>
             <br>
             <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
