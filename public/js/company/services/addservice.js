@@ -325,7 +325,7 @@ class Service {
                     header: headerLow,
                     valueCal: strValCal,
                     status: status,
-                    time: 1
+                    time: time
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
@@ -375,7 +375,7 @@ class Service {
                     ServiceNameDW: ServiceName+"."+companyID,
                     description: description,
                     header: headerLow,
-                    valueCal: strValCal
+                    valueCal: strValCal,
                 },
                 success: (res) => {
                     swal("Good job!", "You clicked the button!", "success");
@@ -542,7 +542,38 @@ class TreeView {
 }
 
 $(document).ready(function () {
-    
+
+    $("#every_minute").click(function () {
+        $("#minute_input").val("*");
+        $("#hour_input").val("*");
+        $("#description_time").html("At every minute.");
+    })
+    $("#every_30_minute").click(function () {
+        $("#minute_input").val("*/30");
+        $("#hour_input").val("*");
+        $("#description_time").html("At every 30th minute.");
+
+    })
+    $("#every_3_hour").click(function () {
+        $("#minute_input").val("0");
+        $("#hour_input").val("*/3");
+        $("#description_time").html("At minute 0 past every 3rd hour.");
+    })
+    $("#every_day").click(function () {
+        $("#minute_input").val("0");
+        $("#hour_input").val("0");
+        $("#description_time").html("At 00:00.");
+    })
+    $("#every_day_at_1am").click(function () {
+        $("#minute_input").val("0");
+        $("#hour_input").val("1");
+        $("#description_time").html("At 01:00.");
+    })
+    $("#between_certain_hours").click(function () {
+        $("#minute_input").val("0");
+        $("#hour_input").val("9-17");
+        $("#description_time").html("At minute 0 past every hour from 9 through 17.");
+    })
     $(".show-header").click(function () {
 
         let url = $("#url-webservice").val();
@@ -550,12 +581,75 @@ $(document).ready(function () {
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
         let status = $('#status-webservice').prop( "checked" );
-        let second = $('#time-webservice-second').val();
         let minute = $('#time-webservice-minute').val();
         let hour = $('#time-webservice-hour').val();
-        let time = second+" "+minute+" "+hour+" * * *";
+        let time = minute+" "+hour+" * * *";
         
         console.log(time)
+        let minuteall = minute.split("*/");
+        let hourall = hour.split("*/");
+        let minute_to = minute.split("-");
+        let hour_to = hour.split("-");
+        console.log(minuteall.length);
+        console.log(hourall.length);
+        console.log(minute_to.length);
+        console.log(hour_to.length);
+        let type_time;
+        let convert_time;
+        if(minuteall.length == 2)
+        {
+            //console.log("minuteall")
+            type_time = "minuteall"
+            convert_time= minuteall[1] * 60;
+        }
+        else if(hourall.length == 2)
+        {
+            //console.log("hourall")
+            type_time="hourall"
+            convert_time= hourall[1] * 360;
+
+        }
+        else if(minute_to.length == 2)
+        {
+            //console.log("minuteto")
+            type_time="minuteto"
+        }
+        else if(hour_to.length == 2)
+        {
+            //console.log("hourall")
+            type_time="hourto"
+            convert_time = hour
+        }
+        else
+        {
+            type_time="time"
+            if(hour<10)
+            {
+                if(minute<10)
+                {
+                    convert_time = "0"+hour+".0"+minute
+                }
+                else
+                {
+                    convert_time = "0"+hour+"."+minute
+                }
+            }
+            else
+            {
+                if(minute<10)
+                {
+                    convert_time = hour+".0"+minute
+                }
+                else
+                {
+                    convert_time = hour+"."+minute
+                }
+            }
+            
+            
+        }
+        console.log(type_time)
+        console.log(convert_time)
         if(status == true)
         {
             status="public";
@@ -564,6 +658,7 @@ $(document).ready(function () {
         {
             status="private";
         }
+
         let service = new Service(url, alias, ServiceName, description,status,time);
         service.initService();
         // let data = {
@@ -591,8 +686,4 @@ $(document).ready(function () {
         
     })
 
-
-
-
-})
-
+});
