@@ -77,9 +77,6 @@
     <!-- pace -->
     <script src="{{asset('pace/pace.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('pace/pace.css')}}">
-
-
-
 </head>
 
 <body>
@@ -227,8 +224,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{action('CompanyController@DataAnalysisOutput')}}">
+                                Output data analysis
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{action('CompanyController@DataAnalysis')}}">
-                                Data Analysis
+                                Data analysis
                             </a>
                         </li>
                     </ul>

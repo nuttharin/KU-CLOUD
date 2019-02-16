@@ -66,7 +66,7 @@
     .remove-value:hover,
     .remove-param:hover,
     .remove-datasource:hover {
-        transform: scale(1.1);  
+        transform: scale(1.1);
         color: #e65251
     }
 
@@ -115,6 +115,14 @@
         padding: 50px;
         margin: 30px;
         border-radius: 5px;
+    }
+
+    .grid-stack>.grid-stack-item>.grid-stack-item-content{
+        z-index: unset;
+    }
+
+    .btn-download{
+        cursor: pointer;
     }
 
 </style>
@@ -856,11 +864,15 @@
                     <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                 </div>
 
-                <div class="full-screen">
-                    {{-- <i class="fas fa-history btn-full-screen grow" title="History" style="cursor:pointer" item="div_id"></i>--}}
-                    {{-- <i class="fas fa-file-excel" title="Download excel" style="cursor:pointer" item="div_id"></i>
-                    --}}
-                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
+                <div class="download" style="display: none">
+                    <div class="dropdown">
+                        <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
+                            style="cursor:pointer" ></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <span class="dropdown-item btn-download" item="div_id"><i class="fas fa-image"></i> Download images</span>
+                            <span class="dropdown-item btn-download btn-download-excel" item="div_id"><i class="fas fa-file-excel"></i> Download excel</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1023,15 +1035,19 @@
 
 <script src="{{asset( 'js/canvas-toBlob/canvas-toBlob.js')}} "></script>
 
+<script type="text/javascript " src="{{asset( 'js/nouislider/nouislider.min.js')}} "></script>
+
 <script src="{{ mix( '/js/company/static/dashboard.min.js') }} "></script>
 
-<script src="{{ url( '/js/justgage-1.2.2/justgage.js') }} "></script>
-<script src="{{ url( '/js/justgage-1.2.2/raphael-2.1.4.min.js') }} "></script>
+<script src="{{ asset( '/js/justgage-1.2.2/justgage.js') }} "></script>
+<script src="{{ asset( '/js/justgage-1.2.2/raphael-2.1.4.min.js') }} "></script>
 
-<script type="text/javascript " src="{{url( 'js/gridstack/gridstack.js')}} "></script>
-<script type="text/javascript " src="{{url( 'js/gridstack/gridstack.jQueryUI.js')}} "></script>
+<script type="text/javascript " src="{{asset( 'js/gridstack/gridstack.js')}} "></script>
+<script type="text/javascript " src="{{asset( 'js/gridstack/gridstack.jQueryUI.js')}} "></script>
 
-<script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
+<script type="text/javascript " src="{{asset( 'js/sweetalert/sweetalert.min.js')}} "></script>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 @endsection

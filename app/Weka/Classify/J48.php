@@ -300,7 +300,7 @@ class J48
         $str = "";
 
         for ($i = $start; $i <= $end; $i++) {
-            $str .= $array[$i];
+            $str .= $array[$i]."\r\n";
         }
 
         return $str;
