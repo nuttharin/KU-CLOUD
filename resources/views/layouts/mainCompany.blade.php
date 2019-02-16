@@ -277,7 +277,8 @@
         <!-- validate -->
         <script src="{{asset('js/validate/validate.js')}}"></script>
 
-
+        <!-- moment  -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 
         <!-- Page Content  -->
         <div id="content" class="content">
