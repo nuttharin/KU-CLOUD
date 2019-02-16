@@ -39,6 +39,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
 
     Route::get('/Company/Analysis/PrepareData', 'CompanyController@AnalysisPrepareData');
     Route::get('/Company/Analysis/DataAnalysis', 'CompanyController@DataAnalysis');
+    Route::get('/Company/Analysis/OutputDataAnalysis', 'CompanyController@DataAnalysisOutput');
 
     Route::get('/Company/Service', 'CompanyController@service');
     Route::get('/Company/Service/AddService', 'CompanyController@Add_service');
@@ -66,7 +67,10 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Admin/UsersCustomer', 'AdminController@UsersCustomer');
     Route::get('/Admin/Company', 'AdminController@Company');
     Route::get('/Admin/Infographic', 'AdminController@Infographic');
-    Route::get('/Admin/Static', 'AdminController@Static');
+
+    Route::get('/Admin/Static/{id}', 'AdminController@static');
+    Route::get('/Admin/Static', 'AdminController@staticDatatable');
+
     Route::get('/Admin/LogViewer', 'AdminController@LogViewer');
     Route::get('/Admin/AddService', 'AdminController@AddService');
     Route::get('/Admin/Service', 'AdminController@service');
@@ -80,4 +84,5 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Customer/ManageAccounts', 'CustomerController@ManageAccounts');
     Route::get('/Customer/ManageCompany', 'CustomerController@ManageCompany');
     Route::get('/Customer/Infographic', 'CustomerController@Infographic');
+
 });

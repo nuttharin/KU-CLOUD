@@ -64,9 +64,16 @@ class AdminController extends Controller
         ->with('id',$id)
         ->with('user', Auth::user());
     }
-    public function Static()
+
+    public function staticDatatable()
     {
-        return view('admin.Static')->with('user', Auth::user());
+        return view('admin.staticDataTable')->with('user', Auth::user());
+    }
+
+    function static($id) {
+        return view('admin.static')
+            ->with('id', $id)
+            ->with('user', Auth::user());
     }
 
     public function service()

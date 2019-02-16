@@ -77,9 +77,6 @@
     <!-- pace -->
     <script src="{{asset('pace/pace.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('pace/pace.css')}}">
-
-
-
 </head>
 
 <body>
@@ -227,8 +224,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{action('CompanyController@DataAnalysisOutput')}}">
+                                Output data analysis
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{action('CompanyController@DataAnalysis')}}">
-                                Data Analysis
+                                Data analysis
                             </a>
                         </li>
                     </ul>
@@ -275,7 +277,8 @@
         <!-- validate -->
         <script src="{{asset('js/validate/validate.js')}}"></script>
 
-
+        <!-- moment  -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 
         <!-- Page Content  -->
         <div id="content" class="content">

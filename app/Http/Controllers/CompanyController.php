@@ -179,4 +179,9 @@ class CompanyController extends Controller
     {
         return view('company.DataAnalysis')->with('user', Auth::user());
     }
+
+    public function DataAnalysisOutput()
+    {
+        return view('company.DataAnalysisOutput')->with('user', Auth::user());
+    }
 }

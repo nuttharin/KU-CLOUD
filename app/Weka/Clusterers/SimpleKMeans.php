@@ -57,7 +57,9 @@ class SimpleKMeans
         $table = [];
         for ($i = $start; $i < sizeof($output); $i++) {
             $value = trim($output[$i]);
-            preg_match_all("/[a-zA-Z0-9.%]+/", $value, $array_value);
+            $value = str_replace('(', '', $value);
+            $value = str_replace(')', '', $value);
+            preg_match_all("/[a-zA-Z0-9.%-_]+/", $value, $array_value);
             if ($start - $i === -3) {
                 continue;
             }
