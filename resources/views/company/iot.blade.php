@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table style="width: 100%;display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-webservice">
+                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-webservice">
                     <thead>
                         <tr>
                             <th>NameService(EN)</th>
@@ -48,9 +48,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                      
                     </tbody>
                 </table>
-                <!-- <div class="lds-roller text-center">
+                 <!-- <div class="lds-roller text-center">
                     <div></div>
                     <div></div>
                     <div></div>

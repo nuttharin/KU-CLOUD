@@ -1,12 +1,14 @@
 class iotService {
-    constructor()
+    constructor(iotName,iotAlias,iotdescription,status)
     {
-        let Nameiot ;
+        let nameiot = iotName  ;
         let keyiot;
-        let Alias;
-        let Description;
+        let alias = iotAlias;
+        let description = iotdescription ;
+        let atatus = status;
         let time ;
         let companyID;
+
 
         this.getDataforInsert = () => {
             // get id company
@@ -43,11 +45,56 @@ class iotService {
                 }
             });
 
+            //register DB
+            $.ajax({
+                url: "http://localhost:8000/api/company/iot/addRegisIotService",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    strUrl: 'ss',
+                    alias: alias,
+                    ServiceName: nameiot,
+                    description: description,
+                    header: '1',                   
+                    valueCal: '1',
+                    status: status,
+                    
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DB")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+
 
         }
 
         this.increaseDataTableDB = () => {
             //console.log('cccccc')    
+            //get company id
+            $.ajax({
+                url: "http://localhost:8000/api/company/webservice/getCompanyID",
+                dataType: 'json',
+                method: "GET",
+                async: false,
+                success: (res) => {
+                    //console.log(res.companyID);
+                    companyID = res.companyID ;
+
+                },
+                error: (res) => {
+                    
+                    console.log(res);
+                }
+            });
+
+
+
         }
 
         this.showDetail = () => {
@@ -65,32 +112,42 @@ class iotService {
 
 $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
+    $(".set-time").hide()
+    $('#checktime-iotservice').change(function(){
+        let checkUpTime = $('#checktime-iotservice').prop("checked");
+        if(checkUpTime==true)
+        {
+            $(".set-time").slideDown("fast");            
+        }
+        else 
+        {
+            $(".set-time").hide()
+            console.log('scvv')
 
+        }
+        
+    })
     $('#showvalue').click(function(){
-        let iot = new iotService();
+        
+        let iotName = $('#name-iotservice').val();
+        let iotAlias = $('#alias-iotservice').val();
+        let iotdescription = $('#description-iotservice').val();
+        let status = $('#status-iotservice').prop( "checked" );
+        if(status == true)
+        {
+            status="public";
+            console.log('sssss')
+        }
+        else
+        {
+            status="private";
+        }
+
+       
+        let iot = new iotService(iotName,iotAlias,iotdescription,status);
         iot.getDataforInsert();
         iot.showDetail();
-        //iot.increaseDataTableDB();
-        // let keyiot ;
-        // $.ajax({
-        //     url: "http://localhost:8000/api/company/iot/getkeyiot",
-        //     dataType: 'json',
-        //     method: "GET",
-        //     async: false,
-        //     success: (res) => {
-            
-        //         console.log(res.key) ;
-        //         keyiot = res.key ;
-
-        //     },
-        //     error: (res) => {
-                
-        //         console.log(res);
-        //     }
-        // });
-        // $('#Nameiot').val('xxxx');
-        // $('#Apiiot').val('xxxx');
-        // $('#Keyiot').val('dsdsdsd');
+      
 
     })
 })
