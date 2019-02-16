@@ -16,6 +16,10 @@
     <script type="text/javascript" src="{{url('bootstrap-4.1.3/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{url('js/test.js')}}"></script>
 
+    <!-- nouislider -->
+    <link rel="stylesheet" href="{{asset('js/nouislider/nouislider.css')}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.js"></script>
+
     <!-- Font Awesome JS -->
     <link href="{{url('Font-Awesome/web-fonts-with-css/css/fontawesome-all.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href={{url( 'css/style4.css')}}>
@@ -214,7 +218,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('AdminController@Static')}}">
+                    <a href="{{action('AdminController@staticDatatable')}}">
                         <i class="fas fa-chart-line"></i>
                         <span class="link_hide">Static</span>
                     </a>

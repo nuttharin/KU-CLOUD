@@ -39,24 +39,21 @@
 
     }
 
-    #name-webservice{
+    #name-iotservice{
         width: 100%;
         height: 40px;
 
 
     }
 
-    #alias-webservice{
+    #alias-iotservice{
         width: 100%;
         height: 40px;
     }
 
-    #url-webservice{
-        width: 100%;
-        height: 40px;
-    }
+   
 
-    #status-webservice {
+    #status-iotservice {
         width: 20%;
         height: 40px;
     }
@@ -283,8 +280,8 @@
     </div>
     <div class="col-sm-6">
         <div class="onoffswitch2">
-        <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-webservice">
-        <label class="onoffswitch2-label" for="status-webservice">
+        <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
+        <label class="onoffswitch2-label" for="status-iotservice">
             <span class="onoffswitch2-inner"></span>
             <span class="onoffswitch2-switch"></span>
         </label>
@@ -299,24 +296,47 @@
             <div class ="row">
                 <div class="col-sm-8">
                     <h6 >IoT Name <span style="color:red">*</span></h6>
-                    <input type="text" class="mb-2" id="name-webservice" name="name" placeholder="IoT name">
+                    <input type="text" class="mb-2" id="name-iotservice" name="name" placeholder="IoT name">
                 </div>
                 <div class="col-sm-4">
                     <h6 >Alias <span style="color:red">*</span></h6>
-                    <input type="text" class="mb-2" id="alias-webservice" name="alias" placeholder="IoT alias ">
+                    <input type="text" class="mb-2" id="alias-iotservice" name="alias" placeholder="IoT alias ">
                 </div>
 
                 
             </div>
             
             <h6>Description</h6>
-            <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="IoT description" ></textarea>
-            <div class="row">
-                <div class="col-sm-6">
-                        <h6 >Update times (Hours)<span style="color:red">*</span></h6>
-                        <input type="number" min="1" max="24" class="mb-2" id="time-webservice" name="time-webservice" placeholder="time">
+            <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
+            <div class ="row">
+                <div class="col-sm-2" style="padding-top:5px" >
+                    <h6 >Update time <span style="color:red">*</span></h6>                                       
+                </div>
+                <div class="col-sm-3">
+                    <div class="onoffswitch2">
+                        <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
+                        <label class="checktime-label" for="checktime-iotservice">
+                            <span class="checktime-inner"></span>
+                            <span class="checktime-switch"></span>
+                        </label>
+                    </div>
+
                 </div>
             </div>
+            <div> 
+                <div class ="row">
+                    <div class="set-time col-sm-5">
+                        <div class='card bg-light text-dark'>
+                            <div class='card-body'>
+                                Basic card
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            
+            <br>
+            <br>
             <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
             
         </div>

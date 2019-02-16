@@ -27,7 +27,6 @@ class CreateTbIotserviceTable extends Migration
             $table->string('description',1000);
             $table->text('value_cal');
             $table->string('status',100);
-            $table->string('update_time',100);            
             $table->timestamps();
         });
     }

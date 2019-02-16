@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\LogViewer\LogViewer;
-use App\LogViewer\SizeLog;
-use App\Repositories\TB_COMPANY\CompanyRepository;
-use App\Repositories\TB_INFOGRAPHIC\InfographicRepository;
-use App\Repositories\TB_USERS\UsersRepository;
-use App\TB_COMPANY;
-use App\TB_EMAIL;
-use App\TB_INFOGRAPHIC;
-use App\TB_PHONE;
-use App\TB_USERS;
-use App\TB_USER_COMPANY;
-use App\TB_USER_CUSTOMER;
-use App\TB_WEBSERVICE;
-use App\Address_company;
-use App\USER_FIRST_CREATE;
-use Illuminate\Support\Facades\Hash;
-
-use Auth;
 use DB;
+use Auth;
 use Gate;
-use Illuminate\Http\Request;
-use JWTAuth;
 use Mail;
 use email;
+use JWTAuth;
+use App\TB_EMAIL;
+use App\TB_PHONE;
+use App\TB_USERS;
+use App\TB_STATIC;
+use App\TB_COMPANY;
+use App\TB_WEBSERVICE;
+use App\TB_INFOGRAPHIC;
+use App\Address_company;
+use App\TB_USER_COMPANY;
+use App\TB_USER_CUSTOMER;
+use App\LogViewer\SizeLog;
+
+use App\USER_FIRST_CREATE;
+use App\LogViewer\LogViewer;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Repositories\TB_USERS\UsersRepository;
+use App\Repositories\TB_STATIC\StaticRepository;
+use App\Repositories\TB_COMPANY\CompanyRepository;
+use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
+use App\Repositories\TB_INFOGRAPHIC\InfographicRepository;
 
 class AdminController extends Controller
 {
@@ -40,16 +43,29 @@ class AdminController extends Controller
 
     private $info;
 
-    public function __construct(UsersRepository $users, CompanyRepository $company, InfographicRepository $info)
+    private $webservices;
+    
+    private $static;
+
+    public function __construct(
+    UsersRepository $users, 
+    CompanyRepository $company, 
+    InfographicRepository $info,
+    WebServiceRepository $webservices,
+    StaticRepository $static)
     {
         if (!Gate::allows('isAdmin')) {
             abort('403', "Sorry, You can do this actions");
         }
 
         $this->users = $users;
+        $this->company = $company;
+        $this->webservices = $webservices;
+        $this->static = $static;
+
         $this->log_viewer = new LogViewer();
         $this->log_viewer->setFolder('KU_CLOUD');
-        $this->company = $company;
+       
         $this->info = $info;
 
         $this->auth = Auth::user();
@@ -669,6 +685,84 @@ class AdminController extends Controller
         }
 
         return response()->json(compact('data'), 200);
+    }
+
+    //Static
+    public function getWebServiceByCompany(Request $request)
+    {
+        $companyID =  $this->auth->user_company()->first()->company_id;
+
+        $data = $this->webservices->getWebServiceByCompany($companyID);
+        return response()->json(compact('data'), 200);
+    }
+
+    public function addStatic(Request $request)
+    {
+        $message = $this->static->createStatic($request->get('name'));
+
+        return response()->json(["message", $message['message']], $message['status']);
+    }
+
+    public function updateStatic(Request $request)
+    {
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $payload["user"]->company_id;
+
+        $this->static->updateStatic($request->get('static_id'), $request->get('name'), $companyID);
+    }
+
+    public function updateStaticDashboard(Request $request)
+    {
+        $data = TB_STATIC::where('static_id', $request->get('static_id'))
+            ->update(['dashboard' => $request->get('dashboard')]);
+    }
+
+    public function deleteStatic(Request $request)
+    {
+        $companyID = Auth::user()->user_company()->first()->company_id;
+
+        $this->static->deleteStatic($request->get('static_id'), $companyID);
+    }
+
+    public function getStaticDashboard(Request $request)
+    {
+        $companyID = Auth::user()->user_company()->first()->company_id;
+
+        $data = $this->static->getStaticByCompanyId($companyID);
+        return response()->json(compact('data'), 200);
+    }
+
+    public function getStaticDashboardById(Request $request, $static_id)
+    {
+
+        $companyID = Auth::user()->user_company()->first()->company_id;
+        $data = $this->static->getStaticDashboardById($static_id, $companyID);
+        return response()->json(compact('data'), 200);
+    }
+
+    public function getDatasourceStatic(Request $request)
+    {
+        $companyID = Auth::user()->user_company()->first()->company_id;
+        $data = $this->static->getDatasoureByStaticId($request->get('static_id'), $companyID);
+        return response()->json(compact('data'), 200);
+    }
+
+    public function addDatasourceStatic(Request $request)
+    {
+        $data = [
+            'static_id' => $request->get('static_id'),
+            'name' => $request->get('name'),
+            'webservice_id' => $request->get('webservice_id'),
+            'timeInterval' => $request->get('timeInterval'),
+        ];
+        $this->static->createDatasource($data);
+    }
+
+    public function deleteDatasourceByStatic(Request $request){
+        $static_id = $request->get('static_id');
+        $id = $request->get('id');
+        $this->static->deleteDatasourceByStatic($static_id,$id);
     }
 
     public function getInfograpicData(Request $request)
