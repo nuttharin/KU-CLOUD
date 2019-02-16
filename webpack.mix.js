@@ -38,15 +38,19 @@ mix.webpackConfig({
  |
  */
 
-mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static')
-    .js('resources/js/company/static/staticDataTable.min.js', 'public/js/company/static')
-    // .js('resources/js/app.js', 'public/js/app.js')
+     // .js('resources/js/app.js', 'public/js/app.js')
     // .js('resources/js/containers/company/Accounts/Accounts.js', 'public/js/company/account')
+
+mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static')
+    .js('resources/js/admin/static/dashboard.min.js', 'public/js/admin/static')
+
+    .js('resources/js/admin/static/staticDataTable.min.js', 'public/js/admin/static')
+    .js('resources/js/company/static/staticDataTable.min.js', 'public/js/company/static')
+
     .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 
     .js('resources/js/account/account.min.js', 'public/js/company/account')
     .js('resources/js/account/register.min.js', 'public/js/account/')
-    .js('resources/js/company/static/dashboard.min.js', 'public/js/admin/static')
     .js('resources/js/company/users/users.min.js', 'public/js/company/users')
     .js('resources/js/company/customer/customer.min.js', 'public/js/company/customer')
     

@@ -81,6 +81,20 @@ Route::group([
 
     Route::get('users/online', 'Api\AdminController@countUserOnline');
 
+
+    //Static
+    Route::get('webservices', 'Api\AdminController@getWebServiceByCompany');
+    Route::get('static', 'Api\AdminController@getStaticDashboard');
+    Route::post('static', 'Api\AdminController@addStatic');
+    Route::delete('static', 'Api\AdminController@deleteStatic');
+    Route::get('static/{static_id}', 'Api\AdminController@getStaticDashboardById');
+    Route::put('static', 'Api\AdminController@updateStatic');
+    Route::put('static/dashboard', 'Api\AdminController@updateStaticDashboard');
+
+    Route::get('staticDatasource', 'Api\AdminController@getDatasourceStatic');
+    Route::post('static/datasource', 'Api\AdminController@addDatasourceStatic');
+    Route::delete('static/datasource', 'Api\AdminController@deleteDatasourceByStatic');
+
     Route::get('database/log', 'Api\AdminController@getLogList');
     Route::get('database/log/folder', 'Api\AdminController@getFolderLogs');
     Route::get('database/log/file', 'Api\AdminController@getFileLogByFolder');
@@ -118,13 +132,13 @@ Route::group([
     Route::post('customers/company', 'Api\CompanyController@addCustomerInCompany');
     Route::get('customers/email', 'Api\CompanyController@getAllEmailCustomer');
 
+    //Static
     Route::get('static', 'Api\CompanyController@getStaticDashboard');
     Route::post('static', 'Api\CompanyController@addStatic');
+    Route::delete('static', 'Api\CompanyController@deleteStatic');
     Route::get('static/{static_id}', 'Api\CompanyController@getStaticDashboardById');
     Route::put('static', 'Api\CompanyController@updateStatic');
     Route::put('static/dashboard', 'Api\CompanyController@updateStaticDashboard');
-
-    Route::delete('static', 'Api\CompanyController@deleteStatic');
 
     Route::get('staticDatasource', 'Api\CompanyController@getDatasourceStatic');
     Route::post('static/datasource', 'Api\CompanyController@addDatasourceStatic');
