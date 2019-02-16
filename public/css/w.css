@@ -1,43 +1,43 @@
-.checktime {
+.checkcollect {
     position: relative; width: 90px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 
-.checktime-checkbox {
+.checkcollect-checkbox {
     display: none;
 }
 
-.checktime-label {
+.checkcollect-label {
     display: block; overflow: hidden; cursor: pointer;
     border: 2px solid #999999; border-radius: 5px;
 }
 
-.checktime-inner {
+.checkcollect-inner {
     display: block; width: 200%; margin-left: -100%;
     -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
     -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
 }
 
-.checktime-inner:before, .checktime-inner:after {
+.checkcollect-inner:before, .checkcollect-inner:after {
     display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
     font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 
-.checktime-inner:before {
+.checkcollect-inner:before {
     content: "Public";
     padding-left: 10px;
     background-color: #43dd0f; color: #FFFFFF;
 }
 
-.checktime-inner:after {
+.checkcollect-inner:after {
     content: "Private";
     padding-right: 10px;
     background-color: #EEEEEE; color: #999999;
     text-align: right;
 }
 
-.checktime-switch {
+.checkcollect-switch {
     display: block; width: 18px; margin: 0px;
     background: #FFFFFF;
     border: 2px solid #999999; border-radius: 5px;
@@ -50,10 +50,10 @@
     background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
 }
 
-.checktime-checkbox:checked + .checktime-label .checktime-inner {
+.checkcollect-checkbox:checked + .checkcollect-label .checkcollect-inner {
     margin-left: 0;
 }
 
-.checktime-checkbox:checked + .checktime-label .checktime-switch {
+.checkcollect-checkbox:checked + .checkcollect-label .checkcollect-switch {
     right: 0px; 
 }
