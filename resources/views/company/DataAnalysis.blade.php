@@ -28,6 +28,20 @@
             margin-top: 10px;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
         } 
+
+        .icon-info{
+            cursor: pointer;
+            color:#1e7bcb;
+        }
+
+        .download-file{
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.13);
+        }
    
 </style>
 
@@ -38,11 +52,6 @@
                 <div class="row">
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
                         <span class="h3">Data analysis</span>
-                    </div>
-                    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
-                        <button type="button" class="btn btn-success btn-radius" id="btn_save_output">
-                            Save
-                        </button>
                     </div>
                 </div>
             </div>
@@ -85,16 +94,37 @@
                 </div>
 
                 <div class="row justify-content-end mt-3 mr-2" style="text-align: center; ">
-                    <button class="btn btn-primary btn-radius mt-2" id="btn_process" data-loading-text="<i class='fas fa-cog fa-spin'></i> Processing"><i class="fas fa-cog"></i> Process</button>
+                    <button class="btn btn-primary btn-radius mt-2" id="btn_process" data-loading-text="<i class='fas fa-cog fa-spin'></i> Processing"><i
+                            class="fas fa-cog"></i> Process</button>
                 </div>
 
                 <hr>
-                
-                <h4>Result</h4>
-                <div class="form-row mt-2 result" style="display: none">
-                    <pre id="outputText"></pre>
+
+                <div class="row mb-2">
+                    <div class="col-6">
+                        <h4>Result</h4>
+                    </div>
+
+                    <div class="col-6 text-right">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-success btn-radius dropdown-toggle" data-toggle="dropdown">
+                                Save result
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <span class="dropdown-item download-file" type="text">Result text</span>
+                                <span class="dropdown-item download-file" type="json">Result json</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="graph" style="text-align: center;"></div>
+
+                <!-- <div class="form-row mt-2 result" style="display: none">
+                    <pre id="outputText"></pre>
+                </div> -->
+                <div class="form-row-mt-2 result" id="outputHtml">
+
+                </div>
+
                 <div class="mt-3" id="visualize" style="display: none;">
                     <h4>Visualize</h4>
                     <div class="form-row">
@@ -103,13 +133,13 @@
                             <select name="axis_x" id="axis_x" class="form-control"></select>
                         </div>
                         <div class="col-6">
-                                <label for="axis_y">Axis y</label>
+                            <label for="axis_y">Axis y</label>
                             <select name="axis_y" id="axis_y" class="form-control"></select>
                         </div>
                         <div style="width:100%;height: auto;">
-                                <canvas id="scatter_chart"></canvas>
+                            <canvas id="scatter_chart"></canvas>
                         </div>
-                       
+
                     </div>
                 </div>
 
