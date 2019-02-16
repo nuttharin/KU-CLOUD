@@ -18,4 +18,6 @@ interface InfographicRepository
     public function getInfographicByInfoID($info_id);
 
     public function createInfoDatasource(array  $attr);
+
+    public function getInfoDatasourceByInfoID($info_id);
 }

@@ -304,7 +304,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     // Route::put('admin/infographic/updateInfoData', 'Api\AdminController@updateInfograpicData');
     // Route::delete('admin/infographic/delete', 'Api\AdminController@deleteInfograpic');
 
-    // Route::post('admin/infographic/createDatasource', 'Api\AdminController@addDatasourceInfo');
+    Route::get('admin/infographic/getDatasource', 'Api\AdminController@getDatasourceInfo');
+    Route::post('admin/infographic/createDatasource', 'Api\AdminController@addDatasourceInfo');
 
     // Customer
     // Route::get('customer/companies', 'Api\CustomerController@getCompanyListForCustomer');

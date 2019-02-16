@@ -300,17 +300,43 @@
                 </div>
             </div> -->
             <!--Comment-->
+            <!-- <input type="text" list="testinput" id="testvalue" class="form-control" />
+            <datalist id="testinput">
+                <option id="0" value="Internet Explorer">IE</option>
+                <option id="1" value="Firefox">FF</option>
+                <option id="2" value="Chrome">CH</option>
+                <option id="3" value="Opera">OP</option>
+                <option id="4" value="Safari">SA</option>
+            </datalist>  -->
+            <span id="testvalue"></span>
         </div>
     </div>
 </div>
 
-    <script type="text/javascript" src="{{url('js/admin/Infographic/WidgetObject.js')}}"></script>
-    <script type="text/javascript" src="{{url('js/admin/Infographic/DataSource.js')}}"></script>
-    <script type="text/javascript" src="{{url('js/admin/Infographic/Infographic.js')}}"></script>
+    <script src="{{ mix('/js/admin/Infographic/WidgetObject.min.js') }}"></script>
+    <script src="{{ mix('/js/admin/Infographic/DataSource.min.js') }}"></script>
+    <script src="{{ mix('/js/admin/Infographic/Infographic.min.js') }}"></script>
     <script>
         $(document).ready(function () {
         $("#sidebarCollapse").click();
         $("#selectMenu").hide();
+        // $("#testvalue").val("Firefox");
+        // console.log(document.getElementById('testinput'));
+
+        // $("#testvalue").change( function(){
+
+        //     console.log($("#testvalue").val());
+        //     console.log($("#testinput option:selected").attr('id'));
+        // });
+        var ii = 5;
+        testnaja(ii);
+
+        console.log(ii);
         });
+
+        function testnaja(inttest)
+        {
+            inttest = inttest + 2;
+        }
     </script>
 @endsection

@@ -64,6 +64,13 @@ class EloquentInfographic implements InfographicRepository
         TB_INFO_DATASOURCE::create($attr);
     }
 
+    public function getInfoDatasourceByInfoID($info_id)
+    {
+        $infoDataList = TB_INFO_DATASOURCE::join('tb_webservice', 'tb_webservice.webservice_id', '=', 'tb_info_datasource.webservice_id')->where('info_id', $info_id)->select('tb_info_datasource.*', 'tb_webservice.value_cal')->get();
+
+        return $infoDataList;
+    }
+
 
 
 }
