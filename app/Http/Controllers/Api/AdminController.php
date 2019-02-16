@@ -740,4 +740,17 @@ class AdminController extends Controller
         ];
         $this->info->createInfoDatasource($data);
     }
+
+    public function getDatasourceInfo(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $data = $this->info->getInfoDatasourceByInfoID($request->get('info_id'));
+
+        if (empty($data)) {
+            return response()->json(['message' => 'not have data'], 200);
+        }
+
+        return response()->json(compact('data'), 200);
+    }
 }

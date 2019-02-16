@@ -90,7 +90,12 @@ class J48
             if (sizeOf($split) > 1) {
                 $start = $index;
                 $end = self::countLengthEqual($index, $output);
-                $data['j48_pruned_tree']['tree_value'] = self::arrayLengthJoin($output, $start, $end);
+                $str = self::arrayLengthJoin($output, $start, $end);
+                $split = explode("newline", $str);
+                for($i = 0; $i < sizeof($split); $i++)
+                {
+                    $data['j48_pruned_tree']['tree_value'][$i] = $split[$i];
+                }
                 return self::convertToJson($output, $data, $status, $end + 1);
             }
 
@@ -293,7 +298,7 @@ class J48
         $str = "";
 
         for ($i = $start; $i <= $end; $i++) {
-            $str .= $array[$i];
+            $str .= $array[$i]."newline";
         }
 
         return $str;
