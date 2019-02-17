@@ -161,11 +161,27 @@ $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
     var cron = new cronTap();
     cron.exampleCron();
+    $(".set-collect").hide()
     $(".set-time").hide()
 
     // check cheage 
     $('#checkcollect-iotservice').change(function(){
-        let checkUpTime = $('#checkcollect-iotservice').prop("checked");
+        let checkUpCollect = $('#checkcollect-iotservice').prop("checked");
+        if(checkUpCollect==true)
+        {
+            $(".set-collect").slideDown("fast");            
+        }
+        else 
+        {
+            $(".set-collect").hide()           
+            console.log('scvv')
+
+        }
+        
+    })
+
+    $('#checktime-iotservice').change(function(){
+        let checkUpTime = $('#checktime-iotservice').prop("checked");
         if(checkUpTime==true)
         {
             $(".set-time").slideDown("fast");            

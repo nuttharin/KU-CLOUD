@@ -66,7 +66,7 @@
 
     }
 
-    .from-input-detail input,.from-input-detail textarea,.from-input-detail select{
+    .from-input-detail input,.from-input-detail textarea,.from-input-detail select ,.card-collect{
         border: 1px solid #AED6F1 ;
     }
     
@@ -291,26 +291,12 @@
 </div>
 <hr>
 <div class="from-input-detail">
+     
     <div class="row">
         <div class="col-sm-8 " >
             <div class ="row">
-                <div class="col-sm-8">
-                    <h6 >IoT Name <span style="color:red">*</span></h6>
-                    <input type="text" class="mb-2" id="name-iotservice" name="name" placeholder="IoT name">
-                </div>
-                <div class="col-sm-4">
-                    <h6 >Alias <span style="color:red">*</span></h6>
-                    <input type="text" class="mb-2" id="alias-iotservice" name="alias" placeholder="IoT alias ">
-                </div>
-
-                
-            </div>
-            
-            <h6>Description</h6>
-            <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
-            <div class ="row">
                 <div class="col-sm-2" style="padding-top:5px" >
-                    <h6 >Collect data<span style="color:red">*</span></h6>                                       
+                    <h6 >Collect data</h6>                                       
                 </div>
                 <div class="col-sm-2">
                     <div class="onoffswitch2">
@@ -322,31 +308,44 @@
                     </div>
                 </div>
                 <div class="col-sm-3" style="padding-top:5px" >
-                    <h6 >Do not collect data<span style="color:red">*</span></h6>                                       
+                    <h6 >Do not collect data</h6>                                       
                 </div>
-            </div>
-
+            </div>      
             <div class ="row">
-                <div class="col-sm-2" style="padding-top:5px" >
-                    <h6 >Update time <span style="color:red">*</span></h6>                                       
+                <div class="col-sm-8">
+                    <h6 >IoT Name <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="name-iotservice" name="name" placeholder="IoT name">
                 </div>
-                <div class="col-sm-3">
-                    <div class="onoffswitch2">
-                        <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
-                        <label class="checktime-label" for="checktime-iotservice">
-                            <span class="checktime-inner"></span>
-                            <span class="checktime-switch"></span>
-                        </label>
-                    </div>
-                </div>
+                <div class="col-sm-4">
+                    <h6 >Alias <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="alias-iotservice" name="alias" placeholder="IoT alias ">
+                </div>                
             </div>
             
+            <h6>Description</h6>
+            <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
+                
+
             <div> 
                 <div class ="row">
-                    <div class="set-time col-sm-7">
-                        <div class='card bg-light text-dark'>
+                    <div class="set-collect col-sm-7">
+                        <div class='card bg-light text-dark' style="border: 1px solid #AED6F1">
                             <div class='card-body'>
-                                <div class="row">
+                                <div class ="row">
+                                    <div class="col-sm-4" style="padding-top:5px" >
+                                        <h6 >Update time <span style="color:red">*</span></h6>                                       
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="onoffswitch2">
+                                            <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
+                                            <label class="checktime-label" for="checktime-iotservice">
+                                                <span class="checktime-inner"></span>
+                                                <span class="checktime-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row set-time">
                                     <div class="col-sm-12">
                                             <h6 >Update Data<span style="color:red">*</span></h6>
                                             <!-- Modal -->
@@ -455,17 +454,17 @@
                                                 
                                                 </div>
                                             </div>
-                                                <div class="row">                                                 
-                                                        <div class="col-sm-3">
-                                                            <input type="input" style="width:100%; text-align: center;" title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <input type="input" style="width:100%; text-align: center;" title="hour" class="" id="time-webservice-hour"  name="time-webservice-hour" placeholder="*">
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                        <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
-                                                        </div>
-                                                    </div> 
+                                            <div class="row">                                                 
+                                                <div class="col-sm-3">
+                                                    <input type="input" style="width:100%; text-align: center;" title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="input" style="width:100%; text-align: center;" title="hour" class="" id="time-webservice-hour"  name="time-webservice-hour" placeholder="*">
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
+                                                </div>
+                                             </div> 
                                             
                                             <div class="row">
                                                 <div class="col-sm-3">
