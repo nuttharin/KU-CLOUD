@@ -209,7 +209,7 @@
     display: block;
     position: relative;
     padding-left: 35px;
-    margin-bottom: 12px;
+    margin-bottom: 2px;
     cursor: pointer;
     font-size: 15px;
     -webkit-user-select: none;

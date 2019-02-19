@@ -74,8 +74,69 @@ class Service {
                 $("#check").jstree("check_all");
             });
 
-            document.getElementById('submitcheck').innerHTML = "<button id='submitcheckform' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Submit</button></div><div class='modal fade' id='myModal' role='dialog'><div class='modal-dialog'><div class='modal-content'><div id='modal-header-val' class='modal-header'><h4 class='modal-title'>Choose the value to calculate</h4><button type='button' class='close' data-dismiss='modal'>&times;</button></div><div id='modal-body' class='modal-body'><p id='xxx'>The selected value will be calculated in the summary table.</p></div><div class='modal-footer'><button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' >Submit</button><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></div></div></div></div>";
+            document.getElementById('submitcheck').innerHTML = "<button id='submitcheckform' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Submit</button></div><div class='modal fade' id='myModal' role='dialog'><div class='modal-dialog'><div class='modal-content'><div id='modal-header-val' class='modal-header'><h4 class='modal-title'>Choose the value to calculate</h4><button type='button' class='close' data-dismiss='modal'>&times;</button></div><div id='modal-body' class='modal-body'><p id='xxx'>The selected value will be calculated in the summary table.</p></div><div class='modal-footer'><button type='button' id='submitChkValCal2' class='btn btn-info swal-button--confirm' data-toggle='modal' data-target='#myModal2'>Submit</button><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></div></div></div></div><div class='modal fade' id='myModal2' role='dialog'><div class='modal-dialog'><div class='modal-content'><div id='modal-header-val' class='modal-header'><h4 class='modal-title'>Choose the value to group by</h4><button type='button' class='close' data-dismiss='modal'>&times;</button></div><div id='modal-body2' class='modal-body'><p id='modal-body2'>The selected value will by group by in the summary table.</p></div><div class='modal-footer'><button type='button' id='submitChkValCal2' class='btn btn-info swal-button--confirm'>Submit</button><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></div></div></div></div>";
             $('#submitcheckform').on("click", function () {
+                var selectedElmsIds = $('#check').jstree("get_selected", true);
+                console.log(selectedElmsIds);
+                listSelect2 = deepCopy(selectedElmsIds);
+                createListQuery(selectedElmsIds);
+                let headerList = headerLow.split(',');
+                //console.log(listSelect2)
+                $("#modal-body").append("<a href='#' id='checkall'>Check All</a><br/>");
+                for(var j=0;j<headerList.length;j++)
+                {
+                    console.log(headerList[j]);
+                    if(headerList[j] == "undefined" || headerList[j]=="")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
+                        // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
+                        // <label class='customcheck'>"+headerList[j]+
+                        $("#modal-body").append("<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'>"+headerList[j]+"<br/>");
+                    }
+                    
+                }
+                $('#checkall').on('click', function (e) {
+                    e.preventDefault();
+                    (this.text == 'Check All') ? 
+                        $(this).text('Clear All').nextAll('.chkall').prop('checked', true) :
+                        $(this).text('Check All').nextAll('.chkall').prop('checked', false);
+                });
+                $('#submitChkValCal').click(function(){
+                    strValCal = "" ;
+                    for(let i=0 ;i<headerList.length; i++)
+                    {
+                        if($('#valueCalChk'+i).is(':checked') == true )
+                        {
+                            strValCal = strValCal + $('#valueCalChk'+i).val()  +','  ;
+                        }
+                    }
+                    //let lengthStrValCal = strValCal.length ;
+                    strValCal = strValCal.substring(0,strValCal.length -1 );
+                    console.log(strValCal)
+                    
+                    //increaseDataTableDB();
+                    
+                })
+
+                // $(".swal-button--confirm").click(function (){
+                //     window.location.href="http://localhost:8000/Company/Service";
+                // })
+                // window.location.href="http://localhost:8000/Company/Service";
+                // listtest = selectedElmsIds ;
+                
+                
+                //window.location.href = "http://localhost:8000/Company/Service";
+
+
+                //instance.deselect_all();
+                //instance.select_node('1');
+            });
+
+            $('#submitChkValCal2').on("click", function () {
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 console.log(selectedElmsIds);
                 listSelect2 = deepCopy(selectedElmsIds);
@@ -94,11 +155,11 @@ class Service {
                     {
                         // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
                         // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
-                        $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label><br/>");
+                        $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupby' value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label><br/>");
                     }
                     
                 }
-                $('#submitChkValCal').click(function(){
+                $('#submitChkValCal2').click(function(){
                     strValCal = "" ;
                     for(let i=0 ;i<headerList.length; i++)
                     {
@@ -110,8 +171,8 @@ class Service {
                     //let lengthStrValCal = strValCal.length ;
                     strValCal = strValCal.substring(0,strValCal.length -1 );
                     console.log(strValCal)
-                
-                    increaseDataTableDB();
+                    
+                    //increaseDataTableDB();
                     
                 })
 
@@ -128,6 +189,7 @@ class Service {
                 //instance.deselect_all();
                 //instance.select_node('1');
             });
+
             // $('#submitcheckform').on("click", function () {
             //     var selectedElmsIds = $('#check').jstree("get_selected", true);
             //     console.log(selectedElmsIds);
@@ -636,7 +698,11 @@ $(document).ready(function () {
             }
             else
             {
-                if(minute<10)
+                if(minute =='*' && hour=='*')
+                {
+                    convert_time = 60
+                }
+                else if(minute<10)
                 {
                     convert_time = hour+".0"+minute
                 }
