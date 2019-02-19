@@ -19,9 +19,9 @@
                 <div class="row">
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
                         <span class="h3">WebService</span>
-                        <div class="text-loading">
+                        <!-- <div class="text-loading">
                             <div class="text-line md"></div>
-                        </div>
+                        </div> -->
                         <h6>
                             <p id="total-webservice"></p>
                         </h6>

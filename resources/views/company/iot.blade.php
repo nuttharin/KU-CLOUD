@@ -18,12 +18,9 @@
             <div class="card-header bg-white">
                 <div class="row">
                     <div class="col-6" style="padding: 30px 0px 10px 15px">
-                        <span class="h3">Internet of Things (IoT)</span>
-                        <div class="text-loading">
-                            <div class="text-line md"></div>
-                        </div>
+                        <span class="h3">Internet of Things (IoT)</span>                       
                         <h6>
-                            <p id="total-webservice"></p>
+                            <p id="total-iotservice"></p>
                         </h6>
                     </div>
                     <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
@@ -35,7 +32,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-webservice">
+                <table style="width: 100%;" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-iotservice">
                     <thead>
                         <tr>
                             <th>NameService(EN)</th>
