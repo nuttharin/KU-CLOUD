@@ -51,7 +51,7 @@ class Service {
             //console.log("Sssssss");
             //console.log(dataHeader);
             $('loading').show();
-            let str = "<a href='select'></a><div id='select'><form id='search'><input class='mb-2 mr-2' type='search' id='id_search' placeholder='Search'/><button class='btn btn-primary' type='submit'>Search</button></form><div id='check'></div><div id='submitcheck'></div>"
+            let str = "<a href='select'></a><div id='select'><form id='search'><input class='mb-2 mr-2' type='search' id='id_search' placeholder='Search'/><button class='btn btn-primary' type='submit'>Search</button></form><div id='check'></div><div id='submitcheck'></div></div>"
             document.getElementById('checkshow').innerHTML = str;
             document.getElementById('detail-show1').innerHTML = "<h6 style='font-style: oblique;'> Where is tree from?</h6><div id='detail-show'><p>Tree comes from URL that you input in the form to get API.</p></div>"
             document.getElementById('detail-show2').innerHTML = "<h6 style='font-style: oblique;'> How to use? </h6><div id='detail-show'><p>Click check on the left side to select the column that you are interested in and you can search keyword that you want to find.When done,click Submit.</p></div></div>"
@@ -74,7 +74,7 @@ class Service {
                 $("#check").jstree("check_all");
             });
 
-            document.getElementById('submitcheck').innerHTML = "<button id='submitcheckform' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Submit</button>"+
+            document.getElementById('submitcheck').innerHTML = "<button id='submitcheckform' class='btn btn-primary' data-toggle='modal' >Submit</button>"+
                                                                 "<div class='modal fade' id='myModal' role='dialog'>"+
                                                                     "<div class='modal-dialog'>"+
                                                                         "<div class='modal-content'>"+
@@ -86,7 +86,7 @@ class Service {
                                                                                 "<p id='xxx'>The selected value will be calculated in the summary table.</p>"+
                                                                             "</div>"+
                                                                             "<div class='modal-footer'>"+
-                                                                                "<button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal' data-target='#myModal2'>Submit</button>"+
+                                                                                "<button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal'>Submit</button>"+
                                                                                 "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>"+
                                                                             "</div>"+
                                                                         "</div>"+
@@ -110,6 +110,7 @@ class Service {
                                                                     "</div>"+
                                                                 "</div>";
             $('#submitcheckform').on("click", function () {
+                $('#myModal').modal('show');
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 console.log(selectedElmsIds);
                 listSelect2 = deepCopy(selectedElmsIds);
@@ -158,7 +159,8 @@ class Service {
             });
 
             $('#submitChkValCal').on("click", function () {
-                //$('#myModal').modal('hide');
+                $('#myModal').modal('hide');
+                $('#myModal2').modal('show');
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
                 console.log(selectedElmsIds);
                 listSelect2 = deepCopy(selectedElmsIds);
