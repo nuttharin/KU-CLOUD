@@ -321,6 +321,7 @@ class CompanyController extends Controller
             'description' => $request->get('description'),
             'header_row' => $request->get('header'),
             'value_cal' => $request->get('valueCal'),
+            'value_groupby' => $request->get('valueGroup'),
             'status' => $request->get('status'),
             'update_time' => $request->get('time'),
         ]);
@@ -412,6 +413,24 @@ class CompanyController extends Controller
         // return Response::download(public_path('/upload/jsonfile/'.$fileName));
     }
  
+    // iot service
+    public function getAllIotserviceData(Request $request)
+    {
+        $token = $request->bearerToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID =  $this->auth->user_company()->first()->company_id;
+        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.API,TB_IOTSERVICE.description,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
+        FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID'");
+
+        if (empty($iotService)) {
+            return response()->json(['message' => 'not have data'], 200);
+        }
+
+        return response()->json(compact('iotService'), 200);
+
+
+    }
+
     public function getKeyiot()
     {
         $key = 'klflvpekvlvep[clep[lc';

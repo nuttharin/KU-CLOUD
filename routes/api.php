@@ -311,6 +311,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('company/webservice/getCompanyID', 'Api\CompanyController@getCompanyID');
     Route::post('company/webservice/deletewebservice', 'Api\CompanyController@deletewebservice');
 
+    Route::get('company/iot/iotservicedata','Api\CompanyController@getAllIotserviceData');
     Route::get('company/iot/getkeyiot', 'Api\CompanyController@getKeyiot');
     Route::post('company/iot/addRegisIotService', 'Api\CompanyController@addRegisIotService');
 

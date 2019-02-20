@@ -31,6 +31,7 @@ var WebserviceRepository = new (function () {
             url: "http://localhost:8000/api/company/webservicedata",
             method: 'GET',
             success: function (result) {
+                //console.log(result);
                 initialDatatable();
                 webserviceList = result.webService;
                 showLoadingStatus(false);
@@ -48,6 +49,7 @@ var WebserviceRepository = new (function () {
         }
 
         datatableObject = $('#datatable-webservice').dataTable();
+        //console.log(datatableObject)
     }
 
     var showLoadingStatus = (show) => {
@@ -57,10 +59,10 @@ var WebserviceRepository = new (function () {
         }
         else {
             $('#datatable-webservice').show();
-            $('.text-static').show();
+            //$('.text-static').show();
             $('#total-webservice').show();
             $('.lds-roller').hide();
-            $('.text-loading').hide();
+            //$('.text-loading').hide();
         }
     }
 
@@ -68,7 +70,7 @@ var WebserviceRepository = new (function () {
     var updateDatatableData = (webserviceList) => {
         var Datatable = new Array();
         datatableObject.fnClearTable();
-        let total_company = 0;
+        let total_webservice = 0;
         $.each(webserviceList.webService, function (index, item) {
             var ret = [];
             ret[0] = item.name;
@@ -94,10 +96,10 @@ var WebserviceRepository = new (function () {
                             </button>
                         </center>`;
             Datatable.push(ret);
-            total_company++;
+            total_webservice++;
         });
         datatableObject.fnAddData(Datatable);
-        $("#total-webservice").html(`Total ${total_company} Webservices`);
+        $("#total-webservice").html(`Total ${total_webservice} Webservices`);
         $('#datatable-webservice').on('click', '.btn-detail', function () {
             onDetailClick($(this).attr('index'));
         });
