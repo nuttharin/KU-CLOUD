@@ -183,6 +183,7 @@ class Service {
                         $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupby' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label><br/>");
                     }
                 }
+                increaseDataTableDB();
                 $('#submitChkValCal2').click(function(){
                     strValGroup = "" ;
                     for(let i=0 ;i<headerList.length; i++)
@@ -195,7 +196,7 @@ class Service {
                     //let lengthStrValCal = strValCal.length ;
                     strValGroup = strValGroup.substring(0,strValGroup.length -1 );
                     console.log(strValGroup)
-                    increaseDataTableDB();
+                    
                     
                 })
 
