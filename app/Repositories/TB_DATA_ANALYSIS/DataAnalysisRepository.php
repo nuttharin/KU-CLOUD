@@ -6,9 +6,11 @@ interface DataAnalysisRepository
 {
     public function getAll();
 
-	public function getById($data_id);
+    public function getById($data_id);
 
-	public function create(array $attr);
+    public function create(array $attr);
 
-	public function delete($data_id,$user_id);
+    public function delete($data_id, $user_id);
+
+    // public function upload();
 }

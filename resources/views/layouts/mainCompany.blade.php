@@ -166,13 +166,13 @@
                 </li>
                 @can('isCompanyAdmin')
                 <li class="nav-item">
-                    <a href="{{action('CompanyController@user')}}">
+                    <a href="{{action('UserController@UserCompany')}}">
                         <i class="fas fa-users"></i>
                         <span>User</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('CompanyController@customer')}}">
+                    <a href="{{action('UserController@UserCustomer')}}">
                         <i class="fas fa-briefcase"></i>
                         <span>Customer</span>
                     </a>
@@ -199,13 +199,13 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('CompanyController@infographic')}}">
+                    <a href="{{action('InfographicController@Index')}}">
                         <i class="fas fa-file-image"></i>
                         <span class="link_hide">Infographic</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('CompanyController@staticDatatable')}}">
+                    <a href="{{action('StaticController@Index')}}">
                         <i class="fas fa-chart-line"></i>
                         <span class="link_hide">Static</span>
                     </a>
@@ -219,17 +219,17 @@
                     </a>
                     <ul class="collapse list-unstyled sub" id="AnalysisSubmenu">
                         <li class="nav-item">
-                            <a href="{{action('CompanyController@AnalysisPrepareData')}}">
+                            <a href="{{action('AnalysisController@AnalysisPrepareData')}}">
                                 Prepare data
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{action('CompanyController@DataAnalysisOutput')}}">
+                            <a href="{{action('AnalysisController@DataAnalysisOutput')}}">
                                 Output data analysis
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{action('CompanyController@DataAnalysis')}}">
+                            <a href="{{action('AnalysisController@DataAnalysis')}}">
                                 Data analysis
                             </a>
                         </li>
@@ -260,7 +260,7 @@
         <!-- jQuery Custom Scroller CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
 
         <link rel="stylesheet" href="{{asset('js/circliful/jquery.circliful.css')}}" />

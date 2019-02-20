@@ -1,4 +1,4 @@
-// const WS_URL = $('meta[name=ws_url]').attr("content");
+// const WS_URL = 'http://localhost:3000/'//$('meta[name=ws_url]').attr("content");
 // const USER_ID = getCookie("token");
 // var socket = io(WS_URL, { query: "id= " + USER_ID });
 
@@ -12,5 +12,9 @@
 
 
 // socket.on('UserListRes', function (data) {
-//     console.log(data);
+//     //console.log(data);
 // });
+
+// // socket.on('broadcast', function (data) {
+// //     console.log(data);
+// // });

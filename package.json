@@ -29,6 +29,7 @@
         "file-loader": "^2.0.0",
         "file-saver": "^2.0.0",
         "js2excel": "^1.0.1",
+        "json2csv": "^4.3.4",
         "laravel-mix": "^2.1.14",
         "nouislider": "^12.1.0",
         "object-path": "^0.11.4",

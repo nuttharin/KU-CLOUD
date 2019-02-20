@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api\Company;
 
-use App\Weka\Classify\J48;
-use App\LogViewer\LogViewer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\LogViewer\LogViewer;
+use App\Repositories\TB_DATA_ANALYSIS\DataAnalysisRepository;
+use App\Weka\Associations\Association;
+use App\Weka\Classify\J48;
+use App\Weka\Clusterers\SimpleKMeans;
+use App\Weka\UploadFileExcel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Weka\Clusterers\SimpleKMeans;
-use App\Weka\Associations\Association;
-use App\Repositories\TB_DATA_ANALYSIS\DataAnalysisRepository;
 
 class AnalysisController extends Controller
 {
@@ -34,7 +35,7 @@ class AnalysisController extends Controller
         $this->cluster = new SimpleKMeans();
         $this->associations = new Association();
         $this->j48 = new J48();
-  
+
     }
 
     public function createDataAnalysis(Request $request)
@@ -44,6 +45,21 @@ class AnalysisController extends Controller
             'pathArray' => $request->get('pathArray'),
         ];
         $this->dataAnalysis->create($data);
+    }
+
+    public function deleteDataAnalysis(Request $request)
+    {
+        $data = [
+            'data_id' => $request->get('data_id'),
+            'user_id' => Auth::user()->user_id,
+        ];
+        $this->dataAnalysis->delete($data['data_id'], $data['user_id']);
+    }
+
+    public function uploadFile(Request $request)
+    {
+        $upload = new UploadFileExcel();
+        $upload->uploadFile($request);
     }
 
     public function getAllDataAnalysis()
@@ -66,8 +82,7 @@ class AnalysisController extends Controller
             $data = $this->cluster->exec($traningFile, $param);
         } else if ($request->get('type') === 'associate') {
             $data = $this->associations->exec($traningFile, $param);
-        }
-        else if($request->get('type') === 'J48'){
+        } else if ($request->get('type') === 'J48') {
             $data = $this->j48->exec($traningFile, $param);
         }
         return response()->json(compact('data'), 200);

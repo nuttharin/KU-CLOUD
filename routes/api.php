@@ -81,7 +81,6 @@ Route::group([
 
     Route::get('users/online', 'Api\AdminController@countUserOnline');
 
-
     //Static
     Route::get('webservices', 'Api\AdminController@getWebServiceByCompany');
     Route::get('static', 'Api\AdminController@getStaticDashboard');
@@ -102,14 +101,14 @@ Route::group([
     Route::post('database/log/file/download', 'Api\AdminController@downloadFileLog');
     Route::delete('database/log/file/delete', 'Api\AdminController@deleteFileLog');
 
-    Route::get('infographic/getInfoByUserID', 'Api\AdminController@getAllInfograpic');
-    Route::get('infographic/getInfoByInfoID', 'Api\AdminController@getInfograpicData');
-    Route::post('infographic/create', 'Api\AdminController@createInfograpic');
-    Route::put('infographic/update', 'Api\AdminController@updateInfograpic');
-    Route::put('infographic/updateInfoData', 'Api\AdminController@updateInfograpicData');
-    Route::delete('infographic/delete', 'Api\AdminController@deleteInfograpic');
+    // Route::get('infographic/getInfoByUserID', 'Api\AdminController@getAllInfograpic');
+    // Route::get('infographic/getInfoByInfoID', 'Api\AdminController@getInfograpicData');
+    // Route::post('infographic/create', 'Api\AdminController@createInfograpic');
+    // Route::put('infographic/update', 'Api\AdminController@updateInfograpic');
+    // Route::put('infographic/updateInfoData', 'Api\AdminController@updateInfograpicData');
+    // Route::delete('infographic/delete', 'Api\AdminController@deleteInfograpic');
 
-    Route::post('infographic/createDatasource', 'Api\AdminController@addDatasourceInfo');
+    // Route::post('infographic/createDatasource', 'Api\AdminController@addDatasourceInfo');
 
 });
 
@@ -119,38 +118,114 @@ Route::group([
 ], function ($router) {
     Route::get('test', 'Api\CompanyController@test'); //test
 
-    Route::get('users', 'Api\CompanyController@getAllUser');
-    Route::post('users', 'Api\CompanyController@addUserCompany');
-    Route::put('users/block', 'Api\CompanyController@blockUserCompany');
-    Route::put('users/edit', 'Api\CompanyController@editUserCompany');
-    Route::delete('users/phone', 'Api\CompanyController@deletePhoneUser');
-    Route::delete('users/email', 'Api\CompanyController@deleteEmailUser');
-    Route::get('users/online', 'Api\CompanyController@countUserOnline');
+    // Route::get('users', 'Api\CompanyController@getAllUser');
+    // Route::post('users', 'Api\CompanyController@addUserCompany');
+    // Route::put('users/block', 'Api\CompanyController@blockUserCompany');
+    // Route::put('users/edit', 'Api\CompanyController@editUserCompany');
+    // Route::delete('users/phone', 'Api\CompanyController@deletePhoneUser');
+    // Route::delete('users/email', 'Api\CompanyController@deleteEmailUser');
+    // Route::get('users/online', 'Api\CompanyController@countUserOnline');
 
-    Route::get('customers', 'Api\CompanyController@getAllCustomer');
-    Route::post('customers', 'Api\CompanyController@addUserCustomer');
-    Route::post('customers/company', 'Api\CompanyController@addCustomerInCompany');
-    Route::get('customers/email', 'Api\CompanyController@getAllEmailCustomer');
+    // Route::get('customers', 'Api\CompanyController@getAllCustomer');
+    // Route::post('customers', 'Api\CompanyController@addUserCustomer');
+    // Route::post('customers/company', 'Api\CompanyController@addCustomerInCompany');
+    // Route::get('customers/email', 'Api\CompanyController@getAllEmailCustomer');
 
     //Static
-    Route::get('static', 'Api\CompanyController@getStaticDashboard');
-    Route::post('static', 'Api\CompanyController@addStatic');
-    Route::delete('static', 'Api\CompanyController@deleteStatic');
-    Route::get('static/{static_id}', 'Api\CompanyController@getStaticDashboardById');
-    Route::put('static', 'Api\CompanyController@updateStatic');
-    Route::put('static/dashboard', 'Api\CompanyController@updateStaticDashboard');
+    // Route::get('static', 'Api\CompanyController@getStaticDashboard');
+    // Route::post('static', 'Api\CompanyController@addStatic');
+    // Route::delete('static', 'Api\CompanyController@deleteStatic');
+    // Route::get('static/{static_id}', 'Api\CompanyController@getStaticDashboardById');
+    // Route::put('static', 'Api\CompanyController@updateStatic');
+    // Route::put('static/dashboard', 'Api\CompanyController@updateStaticDashboard');
 
-    Route::get('staticDatasource', 'Api\CompanyController@getDatasourceStatic');
-    Route::post('static/datasource', 'Api\CompanyController@addDatasourceStatic');
-    Route::delete('static/datasource', 'Api\CompanyController@deleteDatasourceByStatic');
+    // Route::get('staticDatasource', 'Api\CompanyController@getDatasourceStatic');
+    // Route::post('static/datasource', 'Api\CompanyController@addDatasourceStatic');
+    // Route::delete('static/datasource', 'Api\CompanyController@deleteDatasourceByStatic');
 
-    Route::get('analysis/data', 'Api\Company\AnalysisController@getAllDataAnalysis');
-    Route::post('analysis/data', 'Api\Company\AnalysisController@createDataAnalysis');
-    Route::post('analysis', 'Api\Company\AnalysisController@analysisProcess');
+    // Route::get('analysis/data', 'Api\Company\AnalysisController@getAllDataAnalysis');
+    // Route::get('analysis/data/{data_id}', 'Api\Company\AnalysisController@getByIdDataAnalysis');
+    // Route::post('analysis/data', 'Api\Company\AnalysisController@createDataAnalysis');
+    // Route::delete('analysis/data', 'Api\Company\AnalysisController@deleteDataAnalysis');
+    // Route::post('analysis/data/upload', 'Api\Company\AnalysisController@uploadFile');
+    // Route::post('analysis', 'Api\Company\AnalysisController@analysisProcess');
 
     Route::get('database/log/file', 'Api\CompanyController@getFileLogByFolder');
     Route::get('database/logfile', 'Api\CompanyController@getFileLog');
 
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'users',
+], function ($router) {
+    Route::get('/', 'Api\UserController@getAllUser');
+    Route::post('/', 'Api\UserController@addUserCompany');
+    Route::put('/block', 'Api\UserController@blockUserCompany');
+    Route::put('/edit', 'Api\UserController@editUserCompany');
+    Route::delete('/phone', 'Api\UserController@deletePhoneUser');
+    Route::delete('/email', 'Api\UserController@deleteEmailUser');
+    Route::get('/online', 'Api\UserController@countUserOnline');
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'customers',
+], function ($router) {
+    Route::get('/', 'Api\UserController@getAllCustomer');
+    Route::post('/', 'Api\UserController@addUserCustomer');
+    Route::post('/company', 'Api\UserController@addCustomerInCompany');
+    Route::get('/email', 'Api\UserController@getAllEmailCustomer');
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'analysis',
+], function ($router) {
+    Route::get('/data', 'Api\AnalysisController@getAllDataAnalysis');
+    Route::get('/data/{data_id}', 'Api\AnalysisController@getByIdDataAnalysis');
+    Route::post('/data', 'Api\AnalysisController@createDataAnalysis');
+    Route::delete('/data', 'Api\AnalysisController@deleteDataAnalysis');
+    Route::post('/data/upload', 'Api\AnalysisController@uploadFile');
+    Route::post('/', 'Api\AnalysisController@analysisProcess');
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'infographic',
+], function ($router) {
+    Route::get('getInfoByUserID', 'Api\InfographicController@getAllInfograpic');
+    Route::get('getInfoByInfoID', 'Api\InfographicController@getInfograpicData');
+    Route::post('create', 'Api\InfographicController@createInfograpic');
+    Route::put('update', 'Api\InfographicController@updateInfograpic');
+    Route::put('updateInfoData', 'Api\InfographicController@updateInfograpicData');
+    Route::delete('delete', 'Api\InfographicController@deleteInfograpic');
+
+    Route::post('/createDatasource', 'Api\InfographicController@addDatasourceInfo');
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'static',
+], function ($router) {
+    Route::get('/', 'Api\StaticController@getStaticDashboard');
+    Route::post('/', 'Api\StaticController@addStatic');
+    Route::put('/', 'Api\StaticController@updateStatic');
+    Route::delete('/', 'Api\StaticController@deleteStatic');
+
+    Route::get('{static_id}', 'Api\StaticController@getStaticDashboardById');
+
+    Route::put('dashboard', 'Api\StaticController@updateStaticDashboard');
+
+    Route::post('datasource', 'Api\StaticController@addDatasourceStatic');
+    Route::delete('datasource', 'Api\StaticController@deleteDatasourceByStatic');
+
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+], function ($router) {
+    Route::get('staticDatasource', 'Api\StaticController@getDatasourceStatic');
 });
 
 Route::group([
@@ -160,7 +235,6 @@ Route::group([
     Route::get('companies', 'Api\CustomerController@getCompanyListForCustomer');
     Route::put('companies', 'Api\CustomerController@approveCompany');
 });
-
 
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
@@ -184,6 +258,8 @@ Route::group([
     Route::put('phone', 'Api\AccountsController@changePrimaryPhone');
     Route::post('phone', 'Api\AccountsController@addPhone');
     Route::delete('phone', 'Api\AccountsController@deletePhone');
+
+    Route::post('address', 'Api\AccountsController@addAddress');
 });
 
 Route::group(['middleware' => ['jwt.verify']], function () {
@@ -236,7 +312,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('company/webservice/deletewebservice', 'Api\CompanyController@deletewebservice');
 
     Route::get('company/iot/getkeyiot', 'Api\CompanyController@getKeyiot');
-    Route::post('company/iot/addRegisIotService','Api\CompanyController@addRegisIotService');
+    Route::post('company/iot/addRegisIotService', 'Api\CompanyController@addRegisIotService');
 
     // Route::get('company/static', 'Api\CompanyController@getStaticDashboard');
     // Route::post('company/static', 'Api\CompanyController@addStatic');

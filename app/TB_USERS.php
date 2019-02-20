@@ -49,6 +49,11 @@ class TB_USERS extends Authenticatable implements JWTSubject
         return $this->hasMany("App\TB_USER_CUSTOMER", "user_id");
     }
 
+    public function getAddress()
+    {
+        return $this->hasMany("App\Address_users", "user_id");
+    }
+
     public function checkFirstCreate()
     {
         return $this->hasOne("App\USER_FIRST_CREATE", "user_id");

@@ -19,42 +19,42 @@ class CompanyController extends Controller
         return view('company.index');
     }
 
-    public function user()
-    {
-        if (!Gate::allows('isCompanyAdmin')) {
-            abort('404', "Sorry, You can do this actions");
-        }
-        return view('company.user')->with('user', Auth::user());
-    }
+    // public function user()
+    // {
+    //     if (!Gate::allows('isCompanyAdmin')) {
+    //         abort('404', "Sorry, You can do this actions");
+    //     }
+    //     return view('company.user')->with('user', Auth::user());
+    // }
 
     public function manageAccounts()
     {
         return view('company.manageAccounts')->with('user', Auth::user());
     }
 
-    public function customer()
-    {
-        if (!Gate::allows('isCompanyAdmin')) {
-            abort('404', "Sorry, You can do this actions");
-        }
-        return view('company.customer')->with('user', Auth::user());
-    }
+    // public function customer()
+    // {
+    //     if (!Gate::allows('isCompanyAdmin')) {
+    //         abort('404', "Sorry, You can do this actions");
+    //     }
+    //     return view('company.customer')->with('user', Auth::user());
+    // }
 
     public function infographic()
     {
         return view('company.infographic')->with('user', Auth::user());
     }
 
-    public function staticDatatable()
-    {
-        return view('company.staticDataTable')->with('user', Auth::user());
-    }
+    // public function staticDatatable()
+    // {
+    //     return view('company.staticDataTable')->with('user', Auth::user());
+    // }
 
-    function static($id) {
-        return view('company.static')
-            ->with('id', $id)
-            ->with('user', Auth::user());
-    }
+    // function static($id) {
+    //     return view('company.static')
+    //         ->with('id', $id)
+    //         ->with('user', Auth::user());
+    // }
 
     public function service()
     {
@@ -104,10 +104,9 @@ class CompanyController extends Controller
         $cmd = "java -cp " . $pathWekaLib . " weka.clusterers.SimpleKMeans -N 2 -t " . $pathWekaInput . "glass.arff";
         //$cmd = "java -cp " . $pathWekaLib . " weka.core.Instances " . $pathWekaInput . "attempt1.arff";
         exec($cmd, $output);
-        dd($cmd);
         $simpleKMeans = new SimpleKMeans();
         $data = $simpleKMeans->getSimpleKMeansToJson($output);
-        //echo $data;
+        dd($data);
 
         // $t = new ConvertJsonToArff();
         // $t->convertToAttr();
@@ -170,18 +169,18 @@ class CompanyController extends Controller
 
     //Weka
 
-    public function AnalysisPrepareData()
-    {
-        return view('company.AnalysisPrepareData')->with('user', Auth::user());
-    }
+    // public function AnalysisPrepareData()
+    // {
+    //     return view('company.AnalysisPrepareData')->with('user', Auth::user());
+    // }
 
-    public function DataAnalysis()
-    {
-        return view('company.DataAnalysis')->with('user', Auth::user());
-    }
+    // public function DataAnalysis()
+    // {
+    //     return view('company.DataAnalysis')->with('user', Auth::user());
+    // }
 
-    public function DataAnalysisOutput()
-    {
-        return view('company.DataAnalysisOutput')->with('user', Auth::user());
-    }
+    // public function DataAnalysisOutput()
+    // {
+    //     return view('company.DataAnalysisOutput')->with('user', Auth::user());
+    // }
 }

@@ -38,19 +38,18 @@ class AccountsController extends Controller
             'lname' => $request->get('lname'),
             'password' => $request->get('password'),
             'email_user' => $request->get('email'),
-            'phone_user' => $request->get('phone')
+            'phone_user' => $request->get('phone'),
         ];
 
         $user_id = $this->account->register($attr);
 
-        if($request->get('checkbox_address') == 'true')
-        {
+        if ($request->get('checkbox_address') == 'true') {
             $attr = [
                 'user_id' => $user_id,
                 'address_detail' => $request->get('address_detail'),
                 'district_id' => $request->get('district_id'),
                 'amphure_id' => $request->get('amphure_id'),
-                'province_id' => $request->get('province_id')
+                'province_id' => $request->get('province_id'),
             ];
 
             $this->address->createAddressUser($attr);
@@ -111,6 +110,19 @@ class AccountsController extends Controller
         }
         DB::commit();
         return response()->json(compact('image'), 200);
+    }
+
+    public function addAddress(Request $request)
+    {
+        $attr = [
+            'user_id' => Auth::user()->user_id,
+            'address_detail' => $request->get('address_detail'),
+            'district_id' => $request->get('district_id'),
+            'amphure_id' => $request->get('amphure_id'),
+            'province_id' => $request->get('province_id'),
+        ];
+
+        $this->address->createAddressUser($attr);
     }
 
     public function updateUsername(Request $request)

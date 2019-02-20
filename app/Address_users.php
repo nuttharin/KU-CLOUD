@@ -7,14 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class address_users extends Model
 {
     protected $primaryKey = 'address_id';
-    protected  $table = "address_users";
+    protected $table = "address_users";
     //
     protected $fillable = [
-        'address_id', 'user_id', 'address_detail', 'district_id', 'amphure_id', 'province_id'
+        'address_id', 'user_id', 'address_detail', 'district_id', 'amphure_id', 'province_id',
     ];
 
     protected $hidden = [
-        
+
     ];
+
+    public function getUser()
+    {
+        return $this->belongsTo("App\TB_USERS", "user_id");
+    }
 
 }

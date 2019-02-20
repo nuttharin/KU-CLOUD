@@ -1,10 +1,32 @@
-@extends('layouts.mainCustomer') 
-@section('title','Manage Accounts | Customer') 
+@extends('layouts.mainCustomer')
+@section('title','Manage Accounts | Customer')
 @section('content')
 
 <style>
     .modal-header {
         border-bottom: 0
+    }
+
+    .address-add {
+        cursor: pointer;
+    }
+
+    .edit-address,.delete-address {
+        cursor: pointer;
+    }
+
+    .address{
+        border:1px solid #eee;
+        padding:50px;
+        margin: 20px;
+        width: 350px;
+        height: 300px;
+        border-radius: 10px;
+        transition: all .2s ease-in-out;
+    }
+
+    .address:hover{
+        background-color: #eee;
     }
 </style>
 
@@ -21,16 +43,24 @@
     <div class="card-body">
         <ul class="nav nav-tabs tab-basic" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active show" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                <a class="nav-link active show" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    aria-controls="profile" aria-selected="true">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Account</a>
+                <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account"
+                    aria-selected="false">Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="emails-tab" data-toggle="tab" href="#emails" role="tab" aria-controls="emails" aria-selected="false">Emails</a>
+                <a class="nav-link" id="emails-tab" data-toggle="tab" href="#emails" role="tab" aria-controls="emails"
+                    aria-selected="false">Emails</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="phones-tab" data-toggle="tab" href="#phones" role="tab" aria-controls="phones" aria-selected="false">Phones</a>
+                <a class="nav-link" id="phones-tab" data-toggle="tab" href="#phones" role="tab" aria-controls="phones"
+                    aria-selected="false">Phones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address"
+                    aria-selected="false">Address</a>
             </li>
         </ul>
         <div class="tab-content tab-content-basic">
@@ -41,17 +71,18 @@
                         <input type="text" class="form-control" name="fname" value="{{$user->fname}}">
                         <label>Lastname</label>
                         <input type="text" class="form-control" name="lname" value="{{$user->lname}}">
-                        <button type="button" class="btn btn-success mt-2" id="btn-update-profile" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update profile</button>
+                        <button type="button" class="btn btn-success mt-2" id="btn-update-profile" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update
+                            profile</button>
                     </div>
                     <div class="col-12 col-md-6">
                         <h6>Profile picture</h6>
 
                         <img class="img-xs rounded-circle" height="200" width="200" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}"
-                            alt="Profile image"><br/>
+                            alt="Profile image"><br />
 
                         <label class="btn btn-primary mt-2">
-                                Upload new picture <input type="file" name="img-profile" id="img-profile" hidden>
-                            </label>
+                            Upload new picture <input type="file" name="img-profile" id="img-profile" hidden>
+                        </label>
                         <button type="button" class="btn mt-2" hidden>Upload new picture</button>
 
                     </div>
@@ -119,34 +150,96 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                <div class="row justify-content-start">
+                    <div class="address address-add d-flex justify-content-center flex-column text-center">
+                        <i class="fas fa-plus fa-lg"></i><br>
+                        Add address
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="profile-crop">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal fade" id="profile-crop">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                <div class="modal-header">
-                    <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="POST" enctype="multipart/form-data" id="imageUploadForm">
+                            <div id="upload-demo"></div>
+                            <input type="hidden" id="imagebase64" name="imagebase64">
+                            <button type="button" class="btn btn-success btn-block" id="btn-crop-save"
+                                data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">Set
+                                new profile picture</button>
+                        </form>
+                    </div>
+
                 </div>
+            </div>
+        </div>
 
-                <div class="modal-body">
-                    <form method="POST" enctype="multipart/form-data" id="imageUploadForm">
-                        <div id="upload-demo"></div>
-                        <input type="hidden" id="imagebase64" name="imagebase64">
-                        <button type="button" class="btn btn-success btn-block" id="btn-crop-save" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">Set new profile picture</button>
-                    </form>
+        <div class="modal fade" id="addAddress">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add address</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col-xl-12">
+                            <div class="row input-data">
+                                <label for="address">Address</label>
+                                <textarea name="address_detail" id="address_detail" cols="30" rows="5" class="form-control"></textarea>
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="province">Province</label>
+                                <select name="province" id="province" class="form-control">
+                                    <option value="">--Select provice--</option>
+                                </select>
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <label for="amphure">Amphure</label>
+                                <select name="amphure" id="amphure" class="form-control">
+                                    <option value="">--Select amphure--</option>
+                                </select>
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row input-data">
+                                <div class="col-6" style="padding-left:0px;">
+                                    <label for="district">District</label>
+                                    <select name="district" id="district" class="form-control">
+                                        <option value="">--Select district--</option>
+                                    </select>
+                                    <small class="messages-error"></small>
+                                </div>
+                                <div class="col-6" style="padding-right:0px;">
+                                    <label for="zip_code">Zip code</label>
+                                    <input name="zip_code" id="zip_code" class="form-control">
+                                    <small class="messages-error"></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-success btn-block" id="btn_add_address">Save</button>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 
 
-<script type="text/javascript" src="{{mix('js/company/account/account.min.js')}}"></script>
+    <script type="text/javascript" src="{{mix('js/company/account/account.min.js')}}"></script>
 
-@endsection
+    @endsection

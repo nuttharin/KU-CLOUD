@@ -123,7 +123,7 @@ class EloquentStatic implements StaticRepository
             ->join('TB_STATIC_DATASOURCE', 'TB_STATIC_DATASOURCE.static_id', '=', 'TB_STATIC.static_id')
             ->join('TB_WEBSERVICE', 'TB_WEBSERVICE.webservice_id', '=', 'TB_STATIC_DATASOURCE.webservice_id')
             ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_STATIC.user_id')
-            ->get(['TB_STATIC_DATASOURCE.id', 'TB_STATIC_DATASOURCE.name', 'TB_STATIC_DATASOURCE.timeInterval', 'TB_STATIC_DATASOURCE.body', 'TB_STATIC_DATASOURCE.headers', 'TB_WEBSERVICE.URL']);
+            ->get(['TB_STATIC_DATASOURCE.id', 'TB_STATIC_DATASOURCE.name', 'TB_WEBSERVICE.webservice_id', 'TB_STATIC_DATASOURCE.timeInterval', 'TB_STATIC_DATASOURCE.body', 'TB_STATIC_DATASOURCE.headers', 'TB_WEBSERVICE.URL']);
         return $data;
     }
 
