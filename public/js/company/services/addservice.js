@@ -26,6 +26,7 @@ class Service {
         let companyID;
         let listSelect2;
         let strValCal ;
+        let strValGroup;
 
 
 
@@ -130,7 +131,7 @@ class Service {
                         // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
                         // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
                         // <label class='customcheck'>"+headerList[j]+
-                        $("#modal-body").append("<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'>"+headerList[j]+"<br/>");
+                        $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label><br/>");
                     }
                     
                 }
@@ -183,17 +184,17 @@ class Service {
                     }
                 }
                 $('#submitChkValCal2').click(function(){
-                    strValCal = "" ;
+                    strValGroup = "" ;
                     for(let i=0 ;i<headerList.length; i++)
                     {
                         if($('#valuegroupbyChk'+i).is(':checked') == true )
                         {
-                            strValCal = strValCal + $('#valuegroupbyChk'+i).val()  +','  ;
+                            strValGroup = strValGroup + $('#valuegroupbyChk'+i).val()  +','  ;
                         }
                     }
                     //let lengthStrValCal = strValCal.length ;
-                    strValCal = strValCal.substring(0,strValCal.length -1 );
-                    console.log(strValCal)
+                    strValGroup = strValGroup.substring(0,strValGroup.length -1 );
+                    console.log(strValGroup)
                     increaseDataTableDB();
                     
                 })
