@@ -131,7 +131,9 @@ class Service {
                         // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
                         // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
                         // <label class='customcheck'>"+headerList[j]+
-                        $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label><br/>");
+                        $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label>");
+                        $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupbyChk' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label>");
+
                     }
                     
                 }
@@ -168,23 +170,20 @@ class Service {
                 createListQuery(selectedElmsIds);
                 let headerList = headerLow.split(',');
                 //console.log(listSelect2)
-            
-                for(var j=0;j<headerList.length;j++)
-                {
-                    console.log(headerList[j]);
-                    if(headerList[j] == "undefined" || headerList[j]=="")
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
-                        // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
-                        $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupby' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label><br/>");
-                    }
-                }
-                increaseDataTableDB();
+                            
                 $('#submitChkValCal2').click(function(){
+                    strValCal = "" ;
+                    for(let i=0 ;i<headerList.length; i++)
+                    {
+                        if($('#valueCalChk'+i).is(':checked') == true )
+                        {
+                            strValCal = strValCal + $('#valueCalChk'+i).val()  +','  ;
+                        }
+                    }
+                    //let lengthStrValCal = strValCal.length ;
+                    strValCal = strValCal.substring(0,strValCal.length -1 );
+                    console.log(strValCal)
+
                     strValGroup = "" ;
                     for(let i=0 ;i<headerList.length; i++)
                     {
@@ -196,7 +195,7 @@ class Service {
                     //let lengthStrValCal = strValCal.length ;
                     strValGroup = strValGroup.substring(0,strValGroup.length -1 );
                     console.log(strValGroup)
-                    
+                    increaseDataTableDB();
                     
                 })
 
@@ -410,6 +409,7 @@ class Service {
                     description: description,
                     header: headerLow,
                     valueCal: strValCal,
+                    valueGroup:strValGroup,
                     status: status,
                     time: time
                 },

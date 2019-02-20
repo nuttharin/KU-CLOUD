@@ -321,6 +321,7 @@ class CompanyController extends Controller
             'description' => $request->get('description'),
             'header_row' => $request->get('header'),
             'value_cal' => $request->get('valueCal'),
+            'value_groupby' => $request->get('valueGroup'),
             'status' => $request->get('status'),
             'update_time' => $request->get('time'),
         ]);
