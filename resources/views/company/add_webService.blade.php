@@ -331,7 +331,11 @@
   visibility: visible;
   opacity: 1;
 }
-
+#myModal {
+    overflow-y:scroll;
+}
+#myModal2 
+{ overflow-y:scroll }
 
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>

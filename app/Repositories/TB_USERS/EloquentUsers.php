@@ -266,6 +266,7 @@ class EloquentUsers implements UsersRepository
 
     public function countUserOnline($type, $company_id = null)
     {
+        // TODO: Implement countUserOnline() method.
         if ($company_id == 1) {
             return DB::select('SELECT if(TB_USERS.online,?,?) as online,COUNT(user_id) as count FROM TB_USERS
                                     WHERE type_user = ?
@@ -284,7 +285,6 @@ class EloquentUsers implements UsersRepository
             }
         }
         return;
-        // TODO: Implement countUserOnline() method.
     }
 
     public function countUser($type, $company_id)
@@ -394,19 +394,19 @@ class EloquentUsers implements UsersRepository
             $name = $attributes['fname'] . " " . $attributes['lname'];
             $email = $attributes['email_user'];
 
-            $verification_code = str_random(30); //Generate verification code
+            // $verification_code = str_random(30); //Generate verification code
 
-            DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
-            $subject = "Please verify your email address."; // หัวข้อเมล์
-            // //ส่ง Email run queue
-            // dispatch(new SendEmailJob($subject,$name,$email,$verification_code,$attributes['username'],$password));
+            // DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
+            // $subject = "Please verify your email address."; // หัวข้อเมล์
+            // // //ส่ง Email run queue
+            // // dispatch(new SendEmailJob($subject,$name,$email,$verification_code,$attributes['username'],$password));
            
-            Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $attributes['username'],'password'=>$password],
-                function($mail) use ($email, $name, $subject){
-                    $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
-                    $mail->to($email, $name);
-                    $mail->subject($subject);
-            });
+            // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $attributes['username'],'password'=>$password],
+            //     function($mail) use ($email, $name, $subject){
+            //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
+            //         $mail->to($email, $name);
+            //         $mail->subject($subject);
+            // });
 
         } catch (Exception $e) {
             DB::rollBack();
