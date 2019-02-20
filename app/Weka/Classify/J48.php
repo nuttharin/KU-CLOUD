@@ -18,7 +18,7 @@ class J48
 
     public function __construct()
     {
-        $this->cmd = "java -cp ";
+        $this->cmd = 'java "-Dfile.encoding=utf-8"  -cp ';
         $this->param = "";
         $this->pathWekaLib = config('app.weka_lib');
         $this->pathWekaInput = config('app.weka_input');

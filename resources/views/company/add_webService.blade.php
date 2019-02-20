@@ -209,7 +209,7 @@
     display: block;
     position: relative;
     padding-left: 35px;
-    margin-bottom: 12px;
+    margin-bottom: 2px;
     cursor: pointer;
     font-size: 15px;
     -webkit-user-select: none;
@@ -331,7 +331,11 @@
   visibility: visible;
   opacity: 1;
 }
-
+#myModal {
+    overflow-y:scroll;
+}
+#myModal2 
+{ overflow-y:scroll }
 
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>

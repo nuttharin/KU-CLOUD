@@ -16,7 +16,7 @@ class Association
 
     public function __construct()
     {
-        $this->cmd = "java -cp ";
+        $this->cmd = 'java "-Dfile.encoding=utf-8"  -cp ';
         $this->param = "";
         $this->pathWekaLib = config('app.weka_lib');
         $this->pathWekaInput = config('app.weka_input');
@@ -102,7 +102,7 @@ class Association
                 $splitRule = explode("==>", $split[0]);
                 $splitNumber = explode(".", $splitRule[0]);
                 $leftRule = trim($splitNumber[1]);
-
+                $leftRule = str_replace(' ', ' , ', $leftRule);
                 $data['Best_rules_found'][$splitNumber[0]]['leftRule'] = $leftRule;
                 $data['Best_rules_found'][$splitNumber[0]]['rightRule'] = trim($splitRule[1]);
 

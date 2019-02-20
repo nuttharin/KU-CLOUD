@@ -31,7 +31,7 @@ class SimpleKMeans
     {
         $this->file = TB_DATA_ANALYSIS::where('data_id', $traningFile)->first()->path_file;
         self::getParam($param);
-        $this->cmd = "java -cp $this->pathWekaLib weka.clusterers.SimpleKMeans $this->param -t $this->pathWekaInput" . $this->file;
+        $this->cmd = 'java "-Dfile.encoding=utf-8"  -cp ' . "$this->pathWekaLib weka.clusterers.SimpleKMeans $this->param -t $this->pathWekaInput" . $this->file;
         exec($this->cmd, $output);
         return self::getSimpleKMeansToJson($output);
     }
@@ -129,10 +129,10 @@ class SimpleKMeans
 
         $nameFile = str_random(10);
 
-        $this->cmd = "java -cp $this->pathWekaLib weka.filters.unsupervised.attribute.AddCluster -W " . '"weka.clusterers.SimpleKMeans ' . "$this->param" . '"' . " -i $this->pathWekaInput" . $this->file . " -o $this->pathWekaInput" . $nameFile . ".arff";
+        $this->cmd = 'java "-Dfile.encoding=utf-8"  -cp ' . "$this->pathWekaLib weka.filters.unsupervised.attribute.AddCluster -W " . '"weka.clusterers.SimpleKMeans ' . "$this->param" . '"' . " -i $this->pathWekaInput" . $this->file . " -o $this->pathWekaInput" . $nameFile . ".arff";
         exec($this->cmd);
 
-        $this->cmd = "java -cp $this->pathWekaLib weka.core.converters.JSONSaver -i $this->pathWekaInput" . $nameFile . ".arff"; //. " -o $this->pathWekaInput" . $nameFile . ".json"
+        $this->cmd = 'java "-Dfile.encoding=utf-8"  -cp ' . "$this->pathWekaLib weka.core.converters.JSONSaver -i $this->pathWekaInput" . $nameFile . ".arff"; //. " -o $this->pathWekaInput" . $nameFile . ".json"
         exec($this->cmd, $json);
 
         $clusterJson = implode("", $json);

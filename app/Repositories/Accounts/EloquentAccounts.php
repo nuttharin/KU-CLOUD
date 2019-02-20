@@ -8,6 +8,7 @@
 
 namespace App\Repositories\Accounts;
 
+use App\Address_users;
 use App\Exceptions\CheckOldPasswordExceptions;
 use App\TB_EMAIL;
 use App\TB_PHONE;
@@ -28,6 +29,11 @@ class EloquentAccounts implements AccountsRepository
             'lname' => $user->lname,
             'email' => TB_EMAIL::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
             'phone' => TB_PHONE::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
+            'address' => Address_users::where('user_id', $user->user_id)
+                ->join('Districts', 'Districts.district_id', '=', 'Address_users.district_id')
+                ->join('Amphures', 'Amphures.amphure_id', '=', 'Address_users.amphure_id')
+                ->join('Provinces', 'Provinces.province_id', '=', 'Address_users.province_id')
+                ->get(['Address_users.address_detail', 'Districts.district_id', 'Districts.name_th as district', 'Districts.zip_code', 'Amphures.amphure_id', 'Amphures.name_th as amphure', 'Provinces.province_id', 'Provinces.name_th as province']),
         ];
         return $data;
         // TODO: Implement getAccount() method.
@@ -225,7 +231,7 @@ class EloquentAccounts implements AccountsRepository
         DB::beginTransaction();
         try {
             $user = TB_USERS::create([
-                'username' =>$attr['accountname'],
+                'username' => $attr['accountname'],
                 'fname' => $attr['fname'],
                 'lname' => $attr['lname'],
                 'password' => Hash::make($attr['password']),

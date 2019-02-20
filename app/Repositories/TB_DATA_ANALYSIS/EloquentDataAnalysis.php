@@ -2,13 +2,29 @@
 
 namespace App\Repositories\TB_DATA_ANALYSIS;
 
+use App\Jobs\PrepareDataAnalysis;
 use App\TB_DATA_ANALYSIS;
 use App\Weka\ConvertJsonToArff;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Storage;
 
 class EloquentDataAnalysis implements DataAnalysisRepository
 {
+
+    private $cmd;
+
+    private $pathWekaLib;
+
+    private $pathWekaInput;
+
+    public function __construct()
+    {
+        $this->cmd = 'java "-Dfile.encoding=utf-8" -cp ';
+        $this->param = "";
+        $this->pathWekaLib = config('app.weka_lib');
+        $this->pathWekaInput = config('app.weka_input');
+    }
 
     public function getAll()
     {
@@ -34,7 +50,11 @@ class EloquentDataAnalysis implements DataAnalysisRepository
         $data = TB_DATA_ANALYSIS::where([
             ['data_id', '=', $data_id],
             ['user_id', '=', Auth::user()->user_id],
-        ]);
+        ])->first();
+        $this->cmd = 'java "-Dfile.encoding=utf-8" -cp ' . "$this->pathWekaLib weka.core.converters.JSONSaver -i $this->pathWekaInput" . $data->path_file;
+        exec($this->cmd, $json);
+        $json = implode("", $json);
+        $data['data'] = json_decode($json, true);
         return $data;
     }
 
@@ -47,8 +67,8 @@ class EloquentDataAnalysis implements DataAnalysisRepository
                 'name' => $attr['name'],
             ]);
             $convert = new ConvertJsonToArff();
-            $convert->convertToAttr($attr['pathArray'], $attr['name'], $data->data_id);
-            //dispatch(new PrepareDataAnalysis($data->data_id, $attr['pathArray'], $attr['name']));
+            //$convert->convertToAttr($attr['pathArray'], $attr['name'], $data->data_id);
+            dispatch(new PrepareDataAnalysis($data->data_id, $attr['pathArray'], $attr['name']));
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
@@ -63,7 +83,14 @@ class EloquentDataAnalysis implements DataAnalysisRepository
             $data = TB_DATA_ANALYSIS::where([
                 ['data_id', '=', $data_id],
                 ['user_id', '=', $user_id],
-            ]);
+            ])->first();
+            if (!empty($data)) {
+                Storage::delete('/weka/input/' . $data->path_file);
+                TB_DATA_ANALYSIS::where([
+                    ['data_id', '=', $data_id],
+                    ['user_id', '=', $user_id],
+                ])->delete();
+            }
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
