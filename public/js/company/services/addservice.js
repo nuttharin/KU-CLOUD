@@ -27,6 +27,8 @@ class Service {
         let listSelect2;
         let strValCal ;
         let strValGroup;
+        let listChkArr ;
+        let strArr ;
 
 
 
@@ -39,6 +41,7 @@ class Service {
             dataHeader = treeView.getHeaderFormData(dataFromUrl);
             dataHeaderList = treeView.getDataHeaderAll();
             dataHeader = JSON.stringify(dataHeader);
+            listChkArr = checkArray(strUrl);
 
             this.createTreeView();
 
@@ -109,34 +112,106 @@ class Service {
                                                                             "</div>"+
                                                                         "</div>"+
                                                                     "</div>"+
+                                                                "</div>"+
+                                                                "<div class='modal fade' id='myModal3' role='dialog'>"+ // modal select array
+                                                                    "<div class='modal-dialog'>"+
+                                                                        "<div class='modal-content'>"+
+                                                                            "<div id='modal-header-val' class='modal-header'>"+
+                                                                                "<h4 class='modal-title'>Choose the value to group by</h4>"+
+                                                                                "<button type='button' class='close' data-dismiss='modal'>&times;</button>"+
+                                                                            "</div>"+
+                                                                            "<div id='modal-body3' class='modal-body'>"+
+                                                                                "<p id='xxx'>The selected array.</p>"+
+                                                                            "</div>"+
+                                                                            "<div class='modal-footer'>"+
+                                                                                "<button type='button' id='selectArr' class='btn btn-info swal-button--confirm'>Submit</button>"+
+                                                                                "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>"+
+                                                                            "</div>"+
+                                                                        "</div>"+
+                                                                    "</div>"+
                                                                 "</div>";
+            
+          
+          
+
             $('#submitcheckform').on("click", function () {
-                $('#myModal').modal('show');
-                var selectedElmsIds = $('#check').jstree("get_selected", true);
-                console.log(selectedElmsIds);
-                listSelect2 = deepCopy(selectedElmsIds);
-                createListQuery(selectedElmsIds);
-                let headerList = headerLow.split(',');
-                //console.log(listSelect2)
-                $("#modal-body").html("<button class='btn btn-success'  id='checkall'>Check All</button>&nbsp<button class='btn btn-danger' id='clearall'>Clear All</button><br/><br/>");
-                for(var j=0;j<headerList.length;j++)
+
+                if(listChkArr.length > 0)
                 {
-                    console.log(headerList[j]);
-                    if(headerList[j] == "undefined" || headerList[j]=="")
+                    for(let i =0 ;i<listChkArr.length;i++)
                     {
-                        continue;
-                    }
-                    else
-                    {
-                        // <label class='customcheck'>"+headerList[j]+"<input type='checkbox' ><span class='checkmark'></span></label>
-                        // <input type='checkbox' id='headerList[j]' name='headerList[j]'>
-                        // <label class='customcheck'>"+headerList[j]+
-                        $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label>");
-                        $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupbyChk' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label>");
+                        $("#modal-body3").append("<label class='customcheck'>"+listChkArr[i]+"<input type='checkbox' class='chkall'  value='"+listChkArr[i]+"' id='valueCalChk"+i+"'><span class='checkmark'></span></label>");
 
                     }
-                    
+                    $('#myModal3').modal('show');
+                    $('#selectArr').on("click" , function(){
+
+                        for(let i=0 ;i<headerList.length; i++)
+                        {
+                            if($('#valueCalChk'+i).is(':checked') == true )
+                            {
+                                strValCal = strValCal + $('#valueCalChk'+i).val()  +','  ;
+                            }
+                        }
+                        //let lengthStrValCal = strValCal.length ;
+                        strValCal = strValCal.substring(0,strValCal.length -1 );
+                        console.log(strValCal)
+
+                        $('#myModal3').modal('hide');
+                        $('#myModal').modal('show');
+                        var selectedElmsIds = $('#check').jstree("get_selected", true);
+                        console.log(selectedElmsIds);
+                        listSelect2 = deepCopy(selectedElmsIds);
+                        createListQuery(selectedElmsIds);
+                        let headerList = headerLow.split(',');
+                        //console.log(listSelect2)
+                        $("#modal-body").html("<button class='btn btn-success'  id='checkall'>Check All</button>&nbsp<button class='btn btn-danger' id='clearall'>Clear All</button><br/><br/>");
+                        for(var j=0;j<headerList.length;j++)
+                        {
+                            console.log(headerList[j]);
+                            if(headerList[j] == "undefined" || headerList[j]=="")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                               
+                                $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label>");
+                                $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupbyChk' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label>");
+
+                            }
+                            
+                        }
+
+                    })
+
+                }  
+                else {
+                    $('#myModal').modal('show');
+                    var selectedElmsIds = $('#check').jstree("get_selected", true);
+                    console.log(selectedElmsIds);
+                    listSelect2 = deepCopy(selectedElmsIds);
+                    createListQuery(selectedElmsIds);
+                    let headerList = headerLow.split(',');
+                    //console.log(listSelect2)
+                    $("#modal-body").html("<button class='btn btn-success'  id='checkall'>Check All</button>&nbsp<button class='btn btn-danger' id='clearall'>Clear All</button><br/><br/>");
+                    for(var j=0;j<headerList.length;j++)
+                    {
+                        console.log(headerList[j]);
+                        if(headerList[j] == "undefined" || headerList[j]=="")
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                           
+                            $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label>");
+                            $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupbyChk' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label>");
+
+                        }                        
+                    }
                 }
+                
                 $('#checkall').on('click', function (e) {
                     e.preventDefault();
                     $('.chkall').prop('checked', true);
@@ -144,22 +219,11 @@ class Service {
                 $('#clearall').on('click', function (e) {
                     e.preventDefault();
                     $('.chkall').prop('checked', false);
-                });
-                
-
-                // $(".swal-button--confirm").click(function (){
-                //     window.location.href="http://localhost:8000/Company/Service";
-                // })
-                // window.location.href="http://localhost:8000/Company/Service";
-                // listtest = selectedElmsIds ;
-                
-                
-                //window.location.href = "http://localhost:8000/Company/Service";
-
-
-                //instance.deselect_all();
-                //instance.select_node('1');
+                });       
             });
+
+
+        
 
             $('#submitChkValCal').on("click", function () {
                 $('#myModal').modal('hide');
@@ -199,39 +263,9 @@ class Service {
                     
                 })
 
-                // $(".swal-button--confirm").click(function (){
-                //     window.location.href="http://localhost:8000/Company/Service";
-                // })
-                // window.location.href="http://localhost:8000/Company/Service";
-                // listtest = selectedElmsIds ;
-                
-                
-                //window.location.href = "http://localhost:8000/Company/Service";
-
-
-                //instance.deselect_all();
-                //instance.select_node('1');
             });
 
-            // $('#submitcheckform').on("click", function () {
-            //     var selectedElmsIds = $('#check').jstree("get_selected", true);
-            //     console.log(selectedElmsIds);
-               
-            //     listSelect2 = deepCopy(selectedElmsIds);
-            //     createListQuery(selectedElmsIds);
-            //     $(".swal-button--confirm").click(function (){
-            //         window.location.href="http://localhost:8000/Company/Service";
-            //     })
-            //     // window.location.href="http://localhost:8000/Company/Service";
-            //     // listtest = selectedElmsIds ;
-                
-                
-            //     //window.location.href = "http://localhost:8000/Company/Service";
-
-
-            //     //instance.deselect_all();
-            //     //instance.select_node('1');
-            // });
+            
             $("#search").submit(function (e) {
                 e.preventDefault();
                 $("#check").jstree(true).search($("#id_search").val());
@@ -500,7 +534,30 @@ class Service {
 
         }
 
-          
+        let checkArray = (strurl) => {
+            let list = []
+            let treeChk = new TreeView()
+            let data = treeChk.getDataFormUrl();
+            console.log(data)
+            Object.keys(data).forEach(function (key) {
+                if (Array.isArray(data[key])) {
+                    list.push(key)
+                    // console.log(key)
+                    // console.log('array')
+                    //temp = data[key][0];
+                }
+                // else {
+                //     //temp = dataChkArr[key];
+                //     console.log(key)
+                //     console.log('no array')
+                // }
+
+            })
+            //console.log(list)
+            return list 
+
+
+        }
 
            
 
@@ -528,6 +585,10 @@ class TreeView {
 
         this.getDataHeaderAll = () => {
             return dataHeaderAll;
+        }
+
+        this.checkArray = (data) => {
+                
         }
 
         this.getDataFormUrl = (strurl) => {
@@ -660,6 +721,7 @@ $(document).ready(function () {
         $("#hour_input").val("9-17");
         $("#description_time").html("At minute 0 past every hour from 9 through 17.");
     })
+
     $(".show-header").click(function () {
 
         let url = $("#url-webservice").val();
@@ -671,15 +733,15 @@ $(document).ready(function () {
         let hour = $('#time-webservice-hour').val();
         let time = minute+" "+hour+" * * *";
         
-        console.log(time)
+        //console.log(time)
         let minuteall = minute.split("*/");
         let hourall = hour.split("*/");
         let minute_to = minute.split("-");
         let hour_to = hour.split("-");
-        console.log(minuteall.length);
-        console.log(hourall.length);
-        console.log(minute_to.length);
-        console.log(hour_to.length);
+        //console.log(minuteall.length);
+        // console.log(hourall.length);
+        // console.log(minute_to.length);
+        // console.log(hour_to.length);
         let type_time;
         let convert_time;
         if(minuteall.length == 2)
@@ -738,8 +800,8 @@ $(document).ready(function () {
             
             
         }
-        console.log(type_time)
-        console.log(convert_time)
+        // console.log(type_time)
+        // console.log(convert_time)
         if(status == true)
         {
             status="public";
@@ -751,28 +813,7 @@ $(document).ready(function () {
 
         let service = new Service(url, alias, ServiceName, description,status,time);
         service.initService();
-        // let data = {
-        //     api : null,
-        // }
-    
-        // function saveData(res){
-        //     data.api = res;
-        //     let a = eval('data.api')
-        //     //console.log(eval('data.api'));
-        //     console.log(a)
-
-        // }
-    
-        // $.ajax({
-        //     url:"https://data.tmd.go.th/api/WeatherToday/V1/?type=json",
-        //     success:(res) => {
-        //         console.log(res)
-        //         saveData(res);
-        //     },
-        //     error:(res)=> {
-        //         console.log(res);
-        //     }
-        // })
+      
         
     })
 
