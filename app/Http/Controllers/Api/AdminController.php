@@ -87,9 +87,9 @@ class AdminController extends Controller
     public function createAdminister(Request $request)
     {
         $attributes = [
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'password' => $request->get('password'),
             'type_user' => 'ADMIN',
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
@@ -132,9 +132,9 @@ class AdminController extends Controller
         //dd($payload["user"]->company_id);
 
         $attributes = [
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'password' => $request->get('password'),
             'type_user' => 'COMPANY',
             'company_id' => $request->get('company_id'),
             'email_user' => $request->get('email'),
@@ -205,9 +205,9 @@ class AdminController extends Controller
         //dd($payload["user"]->company_id);
 
         $attributes = [
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'password' => $request->get('password'),
             'phone_user' => $request->get('phone'),
             'email_user' => $request->get('email'),
             'type_user' => 'CUSTOMER',

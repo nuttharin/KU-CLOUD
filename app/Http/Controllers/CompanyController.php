@@ -7,54 +7,26 @@ use App\Weka\Classify\J48;
 use App\Weka\Clusterers\Association;
 use App\Weka\Clusterers\SimpleKMeans;
 use DB;
-use Gate;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CompanyController extends Controller
 {
 
-    public function index()
+    public function Index()
     {
-        return view('company.index');
+        return view('Company1.Index')->with('user', Auth::user());
     }
-
-    // public function user()
-    // {
-    //     if (!Gate::allows('isCompanyAdmin')) {
-    //         abort('404', "Sorry, You can do this actions");
-    //     }
-    //     return view('company.user')->with('user', Auth::user());
-    // }
 
     public function manageAccounts()
     {
         return view('company.manageAccounts')->with('user', Auth::user());
     }
 
-    // public function customer()
-    // {
-    //     if (!Gate::allows('isCompanyAdmin')) {
-    //         abort('404', "Sorry, You can do this actions");
-    //     }
-    //     return view('company.customer')->with('user', Auth::user());
-    // }
-
     public function infographic()
     {
         return view('company.infographic')->with('user', Auth::user());
     }
-
-    // public function staticDatatable()
-    // {
-    //     return view('company.staticDataTable')->with('user', Auth::user());
-    // }
-
-    // function static($id) {
-    //     return view('company.static')
-    //         ->with('id', $id)
-    //         ->with('user', Auth::user());
-    // }
 
     public function service()
     {
@@ -152,6 +124,25 @@ class CompanyController extends Controller
         //echo $data;
         // $simpleKMeans = new SimpleKMeans();
         // $data = $simpleKMeans->getSimpleKMeansToJson($output);
+        // echo $data;
+        // return view('company.test')
+        //     ->with('user', Auth::user())
+        //     ->with('output', $output);
+    }
+
+    public function testRegression()
+    {
+        $pathWekaLib = config('app.weka_lib');
+        $pathWekaInput = config('app.weka_input');
+
+        //'-classifications "weka.classifiers.evaluation.output.prediction.CSV "'
+        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.SimpleLinearRegression" . ' -classifications "weka.classifiers.evaluation.output.prediction.CSV"' . " -t " . $pathWekaInput . "cpu.arff";
+
+        exec($cmd, $output);
+        dd($output);
+        // $simpleLinearRegression = new SimpleLinearRegression();
+        // $data = $simpleLinearRegression->getToJson($output);
+
         // echo $data;
         // return view('company.test')
         //     ->with('user', Auth::user())
