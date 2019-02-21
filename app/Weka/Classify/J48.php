@@ -187,9 +187,12 @@ class J48
         } else if ($status == "detailed")
         {
             $arrayKey = array();
+            $arrayClass = array();
             $keyIndex = 0;
+            $keyClassIndex = 1;
+            $arrayClass = self::getContextClass($output, $index + 1);
 
-            for($count = 0; $count < 5; $count++)
+            for($count = 0; $count < sizeof($arrayClass) + 2; $count++)
             {
                 $str = trim($output[$index]);
                 $split = preg_split('/\s{2}/', $str);
@@ -210,32 +213,13 @@ class J48
 
                         array_push($arrayKey, $_key);
 
-                        for($j = 0; $j < 3; $j++)
+                        for($j = 0; $j < sizeof($arrayClass); $j++)
                         {
                             $data['detailed_accuracy_by_class'][$_key][$j]["value"] = null;
                             $data['detailed_accuracy_by_class'][$_key][$j]["type"] = null;
                         }
                     }
-                    else if($count == 2 ||$count == 3)
-                    {
-                        $rowIndex = $count - 2;
-
-                        if($split[$i] != null)
-                        {
-                            $data['detailed_accuracy_by_class'][$arrayKey[$keyIndex]][$rowIndex]["value"] = $split[$i];
-                            if($count == 2)
-                            {
-                                $data['detailed_accuracy_by_class'][$arrayKey[$keyIndex]][$rowIndex]["type"] = "yes";
-                            }
-                            else
-                            {
-                                $data['detailed_accuracy_by_class'][$arrayKey[$keyIndex]][$rowIndex]["type"] = "no";
-                            }
-
-                            $keyIndex = $keyIndex + 1;
-                        }
-                    }
-                    else if($count == 4)
+                    else if($count == (sizeof($arrayClass) + 2) - 1)
                     {
                         $rowIndex = $count - 2;
 
@@ -243,6 +227,19 @@ class J48
                         {
                             $data['detailed_accuracy_by_class'][$arrayKey[$keyIndex]][$rowIndex]["value"] = $split[$i];
                             $data['detailed_accuracy_by_class'][$arrayKey[$keyIndex]][$rowIndex]["type"] = "avg";
+
+                            $keyIndex = $keyIndex + 1;
+                        }
+                    }
+                    else
+                    {
+                        $rowIndex = $count - 2;
+
+                        if($split[$i] != null)
+                        {
+                            $data['detailed_accuracy_by_class'][$arrayKey[$keyIndex]][$rowIndex]["value"] = $split[$i];
+
+                            $data['detailed_accuracy_by_class'][$arrayKey[$keyIndex]][$rowIndex]["type"] = $arrayClass[$count - 1];
 
                             $keyIndex = $keyIndex + 1;
                         }
@@ -321,6 +318,28 @@ class J48
         }
     }
     
+    public function getContextClass($output, $index)
+    {
+        $arrayClass = array();
+
+        while(true)
+        {
+            $str = trim($output[$index]);
+            $split = preg_split('/\s{2}/', $str);
+
+            if(strpos($split[0], 'Weighted Avg') !== false)
+            {
+                break;
+            }
+            
+            array_push($arrayClass, $split[sizeof($split) - 1]);
+
+            $index = $index + 1;
+        }
+        
+        return $arrayClass;
+    }
+
     public function getArrayStratified($array, $indexCount)
     {
 
