@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\LogViewer\LogViewer;
 use App\Repositories\TB_DATA_ANALYSIS\DataAnalysisRepository;
 use App\Weka\Associations\Association;
 use App\Weka\Classify\J48;
+use App\Weka\Classify\SimpleLinearRegression;
 use App\Weka\Clusterers\SimpleKMeans;
 use App\Weka\UploadFileExcel;
 use Illuminate\Http\Request;
@@ -19,22 +19,25 @@ class AnalysisController extends Controller
 
     private $cluster;
 
+    private $simpleLinearRegression;
+
     public function __construct(DataAnalysisRepository $dataAnalysis)
     {
         // if (!Gate::allows('isCompanyAdmin')) {
         //     abort('403', "Sorry, You can do this actions");
         // }
 
-        $this->log_viewer = new LogViewer();
+        // $this->log_viewer = new LogViewer();
 
-        $this->auth = Auth::user();
-        $company_id = $this->auth->user_company()->first()->company_id;
-        $this->log_viewer->setFolder('COMPANY_' . $company_id);
+        // $this->auth = Auth::user();
+        // $company_id = $this->auth->user_company()->first()->company_id;
+        // $this->log_viewer->setFolder('COMPANY_' . $company_id);
 
         $this->dataAnalysis = $dataAnalysis;
         $this->cluster = new SimpleKMeans();
         $this->associations = new Association();
         $this->j48 = new J48();
+        $this->simpleLinearRegression = new SimpleLinearRegression();
 
     }
 
@@ -84,6 +87,8 @@ class AnalysisController extends Controller
             $data = $this->associations->exec($traningFile, $param);
         } else if ($request->get('type') === 'J48') {
             $data = $this->j48->exec($traningFile, $param);
+        } else if ($request->get('type') === 'regression') {
+            $data = $this->simpleLinearRegression->exec($traningFile, $param);
         }
         return response()->json(compact('data'), 200);
     }

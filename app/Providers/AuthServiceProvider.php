@@ -31,9 +31,12 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         $gate->define('isCompanyAdmin', function ($user) {
+            $type = $user->type_user;
             $user = $user->user_company()->get()->first();
             if (!empty($user)) {
-                return $user->sub_type_user == 'ADMIN';
+                if ($type == 'COMPANY') {
+                    return $user->sub_type_user == 'ADMIN';
+                }
             }
         });
 

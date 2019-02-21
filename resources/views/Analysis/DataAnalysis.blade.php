@@ -62,6 +62,10 @@
                             aria-controls="classify" aria-selected="true">Classify</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="regression-tab" data-toggle="tab" href="#regression" role="tab"
+                            aria-controls="regression" aria-selected="true">Regression</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link " id="cluster-tab" data-toggle="tab" href="#cluster" role="tab"
                             aria-controls="cluster" aria-selected="false">Cluster</a>
                     </li>
@@ -83,13 +87,16 @@
                     <h4>Options</h4>
 
                     <div class="tab-pane fade active show" id="classify" role="tabpanel" aria-labelledby="classify-tab">
-                        @include('company.DataAnalysisClassify')
+                        @include('Analysis.DataAnalysisClassify')
+                    </div>
+                    <div class="tab-pane fade" id="regression" role="tabpanel" aria-labelledby="regression-tab">
+                        @include('Analysis.DataAnalysisRegression')
                     </div>
                     <div class="tab-pane fade" id="cluster" role="tabpanel" aria-labelledby="cluster-tab">
-                        @include('company.DataAnalysisCluster')
+                        @include('Analysis.DataAnalysisCluster')
                     </div>
                     <div class="tab-pane fade" id="associate" role="tabpanel" aria-labelledby="associate-tab">
-                        @include('company.DataAnalysisAssociate')
+                        @include('Analysis.DataAnalysisAssociate')
                     </div>
                 </div>
 

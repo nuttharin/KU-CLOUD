@@ -57,6 +57,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/test', 'CompanyController@test');
     Route::get('/Company/testAsso', 'CompanyController@testAsso');
     Route::get('/Company/testClassi', 'CompanyController@testClassi');
+    Route::get('/Company/testRegression', 'CompanyController@testRegression');
     Route::get('/Company/Service/EditService/{id}', 'CompanyController@EditService');
 
     /* Admin */
@@ -64,7 +65,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Admin/UsersAdminister', 'AdminController@UsersAdminister');
     Route::get('/Admin/UsersCompany', 'AdminController@UsersCompany');
     Route::get('/Admin/UsersCustomer', 'AdminController@UsersCustomer');
-    Route::get('/Admin/Company', 'AdminController@Company');
+    //Route::get('/Admin/Company', 'AdminController@Company');
     //Route::get('/Admin/Infographic', 'AdminController@Infographic');
 
     Route::get('/Admin/Static/{id}', 'AdminController@static');
@@ -78,6 +79,9 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
 
     Route::get('/Admin/Infographic/{id}', 'AdminController@InfographicCustom');
 
+    //Company
+    Route::get('/Admin/Company', 'CompanyController@Index');
+
     /* Customer */
     Route::get('/Customer/User', 'CustomerController@Index');
     Route::get('/Customer/ManageAccounts', 'CustomerController@ManageAccounts');
@@ -89,8 +93,9 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Infographic/{id}', 'InfographicController@CustomInfographic');
 
     //User
-    Route::get('/UserCompany', 'UserController@UserCompany');
-    Route::get('/UserCustomer', 'UserController@UserCustomer');
+    Route::get('/User/Administer', 'UserController@UserAdminister');
+    Route::get('/User/Company', 'UserController@UserCompany');
+    Route::get('/User/Customer', 'UserController@UserCustomer');
 
     //Analysis
     Route::get('/Analysis/PrepareData', 'AnalysisController@AnalysisPrepareData');
@@ -100,5 +105,8 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     // Static
     Route::get('/Static', 'StaticController@Index');
     Route::get('/Static/{id}', 'StaticController@CustomStatic');
+
+    // LogViewer
+    Route::get('/LogViewer', 'LogViewerController@Index');
 
 });
