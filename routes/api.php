@@ -200,8 +200,8 @@ Route::group([
     Route::put('update', 'Api\InfographicController@updateInfograpic');
     Route::put('updateInfoData', 'Api\InfographicController@updateInfograpicData');
     Route::delete('delete', 'Api\InfographicController@deleteInfograpic');
-
-    Route::post('/createDatasource', 'Api\InfographicController@addDatasourceInfo');
+    Route::post('createDatasource', 'Api\InfographicController@addDatasourceInfo');
+    Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
 });
 
 Route::group([

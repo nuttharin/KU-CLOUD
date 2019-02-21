@@ -17,9 +17,9 @@ class InfographicController extends Controller
 
     public function __construct(InfographicRepository $info)
     {
-        if (!Gate::allows('isAdmin')) {
-            abort('403', "Sorry, You can do this actions");
-        }
+        // if (!Gate::allows('isAdmin')) {
+        //     abort('403', "Sorry, You can do this actions");
+        // }
 
         // $this->users = $users;
         // $this->company = $company;

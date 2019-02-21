@@ -140,13 +140,13 @@ class CompanyController extends Controller
         $pathWekaLib = config('app.weka_lib');
         $pathWekaInput = config('app.weka_input');
 
-        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.trees.J48 -v -t " . $pathWekaInput . "weather.nominal.arff";
+        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.trees.J48 -v -t " . $pathWekaInput . "glass.arff";
         exec($cmd, $output);
 
         //dd($output);
 
         $classify = new J48();
-        $data = $classify->getClassifyToJson($output);
+        $data = $classify->getJ48ToJson($output);
 
         echo json_encode($data);
         //echo $data;
