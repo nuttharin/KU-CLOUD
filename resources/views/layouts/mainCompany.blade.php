@@ -128,9 +128,11 @@
                     <a class="dropdown-item mt-2" href="{{action('CompanyController@manageAccounts')}}">
                         Manage Accounts
                     </a>
-                    <a class="dropdown-item">
-                        Check Inbox
+                    @if (Auth::user()->can('isCustomer'))
+                    <a class="dropdown-item" href="{{action('CustomerController@ManageCompany')}}">
+                        Manage Company
                     </a>
+                    @endif
                     <a class="dropdown-item" href="{{action('CompanyController@Logout')}}">
                         Sign Out
                     </a>
@@ -164,6 +166,38 @@
                         </div>
                     </div>-->
                 </li>
+                @can('isAdmin')
+                <li class="nav-item">
+                    <a href="#UsersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled sub" id="UsersSubmenu">
+                        <li class="nav-item">
+                            <a href="{{action('UserController@UserAdminister')}}">
+                               Users Administer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('UserController@UserCompany')}}">
+                               Users Company
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('UserController@UserCustomer')}}">
+                                Users Customer
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{action('CompanyController@Index')}}">
+                        <i class="fas fa-briefcase"></i>
+                        <span class="link_hide">Company</span>
+                    </a>
+                </li>
+                @endcan
                 @can('isCompanyAdmin')
                 <li class="nav-item">
                     <a href="{{action('UserController@UserCompany')}}">
@@ -235,6 +269,7 @@
                         </li>
                     </ul>
                 </li>
+                @if (Auth::user()->can('isAdmin') || Auth::user()->can('isCompanyAdmin'))
                 <li class="nav-item">
                     <a href="#LogSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="far fa-file-alt"></i>
@@ -243,7 +278,7 @@
                     </a>
                     <ul class="collapse list-unstyled sub" id="LogSubmenu">
                         <li class="nav-item">
-                            <a href="{{action('CompanyController@LogViewer')}}">
+                            <a href="{{action('LogViewerController@Index')}}">
                                 Database Logs
                             </a>
                         </li>
@@ -254,6 +289,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
             </ul>
         </nav>
 

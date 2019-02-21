@@ -54,11 +54,11 @@ class AuthController extends Controller
                     //$payload = JWTAuth::decode($token);
 
                     if ($user->type_user == "ADMIN") {
-                        return response()->json(['token' => $token->get(), 'path' => '/Admin/UsersAdminister', 'status' => 200], 200);
+                        return response()->json(['token' => $token->get(), 'path' => '/User/Administer', 'status' => 200], 200);
                     } else if ($user->type_user == "COMPANY") {
-                        return response()->json(['token' => $token->get(), 'path' => '/UserCompany', 'status' => 200], 200);
+                        return response()->json(['token' => $token->get(), 'path' => '/User/Company', 'status' => 200], 200);
                     } else if ($user->type_user == "CUSTOMER") {
-                        return response()->json(['token' => $token->get(), 'path' => '/Customer/User', 'status' => 200], 200);
+                        return response()->json(['token' => $token->get(), 'path' => '/Infographic', 'status' => 200], 200);
                     }
                 } else {
                     throw new Exception('Password not corrent', 401);
