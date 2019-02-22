@@ -182,10 +182,19 @@ class Service {
                                
                                 $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label>");
                                 $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupbyChk' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label>");
+                                $('.chkall').prop('checked', true);
 
                             }
                             
                         }
+                        $('#checkall').on('click', function (e) {
+                            e.preventDefault();
+                            $('.chkall').prop('checked', true);
+                        });
+                        $('#clearall').on('click', function (e) {
+                            e.preventDefault();
+                            $('.chkall').prop('checked', false);
+                        });
 
                     })
 
@@ -211,22 +220,21 @@ class Service {
                            
                             $("#modal-body").append("<label class='customcheck'>"+headerList[j]+"<input type='checkbox' class='chkall'  value='"+headerList[j]+"' id='valueCalChk"+j+"'><span class='checkmark'></span></label>");
                             $("#modal-body2").append("<label class='customcheck'>"+headerList[j]+"<input type='radio' name='valuegroupbyChk' value='"+headerList[j]+"' id='valuegroupbyChk"+j+"'><span class='checkmark'></span></label>");
-
+                            $('.chkall').prop('checked', true);
                         }                        
                     }
+                    $('#checkall').on('click', function (e) {
+                        e.preventDefault();
+                        $('.chkall').prop('checked', true);
+                    });
+                    $('#clearall').on('click', function (e) {
+                        e.preventDefault();
+                        $('.chkall').prop('checked', false);
+                    });
                 }
-                
-                $('#checkall').on('click', function (e) {
-                    e.preventDefault();
-                    $('.chkall').prop('checked', true);
-                });
-                $('#clearall').on('click', function (e) {
-                    e.preventDefault();
-                    $('.chkall').prop('checked', false);
-                });       
+                   
             });
-       
-
+            
             $('#submitChkValCal').on("click", function () {
                 $('#myModal').modal('hide');
                 $('#myModal2').modal('show');
@@ -444,6 +452,7 @@ class Service {
                     ServiceName: ServiceName,
                     description: description,
                     header: headerLow,
+                    strArr:strArr,
                     valueCal: strValCal,
                     valueGroup:strValGroup,
                     status: status,

@@ -320,6 +320,7 @@ class CompanyController extends Controller
             'URL' => $request->get('strUrl'),
             'description' => $request->get('description'),
             'header_row' => $request->get('header'),
+            'value_array' => $request->get('strArr'),
             'value_cal' => $request->get('valueCal'),
             'value_groupby' => $request->get('valueGroup'),
             'status' => $request->get('status'),
