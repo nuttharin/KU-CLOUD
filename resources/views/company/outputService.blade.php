@@ -85,51 +85,50 @@
 <div class="container " >
     <div class="panel-group">
         <div class="panel panel-default">
-            <div class="panel-heading">
-            <a data-toggle="collapse" href="#collapse1">
-                <h4 class="panel-title collap-output">
-                <div class="row" id='header-output'>
-                    <div class="col-sm-2" >
-                        <button type="button" style="width:70%" class="btn btn-primary">GET</button>
-                    </div>
-                    <div class="col-sm-2" id='header-detail' >
-                        <h6 style="color:black">Get data max</h6>
-                    </div>
-                    <div class="col-sm-8" id='header-detail'>
-                        <h6 style="color:gray">/webService/GetAlldata</h6>
-                    </div>
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#collapse1">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-primary">GET</button>
                 </div>
-                </h4>
-            </a>
+                <div class="col-sm-2" id='header-detail' >
+                    <h6 style="color:black">Get data max</h6>
+                </div>
+                <div class="col-sm-8" id='header-detail'>
+                    <h6 style="color:gray">/webService/GetAlldata</h6>
+                </div>
             </div>
-            <div id="collapse1" class="panel-collapse collapse list-output">
-                <ul class="list-group">
-                <br/>
-                <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
-                <table id="paramater">
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        <td>Value</td>
-                        <td>column</td>
-                        <td>Germany</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>Giovanni Rovelli</td>
-                        <td>Italy</td>
-                    </tr>
-                </table>
-                </ul>
-                <hr style='width:98%;align=center;'>
-                <button type="button" class="" id='btn-try'>Try it</button>
-            </div>
-            
+            </h4>
+        </a>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Value</td>
+                    <td>column</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>Giovanni Rovelli</td>
+                    <td>Italy</td>
+                </tr>
+            </table>
+            </ul>
+            <hr style='width:98%;align=center;'>
+            <button type="button" class="" id='btn-try'>Try it</button>
         </div>
     </div>
+  </div>
 </div>
 <br>
 <div class="container" >
@@ -314,8 +313,6 @@
   </div>
 </div>
 <br/>
-
-
 <!-- <div href="#demo1" class="collap-output" data-toggle="collapse" >    
 
     <div class="row" id='header-output'>
