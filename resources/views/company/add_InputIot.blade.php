@@ -1,5 +1,5 @@
 @extends('layouts.mainCompany')
-@section('title','Add IoT | Company')
+@section('title','Create Input IoT | Company')
 @section('content')
 
 <style>
