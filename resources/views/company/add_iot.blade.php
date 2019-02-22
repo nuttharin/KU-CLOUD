@@ -58,6 +58,11 @@
         height: 40px;
     }
 
+    #url-nooffiotservice{
+        width: 100%;
+        height: 40px;
+    }
+
   
 
     .from-input-detail h6,input,.from-treeView h6 {
@@ -324,18 +329,25 @@
             
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
+                  
+
+            
+            <h6>URL for ON/OFF  <span style="color:red">*</span></h6>            
+            <input type="text" class="mb-2" id="url-nooffiotservice" name="name" placeholder="Url of ON/OFF IoT">
                 
 
             <div> 
-                <div class ="row">
-                    <div class="set-collect col-sm-7">
+                <div class ="">
+                    <div class="set-collect">
                         <div class='card bg-light text-dark' style="border: 1px solid #AED6F1">
                             <div class='card-body'>
+                                <h6>Data format</h6>
+                                <textarea type="text" rows="4" class="form-control mb-3"  id="dataFormat-iotservice"  placeholder="{&#xa;&emsp;temperature &nbsp;:&nbsp; 40.1,&#xa;&emsp;StationNameEng : 'KU KPS' &#xa;}"></textarea>
                                 <div class ="row">
-                                    <div class="col-sm-4" style="padding-top:5px" >
+                                    <div class="col-sm-3" style="padding-top:5px" >
                                         <h6 >Update time <span style="color:red">*</span></h6>                                       
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <div class="onoffswitch2">
                                             <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
                                             <label class="checktime-label" for="checktime-iotservice">
@@ -345,8 +357,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br/>
                                 <div class="row set-time">
                                     <div class="col-sm-12">
+                                            
                                             <h6 >Update Data<span style="color:red">*</span></h6>
                                             <!-- Modal -->
                                             <div class="modal fade" id="howtouse-crontrab" role="dialog">
@@ -455,22 +469,22 @@
                                                 </div>
                                             </div>
                                             <div class="row">                                                 
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <input type="input" style="width:100%; text-align: center;" title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <input type="input" style="width:100%; text-align: center;" title="hour" class="" id="time-webservice-hour"  name="time-webservice-hour" placeholder="*">
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-8">
                                                     <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
                                                 </div>
                                              </div> 
                                             
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <center>minute</center>
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <center>hour</center>
                                                 </div>
                                             </div>

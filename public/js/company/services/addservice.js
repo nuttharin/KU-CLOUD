@@ -132,35 +132,39 @@ class Service {
                                                                 "</div>";
             
           
-          
+            
+            if(listChkArr.length > 0)
+            {
+                for(let i =0 ;i<listChkArr.length;i++)
+                {
+                    $("#modal-body3").append("<label class='customcheck'>"+listChkArr[i]+"<input type='checkbox' class='chkall'  value='"+listChkArr[i]+"' id='listChkArr"+i+"'><span class='checkmark'></span></label>");
+
+                }
+            }
 
             $('#submitcheckform').on("click", function () {
 
                 if(listChkArr.length > 0)
-                {
-                    for(let i =0 ;i<listChkArr.length;i++)
-                    {
-                        $("#modal-body3").append("<label class='customcheck'>"+listChkArr[i]+"<input type='checkbox' class='chkall'  value='"+listChkArr[i]+"' id='valueCalChk"+i+"'><span class='checkmark'></span></label>");
-
-                    }
+                {                   
                     $('#myModal3').modal('show');
                     $('#selectArr').on("click" , function(){
-
-                        for(let i=0 ;i<headerList.length; i++)
+                        strArr = "" ;
+                        //เก็บค่า array
+                        for(let i=0 ; i<listChkArr.length ; i++)
                         {
-                            if($('#valueCalChk'+i).is(':checked') == true )
+                            if($('#listChkArr'+i).is(':checked') == true )
                             {
-                                strValCal = strValCal + $('#valueCalChk'+i).val()  +','  ;
+                                strArr = strArr + $('#listChkArr'+i).val()  +','  ;
                             }
                         }
                         //let lengthStrValCal = strValCal.length ;
-                        strValCal = strValCal.substring(0,strValCal.length -1 );
-                        console.log(strValCal)
+                        strArr = strArr.substring(0,strArr.length -1 );
+                        console.log(strArr)
 
                         $('#myModal3').modal('hide');
                         $('#myModal').modal('show');
                         var selectedElmsIds = $('#check').jstree("get_selected", true);
-                        console.log(selectedElmsIds);
+                        //console.log(selectedElmsIds);
                         listSelect2 = deepCopy(selectedElmsIds);
                         createListQuery(selectedElmsIds);
                         let headerList = headerLow.split(',');
@@ -168,7 +172,7 @@ class Service {
                         $("#modal-body").html("<button class='btn btn-success'  id='checkall'>Check All</button>&nbsp<button class='btn btn-danger' id='clearall'>Clear All</button><br/><br/>");
                         for(var j=0;j<headerList.length;j++)
                         {
-                            console.log(headerList[j]);
+                            //console.log(headerList[j]);
                             if(headerList[j] == "undefined" || headerList[j]=="")
                             {
                                 continue;
@@ -189,7 +193,7 @@ class Service {
                 else {
                     $('#myModal').modal('show');
                     var selectedElmsIds = $('#check').jstree("get_selected", true);
-                    console.log(selectedElmsIds);
+                    //console.log(selectedElmsIds);
                     listSelect2 = deepCopy(selectedElmsIds);
                     createListQuery(selectedElmsIds);
                     let headerList = headerLow.split(',');
@@ -221,15 +225,13 @@ class Service {
                     $('.chkall').prop('checked', false);
                 });       
             });
-
-
-        
+       
 
             $('#submitChkValCal').on("click", function () {
                 $('#myModal').modal('hide');
                 $('#myModal2').modal('show');
                 var selectedElmsIds = $('#check').jstree("get_selected", true);
-                console.log(selectedElmsIds);
+                //console.log(selectedElmsIds);
                 listSelect2 = deepCopy(selectedElmsIds);
                 createListQuery(selectedElmsIds);
                 let headerList = headerLow.split(',');
@@ -246,7 +248,7 @@ class Service {
                     }
                     //let lengthStrValCal = strValCal.length ;
                     strValCal = strValCal.substring(0,strValCal.length -1 );
-                    console.log(strValCal)
+                   // console.log(strValCal)
 
                     strValGroup = "" ;
                     for(let i=0 ;i<headerList.length; i++)
@@ -258,7 +260,7 @@ class Service {
                     }
                     //let lengthStrValCal = strValCal.length ;
                     strValGroup = strValGroup.substring(0,strValGroup.length -1 );
-                    console.log(strValGroup)
+                    //console.log(strValGroup)
                     increaseDataTableDB();
                     
                 })
@@ -288,7 +290,7 @@ class Service {
             let lengthMaxList = 0;
             //console.log(list)
             // find max length parents
-            console.log(list2)
+            //console.log(list2)
             for (let i = 0; i < list.length; i++) {
 
                 if (list[i].parents.length >= lengthMaxList) {
@@ -343,13 +345,13 @@ class Service {
             let str = "";
             let tempNameParents;
             // take-out value list[i] == text 
-            console.log(list)
+            //console.log(list)
             for (let i = 0; i < list.length; i++) {
                 if (list[i].text != null) {
                     arrData.push(list[i]);
                 }
             }
-            console.log(arrData)
+            //console.log(arrData)
             
             // Create data to be stored in database DB
             for (let i = 0; i < arrData.length; i++) {
@@ -419,8 +421,8 @@ class Service {
 
             headerLow = str;
             str = "";
-            console.log(headerLow);
-            console.log(getCookie('token'));
+            //console.log(headerLow);
+            //console.log(getCookie('token'));
 
             
             
@@ -538,7 +540,7 @@ class Service {
             let list = []
             let treeChk = new TreeView()
             let data = treeChk.getDataFormUrl();
-            console.log(data)
+            //console.log(data)
             Object.keys(data).forEach(function (key) {
                 if (Array.isArray(data[key])) {
                     list.push(key)
