@@ -47,7 +47,8 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/Service/OutputService', 'CompanyController@Output_service');
 
     Route::get('/Company/IoT', 'CompanyController@iot');
-    Route::get('/Company/IoT/AddIot', 'CompanyController@Add_iot');
+    Route::get('/Company/IoT/Add_InputIot', 'CompanyController@Add_InputIot');
+    Route::get('/Company/IoT/Add_OutputIot' , 'CompanyController@Add_OutputIot');
 
     Route::get('/Company/ManageAccounts', 'CompanyController@manageAccounts');
 
