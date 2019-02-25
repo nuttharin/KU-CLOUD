@@ -449,10 +449,13 @@ class CompanyController extends Controller
             'iot_name_DW' => $nameDW,
             'type' => $request->get('type'),
             'alias' => $request->get('alias'),
-            'API' => $request->get('strUrl'),
             'description' => $request->get('description'),
+            'status' => $request->get('stats'),
+            'url_onoff_input' => $request->get('strUrl'),
+            // 'dataformat' => $request->get('datajson'),
             'value_cal' => $request->get('valueCal'),
-            'status' => $request->get('status'),
+            'value_gropby' => $request->get('valueGroupby'),
+            // 'updatetime_input' => $request->get('updatetime_input'),
         ]);
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('iotService'), 200);
@@ -468,11 +471,11 @@ class CompanyController extends Controller
             'iot_name_DW' => $nameDW,
             'type' => $request->get('type'),
             'alias' => $request->get('alias'),
-            'API' => $request->get('strUrl'),
             'description' => $request->get('description'),
-            'value_cal' => $request->get('valueCal'),
-            'status' => $request->get('status'),
+            'status' => $request->get('stats'),
+            'url_onoff_output' => $request->get('strUrl'),
             'pins_onoff' => $request->get('pinfilds'),
+            'value_cal' => $request->get('valueCal'),
         ]);
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('iotService'), 200);

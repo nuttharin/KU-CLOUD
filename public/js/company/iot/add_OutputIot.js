@@ -5,7 +5,7 @@ class iotService {
         let keyiot;
         let alias = iotAlias;
         let description = iotdescription ;
-        let stat = status;
+        let stats = status;
         let time ;
         let companyID;
         let pinfilds = fields;
@@ -58,11 +58,10 @@ class iotService {
                     alias: alias,
                     ServiceName: nameiot,
                     description: description,
-                    // header: '1',                   
                     valueCal: '1',
-                    status: stat,
+                    stats: stats,
                     pinfilds : pinfilds,
-                    type:"output"
+                    type: 'output',
                     
                 },
                 success: (res) => {
