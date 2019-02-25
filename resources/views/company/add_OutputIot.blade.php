@@ -273,6 +273,10 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>
 <link href="{{url('jstree/style.min.css')}}" rel="stylesheet" />
@@ -295,10 +299,118 @@
     </div>
 </div>
 <hr>
+<div class="from-input-detail">
+     
+    <div class="row">
+        <div class="col-sm-8 " >  
+            <div class ="row">
+                <div class="col-sm-8">
+                    <h6 >IoT Name <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="name-iotservice" name="name" placeholder="IoT name">
+                </div>
+                <div class="col-sm-4">
+                    <h6 >Alias <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="alias-iotservice" name="alias" placeholder="IoT alias ">
+                </div>                
+            </div>
+            
+            <h6>Description</h6>
+            <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
+                  
 
+            
+            <h6>URL for ON/OFF  <span style="color:red">*</span></h6>            
+            <input type="text" class="mb-2" id="url-nooffiotservice" name="name" placeholder="Url of ON/OFF IoT">
+            <h6>Pin Flieds<span>( Press + to add another form field )<span style="color:red">*</span></span></h6>
+                <div class="container">
+                    <div class="row">
+                        <div class="control-group" id="fields">
+                            <div class="controls"> 
+                                <div class="container">
+                                    <form role="form" autocomplete="off">
+                                        <div class="entry input-group col-xs-3">
+                                            <input class="form-control" name="fields[]" type="text" placeholder="Pin 1" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-add" type="button">
+                                                    <span>+</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+        <div class="col-sm-4"  >
+                <!-- <div class ="col-sm-1" id="detail-left"></div> -->
+                <div class = "col-sm-12" id="detail" >
+                    <h6 style="font-style: oblique;"> Resource Data Type </h6>
+                    <div id="detail-show">
+                        <p>When creating a new resource, you need to specify the 
+                        type of data that is expected to be persisted to this resource.
+
+                        Beebotte has a number of defined data types; click here for more information.
+                        </p>
+                    </div> 
+
+                    <h6 style="font-style: oblique;"> Public is ? </h6>
+                    <div id="detail-show">
+                        <p>When creating a new resource, you need to specify the 
+                        type of data that is expected to be persisted to this resource.
+
+                        Beebotte has a number of defined data types; click here for more information.
+                        </p>
+                    </div> 
+                </div>
+        </div>
+    </div>
+</div>
 <hr>
 <!-- Modal -->
-
+<div class="modal fade" id="ShowDetailiotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Input</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label">Name IoT</label>
+                    <div class="col-sm-12">
+                        <input class="form-control" id="Nameiot" type="text" disabled>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label  class="col-sm-2 control-label">API</label>
+                    <div class="col-sm-12">
+                        <input class="form-control" id="Apiiot" type="text" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">Key</label>
+                    <div class="col-sm-12">
+                        <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
+                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot" ></textarea>
+                                             
+                        <button class="" id="CopyKey" data-clipboard-target="#Keyiot"><i class="far fa-copy"></i></button>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script type="text/javascript" src="{{url('js/company/iot/addiot.js')}}"></script>

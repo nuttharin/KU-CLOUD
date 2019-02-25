@@ -29,7 +29,8 @@ class CreateTbWebservice extends Migration
             $table->text('value_cal');
             $table->text('value_groupby');
             $table->string('status',100);
-            $table->string('update_time',100);            
+            $table->string('update_time',100);
+            $table->text('example_data');           
             $table->timestamps();
 
           
