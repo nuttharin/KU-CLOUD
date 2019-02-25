@@ -329,7 +329,7 @@
                                 <div class="container">
                                     <form role="form" autocomplete="off">
                                         <div class="entry input-group col-xs-3">
-                                            <input class="form-control" name="fields[]" type="text" placeholder="Pin 1" />
+                                            <input class="form-control fields" name="fields[]" type="text" placeholder="Pin 1" />
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success btn-add" type="button">
                                                     <span>+</span>
@@ -342,6 +342,7 @@
                         </div>
                     </div>
                 </div>
+                <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
         </div>
         
         <div class="col-sm-4"  >
@@ -413,7 +414,7 @@
 </div>
 
 
-<script type="text/javascript" src="{{url('js/company/iot/addiot.js')}}"></script>
+<script type="text/javascript" src="{{url('js/company/iot/add_OutputIot.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{url('clipboard/clipboard.min.js')}}"></script>

@@ -447,6 +447,7 @@ class CompanyController extends Controller
             'company_id' => $companyID,
             'iot_name' => $request->get('ServiceName'),
             'iot_name_DW' => $nameDW,
+            'type' => $request->get('type'),
             'alias' => $request->get('alias'),
             'API' => $request->get('strUrl'),
             'description' => $request->get('description'),
@@ -456,7 +457,26 @@ class CompanyController extends Controller
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('iotService'), 200);
     }
+    public function addOutputRegisIotService(Request $request)
+    {
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $nameDW = $request->get('ServiceName') . "." . $companyID;
 
+        $iotService = TB_IOTSERVICE::create([
+            'company_id' => $companyID,
+            'iot_name' => $request->get('ServiceName'),
+            'iot_name_DW' => $nameDW,
+            'type' => $request->get('type'),
+            'alias' => $request->get('alias'),
+            'API' => $request->get('strUrl'),
+            'description' => $request->get('description'),
+            'value_cal' => $request->get('valueCal'),
+            'status' => $request->get('status'),
+            'pins_onoff' => $request->get('pinfilds'),
+        ]);
+        Log::info('Create Web Service - [] SUCCESS');
+        return response()->json(compact('iotService'), 200);
+    }
     //Static
     // public function addStatic(Request $request)
     // {
