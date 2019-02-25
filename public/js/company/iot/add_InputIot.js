@@ -8,7 +8,7 @@ class iotService {
         let atatus = status;
         let time ;
         let companyID;
-
+        
 
         this.getDataforInsert = () => {
             // get id company
@@ -139,63 +139,59 @@ class cronTap {
                 $("#description_time").html("At minute 0 past every hour from 9 through 17.");
             })
         }
-
-       
-        
-
-
-        
-           
-
-
-        
-
-       
         
  
     }       
 }
 
+class Managememt{
+    constructor()
+    {
+        this.checkFormTime = () => {
+            $(".set-time").hide()
+            $('#checktime-iotservice').change(function(){
+                let checkUpTime = $('#checktime-iotservice').prop("checked");
+                if(checkUpTime==true)
+                {
+                    $(".set-time").slideDown("fast");            
+                }
+                else 
+                {
+                    $(".set-time").hide()
+                    $("#time-webservice-minute").val("")
+                    $("#time-webservice-hour").val("")
+                    //onsole.log('scvv')
+
+                }
+                
+            })
+        }
+
+        this.checkFormatJson = (data) =>{
+            console.log(data)     
+            try {
+                //JSON.parse(JSON.stringify(data));
+                JSON.parse(data)
+                
+            } catch (e) {
+                return false;
+            }
+            return true;
+            
+        }
+
+
+    }
+}
+
+
 
 $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
-    var cron = new cronTap();
+    let cron = new cronTap();
+    let manage = new Managememt();
     cron.exampleCron();
-    $(".set-collect").hide()
-    $(".set-time").hide()
-
-    // check cheage 
-    $('#checkcollect-iotservice').change(function(){
-        let checkUpCollect = $('#checkcollect-iotservice').prop("checked");
-        if(checkUpCollect==true)
-        {
-            $(".set-collect").slideDown("fast");            
-        }
-        else 
-        {
-            $(".set-collect").hide()           
-            console.log('scvv')
-
-        }
-        
-    })
-
-    $('#checktime-iotservice').change(function(){
-        let checkUpTime = $('#checktime-iotservice').prop("checked");
-        if(checkUpTime==true)
-        {
-            $(".set-time").slideDown("fast");            
-        }
-        else 
-        {
-            $(".set-time").hide()
-            $("#time-webservice-minute").val("")
-            $("#time-webservice-hour").val("")
-            console.log('scvv')
-
-        }
-        
-    })
+    manage.checkFormTime();
 
 
     $('#showvalue').click(function(){
@@ -238,14 +234,38 @@ $(document).ready(function () {
     {
 		$(this).parents('.entry:first').remove();
 
-		e.preventDefault();
-		return false;
-	});
-    // example cron
+    
+    $('#checkFormat').click(function(){
+        let data = $('#dataFormat-iotservice').val();
+        console.log(data)
+        let x = manage.checkFormatJson(data);
+        console.log(x)
+        if(x==true)
+        {
+            $('.showCheckJson').html('<i class="fa fa-check-circle fa-lg " style="color:green; padding-top:7px" aria-hidden="true">&emsp;</i>');
+        }
+        else {
+            $('.showCheckJson').html('<i class="fa fa-times-circle fa-lg " style="color:#CB4335; padding-top:7px" aria-hidden="true">&emsp;</i>');
+
+        }
+        let u = {"name":"John","age":30,"city":"New York"} 
+        
+        
+        // data = JSON.parse(data)
+        // if(typeof data === 'object')
+        // {
+        //     console.log('json')
+        // }
+        // else{
+        //     console.log('no')
+        // }
+
+    })
    
 
 
 })
 
+})
 
 

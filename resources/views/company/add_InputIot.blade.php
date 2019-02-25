@@ -1,5 +1,5 @@
 @extends('layouts.mainCompany')
-@section('title','Create Input IoT | Company')
+@section('title','Add IoT | Company')
 @section('content')
 
 <style>
@@ -75,7 +75,7 @@
         border: 1px solid #AED6F1 ;
     }
     
-    .show-header{
+    .show-header , #checkFormat ,.showCheckJson{
         float:right;
     }
     #select
@@ -280,10 +280,10 @@
 <link href="{{url('css/togglebutton.css')}}" rel="stylesheet" />
 <br>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-7">
         <h4>Create a new IoT</h4>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
@@ -299,23 +299,7 @@
      
     <div class="row">
         <div class="col-sm-8 " >
-            <div class ="row">
-                <div class="col-sm-2" style="padding-top:5px" >
-                    <h6 >Collect data</h6>                                       
-                </div>
-                <div class="col-sm-2">
-                    <div class="onoffswitch2">
-                        <input type="checkbox" name="checkcollect " class="checkcollect-checkbox" id="checkcollect-iotservice">
-                        <label class="checkcollect-label" for="checkcollect-iotservice">
-                            <span class="checkcollect-inner"></span>
-                            <span class="checkcollect-switch"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-3" style="padding-top:5px" >
-                    <h6 >Do not collect data</h6>                                       
-                </div>
-            </div>      
+           
             <div class ="row">
                 <div class="col-sm-8">
                     <h6 >IoT Name <span style="color:red">*</span></h6>
@@ -329,36 +313,35 @@
             
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
-                  
-
-            
-            <h6>URL for ON/OFF  <span style="color:red">*</span></h6>            
-            <input type="text" class="mb-2" id="url-nooffiotservice" name="name" placeholder="Url of ON/OFF IoT">
+            <div>
+                 <h6>Data format<span style="color:red">*</span></h6>
+                <textarea type="text" rows="4" class="form-control mb-3"  id="dataFormat-iotservice"  placeholder="{&#xa;&emsp;&#34;temperature&#34; &nbsp;:&nbsp; 40.1 ,&#xa;&emsp;&#34;StationNameEng&#34; : &#34;KU KPS&#34; &#xa;}"></textarea>
                 
-
+                <button type="button" id="checkFormat" class="btn btn-outline-danger " style="font-size: 13px;" >Check format</button>
+                <div class="showCheckJson"> 
+                     
+                </div>
+            </div>
+            <br>
+            <div class ="d-flex flex-row">
+                <div class="p-2" style="padding-top:5px" >
+                    <h6 >Update time <span style="color:red">*</span></h6>                                       
+                </div>
+                <div class="p-2">
+                    <div class="onoffswitch2">
+                        <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
+                            <label class="checktime-label" for="checktime-iotservice">
+                                <span class="checktime-inner"></span>
+                                <span class="checktime-switch"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             <div> 
-                <div class ="">
-                    <div class="set-collect">
-                        <div class='card bg-light text-dark' style="border: 1px solid #AED6F1">
-                            <div class='card-body'>
-                                <h6>Data format</h6>
-                                <textarea type="text" rows="4" class="form-control mb-3"  id="dataFormat-iotservice"  placeholder="{&#xa;&emsp;temperature &nbsp;:&nbsp; 40.1,&#xa;&emsp;StationNameEng : 'KU KPS' &#xa;}"></textarea>
-                                <div class ="row">
-                                    <div class="col-sm-3" style="padding-top:5px" >
-                                        <h6 >Update time <span style="color:red">*</span></h6>                                       
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="onoffswitch2">
-                                            <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
-                                            <label class="checktime-label" for="checktime-iotservice">
-                                                <span class="checktime-inner"></span>
-                                                <span class="checktime-switch"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="row set-time">
+                <div class ="set-time">                    
+                    <div class='card bg-light text-dark ' style="border: 1px solid #AED6F1">
+                        <div class='card-body'>
+                            <div class="row ">
                                     <div class="col-sm-12">
                                             
                                             <h6 >Update Data<span style="color:red">*</span></h6>
@@ -489,10 +472,10 @@
                                                 </div>
                                             </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>                
             </div>
             
@@ -571,7 +554,7 @@
 </div>
 
 
-<script type="text/javascript" src="{{url('js/company/iot/addiot.js')}}"></script>
+<script type="text/javascript" src="{{url('js/company/iot/add_InputIot.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{url('clipboard/clipboard.min.js')}}"></script>
