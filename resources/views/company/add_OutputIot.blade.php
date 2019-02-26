@@ -321,15 +321,40 @@
             
             <h6>URL for ON/OFF  <span style="color:red">*</span></h6>            
             <input type="text" class="mb-2" id="url-nooffiotservice" name="name" placeholder="Url of ON/OFF IoT">
-            <h6>Pin Flieds<span>( Press + to add another form field )<span style="color:red">*</span></span></h6>
-                <div class="container">
+
+            <h6>Others Output</h6>            
+            <!-- <div class="container"> -->
+                    <div class="row">
+                        <div class="control-group" id="fields">
+                            <div class="controlsoutput"> 
+                                <div class="container">
+                                    <form role="form" autocomplete="off">
+                                        <div class="entry input-group col-xs-3">
+                                            <input class="form-control mb-2 nameoutput" name="nameOutput[]" type="text" placeholder="Name" />
+                                            <span>&nbsp</span>
+                                            <input class="form-control mb-2 valueoutput" name="valueOutput[]" type="text" placeholder="Value" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-adds" type="button">
+                                                    <span>+</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            <br/>
+            <h6>Pin Names<span> (Default is 0) <span style="color:red">*</span></span></h6>
+                <!-- <div class="container"> -->
                     <div class="row">
                         <div class="control-group" id="fields">
                             <div class="controls"> 
                                 <div class="container">
                                     <form role="form" autocomplete="off">
                                         <div class="entry input-group col-xs-3">
-                                            <input class="form-control fields" name="fields[]" type="text" placeholder="Pin 1" />
+                                            <input class="form-control mb-2 fields" name="fields[]" type="text" placeholder="LED(number)" />
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success btn-add" type="button">
                                                     <span>+</span>
@@ -341,7 +366,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
+                <br/>
                 <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
         </div>
         
@@ -369,49 +395,7 @@
         </div>
     </div>
 </div>
-<hr>
-<!-- Modal -->
-<div class="modal fade" id="ShowDetailiotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Input</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-               
-                <div class="form-group">
-                    <label for="" class="col-sm-3 control-label">Name IoT</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" id="Nameiot" type="text" disabled>
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <label  class="col-sm-2 control-label">API</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" id="Apiiot" type="text" disabled>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label  class="col-sm-2 control-label">Key</label>
-                    <div class="col-sm-12">
-                        <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
-                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot" ></textarea>
-                                             
-                        <button class="" id="CopyKey" data-clipboard-target="#Keyiot"><i class="far fa-copy"></i></button>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <script type="text/javascript" src="{{url('js/company/iot/add_OutputIot.js')}}"></script>

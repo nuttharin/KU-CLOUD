@@ -1,5 +1,5 @@
 class iotService {
-    constructor(iotName,iotAlias,iotdescription,status,fields)
+    constructor(iotName,iotAlias,iotdescription,status,jsonencode)
     {
         let nameiot = iotName  ;
         let keyiot;
@@ -8,7 +8,7 @@ class iotService {
         let stats = status;
         let time ;
         let companyID;
-        let pinfilds = fields;
+        let pinfilds = jsonencode;
         
 
         this.getDataforInsert = () => {
@@ -99,7 +99,8 @@ class iotService {
         this.showDetail = () => {
             $('#Nameiot').val('xxxx');
             $('#Apiiot').val('http://localhost:8081/iotService/insertData');
-            $('#Keyiot').val(keyiot);
+            // $('#Keyiot').val(keyiot);
+            $('#data_output').val('{}');
         }  
     }       
 }
@@ -200,6 +201,26 @@ $(document).ready(function () {
             e.preventDefault();
             return false;
     });
+    $(document).on('click', '.btn-adds', function(e)
+    {
+        e.preventDefault();
+
+        var controlForm = $('.controlsoutput form:first'),
+        currentEntry = $(this).parents('.entry:first'),
+        newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-adds')
+            .removeClass('btn-adds').addClass('btn-removes')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span>-</span>');
+        }).on('click', '.btn-removes', function(e)
+        {
+            $(this).parents('.entry:first').remove();
+
+            e.preventDefault();
+            return false;
+    });
     $('#showvalue').click(function(){
         
         let iotName = $('#name-iotservice').val();
@@ -209,8 +230,32 @@ $(document).ready(function () {
         let inputs = document.getElementsByClassName("fields");
         let fields  = [].map.call(inputs, function( input ) {
             return input.value;
-        }).join( ',' );
-        //console.log(fields);
+        });
+        let nameout = document.getElementsByClassName("nameoutput");
+        let valueout = document.getElementsByClassName("valueoutput");
+        let valueoutput  = [].map.call(valueout, function( input ) {
+            return input.value;
+        });
+        let nameoutput  = [].map.call(nameout, function( input ) {
+            return input.value;
+        });
+        let otheroutput={};
+        console.log(nameoutput)
+        
+        for(let i=0;i<nameoutput.length;i++)
+        {
+            otheroutput[nameoutput[i]] = valueoutput[i];
+        }
+        
+        
+        if(fields.length>1){
+            for(let i=0;i<fields.length;i++)
+            {
+                otheroutput[fields[i]] = 0;
+            }
+        }
+        let jsonencode = JSON.stringify(otheroutput);
+        console.log(jsonencode);
 
         if(status == true)
         {
@@ -223,7 +268,7 @@ $(document).ready(function () {
         }
 
        
-        let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
+        let iot = new iotService(iotName,iotAlias,iotdescription,status,jsonencode);
         iot.getDataforInsert();
         iot.showDetail();
       

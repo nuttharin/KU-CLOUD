@@ -452,7 +452,7 @@ class CompanyController extends Controller
             'description' => $request->get('description'),
             'status' => $request->get('stats'),
             'url_onoff_input' => $request->get('strUrl'),
-            // 'dataformat' => $request->get('datajson'),
+            'dataformat' => $request->get('datajson'),
             'value_cal' => $request->get('valueCal'),
             'value_gropby' => $request->get('valueGroupby'),
             // 'updatetime_input' => $request->get('updatetime_input'),

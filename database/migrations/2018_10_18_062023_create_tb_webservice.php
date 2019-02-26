@@ -25,7 +25,7 @@ class CreateTbWebservice extends Migration
             $table->string('URL',200);
             $table->string('description',1000);
             $table->text('header_row');
-            $table->text('value_array');
+            $table->text('value_array')->nullable();
             $table->text('value_cal');
             $table->text('value_groupby');
             $table->string('status',100);

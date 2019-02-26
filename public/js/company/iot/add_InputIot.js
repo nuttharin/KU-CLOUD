@@ -62,7 +62,7 @@ class iotService {
                     valueGroupby: '1',
                     // updatetime_input: '1',
                     stats: stats,
-                    // datajson:datajson,
+                    datajson:datajson,
                     type: 'input',
                     
                 },
@@ -99,8 +99,24 @@ class iotService {
         }
 
         this.showDetail = () => {
-            $('#Nameiot').val('xxxx');
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData');
+            let data =JSON.parse(datajson);
+            let strJson="";
+            let count = Object.keys(data).length;
+            let i=0;
+            console.log(count);
+            Object.keys(data).forEach(function(key) {
+                strJson+=key +'=' +data[key];
+                if(i == count-1)
+                {
+                }
+                else
+                {
+                    strJson+='&';
+                }
+                i++;
+            })
+            $('#Nameiot').val(nameiot);
+            $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.'+nameiot+'.'+companyID+'&'+strJson);
             $('#Keyiot').val(keyiot);
         }  
     }       
