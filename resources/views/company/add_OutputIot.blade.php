@@ -354,7 +354,7 @@
                                 <div class="container">
                                     <form role="form" autocomplete="off">
                                         <div class="entry input-group col-xs-3">
-                                            <input class="form-control mb-2 fields" name="fields[]" type="text" placeholder="LED(number)" />
+                                            <input class="form-control mb-2 fields" name="fields[]" type="text" placeholder="Pin (Number)" />
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success btn-add" type="button">
                                                     <span>+</span>

@@ -240,20 +240,26 @@ $(document).ready(function () {
             return input.value;
         });
         let otheroutput={};
-        console.log(nameoutput)
-        
-        for(let i=0;i<nameoutput.length;i++)
+        //console.log(nameoutput)
+        if(nameoutput == "" || nameoutput == null)
         {
-            otheroutput[nameoutput[i]] = valueoutput[i];
         }
-        
-        
-        if(fields.length>1){
-            for(let i=0;i<fields.length;i++)
+        else
+        {
+            for(let i=0;i<nameoutput.length;i++)
             {
-                otheroutput[fields[i]] = 0;
+                otheroutput[nameoutput[i]] = valueoutput[i];
+            }
+            
+            
+            if(fields.length>1){
+                for(let i=0;i<fields.length;i++)
+                {
+                    otheroutput[fields[i]] = 0;
+                }
             }
         }
+        
         let jsonencode = JSON.stringify(otheroutput);
         console.log(jsonencode);
 
