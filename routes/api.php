@@ -222,11 +222,38 @@ Route::group([
 
 });
 
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'dashboards',
+], function ($router) {
+    Route::get('{dashboard_id}', 'Api\DashboardController@getDashboardById');
+    Route::put('layout', 'Api\DashboardController@updateDashboardLayout');
+    Route::get('/', 'Api\DashboardController@getAllDashboard');
+
+    Route::post('/', 'Api\DashboardController@createDashboard');
+    Route::put('/', 'Api\DashboardController@updateDashboard');
+    Route::delete('/', 'Api\DashboardController@deleteDashboard');
+
+    Route::post('datasource', 'Api\DatasourceController@createDatasource');
+    Route::delete('datasource', 'Api\DatasourceController@deleteDatasource');
+});
+
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
 ], function ($router) {
     Route::get('staticDatasource', 'Api\StaticController@getDatasourceStatic');
 });
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'datasources',
+], function ($router) {
+    Route::get('/', 'Api\DatasourceController@getDatasources');
+    Route::post('/', 'Api\DatasourceController@createDatasource');
+    Route::delete('/', 'Api\DatasourceController@deleteDatasource');
+});
+
 
 Route::group([
     'middleware' => ['api', 'jwt.verify'],

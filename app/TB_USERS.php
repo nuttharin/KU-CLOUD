@@ -58,4 +58,9 @@ class TB_USERS extends Authenticatable implements JWTSubject
     {
         return $this->hasOne("App\USER_FIRST_CREATE", "user_id");
     }
+
+    public function getDashboards()
+    {
+        return $this->hasMany("App\TB_DASHBOARDS", "user_id");
+    }
 }

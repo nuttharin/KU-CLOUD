@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $gate->define('isCompanyNormal', function ($user) {
             $user = $user->user_company()->get()->first();
-            return $user->sub_type_user == 'NORMAL';
+            return $user->sub_type_user == 'CUSTOMER SUPPORT';
         });
 
         $gate->define('isCustomer', function ($user) {

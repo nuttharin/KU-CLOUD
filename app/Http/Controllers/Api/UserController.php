@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\TB_USERS;
-use App\LogViewer\LogViewer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\LogViewer\LogViewer;
 use App\Repositories\TB_USERS\UsersRepository;
-
+use App\TB_USERS;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -23,17 +22,20 @@ class UserController extends Controller
     public function __construct(UsersRepository $users, Request $request)
     {
 
-        // if (!Gate::allows('isCompanyAdmin')) {
+        // if (!Gate::allows('isCustomer)) {
         //     abort('403', "Sorry, You can do this actions");
         // }
 
         $this->users = $users;
-
         $this->log_viewer = new LogViewer();
 
-        $this->auth = Auth::user();
-        $company_id = $this->auth->user_company()->first()->company_id;
-        $this->log_viewer->setFolder('COMPANY_' . $company_id);
+        $this->middleware('jwt.verify');
+        $this->middleware(function ($request, $next) {
+            $this->auth = Auth::user();
+            $company_id = $this->auth->user_company()->first()->company_id;
+            $this->log_viewer->setFolder('COMPANY_' . $company_id);
+            return $next($request);
+        });
 
     }
 
@@ -81,7 +83,7 @@ class UserController extends Controller
                     'data' => $data,
                 );
 
-                return response()->json($test, 200);
+                return response()->json($test, 200)->header('Content-Type', 'application/json');
             }
         }
         return response()->json([

@@ -1,3 +1,4 @@
+<?php $user = session('user') ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
-
+    
     <meta name="ws_url" content="{{ env('WS_URL') }}">
     <meta name="user_id" content="{{ $user->user_id }}">
+  
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('bootstrap-4.1.3/css/bootstrap.min.css')}}">
@@ -67,9 +69,7 @@
     <!-- toastr -->
     <link href="{{asset('js/toastr/toastr.min.css')}}" rel="stylesheet" />
 
-    <!-- socket -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-    <script src="{{asset('js/socket.js')}}"></script>
+
 
     <link rel="stylesheet" href="{{asset('freetrans/jquery.freetrans.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
@@ -77,6 +77,7 @@
     <!-- pace -->
     <script src="{{asset('pace/pace.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('pace/pace.css')}}">
+
 </head>
 
 <body>
@@ -128,7 +129,7 @@
                     <a class="dropdown-item mt-2" href="{{action('CompanyController@manageAccounts')}}">
                         Manage Accounts
                     </a>
-                    @if (Auth::user()->can('isCustomer'))
+                    @if ($user->type_user == 'CUSTOMER')
                     <a class="dropdown-item" href="{{action('CustomerController@ManageCompany')}}">
                         Manage Company
                     </a>
@@ -166,7 +167,7 @@
                         </div>
                     </div>-->
                 </li>
-                @can('isAdmin')
+                @if ($user->type_user == 'ADMIN')
                 <li class="nav-item">
                     <a href="#UsersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-users"></i>
@@ -197,8 +198,8 @@
                         <span class="link_hide">Company</span>
                     </a>
                 </li>
-                @endcan
-                @can('isCompanyAdmin')
+                @endif
+                @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
                     <a href="{{action('UserController@UserCompany')}}">
                         <i class="fas fa-users"></i>
@@ -211,7 +212,7 @@
                         <span>Customer</span>
                     </a>
                 </li>
-                @endcan
+                @endif
                 <li class="nav-item">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>
@@ -239,9 +240,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{action('StaticController@Index')}}">
-                        <i class="fas fa-chart-line"></i>
-                        <span class="link_hide">Static</span>
+                    <a href="{{action('DashboardController@Index')}}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="link_hide">Dashboards</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -269,7 +270,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (Auth::user()->can('isAdmin') || Auth::user()->can('isCompanyAdmin'))
+                @if ($user->type_user == 'ADMIN' || $user->type_user == 'COMPANY')
                 <li class="nav-item">
                     <a href="#LogSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="far fa-file-alt"></i>
@@ -320,6 +321,10 @@
         <div id="content" class="content">
             @yield('content')
         </div>
+
+            <!-- socket -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="{{asset('js/socket.js')}}"></script>
 
         <script>
             paceOptions = {

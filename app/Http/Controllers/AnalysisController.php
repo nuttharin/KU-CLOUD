@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
 {
-    public function AnalysisPrepareData()
+    public function AnalysisPrepareData(Request $request)
     {
-        return view('Analysis.AnalysisPrepareData')->with('user', Auth::user());
+        return view('Analysis.AnalysisPrepareData');
     }
 
-    public function DataAnalysis()
+    public function DataAnalysis(Request $request)
     {
-        return view('Analysis.DataAnalysis')->with('user', Auth::user());
+        return view('Analysis.DataAnalysis');
     }
 
-    public function DataAnalysisOutput()
+    public function DataAnalysisOutput(Request $request)
     {
-        return view('Analysis.DataAnalysisOutput')->with('user', Auth::user());
+        return view('Analysis.DataAnalysisOutput');
     }
 }

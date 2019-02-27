@@ -107,8 +107,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+
+
                 <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="example">
+                    cellspacing="0" id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -134,6 +136,9 @@
                     <div></div>
                     <div></div>
                 </div>
+
+
+
             </div>
         </div>
     </div>
@@ -180,7 +185,7 @@
                             <label for="">Type User <span class="text-danger">*</span></label>
                             <select id="add_type_user_val" class="form-control">
                                 <option>ADMIN</option>
-                                <option selected>GENERAL</option>
+                                <option selected>CUSTOMER SUPPORT</option>
                             </select>
                         </div>
                     </div>

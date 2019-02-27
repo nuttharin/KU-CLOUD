@@ -1,5 +1,7 @@
 // const WS_URL = 'http://localhost:3000/'//$('meta[name=ws_url]').attr("content");
-// const USER_ID = getCookie("token");
+// let USER_ID = getCookie("socket_token");
+// console.log(USER_ID);
+
 // var socket = io(WS_URL, { query: "id= " + USER_ID });
 
 // socket.on('connect', function (data) {
