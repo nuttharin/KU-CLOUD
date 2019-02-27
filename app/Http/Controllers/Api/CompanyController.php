@@ -3,27 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UsersRequest;
 use App\LogViewer\LogViewer;
 use App\LogViewer\SizeLog;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_STATIC\StaticRepository;
 use App\Repositories\TB_USERS\UsersRepository;
 use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
-use App\TB_STATIC;
-use App\TB_USERS;
-use App\TB_WEBSERVICE;
 use App\TB_IOTSERVICE;
-use App\TB_REGISTER_WEBSERVICE;
-use App\TB_STATIC_COMPANY;
-use File;
-use email;
-use Mail;
-use Illuminate\Mail\Message;
-
+use App\TB_WEBSERVICE;
 use Auth;
 use DB;
-use Gate;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Log;
@@ -42,9 +31,9 @@ class CompanyController extends Controller
         StaticRepository $static,
         Request $request) {
 
-        if (!Gate::allows('isCompanyAdmin')) {
-            abort('403', "Sorry, You can do this actions");
-        }
+        // if (!Gate::allows('isCompanyAdmin')) {
+        //     abort('403', "Sorry, You can do this actions");
+        // }
 
         $this->users = $users;
         $this->companies = $companies;
@@ -53,9 +42,13 @@ class CompanyController extends Controller
 
         $this->log_viewer = new LogViewer();
 
-        $this->auth = Auth::user();
-        $company_id = $this->auth->user_company()->first()->company_id;
-        $this->log_viewer->setFolder('COMPANY_' . $company_id);
+        $this->middleware('jwt.verify');
+        $this->middleware(function ($request, $next) {
+            $this->auth = Auth::user();
+            $company_id = $this->auth->user_company()->first()->company_id;
+            $this->log_viewer->setFolder('COMPANY_' . $company_id);
+            return $next($request);
+        });
 
     }
 
@@ -331,7 +324,7 @@ class CompanyController extends Controller
 
     public function getWebServiceByCompany(Request $request)
     {
-        $companyID =  $this->auth->user_company()->first()->company_id;
+        $companyID = $this->auth->user_company()->first()->company_id;
 
         $data = $this->webservices->getWebServiceByCompany($companyID);
         return response()->json(compact('data'), 200);
@@ -341,7 +334,7 @@ class CompanyController extends Controller
     {
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID =  $this->auth->user_company()->first()->company_id;
+        $companyID = $this->auth->user_company()->first()->company_id;
         $webService = DB::select("SELECT TB_WEBSERVICE.webservice_id as id,TB_WEBSERVICE.company_id,TB_WEBSERVICE.service_name as name,TB_WEBSERVICE.service_name_DW,TB_WEBSERVICE.alias,TB_WEBSERVICE.URL,TB_WEBSERVICE.description,TB_WEBSERVICE.header_row,TB_WEBSERVICE.status,TB_WEBSERVICE.created_at,TB_WEBSERVICE.updated_at
         FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.company_id='$companyID'");
 
@@ -391,34 +384,32 @@ class CompanyController extends Controller
         // $fileName = time() . '_datafile.json';
         // $headers = ['Content-Type' => 'application/่json',];
         // return response()->json(compact('data'),200);
-        
+
         $detail_tryit = $request->get('jsondata');
         $filename = json_encode($detail_tryit);
         $tempImage = tempnam(sys_get_temp_dir(), $filename);
         return response()->download($tempImage, $filename);
-        
+
         // $detail_tryit = $request->get('jsondata');
         // $data = json_encode($detail_tryit);
         // $fileName = time() . '_datafile.json';
         // File::put(public_path('/upload/json/'.$fileName),$data);
         // $headers = ['Content-Type' => 'application/่json',];
         // return response()->download(File::put(public_path('/upload/json/'.$fileName),$data), $filename, $headers);
-        
-       
-        
+
         // $detail_tryit = $request->get('jsondata');
         // $data = json_encode($detail_tryit);
         // $fileName = time() . '_datafile.json';
         // File::put(public_path('/upload/json/'.$fileName),$data);
         // return Response::download(public_path('/upload/jsonfile/'.$fileName));
     }
- 
+
     // iot service
     public function getAllIotserviceData(Request $request)
     {
         $token = $request->bearerToken();
         $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID =  $this->auth->user_company()->first()->company_id;
+        $companyID = $this->auth->user_company()->first()->company_id;
         $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.API,TB_IOTSERVICE.description,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
         FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID'");
 
@@ -427,7 +418,6 @@ class CompanyController extends Controller
         }
 
         return response()->json(compact('iotService'), 200);
-
 
     }
 

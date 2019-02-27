@@ -15,13 +15,10 @@ class Server {
         this.app = express();
         this.http = http.Server(this.app);
         this.socket = socketio(this.http);
-
-        
-
-        
     }
 
     appRun() {
+        
         this.socketEvents  = new socketEvents(this.socket).socketConfig();
         this.app.use(express.static(__dirname + '/uploads'));
 

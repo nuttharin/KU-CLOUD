@@ -26,7 +26,7 @@ class EloquentStatic implements StaticRepository
             ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_USERS.user_id')
             ->get(['TB_STATIC.static_id', 'TB_STATIC.name', 'TB_USERS.fname', 'TB_USERS.lname']);
 
-        return $data;
+        return response()->json(compact('data'), 200);
     }
 
     public function createStatic($name)

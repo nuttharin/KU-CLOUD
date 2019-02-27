@@ -222,11 +222,38 @@ Route::group([
 
 });
 
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'dashboards',
+], function ($router) {
+    Route::get('{dashboard_id}', 'Api\DashboardController@getDashboardById');
+    Route::put('layout', 'Api\DashboardController@updateDashboardLayout');
+    Route::get('/', 'Api\DashboardController@getAllDashboard');
+
+    Route::post('/', 'Api\DashboardController@createDashboard');
+    Route::put('/', 'Api\DashboardController@updateDashboard');
+    Route::delete('/', 'Api\DashboardController@deleteDashboard');
+
+    Route::post('datasource', 'Api\DatasourceController@createDatasource');
+    Route::delete('datasource', 'Api\DatasourceController@deleteDatasource');
+});
+
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
 ], function ($router) {
     Route::get('staticDatasource', 'Api\StaticController@getDatasourceStatic');
 });
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'datasources',
+], function ($router) {
+    Route::get('/', 'Api\DatasourceController@getDatasources');
+    Route::post('/', 'Api\DatasourceController@createDatasource');
+    Route::delete('/', 'Api\DatasourceController@deleteDatasource');
+});
+
 
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
@@ -311,7 +338,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('company/webservice/getCompanyID', 'Api\CompanyController@getCompanyID');
     Route::post('company/webservice/deletewebservice', 'Api\CompanyController@deletewebservice');
 
-    Route::get('company/iot/iotservicedata','Api\CompanyController@getAllIotserviceData');
+    Route::get('company/iot/iotservicedata', 'Api\CompanyController@getAllIotserviceData');
     Route::get('company/iot/getkeyiot', 'Api\CompanyController@getKeyiot');
     Route::post('company/iot/addRegisIotService', 'Api\CompanyController@addRegisIotService');
 

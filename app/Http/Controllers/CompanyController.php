@@ -7,8 +7,9 @@ use App\Weka\Classify\J48;
 use App\Weka\Clusterers\Association;
 use App\Weka\Clusterers\SimpleKMeans;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Cookie;
 
 class CompanyController extends Controller
 {
@@ -63,9 +64,42 @@ class CompanyController extends Controller
         return view('company.LogViewer')->with('user', Auth::user());
     }
 
-    public function Logout()
+    public function Logout(Request $request)
     {
-        JWTAuth::invalidate(JWTAuth::getToken());
+        $request->session()->forget('user');
+
+        Cookie::queue(Cookie::forget('token', '/', 'localhost'));
+        Cookie::queue(Cookie::forget('socket_token', '/', 'localhost'));
+        Cookie::queue(Cookie::forget('io', '/', 'localhost'));
+
+        auth()->logout();
+        // JWTAuth::invalidate(JWTAuth::parseToken());
+        return redirect('/');
+
+        // $tokenRequest = Request::create(
+        //     env('APP_URL') . '/api/Auth/Logout',
+        //     'POST'
+        // );
+
+        // $response = Route::dispatch($tokenRequest);
+
+        // if ($response->getStatusCode() == 200) {
+        //     $data = json_decode($response->getContent());
+
+        //     return redirect('/');
+        //     // return redirect('/User/Company')->cookie(
+        //     //     'access_token', //name
+        //     //     $data->token, //value
+        //     //     true// HttpsOnly
+        //     // );
+        // }
+        // // config([
+        // //     'jwt.blacklist_enabled' => true,
+        // // ]);
+        // auth()->logout();
+        // Cookie::queue(Cookie::forget('token', '/', 'localhost'));
+        // //JWTAuth::invalidate(JWTAuth::parseToken());
+
     }
 
     public function test()
@@ -136,10 +170,10 @@ class CompanyController extends Controller
         $pathWekaInput = config('app.weka_input');
 
         //'-classifications "weka.classifiers.evaluation.output.prediction.CSV "'
-        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.SimpleLinearRegression" . ' -classifications "weka.classifiers.evaluation.output.prediction.CSV"' . " -t " . $pathWekaInput . "cpu.arff";
-
+        //$cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.LinearRegression -v -t " . $pathWekaInput . "cpu.arff";
+        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.LinearRegression" . ' -classifications "weka.classifiers.evaluation.output.prediction.CSV"' . " -t " . $pathWekaInput . "cpu.arff";
         exec($cmd, $output);
-        dd($output);
+        dd($cmd);
         // $simpleLinearRegression = new SimpleLinearRegression();
         // $data = $simpleLinearRegression->getToJson($output);
 

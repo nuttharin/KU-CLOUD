@@ -35,7 +35,12 @@ class AuthController extends Controller
                 $hash_password = $user->password;
                 if (Hash::check($request->get('password'), $hash_password)) {
                     $user_custom = [
+                        "user_id" => $user->user_id,
+                        "username" => $user->username,
+                        "fname" => $user->fname,
+                        "lname" => $user->lname,
                         "email" => $user->email()->where('is_primary', true)->first()->email_user,
+                        "img_profile" => $user->img_profile,
                         "type_user" => $user->type_user,
                     ];
                     if ($user->type_user === "CUSTOMER") {
@@ -53,12 +58,17 @@ class AuthController extends Controller
                     //Log::debug('An informational message.',['id'=>$user[0]->type_user]);
                     //$payload = JWTAuth::decode($token);
 
+                    $data = json_encode(['user_id' => $user->user_id]);
+                    $token_id = uniqid();
+                    $signature = hash_hmac("sha256", $token_id . "." . $data . "." . $hash_password, config('app.SOCKET_KEY'));
+                    $socket_token = \base64_encode($token_id . "." . $data . "." . $signature);
+
                     if ($user->type_user == "ADMIN") {
-                        return response()->json(['token' => $token->get(), 'path' => '/User/Administer', 'status' => 200], 200);
+                        return response()->json(['token' => $token->get(), 'socket_token' => $socket_token, 'user' => $user_custom, 'path' => '/User/Administer', 'status' => 200], 200)->header('Content-Type', 'application/json');
                     } else if ($user->type_user == "COMPANY") {
-                        return response()->json(['token' => $token->get(), 'path' => '/User/Company', 'status' => 200], 200);
+                        return response()->json(['token' => $token->get(), 'socket_token' => $socket_token, 'user' => $user_custom, 'path' => '/User/Company', 'status' => 200], 200)->header('Content-Type', 'application/json');
                     } else if ($user->type_user == "CUSTOMER") {
-                        return response()->json(['token' => $token->get(), 'path' => '/Infographic', 'status' => 200], 200);
+                        return response()->json(['token' => $token->get(), 'user' => $user_custom, 'path' => '/Infographic', 'status' => 200], 200)->header('Content-Type', 'application/json');
                     }
                 } else {
                     throw new Exception('Password not corrent', 401);
@@ -128,9 +138,9 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        //auth()->logout();
+        JWTAuth::invalidate(JWTAuth::getToken());
+        return response()->json(['message' => 'Successfully logged out'], 200);
     }
 
     /**
