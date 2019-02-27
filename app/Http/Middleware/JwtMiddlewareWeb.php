@@ -3,9 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Exception;
-use Illuminate\Support\Facades\Cookie;
-use JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
 class JwtMiddlewareWeb extends BaseMiddleware
@@ -20,23 +17,64 @@ class JwtMiddlewareWeb extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-        try {
-            $token = isset($_COOKIE["token"]) ? $_COOKIE["token"] : "";
 
-            $request->headers->set("Authorization", "Bearer $token"); //this is working
-            $response = $next($request);
-            $user = JWTAuth::parseToken()->authenticate();
-            if (!$user) {
-                Cookie::queue(Cookie::forget('token', '/', 'localhost'));
-                return redirect('/');
-            } else {
-                //$expiresAt = Carbon::now()->addMinutes(2);
-                //Cache::put('user-is-online-'.$user->user_id,true,$expiresAt);
-            }
-        } catch (Exception $e) {
-            Cookie::queue(Cookie::forget('token', '/', 'localhost'));
+        if (!$request->session()->has('user')) {
             return redirect('/');
+        } else {
+            // $token = isset($_COOKIE["token"]) ? $_COOKIE["token"] : "";
+            // $request->headers->set("Authorization", "Bearer $token"); //this is working
+            return $next($request);
         }
-        return $response;
+
+        // try {
+
+        //     // if (!Auth::check()) {
+        //     //     Cookie::queue(Cookie::forget('token', '/', 'localhost'));
+        //     //     return redirect('/');
+        //     // } else {
+        //     //     $response = $next($request);
+        //     //     //$expiresAt = Carbon::now()->addMinutes(2);
+        //     //     //Cache::put('user-is-online-'.$user->user_id,true,$expiresAt);
+        //     // }
+        //     //dd($request->session()->get('user'));
+
+        //     $token = isset($_COOKIE["token"]) ? $_COOKIE["token"] : "";
+
+        //     $request->headers->set("Authorization", "Bearer $token"); //this is working
+
+        //     $response = $next($request);
+
+        //     $user = JWTAuth::parseToken()->authenticate();
+
+        //     if (!$user) {
+        //         Cookie::queue(Cookie::forget('token', '/', 'localhost'));
+        //         return redirect('/');
+        //     } else {
+        //         //$expiresAt = Carbon::now()->addMinutes(2);
+        //         //Cache::put('user-is-online-'.$user->user_id,true,$expiresAt);
+        //     }
+
+        // } catch (Exception $e) {
+        //     if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+        //         // If the token is expired, then it will be refreshed and added to the headers
+        //         try
+        //         {
+        //             $refreshed = JWTAuth::refresh($token);
+        //             $request->headers->set("Authorization", "Bearer $refreshed"); //this is working
+        //             $response = $next($request);
+        //             Cookie::queue('token', $refreshed, 60);
+        //         } catch (JWTException $e) {
+        //             return response()->json(['status' => 'Token is Expired']);
+        //         }
+
+        //         $user = JWTAuth::parseToken()->authenticate();
+        //         return $response;
+
+        //     } else {
+        //         Cookie::queue(Cookie::forget('token', '/', 'localhost'));
+        //         return redirect('/');
+        //     }
+        // }
+        // return $response;
     }
 }

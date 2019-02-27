@@ -273,6 +273,10 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
 </style>
 <link href="{{url('css/i-check.min.css')}}" rel="stylesheet"/>
 <link href="{{url('jstree/style.min.css')}}" rel="stylesheet" />
@@ -295,13 +299,106 @@
     </div>
 </div>
 <hr>
+<div class="from-input-detail">
+     
+    <div class="row">
+        <div class="col-sm-8 " >  
+            <div class ="row">
+                <div class="col-sm-8">
+                    <h6 >IoT Name <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="name-iotservice" name="name" placeholder="IoT name">
+                </div>
+                <div class="col-sm-4">
+                    <h6 >Alias <span style="color:red">*</span></h6>
+                    <input type="text" class="mb-2" id="alias-iotservice" name="alias" placeholder="IoT alias ">
+                </div>                
+            </div>
+            
+            <h6>Description</h6>
+            <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
+                  
 
-<hr>
-<!-- Modal -->
+            
+            <h6>URL for ON/OFF  <span style="color:red">*</span></h6>            
+            <input type="text" class="mb-2" id="url-nooffiotservice" name="name" placeholder="Url of ON/OFF IoT">
+
+            <h6>Others Output</h6>            
+            <!-- <div class="container"> -->
+                    <div class="row">
+                        <div class="control-group" id="fields">
+                            <div class="controlsoutput"> 
+                                <div class="container">
+                                    <form role="form" autocomplete="off">
+                                        <div class="entry input-group col-xs-3">
+                                            <input class="form-control mb-2 nameoutput" name="nameOutput[]" type="text" placeholder="Name" />
+                                            <span>&nbsp</span>
+                                            <input class="form-control mb-2 valueoutput" name="valueOutput[]" type="text" placeholder="Value" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-adds" type="button">
+                                                    <span>+</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            <br/>
+            <h6>Pin Names<span> (Default is 0) <span style="color:red">*</span></span></h6>
+                <!-- <div class="container"> -->
+                    <div class="row">
+                        <div class="control-group" id="fields">
+                            <div class="controls"> 
+                                <div class="container">
+                                    <form role="form" autocomplete="off">
+                                        <div class="entry input-group col-xs-3">
+                                            <input class="form-control mb-2 fields" name="fields[]" type="text" placeholder="Pin (Number)" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-add" type="button">
+                                                    <span>+</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+                <br/>
+                <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
+        </div>
+        
+        <div class="col-sm-4"  >
+                <!-- <div class ="col-sm-1" id="detail-left"></div> -->
+                <div class = "col-sm-12" id="detail" >
+                    <h6 style="font-style: oblique;"> Resource Data Type </h6>
+                    <div id="detail-show">
+                        <p>When creating a new resource, you need to specify the 
+                        type of data that is expected to be persisted to this resource.
+
+                        Beebotte has a number of defined data types; click here for more information.
+                        </p>
+                    </div> 
+
+                    <h6 style="font-style: oblique;"> Public is ? </h6>
+                    <div id="detail-show">
+                        <p>When creating a new resource, you need to specify the 
+                        type of data that is expected to be persisted to this resource.
+
+                        Beebotte has a number of defined data types; click here for more information.
+                        </p>
+                    </div> 
+                </div>
+        </div>
+    </div>
+</div>
 
 
 
-<script type="text/javascript" src="{{url('js/company/iot/addiot.js')}}"></script>
+<script type="text/javascript" src="{{url('js/company/iot/add_OutputIot.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{url('clipboard/clipboard.min.js')}}"></script>

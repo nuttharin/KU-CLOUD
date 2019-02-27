@@ -323,7 +323,7 @@
                 </div>
             </div>
             <br>
-            <div class ="d-flex flex-row">
+            <!-- <div class ="d-flex flex-row">
                 <div class="p-2" style="padding-top:5px" >
                     <h6 >Update time <span style="color:red">*</span></h6>                                       
                 </div>
@@ -336,8 +336,8 @@
                             </label>
                         </div>
                     </div>
-                </div>
-            <div> 
+                </div>  -->
+            <div>
                 <div class ="set-time">                    
                     <div class='card bg-light text-dark ' style="border: 1px solid #AED6F1">
                         <div class='card-body'>
@@ -531,7 +531,7 @@
                  <div class="form-group">
                     <label  class="col-sm-2 control-label">API</label>
                     <div class="col-sm-12">
-                        <input class="form-control" id="Apiiot" type="text" disabled>
+                        <textarea class="form-control" id="Apiiot" type="text" disabled></textarea>
                     </div>
                 </div>
                 <div class="form-group">

@@ -41,11 +41,11 @@ mix.webpackConfig({
      // .js('resources/js/app.js', 'public/js/app.js')
     // .js('resources/js/containers/company/Accounts/Accounts.js', 'public/js/company/account')
 
-mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static')
-    .js('resources/js/admin/static/dashboard.min.js', 'public/js/admin/static')
+mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/dashboards')
+    .js('resources/js/admin/dashboards/dashboard.min.js', 'public/js/admin/dashboards')
 
-    .js('resources/js/admin/static/staticDataTable.min.js', 'public/js/admin/static')
-    .js('resources/js/company/static/staticDataTable.min.js', 'public/js/company/static')
+    .js('resources/js/admin/dashboards/dashboardDataTable.min.js', 'public/js/admin/dashboards')
+    .js('resources/js/company/dashboards/dashboardDataTable.min.js', 'public/js/company/dashboards')
 
     .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 
@@ -88,7 +88,7 @@ mix.js('resources/js/company/static/dashboard.min.js', 'public/js/company/static
 //     }
 // }
 
-//  mix.browserSync('http://localhost:8000');
+//mix.browserSync('http://localhost:8000');
 
 
 if (mix.inProduction()) {

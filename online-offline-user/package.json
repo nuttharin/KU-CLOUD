@@ -10,12 +10,13 @@
   "author": "jetsadakorn khiewmen",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
-    "morgan": "^1.9.1",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.5",
     "socket.io": "^2.1.1"

@@ -196,7 +196,7 @@
                             <label for="">Type user <span class="text-danger">*</span></label>
                             <select id="add_type_user_val" class="form-control">
                                 <option>ADMIN</option>
-                                <option selected>GENERAL</option>
+                                <option selected>CUSTOMER SUPPORT</option>
                             </select>
                         </div>
                     </div>

@@ -222,7 +222,10 @@ return [
     'faker_locale' => 'th_TH',
 
     'weka_lib' => env('WEKA_LIB', storage_path('weka/lib/weka.jar')),
+    'weka_lib_3_6' => env('WEKA_LIB', storage_path('weka/lib/weka3-6.jar')),
     'weka_input' => env('WEKA_INPUT', storage_path('app/weka/input/')),
     'weka_output' => env('WEKA_OUTPUT', storage_path('app/weka/output/')),
+
+    'SOCKET_KEY' => env('SOCKET_KEY'),
 
 ];

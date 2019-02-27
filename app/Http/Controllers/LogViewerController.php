@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Illuminate\Http\Request;
 
 class LogViewerController extends Controller
 {
-    public function Index()
+    public function Index(Request $request)
     {
-        if (Auth::user()->type_user === "COMPANY") {
-            return view('LogViewer.Index_Company')->with('user', Auth::user());
+        if ($request->session()->get('user')->type_user == 'COMPANY') {
+            return view('LogViewer.Index_Company');
         } else {
-            return view('LogViewer.Index_Admin')->with('user', Auth::user());
+            return view('LogViewer.Index_Admin');
         }
     }
 }

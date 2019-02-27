@@ -2,35 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
 
-    public function UserAdminister()
+    public function UserAdminister(Request $request)
     {
-        if (!Gate::allows('isAdmin')) {
+        $user = $request->session()->get('user');
+        if (!$user->type_user == "ADMIN") {
             abort('403', "Sorry, You can do this actions");
         }
-        return view('User.UserAdminister_Admin')->with('user', Auth::user());
+        return view('User.UserAdminister_Admin');
     }
 
-    public function UserCompany()
+    public function UserCompany(Request $request)
     {
-        if (Auth::user()->type_user === "COMPANY") {
-            return view('User.UserCompany_Company')->with('user', Auth::user());
+        $user = $request->session()->get('user');
+        if ($user->type_user === "COMPANY") {
+            return view('User.UserCompany_Company');
         } else {
-            return view('User.UserCompany_Admin')->with('user', Auth::user());
+            return view('User.UserCompany_Admin');
         }
     }
 
-    public function UserCustomer()
+    public function UserCustomer(Request $request)
     {
-        if (Auth::user()->type_user === "COMPANY") {
-            return view('User.UserCustomer_Company')->with('user', Auth::user());
+        $user = $request->session()->get('user');
+        if ($user->type_user === "COMPANY") {
+            return view('User.UserCustomer_Company');
         } else {
-            return view('User.UserCustomer_Admin')->with('user', Auth::user());
+            return view('User.UserCustomer_Admin');
         }
     }
 }

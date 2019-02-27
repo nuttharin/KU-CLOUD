@@ -1,11 +1,12 @@
 class iotService {
-    constructor(iotName,iotAlias,iotdescription,status)
+    constructor(iotName,iotAlias,iotdescription,status,dataformat)
     {
         let nameiot = iotName  ;
         let keyiot;
         let alias = iotAlias;
         let description = iotdescription ;
-        let atatus = status;
+        let stats = status;
+        let datajson=dataformat;
         let time ;
         let companyID;
         
@@ -57,9 +58,12 @@ class iotService {
                     alias: alias,
                     ServiceName: nameiot,
                     description: description,
-                    header: '1',                   
                     valueCal: '1',
-                    status: status,
+                    valueGroupby: '1',
+                    // updatetime_input: '1',
+                    stats: stats,
+                    datajson:datajson,
+                    type: 'input',
                     
                 },
                 success: (res) => {
@@ -95,8 +99,24 @@ class iotService {
         }
 
         this.showDetail = () => {
-            $('#Nameiot').val('xxxx');
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData');
+            let data =JSON.parse(datajson);
+            let strJson="";
+            let count = Object.keys(data).length;
+            let i=0;
+            console.log(count);
+            Object.keys(data).forEach(function(key) {
+                strJson+=key +'=' +data[key];
+                if(i == count-1)
+                {
+                }
+                else
+                {
+                    strJson+='&';
+                }
+                i++;
+            })
+            $('#Nameiot').val(nameiot);
+            $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.'+nameiot+'.'+companyID+'&'+strJson);
             $('#Keyiot').val(keyiot);
         }  
     }       
@@ -200,6 +220,8 @@ $(document).ready(function () {
         let iotAlias = $('#alias-iotservice').val();
         let iotdescription = $('#description-iotservice').val();
         let status = $('#status-iotservice').prop( "checked" );
+        let dataformat= $('#dataFormat-iotservice').val();
+        
         if(status == true)
         {
             status="public";
@@ -211,12 +233,13 @@ $(document).ready(function () {
         }
 
        
-        let iot = new iotService(iotName,iotAlias,iotdescription,status);
+        let iot = new iotService(iotName,iotAlias,iotdescription,status,dataformat);
         iot.getDataforInsert();
         iot.showDetail();
       
 
     })
+    
 
     
     $('#checkFormat').click(function(){
@@ -249,6 +272,7 @@ $(document).ready(function () {
 
 
 })
+
 
 
 
