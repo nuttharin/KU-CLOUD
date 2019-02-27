@@ -313,6 +313,7 @@ class CompanyController extends Controller
             'URL' => $request->get('strUrl'),
             'description' => $request->get('description'),
             'header_row' => $request->get('header'),
+            'value_array' => $request->get('strArr'),
             'value_cal' => $request->get('valueCal'),
             'value_groupby' => $request->get('valueGroup'),
             'status' => $request->get('status'),
@@ -436,16 +437,39 @@ class CompanyController extends Controller
             'company_id' => $companyID,
             'iot_name' => $request->get('ServiceName'),
             'iot_name_DW' => $nameDW,
+            'type' => $request->get('type'),
             'alias' => $request->get('alias'),
-            'API' => $request->get('strUrl'),
             'description' => $request->get('description'),
+            'status' => $request->get('stats'),
+            'url_onoff_input' => $request->get('strUrl'),
+            'dataformat' => $request->get('datajson'),
             'value_cal' => $request->get('valueCal'),
-            'status' => $request->get('status'),
+            'value_gropby' => $request->get('valueGroupby'),
+            // 'updatetime_input' => $request->get('updatetime_input'),
         ]);
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('iotService'), 200);
     }
+    public function addOutputRegisIotService(Request $request)
+    {
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $nameDW = $request->get('ServiceName') . "." . $companyID;
 
+        $iotService = TB_IOTSERVICE::create([
+            'company_id' => $companyID,
+            'iot_name' => $request->get('ServiceName'),
+            'iot_name_DW' => $nameDW,
+            'type' => $request->get('type'),
+            'alias' => $request->get('alias'),
+            'description' => $request->get('description'),
+            'status' => $request->get('stats'),
+            'url_onoff_output' => $request->get('strUrl'),
+            'pins_onoff' => $request->get('pinfilds'),
+            'value_cal' => $request->get('valueCal'),
+        ]);
+        Log::info('Create Web Service - [] SUCCESS');
+        return response()->json(compact('iotService'), 200);
+    }
     //Static
     // public function addStatic(Request $request)
     // {

@@ -381,7 +381,7 @@
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="Webservice description" ></textarea>
             <div class="row">
                 <div class="col-sm-12">
-                        <h6 >Update Data<span style="color:red">*</span></h6>
+                        <h6 >Update Data <span style="color:red">*</span></h6>
                         <!-- Modal -->
                         <div class="modal fade" id="howtouse-crontrab" role="dialog">
                             <div class="modal-dialog">

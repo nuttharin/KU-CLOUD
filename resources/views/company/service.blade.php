@@ -29,7 +29,7 @@
                     <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
                         <a href="{{action('CompanyController@Add_service')}}" class="btn btn-success btn-radius">
                             <i class="fa fa-plus"></i>
-                            Add Service
+                            Create Service
                         </a>
                     </div>
                 </div>

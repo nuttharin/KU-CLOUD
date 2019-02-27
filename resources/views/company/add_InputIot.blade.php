@@ -58,6 +58,11 @@
         height: 40px;
     }
 
+    #url-nooffiotservice{
+        width: 100%;
+        height: 40px;
+    }
+
   
 
     .from-input-detail h6,input,.from-treeView h6 {
@@ -70,7 +75,7 @@
         border: 1px solid #AED6F1 ;
     }
     
-    .show-header{
+    .show-header , #checkFormat ,.showCheckJson{
         float:right;
     }
     #select
@@ -275,10 +280,10 @@
 <link href="{{url('css/togglebutton.css')}}" rel="stylesheet" />
 <br>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-7">
         <h4>Create a new IoT</h4>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
@@ -294,23 +299,7 @@
      
     <div class="row">
         <div class="col-sm-8 " >
-            <div class ="row">
-                <div class="col-sm-2" style="padding-top:5px" >
-                    <h6 >Collect data</h6>                                       
-                </div>
-                <div class="col-sm-2">
-                    <div class="onoffswitch2">
-                        <input type="checkbox" name="checkcollect " class="checkcollect-checkbox" id="checkcollect-iotservice">
-                        <label class="checkcollect-label" for="checkcollect-iotservice">
-                            <span class="checkcollect-inner"></span>
-                            <span class="checkcollect-switch"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-3" style="padding-top:5px" >
-                    <h6 >Do not collect data</h6>                                       
-                </div>
-            </div>      
+           
             <div class ="row">
                 <div class="col-sm-8">
                     <h6 >IoT Name <span style="color:red">*</span></h6>
@@ -324,29 +313,37 @@
             
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
+            <div>
+                 <h6>Data format<span style="color:red">*</span></h6>
+                <textarea type="text" rows="4" class="form-control mb-3"  id="dataFormat-iotservice"  placeholder="{&#xa;&emsp;&#34;temperature&#34; &nbsp;:&nbsp; 40.1 ,&#xa;&emsp;&#34;StationNameEng&#34; : &#34;KU KPS&#34; &#xa;}"></textarea>
                 
-
-            <div> 
-                <div class ="row">
-                    <div class="set-collect col-sm-7">
-                        <div class='card bg-light text-dark' style="border: 1px solid #AED6F1">
-                            <div class='card-body'>
-                                <div class ="row">
-                                    <div class="col-sm-4" style="padding-top:5px" >
-                                        <h6 >Update time <span style="color:red">*</span></h6>                                       
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="onoffswitch2">
-                                            <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
-                                            <label class="checktime-label" for="checktime-iotservice">
-                                                <span class="checktime-inner"></span>
-                                                <span class="checktime-switch"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row set-time">
+                <button type="button" id="checkFormat" class="btn btn-outline-danger " style="font-size: 13px;" >Check format</button>
+                <div class="showCheckJson"> 
+                     
+                </div>
+            </div>
+            <br>
+            <!-- <div class ="d-flex flex-row">
+                <div class="p-2" style="padding-top:5px" >
+                    <h6 >Update time <span style="color:red">*</span></h6>                                       
+                </div>
+                <div class="p-2">
+                    <div class="onoffswitch2">
+                        <input type="checkbox" name="checktime" class="checktime-checkbox" id="checktime-iotservice">
+                            <label class="checktime-label" for="checktime-iotservice">
+                                <span class="checktime-inner"></span>
+                                <span class="checktime-switch"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>  -->
+            <div>
+                <div class ="set-time">                    
+                    <div class='card bg-light text-dark ' style="border: 1px solid #AED6F1">
+                        <div class='card-body'>
+                            <div class="row ">
                                     <div class="col-sm-12">
+                                            
                                             <h6 >Update Data<span style="color:red">*</span></h6>
                                             <!-- Modal -->
                                             <div class="modal fade" id="howtouse-crontrab" role="dialog">
@@ -455,30 +452,30 @@
                                                 </div>
                                             </div>
                                             <div class="row">                                                 
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <input type="input" style="width:100%; text-align: center;" title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <input type="input" style="width:100%; text-align: center;" title="hour" class="" id="time-webservice-hour"  name="time-webservice-hour" placeholder="*">
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-8">
                                                     <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
                                                 </div>
                                              </div> 
                                             
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <center>minute</center>
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <center>hour</center>
                                                 </div>
                                             </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>                
             </div>
             
@@ -534,7 +531,7 @@
                  <div class="form-group">
                     <label  class="col-sm-2 control-label">API</label>
                     <div class="col-sm-12">
-                        <input class="form-control" id="Apiiot" type="text" disabled>
+                        <textarea class="form-control" id="Apiiot" type="text" disabled></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -557,7 +554,7 @@
 </div>
 
 
-<script type="text/javascript" src="{{url('js/company/iot/addiot.js')}}"></script>
+<script type="text/javascript" src="{{url('js/company/iot/add_InputIot.js')}}"></script>
 <script type="text/javascript" src="{{url('jstree/jstree.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{url('clipboard/clipboard.min.js')}}"></script>

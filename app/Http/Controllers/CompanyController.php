@@ -54,9 +54,14 @@ class CompanyController extends Controller
         return view('company.iot')->with('user', Auth::user());
     }
 
-    public function Add_iot()
+    public function Add_InputIot()
     {
-        return view('company.add_iot')->with('user', Auth::user());
+        return view('company.add_InputIot')->with('user', Auth::user());
+    }
+
+    public function Add_OutputIot()
+    {
+        return view('company.add_OutputIot')->with('user', Auth::user());
     }
 
     public function LogViewer()
@@ -146,13 +151,13 @@ class CompanyController extends Controller
         $pathWekaLib = config('app.weka_lib');
         $pathWekaInput = config('app.weka_input');
 
-        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.trees.J48 -v -t " . $pathWekaInput . "weather.nominal.arff";
+        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.trees.J48 -v -t " . $pathWekaInput . "glass.arff";
         exec($cmd, $output);
 
         //dd($output);
 
         $classify = new J48();
-        $data = $classify->getClassifyToJson($output);
+        $data = $classify->getJ48ToJson($output);
 
         echo json_encode($data);
         //echo $data;

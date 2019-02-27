@@ -1,14 +1,15 @@
 class iotService {
-    constructor(iotName,iotAlias,iotdescription,status)
+    constructor(iotName,iotAlias,iotdescription,status,dataformat)
     {
         let nameiot = iotName  ;
         let keyiot;
         let alias = iotAlias;
         let description = iotdescription ;
-        let atatus = status;
+        let stats = status;
+        let datajson=dataformat;
         let time ;
         let companyID;
-
+        
 
         this.getDataforInsert = () => {
             // get id company
@@ -57,9 +58,12 @@ class iotService {
                     alias: alias,
                     ServiceName: nameiot,
                     description: description,
-                    header: '1',                   
                     valueCal: '1',
-                    status: status,
+                    valueGroupby: '1',
+                    // updatetime_input: '1',
+                    stats: stats,
+                    datajson:datajson,
+                    type: 'input',
                     
                 },
                 success: (res) => {
@@ -95,8 +99,24 @@ class iotService {
         }
 
         this.showDetail = () => {
-            $('#Nameiot').val('xxxx');
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData');
+            let data =JSON.parse(datajson);
+            let strJson="";
+            let count = Object.keys(data).length;
+            let i=0;
+            console.log(count);
+            Object.keys(data).forEach(function(key) {
+                strJson+=key +'=' +data[key];
+                if(i == count-1)
+                {
+                }
+                else
+                {
+                    strJson+='&';
+                }
+                i++;
+            })
+            $('#Nameiot').val(nameiot);
+            $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.'+nameiot+'.'+companyID+'&'+strJson);
             $('#Keyiot').val(keyiot);
         }  
     }       
@@ -139,63 +159,59 @@ class cronTap {
                 $("#description_time").html("At minute 0 past every hour from 9 through 17.");
             })
         }
-
-       
-        
-
-
-        
-           
-
-
-        
-
-       
         
  
     }       
 }
 
+class Managememt{
+    constructor()
+    {
+        this.checkFormTime = () => {
+            $(".set-time").hide()
+            $('#checktime-iotservice').change(function(){
+                let checkUpTime = $('#checktime-iotservice').prop("checked");
+                if(checkUpTime==true)
+                {
+                    $(".set-time").slideDown("fast");            
+                }
+                else 
+                {
+                    $(".set-time").hide()
+                    $("#time-webservice-minute").val("")
+                    $("#time-webservice-hour").val("")
+                    //onsole.log('scvv')
+
+                }
+                
+            })
+        }
+
+        this.checkFormatJson = (data) =>{
+            console.log(data)     
+            try {
+                //JSON.parse(JSON.stringify(data));
+                JSON.parse(data)
+                
+            } catch (e) {
+                return false;
+            }
+            return true;
+            
+        }
+
+
+    }
+}
+
+
 
 $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
-    var cron = new cronTap();
+    let cron = new cronTap();
+    let manage = new Managememt();
     cron.exampleCron();
-    $(".set-collect").hide()
-    $(".set-time").hide()
-
-    // check cheage 
-    $('#checkcollect-iotservice').change(function(){
-        let checkUpCollect = $('#checkcollect-iotservice').prop("checked");
-        if(checkUpCollect==true)
-        {
-            $(".set-collect").slideDown("fast");            
-        }
-        else 
-        {
-            $(".set-collect").hide()           
-            console.log('scvv')
-
-        }
-        
-    })
-
-    $('#checktime-iotservice').change(function(){
-        let checkUpTime = $('#checktime-iotservice').prop("checked");
-        if(checkUpTime==true)
-        {
-            $(".set-time").slideDown("fast");            
-        }
-        else 
-        {
-            $(".set-time").hide()
-            $("#time-webservice-minute").val("")
-            $("#time-webservice-hour").val("")
-            console.log('scvv')
-
-        }
-        
-    })
+    manage.checkFormTime();
 
 
     $('#showvalue').click(function(){
@@ -204,6 +220,8 @@ $(document).ready(function () {
         let iotAlias = $('#alias-iotservice').val();
         let iotdescription = $('#description-iotservice').val();
         let status = $('#status-iotservice').prop( "checked" );
+        let dataformat= $('#dataFormat-iotservice').val();
+        
         if(status == true)
         {
             status="public";
@@ -215,18 +233,46 @@ $(document).ready(function () {
         }
 
        
-        let iot = new iotService(iotName,iotAlias,iotdescription,status);
+        let iot = new iotService(iotName,iotAlias,iotdescription,status,dataformat);
         iot.getDataforInsert();
         iot.showDetail();
       
 
     })
+    
 
-    // example cron
+    
+    $('#checkFormat').click(function(){
+        let data = $('#dataFormat-iotservice').val();
+        console.log(data)
+        let x = manage.checkFormatJson(data);
+        console.log(x)
+        if(x==true)
+        {
+            $('.showCheckJson').html('<i class="fa fa-check-circle fa-lg " style="color:green; padding-top:7px" aria-hidden="true">&emsp;</i>');
+        }
+        else {
+            $('.showCheckJson').html('<i class="fa fa-times-circle fa-lg " style="color:#CB4335; padding-top:7px" aria-hidden="true">&emsp;</i>');
+
+        }
+        let u = {"name":"John","age":30,"city":"New York"} 
+        
+        
+        // data = JSON.parse(data)
+        // if(typeof data === 'object')
+        // {
+        //     console.log('json')
+        // }
+        // else{
+        //     console.log('no')
+        // }
+
+    })
    
 
 
 })
+
 
 
 

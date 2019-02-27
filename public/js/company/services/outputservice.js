@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    $('#card_1').hide();
+    $('#card_1_h').on('click',function(){
+        $('#card_1').show();
+    })
     let data;
     let jsondata;
     let detailtryit = (detail_tryit)=>
