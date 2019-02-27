@@ -228,7 +228,7 @@
                             <a href="{{action('CompanyController@Output_service')}}">Output Service</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{action('CompanyController@iot')}}">IoT</a>
+                            <a href="{{action('IoTController@IoT')}}">IoT</a>
                         </li>
                     </ul>
                 </li>

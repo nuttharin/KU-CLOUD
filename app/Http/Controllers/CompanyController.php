@@ -48,10 +48,10 @@ class CompanyController extends Controller
         return view('company.showService')->with('user', Auth::user());
     }
 
-    public function Iot()
-    {
-        return view('company.iot')->with('user', Auth::user());
-    }
+    // public function Iot()
+    // {
+    //     return view('company.iot')->with('user', Auth::user());
+    // }
 
     public function Add_InputIot()
     {
