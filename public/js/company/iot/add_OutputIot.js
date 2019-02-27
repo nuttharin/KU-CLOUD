@@ -250,8 +250,6 @@ $(document).ready(function () {
             {
                 otheroutput[nameoutput[i]] = valueoutput[i];
             }
-            
-            
             if(fields.length>1){
                 for(let i=0;i<fields.length;i++)
                 {
