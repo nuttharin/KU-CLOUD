@@ -48,7 +48,7 @@ class iotService {
 
             //register DB
             $.ajax({
-                url: "http://localhost:8000/api/company/iot/addRegisIotService",
+                url: "http://localhost:8000/api/iot/addRegisIotService",
                 dataType: 'json',
                 method: "POST",
                 async: false,

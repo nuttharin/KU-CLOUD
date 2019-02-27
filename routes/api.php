@@ -289,6 +289,19 @@ Route::group([
     Route::post('address', 'Api\AccountsController@addAddress');
 });
 
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'iot',
+], function ($router) {
+    Route::get('iotservicedata','Api\IoTController@getAllIotserviceData');
+    Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
+
+    Route::post('addRegisIotService', 'Api\IoTController@addRegisIotService');
+    Route::post('addOutputRegisIotService', 'Api\IoTController@addOutputRegisIotService');
+
+
+});
+
 Route::group(['middleware' => ['jwt.verify']], function () {
 
     Route::get('closed', 'DataController@closed'); //test
@@ -297,10 +310,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('company/webservices', 'Api\CompanyController@getWebServiceByCompany');
     Route::get('company/webservicedata', 'Api\CompanyController@getAllWebserviceData');
     Route::get('company/webservice/getCompanyID', 'Api\CompanyController@getCompanyID');
-    Route::post('company/webservice/deletewebservice', 'Api\CompanyController@deletewebservice');
-
-    Route::get('company/iot/iotservicedata', 'Api\CompanyController@getAllIotserviceData');
-    Route::get('company/iot/getkeyiot', 'Api\CompanyController@getKeyiot');
+    // Route::get('company/iot/iotservicedata','Api\CompanyController@getAllIotserviceData');
+    // Route::get('company/iot/getkeyiot', 'Api\CompanyController@getKeyiot');
     //admin get
     Route::get('admin/infographic/getDatasource', 'Api\AdminController@getDatasourceInfo');
     Route::get('admin/webservicedata', 'Api\AdminController@getAllWebserviceData');
@@ -308,8 +319,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     //company post
     Route::post('company/webservice/editRegisWebService', 'Api\CompanyController@editRegisWebService');
     Route::post('company/webservice/addRegisWebService', 'Api\CompanyController@addRegisWebService');
-    Route::post('company/iot/addRegisIotService', 'Api\CompanyController@addRegisIotService');
-    Route::post('company/iot/addOutputRegisIotService', 'Api\CompanyController@addOutputRegisIotService');
+    // Route::post('company/iot/addRegisIotService', 'Api\CompanyController@addRegisIotService');
+    // Route::post('company/iot/addOutputRegisIotService', 'Api\CompanyController@addOutputRegisIotService');
     Route::post('company/webservice/deletewebservice', 'Api\CompanyController@deletewebservice');
     Route::post('company/gettabledw', 'Api\CompanyController@getAllWebserviceData');
     Route::post('company/webservice/downloadJSONFile', 'Api\CompanyController@downloadJSONFile');

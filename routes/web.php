@@ -50,7 +50,8 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/Service/ShowService', 'CompanyController@Show_service');
     Route::get('/Company/Service/OutputService', 'CompanyController@Output_service');
 
-    Route::get('/Company/IoT', 'CompanyController@iot');
+    // Route::get('/Company/IoT', 'CompanyController@iot');
+    
     Route::get('/Company/IoT/Add_InputIot', 'CompanyController@Add_InputIot');
     Route::get('/Company/IoT/Add_OutputIot' , 'CompanyController@Add_OutputIot');
 
@@ -63,6 +64,9 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/testClassi', 'CompanyController@testClassi');
     Route::get('/Company/testRegression', 'CompanyController@testRegression');
     Route::get('/Company/Service/EditService/{id}', 'CompanyController@EditService');
+    
+    //IoT
+    Route::get('IoT', 'IoTController@IoT');
 
     Route::get('/Company/Logout', 'CompanyController@Logout');
 
