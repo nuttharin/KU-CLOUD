@@ -13,7 +13,6 @@ class InfographicController extends Controller
     {
         return view('Infographic.CustomInfographic')
             ->with('id', $id)
-            ->with('keyfilename', $keyfilename)
-            ->with('user', Auth::user());
+            ->with('keyfilename', $keyfilename);
     }
 }
