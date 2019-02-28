@@ -68,7 +68,7 @@ $(document).ready(function () {
     $('#btn_submit_login').click(function () {
         event.preventDefault();
         $.ajax({
-            url: "http://localhost:8000/api/Auth/Login",
+            url: "http://localhost:8000/Auth/Login",
             method: "POST",
             dataType: "json",
             data: {
@@ -76,11 +76,13 @@ $(document).ready(function () {
                 password: $("#pwd_login").val()
             },
             success: (res) => {
+                console.log(res);
                 setCookie("token", res.token);
+                setCookie("socket_token", res.socket_token);
                 window.location = res.path;
             },
             error: (res) => {
-                console.log(res);
+
                 if (res.status === 400) {
                     $(".alert ").show();
                     $(".alert ").html(`<strong>Error!</strong> ${res.responseJSON.error.message}`);

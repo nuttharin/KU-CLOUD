@@ -250,3 +250,24 @@ export function diff_hours(dt2, dt1)
   return Math.abs(Math.round(diff));
   
  }
+
+
+export function checkAuthRes(xhr){
+    if(xhr.getResponseHeader('authorization')){
+        let token = xhr.getResponseHeader('authorization').split(" ")[1];
+        // $.ajax({
+        //     url : "http://localhost:8000/SetCookie",
+        //     method:"POST",
+        //     data : {
+        //         token : token
+        //     },
+        //     success : (res) => {
+        //         console.log(res);
+        //     },
+        //     error :(res) =>{
+        //         console.log(res)
+        //     }
+        // })
+        setCookie('token',token);
+    }
+}

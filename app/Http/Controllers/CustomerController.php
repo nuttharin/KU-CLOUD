@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Gate;
-use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -16,20 +15,21 @@ class CustomerController extends Controller
 
     public function Index()
     {
-        return view('Customer.Index')->with('user', Auth::user());
+        return view('Customer.Index');
     }
 
-    public function ManageCompany(){
-         return view('Customer.ManageCompany')->with('user', Auth::user());
+    public function ManageCompany()
+    {
+        return view('Customer.ManageCompany');
     }
 
     public function ManageAccounts()
     {
-        return view('Customer.ManageAccounts')->with('user', Auth::user());
+        return view('Customer.ManageAccounts');
     }
 
     public function Infographic()
     {
-        return view('customer.index')->with('user', Auth::user());
+        return view('customer.index');
     }
 }

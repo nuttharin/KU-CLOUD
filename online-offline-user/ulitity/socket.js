@@ -1,5 +1,7 @@
 'use strict';
 
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const moment = require('moment');
 const path = require('path');
 const fs = require('fs');
@@ -53,17 +55,52 @@ class Socket {
         this.io.use(async (socket, next) => {
             try {
                 let token = socket.request._query['id'];
-                const decoded = jwt.verify(token.replace(' ', ''), process.env.JWT_KEY);
-                let userId = decoded.sub;
-                let userSocketId = socket.id;
-                const response = await helper.addUserOnline(userId, userSocketId);
-                if (response && response !== null) {
-                    next();
-                } else {
-                    console.error(`Socket connection failed, for  user Id ${userId}.`);
+                let buf = Buffer.from(token, 'base64');
+                let token_decode = buf.toString('ascii');
+
+          
+                let token_id = token_decode.split('.')[0];
+                let payload = JSON.parse(token_decode.split('.')[1]);
+                let signature =  token_decode.split('.')[2];
+
+                console.log(token_id,payload,signature)
+
+            
+                let userRef = await helper.selectUserId(payload.user_id);
+              
+                let signatureVerify = token_id+"."+token_decode.split('.')[1]+"."+userRef[0].password;
+
+                let hash = crypto.createHmac('sha256', process.env.SOCKET_KEY);
+                hash.update(signatureVerify);
+
+               
+                if(hash.digest('hex') === signature){
+                    console.log(true);
+                    let userSocketId = socket.id;
+                    const response = await helper.addUserOnline(payload.user_id, userSocketId);
+                    if (response && response !== null) {
+                        next();
+                    } else {
+                        console.error(`Socket connection failed, for  user Id ${userId}.`);
+                    }
                 }
+                else{
+                    console.log(false);
+                }
+
+
+                // const decoded = jwt.verify(token.replace(' ', ''), process.env.JWT_KEY);
+                // let userId = decoded.sub;
+                // let userSocketId = socket.id;
+                // const response = await helper.addUserOnline(userId, userSocketId);
+                // if (response && response !== null) {
+                //     next();
+                // } else {
+                //     console.error(`Socket connection failed, for  user Id ${userId}.`);
+                // }
             }
-            catch{
+            catch(e){
+                console.log(e);
                 next();
             }
 
@@ -72,3 +109,5 @@ class Socket {
     }
 }
 module.exports = Socket;
+
+

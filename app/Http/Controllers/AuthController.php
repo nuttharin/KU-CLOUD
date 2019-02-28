@@ -8,7 +8,9 @@ use App\TB_USERS;
 use App\USER_FIRST_CREATE;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Mail;
 
 class AuthController extends Controller
@@ -17,6 +19,46 @@ class AuthController extends Controller
     public function index()
     {
         //return view('auth.index');
+    }
+
+    public function Login(Request $request)
+    {
+        $tokenRequest = Request::create(
+            env('APP_URL') . '/api/Auth/Login',
+            'POST'
+            , array(
+                "username" => $request->get('username'),
+                "password" => $request->get('password'),
+            )
+        );
+
+        $response = Route::dispatch($tokenRequest);
+
+        if ($response->getStatusCode() == 200) {
+            $data = json_decode($response->getContent());
+            //Cookie::queue('token', $data->token, 60);
+            $request->session()->put('user', $data->user);
+            return $response->getContent();
+            // return redirect('/User/Company')->cookie(
+            //     'access_token', //name
+            //     $data->token, //value
+            //     true// HttpsOnly
+            // );
+        } else {
+            return $response->getContent();
+        }
+    }
+
+    public function SetCookie(Request $request)
+    {
+        Cookie::queue('token', $request->get('token'), 60);
+        return \response()->json(["message" => "success"], 201);
+    }
+
+    public function getCookieToken(Request $request)
+    {
+        $token = $request->cookie('token');
+        return \response()->json(\compact('token'), 200);
     }
 
     public function forgetPassword()

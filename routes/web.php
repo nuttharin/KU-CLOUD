@@ -20,6 +20,8 @@ Route::get('forgetPassword/resetPassword/{verification_code}/{email}', 'AuthCont
 
 // Route::get('/', 'AuthController@index');
 
+Route::post('/Auth/Login', 'AuthController@Login');
+
 Route::get('/Auth/ResetPasswordFirst/{user_id}/{token}', 'AuthController@ResetPasswordFirst');
 
 Route::get('/', 'HomeController@Index');
@@ -31,6 +33,8 @@ Route::post('/ForgetPasswordSendMail', 'AuthController@forgetPasswordSendMail');
 Route::post('/ResetPasswordPost', 'AuthController@resetPasswordPost');
 
 Route::group(['middleware' => ['jwt.verify.web']], function () {
+
+    Route::post('/SetCookie', 'AuthController@SetCookie');
 
     //Route::get('/Compnay/Customer', 'CompanyController@customer');
     Route::get('/Compnay/Infographic', 'CompanyController@infographic');
@@ -46,19 +50,25 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/Service/ShowService', 'CompanyController@Show_service');
     Route::get('/Company/Service/OutputService', 'CompanyController@Output_service');
 
-    Route::get('/Company/IoT', 'CompanyController@iot');
-    Route::get('/Company/IoT/AddIot', 'CompanyController@Add_iot');
+    // Route::get('/Company/IoT', 'CompanyController@iot');
+    
+    Route::get('/Company/IoT/Add_InputIot', 'CompanyController@Add_InputIot');
+    Route::get('/Company/IoT/Add_OutputIot' , 'CompanyController@Add_OutputIot');
 
     Route::get('/Company/ManageAccounts', 'CompanyController@manageAccounts');
 
     Route::get('/Company/LogViewer', 'CompanyController@LogViewer');
 
-    Route::get('/Company/Logout', 'CompanyController@Logout');
     Route::get('/Company/test', 'CompanyController@test');
     Route::get('/Company/testAsso', 'CompanyController@testAsso');
     Route::get('/Company/testClassi', 'CompanyController@testClassi');
     Route::get('/Company/testRegression', 'CompanyController@testRegression');
     Route::get('/Company/Service/EditService/{id}', 'CompanyController@EditService');
+    
+    //IoT
+    Route::get('IoT', 'IoTController@IoT');
+
+    Route::get('/Company/Logout', 'CompanyController@Logout');
 
     /* Admin */
     Route::get('/Admin/ManageAccounts', 'AdminController@manageAccounts');
@@ -102,9 +112,9 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Analysis/DataAnalysis', 'AnalysisController@DataAnalysis');
     Route::get('/Analysis/OutputDataAnalysis', 'AnalysisController@DataAnalysisOutput');
 
-    // Static
-    Route::get('/Static', 'StaticController@Index');
-    Route::get('/Static/{id}', 'StaticController@CustomStatic');
+    // Dashboards
+    Route::get('/Dashboards', 'DashboardController@Index');
+    Route::get('/Dashboards/{id}', 'DashboardController@CustomDashboard');
 
     // LogViewer
     Route::get('/LogViewer', 'LogViewerController@Index');

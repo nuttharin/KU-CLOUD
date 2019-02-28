@@ -59,8 +59,8 @@ class StaticController extends Controller
     public function getStaticDashboard(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
-        $data = $this->static->getStaticByCompanyId($companyID);
-        return response()->json(compact('data'), 200);
+        return $this->static->getStaticByCompanyId($companyID);
+        // return response()->json(compact('data'), 200);
     }
 
     public function getStaticDashboardById(Request $request, $static_id)

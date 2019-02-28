@@ -47,6 +47,10 @@ class Helper {
 		return await this.db.query('SELECT user_id FROM TB_USERS where TB_USERS.online = ?', [true]);
 	}
 
+	async selectUserId(user_id) {
+		return await this.db.query('SELECT user_id,password FROM TB_USERS where TB_USERS.user_id = ?', [user_id]);
+	}
+
 	async addUserOnline(userId, userSocketId) {
 		try {
 			return await this.db.query(`UPDATE TB_USERS SET online = ? ,socketId= ? WHERE user_id = ?`, [true, userSocketId, userId]);

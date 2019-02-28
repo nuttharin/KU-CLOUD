@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-
 class InfographicController extends Controller
 {
     public function Index()
     {
-        return view('Infographic.Index')->with('user', Auth::user());
+        return view('Infographic.Index');
     }
 
     public function CustomInfographic($id, $keyfilename)

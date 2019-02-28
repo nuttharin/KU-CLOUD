@@ -4,7 +4,8 @@ import {
     ERROR_INPUT,
     addEventValidate,
     resetInputValidate,
-    checkError
+    checkError,
+    checkAuthRes
 } from './utility';
 
 const language = {
@@ -481,7 +482,8 @@ class ModalEdit {
                 data: {
                     email_user: email,
                 },
-                success: (res) => {
+                success: (res, textStatus, xhr) => {
+                    checkAuthRes(xhr);
                     $("#" + item).remove();
                     ManagementUsers.refreshData();
                 },
@@ -502,7 +504,8 @@ class ModalEdit {
                 data: {
                     phone_user: phone,
                 },
-                success: (res) => {
+                success: (res, textStatus, xhr) => {
+                    checkAuthRes(xhr);
                     $("#phone-" + phone).remove();
                     ManagementUsers.refreshData();
                 },
@@ -542,7 +545,8 @@ class ModalEdit {
                     phone_user: phone,
                     email_user: email
                 },
-                success: (res) => {
+                success: (res,textStatus,xhr) => {
+                    checkAuthRes(xhr);
                     toastr["success"]("Success");
                     LOADING.reset($("#btn-edit-submit"));
                     $("#editUser").modal('hide');
@@ -617,7 +621,8 @@ class ModalToggleActive {
                     user_id: UsersList[key].user_id,
                     block: UsersList[key].block ? 0 : 1
                 },
-                success: (res) => {
+                success: (res,textStatus,xhr) => {
+                    checkAuthRes(xhr);
                     toastr["success"]("Success");
                     $("#BlockUser").modal('hide');
                     LOADING.reset($("#btn-toggle-active-submit"));
@@ -717,13 +722,15 @@ export class ManagementUsers {
             }
         };
 
-        let createTableUsersCompany = () => {
+        let createTableUsersCompany = async() => {
             if (UsersDATATABLE != null) {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
                 UsersDATATABLE.page(page).draw('page');
             } else {
-                UsersDATATABLE = $('#example').DataTable({
+                UsersDATATABLE = $('#example').on('xhr.dt', function (e, settings, json, xhr) {
+                    checkAuthRes(xhr);
+                }).DataTable({
                     "processing": true,
                     "serverSide": true,
                     "destroy": true,
@@ -847,15 +854,19 @@ export class ManagementUsers {
             //     Datatable.push(ret);
             // });
             // UsersDATATABLE.fnAddData(Datatable);
+
+            return;
         };
 
-        let createTableUsersCustomer = () => {
+        let createTableUsersCustomer = async() => {
             if (UsersDATATABLE != null) {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
                 UsersDATATABLE.page(page).draw('page');
             } else {
-                UsersDATATABLE = $('#example').DataTable({
+                UsersDATATABLE = $('#example').on('xhr.dt', function (e, settings, json, xhr) {
+                    checkAuthRes(xhr);
+                }).DataTable({
                     "processing": true,
                     "serverSide": true,
                     "destroy": true,
@@ -867,6 +878,7 @@ export class ManagementUsers {
                             authorization: 'bearer ' + getCookie('token'),
                         },
                         "dataSrc": function (json) {
+
                             UsersList = json.data;
                             return json.data;
                         }
@@ -935,6 +947,8 @@ export class ManagementUsers {
                     selector: '[data-toggle="tooltip"]'
                 });
             }
+
+            return;
             // let Datatable = [];
             // UsersDATATABLE.fnClearTable();
             // $.each(UsersList, function (index, item) {
@@ -1001,7 +1015,8 @@ export class ManagementUsers {
                     phone: phone_input,
                     sub_type_user: type_user_input,
                 },
-                success: (res) => {
+                success: (res,textStatus,xhr) => {
+                    checkAuthRes(xhr);
                     console.log(res);
                     toastr["success"]("Success");
                     this.showLastestDatatable();
@@ -1037,9 +1052,9 @@ export class ManagementUsers {
 
         let updateDatatableData = async () => {
             if (config.type === "COMPANY") {
-                createTableUsersCompany();
+                await createTableUsersCompany();
             } else if (config.type === "CUSTOMER") {
-                createTableUsersCustomer();
+                await createTableUsersCustomer();
             }
 
             $('#example').on('click', '.btn-detail', function () {
@@ -1122,7 +1137,8 @@ export class ManagementUsers {
                 headers: {
                     authorization: 'bearer ' + getCookie('token'),
                 },
-                success: (res) => {
+                success: (res,textStatus,xhr) => {
+                    checkAuthRes(xhr);
                     input_bind_email = $('#input_bind_email');
                     input_bind_email.empty();
                     if (input_bind_email.data('fastselect')) {
@@ -1150,7 +1166,8 @@ export class ManagementUsers {
                 data: {
                     userList: input_bind_email.val(),
                 },
-                success: (res) => {
+                success: (res,textStatus,xhr) => {
+                    checkAuthRes(xhr);
                     $("#bindUser").modal('hide');
                     getAllEmailCustomer();
                     LOADING.reset($("#btn_save_bind_user"));
@@ -1205,8 +1222,8 @@ export class ManagementUsers {
                 data: {
                     type_user: config.type,
                 },
-                success: function (result) {
-
+                success: function (result, textStatus, xhr) {
+                    checkAuthRes(xhr);
                     let sum = 0;
                     for (let i in result.users) {
                         sum += Number(result.users[i].count);
