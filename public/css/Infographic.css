@@ -10,13 +10,40 @@ page {
 }
 
 page[size="A4"] {  
-  width: 595px;
-  height: 842px; 
+  width: 793.70px;
+  height: 1122.51px; 
 }
 
-page[size="A4_115"] {  
-  width: 517px;
-  height: 732px; 
+page[size="A4DEMO"] {  
+  width: 600px;
+  height: 900px; 
+}
+
+
+.mainSpace{
+  background: white;
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+.front-child-space{
+  position: absolute;
+  background-color: red;
+  display: block;
+  width: 20%;
+  height: 20%;
+  z-index: 5;
+}
+
+.back-child-space{
+  position: absolute;
+  z-index: 1;
+}
+
+.work-space{
+  width:inherit;
+  height: 100vh;
 }
 
 .modal-dialog {
@@ -30,11 +57,36 @@ page[size="A4_115"] {
   overflow-y: scroll;
 }
 
+.multi-border{
+  border-bottom: solid;
+  border-color: linear-gradient(bottom left, red 20px, yellow, green, blue 90%);
+}
+
+.header-line{
+  position:relative;
+  border:2px solid #b0c3c7;
+  margin:5px;
+  margin-top:10px;
+  padding:10px;
+  padding-top: 20px;
+}
+
+.header-title{
+  position:absolute;
+  top:-14px;
+  width:auto;
+  background:#f2f8f9;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 /* Main Menu */
 .vertical-menu {
-  width: 10px;
-  height: 100%;
+  width: max-content;
+  height: max-content;
   text-align: center;
+  box-shadow: 6px 8px  0.5cm rgba(0,0,0,0.5);
 }
 
 .vertical-menu a {
@@ -55,7 +107,7 @@ page[size="A4_115"] {
 
 /* Select Menu 2*/
 .select-menu-2{
-  width: 10px;
+  width: 200px;
   height: 100%;
   background-color: #0486db;
   padding: 0px;
@@ -66,12 +118,13 @@ page[size="A4_115"] {
   display: block;
   text-align: center;
   color: white;
-  padding: 20px;
+  padding: 15px;
   margin: 3px;
 }
 
 .select-menu-2-paper{
-  height: 60vh;
+  height:max-content;
+  max-height: 60vh;
   background-color: #05acd3;
   display: block;
   text-align: center;

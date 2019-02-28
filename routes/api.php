@@ -202,6 +202,9 @@ Route::group([
     Route::delete('delete', 'Api\InfographicController@deleteInfograpic');
     Route::post('createDatasource', 'Api\InfographicController@addDatasourceInfo');
     Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
+
+    Route::get('getApiDaily', 'Api\InfographicController@getApiDaily');
+    Route::get('getApiMonthly', 'Api\InfographicController@getApiMonthly');
 });
 
 Route::group([

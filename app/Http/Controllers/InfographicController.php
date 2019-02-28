@@ -11,10 +11,11 @@ class InfographicController extends Controller
         return view('Infographic.Index')->with('user', Auth::user());
     }
 
-    public function CustomInfographic($id)
+    public function CustomInfographic($id, $keyfilename)
     {
         return view('Infographic.CustomInfographic')
             ->with('id', $id)
+            ->with('keyfilename', $keyfilename)
             ->with('user', Auth::user());
     }
 }
