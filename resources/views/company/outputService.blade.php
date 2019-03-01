@@ -405,5 +405,5 @@
 
     </div>
 </div> -->
-<script type="text/javascript" src="{{url('js/company/services/outputservice.js')}}"></script>
+<script type="text/javascript" src="{{url('js/company/outputservice/outputservice.js')}}"></script>
 @endsection
