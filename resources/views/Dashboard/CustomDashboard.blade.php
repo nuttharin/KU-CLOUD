@@ -50,10 +50,14 @@
 
     .value-datasource:focus {}
 
+    .list-group-item {
+        transition: .2s;
+    }
     .list-group-item:hover {
         color: #fff;
         background-color: #007bff;
         border-color: #007bff;
+        
     }
 
     .remove-value,
@@ -125,6 +129,50 @@
         cursor: pointer;
     }
 
+    icon-container {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 10px);
+}
+.loader {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+  animation: around 5.4s infinite;
+}
+
+@keyframes around {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+.loader::after, .loader::before {
+  content: "";
+  background: white;
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-width: 2px;
+  border-color: #333 #333 transparent transparent;
+  border-style: solid;
+  border-radius: 20px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  animation: around 0.7s ease-in-out infinite;
+}
+
+.loader::after {
+  animation: around 0.7s ease-in-out 0.1s infinite;
+  background: transparent;
+}
+
 </style>
 
 
@@ -155,9 +203,9 @@
 
         <div class="col-6 d-flex align-content-center">
             <h3 class="mr-2">Dashboard</h3>
-            <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add
+            <!-- <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add
                 Datasources
-            </button>
+            </button> -->
         </div>
         <div class="col-6 text-right">
             <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add
@@ -180,7 +228,7 @@
 
 <div class="contrainner">
 
-    <div class="d-flex flex-wrap align-content-center" id="loading" style="height:500px">
+    <div class="d-flex flex-wrap align-content-center" id="loading" style="height: 100vh">
         <div class="lds-ring text-center mx-auto">
             <div></div>
             <div></div>
@@ -192,7 +240,7 @@
             <div></div>
         </div>
     </div>
-    <div class="grid-stack"></div>
+    <div class="grid-stack" ></div>
     <!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
 
     <div class="modal fade" id="addWidget">
@@ -259,7 +307,7 @@
                     </div>
 
                     <div id="MutiLine" class="value-widget mt-2" style="display:none;">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
@@ -273,7 +321,7 @@
                                         value="0" checked>No
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div id="Mutiline_value" class="form-group">
                             <h5>Select Value Of Y</h5>
@@ -300,7 +348,9 @@
                                     </select>
                                 </div>
                                 <div class="col-3">
-                                    <label for="">Value <span class="text-danger">*</span></label>
+                                    <label for="">Value 
+                                        <span class="text-danger">*  <i class="loader" style="display:none"></i></span>                                    
+                                    </label>
                                     <input class="form-control value-datasource">
                                     <ul class="list-group data-list">
                                 </div>
@@ -539,7 +589,7 @@
                     </div>
 
                     <div id="map" class="value-widget mt-2" style="display:none;">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
@@ -553,7 +603,7 @@
                                         value="0" checked>No
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div id="map_value" class="form-group">
                             <h5>Select value of point in map</h5>
 
@@ -652,7 +702,7 @@
 
     <div class="modal fade" id="addDatasource">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content ">
 
                 <div class="modal-header">
                     <h4 class="modal-title">Add Datasource</h4>
@@ -662,19 +712,46 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
+                                <h4>Select Web service</h4>
+                                <div class="" id="list_web_service">
+
+                                </div>
+                                <!-- <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+                                        <label class="custom-control-label" for="customCheck">Custom checkbox</label>
+                                </div> -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Select IoT service</h4>
+                                <div class="" id="list_iot_service">
+
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="row">
+                           <div class="col-6">
                                 <label for="">Name</label>
                                 <input type="text" id="name_datasource" class="form-control">
-                            </div>
+                            </div> 
                             <div class="col-6">
                                 <label for="">Channel</label>
                                 <select name="" id="webservice_id" class="form-control">
                                     <option value="">--Select Channel--</option>
                                 </select>
-                            </div>
+                            </div> 
                         </div>
-                    </div>
-                    <div class="form-group" id="form_add_param">
+                    </div> -->
+                    <!-- <div class="form-group" id="form_add_param">
                         <h5>Parameter</h5>
                         <button class="btn btn-primary btn-sm btn-radius" id="btn_add_param">Add parameter</button>
                         <div class="row">
@@ -687,7 +764,7 @@
                                 <input type="text" id="key_value" name="key_value" class="form-control">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="modal-footer">
@@ -1038,6 +1115,11 @@
 
 <span id="static_id" hidden>{{$id}}</span>
 
+
+<link rel="stylesheet" href="{{asset('js/immybox/immybox.css')}}">
+
+<script src="{{asset('js/immybox/jquery.immybox.js')}}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 
 <script src="{{asset( 'js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}} "></script>
@@ -1057,8 +1139,6 @@
 <script type="text/javascript " src="{{asset( 'js/gridstack/gridstack.jQueryUI.js')}} "></script>
 
 <script type="text/javascript " src="{{asset( 'js/sweetalert/sweetalert.min.js')}} "></script>
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 @endsection

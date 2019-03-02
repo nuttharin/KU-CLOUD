@@ -23,9 +23,10 @@ class DatasourceController extends Controller
 
     public function createDatasource(Request $request)
     {
+
         $attr = [
             'dashboard_id' => $request->get('dashboard_id'),
-            'name' => $request->get('name'),
+            'name' => 'api',
             'webservice_id' => $request->get('webservice_id'),
             'timeInterval' => $request->get('timeInterval'),
         ];
