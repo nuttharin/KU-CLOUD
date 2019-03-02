@@ -403,70 +403,71 @@ class CompanyController extends Controller
     }
 
     // iot service
-    public function getAllIotserviceData(Request $request)
-    {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $companyID = $this->auth->user_company()->first()->company_id;
-        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.API,TB_IOTSERVICE.description,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
-        FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID'");
+    // public function getAllIotserviceData(Request $request)
+    // {
+    //     $token = $request->bearerToken();
+    //     $payload = JWTAuth::setToken($token)->getPayload();
+    //     $companyID =  $this->auth->user_company()->first()->company_id;
+    //     $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.API,TB_IOTSERVICE.description,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
+    //     FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID'");
 
-        if (empty($iotService)) {
-            return response()->json(['message' => 'not have data'], 200);
-        }
+    //     if (empty($iotService)) {
+    //         return response()->json(['message' => 'not have data'], 200);
+    //     }
 
-        return response()->json(compact('iotService'), 200);
+    //     return response()->json(compact('iotService'), 200);
 
-    }
 
-    public function getKeyiot()
-    {
-        $key = 'klflvpekvlvep[clep[lc';
-        return response()->json(compact('key'), 200);
-    }
+    // }
 
-    public function addRegisIotService(Request $request)
-    {
-        $companyID = $this->auth->user_company()->first()->company_id;
-        $nameDW = $request->get('ServiceName') . "." . $companyID;
+    // public function getKeyiot()
+    // {
+    //     $key = 'klflvpekvlvep[clep[lc';
+    //     return response()->json(compact('key'), 200);
+    // }
 
-        $iotService = TB_IOTSERVICE::create([
-            'company_id' => $companyID,
-            'iot_name' => $request->get('ServiceName'),
-            'iot_name_DW' => $nameDW,
-            'type' => $request->get('type'),
-            'alias' => $request->get('alias'),
-            'description' => $request->get('description'),
-            'status' => $request->get('stats'),
-            'url_onoff_input' => $request->get('strUrl'),
-            'dataformat' => $request->get('datajson'),
-            'value_cal' => $request->get('valueCal'),
-            'value_gropby' => $request->get('valueGroupby'),
-            // 'updatetime_input' => $request->get('updatetime_input'),
-        ]);
-        Log::info('Create Web Service - [] SUCCESS');
-        return response()->json(compact('iotService'), 200);
-    }
-    public function addOutputRegisIotService(Request $request)
-    {
-        $companyID = $this->auth->user_company()->first()->company_id;
-        $nameDW = $request->get('ServiceName') . "." . $companyID;
+    // public function addRegisIotService(Request $request)
+    // {
+    //     $companyID = $this->auth->user_company()->first()->company_id;
+    //     $nameDW = $request->get('ServiceName') . "." . $companyID;
 
-        $iotService = TB_IOTSERVICE::create([
-            'company_id' => $companyID,
-            'iot_name' => $request->get('ServiceName'),
-            'iot_name_DW' => $nameDW,
-            'type' => $request->get('type'),
-            'alias' => $request->get('alias'),
-            'description' => $request->get('description'),
-            'status' => $request->get('stats'),
-            'url_onoff_output' => $request->get('strUrl'),
-            'pins_onoff' => $request->get('pinfilds'),
-            'value_cal' => $request->get('valueCal'),
-        ]);
-        Log::info('Create Web Service - [] SUCCESS');
-        return response()->json(compact('iotService'), 200);
-    }
+    //     $iotService = TB_IOTSERVICE::create([
+    //         'company_id' => $companyID,
+    //         'iot_name' => $request->get('ServiceName'),
+    //         'iot_name_DW' => $nameDW,
+    //         'type' => $request->get('type'),
+    //         'alias' => $request->get('alias'),
+    //         'description' => $request->get('description'),
+    //         'status' => $request->get('stats'),
+    //         'url_onoff_input' => $request->get('strUrl'),
+    //         'dataformat' => $request->get('datajson'),
+    //         'value_cal' => $request->get('valueCal'),
+    //         'value_gropby' => $request->get('valueGroupby'),
+    //         // 'updatetime_input' => $request->get('updatetime_input'),
+    //     ]);
+    //     Log::info('Create Web Service - [] SUCCESS');
+    //     return response()->json(compact('iotService'), 200);
+    // }
+    // public function addOutputRegisIotService(Request $request)
+    // {
+    //     $companyID = $this->auth->user_company()->first()->company_id;
+    //     $nameDW = $request->get('ServiceName') . "." . $companyID;
+
+    //     $iotService = TB_IOTSERVICE::create([
+    //         'company_id' => $companyID,
+    //         'iot_name' => $request->get('ServiceName'),
+    //         'iot_name_DW' => $nameDW,
+    //         'type' => $request->get('type'),
+    //         'alias' => $request->get('alias'),
+    //         'description' => $request->get('description'),
+    //         'status' => $request->get('stats'),
+    //         'url_onoff_output' => $request->get('strUrl'),
+    //         'pins_onoff' => $request->get('pinfilds'),
+    //         'value_cal' => $request->get('valueCal'),
+    //     ]);
+    //     Log::info('Create Web Service - [] SUCCESS');
+    //     return response()->json(compact('iotService'), 200);
+    // }
     //Static
     // public function addStatic(Request $request)
     // {
