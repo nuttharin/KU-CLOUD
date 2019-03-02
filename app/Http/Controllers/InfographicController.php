@@ -9,9 +9,10 @@ class InfographicController extends Controller
         return view('Infographic.Index');
     }
 
-    public function CustomInfographic($id)
+    public function CustomInfographic($id, $keyfilename)
     {
         return view('Infographic.CustomInfographic')
-            ->with('id', $id);
+            ->with('id', $id)
+            ->with('keyfilename', $keyfilename);
     }
 }
