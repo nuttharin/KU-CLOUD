@@ -47,6 +47,9 @@ mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/da
     .js('resources/js/admin/dashboards/dashboardDataTable.min.js', 'public/js/admin/dashboards')
     .js('resources/js/company/dashboards/dashboardDataTable.min.js', 'public/js/company/dashboards')
 
+    .js( 'resources/js/company/dashboards/dashboardNew.min.js', 'public/js/company/dashboards')
+    .js('resources/js/dashboards/ManagementDashboard.min.js', 'public/js/dashboards')
+
     .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 
     .js('resources/js/account/account.min.js', 'public/js/company/account')
@@ -77,6 +80,10 @@ mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/da
 
     //Auth
     .js('resources/js/auth/resetPasswordFirst.min.js', 'public/js/auth')
+
+    .js('resources/js/registerWebservice/registerWebservice.min.js', 'public/js/registerWebservice')
+    .js('resources/js/registerIoTService/registerIoTService.min.js', 'public/js/registerIoTService')
+
 
     .sass('resources/sass/main.scss', 'public/css');
 

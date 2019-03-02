@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TBSTATIC extends Migration
+class TbRegisterIoTService extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class TBSTATIC extends Migration
      */
     public function up()
     {
-        Schema::create('TB_STATIC', function (Blueprint $table) {
-            $table->increments('static_id')->unsigned();
+        Schema::create('TB_REGISTER_IOT_SERVICE', function (Blueprint $table) {
+            $table->increments('register_iot_service')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->string('name', 50);
-            $table->longText('dashboard');
+            $table->integer('iotservice_id')->unsigned();
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('user_id')->on('TB_USERS')
+                ->onDelete('cascade');
+            $table->foreign('iotservice_id')
+                ->references('iotservice_id')->on('TB_IOTSERVICE')
                 ->onDelete('cascade');
         });
     }
@@ -32,6 +34,6 @@ class TBSTATIC extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('TB_STATIC');
+        Schema::dropIfExists('TB_REGISTER_IOT_SERVICE');
     }
 }

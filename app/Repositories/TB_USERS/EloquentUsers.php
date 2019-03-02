@@ -513,4 +513,17 @@ class EloquentUsers implements UsersRepository
         }
         DB::commit();
     }
+
+    public function getCustomerByCompany(){
+        $data = TB_USERS::where([
+            [ 'company_id','=', Auth::user()->user_company()->first()->company_id],
+            ['is_approved','=', true ],
+            ['is_primary','=',true],
+            ['is_verify','=',true],
+        ])
+        ->join('TB_EMAIL', 'TB_EMAIL.user_id', '=', 'TB_USERS.user_id')
+        ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_USERS.user_id')->get();
+
+        return response()->json(compact('data'), 200);
+    }
 }

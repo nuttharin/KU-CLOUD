@@ -8,8 +8,7 @@
 
 namespace App\Repositories\TB_WEBSERVICE;
 
-
 interface WebServiceRepository
 {
-    public  function getWebServiceByCompany($company_id);
+    public function getWebServiceByCompany();
 }
