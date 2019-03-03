@@ -256,4 +256,8 @@ class UserController extends Controller
         $users = $this->users->countUserOnline($type_user, $company_id);
         return response()->json(compact('users'), 200);
     }
+
+    public function getCustomerByCompany(Request $request){
+        return  $this->users->getCustomerByCompany();
+    }
 }

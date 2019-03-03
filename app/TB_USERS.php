@@ -63,4 +63,9 @@ class TB_USERS extends Authenticatable implements JWTSubject
     {
         return $this->hasMany("App\TB_DASHBOARDS", "user_id");
     }
+
+    public function webservices()
+    {
+        return $this->hasMany("App\TB_REGISTER_WEBSERVICE", "user_id");
+    }
 }

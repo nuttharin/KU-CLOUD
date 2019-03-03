@@ -9,17 +9,14 @@
 namespace App\Repositories\TB_WEBSERVICE;
 
 use App\TB_WEBSERVICE;
+use Auth;
 
-
-class EloquentWebService implements  WebServiceRepository
+class EloquentWebService implements WebServiceRepository
 {
 
-    /**
-     * @param $company_id
-     */
-    public function getWebServiceByCompany($company_id)
+    public function getWebServiceByCompany()
     {
-        $data = TB_WEBSERVICE::where('company_id',$company_id)->get();
-        return $data;
+        $data = TB_WEBSERVICE::where('company_id', Auth::user()->user_company()->first()->company_id)->get();
+        return \response()->json(compact('data'), 200);
     }
 }

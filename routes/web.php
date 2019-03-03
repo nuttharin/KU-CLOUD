@@ -53,7 +53,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     // Route::get('/Company/IoT', 'CompanyController@iot');
     
     Route::get('/Company/IoT/Add_InputIot', 'CompanyController@Add_InputIot');
-    Route::get('/Company/IoT/Add_OutputIot' , 'CompanyController@Add_OutputIot');
+    Route::get('/Company/IoT/Add_OutputIot', 'CompanyController@Add_OutputIot');
 
     Route::get('/Company/ManageAccounts', 'CompanyController@manageAccounts');
 
@@ -92,7 +92,11 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     //Company
     Route::get('/Admin/Company', 'CompanyController@Index');
 
-    /* Customer */
+    //RegisterWebservice
+    Route::get('/Register/Webservice', 'RegisterWebserviceController@Webservice');
+    Route::get('/Register/IoT', 'RegisterIoTServiceController@IoT');
+
+    //Customer
     Route::get('/Customer/User', 'CustomerController@Index');
     Route::get('/Customer/ManageAccounts', 'CustomerController@ManageAccounts');
     Route::get('/Customer/ManageCompany', 'CustomerController@ManageCompany');

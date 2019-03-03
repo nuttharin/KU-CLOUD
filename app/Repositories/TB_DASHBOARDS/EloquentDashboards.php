@@ -9,6 +9,8 @@
 namespace App\Repositories\TB_DASHBOARDS;
 
 use App\TB_DASHBOARDS;
+use App\TB_IOTSERVICE;
+use App\TB_WEBSERVICE;
 use Auth;
 use DB;
 
@@ -24,7 +26,7 @@ class EloquentDashboards implements DashboardsRepository
             )
                 ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
                 ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname']);
-        } else {
+        } else {        
             $data = DB::table('TB_DASHBOARDS')->where(
                 'TB_USER_COMPANY.company_id', Auth::user()->user_company()->first()->company_id
             )
@@ -114,7 +116,7 @@ class EloquentDashboards implements DashboardsRepository
                     ['dashboard_id', '=', $dashboard_id],
                 ])->update(['name' => $name]);
             } else {
-                return response()->json(["status", "Can not edit this static"], 201);
+                return response()->json(["status", "Can not edit this dashboard"], 201);
             }
         } catch (Exception $e) {
             DB::rollBack();

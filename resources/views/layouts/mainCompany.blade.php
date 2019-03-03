@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
-    
+
     <meta name="ws_url" content="{{ env('WS_URL') }}">
     <meta name="user_id" content="{{ $user->user_id }}">
-  
+
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('bootstrap-4.1.3/css/bootstrap.min.css')}}">
@@ -76,13 +76,13 @@
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 
     <!-- pace -->
-    <script src="{{asset('pace/pace.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('pace/pace.css')}}">
+    <!-- <script src="{{asset('pace/pace.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('pace/pace.css')}}"> -->
 
 </head>
 
 <body>
-    <div class="pace"></div>
+    <!-- <div class="pace"></div> -->
     <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <a class="navbar-brand brand-logo" style="margin-top:10px" href="#">
@@ -178,12 +178,12 @@
                     <ul class="collapse list-unstyled sub" id="UsersSubmenu">
                         <li class="nav-item">
                             <a href="{{action('UserController@UserAdminister')}}">
-                               Users Administer
+                                Users Administer
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{action('UserController@UserCompany')}}">
-                               Users Company
+                                Users Company
                             </a>
                         </li>
                         <li class="nav-item">
@@ -214,6 +214,7 @@
                     </a>
                 </li>
                 @endif
+                @if ($user->type_user != 'CUSTOMER')
                 <li class="nav-item">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>
@@ -224,8 +225,6 @@
                         <li class="nav-item">
                             <a href="{{action('CompanyController@service')}}">Web Service</a>
                         </li>
-
-
                         <li class="nav-item">
                             <a href="{{action('CompanyController@Output_service')}}">Output Service</a>
                         </li>
@@ -234,6 +233,22 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="#RegisterServiceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Register Service</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled sub" id="RegisterServiceSubmenu">
+                        <li class="nav-item">
+                            <a href="{{action('RegisterWebserviceController@Webservice')}}">Web service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{action('RegisterIoTServiceController@IoT')}}">IoT</a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{action('InfographicController@Index')}}">
                         <i class="fas fa-file-image"></i>
@@ -323,11 +338,11 @@
             @yield('content')
         </div>
 
-            <!-- socket -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-    <script src="{{asset('js/socket.js')}}"></script>
+        <!-- socket -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+        <script src="{{asset('js/socket.js')}}"></script>
 
-        <script>
+        <!-- <script>
             paceOptions = {
                 ajax: true,
                 document: true,
@@ -338,7 +353,7 @@
                 $('#preloader').delay(500).fadeOut(800);
             });
 
-        </script>
+        </script> -->
 
 </body>
 

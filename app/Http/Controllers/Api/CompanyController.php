@@ -325,10 +325,7 @@ class CompanyController extends Controller
 
     public function getWebServiceByCompany(Request $request)
     {
-        $companyID = $this->auth->user_company()->first()->company_id;
-
-        $data = $this->webservices->getWebServiceByCompany($companyID);
-        return response()->json(compact('data'), 200);
+        return $this->webservices->getWebServiceByCompany();
     }
 
     public function getAllWebserviceData(Request $request)
