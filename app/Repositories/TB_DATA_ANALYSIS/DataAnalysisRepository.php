@@ -8,6 +8,10 @@ interface DataAnalysisRepository
 
     public function getById($data_id);
 
+    public function getFileToJsonById($data_id);
+
+    public function getFileToCSVById($data_id);
+
     public function create(array $attr);
 
     public function delete($data_id, $user_id);

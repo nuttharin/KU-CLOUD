@@ -186,7 +186,7 @@ Route::group([
     'prefix' => 'analysis',
 ], function ($router) {
     Route::get('/data', 'Api\AnalysisController@getAllDataAnalysis');
-    Route::get('/data/{data_id}', 'Api\AnalysisController@getByIdDataAnalysis');
+    Route::get('/data/{data_id}/{type}', 'Api\AnalysisController@getByIdDataAnalysis');
     Route::post('/data', 'Api\AnalysisController@createDataAnalysis');
     Route::delete('/data', 'Api\AnalysisController@deleteDataAnalysis');
     Route::post('/data/upload', 'Api\AnalysisController@uploadFile');

@@ -19,7 +19,11 @@ class RegisterWebserviceController extends Controller
 
     public function createRegister(Request $request)
     {
-        return $this->register->create($request->get('users'), $request->get('webservice_id'));
+        $attr = [
+            'users' => $request->get('users'),
+            'webservice_id' => $request->get('webservice_id'),
+        ];
+        return $this->register->create($attr);
     }
 
     public function getAllRegisterWebservice()
@@ -29,6 +33,10 @@ class RegisterWebserviceController extends Controller
 
     public function deleteRegister(Request $request)
     {
-        return $this->register->delete($request->get('user_id'), $request->get('register_webservice_id'));
+        $attr = [
+            'user_id' => $request->get('user_id'),
+            'register_webservice_id' => $request->get('register_webservice_id'),
+        ];
+        return $this->register->delete($attr);
     }
 }

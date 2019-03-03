@@ -9,7 +9,7 @@
         .dataTables_wrapper {
             font-size: 12px;
         }
-        td.checkbox {
+        td.checkbox,th.checkbox {
             text-align: center;
             vertical-align: middle;  
         }
@@ -41,7 +41,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <h3><i class="fas fa-sync grow" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Refresh" id="refreshData"></i></h3> 
+                <h3><i class="fas fa-sync grow" style="cursor: pointer;" data-toggle="tooltip" data-placement="top"
+                        title="Refresh" id="refreshData"></i></h3>
                 <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
                     id="example">
                     <thead>
@@ -87,7 +88,18 @@
                         <input type="text" id="data_name" class="form-control">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-2">
+                    <!-- <div class="col-12 form-inline">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="webservice" name="service" value="webservice"
+                                checked>
+                            <label class="custom-control-label  mr-3" for="webservice">Web service</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="iot" name="service" value="iot">
+                            <label class="custom-control-label" for="iot">Iot</label>
+                        </div>
+                    </div> -->
                     <div class="col-12">
                         <label for="datasource">Datasource <span class="text-danger">*</span></label>
                         <select name="datasource" id="datasource" class="form-control"></select>
@@ -104,14 +116,33 @@
                     </div>
                 </div>
                 <div class="row mt-2">
+
                     <div class="col-6">
                         <button class="btn btn-primary btn-sm btn-radius" id="btn_show_values">Show values</button>
+                    </div>
+                    <div class="col-12">
+                        <div class="lds-roller text-center mt-3 ld" style="display:none">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
                     </div>
                     <div class="col-12 mt-2 " id="list_value" style="display: none">
                         <table class="table table-bordered table-striped bg-white">
                             <thead>
                                 <tr>
-                                    <th>Select</th>
+                                    <th class="checkbox">
+                                        <div class="custom-control custom-checkbox mb-3">
+                                            <input type="checkbox" class="custom-control-input" name="checkAll" id="checkAll"
+                                                checked>
+                                            <label class="custom-control-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
                                     <th>Column</th>
                                     <th>Example value</th>
                                 </tr>
@@ -149,14 +180,14 @@
                     <div class="col-md-12">
                         <form method="POST" id="form_upload" enctype="multipart/form-data">
                             <div class="form-group files">
-                              
-                              <input type="file" id="file_upload" name="file_upload" class="form-control" multiple>
+
+                                <input type="file" id="file_upload" name="file_upload" class="form-control" multiple>
                             </div>
                         </form>
-                        
-                        
+
+
                     </div>
-                  </div>
+                </div>
             </div>
 
             <div class="modal-footer">

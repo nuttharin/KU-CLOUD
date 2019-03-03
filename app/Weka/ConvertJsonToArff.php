@@ -88,7 +88,7 @@ class ConvertJsonToArff
         }
         $nameCsv = time() . $name . ".csv";
         $nameArff = time() . $name . ".arff";
-        Storage::put("/weka/input/" . $nameCsv,$csv);
+        Storage::put("/weka/input/" . $nameCsv, $csv);
         $this->cmd .= "$this->pathWekaLib weka.core.converters.CSVLoader $this->pathWekaInput" . "$nameCsv > " . "$this->pathWekaInput" . $nameArff;
         exec($this->cmd, $output);
         Storage::delete('/weka/input/' . $nameCsv);

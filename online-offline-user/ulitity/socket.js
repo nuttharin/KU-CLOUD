@@ -152,13 +152,9 @@ class Socket {
                         user_id :payload.user_id,
                         socket_id : socket.id,
                     });
-
-                    const response = await helper.addUserOnline(payload.user_id, userSocketId);
-                    if (response && response !== null) {
-                        next();
-                    } else {
-                        console.error(`Socket connection failed, for  user Id ${userId}.`);
-                    }
+                    
+                    next();
+                    
                 }
                 else{
                     console.log(false);

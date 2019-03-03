@@ -6,6 +6,7 @@ use App\Repositories\Accounts\AccountsRepository;
 use App\Repositories\Accounts\EloquentAccounts;
 use App\Repositories\Address\AddressRepository;
 use App\Repositories\Address\EloquentAddress;
+use App\Repositories\EloquentBase;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_COMPANY\EloquentCompany;
 use App\Repositories\TB_DASHBOARDS\DashboardsRepository;
@@ -50,6 +51,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FakerGenerator::class, function () {
             return FakerFactory::create('th_TH');
         });
+
+        $this->app->singleton(EloquentBase::class, function () {
+            return new EloquentBase;
+        });
+        $this->app->alias(EloquentBase::class, 'eloquentbase');
 
         $this->app->singleton(AddressRepository::class, EloquentAddress::class);
         $this->app->singleton(AccountsRepository::class, EloquentAccounts::class);
