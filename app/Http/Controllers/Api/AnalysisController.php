@@ -71,10 +71,18 @@ class AnalysisController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getByIdDataAnalysis($data_id)
+    public function getByIdDataAnalysis($data_id,$type = 'json')
     {
-        $data = $this->dataAnalysis->getById($data_id);
-        return response()->json(compact('data'), 200);
+        if ($type == "json") {
+            return $this->dataAnalysis->getFileToJsonById($data_id);
+        } else if ($type == "csv") {
+
+        }
+    }
+
+    public function getFileToJsonById($data_id, $type)
+    {
+       
     }
 
     public function analysisProcess(Request $request)

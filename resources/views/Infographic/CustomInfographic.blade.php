@@ -32,13 +32,28 @@
     <div class="col-3">
         <div class="row">
             <div class="col-4" style="max-height:max-content;">
-                <div class=" vertical-menu">
+                <div class="row  justify-content-center">
+                    <div class="d-menu">
+                        <div class="row main-menu">
+                            <i class="fas fa-paint-brush fa-2x"></i>
+                        </div>
+                        <div class="row child-menu">
+                            <i class="fas fa-paint-brush fa-2x"></i>
+                        </div>
+                    </div>
+
+                    <div class="d-line">
+                        <div class="line-menu"></div>
+                    </div>
+
+                </div>
+                <!-- <div class=" vertical-menu">
                     <a href="#" id="btnGraph"><i class="fas fa-chart-line fa-2x"></i></a>
                     <a href="#" id="btnMap"><i class="fas fa-map-marker-alt fa-2x"></i></a>
                     <a href="#" id="btnFont"><i class="fas fa-font fa-2x"></i></a>
                     <a href="#" id="btnImage"><i class="far fa-image fa-2x"></i></a>
                     <a href="#" id="btnShapes"><i class="fab fa-microsoft fa-2x"></i></a>
-                </div>
+                </div> -->
             </div>
             <div class="col-8 select-menu-2" id="selectMenu" style="display:none">
             </div>

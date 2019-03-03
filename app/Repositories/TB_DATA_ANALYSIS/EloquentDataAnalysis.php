@@ -58,6 +58,24 @@ class EloquentDataAnalysis implements DataAnalysisRepository
         return $data;
     }
 
+    public function getFileToJsonById($data_id)
+    {
+        $data = TB_DATA_ANALYSIS::where([
+            ['data_id', '=', $data_id],
+            ['user_id', '=', Auth::user()->user_id],
+        ])->first();
+        $this->cmd = 'java "-Dfile.encoding=utf-8" -cp ' . "$this->pathWekaLib weka.core.converters.JSONSaver -i $this->pathWekaInput" . $data->path_file;
+        exec($this->cmd, $json);
+        $json = implode("", $json);
+        $data['data'] = json_decode($json, true);
+        return  response()->json(compact('data'), 200);
+    }
+
+    public function getFileToCSVById($data_id)
+    {
+
+    }
+
     public function create(array $attr)
     {
         DB::beginTransaction();

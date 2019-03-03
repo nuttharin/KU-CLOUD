@@ -13,6 +13,7 @@
             text-align: center;
             vertical-align: middle;  
         }
+
         #list_value {  
             height: 300px !important;
             overflow-y: scroll;
@@ -75,11 +76,29 @@
                     </li>
                 </ul>
                 <div class="form-row">
+                        <!-- <span><i class="fas fa-times cancel-getFile grow" style="cursor: pointer;display: none"></i></span> -->
                     <div class="col-12">
-                        <h4>Training file <span class="text-danger">*</span></h4>
+                        <h4>Training file <span class="text-danger">*</span> </h4>
                         <select name="training_file" id="training_file" class="form-control">
                             <option value="">--Select training file--</option>
                         </select>
+                        <div class="lds-roller text-center mt-3" style="display:none">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <!-- height:300px;overflow-y: scroll; -->
+                        <div class="table-responsive bg-white mt-3" style="display: none">
+                            <table id="dataTable" class="table table-bordered table-striped display nowrap">
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -146,7 +165,12 @@
                         <div style="width:100%;height: auto;">
                             <canvas id="scatter_chart"></canvas>
                         </div>
+                    </div>
+                </div>
 
+                <div class="mt-3" id="chart_regression" style="display: none;">
+                    <div style="width:100%;height: auto;">
+                        <canvas id="chart_linear"></canvas>
                     </div>
                 </div>
 
