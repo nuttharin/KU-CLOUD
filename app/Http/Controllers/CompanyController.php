@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\LogViewer\LogViewer;
 use App\Weka\Classify\J48;
+use App\Weka\Classify\SimpleLinearRegression;
 use App\Weka\Clusterers\Association;
 use App\Weka\Clusterers\SimpleKMeans;
 use DB;
@@ -175,13 +176,13 @@ class CompanyController extends Controller
         $pathWekaInput = config('app.weka_input');
 
         //'-classifications "weka.classifiers.evaluation.output.prediction.CSV "'
-        //$cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.LinearRegression -v -t " . $pathWekaInput . "cpu.arff";
-        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.LinearRegression" . ' -classifications "weka.classifiers.evaluation.output.prediction.CSV"' . " -t " . $pathWekaInput . "cpu.arff";
+        $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.SimpleLinearRegression -v -t " . $pathWekaInput . "cpu.arff";
+        //$cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.LinearRegression" . ' -classifications "weka.classifiers.evaluation.output.prediction.CSV"' . " -t " . $pathWekaInput . "cpu.arff";
+   
         exec($cmd, $output);
-        dd($cmd);
-        // $simpleLinearRegression = new SimpleLinearRegression();
-        // $data = $simpleLinearRegression->getToJson($output);
-
+        $simpleLinearRegression = new SimpleLinearRegression();
+        $data = $simpleLinearRegression->getToJson($output);
+        dd($data);
         // echo $data;
         // return view('company.test')
         //     ->with('user', Auth::user())

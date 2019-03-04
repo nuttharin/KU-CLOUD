@@ -50,10 +50,14 @@
 
     .value-datasource:focus {}
 
+    .list-group-item {
+        transition: .2s;
+    }
     .list-group-item:hover {
         color: #fff;
         background-color: #007bff;
         border-color: #007bff;
+        
     }
 
     .remove-value,
@@ -125,6 +129,50 @@
         cursor: pointer;
     }
 
+    icon-container {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 10px);
+}
+.loader {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+  animation: around 5.4s infinite;
+}
+
+@keyframes around {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+.loader::after, .loader::before {
+  content: "";
+  background: white;
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-width: 2px;
+  border-color: #333 #333 transparent transparent;
+  border-style: solid;
+  border-radius: 20px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  animation: around 0.7s ease-in-out infinite;
+}
+
+.loader::after {
+  animation: around 0.7s ease-in-out 0.1s infinite;
+  background: transparent;
+}
+
 </style>
 
 
@@ -155,9 +203,9 @@
 
         <div class="col-6 d-flex align-content-center">
             <h3 class="mr-2">Dashboard</h3>
-            <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add
+            <!-- <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add
                 Datasources
-            </button>
+            </button> -->
         </div>
         <div class="col-6 text-right">
             <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add
@@ -180,7 +228,7 @@
 
 <div class="contrainner">
 
-    <div class="d-flex flex-wrap align-content-center" id="loading" style="height:500px">
+    <div class="d-flex flex-wrap align-content-center" id="loading" style="height: 100vh">
         <div class="lds-ring text-center mx-auto">
             <div></div>
             <div></div>
@@ -192,7 +240,7 @@
             <div></div>
         </div>
     </div>
-    <div class="grid-stack"></div>
+    <div class="grid-stack" ></div>
     <!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
 
     <div class="modal fade" id="addWidget">
@@ -222,8 +270,8 @@
                                 </optgroup>
                                 <optgroup label="Static">
                                     <option value="MutiLine_static">MutiLine</option>
-                                    <option value="Radar_static">Radar</option>
-                                    <option value="Map_static">Map</option>
+                                    <!-- <option value="Radar_static">Radar</option>
+                                    <option value="Map_static">Map</option> -->
                                     <option value="Table_static">Table</option>
                                 </optgroup>
                             </select>
@@ -259,7 +307,7 @@
                     </div>
 
                     <div id="MutiLine" class="value-widget mt-2" style="display:none;">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
@@ -273,7 +321,7 @@
                                         value="0" checked>No
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div id="Mutiline_value" class="form-group">
                             <h5>Select Value Of Y</h5>
@@ -300,7 +348,9 @@
                                     </select>
                                 </div>
                                 <div class="col-3">
-                                    <label for="">Value <span class="text-danger">*</span></label>
+                                    <label for="">Value 
+                                        <span class="text-danger">*  <i class="loader" style="display:none"></i></span>                                    
+                                    </label>
                                     <input class="form-control value-datasource">
                                     <ul class="list-group data-list">
                                 </div>
@@ -539,7 +589,7 @@
                     </div>
 
                     <div id="map" class="value-widget mt-2" style="display:none;">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Do you want to group data ?</label>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
@@ -553,7 +603,7 @@
                                         value="0" checked>No
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div id="map_value" class="form-group">
                             <h5>Select value of point in map</h5>
 
@@ -652,7 +702,7 @@
 
     <div class="modal fade" id="addDatasource">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content ">
 
                 <div class="modal-header">
                     <h4 class="modal-title">Add Datasource</h4>
@@ -662,19 +712,46 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
+                                <h4>Select Web service</h4>
+                                <div class="" id="list_web_service">
+
+                                </div>
+                                <!-- <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+                                        <label class="custom-control-label" for="customCheck">Custom checkbox</label>
+                                </div> -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Select IoT service</h4>
+                                <div class="" id="list_iot_service">
+
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="row">
+                           <div class="col-6">
                                 <label for="">Name</label>
                                 <input type="text" id="name_datasource" class="form-control">
-                            </div>
+                            </div> 
                             <div class="col-6">
                                 <label for="">Channel</label>
                                 <select name="" id="webservice_id" class="form-control">
                                     <option value="">--Select Channel--</option>
                                 </select>
-                            </div>
+                            </div> 
                         </div>
-                    </div>
-                    <div class="form-group" id="form_add_param">
+                    </div> -->
+                    <!-- <div class="form-group" id="form_add_param">
                         <h5>Parameter</h5>
                         <button class="btn btn-primary btn-sm btn-radius" id="btn_add_param">Add parameter</button>
                         <div class="row">
@@ -687,7 +764,7 @@
                                 <input type="text" id="key_value" name="key_value" class="form-control">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="modal-footer">
@@ -963,14 +1040,12 @@
                     <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-primary">Static</span></h5>
                 </div>
                 <div class="edit-widget" style="display:none">
+                    <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
                     <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                 </div>
 
-                <div class="full-screen">
-                    <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
-                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
-                </div>
             </div>
 
             <div class="card-body" style="overflow:hidden">
@@ -978,7 +1053,7 @@
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
                 <div class="form-group">
-                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%">
+                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%" item="div_id">
                         <option value="daily">Daily</option>
                         <option value="monthly">Monthly</option>
                         <option value="yearly">Yearly</option>
@@ -986,13 +1061,13 @@
                 </div>
                 <div class="form-inline daily">
                     <label for="start_day" class="mr-sm-2 ">Start day</label>
-                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="start_day">
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="start_day" item="div_id">
                     <label for="end_day " class="mr-sm-2 ">End day</label>
-                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="end_day">
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="end_day" item="div_id">
                 </div>
                 <div class="form-inline monthly " style="display: none">
                     <label for="start_month " class="mr-sm-2 ">Start month</label>
-                    <select name="start_month" id="start_month" class="form-control form-control-sm mb-2 mr-sm-2">
+                    <select name="start_month" id="start_month" class="form-control form-control-sm mb-2 mr-sm-2" item="div_id">
                         <option value="0">-- Select month --</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -1008,7 +1083,7 @@
                         <option value="12">December</option>
                     </select>
                     <label for="end_month" class="mr-sm-2 ">End month</label>
-                    <select name="end_month" id="end_month" class="form-control form-control-sm mb-2 mr-sm-2">
+                    <select name="end_month" id="end_month" class="form-control form-control-sm mb-2 mr-sm-2" item="div_id">
                         <option value="0">-- Select month --</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -1026,9 +1101,9 @@
                 </div>
                 <div class="form-inline yearly" style="display: none">
                     <label for="start_year" class="mr-sm-2 ">Start year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="start_year">
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="start_year" item="div_id"> 
                     <label for="end_year" class="mr-sm-2 ">End year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="end_year">
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="end_year" item="div_id">
                 </div>
             </div>
 
@@ -1037,6 +1112,11 @@
 </div>
 
 <span id="static_id" hidden>{{$id}}</span>
+
+
+<link rel="stylesheet" href="{{asset('js/immybox/immybox.css')}}">
+
+<script src="{{asset('js/immybox/jquery.immybox.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 
@@ -1057,8 +1137,6 @@
 <script type="text/javascript " src="{{asset( 'js/gridstack/gridstack.jQueryUI.js')}} "></script>
 
 <script type="text/javascript " src="{{asset( 'js/sweetalert/sweetalert.min.js')}} "></script>
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 @endsection

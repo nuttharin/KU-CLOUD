@@ -13,6 +13,7 @@ class Socket {
 
     constructor(socket) {
         this.io = socket;
+        this.userInDashborad = [];
     }
 
     socketEvents() {
@@ -49,6 +50,28 @@ class Socket {
                 });
             });
         });
+
+        this.io
+        .of('dashboards')
+        .on('connection', (socket) => {
+
+            socket.on('update-datasources', async (datasources) => {
+                let index = this.userInDashborad.findIndex(_user => {
+                    return _user.socket_id == socket.id;
+                })
+
+                this.userInDashborad[index].datasources = datasources;
+                console.log(this.userInDashborad[index]);
+            });
+           
+           
+           socket.on('disconnect', () => {
+                let index = this.userInDashborad.findIndex(_user => {
+                    return _user.socket_id == socket.id;
+                })
+                this.userInDashborad.splice(index, 1);
+            });
+        });
     }
 
     socketConfig() {
@@ -63,9 +86,6 @@ class Socket {
                 let payload = JSON.parse(token_decode.split('.')[1]);
                 let signature =  token_decode.split('.')[2];
 
-                console.log(token_id,payload,signature)
-
-            
                 let userRef = await helper.selectUserId(payload.user_id);
               
                 let signatureVerify = token_id+"."+token_decode.split('.')[1]+"."+userRef[0].password;
@@ -75,7 +95,7 @@ class Socket {
 
                
                 if(hash.digest('hex') === signature){
-                    console.log(true);
+                    socket.user_id = payload.user_id;
                     let userSocketId = socket.id;
                     const response = await helper.addUserOnline(payload.user_id, userSocketId);
                     if (response && response !== null) {
@@ -103,8 +123,60 @@ class Socket {
                 console.log(e);
                 next();
             }
-
         });
+
+        this.io.of('dashboards').use(async (socket, next) => {
+            try {
+                let token = socket.request._query['id'];
+                let buf = Buffer.from(token, 'base64');
+                let token_decode = buf.toString('ascii');
+
+          
+                let token_id = token_decode.split('.')[0];
+                let payload = JSON.parse(token_decode.split('.')[1]);
+                let signature =  token_decode.split('.')[2];
+
+                let userRef = await helper.selectUserId(payload.user_id);
+              
+                let signatureVerify = token_id+"."+token_decode.split('.')[1]+"."+userRef[0].password;
+
+                let hash = crypto.createHmac('sha256', process.env.SOCKET_KEY);
+                hash.update(signatureVerify);
+
+               
+                if(hash.digest('hex') === signature){
+                    socket.user_id = payload.user_id;
+                    let userSocketId = socket.id;
+
+                    this.userInDashborad.push({
+                        user_id :payload.user_id,
+                        socket_id : socket.id,
+                    });
+                    
+                    next();
+                    
+                }
+                else{
+                    console.log(false);
+                }
+
+
+                // const decoded = jwt.verify(token.replace(' ', ''), process.env.JWT_KEY);
+                // let userId = decoded.sub;
+                // let userSocketId = socket.id;
+                // const response = await helper.addUserOnline(userId, userSocketId);
+                // if (response && response !== null) {
+                //     next();
+                // } else {
+                //     console.error(`Socket connection failed, for  user Id ${userId}.`);
+                // }
+            }
+            catch(e){
+                console.log(e);
+                next();
+            }
+        });
+
         this.socketEvents();
     }
 }

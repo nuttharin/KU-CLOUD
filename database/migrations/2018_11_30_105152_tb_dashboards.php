@@ -16,6 +16,7 @@ class TbDashboards extends Migration
          Schema::create('TB_DASHBOARDS', function (Blueprint $table) {
             $table->increments('dashboard_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_public')->default(false);
             $table->string('name', 50);
             $table->longText('dashboard');
             $table->timestamps();

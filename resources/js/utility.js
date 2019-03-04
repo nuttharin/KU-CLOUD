@@ -237,6 +237,29 @@ export function getFlatObject(object) {
 }
 
 
+export async function getFlatObjectV2(object) {
+    function iter(o, p) {
+        if (Array.isArray(o) ){
+            o.forEach(function (a, i) {
+                iter(a, p.concat(i));
+            });
+            return;
+        }
+        if (o !== null && typeof o === 'object') {
+            Object.keys(o).forEach(function (k) {
+                iter(o[k], p.concat(k));
+            });
+            return;
+        }
+        path[p.join('.')] = o;
+    }
+
+    var path = {};
+    iter(object, []);
+    return path;
+}
+
+
 export function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }

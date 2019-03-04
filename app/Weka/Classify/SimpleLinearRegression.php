@@ -3,6 +3,7 @@
 namespace App\Weka\Classify;
 
 use App\TB_DATA_ANALYSIS;
+use ChrisKonnertz\StringCalc\StringCalc;
 
 class SimpleLinearRegression
 {
@@ -20,6 +21,7 @@ class SimpleLinearRegression
         $this->param = "";
         $this->pathWekaLib = config('app.weka_lib');
         $this->pathWekaInput = config('app.weka_input');
+        $this->value = "";
     }
 
     public function exec($traningFile, $param)
@@ -29,6 +31,7 @@ class SimpleLinearRegression
         $this->cmd .= "$this->pathWekaLib weka.classifiers.functions.SimpleLinearRegression  -v $this->param -t $this->pathWekaInput" . $file;
         //dd($this->cmd);
         exec($this->cmd, $output);
+
         return self::getToJson($output);
     }
 
@@ -77,6 +80,31 @@ class SimpleLinearRegression
         return $table;
     }
 
+    public function cal($str)
+    {
+        if (preg_match('/(\d+)(?:\s*)([\+\-\*\/])(?:\s*)(\d+)/', $str, $matches) !== false) {
+            $operator = $matches[2];
+
+            switch ($operator) {
+                case '+':
+                    $p = $matches[1] + $matches[3];
+                    break;
+                case '-':
+                    $p = $matches[1] - $matches[3];
+                    break;
+                case '*':
+                    $p = $matches[1] * $matches[3];
+                    break;
+                case '/':
+                    $p = $matches[1] / $matches[3];
+                    break;
+            }
+
+            echo $p;
+        }
+
+    }
+
     public function getToJson($output)
     {
         $data = [
@@ -111,11 +139,64 @@ class SimpleLinearRegression
                 if ($i == 3) {
                     $data['linear_regression']['header'] = $output[3];
                     $data['linear_regression']['value'] = $output[5];
+                    $split = preg_split('/\s{1}/', $output[3]);
+                    $this->value = $split[sizeof($split) - 1];
                 } else if ($key == "=== Cross-validation ===") {
                     $data['cross_validation']['value'] = self::getTableCrossValidation($output, $i);
                 }
             }
         }
+
+        //plot กราฟ
+        $this->cmd = 'java "-Dfile.encoding=utf-8" -cp ' . "$this->pathWekaLib weka.core.converters.JSONSaver -i $this->pathWekaInput" . "cpu.arff";
+        exec($this->cmd, $json);
+        $json = implode("", $json);
+        $json = json_decode($json, true);
+
+        $index = 0;
+
+        for ($i = 0; $i < sizeof($json['header']['attributes']); $i++) {
+            if ($json['header']['attributes'][$i]['name'] === $this->value) {
+                $index = $i;
+                break;
+            }
+        }
+
+        $max = 0;
+        $min = 0;
+
+        for ($i = 0; $i < sizeof($json['data']); $i++) {
+            if ($i == 0) {
+                $min = (float) $json['data'][$i]['values'][$index];
+            }
+
+            if ((float) $json['data'][$i]['values'][$index] >= $max) {
+                $max = (float) $json['data'][$i]['values'][$index];
+            }
+
+            if ((float) $json['data'][$i]['values'][$index] <= $min) {
+                $min = (float) $json['data'][$i]['values'][$index];
+            }
+        }
+
+        $cal = new StringCalc();
+
+        $input = str_replace($this->value, $max, $data['linear_regression']['value']);
+        $val_max = $cal->calculate($input);
+        $input = str_replace($this->value, $min, $data['linear_regression']['value']);
+        $val_min = $cal->calculate($input);
+
+        $data['plot'] = [
+            "max" => [
+                "x" => $max,
+                "y" => $val_max,
+            ],
+            "min" => [
+                "x" => $min,
+                "y" => $val_min,
+            ],
+        ];
+
         return $data;
     }
 

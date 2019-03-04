@@ -1,0 +1,87 @@
+[{
+        "date": "2012",
+        "data": [{
+                "_id": "PATTANI AIRPORT",
+                "Stations-Observe-Temperature-Value-$max": 32.3,
+                "Stations-Observe-StationPressure-Value-$max": 1008.1,
+                "Stations-Observe-Temperature-Value-$min": 10.3,
+                "Stations-Observe-StationPressure-Value-$min": 1008.1,
+                "Stations-Observe-Temperature-Value-$sum": 410016.2,
+                "Stations-Observe-StationPressure-Value-$sum": 12796821.4,
+                "Stations-Observe-Temperature-Value-$avg": 32.3,
+                "Stations-Observe-StationPressure-Value-$avg": 1008.1,
+                "Stations-Observe-Temperature-Value-$stdDevSamp": 0.0,
+                "Stations-Observe-StationPressure-Value-$stdDevSamp": 0.0
+            },
+            {
+                "_id": "SONGKHLA",
+                "Stations-Observe-Temperature-Value-$max": 29.2,
+                "Stations-Observe-StationPressure-Value-$max": 1008.8,
+                "Stations-Observe-Temperature-Value-$min": 29.2,
+                "Stations-Observe-StationPressure-Value-$min": 1008.8,
+                "Stations-Observe-Temperature-Value-$sum": 370664.8,
+                "Stations-Observe-StationPressure-Value-$sum": 12805707.2,
+                "Stations-Observe-Temperature-Value-$avg": 29.2,
+                "Stations-Observe-StationPressure-Value-$avg": 1008.8,
+                "Stations-Observe-Temperature-Value-$stdDevSamp": 0.0,
+                "Stations-Observe-StationPressure-Value-$stdDevSamp": 0.0
+            },
+            {
+                "_id": "SA DAO",
+                "Stations-Observe-Temperature-Value-$max": 32,
+                "Stations-Observe-StationPressure-Value-$max": 1005.9,
+                "Stations-Observe-Temperature-Value-$min": 32,
+                "Stations-Observe-StationPressure-Value-$min": 1005.9,
+                "Stations-Observe-Temperature-Value-$sum": 406208,
+                "Stations-Observe-StationPressure-Value-$sum": 12768894.6,
+                "Stations-Observe-Temperature-Value-$avg": 32.0,
+                "Stations-Observe-StationPressure-Value-$avg": 1005.9,
+                "Stations-Observe-Temperature-Value-$stdDevSamp": 0.0,
+                "Stations-Observe-StationPressure-Value-$stdDevSamp": 0.0
+            }
+        ]
+    },
+    {
+        "date": "2013",
+        "data": [{
+                "_id": "PATTANI AIRPORT",
+                "Stations-Observe-Temperature-Value-$max":20.1,
+                "Stations-Observe-StationPressure-Value-$max": 1008.1,
+                "Stations-Observe-Temperature-Value-$min": 8.3,
+                "Stations-Observe-StationPressure-Value-$min": 1008.1,
+                "Stations-Observe-Temperature-Value-$sum": 410016.2,
+                "Stations-Observe-StationPressure-Value-$sum": 12796821.4,
+                "Stations-Observe-Temperature-Value-$avg": 32.3,
+                "Stations-Observe-StationPressure-Value-$avg": 1008.1,
+                "Stations-Observe-Temperature-Value-$stdDevSamp": 0.0,
+                "Stations-Observe-StationPressure-Value-$stdDevSamp": 0.0
+            },
+            {
+                "_id": "SONGKHLA",
+                "Stations-Observe-Temperature-Value-$max": 29.2,
+                "Stations-Observe-StationPressure-Value-$max": 1008.8,
+                "Stations-Observe-Temperature-Value-$min": 29.2,
+                "Stations-Observe-StationPressure-Value-$min": 1008.8,
+                "Stations-Observe-Temperature-Value-$sum": 370664.8,
+                "Stations-Observe-StationPressure-Value-$sum": 12805707.2,
+                "Stations-Observe-Temperature-Value-$avg": 29.2,
+                "Stations-Observe-StationPressure-Value-$avg": 1008.8,
+                "Stations-Observe-Temperature-Value-$stdDevSamp": 0.0,
+                "Stations-Observe-StationPressure-Value-$stdDevSamp": 0.0
+            },
+            {
+                "_id": "SA DAO",
+                "Stations-Observe-Temperature-Value-$max": 32,
+                "Stations-Observe-StationPressure-Value-$max": 1005.9,
+                "Stations-Observe-Temperature-Value-$min": 32,
+                "Stations-Observe-StationPressure-Value-$min": 1005.9,
+                "Stations-Observe-Temperature-Value-$sum": 406208,
+                "Stations-Observe-StationPressure-Value-$sum": 12768894.6,
+                "Stations-Observe-Temperature-Value-$avg": 32.0,
+                "Stations-Observe-StationPressure-Value-$avg": 1005.9,
+                "Stations-Observe-Temperature-Value-$stdDevSamp": 0.0,
+                "Stations-Observe-StationPressure-Value-$stdDevSamp": 0.0
+            }
+        ]
+    }
+]
