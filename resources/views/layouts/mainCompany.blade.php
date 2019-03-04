@@ -214,11 +214,11 @@
                     </a>
                 </li>
                 @endif
-                @if ($user->type_user != 'CUSTOMER')
+                @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>
-                        <span>Input Service</span>
+                        <span> Service</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
                     <ul class="collapse list-unstyled sub" id="homeSubmenu">
@@ -233,6 +233,17 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+                @if ($user->type_user == 'CUSTOMER' || $user->type_user == 'ADMIN')
+                <li class="nav-item">
+                    <a href="{{action('InfographicController@Index')}}">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        <span class="link_hide">Output Service</span>
+                    </a>
+                </li> 
+                @endif
+
+                @if ($user->type_user != 'CUSTOMER')
                 <li class="nav-item">
                     <a href="#RegisterServiceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-clipboard-list"></i>

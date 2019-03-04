@@ -280,10 +280,10 @@
 <link href="{{url('css/togglebutton.css')}}" rel="stylesheet" />
 <br>
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-6">
         <h4>Create a new IoT</h4>
     </div>
-    <div class="col-sm-5">
+    <!-- <div class="col-sm-5">
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
@@ -292,6 +292,15 @@
         </label>
         </div>
         
+    </div> -->
+    <div class="col-sm-2">
+        <div class="form-group">           
+            <select class="form-control" id="status">
+                <option>Public</option>
+                <option>Private Company</option>
+                <option>Private Owner</option>                
+            </select>
+        </div>
     </div>
 </div>
 <hr>

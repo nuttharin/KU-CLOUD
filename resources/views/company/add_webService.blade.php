@@ -350,7 +350,7 @@
     </div>
     <div class="col-sm-2">
         <div class="form-group">           
-            <select class="form-control" id="sel1">
+            <select class="form-control" id="status">
                 <option>Public</option>
                 <option>Private Company</option>
                 <option>Private Owner</option>                
