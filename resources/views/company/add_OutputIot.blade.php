@@ -287,7 +287,7 @@
     <div class="col-sm-6">
         <h4>Create a new Output IoT</h4>
     </div>
-    <div class="col-sm-6">
+    <!-- <div class="col-sm-6">
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
@@ -296,6 +296,15 @@
         </label>
         </div>
         
+    </div> -->
+    <div class="col-sm-2">
+        <div class="form-group">           
+            <select class="form-control" id="status">
+                <option>Public</option>
+                <option>Private Company</option>
+                <option>Private Owner</option>                
+            </select>
+        </div>
     </div>
 </div>
 <hr>
