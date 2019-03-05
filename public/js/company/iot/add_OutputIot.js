@@ -97,10 +97,10 @@ class iotService {
         }
 
         this.showDetail = () => {
-            $('#Nameiot').val('xxxx');
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData');
+            $('#Nameiot').val(nameiot);
+            $('#URLiot').val('http://localhost:8081/iotService/GetOutput?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot);
             // $('#Keyiot').val(keyiot);
-            $('#data_output').val('{}');
+            $('#Dataformat').val(pinfilds);
         }  
     }       
 }
@@ -258,7 +258,7 @@ $(document).ready(function () {
             }
         }
         
-        let jsonencode = JSON.stringify(otheroutput);
+        let jsonencode = JSON.stringify(otheroutput, undefined, 2);
         console.log(jsonencode);
 
         if(status == true)
