@@ -376,7 +376,7 @@
             </div>
 
             <h6>URL <span style="color:red">*</span></h6>
-            <input type="text" class="mb-2" id="url-webservice" name="firstname" placeholder="Url of WebService">
+            <input type="text" class="mb-2" id="url-webservice" name="firstname" placeholder="Url of WebService" require>
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="Webservice description" ></textarea>
             <div class="row">
