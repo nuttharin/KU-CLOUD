@@ -34,7 +34,7 @@ class IoTController extends Controller
     public function addRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
-        $nameDW = $request->get('ServiceName') . "." . $companyID;
+        $nameDW = "IoT.Input".$request->get('ServiceName') . "." . $companyID;
 
         $iotService = TB_IOTSERVICE::create([
             'company_id' => $companyID,
@@ -55,7 +55,7 @@ class IoTController extends Controller
     public function addOutputRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
-        $nameDW = $request->get('ServiceName') . "." . $companyID;
+        $nameDW = "IoT.Output".$request->get('ServiceName') . "." . $companyID;
 
         $iotService = TB_IOTSERVICE::create([
             'company_id' => $companyID,

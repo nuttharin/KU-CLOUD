@@ -166,9 +166,6 @@ Route::group([
     Route::delete('/phone', 'Api\UserController@deletePhoneUser');
     Route::delete('/email', 'Api\UserController@deleteEmailUser');
     Route::get('/online', 'Api\UserController@countUserOnline');
-
-    Route::get('/customers', 'Api\UserController@getCustomerByCompany');
-
 });
 
 Route::group([
@@ -186,7 +183,7 @@ Route::group([
     'prefix' => 'analysis',
 ], function ($router) {
     Route::get('/data', 'Api\AnalysisController@getAllDataAnalysis');
-    Route::get('/data/{data_id}/{type}', 'Api\AnalysisController@getByIdDataAnalysis');
+    Route::get('/data/{data_id}', 'Api\AnalysisController@getByIdDataAnalysis');
     Route::post('/data', 'Api\AnalysisController@createDataAnalysis');
     Route::delete('/data', 'Api\AnalysisController@deleteDataAnalysis');
     Route::post('/data/upload', 'Api\AnalysisController@uploadFile');
@@ -205,9 +202,6 @@ Route::group([
     Route::delete('delete', 'Api\InfographicController@deleteInfograpic');
     Route::post('createDatasource', 'Api\InfographicController@addDatasourceInfo');
     Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
-
-    Route::get('getApiDaily', 'Api\InfographicController@getApiDaily');
-    Route::get('getApiMonthly', 'Api\InfographicController@getApiMonthly');
 });
 
 Route::group([
@@ -228,6 +222,7 @@ Route::group([
 
 });
 
+
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
     'prefix' => 'dashboards',
@@ -246,30 +241,6 @@ Route::group([
 
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
-    'prefix' => 'webservices',
-], function ($router) {
-    Route::get('company', 'Api\WebServiceController@getWebServiceByCompany');
-
-    Route::get('/customer', 'Api\RegisterWebserviceController@getAllRegisterWebservice');
-    Route::post('/customer', 'Api\RegisterWebserviceController@createRegister');
-    Route::delete('/customer', 'Api\RegisterWebserviceController@deleteRegister');
-
-});
-
-Route::group([
-    'middleware' => ['api', 'jwt.verify'],
-    'prefix' => 'iotServices',
-], function ($router) {
-    //Route::get('company', 'Api\WebServiceController@getWebServiceByCompany');
-
-    Route::get('/customer', 'Api\RegisterIoTServiceController@getAllRegister');
-    Route::post('/customer', 'Api\RegisterIoTServiceController@createRegister');
-    Route::delete('/customer', 'Api\RegisterIoTServiceController@deleteRegister');
-
-});
-
-Route::group([
-    'middleware' => ['api', 'jwt.verify'],
 ], function ($router) {
     Route::get('staticDatasource', 'Api\StaticController@getDatasourceStatic');
 });
@@ -282,6 +253,7 @@ Route::group([
     Route::post('/', 'Api\DatasourceController@createDatasource');
     Route::delete('/', 'Api\DatasourceController@deleteDatasource');
 });
+
 
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
@@ -343,7 +315,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     //admin get
     Route::get('admin/infographic/getDatasource', 'Api\AdminController@getDatasourceInfo');
     Route::get('admin/webservicedata', 'Api\AdminController@getAllWebserviceData');
-
+    
     //company post
     Route::post('company/webservice/editRegisWebService', 'Api\CompanyController@editRegisWebService');
     Route::post('company/webservice/addRegisWebService', 'Api\CompanyController@addRegisWebService');
@@ -359,4 +331,5 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('admin/webservice/deletewebservice', 'Api\AdminController@deletewebservice');
     Route::post('admin/infographic/createDatasource', 'Api\AdminController@addDatasourceInfo');
 
+ 
 });

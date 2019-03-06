@@ -1,12 +1,12 @@
 class iotService {
-    constructor(iotName,iotAlias,iotdescription,status,dataformat)
+    constructor(iotName,iotAlias,iotdescription,status,fields)
     {
         let nameiot = iotName  ;
         let keyiot;
         let alias = iotAlias;
         let description = iotdescription ;
         let stats = status;
-        let datajson=dataformat;
+        let datajson=fields;
         let time ;
         let companyID;
         
@@ -20,6 +20,7 @@ class iotService {
                 async: false,
                 success: (res) => {
                     companyID = res.companyID ;
+                    console.log(companyID);
                 },
                 error: (res) => {                
                     console.log(res);
@@ -99,24 +100,38 @@ class iotService {
         }
 
         this.showDetail = () => {
-            let data =JSON.parse(datajson);
-            let strJson="";
-            let count = Object.keys(data).length;
-            let i=0;
-            console.log(count);
-            Object.keys(data).forEach(function(key) {
-                strJson+=key +'=' +data[key];
-                if(i == count-1)
+            // let data =JSON.parse(datajson);
+            // let strJson="";
+            // let count = Object.keys(data).length;
+            // let i=0;
+            // console.log(count);
+            // Object.keys(data).forEach(function(key) {
+            //     strJson+=key +'=' +data[key];
+            //     if(i == count-1)
+            //     {
+            //     }
+            //     else
+            //     {
+            //         strJson+='&';
+            //     }
+            //     i++;
+            // })
+            let otheroutput="";
+            for(let i=0;i<fields.length;i++)
+            {
+                
+                if(i==fields.length-1)
                 {
+                    otheroutput += fields[i] +"=[value]";
                 }
                 else
                 {
-                    strJson+='&';
+                    otheroutput += fields[i] +"=[value]&";
                 }
-                i++;
-            })
+            }
+            //console.log(otheroutput)
             $('#Nameiot').val(nameiot);
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.'+nameiot+'.'+companyID+'&'+strJson);
+            $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
         }  
     }       
@@ -213,7 +228,26 @@ $(document).ready(function () {
     cron.exampleCron();
     manage.checkFormTime();
 
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
 
+        var controlForm = $('.controls form:first'),
+        currentEntry = $(this).parents('.entry:first'),
+        newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span>-</span>');
+        }).on('click', '.btn-remove', function(e)
+        {
+            $(this).parents('.entry:first').remove();
+
+            e.preventDefault();
+            return false;
+    });
     $('#showvalue').click(function(){
         
         let iotName = $('#name-iotservice').val();
@@ -221,7 +255,11 @@ $(document).ready(function () {
         let iotdescription = $('#description-iotservice').val();
         let status = $('#status-iotservice').prop( "checked" );
         let dataformat= $('#dataFormat-iotservice').val();
-        
+        let inputs = document.getElementsByClassName("fields");
+        let fields  = [].map.call(inputs, function( input ) {
+            return input.value;
+        });
+        console.log(fields)
         if(status == true)
         {
             status="public";
@@ -233,7 +271,7 @@ $(document).ready(function () {
         }
 
        
-        let iot = new iotService(iotName,iotAlias,iotdescription,status,dataformat);
+        let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
         iot.getDataforInsert();
         iot.showDetail();
       
