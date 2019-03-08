@@ -95,7 +95,7 @@ class Socket {
 
                
                 if(hash.digest('hex') === signature){
-                    socket.user_id = payload.user_id;
+                    //socket.user_id = payload.user_id;
                     let userSocketId = socket.id;
                     const response = await helper.addUserOnline(payload.user_id, userSocketId);
                     if (response && response !== null) {
@@ -145,7 +145,7 @@ class Socket {
 
                
                 if(hash.digest('hex') === signature){
-                    socket.user_id = payload.user_id;
+                    //socket.user_id = payload.user_id;
                     let userSocketId = socket.id;
 
                     this.userInDashborad.push({

@@ -214,7 +214,7 @@
                     </a>
                 </li>
                 @endif
-                @if ($user->type_user != 'CUSTOMER')
+                @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>
@@ -264,7 +264,7 @@
                 <li class="nav-item">
                     <a href="#AnalysisSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <!-- <i class="fas fa-terminal"></i> -->
-                        <i class="fas fa-toolbox"></i>
+                        <i class="fas fa-chart-line"></i>
                         <span>Analysis</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
