@@ -343,25 +343,27 @@
 <link href="{{url('jstree/style.css')}}" rel="stylesheet" />
 <link href="{{url('css/togglebutton.css')}}" rel="stylesheet" />
 <br>
+
 <div class="row">
     <div class="col-sm-6">
         <h4>Create a new webservice</h4>
     </div>
-    <div class="col-sm-6">
-        <div class="onoffswitch2">
-        <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-webservice">
-        <label class="onoffswitch2-label" for="status-webservice">
-            <span class="onoffswitch2-inner"></span>
-            <span class="onoffswitch2-switch"></span>
-        </label>
+    <div class="col-sm-2">
+        <div class="form-group">           
+            <select class="form-control" id="status">
+                <option>Public</option>
+                <option>Private Company</option>
+                <option>Private Owner</option>                
+            </select>
         </div>
-        
     </div>
 </div>
 <hr>
 <div class="from-input-detail">
     <div class="row">
+
         <div class="col-sm-8 " >
+           
             <div class ="row">
                 <div class="col-sm-8">
                     <h6 >Service Name <span style="color:red">*</span></h6>
@@ -371,12 +373,10 @@
                     <h6 >Alias <span style="color:red">*</span></h6>
                     <input type="text" class="mb-2" id="alias-webservice" name="alias" placeholder="Webservice alias ">
                 </div>
-
-                
             </div>
 
             <h6>URL <span style="color:red">*</span></h6>
-            <input type="text" class="mb-2" id="url-webservice" name="firstname" placeholder="Url of WebService">
+            <input type="text" class="mb-2" id="url-webservice" name="firstname" placeholder="Url of WebService" require>
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-webservice" placeholder="Webservice description" ></textarea>
             <div class="row">
