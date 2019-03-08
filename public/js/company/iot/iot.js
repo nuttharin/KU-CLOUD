@@ -11,7 +11,7 @@ var IotserviceRepository = new (function(){
     this.refreshDatatable = () => {
         showLoadingStatus(true);
         $.ajax({
-            url: "http://localhost:8000/api/company/iot/iotservicedata",
+            url: "http://localhost:8000/api/iot/iotservicedata",
             method: 'GET',
             success: function (result) {
                 console.log(result);
@@ -58,9 +58,11 @@ var IotserviceRepository = new (function(){
             var ret = [];
             ret[0] = item.name;
             ret[1] = item.alias;
-            ret[2] = item.description;
+            ret[2] = item.type;
             ret[3] = item.status;
-            ret[4] = ` <center>
+            if(item.type=="output")
+            {
+                    ret[4] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
@@ -69,11 +71,26 @@ var IotserviceRepository = new (function(){
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary btn-sm btn-download"  index=${index}  data-toggle="tooltip"
-                                data-placement="top" title="Download">
-                                <i class="fas fa-download"></i>
+                            <button type="button" class="btn btn-warning btn-sm btn-setting"  index=${index}  data-toggle="tooltip"
+                                data-placement="top" title="setting">
+                                <i class="fas fa-lightbulb"></i>
                             </button>
                         </center>`;
+            }
+            else
+            {
+                    ret[4] = ` <center>
+                            <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
+                                data-placement="top" title="Detail">
+                                <i class="fas fa-list"></i>
+                            </button>                           
+                            <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
+                                data-placement="top" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </center>`;
+            }
+            
             Datatable.push(ret);
             total_iotservice++;
         });
@@ -83,6 +100,10 @@ var IotserviceRepository = new (function(){
         $('#datatable-iotservice').on('click', '.btn-detail', function () {
             console.log('ssss')
             onDetailClick($(this).attr('index'));
+        });
+        $('#datatable-iotservice').on('click', '.btn-setting', function () {
+            console.log('ssss')
+            onSettingClick($(this).attr('index'));
         });
 
     }
@@ -120,6 +141,41 @@ var IotserviceRepository = new (function(){
         $('#update-iot').html(iotserviceList[key].updated_at);
 
         $("#detailIot").modal('show');
+    }
+    let onSettingClick = (key) =>{
+        if (modalDetail === null) {
+            modalDetail =
+                `<div class="modal fade" id="settingIot">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="title-company">On/Off Setting</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>Status : <span id="status-iot"><span></h6>
+                            <h6>Service Name : <span id="name-iot"><span></h6>
+                            <h6>Alias : <span id="alias-iot"><span></h6>
+                            <h6>Description : <span id="note-iot"><span></h6>
+                            <h6>Create Date : <span id="create-iot"><span></h6>
+                            <h6>Update Date : <span id="update-iot"><span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            ;
+
+            $('body').append(modalDetail);
+        }
+
+        $('#name-iot').html(iotserviceList[key].name);
+        $('#alias-iot').html(iotserviceList[key].alias);
+        $('#status-iot').html(iotserviceList[key].status);
+        $('#note-iot').html(iotserviceList[key].description);
+        $('#create-iot').html(iotserviceList[key].created_at);
+        $('#update-iot').html(iotserviceList[key].updated_at);
+
+        $("#settingIot").modal('show');
     }
 
 
