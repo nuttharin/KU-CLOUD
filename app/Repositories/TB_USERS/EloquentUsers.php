@@ -50,6 +50,7 @@ class EloquentUsers implements UsersRepository
         if ($type == "ADMIN") {
             $users = $this->model::where('type_user', 'ADMIN')
                 ->get();
+            
             foreach ($users as $user) {
                 $data[] = [
                     'user_id' => $user->user_id,
@@ -74,7 +75,7 @@ class EloquentUsers implements UsersRepository
                     'block' => $user->block,
                     'created_at' => $user->created_at,
                     'updated_at' => $user->updated_at,
-                    'sub_type_user' => $user->user_company()->get()[0]->sub_type_user,
+                    'sub_type_user' => $user->user_company()->first()->sub_type_user,
                     'online' => $user->online,
                     'email' => TB_EMAIL::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
                     'phone' => TB_PHONE::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
