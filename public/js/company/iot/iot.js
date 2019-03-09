@@ -54,11 +54,12 @@ var IotserviceRepository = new (function(){
         let Datatable = new Array();
         datatableObject.fnClearTable();
         let total_iotservice = 0;
+        let str="";
         $.each(iotserviceList.iotService, function (index, item) {
             var ret = [];
             ret[0] = item.name;
             ret[1] = item.alias;
-            ret[2] = item.type;
+            ret[2] = item.strJson;
             ret[3] = item.status;
             if(item.type=="output")
             {
@@ -73,7 +74,7 @@ var IotserviceRepository = new (function(){
                             </button>
                             <button type="button" class="btn btn-warning btn-sm btn-setting"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="setting">
-                                <i class="fas fa-lightbulb"></i>
+                                <i class="fas fa-share-square"></i>
                             </button>
                         </center>`;
             }
@@ -90,7 +91,6 @@ var IotserviceRepository = new (function(){
                             </button>
                         </center>`;
             }
-            
             Datatable.push(ret);
             total_iotservice++;
         });
@@ -149,7 +149,7 @@ var IotserviceRepository = new (function(){
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="title-company">On/Off Setting</h5>
+                            <h5 class="modal-title" id="title-company">Send Output Data</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -159,10 +159,15 @@ var IotserviceRepository = new (function(){
                             <h6>Description : <span id="note-iot"><span></h6>
                             <h6>Create Date : <span id="create-iot"><span></h6>
                             <h6>Update Date : <span id="update-iot"><span></h6>
+                            <h6>Other Inputs</h6>
+                            <input type=text disabled>&nbsp;<input type="text">
+                            <h6>Pins Setting</h6>
+                            <input type=text disabled>
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>
+            `
             ;
 
             $('body').append(modalDetail);
