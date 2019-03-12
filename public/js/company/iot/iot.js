@@ -63,6 +63,7 @@ var IotserviceRepository = new (function(){
             ret[3] = item.status;
             if(item.type=="output")
             {
+                    console.log(index)
                     ret[4] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
@@ -102,7 +103,7 @@ var IotserviceRepository = new (function(){
             onDetailClick($(this).attr('index'));
         });
         $('#datatable-iotservice').on('click', '.btn-setting', function () {
-            console.log('ssss')
+            console.log('btn-setting')
             onSettingClick($(this).attr('index'));
         });
 
@@ -142,7 +143,41 @@ var IotserviceRepository = new (function(){
 
         $("#detailIot").modal('show');
     }
-    let onSettingClick = (key) =>{
+    let onSettingClick = async (key) =>{
+        
+        let data = await JSON.parse(iotserviceList[key].strJson) ;
+        let dataOther ="";
+        let dataPin ="";
+        let css ='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px;'
+        console.log(typeof data)
+
+        Object.keys(data).forEach(function (key) {
+            // if(data.other != undefined){
+            //     console.log(data.other)
+            // }
+            if(key == "other"){
+                console.log(data[key])
+                let datatemp = data[key] ;
+                Object.keys(datatemp).forEach(function (key){
+                    dataOther = dataOther +`<input type='text' value=${key} class='mb-2 ' 
+                        style='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px; border: 1px solid #AED6F1 ;' disabled>&nbsp;
+                    <input type='text' 
+                        style='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px; border: 1px solid #AED6F1 ;' value=${datatemp[key]} >
+                    </input>` ;
+                    
+                })
+            }
+            else if(key == "pin"){
+                console.log(data[key])
+                Object.keys(data[key]).forEach(function (key){
+                    dataPin = dataPin+`<input type=text value=${key} class='mb-2 ' 
+                    style='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px; border: 1px solid #AED6F1 ;'
+                    disabled></input><br>`;
+                })
+            }
+            
+            
+        })
         if (modalDetail === null) {
             modalDetail =
                 `<div class="modal fade" id="settingIot">
@@ -159,10 +194,15 @@ var IotserviceRepository = new (function(){
                             <h6>Description : <span id="note-iot"><span></h6>
                             <h6>Create Date : <span id="create-iot"><span></h6>
                             <h6>Update Date : <span id="update-iot"><span></h6>
-                            <h6>Other Inputs</h6>
-                            <input type=text disabled>&nbsp;<input type="text">
+                            <br>
+                            <h6>Other Inputs</h6>                           
+                            ${dataOther}
                             <h6>Pins Setting</h6>
-                            <input type=text disabled>
+                            ${dataPin}
+                            <button type="button" class="btn btn-success btn-sm btn-send"  data-toggle="tooltip"
+                                data-placement="top" title="Delete">
+                                send  
+                            </button>
                         </div>
                     </div>
                 </div>

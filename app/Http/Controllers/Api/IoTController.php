@@ -31,6 +31,7 @@ class IoTController extends Controller
 
         return response()->json(compact('iotService'), 200);
     }
+
     public function addRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
@@ -52,6 +53,7 @@ class IoTController extends Controller
         ]);
         return response()->json(compact('iotService'), 200);
     }
+
     public function addOutputRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
@@ -70,5 +72,17 @@ class IoTController extends Controller
             'value_cal' => $request->get('valueCal'),
         ]);
         return response()->json(compact('iotService'), 200);
+    }
+
+    public function getDataOutput(Request $request)
+    {
+        // $idService =  $request->get('idOutputService');
+        // $iotService = DB::select("SELECT * FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$idService'");
+
+        // if (empty($iotService)) {
+        //     return response()->json(['message' => 'not have data'], 200);
+        // }
+
+        // return response()->json(compact('iotService'), 200);
     }
 }

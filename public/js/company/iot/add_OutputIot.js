@@ -228,7 +228,7 @@ $(document).ready(function () {
         let iotName = $('#name-iotservice').val();
         let iotAlias = $('#alias-iotservice').val();
         let iotdescription = $('#description-iotservice').val();
-        let status = $('#status-iotservice').prop( "checked" );
+        let status = $('#status').val();
         let inputs = document.getElementsByClassName("fields");
         let fields  = [].map.call(inputs, function( input ) {
             return input.value;
@@ -273,16 +273,7 @@ $(document).ready(function () {
         let jsonencode = JSON.stringify(showJson, undefined, 2);
         console.log(jsonencode);
 
-        if(status == true)
-        {
-            status="public";
-            console.log('sssss')
-        }
-        else
-        {
-            status="private";
-        }
-
+       
        
         let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode);
         iot.getDataforInsert();

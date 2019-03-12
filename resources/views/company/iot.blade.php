@@ -9,6 +9,15 @@
     .dataTables_wrapper {
         font-size: 12px;
     }
+    input{
+        border-radius: 4px !important;
+        border: none !important;
+        padding: 5px 20px !important;
+        cursor: pointer !important;
+        padding: 12px !important;
+
+
+    }
     
 </style>
 
