@@ -18,11 +18,23 @@ class IoTController extends Controller
         $key = 'klflvpekvlvep[clep[lc';
         return response()->json(compact('key'), 200);
     }
+    public function iotupdatedata()
+    {
+        $companyID = Auth::user()->user_company()->first()->company_id;
+        $nameDW = "IoT.Input.".$request->get('ServiceName') . "." . $companyID;
+
+        $iotService = TB_WEBSERVICE::where('iotservice_id', $request->get('id_DB'))
+        ->update([
+            'strJson' => $request->get('showJsonstr'),
+            'dataOutput' => $request->get('pinfilds'),
+        ]);
+        return response()->json(compact('iotService'), 200);
+    }
     public function getAllIotserviceData(Request $request)
     {
       
         $companyID =  Auth::user()->user_company()->first()->company_id;
-        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.type,TB_IOTSERVICE.description,strJson,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
+        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.type,TB_IOTSERVICE.description,strJson,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.dataOutput,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
         FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID'");
 
         if (empty($iotService)) {

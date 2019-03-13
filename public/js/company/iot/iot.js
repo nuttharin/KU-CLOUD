@@ -2,6 +2,7 @@ var IotserviceRepository = new (function(){
     let iotserviceList = [];
     let datatableObject = null;
     let modalDetail = null;
+    let idDB=null;
 
 
     this.initialAndRun = () => {
@@ -57,9 +58,10 @@ var IotserviceRepository = new (function(){
         let str="";
         $.each(iotserviceList.iotService, function (index, item) {
             var ret = [];
+            idDB=item.id;
             ret[0] = item.name;
             ret[1] = item.alias;
-            ret[2] = item.strJson;
+            ret[2] = item.type;
             ret[3] = item.status;
             if(item.type=="output")
             {
@@ -144,7 +146,7 @@ var IotserviceRepository = new (function(){
         $("#detailIot").modal('show');
     }
     let onSettingClick = async (key) =>{
-        
+        let keyvalue=key;
         let data = await JSON.parse(iotserviceList[key].strJson) ;
         let dataOther ="";
         let dataPin ="";
@@ -160,9 +162,9 @@ var IotserviceRepository = new (function(){
                 let datatemp = data[key] ;
                 Object.keys(datatemp).forEach(function (key){
                     dataOther = dataOther +`<input type='text' value=${key} class='mb-2 ' 
-                        style='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px; border: 1px solid #AED6F1 ;' disabled>&nbsp;
+                    ' disabled>&nbsp;
                     <input type='text' 
-                        style='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px; border: 1px solid #AED6F1 ;' value=${datatemp[key]} >
+                         value=${datatemp[key]} >
                     </input>` ;
                     
                 })
@@ -170,9 +172,15 @@ var IotserviceRepository = new (function(){
             else if(key == "pin"){
                 console.log(data[key])
                 Object.keys(data[key]).forEach(function (key){
-                    dataPin = dataPin+`<input type=text value=${key} class='mb-2 ' 
-                    style='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px; border: 1px solid #AED6F1 ;'
-                    disabled></input><br>`;
+                    dataPin = dataPin+`<input type=text value=${key} class='mb-2 ' disabled> </input> &nbsp;
+                    OFF
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    ON
+                    <br>
+                    `;
                 })
             }
             
@@ -199,8 +207,7 @@ var IotserviceRepository = new (function(){
                             ${dataOther}
                             <h6>Pins Setting</h6>
                             ${dataPin}
-                            <button type="button" class="btn btn-success btn-sm btn-send"  data-toggle="tooltip"
-                                data-placement="top" title="Delete">
+                            <button type="button" class="btn btn-success btn-sm btn-send" index=${keyvalue} id="send_outputIoT">
                                 send  
                             </button>
                         </div>
@@ -221,6 +228,39 @@ var IotserviceRepository = new (function(){
         $('#update-iot').html(iotserviceList[key].updated_at);
 
         $("#settingIot").modal('show');
+        $('#send_outputIoT').click(function(){
+            let key = $(this).attr('index')
+            console.log(key)
+            console.log(iotserviceList[key])
+
+            // $.ajax({
+            //     url: "http://localhost:8000/api/iot/iotupdatedata",
+            //     dataType: 'json',
+            //     method: "POST",
+            //     async: false,
+            //     data:
+            //     {
+            //         id_DB: idDB,
+            //         alias: alias,
+            //         ServiceName: nameiot,
+            //         description: description,
+            //         valueCal: '1',
+            //         valueGroupby: '1',
+            //         // updatetime_input: '1',
+            //         stats: stats,
+            //         datajson:datajson,
+            //         type: 'input',
+                    
+            //     },
+            //     success: (res) => {
+            //         // toastr["success"]("Success");
+            //         console.log("success DB")
+            //     },
+            //     error: (res) => {
+            //         console.log(res);
+            //     }
+            // });
+        });
     }
 
 
@@ -229,4 +269,5 @@ var IotserviceRepository = new (function(){
 $(document).ready(function(){
     let iot =  IotserviceRepository;
     iot.initialAndRun({});
+    
 });
