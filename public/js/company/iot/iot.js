@@ -2,6 +2,7 @@ var IotserviceRepository = new (function(){
     let iotserviceList = [];
     let datatableObject = null;
     let modalDetail = null;
+    let modalOutput = null;
     let idDB=null;
 
 
@@ -146,13 +147,12 @@ var IotserviceRepository = new (function(){
         $("#detailIot").modal('show');
     }
     let onSettingClick = async (key) =>{
+        console.log(key)
         let keyvalue=key;
         let data = await JSON.parse(iotserviceList[key].strJson) ;
         let dataOther ="";
-        let dataPin ="";
-        let css ='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px;'
-        console.log(typeof data)
-
+        let dataPin ="";        
+        console.log(data)
         Object.keys(data).forEach(function (key) {
             // if(data.other != undefined){
             //     console.log(data.other)
@@ -188,8 +188,8 @@ var IotserviceRepository = new (function(){
             
             
         })
-        if (modalDetail === null) {
-            modalDetail =
+        if (modalOutput === null) {
+            modalOutput =
                 `<div class="modal fade" id="settingIot">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -205,10 +205,12 @@ var IotserviceRepository = new (function(){
                             <h6>Create Date : <span id="create-iot"><span></h6>
                             <h6>Update Date : <span id="update-iot"><span></h6>
                             <br>
-                            <h6>Other Inputs</h6>                           
-                            ${dataOther}
+                            <h6>Other Inputs</h6> 
+                            <div id="dataOther"></div>                          
+                           
                             <h6>Pins Setting</h6>
-                            ${dataPin}
+                            <div id="dataPin"></div>
+                            
                             <button type="button" class="btn btn-success btn-sm btn-send" index=${keyvalue} id="send_outputIoT">
                                 send  
                             </button>
@@ -219,7 +221,7 @@ var IotserviceRepository = new (function(){
             `
             ;
 
-            $('body').append(modalDetail);
+            $('body').append(modalOutput);
         }
 
         $('#name-iot').html(iotserviceList[key].name);
@@ -228,6 +230,8 @@ var IotserviceRepository = new (function(){
         $('#note-iot').html(iotserviceList[key].description);
         $('#create-iot').html(iotserviceList[key].created_at);
         $('#update-iot').html(iotserviceList[key].updated_at);
+        $('#dataOther').html(dataOther);
+        $('#dataPin').html(dataPin);
 
         $("#settingIot").modal('show');
         $('#send_outputIoT').click(function(){
