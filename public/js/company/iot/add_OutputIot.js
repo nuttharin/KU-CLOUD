@@ -102,6 +102,7 @@ class iotService {
             $('#Nameiot').val(nameiot);
             $('#URLiot').val('http://localhost:8081/iotService/GetOutput?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot);
             // $('#Keyiot').val(keyiot);
+            
             $('#Dataformat').val(pinfilds);
         }  
     }       

@@ -161,9 +161,9 @@ var IotserviceRepository = new (function(){
                 console.log(data[key])
                 let datatemp = data[key] ;
                 Object.keys(datatemp).forEach(function (key){
-                    dataOther = dataOther +`<input type='text' value=${key} class='mb-2 ' 
+                    dataOther = dataOther +`<input type='text' class="othername" name="othername[]" value=${key} class='mb-2 ' 
                     ' disabled>&nbsp;
-                    <input type='text' 
+                    <input type='text' class="othervalue" name="othervalue[]" id="other"
                          value=${datatemp[key]} >
                     </input>` ;
                     
@@ -171,16 +171,18 @@ var IotserviceRepository = new (function(){
             }
             else if(key == "pin"){
                 console.log(data[key])
+                let i=0;
                 Object.keys(data[key]).forEach(function (key){
-                    dataPin = dataPin+`<input type=text value=${key} class='mb-2 ' disabled> </input> &nbsp;
+                    dataPin = dataPin+`<input type=text value=${key} name="pinname[]" class='pinname mb-2 ' disabled> </input> &nbsp;
                     OFF
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="pinvalue${i}">
                         <span class="slider round"></span>
                     </label>
                     ON
                     <br>
                     `;
+                    i++;
                 })
             }
             
@@ -229,10 +231,51 @@ var IotserviceRepository = new (function(){
 
         $("#settingIot").modal('show');
         $('#send_outputIoT').click(function(){
-            let key = $(this).attr('index')
-            console.log(key)
-            console.log(iotserviceList[key])
-
+            //let key = $(this).attr('index')
+            //console.log(key)
+            //console.log(iotserviceList[key])
+            let othername = document.getElementsByClassName("othername");
+            let other_name  = [].map.call(othername, function( input ) {
+                return input.value;
+            });
+            let othervalue = document.getElementsByClassName("othervalue");
+            let other_value  = [].map.call(othervalue, function( input ) {
+                return input.value;
+            });
+            let pinname = document.getElementsByClassName("pinname");
+            let pin_name  = [].map.call(pinname, function( input ) {
+                return input.value;
+            });
+            
+            let stroutput={};
+            let dataOutput ={} ;
+            let dupstr={};
+            for(let i=0;i<other_name.length;i++)
+            {
+                stroutput[other_name[i]] = other_value[i];
+                dupstr[other_name[i]] = other_value[i];
+            }
+            dataOutput['other'] = dupstr ;
+            dupstr={};
+            for(let i=0;i<pin_name.length;i++)
+            {
+                let num_val = $('#pinvalue'+i).prop('checked')
+                if(num_val==true)
+                {
+                    stroutput[pin_name[i]] = 1;
+                    dupstr[pin_name[i]] = 1;
+                }
+                else
+                {
+                    stroutput[pin_name[i]] = 0;
+                    dupstr[pin_name[i]] = 0;
+                }
+            }
+            dataOutput['pin'] = dupstr ;
+            console.log(stroutput)
+            console.log(dataOutput)
+            let OutputData = JSON.stringify(dataOutput);
+            let jsonencode = JSON.stringify(stroutput);
             // $.ajax({
             //     url: "http://localhost:8000/api/iot/iotupdatedata",
             //     dataType: 'json',
