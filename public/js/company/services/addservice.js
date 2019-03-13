@@ -861,11 +861,11 @@ $(document).ready(function () {
             
         }
         else {
-
+            let service = new Service(url, alias, ServiceName, description,status,time);
+            service.initService();
         }
        
-        // let service = new Service(url, alias, ServiceName, description,status,time);
-        // service.initService();
+        
       
         
     })

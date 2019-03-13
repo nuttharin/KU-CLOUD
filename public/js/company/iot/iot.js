@@ -2,6 +2,7 @@ var IotserviceRepository = new (function(){
     let iotserviceList = [];
     let datatableObject = null;
     let modalDetail = null;
+    let idDB=null;
 
 
     this.initialAndRun = () => {
@@ -57,12 +58,14 @@ var IotserviceRepository = new (function(){
         let str="";
         $.each(iotserviceList.iotService, function (index, item) {
             var ret = [];
+            idDB=item.id;
             ret[0] = item.name;
             ret[1] = item.alias;
-            ret[2] = item.strJson;
+            ret[2] = item.type;
             ret[3] = item.status;
             if(item.type=="output")
             {
+                    console.log(index)
                     ret[4] = ` <center>
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
@@ -102,7 +105,7 @@ var IotserviceRepository = new (function(){
             onDetailClick($(this).attr('index'));
         });
         $('#datatable-iotservice').on('click', '.btn-setting', function () {
-            console.log('ssss')
+            console.log('btn-setting')
             onSettingClick($(this).attr('index'));
         });
 
@@ -142,7 +145,47 @@ var IotserviceRepository = new (function(){
 
         $("#detailIot").modal('show');
     }
-    let onSettingClick = (key) =>{
+    let onSettingClick = async (key) =>{
+        let keyvalue=key;
+        let data = await JSON.parse(iotserviceList[key].strJson) ;
+        let dataOther ="";
+        let dataPin ="";
+        let css ='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px;'
+        console.log(typeof data)
+
+        Object.keys(data).forEach(function (key) {
+            // if(data.other != undefined){
+            //     console.log(data.other)
+            // }
+            if(key == "other"){
+                console.log(data[key])
+                let datatemp = data[key] ;
+                Object.keys(datatemp).forEach(function (key){
+                    dataOther = dataOther +`<input type='text' value=${key} class='mb-2 ' 
+                    ' disabled>&nbsp;
+                    <input type='text' 
+                         value=${datatemp[key]} >
+                    </input>` ;
+                    
+                })
+            }
+            else if(key == "pin"){
+                console.log(data[key])
+                Object.keys(data[key]).forEach(function (key){
+                    dataPin = dataPin+`<input type=text value=${key} class='mb-2 ' disabled> </input> &nbsp;
+                    OFF
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    ON
+                    <br>
+                    `;
+                })
+            }
+            
+            
+        })
         if (modalDetail === null) {
             modalDetail =
                 `<div class="modal fade" id="settingIot">
@@ -159,10 +202,14 @@ var IotserviceRepository = new (function(){
                             <h6>Description : <span id="note-iot"><span></h6>
                             <h6>Create Date : <span id="create-iot"><span></h6>
                             <h6>Update Date : <span id="update-iot"><span></h6>
-                            <h6>Other Inputs</h6>
-                            <input type=text disabled>&nbsp;<input type="text">
+                            <br>
+                            <h6>Other Inputs</h6>                           
+                            ${dataOther}
                             <h6>Pins Setting</h6>
-                            <input type=text disabled>
+                            ${dataPin}
+                            <button type="button" class="btn btn-success btn-sm btn-send" index=${keyvalue} id="send_outputIoT">
+                                send  
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -181,6 +228,39 @@ var IotserviceRepository = new (function(){
         $('#update-iot').html(iotserviceList[key].updated_at);
 
         $("#settingIot").modal('show');
+        $('#send_outputIoT').click(function(){
+            let key = $(this).attr('index')
+            console.log(key)
+            console.log(iotserviceList[key])
+
+            // $.ajax({
+            //     url: "http://localhost:8000/api/iot/iotupdatedata",
+            //     dataType: 'json',
+            //     method: "POST",
+            //     async: false,
+            //     data:
+            //     {
+            //         id_DB: idDB,
+            //         alias: alias,
+            //         ServiceName: nameiot,
+            //         description: description,
+            //         valueCal: '1',
+            //         valueGroupby: '1',
+            //         // updatetime_input: '1',
+            //         stats: stats,
+            //         datajson:datajson,
+            //         type: 'input',
+                    
+            //     },
+            //     success: (res) => {
+            //         // toastr["success"]("Success");
+            //         console.log("success DB")
+            //     },
+            //     error: (res) => {
+            //         console.log(res);
+            //     }
+            // });
+        });
     }
 
 
@@ -189,4 +269,5 @@ var IotserviceRepository = new (function(){
 $(document).ready(function(){
     let iot =  IotserviceRepository;
     iot.initialAndRun({});
+    
 });
