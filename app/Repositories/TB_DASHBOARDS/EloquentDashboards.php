@@ -9,8 +9,6 @@
 namespace App\Repositories\TB_DASHBOARDS;
 
 use App\TB_DASHBOARDS;
-use App\TB_IOTSERVICE;
-use App\TB_WEBSERVICE;
 use Auth;
 use DB;
 
@@ -25,14 +23,14 @@ class EloquentDashboards implements DashboardsRepository
                 'TB_USERS.user_id', Auth::user()->user_id
             )
                 ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
-                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname']);
-        } else {        
+                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.description', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname']);
+        } else {
             $data = DB::table('TB_DASHBOARDS')->where(
                 'TB_USER_COMPANY.company_id', Auth::user()->user_company()->first()->company_id
             )
                 ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
                 ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_USERS.user_id')
-                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname']);
+                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.is_public', 'TB_DASHBOARDS.description', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname']);
         }
         return response()->json(compact('data'), 200);
     }
@@ -58,15 +56,17 @@ class EloquentDashboards implements DashboardsRepository
         return response()->json(compact('data'), 200);
     }
 
-    public function createDashboard($name)
+    public function createDashboard($attr)
     {
         // TODO: Implement createDashboard() method.
         DB::beginTransaction();
         try {
             $data = TB_DASHBOARDS::create([
-                'name' => $name,
+                'name' => $attr['name'],
+                'description' => $attr['description'],
                 'user_id' => Auth::user()->user_id,
-                'dashboard' => '{}',
+                'is_public' => $attr['is_public'],
+                'dashboard' => '[]',
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -90,7 +90,7 @@ class EloquentDashboards implements DashboardsRepository
         DB::commit();
     }
 
-    public function updateDashboard($dashboard_id, $name)
+    public function updateDashboard($dashboard_id, $name, $desc, $is_public)
     {
         // TODO: Implement updateDashboard() method.
         DB::beginTransaction();
@@ -114,7 +114,11 @@ class EloquentDashboards implements DashboardsRepository
             if (!empty($checkData)) {
                 TB_DASHBOARDS::where([
                     ['dashboard_id', '=', $dashboard_id],
-                ])->update(['name' => $name]);
+                ])->update([
+                    'name' => $name,
+                    'description' => $desc,
+                    'is_public' => $is_public,
+                ]);
             } else {
                 return response()->json(["status", "Can not edit this dashboard"], 201);
             }
