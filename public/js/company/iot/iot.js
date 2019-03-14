@@ -302,20 +302,22 @@ var IotserviceRepository = new (function(){
                 }
             });
             $.ajax({
-                url: "http://localhost:8000/api/iot/iotupdatedata",
+                url: "http://localhost:8081/iotService/insertOutputIot",
                 dataType: 'json',
                 method: "POST",
                 async: false,
                 data:
                 {
-                    id_DB: idDB,
-                    strJson:str_output,
-                    pinfilds:data_Output,
-                    
+                    id_DB:idDB,
+                    nameDW: iotserviceList[key].iot_name_DW,
+                    data:
+                    {
+                        strJson:str_output,
+                    }
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
-                    console.log("success DB")
+                    console.log("success DW")
                 },
                 error: (res) => {
                     console.log(res);
