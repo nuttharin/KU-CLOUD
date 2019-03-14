@@ -172,11 +172,17 @@ var IotserviceRepository = new (function(){
             else if(key == "pin"){
                 console.log(data[key])
                 let i=0;
-                Object.keys(data[key]).forEach(function (key){
+                let valkey = data[key];
+                Object.keys(valkey).forEach(function (key){
+                    let check=""
+                    if(valkey[key]==1)
+                    {
+                        check = "checked";
+                    }
                     dataPin = dataPin+`<input type=text value=${key} name="pinname[]" class='pinname mb-2 ' disabled> </input> &nbsp;
                     OFF
                     <label class="switch">
-                        <input type="checkbox" id="pinvalue${i}">
+                        <input type="checkbox" id="pinvalue${i}" ${check}>
                         <span class="slider round"></span>
                     </label>
                     ON
@@ -276,37 +282,48 @@ var IotserviceRepository = new (function(){
                 }
             }
             dataOutput['pin'] = dupstr ;
-            console.log(stroutput)
-            console.log(dataOutput)
-            let OutputData = JSON.stringify(dataOutput);
-            let jsonencode = JSON.stringify(stroutput);
-            // $.ajax({
-            //     url: "http://localhost:8000/api/iot/iotupdatedata",
-            //     dataType: 'json',
-            //     method: "POST",
-            //     async: false,
-            //     data:
-            //     {
-            //         id_DB: idDB,
-            //         alias: alias,
-            //         ServiceName: nameiot,
-            //         description: description,
-            //         valueCal: '1',
-            //         valueGroupby: '1',
-            //         // updatetime_input: '1',
-            //         stats: stats,
-            //         datajson:datajson,
-            //         type: 'input',
+            let data_Output = JSON.stringify(dataOutput, undefined, 2);
+            let str_output = JSON.stringify(stroutput, undefined, 2);
+            $.ajax({
+                url: "http://localhost:8000/api/iot/iotupdatedata",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    id_DB: idDB,
+                    strJson:str_output,
+                    pinfilds:data_Output,
                     
-            //     },
-            //     success: (res) => {
-            //         // toastr["success"]("Success");
-            //         console.log("success DB")
-            //     },
-            //     error: (res) => {
-            //         console.log(res);
-            //     }
-            // });
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DB")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            $.ajax({
+                url: "http://localhost:8000/api/iot/iotupdatedata",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    id_DB: idDB,
+                    strJson:str_output,
+                    pinfilds:data_Output,
+                    
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DB")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
         });
     }
 

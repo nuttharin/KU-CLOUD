@@ -18,17 +18,17 @@ class IoTController extends Controller
         $key = 'klflvpekvlvep[clep[lc';
         return response()->json(compact('key'), 200);
     }
-    public function iotupdatedata()
+    public function iotupdatedata(Request $request)
     {
-        $companyID = Auth::user()->user_company()->first()->company_id;
-        $nameDW = "IoT.Input.".$request->get('ServiceName') . "." . $companyID;
+        // $companyID = Auth::user()->user_company()->first()->company_id;
+        // $nameDW = "IoT.Input.".$request->get('ServiceName') . "." . $companyID;
 
-        $iotService = TB_WEBSERVICE::where('iotservice_id', $request->get('id_DB'))
+        $iotService = TB_IOTSERVICE::where('iotservice_id', $request->get('id_DB'))
         ->update([
-            'strJson' => $request->get('showJsonstr'),
-            'dataOutput' => $request->get('pinfilds'),
+            'dataOutput' => $request->get('strJson'),
+            'strJson' => $request->get('pinfilds'),
         ]);
-        return response()->json(compact('iotService'), 200);
+        return response()->json(["status", "success"], 200);
     }
     public function getAllIotserviceData(Request $request)
     {
