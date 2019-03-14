@@ -212,11 +212,9 @@ var IotserviceRepository = new (function(){
                             <h6>Update Date : <span id="update-iot"><span></h6>
                             <br>
                             <h6>Other Inputs</h6> 
-                            <div id="dataOther"></div>                          
-                           
+                            <div id="dataOther"></div>   
                             <h6>Pins Setting</h6>
                             <div id="dataPin"></div>
-                            
                             <button type="button" class="btn btn-success btn-sm btn-send" index=${keyvalue} id="send_outputIoT">
                                 send  
                             </button>
@@ -224,8 +222,7 @@ var IotserviceRepository = new (function(){
                     </div>
                 </div>
             </div>
-            `
-            ;
+            `;
 
             $('body').append(modalOutput);
         }
