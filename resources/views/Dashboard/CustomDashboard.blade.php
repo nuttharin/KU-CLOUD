@@ -1111,12 +1111,12 @@
     </div>
 </div>
 
+<div id="layout_datasource" hidden>
+    <select class="form-control select-datasource"></select>
+</div>
+
 <span id="static_id" hidden>{{$id}}</span>
 
-
-<link rel="stylesheet" href="{{asset('js/immybox/immybox.css')}}">
-
-<script src="{{asset('js/immybox/jquery.immybox.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
 

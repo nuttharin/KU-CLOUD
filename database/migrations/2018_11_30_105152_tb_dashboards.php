@@ -17,7 +17,7 @@ class TbDashboards extends Migration
             $table->increments('dashboard_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->boolean('is_public')->default(false);
-            $table->string('description', 200);
+            $table->string('description', 200)->nullable();;
             $table->string('name', 50);
             $table->longText('dashboard');
             $table->timestamps();

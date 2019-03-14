@@ -29,7 +29,12 @@ class DashboardController extends Controller
 
     public function createDashboard(Request $request)
     {
-        return $this->dashboards->createDashboard($request->get('name'));
+        $attr = [
+            'name' => $request->get('name'),
+            'description' => $request->get('desc'),
+            'is_public' => $request->get('is_public'),
+        ];
+        return $this->dashboards->createDashboard($attr);
     }
 
     public function updateDashboardLayout(Request $request)
@@ -39,7 +44,7 @@ class DashboardController extends Controller
 
     public function updateDashboard(Request $request)
     {
-        return $this->dashboards->updateDashboard($request->get('dashboard_id'), $request->get('name'));
+        return $this->dashboards->updateDashboard($request->get('dashboard_id'), $request->get('name'), $request->get('desc'), $request->get('is_public'));
     }
 
     public function deleteDashboard(Request $request)
