@@ -2,6 +2,7 @@ var IotserviceRepository = new (function(){
     let iotserviceList = [];
     let datatableObject = null;
     let modalDetail = null;
+    let modalOutput = null;
     let idDB=null;
 
 
@@ -146,13 +147,12 @@ var IotserviceRepository = new (function(){
         $("#detailIot").modal('show');
     }
     let onSettingClick = async (key) =>{
+        console.log(key)
         let keyvalue=key;
         let data = await JSON.parse(iotserviceList[key].strJson) ;
         let dataOther ="";
-        let dataPin ="";
-        let css ='border-radius: 4px;border: none;padding: 5px 20px; cursor: pointer; padding: 6px;'
-        console.log(typeof data)
-
+        let dataPin ="";        
+        console.log(data)
         Object.keys(data).forEach(function (key) {
             // if(data.other != undefined){
             //     console.log(data.other)
@@ -161,9 +161,9 @@ var IotserviceRepository = new (function(){
                 console.log(data[key])
                 let datatemp = data[key] ;
                 Object.keys(datatemp).forEach(function (key){
-                    dataOther = dataOther +`<input type='text' value=${key} class='mb-2 ' 
+                    dataOther = dataOther +`<input type='text' class="othername" name="othername[]" value=${key} class='mb-2 ' 
                     ' disabled>&nbsp;
-                    <input type='text' 
+                    <input type='text' class="othervalue" name="othervalue[]" id="other"
                          value=${datatemp[key]} >
                     </input>` ;
                     
@@ -171,23 +171,31 @@ var IotserviceRepository = new (function(){
             }
             else if(key == "pin"){
                 console.log(data[key])
-                Object.keys(data[key]).forEach(function (key){
-                    dataPin = dataPin+`<input type=text value=${key} class='mb-2 ' disabled> </input> &nbsp;
+                let i=0;
+                let valkey = data[key];
+                Object.keys(valkey).forEach(function (key){
+                    let check=""
+                    if(valkey[key]==1)
+                    {
+                        check = "checked";
+                    }
+                    dataPin = dataPin+`<input type=text value=${key} name="pinname[]" class='pinname mb-2 ' disabled> </input> &nbsp;
                     OFF
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="pinvalue${i}" ${check}>
                         <span class="slider round"></span>
                     </label>
                     ON
                     <br>
                     `;
+                    i++;
                 })
             }
             
             
         })
-        if (modalDetail === null) {
-            modalDetail =
+        if (modalOutput === null) {
+            modalOutput =
                 `<div class="modal fade" id="settingIot">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -203,10 +211,10 @@ var IotserviceRepository = new (function(){
                             <h6>Create Date : <span id="create-iot"><span></h6>
                             <h6>Update Date : <span id="update-iot"><span></h6>
                             <br>
-                            <h6>Other Inputs</h6>                           
-                            ${dataOther}
+                            <h6>Other Inputs</h6> 
+                            <div id="dataOther"></div>   
                             <h6>Pins Setting</h6>
-                            ${dataPin}
+                            <div id="dataPin"></div>
                             <button type="button" class="btn btn-success btn-sm btn-send" index=${keyvalue} id="send_outputIoT">
                                 send  
                             </button>
@@ -214,10 +222,9 @@ var IotserviceRepository = new (function(){
                     </div>
                 </div>
             </div>
-            `
-            ;
+            `;
 
-            $('body').append(modalDetail);
+            $('body').append(modalOutput);
         }
 
         $('#name-iot').html(iotserviceList[key].name);
@@ -226,40 +233,96 @@ var IotserviceRepository = new (function(){
         $('#note-iot').html(iotserviceList[key].description);
         $('#create-iot').html(iotserviceList[key].created_at);
         $('#update-iot').html(iotserviceList[key].updated_at);
+        $('#dataOther').html(dataOther);
+        $('#dataPin').html(dataPin);
 
         $("#settingIot").modal('show');
         $('#send_outputIoT').click(function(){
-            let key = $(this).attr('index')
-            console.log(key)
-            console.log(iotserviceList[key])
-
-            // $.ajax({
-            //     url: "http://localhost:8000/api/iot/iotupdatedata",
-            //     dataType: 'json',
-            //     method: "POST",
-            //     async: false,
-            //     data:
-            //     {
-            //         id_DB: idDB,
-            //         alias: alias,
-            //         ServiceName: nameiot,
-            //         description: description,
-            //         valueCal: '1',
-            //         valueGroupby: '1',
-            //         // updatetime_input: '1',
-            //         stats: stats,
-            //         datajson:datajson,
-            //         type: 'input',
+            //let key = $(this).attr('index')
+            //console.log(key)
+            //console.log(iotserviceList[key])
+            let othername = document.getElementsByClassName("othername");
+            let other_name  = [].map.call(othername, function( input ) {
+                return input.value;
+            });
+            let othervalue = document.getElementsByClassName("othervalue");
+            let other_value  = [].map.call(othervalue, function( input ) {
+                return input.value;
+            });
+            let pinname = document.getElementsByClassName("pinname");
+            let pin_name  = [].map.call(pinname, function( input ) {
+                return input.value;
+            });
+            
+            let stroutput={};
+            let dataOutput ={} ;
+            let dupstr={};
+            for(let i=0;i<other_name.length;i++)
+            {
+                stroutput[other_name[i]] = other_value[i];
+                dupstr[other_name[i]] = other_value[i];
+            }
+            dataOutput['other'] = dupstr ;
+            dupstr={};
+            for(let i=0;i<pin_name.length;i++)
+            {
+                let num_val = $('#pinvalue'+i).prop('checked')
+                if(num_val==true)
+                {
+                    stroutput[pin_name[i]] = 1;
+                    dupstr[pin_name[i]] = 1;
+                }
+                else
+                {
+                    stroutput[pin_name[i]] = 0;
+                    dupstr[pin_name[i]] = 0;
+                }
+            }
+            dataOutput['pin'] = dupstr ;
+            let data_Output = JSON.stringify(dataOutput, undefined, 2);
+            let str_output = JSON.stringify(stroutput, undefined, 2);
+            $.ajax({
+                url: "http://localhost:8000/api/iot/iotupdatedata",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    id_DB: idDB,
+                    strJson:str_output,
+                    pinfilds:data_Output,
                     
-            //     },
-            //     success: (res) => {
-            //         // toastr["success"]("Success");
-            //         console.log("success DB")
-            //     },
-            //     error: (res) => {
-            //         console.log(res);
-            //     }
-            // });
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DB")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            $.ajax({
+                url: "http://localhost:8081/iotService/insertOutputIot",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    id_DB:idDB,
+                    nameDW: iotserviceList[key].iot_name_DW,
+                    data:
+                    {
+                        strJson:str_output,
+                    }
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DW")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
         });
     }
 
