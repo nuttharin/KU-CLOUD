@@ -10040,6 +10040,11 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 -- --------------------------------------------------------
 
 
-INSERT INTO `address_company` (`address_id`, `address_detail`, `amphure_id` , `company_id` , `district_id` , `province_id`) VALUES
-(1, '69/30 Moo.8', 50, 1, '105001', 1),
-(2, '128/31 Moo.2', 52, 2, '110104', 2);
+INSERT INTO `address_company` (`address_id`, `address_detail`, `amphure_id` , `company_id` , `district_id` , `province_id` , `created_at` , `updated_at`) VALUES
+(1, '69/30 Moo.8', 50, 1, '105001', 1, NOW(), NOW()),
+(2, '128/31 Moo.2', 52, 2, '110104', 2, NOW(), NOW());
+
+INSERT INTO `address_users` (`address_id`, `address_detail`, `amphure_id` , `user_id` , `district_id` , `province_id` , `created_at` , `updated_at`) VALUES
+(1, '69/30 Moo.8', 50, 1, '105001', 1, NOW(), NOW()),
+(2, '128/31 Moo.2', 52, 2, '110104', 2, NOW(), NOW()),
+(3, '128/31 Moo.2', 52, 3, '110104', 2, NOW(), NOW());

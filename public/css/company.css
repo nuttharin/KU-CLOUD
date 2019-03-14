@@ -1,0 +1,11 @@
+input[readonly]{
+    background-color:#fff !important;
+    border: 0;
+    font-size: 1em;
+}
+
+textarea[readonly]{
+    background-color:#fff !important;
+    border: 0;
+    font-size: 1em;
+  }

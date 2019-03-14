@@ -20,6 +20,7 @@ class ADDRESSCOMPANY extends Migration
             $table->string('district_id', 6);
             $table->integer('amphure_id')->unsigned();
             $table->integer('province_id')->unsigned();
+            $table->timestamps();
             $table->foreign('company_id')
             ->references('company_id')->on('TB_COMPANY')
             ->onDelete('cascade');
