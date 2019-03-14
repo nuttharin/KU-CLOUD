@@ -20,6 +20,7 @@ class ADDRESSUSER extends Migration
             $table->string('district_id', 6);
             $table->integer('amphure_id')->unsigned();
             $table->integer('province_id')->unsigned();
+            $table->timestamps();
             $table->foreign('user_id')
             ->references('user_id')->on('TB_USERS')
             ->onDelete('cascade');
