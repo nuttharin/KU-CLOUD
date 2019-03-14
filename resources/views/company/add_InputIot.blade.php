@@ -280,10 +280,10 @@
 <link href="{{url('css/togglebutton.css')}}" rel="stylesheet" />
 <br>
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-6">
         <h4>Create a new IoT</h4>
     </div>
-    <div class="col-sm-5">
+    <!-- <div class="col-sm-5">
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
@@ -292,6 +292,15 @@
         </label>
         </div>
         
+    </div> -->
+    <div class="col-sm-2">
+        <div class="form-group">           
+            <select class="form-control" id="status">
+                <option>Public</option>
+                <option>Private Company</option>
+                <option>Private Owner</option>                
+            </select>
+        </div>
     </div>
 </div>
 <hr>
@@ -315,10 +324,25 @@
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
             <div>
                  <h6>Data format<span style="color:red">*</span></h6>
-                <textarea type="text" rows="4" class="form-control mb-3"  id="dataFormat-iotservice"  placeholder="{&#xa;&emsp;&#34;temperature&#34; &nbsp;:&nbsp; 40.1 ,&#xa;&emsp;&#34;StationNameEng&#34; : &#34;KU KPS&#34; &#xa;}"></textarea>
-                
-                <button type="button" id="checkFormat" class="btn btn-outline-danger " style="font-size: 13px;" >Check format</button>
-                <div class="showCheckJson"> 
+                 <div class="row">
+                        <div class="control-group" id="fields">
+                            <div class="controls"> 
+                                <div class="container">
+                                    <form role="form" autocomplete="off">
+                                        <div class="entry input-group col-xs-3">
+                                            <input class="form-control mb-2 fields" name="fields[]" type="text" placeholder="Name" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-add" type="button">
+                                                    <span>+</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="showCheckJson"> 
                      
                 </div>
             </div>
@@ -337,147 +361,6 @@
                         </div>
                     </div>
                 </div>  -->
-            <div>
-                <div class ="set-time">                    
-                    <div class='card bg-light text-dark ' style="border: 1px solid #AED6F1">
-                        <div class='card-body'>
-                            <div class="row ">
-                                    <div class="col-sm-12">
-                                            
-                                            <h6 >Update Data<span style="color:red">*</span></h6>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="howtouse-crontrab" role="dialog">
-                                                <div class="modal-dialog">
-                                                
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h4 class="modal-title">Cron Syntax</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                    <h5>Allowed values</h5><br/>
-                                                    <center>
-                                                    <table id="paramater">
-                                                        <thead>
-                                                            <th>field</th>
-                                                            <th>value</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <td>*</td>
-                                                            <td>any value</td>
-                                                        <tr>
-                                                            <td>,</td>
-                                                            <td>value list separator</td>
-                                                        <tr>
-                                                            <td>-</td>
-                                                            <td>range of values</td>
-                                                        <tr>
-                                                            <td>/</td>
-                                                            <td>step values</td>
-                                                        <tr>
-                                                            <td>minute</td>
-                                                            <td>0-59</td>
-                                                        <tr>
-                                                            <td>hour</td>
-                                                            <td>0-23</td>
-                                                        </tbody>
-                                                    </table>
-                                                    </center>
-                                                    <hr/>
-                                                    <h5>Examples</h5>
-                                                    <p>How to write a crontab schedule expression for:</p>
-                                                        <div class="row" >
-                                                            <div class="col-sm-3">
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <input type="text" style="width:100%; text-align: center;" id="minute_input" readonly>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <input type="text" style="width:100%; text-align: center;" id="hour_input" readonly>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" >
-                                                            <div class="col-sm-3">
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <center>minute</center>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <center>Hour</center>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" >
-                                                            <div class="col-sm-12">
-                                                                <center><p id="description_time"></p></center>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <a href="#" id="every_minute">every minute</a>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <a href="#" id="every_30_minute">every 30 minute</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <a href="#" id="every_3_hour">every 3 hour</a>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <a href="#" id="every_day">every day</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <a href="#" id="every_day_at_1am">every day at 1am</a>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <a href="#" id="between_certain_hours">between certain hours</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                                
-                                                </div>
-                                            </div>
-                                            <div class="row">                                                 
-                                                <div class="col-sm-2">
-                                                    <input type="input" style="width:100%; text-align: center;" title="minute" class="" id="time-webservice-minute" name="time-webservice-minute" placeholder="*">
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input type="input" style="width:100%; text-align: center;" title="hour" class="" id="time-webservice-hour"  name="time-webservice-hour" placeholder="*">
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <a href="#" data-toggle="modal" data-target="#howtouse-crontrab"> How to use</a>
-                                                </div>
-                                             </div> 
-                                            
-                                            <div class="row">
-                                                <div class="col-sm-2">
-                                                    <center>minute</center>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <center>hour</center>
-                                                </div>
-                                            </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>                
-            </div>
             
             <br>
             <br>

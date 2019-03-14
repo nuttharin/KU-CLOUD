@@ -214,11 +214,11 @@
                     </a>
                 </li>
                 @endif
-                @if ($user->type_user != 'CUSTOMER')
+                @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>
-                        <span>Input Service</span>
+                        <span> Service</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
                     <ul class="collapse list-unstyled sub" id="homeSubmenu">
@@ -233,6 +233,17 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+                @if ($user->type_user == 'CUSTOMER' || $user->type_user == 'ADMIN')
+                <li class="nav-item">
+                    <a href="{{action('InfographicController@Index')}}">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        <span class="link_hide">Output Service</span>
+                    </a>
+                </li> 
+                @endif
+
+                @if ($user->type_user != 'CUSTOMER')
                 <li class="nav-item">
                     <a href="#RegisterServiceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-clipboard-list"></i>
@@ -250,21 +261,21 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a href="{{action('InfographicController@Index')}}">
-                        <i class="fas fa-file-image"></i>
-                        <span class="link_hide">Infographic</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{action('DashboardController@Index')}}">
                         <i class="fas fa-tachometer-alt"></i>
                         <span class="link_hide">Dashboards</span>
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{action('InfographicController@Index')}}">
+                        <i class="fas fa-file-image"></i>
+                        <span class="link_hide">Infographic</span>
+                    </a>
+                </li> 
+                <li class="nav-item">
                     <a href="#AnalysisSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <!-- <i class="fas fa-terminal"></i> -->
-                        <i class="fas fa-toolbox"></i>
+                        <i class="fas fa-chart-line"></i>
                         <span>Analysis</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
@@ -274,11 +285,11 @@
                                 Prepare data
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{action('AnalysisController@DataAnalysisOutput')}}">
                                 Output data analysis
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="{{action('AnalysisController@DataAnalysis')}}">
                                 Data analysis

@@ -2,11 +2,11 @@
 
 namespace App\Repositories\TB_DASHBOARD_DATASOURCES;
 
+use App\TB_DASHBOARD_DATASOURCES;
 use App\TB_IOTSERVICE;
 use App\TB_WEBSERVICE;
-use App\TB_DASHBOARD_DATASOURCES;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EloquentDatasources implements DatasourcesRepository
 {
@@ -29,7 +29,20 @@ class EloquentDatasources implements DatasourcesRepository
                 'webservices' => $webservices,
                 'iot' => $iot,
             ];
-        } else {
+        } else if (Auth::user()->type_user == 'ADMIN') {
+            $webservices = TB_WEBSERVICE::where([
+                ['status', '=', 'public'],
+            ])->get();
+
+            $iot = TB_IOTSERVICE::where([
+               ['status', '=', 'public'],
+            ])->get();
+
+            $data = [
+                'webservices' => $webservices,
+                'iot' => $iot,
+            ];
+        } else if (Auth::user()->type_user == 'COMPANY') {
             $webservices = TB_WEBSERVICE::where([
                 ['company_id', '=', Auth::user()->user_company()->first()->company_id],
             ])->get();

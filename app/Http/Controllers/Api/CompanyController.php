@@ -318,6 +318,7 @@ class CompanyController extends Controller
             'value_groupby' => $request->get('valueGroup'),
             'status' => $request->get('status'),
             'update_time' => $request->get('time'),
+            'example_data' => "xxxx",
         ]);
         Log::info('Create Web Service - [] SUCCESS');
         return response()->json(compact('webService'), 200);

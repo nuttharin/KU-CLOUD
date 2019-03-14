@@ -1,5 +1,5 @@
 class iotService {
-    constructor(iotName,iotAlias,iotdescription,status,jsonencode)
+    constructor(iotName,iotAlias,iotdescription,status,OutputData,jsonencode)
     {
         let nameiot = iotName  ;
         let keyiot;
@@ -8,6 +8,7 @@ class iotService {
         let stats = status;
         let time ;
         let companyID;
+        let showJsonstr = OutputData;
         let pinfilds = jsonencode;
         
 
@@ -48,7 +49,7 @@ class iotService {
 
             //register DB
             $.ajax({
-                url: "http://localhost:8000/api/company/iot/addOutputRegisIotService",
+                url: "http://localhost:8000/api/iot/addOutputRegisIotService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -61,6 +62,7 @@ class iotService {
                     valueCal: '1',
                     stats: stats,
                     pinfilds : pinfilds,
+                    showJsonstr:showJsonstr,
                     type: 'output',
                     
                 },
@@ -97,10 +99,11 @@ class iotService {
         }
 
         this.showDetail = () => {
-            $('#Nameiot').val('xxxx');
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData');
+            $('#Nameiot').val(nameiot);
+            $('#URLiot').val('http://localhost:8081/iotService/GetOutput?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot);
             // $('#Keyiot').val(keyiot);
-            $('#data_output').val('{}');
+            
+            $('#Dataformat').val(pinfilds);
         }  
     }       
 }
@@ -226,7 +229,7 @@ $(document).ready(function () {
         let iotName = $('#name-iotservice').val();
         let iotAlias = $('#alias-iotservice').val();
         let iotdescription = $('#description-iotservice').val();
-        let status = $('#status-iotservice').prop( "checked" );
+        let status = $('#status').val();
         let inputs = document.getElementsByClassName("fields");
         let fields  = [].map.call(inputs, function( input ) {
             return input.value;
@@ -240,6 +243,8 @@ $(document).ready(function () {
             return input.value;
         });
         let otheroutput={};
+        let dataOutput ={} ;
+        let showJson={};
         //console.log(nameoutput)
         if(nameoutput == "" || nameoutput == null)
         {
@@ -248,31 +253,30 @@ $(document).ready(function () {
         {
             for(let i=0;i<nameoutput.length;i++)
             {
+                showJson[nameoutput[i]] = valueoutput[i];
                 otheroutput[nameoutput[i]] = valueoutput[i];
             }
-            if(fields.length>1){
+            dataOutput['other'] = otheroutput ;
+            otheroutput = {}
+            if(fields.length>0){
                 for(let i=0;i<fields.length;i++)
                 {
+                    showJson[fields[i]] = 0;
                     otheroutput[fields[i]] = 0;
+                    console.log(otheroutput)
                 }
             }
+            dataOutput['pin'] = otheroutput ;
+
         }
-        
-        let jsonencode = JSON.stringify(otheroutput);
+        console.log(showJson)
+        let OutputData = JSON.stringify(dataOutput, undefined, 2);
+        let jsonencode = JSON.stringify(showJson, undefined, 2);
         console.log(jsonencode);
 
-        if(status == true)
-        {
-            status="public";
-            console.log('sssss')
-        }
-        else
-        {
-            status="private";
-        }
-
        
-        let iot = new iotService(iotName,iotAlias,iotdescription,status,jsonencode);
+       
+        let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode);
         iot.getDataforInsert();
         iot.showDetail();
       

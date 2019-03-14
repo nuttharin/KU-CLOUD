@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class TbDashboards extends Migration
 {
@@ -13,9 +13,11 @@ class TbDashboards extends Migration
      */
     public function up()
     {
-         Schema::create('TB_DASHBOARDS', function (Blueprint $table) {
+        Schema::create('TB_DASHBOARDS', function (Blueprint $table) {
             $table->increments('dashboard_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_public')->default(false);
+            $table->string('description', 200)->nullable();;
             $table->string('name', 50);
             $table->longText('dashboard');
             $table->timestamps();

@@ -1,6 +1,7 @@
 @extends('layouts.mainCompany')
 @section('title','Dashboards')
 @section('content')
+<?php $user = session('user') ?>
 <style>
     table {
         font-size: 14px;
@@ -36,6 +37,10 @@
                         <tr>
                             <th>Name</th>
                             <th>Create by</th>
+                            <th>Description</th>
+                            @if ($user->type_user == 'ADMIN')
+                            <th>Status share</th>
+                            @endif
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -73,6 +78,23 @@
                         <label>Name</label>
                         <input type="text" id="static-name" class="form-control">
                     </div>
+                    <div class="col-12">
+                        <label>Description</label>
+                        <textarea name="desc" id="desc" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                    @if ($user->type_user == 'ADMIN')
+                    <div class="col-12 form-inline mt-2">
+                        <label class="mr-2">Status Share</label>
+                        <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="add_statusPrivate" name="add_statusShare" value="0" checked>
+                                <label class="custom-control-label mr-3" for="add_statusPrivate">Private</label>
+                        </div> 
+                        <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="add_statusPublic" name="add_statusShare" value="1" >
+                                <label class="custom-control-label" for="add_statusPublic">Public</label>
+                        </div> 
+                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -85,5 +107,11 @@
         </div>
     </div>
 </div>
+
+@if ($user->type_user == 'COMPANY')
 <script src="{{ mix('/js/company/dashboards/dashboardDataTable.min.js') }}"></script>
+@endif
+@if ($user->type_user == 'ADMIN')
+<script src="{{ mix('/js/admin/dashboards/dashboardDataTable.min.js') }}"></script>
+@endif
 @endsection

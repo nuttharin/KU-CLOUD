@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use DB;
 
 class IoTController extends Controller
 {
@@ -17,12 +18,23 @@ class IoTController extends Controller
         $key = 'klflvpekvlvep[clep[lc';
         return response()->json(compact('key'), 200);
     }
+    public function iotupdatedata(Request $request)
+    {
+        // $companyID = Auth::user()->user_company()->first()->company_id;
+        // $nameDW = "IoT.Input.".$request->get('ServiceName') . "." . $companyID;
+
+        $iotService = TB_IOTSERVICE::where('iotservice_id', $request->get('id_DB'))
+        ->update([
+            'dataOutput' => $request->get('strJson'),
+            'strJson' => $request->get('pinfilds'),
+        ]);
+        return response()->json(["status", "success"], 200);
+    }
     public function getAllIotserviceData(Request $request)
     {
-        $token = $request->bearerToken();
-        $payload = JWTAuth::setToken($token)->getPayload();
+      
         $companyID =  Auth::user()->user_company()->first()->company_id;
-        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.API,TB_IOTSERVICE.description,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
+        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.type,TB_IOTSERVICE.description,strJson,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.dataOutput,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
         FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID'");
 
         if (empty($iotService)) {
@@ -31,10 +43,11 @@ class IoTController extends Controller
 
         return response()->json(compact('iotService'), 200);
     }
+
     public function addRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
-        $nameDW = $request->get('ServiceName') . "." . $companyID;
+        $nameDW = "IoT.Input.".$request->get('ServiceName') . "." . $companyID;
 
         $iotService = TB_IOTSERVICE::create([
             'company_id' => $companyID,
@@ -52,10 +65,11 @@ class IoTController extends Controller
         ]);
         return response()->json(compact('iotService'), 200);
     }
+
     public function addOutputRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
-        $nameDW = $request->get('ServiceName') . "." . $companyID;
+        $nameDW = "IoT.Output.".$request->get('ServiceName') . "." . $companyID;
 
         $iotService = TB_IOTSERVICE::create([
             'company_id' => $companyID,
@@ -65,10 +79,22 @@ class IoTController extends Controller
             'alias' => $request->get('alias'),
             'description' => $request->get('description'),
             'status' => $request->get('stats'),
-            'url_onoff_output' => $request->get('strUrl'),
-            'pins_onoff' => $request->get('pinfilds'),
+            'strJson' => $request->get('showJsonstr'),
+            'dataOutput' => $request->get('pinfilds'),
             'value_cal' => $request->get('valueCal'),
         ]);
         return response()->json(compact('iotService'), 200);
+    }
+
+    public function getDataOutput(Request $request)
+    {
+        // $idService =  $request->get('idOutputService');
+        // $iotService = DB::select("SELECT * FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$idService'");
+
+        // if (empty($iotService)) {
+        //     return response()->json(['message' => 'not have data'], 200);
+        // }
+
+        // return response()->json(compact('iotService'), 200);
     }
 }

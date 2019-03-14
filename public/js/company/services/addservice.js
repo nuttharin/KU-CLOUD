@@ -699,39 +699,53 @@ class TreeView {
     }
 }
 
+class cronTap {
+    constructor()
+    {
+        this.exampleCron = () => {
+             // example cron
+            $("#every_minute").click(function () {
+                $("#minute_input").val("*");
+                $("#hour_input").val("*");
+                $("#description_time").html("At every minute.");
+            })
+            $("#every_30_minute").click(function () {
+                $("#minute_input").val("*/30");
+                $("#hour_input").val("*");
+                $("#description_time").html("At every 30th minute.");
+
+            })
+            $("#every_3_hour").click(function () {
+                $("#minute_input").val("0");
+                $("#hour_input").val("*/3");
+                $("#description_time").html("At minute 0 past every 3rd hour.");
+            })
+            $("#every_day").click(function () {
+                $("#minute_input").val("0");
+                $("#hour_input").val("0");
+                $("#description_time").html("At 00:00.");
+            })
+            $("#every_day_at_1am").click(function () {
+                $("#minute_input").val("0");
+                $("#hour_input").val("1");
+                $("#description_time").html("At 01:00.");
+            })
+            $("#between_certain_hours").click(function () {
+                $("#minute_input").val("0");
+                $("#hour_input").val("9-17");
+                $("#description_time").html("At minute 0 past every hour from 9 through 17.");
+            })
+        }
+        
+ 
+    }       
+}
+
+
 $(document).ready(function () {
-
-    $("#every_minute").click(function () {
-        $("#minute_input").val("*");
-        $("#hour_input").val("*");
-        $("#description_time").html("At every minute.");
-    })
-    $("#every_30_minute").click(function () {
-        $("#minute_input").val("*/30");
-        $("#hour_input").val("*");
-        $("#description_time").html("At every 30th minute.");
-
-    })
-    $("#every_3_hour").click(function () {
-        $("#minute_input").val("0");
-        $("#hour_input").val("*/3");
-        $("#description_time").html("At minute 0 past every 3rd hour.");
-    })
-    $("#every_day").click(function () {
-        $("#minute_input").val("0");
-        $("#hour_input").val("0");
-        $("#description_time").html("At 00:00.");
-    })
-    $("#every_day_at_1am").click(function () {
-        $("#minute_input").val("0");
-        $("#hour_input").val("1");
-        $("#description_time").html("At 01:00.");
-    })
-    $("#between_certain_hours").click(function () {
-        $("#minute_input").val("0");
-        $("#hour_input").val("9-17");
-        $("#description_time").html("At minute 0 past every hour from 9 through 17.");
-    })
+    let cron = new cronTap();
+    cron.exampleCron()
+    
 
     $(".show-header").click(function () {
 
@@ -739,7 +753,7 @@ $(document).ready(function () {
         let alias = $('#alias-webservice').val();
         let ServiceName = $('#name-webservice').val();
         let description = $("#description-webservice").val();
-        let status = $('#status-webservice').prop( "checked" );
+        let status = $('#status').val();
         let minute = $('#time-webservice-minute').val();
         let hour = $('#time-webservice-hour').val();
         let time = minute+" "+hour+" * * *";
@@ -813,17 +827,45 @@ $(document).ready(function () {
         }
         // console.log(type_time)
         // console.log(convert_time)
-        if(status == true)
+        if(url == "")
         {
-            status="public";
-        }
-        else
+            console.log('ddd')
+        }       
+        console.log(url)
+        console.log(alias)
+        console.log(ServiceName)
+        console.log(minute)
+        console.log(hour)
+        if(url == "" || alias == "" || ServiceName == "" || minute == "" || hour == "" )
         {
-            status="private";
+             if(ServiceName == "")
+            {
+                swal("คุณไม่ได้กรอก ServiceName !", "", "error");
+            }  
+            else if(alias == "")
+            {
+                swal("คุณไม่ได้กรอก alias !", "", "error");
+            }
+            else  if(url == "")
+            {
+                swal("คุณไม่ได้กรอก url !", "", "error");
+            }                 
+            else  if(minute == "")
+            {
+                swal("คุณไม่ได้กรอก minute !", "", "error");
+            }
+            else  if(hour == "")
+            {
+                swal("คุณไม่ได้กรอก hour !", "", "error");
+            }
+            
         }
-
-        let service = new Service(url, alias, ServiceName, description,status,time);
-        service.initService();
+        else {
+            let service = new Service(url, alias, ServiceName, description,status,time);
+            service.initService();
+        }
+       
+        
       
         
     })

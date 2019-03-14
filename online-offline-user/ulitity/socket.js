@@ -95,7 +95,7 @@ class Socket {
 
                
                 if(hash.digest('hex') === signature){
-                    socket.user_id = payload.user_id;
+                    //socket.user_id = payload.user_id;
                     let userSocketId = socket.id;
                     const response = await helper.addUserOnline(payload.user_id, userSocketId);
                     if (response && response !== null) {
@@ -145,20 +145,16 @@ class Socket {
 
                
                 if(hash.digest('hex') === signature){
-                    socket.user_id = payload.user_id;
+                    //socket.user_id = payload.user_id;
                     let userSocketId = socket.id;
 
                     this.userInDashborad.push({
                         user_id :payload.user_id,
                         socket_id : socket.id,
                     });
-
-                    const response = await helper.addUserOnline(payload.user_id, userSocketId);
-                    if (response && response !== null) {
-                        next();
-                    } else {
-                        console.error(`Socket connection failed, for  user Id ${userId}.`);
-                    }
+                    
+                    next();
+                    
                 }
                 else{
                     console.log(false);

@@ -287,7 +287,7 @@
     <div class="col-sm-6">
         <h4>Create a new Output IoT</h4>
     </div>
-    <div class="col-sm-6">
+    <!-- <div class="col-sm-6">
         <div class="onoffswitch2">
         <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="status-iotservice">
         <label class="onoffswitch2-label" for="status-iotservice">
@@ -296,6 +296,15 @@
         </label>
         </div>
         
+    </div> -->
+    <div class="col-sm-2">
+        <div class="form-group">           
+            <select class="form-control" id="status">
+                <option>Public</option>
+                <option>Private Company</option>
+                <option>Private Owner</option>                
+            </select>
+        </div>
     </div>
 </div>
 <hr>
@@ -317,10 +326,6 @@
             <h6>Description</h6>
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
                   
-
-            
-            <h6>URL for ON/OFF  <span style="color:red">*</span></h6>            
-            <input type="text" class="mb-2" id="url-nooffiotservice" name="name" placeholder="Url of ON/OFF IoT">
 
             <h6>Others Output</h6>            
             <!-- <div class="container"> -->
@@ -395,7 +400,45 @@
         </div>
     </div>
 </div>
-
+<hr>
+<!-- Modal -->
+<div class="modal fade" id="ShowDetailiotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Output</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label">IoT  Name</label>
+                    <div class="col-sm-12">
+                        <input class="form-control" id="Nameiot" type="text" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-12 control-label">URLs</label>
+                    <div class="col-sm-12">
+                        <textarea class="form-control" id="URLiot" type="text" disabled></textarea>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label  class="col-sm-12 control-label">Data Format</label>
+                    <div class="col-sm-12">
+                        <textarea class="form-control" id="Dataformat" row="10" type="text" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script type="text/javascript" src="{{url('js/company/iot/add_OutputIot.js')}}"></script>

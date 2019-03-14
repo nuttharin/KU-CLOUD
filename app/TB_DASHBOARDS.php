@@ -10,7 +10,7 @@ class TB_DASHBOARDS extends Model
     protected $table = "TB_DASHBOARDS";
     //
     protected $fillable = [
-        'user_id', 'dashboard_id', 'name', 'dashboard',
+        'user_id', 'dashboard_id', 'name', 'dashboard', 'description', 'is_public',
     ];
 
     protected $hidden = [
