@@ -38,4 +38,11 @@ interface UsersRepository
 
     public function deletePhoneUser(array $attributes);
 
+    //Custom function
+    public function getTypeById($user_id);
+
+    public function getCompanyIdByUserId($user_id);
+
+    public function getUserById($user_id);
+
 }

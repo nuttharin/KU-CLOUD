@@ -7,6 +7,7 @@ use App\TB_PHONE;
 use App\TB_USERS;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
+use App\TB_DATA_ANALYSIS;
 use Illuminate\Database\Migrations\Migration;
 
 class SetupFirst extends Migration

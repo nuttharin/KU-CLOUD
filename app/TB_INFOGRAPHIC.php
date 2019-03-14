@@ -10,7 +10,7 @@ class TB_INFOGRAPHIC extends Model
     protected  $table = "TB_INFOGRAPHIC";
     //
     protected $fillable = [
-        'info_id', 'user_id', 'name', 'info_data',
+        'info_id', 'user_id', 'name', 'info_data', 'created_by', 'updated_by'
     ];
 
     protected $hidden = [

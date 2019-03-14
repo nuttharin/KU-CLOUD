@@ -10,6 +10,7 @@
     .dataTables_wrapper {
         font-size: 12px;
     }
+
 </style>
 
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />

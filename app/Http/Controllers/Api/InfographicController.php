@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\TB_INFOGRAPHIC\InfographicRepository;
+use App\Repositories\TB_USERS\UsersRepository;
 use App\TB_INFOGRAPHIC;
+use App\TB_USERS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -13,9 +15,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class InfographicController extends Controller
 {
 
-    private $info;
+    private $info, $user;
 
-    public function __construct(InfographicRepository $info)
+    public function __construct(InfographicRepository $info, UsersRepository $user)
     {
         // if (!Gate::allows('isAdmin')) {
         //     abort('403', "Sorry, You can do this actions");
@@ -30,6 +32,7 @@ class InfographicController extends Controller
         // $this->log_viewer->setFolder('KU_CLOUD');
 
         $this->info = $info;
+        $this->user = $user;
 
         $this->auth = Auth::user();
     }
@@ -38,13 +41,24 @@ class InfographicController extends Controller
     {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
-        $data = $this->info->getInfographicByUserID($payload["sub"]);
+        $type_user = $this->user->getTypeById($payload["sub"]);
+
+        if($type_user->type_user == "COMPANY")
+        {
+            $company_id = $this->user->getCompanyIdByUserId($payload["sub"]);
+
+            $data = $this->info->getInfographicByCompanyId($payload["sub"], $company_id->company_id);
+        }
+        else
+        {
+            $data = $this->info->getInfographicByUserID($payload["sub"]);
+        }
 
         if (empty($data)) {
             return response()->json(['message' => 'not have data'], 200);
         }
 
-        return response()->json(compact('data'), 200);
+        return response()->json(['data' => $data, 'type_user' => $type_user->type_user], 200);
     }
 
     public function getInfograpicData(Request $request)
@@ -64,10 +78,13 @@ class InfographicController extends Controller
     {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
+        $userObject = $this->user->getUserById($payload["sub"]);
 
         $addinfo = TB_INFOGRAPHIC::create([
             'user_id' => $payload["sub"],
             'name' => $request->get('name'),
+            'created_by' => $userObject->fname.' '.$userObject->lname,
+            'updated_by' => $userObject->fname.' '.$userObject->lname,
         ]);
 
         return response()->json(["status_code", "201"], 201);
@@ -77,10 +94,12 @@ class InfographicController extends Controller
     {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
+        $userObject = $this->user->getUserById($payload["sub"]);
 
         $info = TB_INFOGRAPHIC::where('info_id', $request->get('info_id'))
             ->update([
                 'name' => $request->get('name'),
+                'updated_by' => $userObject->fname.' '.$userObject->lname,
             ]);
 
         return response()->json(["status_code", "201"], 201);
