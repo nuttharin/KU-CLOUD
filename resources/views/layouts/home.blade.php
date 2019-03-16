@@ -132,6 +132,13 @@
     </nav> -->
 
     <script type="text/javascript" src="{{asset('js/Global.js')}}"></script>
+
+            
+    <script>
+        const END_POINT = "{{ env('API_URL') }}";
+        const END_POINT_WED = "{{env('APP_URL')}}";
+    </script>
+
     <!-- Page Content  -->
     <div id="content-login">
         @yield('content')
