@@ -68,7 +68,7 @@ $(document).ready(function () {
     $('#btn_submit_login').click(function () {
         event.preventDefault();
         $.ajax({
-            url: "http://localhost:8000/Auth/Login",
+            url: END_POINT_WED + "/Auth/Login",
             method: "POST",
             dataType: "json",
             data: {

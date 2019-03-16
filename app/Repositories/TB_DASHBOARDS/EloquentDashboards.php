@@ -90,7 +90,7 @@ class EloquentDashboards implements DashboardsRepository
         DB::commit();
     }
 
-    public function updateDashboard($dashboard_id, $name, $desc, $is_public)
+    public function updateDashboard($dashboard_id, $name, $desc, $is_public = false)
     {
         // TODO: Implement updateDashboard() method.
         DB::beginTransaction();
@@ -109,6 +109,10 @@ class EloquentDashboards implements DashboardsRepository
                 ])
                     ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_DASHBOARDS.user_id')
                     ->get();
+            }
+
+            if (is_null($is_public)) {
+                $is_public = false;
             }
 
             if (!empty($checkData)) {
