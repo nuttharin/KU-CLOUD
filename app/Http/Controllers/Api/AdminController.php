@@ -143,6 +143,10 @@ class AdminController extends Controller
             'company_id' => $request->get('company_id'),
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
+            'address' => $request->get('address'),
+            'province' => $request->get('province'),
+            'amphure' => $request->get('amphure'),
+            'district' => $request->get('district'),
             'sub_type_user' => $request->get('sub_type_user'),
         ];
 
@@ -212,10 +216,14 @@ class AdminController extends Controller
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'phone_user' => $request->get('phone'),
-            'email_user' => $request->get('email'),
             'type_user' => 'CUSTOMER',
             'company_id' => $request->get('company_id'),
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+            'address' => $request->get('address'),
+            'province' => $request->get('province'),
+            'amphure' => $request->get('amphure'),
+            'district' => $request->get('district'),
         ];
         //dd($attributes);
         $this->users->create($attributes);

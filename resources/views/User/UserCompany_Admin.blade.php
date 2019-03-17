@@ -156,7 +156,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="form-add-user">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-6">
                             <label for="">Username <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="add_username_val" />
@@ -194,6 +194,87 @@
                             <label for="">Company <span class="text-danger">*</span></label>
                             <select id="add_company_val" class="form-control"></select>
                         </div>
+                    </div> -->
+
+                    <div class="row justify-content-center">
+                        <div class="col-xl-11">
+                            <div class="row mt-2">
+                                <label for="">Username <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="add_username_val" />
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6" style="padding-left:0px;">
+                                    <label for="">Firstname <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="add_fname_val" />
+                                    <small class="messages-error"></small>
+                                </div>
+                                <div class="col-6" style="padding-right:0px;">
+                                    <label for="">Lastname <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="add_lname_val" />
+                                    <small class="messages-error"></small>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6" style="padding-left:0px;">
+                                    <label for="">Phone <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="add_phone_val" />
+                                    <small class="messages-error"></small>
+                                </div>
+                                <div class="col-6" style="padding-right:0px;">
+                                    <label for="">Email <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="add_email_val" />
+                                    <small class="messages-error"></small>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6" style="padding-left:0px;">
+                                    <label for="">Type User <span class="text-danger">*</span></label>
+                                    <select id="add_type_user_val" class="form-control">
+                                        <option>ADMIN</option>
+                                        <option selected>CUSTOMER SUPPORT</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="padding-right:0px;">
+                                    <label for="">Company <span class="text-danger">*</span></label>
+                                    <select id="add_company_val" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="address">Address <span class="text-danger">*</span></label>
+                                <textarea name="address_detail" id="address_create" cols="30" rows="5" class="form-control"></textarea>
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="province">Province <span class="text-danger">*</span></label>
+                                <select name="province" id="province_create" class="form-control">
+                                    <option value="">--Select provice--</option>
+                                </select>
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="amphure">Amphure <span class="text-danger">*</span></label>
+                                <select name="amphure" id="amphure_create" class="form-control">
+                                    <option value="">--Select amphure--</option>
+                                </select>
+                                <small class="messages-error"></small>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6" style="padding-left:0px;">
+                                    <label for="district">District <span class="text-danger">*</span></label>
+                                    <select name="district" id="district_create" class="form-control">
+                                        <option value="">--Select district--</option>
+                                    </select>
+                                    <small class="messages-error"></small>
+                                </div>
+                                <div class="col-6" style="padding-right:0px;">
+                                    <label for="zip_code">Zip code <span class="text-danger">*</span></label>
+                                    <input name="zip_code" id="zip_code_create" class="form-control">
+                                    <small class="messages-error"></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
                 </form>
             </div>
 
