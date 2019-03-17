@@ -65,7 +65,6 @@ toastr.options = {
     "hideMethod": "fadeOut"
 };
 
-const END_POINT = 'http://localhost:8000/api/';
 
 validate.validators.presence.message = "is required";
 

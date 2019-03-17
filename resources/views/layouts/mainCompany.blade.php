@@ -243,7 +243,7 @@
                 </li> 
                 @endif
 
-                @if ($user->type_user != 'CUSTOMER')
+                @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
                     <a href="#RegisterServiceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-clipboard-list"></i>
@@ -344,6 +344,12 @@
         <!-- moment  -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 
+        
+        <script>
+            const END_POINT = "{{ env('API_URL') }}";
+            const END_POINT_WED = "{{env('APP_URL')}}";
+        </script>
+        
         <!-- Page Content  -->
         <div id="content" class="content">
             @yield('content')

@@ -537,6 +537,18 @@ class EloquentUsers implements UsersRepository
         return $data;
     }
 
+    public function getAllEmailCustomerInCompany()
+    {
+        // TODO: Implement getCustomerNoCompany() method.
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $data = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_EMAIL.email_user FROM TB_USERS
+        INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
+        LEFT JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
+        LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
+        WHERE TB_USERS.type_user = ?  AND TB_EMAIL.is_primary = ? AND TB_COMPANY.company_id = ?', ['CUSTOMER', true, $company_id]);
+        return $data;
+    }
+
     public function addCustomerInCompany(array $userList)
     {
         DB::beginTransaction();
