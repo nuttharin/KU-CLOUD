@@ -65,12 +65,15 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label>Name</label>
-                        <input type="text" id="info-name" class="form-control">
+                <form id="form-info">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Name</label>
+                            <input type="text" name="infoname" id="info-name" class="form-control">
+                            <small class="messages-error"></small>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" id="btn-save-add-info" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">

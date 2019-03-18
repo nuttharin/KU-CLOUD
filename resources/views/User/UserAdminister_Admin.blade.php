@@ -142,7 +142,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Create User</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -179,30 +179,30 @@
                         <div class="col-xl-11">
                             <div class="row mt-2">
                                 <label for="">Username <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="add_username_val" />
+                                <input type="text" class="form-control" id="add_username_val" name="username" />
                                 <small class="messages-error"></small>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6" style="padding-left:0px;">
                                     <label for="">Firstname <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="add_fname_val" />
+                                    <input type="text" class="form-control" id="add_fname_val" name="firstname" />
                                     <small class="messages-error"></small>
                                 </div>
                                 <div class="col-6" style="padding-right:0px;">
                                     <label for="">Lastname <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="add_lname_val" />
+                                    <input type="text" class="form-control" id="add_lname_val" name="lastname" />
                                     <small class="messages-error"></small>
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6" style="padding-left:0px;">
                                     <label for="">Phone <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="add_phone_val" />
+                                    <input type="text" class="form-control" id="add_phone_val" name="phone" />
                                     <small class="messages-error"></small>
                                 </div>
                                 <div class="col-6" style="padding-right:0px;">
                                     <label for="">Email <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="add_email_val" />
+                                    <input type="text" class="form-control" id="add_email_val" name="email" />
                                     <small class="messages-error"></small>
                                 </div>
                             </div>

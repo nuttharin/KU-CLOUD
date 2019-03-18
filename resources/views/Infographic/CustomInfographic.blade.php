@@ -14,11 +14,10 @@
 <div class="row border-bottom">
     <div class="col-4 text-left" style="padding: 30px 0px 10px 15px">
         <span class="h4">Custom Infographic</span>
-        <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button>
+        <!-- <button class="btn btn-success btn-sm btn-radius" id="btn-add-datasource"><i class="fas fa-plus"></i> Add Datasource</button> -->
     </div>
     <div class="col-8 text-right">
-        <button type="button" id="btn_fullscreen" class="btn btn-default btn-md" style="margin: 20px;">Preview</button>
-        <div class="btn-group">
+        <div class="btn-group" style="margin: 20px;">
         <button type="button" class="btn btn-primary btn-md dropdown-toggle" data-toggle="dropdown">Download <span class="caret"></span></button>
             <ul class="dropdown-menu" id="btn_download_list" role="menu">
                 <a class="dropdown-item" href="#" valuetype="pdf"><i class="far fa-file-pdf" style="margin-right:10px"></i>Save as PDF</a>
