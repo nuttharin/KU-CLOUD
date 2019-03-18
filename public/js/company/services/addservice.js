@@ -526,7 +526,7 @@ class Service {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    
+                    idDB:idDB,
                     strUrl: strUrl,
                     ServiceNameDW :ServiceName+"."+companyID,
                     header : headerLow,
@@ -542,6 +542,9 @@ class Service {
                     console.log(res);
                 }
             });
+            $(".swal-button--confirm").click(function (){
+                location.reload();
+            })
 
         }
 
