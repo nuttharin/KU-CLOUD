@@ -364,7 +364,7 @@
             
             <br>
             <br>
-            <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
+            <button type="button" id="showvalue" class="btn btn-primary show-header" ><a style="color:white" href="#select">Show Detail</a></button>  
             
         </div>
         
@@ -393,6 +393,9 @@
     </div>
 </div>
 <hr>
+<div class="modalCalValue">
+
+</div>
 <!-- Modal -->
 <div class="modal fade" id="ShowDetailiotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

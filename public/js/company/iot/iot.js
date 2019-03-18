@@ -2,6 +2,7 @@ var IotserviceRepository = new (function(){
     let iotserviceList = [];
     let datatableObject = null;
     let modalDetail = null;
+    let modalDelete = null;
     let modalOutput = null;
     let idDB=null;
 
@@ -109,6 +110,10 @@ var IotserviceRepository = new (function(){
             console.log('btn-setting')
             onSettingClick($(this).attr('index'));
         });
+        $('#datatable-iotservice').on('click', '.btn-delete', function () {
+            console.log('btn-delete')
+            onDeleteClick($(this).attr('index'));
+        });
 
     }
 
@@ -146,6 +151,62 @@ var IotserviceRepository = new (function(){
 
         $("#detailIot").modal('show');
     }
+    let onDeleteClick = (key) => {
+        if (modalDelete === null) {
+            modalDelete = `
+                        <div class="modal fade" id="DeleteUser">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Delete Web Service</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form id="form-delete-user">
+                                            <h6 id="span-text-confirm"></h6>
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" id="btn-delete-submit" class="btn btn-danger btn-block">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+            $('body').append(modalDelete);
+        }
+
+        $('#span-text-confirm').html("Are you sure to delete " + iotserviceList[key].name + " ? ");
+        $('#DeleteUser').modal('show');
+
+        $('#btn-delete-submit').click(function () {
+            // alert('fffff')
+            $.ajax({
+                url: "http://localhost:8000/api/iot/deleteIoT",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    id:iotserviceList[key].id,
+                },
+                success: (res) => {
+                    swal("Delete Success!", "You clicked the button!", "success");
+                    // toastr["success"]("Delete Success");
+                    console.log("delete success")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            $(".swal-button--confirm").click(function (){
+                location.reload();
+            })
+            
+        });
+        
+    };
     let onSettingClick = async (key) =>{
         console.log(key)
         let keyvalue=key;
@@ -161,9 +222,9 @@ var IotserviceRepository = new (function(){
                 console.log(data[key])
                 let datatemp = data[key] ;
                 Object.keys(datatemp).forEach(function (key){
-                    dataOther = dataOther +`<input type='text' class="othername" name="othername[]" value=${key} class='mb-2 ' 
+                    dataOther = dataOther +`<input type='text' class="othername mb-2" name="othername[]" value=${key} class='mb-2 ' 
                     ' disabled>&nbsp;
-                    <input type='text' class="othervalue" name="othervalue[]" id="other"
+                    <input type='text' class="othervalue mb-2" name="othervalue[]" id="other"
                          value=${datatemp[key]} >
                     </input>` ;
                     
@@ -281,6 +342,8 @@ var IotserviceRepository = new (function(){
             dataOutput['pin'] = dupstr ;
             let data_Output = JSON.stringify(dataOutput, undefined, 2);
             let str_output = JSON.stringify(stroutput, undefined, 2);
+            let str_output1 = JSON.stringify(stroutput);
+            console.log(stroutput)
             $.ajax({
                 url: "http://localhost:8000/api/iot/iotupdatedata",
                 dataType: 'json',
@@ -310,19 +373,20 @@ var IotserviceRepository = new (function(){
                 {
                     id_DB:idDB,
                     nameDW: iotserviceList[key].iot_name_DW,
-                    data:
-                    {
-                        strJson:str_output,
-                    }
+                    strJson:str_output1,
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
+                    swal("Success!", "You clicked the button!", "success");
                     console.log("success DW")
                 },
                 error: (res) => {
                     console.log(res);
                 }
             });
+            $(".swal-button--confirm").click(function (){
+                location.reload();
+            })
         });
     }
 
