@@ -93,6 +93,10 @@ class AdminController extends Controller
             'type_user' => 'ADMIN',
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
+            // 'address' => $request->get('address'),
+            // 'province' => $request->get('province'),
+            // 'amphure' => $request->get('amphure'),
+            // 'district' => $request->get('district'),
         ];
 
         $this->users->create($attributes);
@@ -102,11 +106,13 @@ class AdminController extends Controller
     public function editAdminister(Request $request)
     {
         $attributes = [
+            'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
+            'type_user' => $request->get('type_user'),
         ];
         $this->users->update($attributes);
         return response()->json(["status_code", "200"], 200);
@@ -139,6 +145,10 @@ class AdminController extends Controller
             'company_id' => $request->get('company_id'),
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
+            // 'address' => $request->get('address'),
+            // 'province' => $request->get('province'),
+            // 'amphure' => $request->get('amphure'),
+            // 'district' => $request->get('district'),
             'sub_type_user' => $request->get('sub_type_user'),
         ];
 
@@ -152,11 +162,15 @@ class AdminController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
         $attributes = [
+            'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'phone_user' => $request->get('phone'),
             'email_user' => $request->get('email'),
+            'sub_type_user' => $request->get('sub_type_user'),
+            'company_id' => $request->get('company_id'),
+            'type_user' => $request->get('type_user'),
         ];
         $this->users->update($attributes);
 
@@ -208,10 +222,14 @@ class AdminController extends Controller
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'phone_user' => $request->get('phone'),
-            'email_user' => $request->get('email'),
             'type_user' => 'CUSTOMER',
             'company_id' => $request->get('company_id'),
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+            // 'address' => $request->get('address'),
+            // 'province' => $request->get('province'),
+            // 'amphure' => $request->get('amphure'),
+            // 'district' => $request->get('district'),
         ];
         //dd($attributes);
         $this->users->create($attributes);
@@ -251,11 +269,14 @@ class AdminController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
         $attributes = [
+            'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'phone_user' => $request->get('phone'),
             'email_user' => $request->get('email'),
+            'company_id' => $request->get('company_id'),
+            'type_user' => $request->get('type_user'),
         ];
         $this->users->update($attributes);
 
@@ -360,8 +381,15 @@ class AdminController extends Controller
     {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
-        $company = DB::select('SELECT TB_COMPANY.company_id as id, TB_COMPANY.company_name as name, TB_COMPANY.alias, TB_COMPANY.note, TB_COMPANY.created_at, TB_COMPANY.updated_at
-                                    FROM TB_COMPANY');
+        $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note, 
+                                        address_company.address_detail, address_company.district_id, address_company.amphure_id, address_company.province_id,
+                                        districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
+                                        amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
+                                        provinces.name_th as pNameTh, provinces.name_en as pNameEn
+                                FROM TB_COMPANY INNER JOIN address_company ON address_company.company_id = TB_COMPANY.company_id
+                                INNER JOIN districts ON districts.district_id = address_company.district_id
+                                INNER JOIN amphures ON amphures.amphure_id = address_company.amphure_id
+                                INNER JOIN provinces ON provinces.province_id = address_company.province_id');
 
         if (empty($company)) {
             return response()->json(['message' => 'not have data'], 200);
@@ -454,12 +482,19 @@ class AdminController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
 
-        $company = TB_COMPANY::where('company_id', $request->get('company_id'))
+        $company = TB_COMPANY::where('company_id', $request->get('company_id_input'))
             ->update([
-                'company_name' => $request->get('company_name'),
-                'alias' => $request->get('alias'),
-                'address' => $request->get('address'),
-                'note' => $request->get('note'),
+                'company_name' => $request->get('company_name_input'),
+                'alias' => $request->get('alias_input'),
+                'note' => $request->get('note_input'),
+            ]);
+
+        $address_company = Address_company::where('company_id', $request->get('company_id_input'))
+            ->update([
+                'address_detail' => $request->get('address_detail'),
+                'district_id' => $request->get('district'),
+                'amphure_id' => $request->get('amphure'),
+                'province_id' => $request->get('province'),
             ]);
 
         //$request->bearerToken(),201

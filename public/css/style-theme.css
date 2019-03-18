@@ -1,3 +1,18 @@
+input[readonly]{
+    background-color:#fff !important;
+    border: 1;
+    font-size: 1em;
+    cursor: default;
+}
+
+textarea[readonly]{
+    background-color:#fff !important;
+    border: 1;
+    font-size: 1em;
+    cursor: default;
+  }
+
+
 .text-primary {
     color: #308ee0;
 }

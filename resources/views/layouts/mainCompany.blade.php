@@ -74,7 +74,7 @@
     <link rel="stylesheet" href="{{asset('freetrans/jquery.freetrans.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-
+    <script src="{{url('livetable/SimpleTableCellEditor.js')}}"></script>
     <!-- pace -->
     <!-- <script src="{{asset('pace/pace.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('pace/pace.css')}}"> -->
@@ -243,7 +243,7 @@
                 </li> 
                 @endif
 
-                @if ($user->type_user != 'CUSTOMER')
+                @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
                     <a href="#RegisterServiceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-clipboard-list"></i>
@@ -344,6 +344,13 @@
         <!-- moment  -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 
+        
+        <script>
+            const END_POINT = "{{ env('API_URL') }}";
+            const END_POINT_WED = "{{env('APP_URL')}}";
+            console.log(END_POINT);
+        </script>
+        
         <!-- Page Content  -->
         <div id="content" class="content">
             @yield('content')

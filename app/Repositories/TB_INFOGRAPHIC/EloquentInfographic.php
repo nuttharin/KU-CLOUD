@@ -38,12 +38,15 @@ class EloquentInfographic implements InfographicRepository
         $data = [];
 
         $infoDataList = $this->model::where('user_id', $user_id)->get();
+
         foreach($infoDataList as $infoData ){ 
             $data[] = [
                 'info_id'=>$infoData->info_id,
                 'user_id'=>$infoData->user_id,
                 'name'=>$infoData->name,
                 'info_data'=>$infoData->info_data,
+                'created_by'=>$infoData->created_by,
+                'updated_by'=>$infoData->updated_by,
                 'created_at'=>$infoData->create_at,
                 'updated_at'=>$infoData->updated_at,
             ];
@@ -69,6 +72,34 @@ class EloquentInfographic implements InfographicRepository
         $infoDataList = TB_INFO_DATASOURCE::join('tb_webservice', 'tb_webservice.webservice_id', '=', 'tb_info_datasource.webservice_id')->where('info_id', $info_id)->select('tb_info_datasource.*', 'tb_webservice.value_cal')->get();
 
         return $infoDataList;
+    }
+
+    //Custom function
+    public function getInfographicByCompanyId($user_id, $company_id)
+    {
+        $data = [];
+
+        $infoDataList = $this->model::join('tb_user_company', 'tb_user_company.user_id', '=', 'tb_infographic.user_id')
+                                        ->where([
+                                                    ['tb_user_company.company_id', '=', $company_id]
+                                                ])
+                                        ->select('tb_infographic.*')
+                                        ->get();
+
+        foreach($infoDataList as $infoData ){ 
+            $data[] = [
+                'info_id'=>$infoData->info_id,
+                'user_id'=>$infoData->user_id,
+                'name'=>$infoData->name,
+                'info_data'=>$infoData->info_data,
+                'created_by'=>$infoData->created_by,
+                'updated_by'=>$infoData->updated_by,
+                'created_at'=>$infoData->create_at,
+                'updated_at'=>$infoData->updated_at,
+            ];
+        }
+
+        return $data;
     }
 
 

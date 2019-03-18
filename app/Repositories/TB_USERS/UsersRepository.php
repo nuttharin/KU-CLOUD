@@ -20,6 +20,8 @@ interface UsersRepository
 
     public function getAllEmailCustomer();
 
+    public function getAllEmailCustomerInCompany();
+
     public function addCustomerInCompany(array $userList);
 
     public function searchByTypeForCompany($type, $company_id, $start, $length, $search, $order, $dir);
@@ -37,5 +39,12 @@ interface UsersRepository
     public function deleteEmailUser(array $attributes);
 
     public function deletePhoneUser(array $attributes);
+
+    //Custom function
+    public function getTypeById($user_id);
+
+    public function getCompanyIdByUserId($user_id);
+
+    public function getUserById($user_id);
 
 }

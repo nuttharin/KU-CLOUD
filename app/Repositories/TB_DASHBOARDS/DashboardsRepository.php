@@ -14,11 +14,11 @@ interface DashboardsRepository
 
     public function getDashboardById($dashboard_id);
 
-    public function createDashboard($name);
+    public function createDashboard(array $attr);
 
     public function updateDashboardLayout($dashboard_id, $layout);
 
-    public function updateDashboard($dashboard_id, $name);
+    public function updateDashboard($dashboard_id, $name, $desc, $is_public);
 
     public function deleteDashboard($dashboard_id);
 
