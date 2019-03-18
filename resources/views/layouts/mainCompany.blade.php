@@ -348,6 +348,7 @@
         <script>
             const END_POINT = "{{ env('API_URL') }}";
             const END_POINT_WED = "{{env('APP_URL')}}";
+            console.log(END_POINT);
         </script>
         
         <!-- Page Content  -->
