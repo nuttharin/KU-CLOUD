@@ -863,6 +863,9 @@ $(document).ready(function () {
             }
             
         }
+        if(description == ""){
+            description ="";
+        }
         else {
             let service = new Service(url, alias, ServiceName, description,status,time);
             service.initService();

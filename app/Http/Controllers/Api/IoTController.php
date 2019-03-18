@@ -62,12 +62,12 @@ class IoTController extends Controller
             'type' => $request->get('type'),
             'alias' => $request->get('alias'),
             'description' => $request->get('description'),
-            'status' => $request->get('stats'),
+            'status' => $request->get('status'),
             'url_onoff_input' => $request->get('strUrl'),
             'dataformat' => $request->get('datajson'),
             'value_cal' => $request->get('valueCal'),
             'value_gropby' => $request->get('valueGroupby'),
-            // 'updatetime_input' => $request->get('updatetime_input'),
+            'updatetime_input' => $request->get('updatetime_input'),
         ]);
         return response()->json(compact('iotService'), 200);
     }
