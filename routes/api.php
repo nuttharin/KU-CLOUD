@@ -164,7 +164,10 @@ Route::group([
     Route::put('/block', 'Api\UserController@blockUserCompany');
     Route::put('/edit', 'Api\UserController@editUserCompany');
     Route::delete('/phone', 'Api\UserController@deletePhoneUser');
+
+    Route::get('/email/company', 'Api\UserController@getAllEmailCustomerInCompany');
     Route::delete('/email', 'Api\UserController@deleteEmailUser');
+
     Route::get('/online', 'Api\UserController@countUserOnline');
 });
 
@@ -175,6 +178,7 @@ Route::group([
     Route::get('/', 'Api\UserController@getAllCustomer');
     Route::post('/', 'Api\UserController@addUserCustomer');
     Route::post('/company', 'Api\UserController@addCustomerInCompany');
+
     Route::get('/email', 'Api\UserController@getAllEmailCustomer');
 });
 
@@ -222,7 +226,6 @@ Route::group([
 
 });
 
-
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
     'prefix' => 'dashboards',
@@ -253,7 +256,6 @@ Route::group([
     Route::post('/', 'Api\DatasourceController@createDatasource');
     Route::delete('/', 'Api\DatasourceController@deleteDatasource');
 });
-
 
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
@@ -293,15 +295,42 @@ Route::group([
     'middleware' => ['api', 'jwt.verify'],
     'prefix' => 'iot',
 ], function ($router) {
-    Route::get('iotservicedata','Api\IoTController@getAllIotserviceData');
+    Route::get('iotservicedata', 'Api\IoTController@getAllIotserviceData');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
 
-    Route::post('iotupdatedata','Api\IoTController@iotupdatedata');
-    Route::post('getOutput','Api\IoTController@getDataOutput');
+    Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');
+    Route::post('getOutput', 'Api\IoTController@getDataOutput');
     Route::post('addRegisIotService', 'Api\IoTController@addRegisIotService');
     Route::post('addOutputRegisIotService', 'Api\IoTController@addOutputRegisIotService');
 
+});
 
+//TEAM ADD
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'webservices',
+], function ($router) {
+    Route::get('/company', 'Api\WebServiceController@getWebServiceByCompany');
+});
+
+//TEAM ADD
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'register/webservices',
+], function ($router) {
+    Route::get('/', 'Api\RegisterWebserviceController@getAllRegisterWebservice');
+    Route::post('/', 'Api\RegisterWebserviceController@createRegister');
+    Route::delete('/', 'Api\RegisterWebserviceController@deleteRegister');
+});
+
+//TEAM ADD
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'register/iotServices',
+], function ($router) {
+    Route::get('/', 'Api\RegisterIoTServiceController@getAllRegister');
+    Route::post('/', 'Api\RegisterIoTServiceController@createRegister');
+    Route::delete('/', 'Api\RegisterIoTServiceController@deleteRegister');
 });
 
 Route::group(['middleware' => ['jwt.verify']], function () {
@@ -317,7 +346,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     //admin get
     Route::get('admin/infographic/getDatasource', 'Api\AdminController@getDatasourceInfo');
     Route::get('admin/webservicedata', 'Api\AdminController@getAllWebserviceData');
-    
+
     //company post
     Route::post('company/webservice/editRegisWebService', 'Api\CompanyController@editRegisWebService');
     Route::post('company/webservice/addRegisWebService', 'Api\CompanyController@addRegisWebService');
@@ -333,5 +362,4 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('admin/webservice/deletewebservice', 'Api\AdminController@deletewebservice');
     Route::post('admin/infographic/createDatasource', 'Api\AdminController@addDatasourceInfo');
 
- 
 });

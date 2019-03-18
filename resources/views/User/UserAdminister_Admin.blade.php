@@ -142,7 +142,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Create User Administer</h4>
+                <h4 class="modal-title">Create User</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -206,7 +206,7 @@
                                     <small class="messages-error"></small>
                                 </div>
                             </div>
-                            <div class="row mt-2">
+                            <!-- <div class="row mt-2">
                                 <label for="address">Address <span class="text-danger">*</span></label>
                                 <textarea name="address_detail" id="address_create" cols="30" rows="5" class="form-control"></textarea>
                                 <small class="messages-error"></small>
@@ -238,7 +238,7 @@
                                     <input name="zip_code" id="zip_code_create" class="form-control">
                                     <small class="messages-error"></small>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </form>

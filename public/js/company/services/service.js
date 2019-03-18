@@ -82,17 +82,9 @@ var WebserviceRepository = new (function () {
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
                             </button>
-                            <button type="button" class="btn btn-success btn-sm btn-edit" index=${index}  data-toggle="tooltip"
-                                data-placement="top" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-sm btn-download"  index=${index}  data-toggle="tooltip"
-                                data-placement="top" title="Download">
-                                <i class="fas fa-download"></i>
                             </button>
                         </center>`;
             Datatable.push(ret);

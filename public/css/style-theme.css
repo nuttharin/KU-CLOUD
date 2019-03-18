@@ -1,13 +1,15 @@
 input[readonly]{
     background-color:#fff !important;
-    border: 0;
+    border: 1;
     font-size: 1em;
+    cursor: default;
 }
 
 textarea[readonly]{
     background-color:#fff !important;
-    border: 0;
+    border: 1;
     font-size: 1em;
+    cursor: default;
   }
 
 

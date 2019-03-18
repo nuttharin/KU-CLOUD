@@ -244,6 +244,11 @@ class UserController extends Controller
         return response()->json(compact('data'), 200);
     }
 
+    public function getAllEmailCustomerInCompany(){
+        $data = $this->users->getAllEmailCustomerInCompany();
+        return response()->json(compact('data'), 200);
+    }
+
     public function addCustomerInCompany(Request $request)
     {
         $this->users->addCustomerInCompany($request->get('userList'));

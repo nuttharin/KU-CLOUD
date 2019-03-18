@@ -44,7 +44,7 @@ class EloquentRegisterWebservice implements RegisterWebserviceRepository
     {
         TB_REGISTER_WEBSERVICE::where([
             'user_id' => $attr['user_id'],
-            'register_webservice_id' => $attr['$register_webservice_id'],
+            'register_webservice_id' => $attr['register_webservice_id'],
         ])->delete();
     }
 }
