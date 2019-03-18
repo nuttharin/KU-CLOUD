@@ -275,16 +275,24 @@ class Validation{
             }
             else
             {
-                let lenFields = fields.length ;
-                if(fields[lenFields-1] == "")
+                let chkData = true ;
+                for(let i =0 ;i<fields.length; i++)
                 {
-                    console.log('1')
-                    swal("คุณไม่ได้กรอก Data format !", "", "error");
+                    if(fields[i] == "")
+                    {
+                        chkData = false ;
+                    }
+                        
+
                 }
-                else {
+               
+                if(chkData) {
                     let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
                     iot.getDataforInsert();
                     iot.showSelectValueCal();
+                }
+                else {
+                    swal("คุณไม่ได้กรอก Data format !", "", "error");
                 }
               
               

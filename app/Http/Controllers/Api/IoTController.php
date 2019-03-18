@@ -30,6 +30,12 @@ class IoTController extends Controller
         ]);
         return response()->json(["status", "success"], 200);
     }
+    public function deleteIoT(Request $request)
+    {
+        $iotService = TB_IOTSERVICE::where('iotservice_id', $request->get('id'))
+            ->delete();
+        return response()->json(["status", "success"], 200);
+    }
     public function getAllIotserviceData(Request $request)
     {
       
