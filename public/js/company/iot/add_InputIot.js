@@ -6,7 +6,7 @@ class iotService {
         let alias = iotAlias;
         let description = iotdescription ;
         let stats = status;
-        let datajson=fields;
+        let datajson = fields;
         let time ;
         let companyID;
         
@@ -134,6 +134,44 @@ class iotService {
             $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
         }  
+
+        this.showSelectValueCal = () => {    
+          
+            let strModal = `<div class='modal fade' id='myModal' role='dialog'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div id='modal-header-val' class='modal-header'>
+                                                <h4 class='modal-title'>Choose the value to calculate</h4>
+                                                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                                        </div>
+                                        <div id='modal-body' class='modal-body'>
+                                            <p id='xxx'>The selected value will be calculated in the summary table.</p>
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal'>Submit</button>
+                                            <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+            $('.modalCalValue').empty();
+            $('.modalCalValue').append(strModal);
+            for(let i =0 ;i<datajson.length;i++)
+            {
+                console.log(datajson[i])
+                $("#modal-body").append("<label class='customcheck'>"+datajson[i]+"<input type='checkbox' class='chkall'  value='"+datajson[i]+"' id='datajson"+i+"'><span class='checkmark'></span></label>");
+
+            }        
+            $('#myModal').modal('show');
+            $('#submitChkValCal').click(function(){
+                $('#myModal').modal('hide');
+                $('#ShowDetailiotModal').modal('show');
+            })
+
+
+        }
+
+
     }       
 }
 
@@ -220,13 +258,54 @@ class Managememt{
 }
 
 
+class Validation{
+    constructor(iotName,iotAlias,iotdescription,status,fields)
+    {
+        this.validate = () =>{
+            
+            if(iotName == "" || iotAlias =="")
+            {
+                if(iotName == ""){
+                    swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
+                }
+                else if(iotAlias ==""){
+                    swal("คุณไม่ได้กรอก Alias  !", "", "error");
+                }
+                
+            }
+            else
+            {
+                let lenFields = fields.length ;
+                if(fields[lenFields-1] == "")
+                {
+                    console.log('1')
+                    swal("คุณไม่ได้กรอก Data format !", "", "error");
+                }
+                else {
+                    let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
+                    iot.getDataforInsert();
+                    iot.showSelectValueCal();
+                }
+              
+              
+            }            
+            
+
+
+        }
+        
+
+
+    }
+}
+
 
 $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
-    let cron = new cronTap();
-    let manage = new Managememt();
-    cron.exampleCron();
-    manage.checkFormTime();
+    //let cron = new cronTap();
+    //let manage = new Managememt();
+    //cron.exampleCron();
+    //manage.checkFormTime();
 
     $(document).on('click', '.btn-add', function(e)
     {
@@ -253,27 +332,22 @@ $(document).ready(function () {
         let iotName = $('#name-iotservice').val();
         let iotAlias = $('#alias-iotservice').val();
         let iotdescription = $('#description-iotservice').val();
-        let status = $('#status-iotservice').prop( "checked" );
+        let status = $('#status').val();
         let dataformat= $('#dataFormat-iotservice').val();
         let inputs = document.getElementsByClassName("fields");
         let fields  = [].map.call(inputs, function( input ) {
             return input.value;
         });
         console.log(fields)
-        if(status == true)
-        {
-            status="public";
-            console.log('sssss')
-        }
-        else
-        {
-            status="private";
-        }
+        console.log(fields.length)
+        console.log(typeof fields)
+       
+
+        let validate = new Validation(iotName,iotAlias,iotdescription,status,fields);
+        validate.validate();
 
        
-        let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
-        iot.getDataforInsert();
-        iot.showDetail();
+        //iot.showDetail();
       
 
     })
@@ -294,17 +368,7 @@ $(document).ready(function () {
 
         }
         let u = {"name":"John","age":30,"city":"New York"} 
-        
-        
-        // data = JSON.parse(data)
-        // if(typeof data === 'object')
-        // {
-        //     console.log('json')
-        // }
-        // else{
-        //     console.log('no')
-        // }
-
+      
     })
    
 

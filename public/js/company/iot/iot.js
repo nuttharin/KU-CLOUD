@@ -161,9 +161,9 @@ var IotserviceRepository = new (function(){
                 console.log(data[key])
                 let datatemp = data[key] ;
                 Object.keys(datatemp).forEach(function (key){
-                    dataOther = dataOther +`<input type='text' class="othername" name="othername[]" value=${key} class='mb-2 ' 
+                    dataOther = dataOther +`<input type='text' class="othername mb-2" name="othername[]" value=${key} class='mb-2 ' 
                     ' disabled>&nbsp;
-                    <input type='text' class="othervalue" name="othervalue[]" id="other"
+                    <input type='text' class="othervalue mb-2" name="othervalue[]" id="other"
                          value=${datatemp[key]} >
                     </input>` ;
                     
