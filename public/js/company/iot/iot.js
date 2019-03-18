@@ -281,6 +281,8 @@ var IotserviceRepository = new (function(){
             dataOutput['pin'] = dupstr ;
             let data_Output = JSON.stringify(dataOutput, undefined, 2);
             let str_output = JSON.stringify(stroutput, undefined, 2);
+            let str_output1 = JSON.stringify(stroutput);
+            console.log(stroutput)
             $.ajax({
                 url: "http://localhost:8000/api/iot/iotupdatedata",
                 dataType: 'json',
@@ -310,10 +312,7 @@ var IotserviceRepository = new (function(){
                 {
                     id_DB:idDB,
                     nameDW: iotserviceList[key].iot_name_DW,
-                    data:
-                    {
-                        strJson:str_output,
-                    }
+                    strJson:str_output1,
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
