@@ -35,8 +35,6 @@
         padding: 5px 20px;
         cursor: pointer;
         padding: 12px;
-
-
     }
 
     #name-iotservice{
@@ -53,10 +51,7 @@
 
    
 
-    #status-iotservice {
-        width: 20%;
-        height: 40px;
-    }
+  
 
     #url-nooffiotservice{
         width: 100%;
@@ -422,7 +417,7 @@
                 <div class="form-group">
                     <label  class="col-sm-12 control-label">URLs</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="URLiot" type="text" disabled></textarea>
+                        <textarea class="form-control" id="URLiot" type="text" row="7" disabled></textarea>
                     </div>
                 </div>
                  <div class="form-group">

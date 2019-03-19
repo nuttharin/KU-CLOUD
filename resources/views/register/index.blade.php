@@ -58,7 +58,7 @@
 
             <div class="modal-header">
                 <h3 class="modal-title">Register</h3>
-                <button type="button" class="close" onclick="window.location.href='{{action('HomeController@Index')}}'">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">
@@ -67,7 +67,7 @@
                         <div class="col-xl-5 col-11 header-line">
                             <span class="header-title">Account detail</span>
                             <div class="row input-data">
-                                <label for="account">Account name<span class="text-danger">*</span></label>
+                                <label for="account">Username<span class="text-danger">*</span></label>
                                 <input type="text" name="accountname" class="form-control" id="accountname">
                                 <small class="messages-error"></small>
                             </div>
