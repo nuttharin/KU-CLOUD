@@ -391,12 +391,19 @@
             </div>
 
 
-            <div class="modal-body">
+            <div class="modal-body" style="padding:42px;">
                 <div class="alert alert-danger" style="display:none"></div>
-                <label>Username</label>
-                <input type="text" class="form-control" id="email_login" placeholder="Username">
-                <label>Password</label>
-                <input type="password" class="form-control" id="pwd_login" placeholder="Password">
+                <div class="row form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Username">
+                    <small class="messages-error"></small>
+                </div>
+                <div class="row form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="pwd_login" placeholder="Password">
+                    <small class="messages-error"></small>
+                </div>
+               
                 <button class="btn btn-success btn-block btn-radius mt-3" id="btn_submit_login">Login</button>
                 <div class="form-group d-flex justify-content-center mt-3 my-2">
                     <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot
@@ -506,8 +513,8 @@
 
 
 <script src="{{asset('js/aos/aos.js')}}"></script>
-<script src="{{asset('js/home/home.js')}}"></script>
 <script src="{{asset('js/validate/validate.js')}}"></script>
+<script src="{{asset('js/home/home.min.js')}}"></script>
 <script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
 <script src="{{asset('js/account/register.min.js')}}"></script>
 @endsection

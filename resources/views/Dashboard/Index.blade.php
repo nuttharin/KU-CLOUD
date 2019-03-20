@@ -73,29 +73,35 @@
             </div>
 
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label>Name</label>
-                        <input type="text" id="static-name" class="form-control">
-                    </div>
-                    <div class="col-12">
-                        <label>Description</label>
-                        <textarea name="desc" id="desc" cols="30" rows="10" class="form-control"></textarea>
-                    </div>
-                    @if ($user->type_user == 'ADMIN')
-                    <div class="col-12 form-inline mt-2">
-                        <label class="mr-2">Status Share</label>
-                        <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="add_statusPrivate" name="add_statusShare" value="0" checked>
+                <form id="create_static">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Name <span class="text-danger">*</span></label>
+                            <input type="text" id="static-name" name="name" class="form-control">
+                            <small class="messages-error"></small>
+                        </div>
+                        <div class="col-12">
+                            <label>Description</label>
+                            <textarea name="desc" id="desc" name="description" cols="30" rows="10" class="form-control"></textarea>
+                            <small class="messages-error"></small>
+                        </div>
+                        @if ($user->type_user == 'ADMIN')
+                        <div class="col-12 form-inline mt-2">
+                            <label class="mr-2">Status Share</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="add_statusPrivate" name="add_statusShare"
+                                    value="0" checked>
                                 <label class="custom-control-label mr-3" for="add_statusPrivate">Private</label>
-                        </div> 
-                        <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="add_statusPublic" name="add_statusShare" value="1" >
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="add_statusPublic" name="add_statusShare"
+                                    value="1">
                                 <label class="custom-control-label" for="add_statusPublic">Public</label>
-                        </div> 
+                            </div>
+                        </div>
+                        @endif
                     </div>
-                    @endif
-                </div>
+                </form>
             </div>
 
             <div class="modal-footer">
@@ -108,7 +114,7 @@
     </div>
 </div>
 
-@if ($user->type_user == 'COMPANY')
+@if ($user->type_user == 'COMPANY' || $user->type_user == 'CUSTOMER')
 <script src="{{ mix('/js/company/dashboards/dashboardDataTable.min.js') }}"></script>
 @endif
 @if ($user->type_user == 'ADMIN')

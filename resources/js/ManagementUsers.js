@@ -69,6 +69,16 @@ toastr.options = {
 validate.validators.presence.message = "is required";
 
 let validateInput = {
+    bindUser : {
+        parent: "form#form_bind_user",
+        validate: {
+            email: {
+                presence: {
+                    allowEmpty: false,
+                },
+            }
+        }
+    },
     create: {
         parent: "form#form-add-user",
         validate: {
@@ -86,8 +96,8 @@ let validateInput = {
                     message: "can only contain a-Z and 0-9"
                 },
                 length: {
-                    minimum: 4,
-                    message: "must be at least 6 characters"
+                    minimum: 5,
+                    message: "must be at least 5 characters"
                 }
             },
             firstname: {
@@ -176,7 +186,7 @@ class ModalCreate {
 }
 
 class ModalDetail {
-    constructor() {
+    constructor(config) {
         if (modalDetail) {
             return modalDetail;
         }
@@ -203,6 +213,34 @@ class ModalDetail {
                                                 <ul class="list-group" id="email-user" >
                                                     
                                                 </ul>
+                                                <hr/>
+                                                <div class="row address-details">
+                                                <div class="col-12 header-line">
+                                                        <span class="header-title">Address detail</span>
+                                                        <div class="row input-data">
+                                                            <label for="address">Address</label>
+                                                            <textarea name="address_detail" id="address_detail" cols="30" rows="5" class="form-control" readonly></textarea>
+                                                        </div>
+                                                        <div class="row input-data">
+                                                            <label for="province">Province</label>
+                                                            <input name="province" id="province" class="form-control" readonly>
+                                                        </div>
+                                                        <div class="row input-data">
+                                                            <label for="amphure">Amphure</label>
+                                                            <input name="amphure" id="amphure" class="form-control" readonly>
+                                                        </div>
+                                                        <div class="row input-data">
+                                                            <div class="col-6" style="padding-left:0px;">
+                                                                <label for="district">District</label>
+                                                                <input name="district" id="district" class="form-control" readonly>
+                                                            </div>
+                                                            <div class="col-6" style="padding-right:0px;">
+                                                                <label for="zip_code">Zip code</label>
+                                                                <input name="zip_code" id="zip_code" class="form-control" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
         
                                             <div class="modal-footer">
@@ -215,6 +253,17 @@ class ModalDetail {
                 $('body').append(modal);
             }
 
+            if(config.type === "CUSTOMER"){
+                $(".address-details").show();
+                $("#address_detail").val(UsersList[key].address[0].address_detail);
+                $("#province").val(UsersList[key].address[0].pNameTh);
+                $("#district").val(UsersList[key].address[0].dNameTh);
+                $("#zip_code").val(UsersList[key].address[0].zip_code);
+            }
+            else{
+                $(".address-details").hide();
+            }
+            
             $('#title-user').html(UsersList[key].email[0].email_user);
             $('#name-user').html(UsersList[key].fname + " " + UsersList[key].lname);
             let status = "";
@@ -877,8 +926,8 @@ export class ManagementUsers {
                             authorization: 'bearer ' + getCookie('token'),
                         },
                         "dataSrc": function (json) {
-
                             UsersList = json.data;
+                            console.log(UsersList)
                             return json.data;
                         }
                     },
@@ -946,7 +995,7 @@ export class ManagementUsers {
                     selector: '[data-toggle="tooltip"]'
                 });
             }
-
+            
             return;
             // let Datatable = [];
             // UsersDATATABLE.fnClearTable();
@@ -1030,7 +1079,7 @@ export class ManagementUsers {
         };
 
         let onDetailClick = (key) => {
-            modalDetail = new ModalDetail();
+            modalDetail = new ModalDetail(config);
             modalDetail.create(key);
         };
 
@@ -1155,6 +1204,9 @@ export class ManagementUsers {
         };
 
         let addCustomerInCompany = () => {
+            if(checkError(validateInput.bindUser)){
+                return;
+            }
             LOADING.set($("#btn_save_bind_user"));
             $.ajax({
                 url: END_POINT + config.addCustomerInCompany,
@@ -1196,6 +1248,7 @@ export class ManagementUsers {
             if (config.type === 'CUSTOMER') {
 
                 $('#btn_bind_user').unbind().click(function () {
+                    resetInputValidate();
                     $("#bindUser").modal('show');
                 });
 
@@ -1207,6 +1260,8 @@ export class ManagementUsers {
             }
 
             addEventValidate(validateInput.create);
+            addEventValidate(validateInput.bindUser);
+            
         };
 
 
