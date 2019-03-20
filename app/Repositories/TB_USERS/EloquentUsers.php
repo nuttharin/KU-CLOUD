@@ -181,6 +181,14 @@ class EloquentUsers implements UsersRepository
                         'fname' => $user->fname,
                         'lname' => $user->lname,
                         'block' => $user->block,
+                        'address' => DB::select('SELECT address_users.user_id, address_users.address_detail, address_users.district_id, address_users.amphure_id, address_users.province_id,
+                                                    districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
+                                                    amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
+                                                    provinces.name_th as pNameTh, provinces.name_en as pNameEn
+                                    FROM address_users INNER JOIN districts ON districts.district_id = address_users.district_id
+                                    INNER JOIN amphures ON amphures.amphure_id = address_users.amphure_id
+                                    INNER JOIN provinces ON provinces.province_id = address_users.province_id
+                                    WHERE address_users.user_id = ?', [$user->user_id]),
                         'created_at' => $user->created_at,
                         'updated_at' => $user->updated_at,
                         'online' => $user->online,
@@ -334,13 +342,14 @@ class EloquentUsers implements UsersRepository
                 'type_user' => $attributes['type_user'],
             ]);
             
-            $user_address = Address_users::create([
-                'user_id' => $user->user_id,
-                'address_detail' => $attributes['address'],
-                'district_id' => $attributes['district'],
-                'amphure_id' => $attributes['amphure'],
-                'province_id' => $attributes['province'],
-            ]);
+
+            // $user_address = Address_users::create([
+            //     'user_id' => $user->user_id,
+            //     'address_detail' => $attributes['address'],
+            //     'district_id' => $attributes['district'],
+            //     'amphure_id' => $attributes['amphure'],
+            //     'province_id' => $attributes['province'],
+            // ]);
 
             USER_FIRST_CREATE::insert([
                 'user_id' => $user->user_id,

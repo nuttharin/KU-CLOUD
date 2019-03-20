@@ -1,4 +1,4 @@
-@extends('layouts.mainCustomer')
+@extends('layouts.mainCompany')
 @section('title','Manage Company | Customer')
 @section('content')
 

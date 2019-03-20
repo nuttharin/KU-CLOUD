@@ -24,7 +24,7 @@ class AuthController extends Controller
     public function Login(Request $request)
     {
         $tokenRequest = Request::create(
-            env('APP_URL') . '/api/Auth/Login',
+            env('API_URL') . 'Auth/Login',
             'POST'
             , array(
                 "username" => $request->get('username'),
@@ -45,7 +45,7 @@ class AuthController extends Controller
             //     true// HttpsOnly
             // );
         } else {
-            return $response->getContent();
+            return $response;
         }
     }
 

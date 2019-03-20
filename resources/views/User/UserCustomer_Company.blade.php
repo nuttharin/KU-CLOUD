@@ -14,6 +14,11 @@
         width: 100% !important;
         padding: 0;
     }
+
+    .input-data {
+        padding: 20px;
+        padding-top: 0px;
+    }
 </style>
 
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
@@ -159,28 +164,32 @@
                         <div class="col-12 col-md-6">
                             <label for="">Username <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="username" id="add_username" />
-                            <div class="messages-error"></div>
+                            <small class="messages-error"></small>
                         </div>
                         <div class="col-12 col-md-6">
                             <label for="">Email <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="email" id="add_email_val" />
+                            <small class="messages-error"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <label for="">Firstname <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="firstname" id="add_fname_val" />
+                            <small class="messages-error"></small>
                         </div>
                         <div class="col-12 col-md-6">
 
                             <label for="">Lastname <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control"  name="lastname" id="add_lname_val" />
+                            <input type="text" class="form-control" name="lastname" id="add_lname_val" />
+                            <small class="messages-error"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <label for="">Phone <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="phone"  id="add_phone_val" />
+                            <input type="text" class="form-control" name="phone" id="add_phone_val" />
+                            <small class="messages-error"></small>
                         </div>
                     </div>
                 </form>
@@ -206,10 +215,10 @@
 
             <div class="modal-body">
                 <form id="form_bind_user">
-                    <select multiple name="input_bind_email" id="input_bind_email" placeholder="Choose email address">
+                    <select multiple name="email" id="input_bind_email" placeholder="Choose email address">
 
                     </select>
-
+                    <small class="messages-error"></small>
                 </form>
             </div>
 

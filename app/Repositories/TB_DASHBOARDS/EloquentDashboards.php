@@ -59,6 +59,10 @@ class EloquentDashboards implements DashboardsRepository
     public function createDashboard($attr)
     {
         // TODO: Implement createDashboard() method.
+        if (is_null($attr['is_public'])) {
+            $attr['is_public'] = false;
+        }
+
         DB::beginTransaction();
         try {
             $data = TB_DASHBOARDS::create([

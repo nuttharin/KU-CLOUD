@@ -30,7 +30,7 @@ class Socket {
 
             socket.on('chatList', async (userId) => {
                 const result = await helper.getChatList(userId);
-                this.io.to(socket.id).emit('chatListRes', {
+            this.io.to(socket.id).emit('chatListRes', {
                     userConnected: false,
                     chatList: result.chatlist
                 });
@@ -75,6 +75,8 @@ class Socket {
     }
 
     socketConfig() {
+
+        this.io.set('transports', ['websocket']);
         this.io.use(async (socket, next) => {
             try {
                 let token = socket.request._query['id'];
@@ -125,12 +127,13 @@ class Socket {
             }
         });
 
+
         this.io.of('dashboards').use(async (socket, next) => {
             try {
                 let token = socket.request._query['id'];
                 let buf = Buffer.from(token, 'base64');
                 let token_decode = buf.toString('ascii');
-
+              
           
                 let token_id = token_decode.split('.')[0];
                 let payload = JSON.parse(token_decode.split('.')[1]);

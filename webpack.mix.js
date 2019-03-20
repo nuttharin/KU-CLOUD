@@ -84,6 +84,9 @@ mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/da
     .js('resources/js/registerWebservice/registerWebservice.min.js', 'public/js/registerWebservice')
     .js('resources/js/registerIoTService/registerIoTService.min.js', 'public/js/registerIoTService')
 
+     //home
+    .js('resources/js/home/home.min.js', 'public/js/home')
+
 
     .sass('resources/sass/main.scss', 'public/css');
 
