@@ -58,7 +58,7 @@
 
             <div class="modal-header">
                 <h3 class="modal-title">Register</h3>
-                <button type="button" class="close" onclick="window.location.href='{{action('HomeController@Index')}}'">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">

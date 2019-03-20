@@ -1,17 +1,26 @@
 class iotService {
-    constructor(iotName,iotAlias,iotdescription,status,fields)
+    constructor(iotName,iotAlias,iotdescription,statusiot,fields)
     {
         let nameiot = iotName  ;
         let keyiot;
         let alias = iotAlias;
         let description = iotdescription ;
-        let stats = status;
-        let datajson=fields;
+        let status = statusiot;
+        let datajson = fields;
         let time ;
         let companyID;
+        let valueCalIot = "" ;
         
 
-        this.getDataforInsert = () => {
+        let getDataforInsert = () => {
+
+            let strField = "";
+            for(let i =0 ; i < datajson.length ;i++)
+            {
+                strField = strField + datajson[i] + ",";
+            }
+            strField = strField.substring(0,strField.length -1 );
+            //console.log(valueCalIot)
             // get id company
             $.ajax({
                 url: "http://localhost:8000/api/company/webservice/getCompanyID",
@@ -40,13 +49,13 @@ class iotService {
                 },
                 success: (res) => { 
                     keyiot = res.key
-                    //console.log(res);                        
+                    console.log(res);                        
                 },
                 error: (res) => {
                     console.log(res);
                 }
             });
-
+            console.log(typeof datajson)
             //register DB
             $.ajax({
                 url: "http://localhost:8000/api/iot/addRegisIotService",
@@ -59,11 +68,11 @@ class iotService {
                     alias: alias,
                     ServiceName: nameiot,
                     description: description,
-                    valueCal: '1',
+                    valueCal: valueCalIot ,
                     valueGroupby: '1',
-                    // updatetime_input: '1',
-                    stats: stats,
-                    datajson:datajson,
+                    updatetime_input: '1',
+                    status: status,
+                    datajson:strField,
                     type: 'input',
                     
                 },
@@ -79,27 +88,27 @@ class iotService {
 
         }
 
-        this.increaseDataTableDB = () => {
-            //console.log('cccccc')    
-            //get company id
-            $.ajax({
-                url: "http://localhost:8000/api/company/webservice/getCompanyID",
-                dataType: 'json',
-                method: "GET",
-                async: false,
-                success: (res) => {
-                    //console.log(res.companyID);
-                    companyID = res.companyID ;
+        // this.increaseDataTableDB = () => {
+        //     //console.log('cccccc')    
+        //     //get company id
+        //     $.ajax({
+        //         url: "http://localhost:8000/api/company/webservice/getCompanyID",
+        //         dataType: 'json',
+        //         method: "GET",
+        //         async: false,
+        //         success: (res) => {
+        //             //console.log(res.companyID);
+        //             companyID = res.companyID ;
 
-                },
-                error: (res) => {
+        //         },
+        //         error: (res) => {
                     
-                    console.log(res);
-                }
-            });
-        }
+        //             console.log(res);
+        //         }
+        //     });
+        // }
 
-        this.showDetail = () => {
+        let showDetail = () => {
             // let data =JSON.parse(datajson);
             // let strJson="";
             // let count = Object.keys(data).length;
@@ -133,7 +142,64 @@ class iotService {
             $('#Nameiot').val(nameiot);
             $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
+            $('#ShowDetailiotModal').modal('show');
         }  
+
+        this.showSelectValueCal = () => {    
+          
+            let strModal = `<div class='modal fade' id='myModal' role='dialog'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div id='modal-header-val' class='modal-header'>
+                                                <h4 class='modal-title'>Choose the value to calculate</h4>
+                                                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                                        </div>
+                                        <div id='modal-body' class='modal-body'>
+                                            <p id='xxx'>The selected value will be calculated in the summary table.</p>
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal'>Submit</button>
+                                            <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+            $('.modalCalValue').empty();
+            $('.modalCalValue').append(strModal);
+            for(let i =0 ;i<datajson.length;i++)
+            {
+                console.log(datajson[i])
+                $("#modal-body").append("<label class='customcheck'>"+datajson[i]+"<input type='checkbox' class='chkall'  value='"+datajson[i]+"' id='datajson"+i+"'><span class='checkmark'></span></label>");
+
+            }        
+            $('#myModal').modal('show');
+            $('#submitChkValCal').click(function(){
+                $('#myModal').modal('hide');
+                for(let i =0 ; i<datajson.length ;i++)
+                {                    
+                    if($('#datajson'+i).is(':checked') == true )
+                    {
+                        valueCalIot = valueCalIot + $('#datajson'+i).val()  +','  ;
+                    }
+                }
+                valueCalIot = valueCalIot.substring(0,valueCalIot.length -1 );
+                getDataforInsert();
+                showDetail();
+                
+            })
+
+        }
+
+        
+        // let Registration = () => {
+        //     console.log('sdsdsdd')
+        //     $('#ShowDetailiotModal').modal('show');
+
+        // }
+
+       
+
+
     }       
 }
 
@@ -220,13 +286,65 @@ class Managememt{
 }
 
 
+class Validation{
+    constructor(iotName,iotAlias,iotdescription,status,fields)
+    {
+        
+        this.validate = () =>{
+            if(iotdescription == ""){
+                iotdescription = "";
+            }
+            if(iotName == "" || iotAlias =="")
+            {
+                if(iotName == ""){
+                    swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
+                }
+                else if(iotAlias ==""){
+                    swal("คุณไม่ได้กรอก Alias  !", "", "error");
+                }
+                
+            }
+            else
+            {
+                let chkData = true ;
+                for(let i =0 ;i<fields.length; i++)
+                {
+                    if(fields[i] == "")
+                    {
+                        chkData = false ;
+                    }                        
+
+                }
+               
+                if(chkData) {
+                    console.log(status)
+                    let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
+                    //iot.getDataforInsert();                    
+                    iot.showSelectValueCal();
+                }
+                else {
+                    swal("คุณไม่ได้กรอก Data format !", "", "error");
+                }
+              
+              
+            }            
+            
+
+
+        }
+        
+
+
+    }
+}
+
 
 $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
-    let cron = new cronTap();
-    let manage = new Managememt();
-    cron.exampleCron();
-    manage.checkFormTime();
+    //let cron = new cronTap();
+    //let manage = new Managememt();
+    //cron.exampleCron();
+    //manage.checkFormTime();
 
     $(document).on('click', '.btn-add', function(e)
     {
@@ -253,27 +371,22 @@ $(document).ready(function () {
         let iotName = $('#name-iotservice').val();
         let iotAlias = $('#alias-iotservice').val();
         let iotdescription = $('#description-iotservice').val();
-        let status = $('#status-iotservice').prop( "checked" );
+        let status = $('#status').val();
         let dataformat= $('#dataFormat-iotservice').val();
         let inputs = document.getElementsByClassName("fields");
         let fields  = [].map.call(inputs, function( input ) {
             return input.value;
         });
-        console.log(fields)
-        if(status == true)
-        {
-            status="public";
-            console.log('sssss')
-        }
-        else
-        {
-            status="private";
-        }
+        
+        console.log(fields.length)
+        console.log(typeof fields)
+       
+
+        let validate = new Validation(iotName,iotAlias,iotdescription,status,fields);
+        validate.validate();
 
        
-        let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
-        iot.getDataforInsert();
-        iot.showDetail();
+        //iot.showDetail();
       
 
     })
@@ -294,17 +407,7 @@ $(document).ready(function () {
 
         }
         let u = {"name":"John","age":30,"city":"New York"} 
-        
-        
-        // data = JSON.parse(data)
-        // if(typeof data === 'object')
-        // {
-        //     console.log('json')
-        // }
-        // else{
-        //     console.log('no')
-        // }
-
+      
     })
    
 

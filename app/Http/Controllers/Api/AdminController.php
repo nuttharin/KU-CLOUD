@@ -93,10 +93,10 @@ class AdminController extends Controller
             'type_user' => 'ADMIN',
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
-            'address' => $request->get('address'),
-            'province' => $request->get('province'),
-            'amphure' => $request->get('amphure'),
-            'district' => $request->get('district'),
+            // 'address' => $request->get('address'),
+            // 'province' => $request->get('province'),
+            // 'amphure' => $request->get('amphure'),
+            // 'district' => $request->get('district'),
         ];
 
         $this->users->create($attributes);
@@ -106,11 +106,13 @@ class AdminController extends Controller
     public function editAdminister(Request $request)
     {
         $attributes = [
+            'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
+            'type_user' => $request->get('type_user'),
         ];
         $this->users->update($attributes);
         return response()->json(["status_code", "200"], 200);
@@ -143,6 +145,10 @@ class AdminController extends Controller
             'company_id' => $request->get('company_id'),
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
+            // 'address' => $request->get('address'),
+            // 'province' => $request->get('province'),
+            // 'amphure' => $request->get('amphure'),
+            // 'district' => $request->get('district'),
             'sub_type_user' => $request->get('sub_type_user'),
         ];
 
@@ -156,11 +162,15 @@ class AdminController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
         $attributes = [
+            'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'phone_user' => $request->get('phone'),
             'email_user' => $request->get('email'),
+            'sub_type_user' => $request->get('sub_type_user'),
+            'company_id' => $request->get('company_id'),
+            'type_user' => $request->get('type_user'),
         ];
         $this->users->update($attributes);
 
@@ -212,10 +222,14 @@ class AdminController extends Controller
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            'phone_user' => $request->get('phone'),
-            'email_user' => $request->get('email'),
             'type_user' => 'CUSTOMER',
             'company_id' => $request->get('company_id'),
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+            // 'address' => $request->get('address'),
+            // 'province' => $request->get('province'),
+            // 'amphure' => $request->get('amphure'),
+            // 'district' => $request->get('district'),
         ];
         //dd($attributes);
         $this->users->create($attributes);
@@ -255,11 +269,14 @@ class AdminController extends Controller
         $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
         $attributes = [
+            'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'phone_user' => $request->get('phone'),
             'email_user' => $request->get('email'),
+            'company_id' => $request->get('company_id'),
+            'type_user' => $request->get('type_user'),
         ];
         $this->users->update($attributes);
 

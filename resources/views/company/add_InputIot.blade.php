@@ -364,7 +364,7 @@
             
             <br>
             <br>
-            <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
+            <button type="button" id="showvalue" class="btn btn-primary show-header" ><a style="color:white" href="#select">Show Detail</a></button>  
             
         </div>
         
@@ -393,6 +393,9 @@
     </div>
 </div>
 <hr>
+<div class="modalCalValue">
+
+</div>
 <!-- Modal -->
 <div class="modal fade" id="ShowDetailiotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -414,14 +417,14 @@
                  <div class="form-group">
                     <label  class="col-sm-2 control-label">API</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="Apiiot" type="text" disabled></textarea>
+                        <textarea class="form-control" id="Apiiot" type="text" rows="6" ></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">Key</label>
                     <div class="col-sm-12">
                         <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
-                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot" ></textarea>
+                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot"   ></textarea>
                                              
                         <button class="" id="CopyKey" data-clipboard-target="#Keyiot"><i class="far fa-copy"></i></button>
                     </div>

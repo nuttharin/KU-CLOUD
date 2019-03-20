@@ -206,6 +206,8 @@ Route::group([
     Route::delete('delete', 'Api\InfographicController@deleteInfograpic');
     Route::post('createDatasource', 'Api\InfographicController@addDatasourceInfo');
     Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
+    Route::get('getApiDaily', 'Api\InfographicController@getApiDaily');
+    Route::get('getApiMonthly', 'Api\InfographicController@getApiMonthly');
 });
 
 Route::group([
@@ -297,7 +299,8 @@ Route::group([
 ], function ($router) {
     Route::get('iotservicedata', 'Api\IoTController@getAllIotserviceData');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
-
+    
+    Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');
     Route::post('getOutput', 'Api\IoTController@getDataOutput');
     Route::post('addRegisIotService', 'Api\IoTController@addRegisIotService');
