@@ -32,7 +32,10 @@ Route::get('/ForgetPassword', 'AuthController@forgetPassword');
 Route::post('/ForgetPasswordSendMail', 'AuthController@forgetPasswordSendMail');
 Route::post('/ResetPasswordPost', 'AuthController@resetPasswordPost');
 
-Route::group(['middleware' => ['jwt.verify.web','cors']], function () {
+Route::get('/Dashboards/Public', 'DashboardController@DashboardsPublic');
+Route::get('/Dashboards/Public/{id}', 'DashboardController@DashboardsPublicId');
+
+Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
 
     Route::post('/SetCookie', 'AuthController@SetCookie');
 
@@ -91,6 +94,7 @@ Route::group(['middleware' => ['jwt.verify.web','cors']], function () {
 
     //Company
     Route::get('/Admin/Company', 'CompanyController@Index');
+    Route::get('/ManageCompanyMe', 'CompanyController@ManageCompanyMe');
 
     //RegisterWebservice
     Route::get('/Register/Webservice', 'RegisterWebserviceController@Webservice');

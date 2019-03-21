@@ -11,6 +11,17 @@ class DashboardController extends Controller
         return view('Dashboard.Index');
     }
 
+    public function DashboardsPublic()
+    {
+        return view('Dashboard.DashboardsPublic');
+    }
+
+    public function DashboardsPublicId($id)
+    {
+        return view('Dashboard.DashboardsPublicId')
+            ->with('id', $id);
+    }
+
     public function CustomDashboard(Request $request, $id)
     {
         return view('Dashboard.CustomDashboard')

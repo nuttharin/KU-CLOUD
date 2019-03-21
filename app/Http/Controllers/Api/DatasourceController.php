@@ -21,6 +21,12 @@ class DatasourceController extends Controller
         return $this->datasources->getDatasources($request->get('dashboard_id'));
     }
 
+    public function getDatasourcesPublic()
+    {
+        $data = $this->datasources->getDatasourcesPublic();
+        return response()->json(compact('data'), 200);
+    }
+
     public function createDatasource(Request $request)
     {
 

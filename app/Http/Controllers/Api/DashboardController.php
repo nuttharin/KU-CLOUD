@@ -22,6 +22,18 @@ class DashboardController extends Controller
         return $this->dashboards->getAllDashboard();
     }
 
+    public function getAllPublicDashboard(Request $request)
+    {
+        $data = $this->dashboards->getAllPublicDashboard($request->get('start'), $request->get('length'), $request->get('search'));
+        return response()->json(compact('data'), 200);
+    }
+
+    public function getDashboardPublicById($dashboard_id)
+    {
+        $data = $this->dashboards->getDashboardPublicById($dashboard_id);
+        return response()->json(compact('data'), 200);
+    }
+
     public function getDashboardById($dashboard_id)
     {
         return $this->dashboards->getDashboardById($dashboard_id);

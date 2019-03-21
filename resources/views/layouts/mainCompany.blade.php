@@ -135,6 +135,11 @@
                         Manage Company
                     </a>
                     @endif
+                    @if ($user->type_user == 'COMPANY' || $user->type_user == 'ADMIN')
+                    <a class="dropdown-item" href="{{action('CompanyController@ManageCompanyMe')}}">
+                            Manage Company
+                    </a>
+                    @endif
                     <a class="dropdown-item" href="{{action('CompanyController@Logout')}}">
                         Sign Out
                     </a>
