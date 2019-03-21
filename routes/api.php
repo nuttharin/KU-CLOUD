@@ -27,6 +27,10 @@ Route::post('account/register', 'Api\AccountsController@register');
 
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
+Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
+Route::get('dashboards/public/{dashboard_id}', 'Api\DashboardController@getDashboardPublicById');
+Route::get('datasources/public', 'Api\DatasourceController@getDatasourcesPublic');
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'address',
@@ -299,12 +303,21 @@ Route::group([
 ], function ($router) {
     Route::get('iotservicedata', 'Api\IoTController@getAllIotserviceData');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
-    
+
     Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');
     Route::post('getOutput', 'Api\IoTController@getDataOutput');
     Route::post('addRegisIotService', 'Api\IoTController@addRegisIotService');
     Route::post('addOutputRegisIotService', 'Api\IoTController@addOutputRegisIotService');
+
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'companies',
+], function ($router) {
+    Route::get('me', 'Api\CompanyController@getCompanyById');
+    Route::put('me', 'Api\CompanyController@updateCompanyId');
 
 });
 

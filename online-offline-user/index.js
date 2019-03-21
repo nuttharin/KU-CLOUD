@@ -18,8 +18,8 @@ class Server {
     }
 
     appRun() {
-        
-        this.socketEvents  = new socketEvents(this.socket);
+
+        this.socketEvents = new socketEvents(this.socket);
         this.socketEvents.socketConfig();
         this.app.use(express.static(__dirname + '/uploads'));
 
@@ -27,54 +27,55 @@ class Server {
             extended: false
         }));
 
-        this.app.use(bodyParser({limit: '50mb'}));
+        this.app.use(bodyParser({
+            limit: '50mb'
+        }));
 
         this.app.use(bodyParser.json());
-        
-        // this.app.use((req, res, next) => {
-        //     res.header('Access-Control-Allow-Origin', '*');
-        //     res.header('Access-Control-Allow-Headers', 'Orgin, X-Requested-With, Content-Type, Accept,Authorization');
-        //     if (req.method === 'OPTIONS') {
-        //         res.header('Access-Control-Allow-Methods', 'PUT,POST,PATCH,DELETE,GET');
-        //         return res.status(200).json({});
-        //     }
-        //     next();
-        // })
 
-       
-
-        this.app.use((req,res,next) =>{
-
+        this.app.use((req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Headers', 'Orgin, X-Requested-With, Content-Type, Accept,Authorization');
             if (req.method === 'OPTIONS') {
                 res.header('Access-Control-Allow-Methods', 'PUT,POST,PATCH,DELETE,GET');
                 return res.status(200).json({});
             }
+            next();
+        })
 
+
+
+        this.app.use((req, res, next) => {
             res.io = this.socket;
             res.socketEvents = this.socketEvents;
-            res.userInDashboards = this.socketEvents.userInDashborad;
+            res.userInDashboards = this.socketEvents.userInDashboard;
+            res.userInDashboardPublic = this.socketEvents.userInDashboardPublic;
             //console.log(this.socketEvents.userInDashborad);
             // res.io = this.socket.io;
             next();
         });
-    
-       
+
+
         this.http.listen(this.port, this.host, () => {
             console.log(`Listening on http://${this.host}:${this.port}`);
         });
 
         this.app.post('/socket/alert', (req, res) => {
-            console.log('api',res.userInDashboards);
+            console.log('private', res.userInDashboards);
+            console.log('public', res.userInDashboardPublic);
+
             res.userInDashboards.map(_user => {
                 _user.datasources.web_services.map(_web => {
-                    if(_web ==  req.body.service_id){
-                        res.io.of('dashboards').to(_user.socket_id).emit("broadcast",
-                        {
-                            service_id : req.body.service_id,
-                            type : req.body.type,
-                            data : req.body.data,
+                    if (_web == req.body.service_id) {
+                        res.io.of('dashboards').to(_user.socket_id).emit("broadcast", {
+                            service_id: req.body.service_id,
+                            type: req.body.type,
+                            data: req.body.data,
+                        });
+                        res.io.of('dashboardsPublic').to(_user.socket_id).emit("broadcast", {
+                            service_id: req.body.service_id,
+                            type: req.body.type,
+                            data: req.body.data,
                         });
                     }
                 });
@@ -84,7 +85,30 @@ class Server {
                 // });
 
             })
-            res.status(201).json({test:'hi'});
+
+
+
+            res.userInDashboardPublic.map(_user => {
+                _user.datasources.web_services.map(_web => {
+                    if (_web == req.body.service_id) {
+                        res.io.of('dashboardsPublic').to(_user.socket_id).emit("broadcast", {
+                            service_id: req.body.service_id,
+                            type: req.body.type,
+                            data: req.body.data,
+                        });
+                    }
+                });
+
+                // _user.datasources.iot_services.map(_iot => {
+
+                // });
+
+            })
+
+
+            res.status(201).json({
+                test: 'hi'
+            });
         })
 
 

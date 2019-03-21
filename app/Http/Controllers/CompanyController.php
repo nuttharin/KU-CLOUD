@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Cookie;
 
 class CompanyController extends Controller
 {
+    public function ManageCompanyMe()
+    {
+        return view('Company1.ManageCompanyMe');
+    }
 
     public function Index()
     {
@@ -178,7 +182,7 @@ class CompanyController extends Controller
         //'-classifications "weka.classifiers.evaluation.output.prediction.CSV "'
         $cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.SimpleLinearRegression -v -t " . $pathWekaInput . "cpu.arff";
         //$cmd = "java -cp " . $pathWekaLib . " weka.classifiers.functions.LinearRegression" . ' -classifications "weka.classifiers.evaluation.output.prediction.CSV"' . " -t " . $pathWekaInput . "cpu.arff";
-   
+
         exec($cmd, $output);
         $simpleLinearRegression = new SimpleLinearRegression();
         $data = $simpleLinearRegression->getToJson($output);
