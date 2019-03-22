@@ -33,17 +33,17 @@ let modalDelete = null;
 
 const FormAddEmail = `
                     <div class="input-group">
-                        <input type="text" name="email" class="add_email_val form-control mt-1" value={email}  disabled>
+                        <input type="text" name="email" class="add_email_val form-control mt-2" value={email}  disabled>
                             <div class="input-group-append">
-                                <button class="btn btn-danger mt-1 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
+                                <button class="btn btn-danger mt-2 btn-delete-email" type="button"><i class="fas fa-times"></i></button>  
                             </div>
                     </div>
                     `;
 const FormAddPhone = ` 
                     <div class="input-group">
-                        <input type="text" name="phone" class="add_phone_val form-control mt-1" value={phone}  disabled>
+                        <input type="text" name="phone" class="add_phone_val form-control mt-2" value={phone}  disabled>
                         <div class="input-group-append">
-                            <button class="btn btn-danger mt-1 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
+                            <button class="btn btn-danger mt-2 btn-delete-phone" type="button"><i class="fas fa-times"></i></button>  
                         </div>
                     </div>`;
 
@@ -198,51 +198,50 @@ class ModalDetail {
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="title-user"></h5>
+                                                <h4 class="modal-title" id="title-user"></h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
         
                                             <div class="modal-body">
-                                                <h6>Name : <span  id="name-user"><span></h6>
-                                                <h6>Phone</h6>
-                                                <ul class="list-group" id="phone-user">
-                                                    
-                                                </ul>
-                                                <hr/>
-                                                <h6>Email</h6>
-                                                <ul class="list-group" id="email-user" >
-                                                    
-                                                </ul>
-                                                <hr/>
-                                                <div class="row address-details">
-                                                <div class="col-12 header-line">
-                                                        <span class="header-title">Address detail</span>
-                                                        <div class="row input-data">
-                                                            <label for="address">Address</label>
-                                                            <textarea name="address_detail" id="address_detail" cols="30" rows="5" class="form-control" readonly></textarea>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-xl-11">
+                                                        <div class="row mt-2">
+                                                            <label for="">Username</label>
+                                                            <input type="text" class="form-control" id="detail_username_val" readonly/>
                                                         </div>
-                                                        <div class="row input-data">
-                                                            <label for="province">Province</label>
-                                                            <input name="province" id="province" class="form-control" readonly>
-                                                        </div>
-                                                        <div class="row input-data">
-                                                            <label for="amphure">Amphure</label>
-                                                            <input name="amphure" id="amphure" class="form-control" readonly>
-                                                        </div>
-                                                        <div class="row input-data">
+                                                        <div class="row mt-2">
                                                             <div class="col-6" style="padding-left:0px;">
-                                                                <label for="district">District</label>
-                                                                <input name="district" id="district" class="form-control" readonly>
+                                                                <label for="">Firstname</label>
+                                                                <input type="text" class="form-control" id="detail_fname_val" readonly/>
                                                             </div>
                                                             <div class="col-6" style="padding-right:0px;">
-                                                                <label for="zip_code">Zip code</label>
-                                                                <input name="zip_code" id="zip_code" class="form-control" readonly>
+                                                                <label for="">Lastname</label>
+                                                                <input type="text" class="form-control" id="detail_lname_val" readonly/>
                                                             </div>
                                                         </div>
+                                                        <div class="row mt-2">
+                                                            <div class="col-6" style="padding-left:0px;">
+                                                                <label for="">Phone</label>
+                                                                <ul class="list-group" id="phone-user">
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-6" style="padding-right:0px;">
+                                                                <label for="">Email</label>
+                                                                <ul class="list-group" id="email-user">                    
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div id="address_detail_list">    
+                                                        </div>
+                                                        <div class="row mt-2" id="detail_type_company">
+                                                        </div>   
                                                     </div>
                                                 </div>
+
+ 
+
                                             </div>
-        
+   
                                             <div class="modal-footer">
                                                 
                                             </div>
@@ -253,19 +252,57 @@ class ModalDetail {
                 $('body').append(modal);
             }
 
-            if(config.type === "CUSTOMER"){
-                $(".address-details").show();
-                $("#address_detail").val(UsersList[key].address[0].address_detail);
-                $("#province").val(UsersList[key].address[0].pNameTh);
-                $("#district").val(UsersList[key].address[0].dNameTh);
-                $("#zip_code").val(UsersList[key].address[0].zip_code);
+            if (config.type === 'COMPANY') {
+                $('.modal-title').html("Company User Detail");
+
+                $("#detail_type_company").html(`
+                    <label for="">Type User</label>
+                    <input type="text" class="form-control" id="detail_type_user_val" readonly/>
+                `);
+
+                $('#detail_type_user_val').val(UsersList[key].sub_type_user);
             }
-            else{
-                $(".address-details").hide();
+            else if (config.type === 'CUSTOMER') {
+                $('.modal-title').html("Customer User Detail");
+
+                $("#address_detail_list").html('');
+                for(let i = 0; i < UsersList[key].address.length; i++)
+                {
+                    $("#address_detail_list").append(`
+                        <div class="row mt-2">
+                            <label for="address">Address detail ${i + 1}</label>
+                            <textarea name="address_detail" cols="30" rows="5" class="form-control" readonly>${UsersList[key].address[i].address_detail}</textarea>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="address">Address</label>
+                            <textarea name="address_detail" cols="30" rows="5" class="form-control" readonly>${UsersList[key].address[i].address_detail}</textarea>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="province">Province</label>
+                            <input type="text" class="form-control"  value="${UsersList[key].address[i].pNameTh}" readonly/>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="amphure">Amphure</label>
+                            <input type="text" class="form-control"  value="${UsersList[key].address[i].aNameTh}" readonly/>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6" style="padding-left:0px;">
+                                <label for="district">District</label>
+                                <input type="text" class="form-control"  value="${UsersList[key].address[i].dNameTh}" readonly/>
+                            </div>
+                            <div class="col-6" style="padding-right:0px;">
+                                <label for="zip_code">Zip code</label>
+                                <input name="zip_code"  value="${UsersList[key].address[i].zip_code}" class="form-control" readonly/>
+                            </div>
+                        </div>
+                    `)
+                }
             }
+
+            $('#detail_username_val').val(UsersList[key].username);
+            $('#detail_fname_val').val(UsersList[key].fname);
+            $('#detail_lname_val').val(UsersList[key].lname);
             
-            $('#title-user').html(UsersList[key].email[0].email_user);
-            $('#name-user').html(UsersList[key].fname + " " + UsersList[key].lname);
             let status = "";
             let phone_list = UsersList[key].phone.map(data => {
                 status = "";
@@ -334,25 +371,47 @@ class ModalEdit {
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Edit User Company</h4>
+                                <h4 class="modal-title" id="title-user"></h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
                             <div class="modal-body">
                                 <form id="form-edit-user">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Firstname <span class="text-danger">*</span></label>
-                                            <input type="text" name="firstname" id="edit-fname" class="form-control"/>
-                                            <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-email"><i class="fas fa-plus"></i> add email</button>
-                                            <div id="input-add-email">
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-xl-11">
+                                            <div class="row mt-2">
+                                                <label for="">Username</label>
+                                                <input type="text" class="form-control" name="username" id="edit-username"/>
+                                                <small class="messages-error"></small>
                                             </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <label>Lastname <span class="text-danger">*</span></label>
-                                            <input type="text" name="lastname" id="edit-lname" class="form-control"/>
-                                            <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-phone"><i class="fas fa-plus"></i> add phone</button>
-                                            <div id="input-add-phone">
+                                            <div class="row mt-2">
+                                                <div class="col-6" style="padding-left:0px;">
+                                                    <label for="">Firstname</label>
+                                                    <input type="text" class="form-control" name="firstname" id="edit-fname"/>
+                                                    <small class="messages-error"></small>
+                                                </div>
+                                                <div class="col-6" style="padding-right:0px;">
+                                                    <label for="">Lastname</label>
+                                                    <input type="text" class="form-control" name="lastname" id="edit-lname"/>
+                                                    <small class="messages-error"></small>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-6" style="padding-left:0px;">
+                                                    <label for="">Phone </label>
+                                                    <button class="btn btn-primary btn-sm btn-radius" id="btn-add-phone"><i class="fas fa-plus"></i> add phone</button>
+                                                    <div id="input-add-phone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6" style="padding-right:0px;">
+                                                    <label for="">Email </label>
+                                                    <button class="btn btn-primary btn-sm btn-radius" id="btn-add-email"><i class="fas fa-plus"></i> add email</button>
+                                                    <div id="input-add-email">
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div class="row mt-2" id="detail_type_company">
                                             </div>
                                         </div>
                                     </div>
@@ -376,6 +435,23 @@ class ModalEdit {
             $("#btn-edit-submit").unbind().click(function () {
                 onSubmitEditClick(key);
             });
+
+            if (config.type === 'COMPANY') {
+                $('.modal-title').html("Edit Company User");
+
+                $("#detail_type_company").html(`
+                    <label for="">Type User</label>
+                    <select id="edit_type_user_val" class="form-control">
+                        <option>ADMIN</option>
+                        <option selected>CUSTOMER SUPPORT</option>
+                    </select>
+                `);
+
+                $('#edit_type_user_val').val(UsersList[key].sub_type_user);
+            }
+            else if (config.type === 'CUSTOMER') {
+                $('.modal-title').html("Edit Customer User");
+            }
 
             let phoneList = UsersList[key].phone;
             count_phone = phoneList.length;
@@ -483,6 +559,7 @@ class ModalEdit {
                 $(this).parent().parent().remove();
             });
 
+            $('#edit-username').val(UsersList[key].username);
             $('#edit-fname').val(UsersList[key].fname);
             $('#edit-lname').val(UsersList[key].lname);
             $('#input-add-phone').html(inputPhone.join(''));
@@ -567,6 +644,8 @@ class ModalEdit {
         let onSubmitEditClick = (index) => {
             if (checkError(validateInput.edit)) return;
             LOADING.set($("#btn-edit-submit"));
+
+            let username = $("#edit-username").val();
             let fname = $("#edit-fname").val();
             let lname = $("#edit-lname").val();
             let phone = $(".add_phone_val:enabled").map(function () {
@@ -580,6 +659,12 @@ class ModalEdit {
                 }
             }).get();
 
+            let sub_type_user = null;
+
+            if (UsersList[index].type_user === 'COMPANY') {
+                sub_type_user = $("#edit_type_user_val").val();
+            }
+            console.log(sub_type_user);
             $.ajax({
                 url: END_POINT + config.edit,
                 method: "PUT",
@@ -588,10 +673,13 @@ class ModalEdit {
                 },
                 data: {
                     user_id: UsersList[index].user_id,
+                    username: username,
                     fname: fname,
                     lname: lname,
                     phone_user: phone,
-                    email_user: email
+                    email_user: email,
+                    sub_type_user: sub_type_user,
+                    type_user: UsersList[index].type_user,
                 },
                 success: (res,textStatus,xhr) => {
                     checkAuthRes(xhr);
@@ -1238,6 +1326,13 @@ export class ManagementUsers {
                 resetInputValidate();
                 modalCreate = new ModalCreate(config);
                 modalCreate.resetModal();
+
+                if (config.type === 'COMPANY') {
+                    $(".modal-title").html("Create Company User");
+                } else if (config.type === 'CUSTOMER') {
+                    $(".modal-title").html("Create Customer User");
+                }
+
                 $("#addUser").modal('show');
             });
 

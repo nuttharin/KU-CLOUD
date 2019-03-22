@@ -133,10 +133,13 @@ class UserController extends Controller
     {
         $data = [
             'user_id' => $request->get('user_id'),
+            'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'phone_user' => $request->get('phone_user'),
             'email_user' => $request->get('email_user'),
+            'sub_type_user' => $request->get('sub_type_user'),
+            'type_user' => $request->get('type_user'),
         ];
         $this->users->update($data);
     }
