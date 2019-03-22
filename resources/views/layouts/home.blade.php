@@ -84,6 +84,12 @@
                         <a class="nav-link" href="#" id="about">ABOUT</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#" id="company">COMPANY</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="contact">CONTACT</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{action('RegisterController@index')}}" id="nav_register">REGISTER</a>
                     </li>
                     <li class="nav-item">

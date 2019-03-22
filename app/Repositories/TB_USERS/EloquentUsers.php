@@ -165,10 +165,12 @@ class EloquentUsers implements UsersRepository
                 foreach ($users as $user) {
                     $data[] = [
                         'user_id' => $user->user_id,
+                        'username' => $user->username,
                         'fname' => $user->fname,
                         'lname' => $user->lname,
                         'sub_type_user' => $user->sub_type_user,
                         'block' => $user->block,
+                        'type_user' => $user->type_user,
                         'created_at' => $user->created_at,
                         'updated_at' => $user->updated_at,
                         'online' => $user->online,
@@ -199,9 +201,11 @@ class EloquentUsers implements UsersRepository
                 foreach ($users as $user) {
                     $data[] = [
                         'user_id' => $user->user_id,
+                        'username' => $user->username,
                         'fname' => $user->fname,
                         'lname' => $user->lname,
                         'block' => $user->block,
+                        'type_user' => $user->type_user,
                         'created_at' => $user->created_at,
                         'updated_at' => $user->updated_at,
                         'online' => $user->online,
@@ -488,20 +492,33 @@ class EloquentUsers implements UsersRepository
                 }
             }
 
-            if($attributes['type_user'] == "COMPANY")
-            {
-                TB_USER_COMPANY::where('user_id', $attributes['user_id'])
-                ->update([
-                    'sub_type_user' => $attributes['sub_type_user'],
-                    'company_id' => $attributes['company_id'],
-                ]);
-            }
-            else if($attributes['type_user'] == "CUSTOMER")
-            {
-                TB_USER_CUSTOMER::where('user_id', $attributes['user_id'])
-                ->update([
-                    'company_id' => $attributes['company_id'],
-                ]);
+            if (!empty($attributes['type_user'])) {
+
+                if($attributes['type_user'] == "COMPANY")
+                {
+                    TB_USER_COMPANY::where('user_id', $attributes['user_id'])
+                    ->update([
+                        'sub_type_user' => $attributes['sub_type_user'],
+                    ]);
+
+                    if (!empty($attributes['company_id'])) {
+                        TB_USER_COMPANY::where('user_id', $attributes['user_id'])
+                        ->update([
+                            'company_id' => $attributes['company_id'],
+                        ]);
+                    }
+
+                }
+                else if($attributes['type_user'] == "CUSTOMER")
+                {
+                    if (!empty($attributes['company_id'])) {
+                        TB_USER_CUSTOMER::where('user_id', $attributes['user_id'])
+                        ->update([
+                            'company_id' => $attributes['company_id'],
+                        ]);
+                    }
+                }
+
             }
 
         } catch (Exception $e) {

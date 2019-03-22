@@ -2,6 +2,7 @@ $(document).ready(function () {
     $("#header_xl").css('margin-top',$("#navbar_fixed").css('height'));
     $("#header_sm").css('margin-top',$("#navbar_fixed").css('height'));
 
+
     $(".nav_login").click(function() {
         $("#model_body_login").modal('show');
         // $("#model_background_register").hide();
@@ -57,12 +58,20 @@ $(document).ready(function () {
     AOS.init();
 
     $("a#about").click(function () {
-        $('html, body').animate({
-            scrollTop: $(".content-wrapper").offset().top -25
-        }, 800, function () {
+        console.log($(window).height());
+        let winHeight = $(window).height() * (80 / 100);
+        window.scrollTo({
+            top: winHeight,
+            behavior: 'smooth'
+          });
+    });
 
-
-        });
+    $("a#contact").click(function () {
+        let winHeight = $(window).height() * (2);
+        window.scrollTo({
+            top: winHeight,
+            behavior: 'smooth'
+          });
     });
 
     $('#btn_submit_login').click(function () {
