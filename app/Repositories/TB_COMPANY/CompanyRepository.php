@@ -16,6 +16,8 @@ interface CompanyRepository
 
     public function getCompanyList();
 
+    public function updateCompanyId(array $attr, $id);
+
     public function getCompanyListForCustomer();
 
     public function approveCompany($company_id);

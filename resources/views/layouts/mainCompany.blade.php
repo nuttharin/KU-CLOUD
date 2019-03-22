@@ -109,7 +109,7 @@
                     aria-expanded="false">
                     <i class="fas fa-angle-right"></i>
                     <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
-                    <img class="img-xs rounded-circle" width="30" height="30" src="http://localhost:8000/api/account/profile/{{$user->img_profile}}"
+                    <img class="img-xs rounded-circle" width="30" height="30" src="{{env('API_URL')}}account/profile/{{$user->img_profile}}"
                         alt="Profile image">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -127,12 +127,17 @@
                         </div>
 
                     </a>
-                    <a class="dropdown-item mt-2" href="{{action('CompanyController@manageAccounts')}}">
+                    <a class="dropdown-item mt-2" href="{{action('UserController@ManageAccount')}}">
                         Manage Accounts
                     </a>
                     @if ($user->type_user == 'CUSTOMER')
                     <a class="dropdown-item" href="{{action('CustomerController@ManageCompany')}}">
                         Manage Company
+                    </a>
+                    @endif
+                    @if ($user->type_user == 'COMPANY' || $user->type_user == 'ADMIN')
+                    <a class="dropdown-item" href="{{action('CompanyController@ManageCompanyMe')}}">
+                            Manage Company
                     </a>
                     @endif
                     <a class="dropdown-item" href="{{action('CompanyController@Logout')}}">
@@ -348,7 +353,7 @@
         <script>
             const END_POINT = "{{ env('API_URL') }}";
             const END_POINT_WED = "{{env('APP_URL')}}";
-            console.log(END_POINT);
+            const WS_URL = "{{env('WS_URL')}}";
         </script>
         
         <!-- Page Content  -->

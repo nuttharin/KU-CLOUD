@@ -69,6 +69,16 @@ toastr.options = {
 validate.validators.presence.message = "is required";
 
 let validateInput = {
+    bindUser : {
+        parent: "form#form_bind_user",
+        validate: {
+            email: {
+                presence: {
+                    allowEmpty: false,
+                },
+            }
+        }
+    },
     create: {
         parent: "form#form-add-user",
         validate: {
@@ -86,8 +96,8 @@ let validateInput = {
                     message: "can only contain a-Z and 0-9"
                 },
                 length: {
-                    minimum: 4,
-                    message: "must be at least 6 characters"
+                    minimum: 5,
+                    message: "must be at least 5 characters"
                 }
             },
             firstname: {
@@ -221,10 +231,15 @@ class ModalDetail {
                                                                 </ul>
                                                             </div>
                                                         </div>
+                                                        <div id="address_detail_list">    
+                                                        </div>
                                                         <div class="row mt-2" id="detail_type_company">
-                                                        </div>    
+                                                        </div>   
                                                     </div>
                                                 </div>
+
+ 
+
                                             </div>
    
                                             <div class="modal-footer">
@@ -237,7 +252,7 @@ class ModalDetail {
                 $('body').append(modal);
             }
 
-            if (UsersList[key].type_user === 'COMPANY') {
+            if (config.type === 'COMPANY') {
                 $('.modal-title').html("Company User Detail");
 
                 $("#detail_type_company").html(`
@@ -247,14 +262,47 @@ class ModalDetail {
 
                 $('#detail_type_user_val').val(UsersList[key].sub_type_user);
             }
-            else if (UsersList[key].type_user === 'CUSTOMER') {
+            else if (config.type === 'CUSTOMER') {
                 $('.modal-title').html("Customer User Detail");
+
+                $("#address_detail_list").html('');
+                for(let i = 0; i < UsersList[key].address.length; i++)
+                {
+                    $("#address_detail_list").append(`
+                        <div class="row mt-2">
+                            <label for="address">Address detail ${i + 1}</label>
+                            <textarea name="address_detail" cols="30" rows="5" class="form-control" readonly>${UsersList[key].address[i].address_detail}</textarea>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="address">Address</label>
+                            <textarea name="address_detail" cols="30" rows="5" class="form-control" readonly>${UsersList[key].address[i].address_detail}</textarea>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="province">Province</label>
+                            <input type="text" class="form-control"  value="${UsersList[key].address[i].pNameTh}" readonly/>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="amphure">Amphure</label>
+                            <input type="text" class="form-control"  value="${UsersList[key].address[i].aNameTh}" readonly/>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6" style="padding-left:0px;">
+                                <label for="district">District</label>
+                                <input type="text" class="form-control"  value="${UsersList[key].address[i].dNameTh}" readonly/>
+                            </div>
+                            <div class="col-6" style="padding-right:0px;">
+                                <label for="zip_code">Zip code</label>
+                                <input name="zip_code"  value="${UsersList[key].address[i].zip_code}" class="form-control" readonly/>
+                            </div>
+                        </div>
+                    `)
+                }
             }
 
             $('#detail_username_val').val(UsersList[key].username);
             $('#detail_fname_val').val(UsersList[key].fname);
             $('#detail_lname_val').val(UsersList[key].lname);
-
+            
             let status = "";
             let phone_list = UsersList[key].phone.map(data => {
                 status = "";
@@ -388,7 +436,7 @@ class ModalEdit {
                 onSubmitEditClick(key);
             });
 
-            if (UsersList[key].type_user === 'COMPANY') {
+            if (config.type === 'COMPANY') {
                 $('.modal-title').html("Edit Company User");
 
                 $("#detail_type_company").html(`
@@ -401,7 +449,7 @@ class ModalEdit {
 
                 $('#edit_type_user_val').val(UsersList[key].sub_type_user);
             }
-            else if (UsersList[key].type_user === 'CUSTOMER') {
+            else if (config.type === 'CUSTOMER') {
                 $('.modal-title').html("Edit Customer User");
             }
 
@@ -966,8 +1014,8 @@ export class ManagementUsers {
                             authorization: 'bearer ' + getCookie('token'),
                         },
                         "dataSrc": function (json) {
-
                             UsersList = json.data;
+                            console.log(UsersList)
                             return json.data;
                         }
                     },
@@ -1035,7 +1083,7 @@ export class ManagementUsers {
                     selector: '[data-toggle="tooltip"]'
                 });
             }
-
+            
             return;
             // let Datatable = [];
             // UsersDATATABLE.fnClearTable();
@@ -1244,6 +1292,9 @@ export class ManagementUsers {
         };
 
         let addCustomerInCompany = () => {
+            if(checkError(validateInput.bindUser)){
+                return;
+            }
             LOADING.set($("#btn_save_bind_user"));
             $.ajax({
                 url: END_POINT + config.addCustomerInCompany,
@@ -1292,6 +1343,7 @@ export class ManagementUsers {
             if (config.type === 'CUSTOMER') {
 
                 $('#btn_bind_user').unbind().click(function () {
+                    resetInputValidate();
                     $("#bindUser").modal('show');
                 });
 
@@ -1303,6 +1355,8 @@ export class ManagementUsers {
             }
 
             addEventValidate(validateInput.create);
+            addEventValidate(validateInput.bindUser);
+            
         };
 
 

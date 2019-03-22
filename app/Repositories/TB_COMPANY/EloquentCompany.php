@@ -8,10 +8,12 @@
 
 namespace App\Repositories\TB_COMPANY;
 
+use App\Address_company;
 use App\LogViewer\SizeLog;
 use App\TB_COMPANY;
 use App\TB_USER_CUSTOMER;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Log;
 
 class EloquentCompany implements CompanyRepository
@@ -33,6 +35,47 @@ class EloquentCompany implements CompanyRepository
     public function getCompanyById($id)
     {
         // TODO: Implement getCompanyById() method.
+        try {
+            $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note,
+                                        address_company.address_detail, address_company.district_id, address_company.amphure_id, address_company.province_id,
+                                        districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn,
+                                        amphures.name_th as aNameTh, amphures.name_en as aNameEn,
+                                        provinces.name_th as pNameTh, provinces.name_en as pNameEn
+                                FROM TB_COMPANY INNER JOIN address_company ON address_company.company_id = TB_COMPANY.company_id
+                                INNER JOIN districts ON districts.district_id = address_company.district_id
+                                INNER JOIN amphures ON amphures.amphure_id = address_company.amphure_id
+                                INNER JOIN provinces ON provinces.province_id = address_company.province_id
+                                WHERE TB_COMPANY.company_id = ?', [$id])[0];
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return;
+        }
+        return $company;
+    }
+
+    public function updateCompanyId(array $attr, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $company = TB_COMPANY::where('company_id', $id)
+                ->update([
+                    'company_name' => $attr['company_name_input'],
+                    'alias' => $attr['alias_input'],
+                    'note' => $attr['note_input'],
+                ]);
+
+            $address_company = Address_company::where('company_id', $id)
+                ->update([
+                    'address_detail' => $attr['address_detail'],
+                    'district_id' => $attr['district'],
+                    'amphure_id' => $attr['amphure'],
+                    'province_id' => $attr['province'],
+                ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
     }
 
     public function getCompanyList()

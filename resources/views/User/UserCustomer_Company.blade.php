@@ -14,6 +14,11 @@
         width: 100% !important;
         padding: 0;
     }
+
+    .input-data {
+        padding: 20px;
+        padding-top: 0px;
+    }
 </style>
 
 <link href="{{url('css/loading-text.css')}}" rel="stylesheet" />
@@ -211,10 +216,10 @@
 
             <div class="modal-body">
                 <form id="form_bind_user">
-                    <select multiple name="input_bind_email" id="input_bind_email" placeholder="Choose email address">
+                    <select multiple name="email" id="input_bind_email" placeholder="Choose email address">
 
                     </select>
-
+                    <small class="messages-error"></small>
                 </form>
             </div>
 

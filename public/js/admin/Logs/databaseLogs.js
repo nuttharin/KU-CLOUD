@@ -187,7 +187,7 @@ class DatabaseLogs {
 
             $("#btn-download-file").unbind().click(function () {
                 $.ajax({
-                    url: 'http://localhost:8000/api/admin/database/log/file/download',
+                    url: `${END_POINT}admin/database/log/file/download`,
                     method: 'POST',
                     data: {
                         folder: filelogSelect.folder,
@@ -204,7 +204,7 @@ class DatabaseLogs {
 
             $("#btn-delete-file").unbind().click(function () {
                 $.ajax({
-                    url: 'http://localhost:8000/api/admin/database/log/file/delete',
+                    url: `${END_POINT}admin/database/log/file/delete`,
                     method: 'DELETE',
                     data: {
                         folder: filelogSelect.folder,
@@ -255,7 +255,7 @@ class DatabaseLogs {
         let getFileLogViewer = (folder, file) => {
             showLoadingStatus(true, $('#table-log'));
             $.ajax({
-                url: 'http://localhost:8000/api/admin/database/logfile',
+                url: `${END_POINT}admin/database/logfile`,
                 data: {
                     folder: folder,
                     file: file
@@ -273,7 +273,7 @@ class DatabaseLogs {
 
         let getFileLogByFolder = (folder_log) => {
             $.ajax({
-                url: 'http://localhost:8000/api/admin/database/log/file',
+                url: `${END_POINT}admin/database/log/file`,
                 data: {
                     folder_log: folder_log,
                 },
@@ -301,7 +301,7 @@ class DatabaseLogs {
         let refreshDatatable = () => {
             showLoadingStatus(true, $('#datatable-folder-log'));
             $.ajax({
-                url: "http://localhost:8000/api/admin/database/log/folder",
+                url: `${END_POINT}admin/database/log/folder`,
                 method: 'GET',
                 success: function (result) {
                     initialDatatable();

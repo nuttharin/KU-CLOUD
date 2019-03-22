@@ -401,39 +401,7 @@
     </div>
 </footer>
 
-<div class="modal fade" id="model_body_login">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
 
-            <div class="modal-header" style="border-bottom:0px">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-
-            <div class="modal-body">
-                <div class="alert alert-danger" style="display:none"></div>
-                <label>Username</label>
-                <input type="text" class="form-control" id="email_login" placeholder="Username">
-                <label>Password</label>
-                <input type="password" class="form-control" id="pwd_login" placeholder="Password">
-                <button class="btn btn-success btn-block btn-radius mt-3" id="btn_submit_login">Login</button>
-                <div class="form-group d-flex justify-content-center mt-3 my-2">
-                    <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot
-                        Password
-                    </a>
-                </div>
-                <div class="text-block text-center my-2">
-                    <span class="text-small font-weight-semibold">Not a member ?</span>
-                    <a href="{{action('RegisterController@index')}}" class="text-black text-small">Create new account</a>
-                </div>
-            </div>
-
-            <div class="modal-footer" style="border-top:0px">
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
 <!-- <div class="modal fade" id="model_body_register">
@@ -524,9 +492,5 @@
 </div> -->
 
 
-<script src="{{asset('js/aos/aos.js')}}"></script>
-<script src="{{asset('js/home/home.js')}}"></script>
-<script src="{{asset('js/validate/validate.js')}}"></script>
-<script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
-<script src="{{asset('js/account/register.min.js')}}"></script>
+
 @endsection
