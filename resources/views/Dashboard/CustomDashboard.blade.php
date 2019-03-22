@@ -1,9 +1,9 @@
 @extends('layouts.mainCompany')
 @section('title','Dashboards')
-@section('content') {{--
-<script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
-<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script> --}} {{--
-<link rel="stylesheet" href="{{asset('css/toggle-switches.css')}}"> --}}
+@section('content')
+<!-- <script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
+<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script>
+<link rel="stylesheet" href="{{asset('css/toggle-switches.css')}}">  -->
 
 
 <style type="text/css">
@@ -207,7 +207,7 @@
                 Datasources
             </button> -->
         </div>
-        <div class="col-6 text-right">
+        <div class="col-6 text-right" id="tool_widget" style="display: none">
             <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add
                 Widget</button>
             <button class="btn btn-warning btn-radius" id="settingW"><i class="fas fa-cog"></i></button>
@@ -228,7 +228,7 @@
 
 <div class="contrainner">
 
-    <div class="d-flex flex-wrap align-content-center" id="loading" style="height: 100vh">
+    <div class="d-flex flex-wrap align-content-center" id="loading" style="height:100vh">
         <div class="lds-ring text-center mx-auto">
             <div></div>
             <div></div>
@@ -240,7 +240,7 @@
             <div></div>
         </div>
     </div>
-    <div class="grid-stack" ></div>
+    <div class="grid-stack"></div>
     <!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
 
     <div class="modal fade" id="addWidget">
@@ -921,10 +921,6 @@
             <div class="card-header d-flex justify-content-between">
                 <div>
                     <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-success">Realtime</span></h5>
-                    {{-- <span class="switch switch-sm">
-                        <input type="checkbox" class="switch" id="<<switch>>">
-                        <label for="<<switch>>">Realtime</label>
-                    </span> --}}
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
@@ -1115,7 +1111,7 @@
     <select class="form-control select-datasource"></select>
 </div>
 
-<span id="static_id" hidden>{{$id}}</span>
+<span id="dashboard_id" hidden>{{$id}}</span>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
@@ -1126,7 +1122,6 @@
 
 <script src="{{asset( 'js/canvas-toBlob/canvas-toBlob.js')}} "></script>
 
-<script type="text/javascript " src="{{asset( 'js/nouislider/nouislider.min.js')}} "></script>
 
 <script src="{{ mix( '/js/company/dashboards/dashboard.min.js') }} "></script>
 
