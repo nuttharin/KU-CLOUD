@@ -448,26 +448,31 @@
                                 </button>
                                 <div id="Radar_label">
                                     <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-1" value="">
+                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-1"
+                                            value="">
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2"  bind="radar-label-2" value="">
+                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-2"
+                                            value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button" bind="radar-label-2"><i class="fas fa-times"></i></button>
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"
+                                                bind="radar-label-2"><i class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-3"  value="">
+                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-3"
+                                            value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button" bind="radar-label-3"><i
-                                                    class="fas fa-times"></i></button>
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"
+                                                bind="radar-label-3"><i class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-4"  value="">
+                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-4"
+                                            value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button" bind="radar-label-4"><i
-                                                    class="fas fa-times"></i></button>
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"
+                                                bind="radar-label-4"><i class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -492,7 +497,7 @@
                                         <div class="row">
                                             <div class="col-4">
                                                 <label for="">Label</label>
-                                                <input type="text" class="form-control label-radar" >
+                                                <input type="text" class="form-control label-radar">
                                             </div>
                                             <div class="col-4">
                                                 <label for="">Datasource</label>
@@ -510,7 +515,8 @@
                                             <div class="row form-group">
                                                 <div class="col-6">
                                                     <label for="">Label</label>
-                                                    <input class="form-control label-radar-select radar-label-1" readonly value="">
+                                                    <input class="form-control label-radar-select radar-label-1"
+                                                        readonly value="">
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value</label>
@@ -521,7 +527,8 @@
                                             <div class="row form-group">
                                                 <div class="col-6">
                                                     <label for="">Label</label>
-                                                    <input class="form-control label-radar-select radar-label-2" readonly value="">
+                                                    <input class="form-control label-radar-select radar-label-2"
+                                                        readonly value="">
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value</label>
@@ -532,7 +539,8 @@
                                             <div class="row form-group">
                                                 <div class="col-6">
                                                     <label for="">Label</label>
-                                                    <input class="form-control label-radar-select radar-label-3" readonly value="">
+                                                    <input class="form-control label-radar-select radar-label-3"
+                                                        readonly value="">
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value</label>
@@ -543,7 +551,8 @@
                                             <div class="row form-group">
                                                 <div class="col-6">
                                                     <label for="">Label</label>
-                                                    <input class="form-control label-radar-select radar-label-4" readonly value="">
+                                                    <input class="form-control label-radar-select radar-label-4"
+                                                        readonly value="">
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value</label>
@@ -715,6 +724,7 @@
                             </button>
 
                             <div class="row value-of-map">
+
                                 <div class="col-3">
                                     <label for="">Latitude <span class="text-danger">*</span></label>
                                     <input class="form-control value-datasource latitude">
@@ -735,6 +745,8 @@
                                     <input type="text" class="form-control label-map">
                                 </div>
                             </div>
+
+
                         </div>
 
                         <div id="map_group_data" class="form-group" style="display: none">
