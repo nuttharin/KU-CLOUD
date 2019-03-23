@@ -117,7 +117,7 @@ class Service {
                                                                     "<div class='modal-dialog'>"+
                                                                         "<div class='modal-content'>"+
                                                                             "<div id='modal-header-val' class='modal-header'>"+
-                                                                                "<h4 class='modal-title'>Choose the value to group by</h4>"+
+                                                                                "<h4 class='modal-title'>Choose the value that is array</h4>"+
                                                                                 "<button type='button' class='close' data-dismiss='modal'>&times;</button>"+
                                                                             "</div>"+
                                                                             "<div id='modal-body3' class='modal-body'>"+
@@ -268,7 +268,7 @@ class Service {
                     }
                     //let lengthStrValCal = strValCal.length ;
                     strValGroup = strValGroup.substring(0,strValGroup.length -1 );
-                    //console.log(strValGroup)
+                    console.log(strValGroup)
                     increaseDataTableDB();
                     
                 })
@@ -506,7 +506,8 @@ class Service {
                     ServiceNameDW: ServiceName+"."+companyID,
                     description: description,
                     header: headerLow,
-                    valueCal: strValCal,
+                    valueCal: strValCal
+                  
                 },
                 success: (res) => {
                     swal("Good job!", "You clicked the button!", "success");
@@ -531,7 +532,9 @@ class Service {
                     ServiceNameDW :ServiceName+"."+companyID,
                     header : headerLow,
                     strValCal : strValCal,
-                    time:time
+                    time:time,
+                    valueGroup:strValGroup,
+                    strArr:strArr 
                 },
                 success: (res) => {
                     console.log("success insert Table")
@@ -551,8 +554,8 @@ class Service {
         let checkArray = (strurl) => {
             let list = []
             let treeChk = new TreeView()
-            let data = treeChk.getDataFormUrl();
-            //console.log(data)
+            let data = treeChk.getDataFormUrl(strUrl);
+            console.log(data)
             Object.keys(data).forEach(function (key) {
                 if (Array.isArray(data[key])) {
                     list.push(key)
@@ -608,7 +611,8 @@ class TreeView {
         this.getDataFormUrl = (strurl) => {
             let dataTemp;
             $.ajax({
-                url: "https://data.tmd.go.th/api/Weather3Hours/V1/?type=json",
+                // url: "https://data.tmd.go.th/api/Weather3Hours/V1/?type=json",
+                url: strurl,
                 method: "GET",
                 dataType: "json",
                 async: false,
