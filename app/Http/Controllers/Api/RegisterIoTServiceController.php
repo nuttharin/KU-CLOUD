@@ -31,4 +31,10 @@ class RegisterIoTServiceController extends Controller
     {
         return $this->register->delete($request->get('user_id'), $request->get('register_iot_service'));
     }
+
+    public function getEmailCustomerByIotServiceId($iotservice_id)
+    {
+        $data = $this->register->getEmailCustomerByIotServiceId($iotservice_id);
+        return response()->json(\compact('data'), 200);
+    }
 }

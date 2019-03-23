@@ -279,7 +279,7 @@ Route::group([
 
     Route::get('/', 'Api\AccountsController@getAccount');
 
-    Route::get('profile/{filename}', 'Api\AccountsController@getProfile');
+    Route::get('profile', 'Api\AccountsController@getProfile');
     Route::post('profile', 'Api\AccountsController@uploadProfile');
 
     Route::put('username', 'Api\AccountsController@updateUsername');
@@ -337,6 +337,7 @@ Route::group([
     Route::get('/', 'Api\RegisterWebserviceController@getAllRegisterWebservice');
     Route::post('/', 'Api\RegisterWebserviceController@createRegister');
     Route::delete('/', 'Api\RegisterWebserviceController@deleteRegister');
+    Route::get('/{webservice_id}/emails', 'Api\RegisterWebserviceController@getEmailCustomerByWebserviceId');
 });
 
 //TEAM ADD
@@ -347,6 +348,7 @@ Route::group([
     Route::get('/', 'Api\RegisterIoTServiceController@getAllRegister');
     Route::post('/', 'Api\RegisterIoTServiceController@createRegister');
     Route::delete('/', 'Api\RegisterIoTServiceController@deleteRegister');
+    Route::get('/{iotservice_id}/emails', 'Api\RegisterIoTServiceController@getEmailCustomerByIotServiceId');
 });
 
 Route::group(['middleware' => ['jwt.verify']], function () {

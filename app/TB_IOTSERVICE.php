@@ -10,20 +10,20 @@ class TB_IOTSERVICE extends Model
     protected $primaryKey = 'iotservice_id';
     protected $table = "TB_IOTSERVICE";
     protected $fillable = [
-        'iotservice_id', 
-        'company_id', 
-        'iot_name', 
-        'iot_name_DW', 
-        'type', 
+        'iotservice_id',
+        'company_id',
+        'iot_name',
+        'iot_name_DW',
+        'type',
         'alias',
-        'description', 
-        'status', 
-        'dataOutput', 
-        'url_onoff_input', 
-        'strJson', 
-        'dataformat', 
-        'value_cal', 
-        'value_gropby', 
+        'description',
+        'status',
+        'dataOutput',
+        'url_onoff_input',
+        'strJson',
+        'dataformat',
+        'value_cal',
+        'value_gropby',
         'updatetime_input',
     ];
 
@@ -31,4 +31,5 @@ class TB_IOTSERVICE extends Model
     {
         return $this->hasOne('App\TB_REGISTER_IOT_SERVICE', 'iotservice_id');
     }
+
 }

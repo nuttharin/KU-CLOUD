@@ -53,11 +53,12 @@
     .list-group-item {
         transition: .2s;
     }
+
     .list-group-item:hover {
         color: #fff;
         background-color: #007bff;
         border-color: #007bff;
-        
+
     }
 
     .remove-value,
@@ -130,48 +131,51 @@
     }
 
     icon-container {
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 10px);
-}
-.loader {
-  position: relative;
-  height: 20px;
-  width: 20px;
-  display: inline-block;
-  animation: around 5.4s infinite;
-}
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 10px);
+    }
 
-@keyframes around {
-  0% {
-    transform: rotate(0deg)
-  }
-  100% {
-    transform: rotate(360deg)
-  }
-}
+    .loader {
+        position: relative;
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        animation: around 5.4s infinite;
+    }
 
-.loader::after, .loader::before {
-  content: "";
-  background: white;
-  position: absolute;
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  border-width: 2px;
-  border-color: #333 #333 transparent transparent;
-  border-style: solid;
-  border-radius: 20px;
-  box-sizing: border-box;
-  top: 0;
-  left: 0;
-  animation: around 0.7s ease-in-out infinite;
-}
+    @keyframes around {
+        0% {
+            transform: rotate(0deg)
+        }
 
-.loader::after {
-  animation: around 0.7s ease-in-out 0.1s infinite;
-  background: transparent;
-}
+        100% {
+            transform: rotate(360deg)
+        }
+    }
+
+    .loader::after,
+    .loader::before {
+        content: "";
+        background: white;
+        position: absolute;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        border-width: 2px;
+        border-color: #333 #333 transparent transparent;
+        border-style: solid;
+        border-radius: 20px;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        animation: around 0.7s ease-in-out infinite;
+    }
+
+    .loader::after {
+        animation: around 0.7s ease-in-out 0.1s infinite;
+        background: transparent;
+    }
 
 </style>
 
@@ -211,8 +215,10 @@
             <button class="btn btn-success btn-radius" id="addW" style="display:none"><i class="fa fa-plus"></i> Add
                 Widget</button>
             <button class="btn btn-warning btn-radius" id="settingW"><i class="fas fa-cog"></i></button>
-            <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i class="fas fa-save"></i></button>
-            <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i class="fas fa-times"></i></button>
+            <button class="btn btn-primary btn-radius" id="saveW" style="display:none"><i
+                    class="fas fa-save"></i></button>
+            <button class="btn btn-danger btn-radius" id="cancelW" style="display:none"><i
+                    class="fas fa-times"></i></button>
         </div>
         <div class="col-12" id="list_datasource">
 
@@ -323,7 +329,22 @@
                             </div>
                         </div> -->
 
+
                         <div id="Mutiline_value" class="form-group">
+
+                            <h5>Lable Axis</h5>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="">Lable Axis x </label>
+                                    <input type="text" class="form-control" id="axis_x">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Lable Axis y</label>
+                                    <input type="text" class="form-control" id="axis_y">
+                                </div>
+                            </div>
+
                             <h5>Select Value Of Y</h5>
 
                             <!-- <div class="row">
@@ -334,6 +355,8 @@
                                     </select>
                                 </div>
                             </div> -->
+
+
 
                             <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-value-Mutiline">
                                 <i class="fa fa-plus"></i>
@@ -348,8 +371,8 @@
                                     </select>
                                 </div>
                                 <div class="col-3">
-                                    <label for="">Value 
-                                        <span class="text-danger">*  <i class="loader" style="display:none"></i></span>                                    
+                                    <label for="">Value
+                                        <span class="text-danger">* <i class="loader" style="display:none"></i></span>
                                     </label>
                                     <input class="form-control value-datasource">
                                     <ul class="list-group data-list">
@@ -382,9 +405,11 @@
                                 <div class="col-4">
                                     <label for="customRange">Length data</label>
                                     <div id="range_data" class="d-flex justify-content-between">
-                                        <input type="number" name="start" id="start" min="0" value="0" class="form-control mr-2">
+                                        <input type="number" name="start" id="start" min="0" value="0"
+                                            class="form-control mr-2">
                                         -
-                                        <input type="number" name="end" id="end" min="0" value="0" class="form-control ml-2">
+                                        <input type="number" name="end" id="end" min="0" value="0"
+                                            class="form-control ml-2">
                                     </div>
                                 </div>
                             </div>
@@ -408,7 +433,7 @@
 
                     </div>
 
-                    <div id="Radar" class="value-widget" style="display:none;">
+                    <div id="Radar" class="value-widget mt-3" style="display:none;">
                         <div class="row">
                             <div class="col-6">
                                 <h5>Label Radar</h5>
@@ -416,32 +441,32 @@
                                     <i class="fa fa-plus"></i>
                                     Add label
                                 </button>
-                                <button class="btn btn-success btn-sm btn-radius mb-2" id="btn-edit-label-radar" style="display: none">
+                                <button class="btn btn-success btn-sm btn-radius mb-2" id="btn-edit-label-radar"
+                                    style="display: none">
                                     <i class="fa fa-plus"></i>
                                     Edit label
                                 </button>
                                 <div id="Radar_label">
                                     <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2" value="">
+                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-1" value="">
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2" value="">
+                                        <input type="text" class="form-control radar-labels mt-2"  bind="radar-label-2" value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button" bind="radar-label-2"><i class="fas fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-3"  value="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button" bind="radar-label-3"><i
                                                     class="fas fa-times"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2" value="">
+                                        <input type="text" class="form-control radar-labels mt-2" bind="radar-label-4"  value="">
                                         <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i
-                                                    class="fas fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control radar-labels mt-2" value="">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button"><i
+                                            <button class="btn btn-danger mt-2  remove-radar-labels" type="button" bind="radar-label-4"><i
                                                     class="fas fa-times"></i></button>
                                         </div>
                                     </div>
@@ -456,12 +481,78 @@
                         <div class="row">
                             <div class="col-12">
                                 <h5>Datasource Radar</h5>
-                                <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn-add-datasource-radar">
+                                <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn_add_datasource_radar">
                                     <i class="fa fa-plus"></i>
                                     Add datasource
                                 </button>
                                 <div id="Radar_value">
+                                    <div class="form-radar-value">
+                                        <i class="fas fa-times d-flex justify-content-end remove-datasource-radar"></i>
+                                        <h6>Select Datasource</h6>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="">Label</label>
+                                                <input type="text" class="form-control label-radar" >
+                                            </div>
+                                            <div class="col-4">
+                                                <label for="">Datasource</label>
+                                                <select class="form-control select-datasource">
 
+                                                </select>
+                                            </div>
+                                            <div class="col-4">
+                                                <label for="">Color</label>
+                                                <input type="color" class="form-control radar-color">
+                                            </div>
+                                        </div>
+                                        <h6>Set Value</h6>
+                                        <div class="add-value-radar">
+                                            <div class="row form-group">
+                                                <div class="col-6">
+                                                    <label for="">Label</label>
+                                                    <input class="form-control label-radar-select radar-label-1" readonly value="">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="">Value</label>
+                                                    <input class="form-control value-datasource">
+                                                    <ul class="list-group data-list" style="display: none">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-6">
+                                                    <label for="">Label</label>
+                                                    <input class="form-control label-radar-select radar-label-2" readonly value="">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="">Value</label>
+                                                    <input class="form-control value-datasource">
+                                                    <ul class="list-group data-list" style="display: none">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-6">
+                                                    <label for="">Label</label>
+                                                    <input class="form-control label-radar-select radar-label-3" readonly value="">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="">Value</label>
+                                                    <input class="form-control value-datasource">
+                                                    <ul class="list-group data-list" style="display: none">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-6">
+                                                    <label for="">Label</label>
+                                                    <input class="form-control label-radar-select radar-label-4" readonly value="">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="">Value</label>
+                                                    <input class="form-control value-datasource">
+                                                    <ul class="list-group data-list" style="display: none">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -478,11 +569,13 @@
                                 <div class="mt-2" id="btn-mm-table">
                                     <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_col">Add
                                         column</button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_col">Remove
+                                    <button type="button" class="btn btn-danger btn-sm btn-radius"
+                                        id="btn_remove_col">Remove
                                         column</button>
                                     <button type="button" class="btn btn-primary btn-sm btn-radius" id="btn_add_row">Add
                                         row</button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-radius" id="btn_remove_row">Remove
+                                    <button type="button" class="btn btn-danger btn-sm btn-radius"
+                                        id="btn_remove_row">Remove
                                         row</button>
                                 </div>
                             </div>
@@ -661,9 +754,11 @@
                                 <div class="col-4">
                                     <label for="customRange">Length data</label>
                                     <div id="range_data" class="d-flex justify-content-between">
-                                        <input type="number" name="start" id="start" min="0" value="0" class="form-control mr-2">
+                                        <input type="number" name="start" id="start" min="0" value="0"
+                                            class="form-control mr-2">
                                         -
-                                        <input type="number" name="end" id="end" min="0" value="0" class="form-control ml-2">
+                                        <input type="number" name="end" id="end" min="0" value="0"
+                                            class="form-control ml-2">
                                     </div>
                                 </div>
                             </div>
@@ -694,7 +789,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success btn-block" id="add-new-widget" style="display:none">Add Widget</button>
+                    <button class="btn btn-success btn-block" id="add-new-widget" style="display:none">Add
+                        Widget</button>
                 </div>
             </div>
         </div>
@@ -732,7 +828,7 @@
                                 <h4>Select IoT service</h4>
                                 <div class="" id="list_iot_service">
 
-                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -898,7 +994,8 @@
                 </div>
                 <div class="static-mm">
                     <i class="far fa-clock btn-edit-time grow" title="Time" style="cursor:pointer" item="div_id"></i>
-                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer"
+                        item="div_id"></i>
                 </div>
             </div>
 
@@ -920,20 +1017,35 @@
 
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-success">Realtime</span></h5>
+                    <h5><span class="title-widget">((title_name))</span> <span
+                            class="badge badge-pill badge-success">Realtime</span></h5>
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
                     <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                 </div>
 
-                <div class="download" style="display: none">
+                <!-- <div class="downloadImg">
                     <div class="dropdown">
                         <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download" style="cursor:pointer"></i>
                         <div class="dropdown-menu dropdown-menu-right">
                             <span class="dropdown-item btn-download" item="div_id"><i class="fas fa-image"></i>
                                 Download images</span>
                             <span class="dropdown-item btn-download btn-download-excel" item="div_id"><i class="fas fa-file-excel"></i>
+                                Download excel</a>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="download" style="display: none">
+                    <div class="dropdown">
+                        <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
+                            style="cursor:pointer"></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <span class="dropdown-item btn-download" item="div_id"><i class="fas fa-image"></i>
+                                Download images</span>
+                            <span class="dropdown-item btn-download btn-download-excel" item="div_id"><i
+                                    class="fas fa-file-excel"></i>
                                 Download excel</a>
                         </div>
                     </div>
@@ -1000,7 +1112,8 @@
         <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-success">Realtime</span></h5>
+                    <h5><span class="title-widget">((title_name))</span> <span
+                            class="badge badge-pill badge-success">Realtime</span></h5>
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
@@ -1012,7 +1125,8 @@
                 </div> --}}
             </div>
 
-            <div class="card-body d-flex align-items-center align-content-center justify-content-center" style="overflow:hidden">
+            <div class="card-body d-flex align-items-center align-content-center justify-content-center"
+                style="overflow:hidden">
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -1033,11 +1147,13 @@
 
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5><span class="title-widget">((title_name))</span> <span class="badge badge-pill badge-primary">Static</span></h5>
+                    <h5><span class="title-widget">((title_name))</span> <span
+                            class="badge badge-pill badge-primary">Static</span></h5>
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
-                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer"
+                        item="div_id"></i>
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
                     <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                 </div>
@@ -1049,7 +1165,8 @@
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
                 <div class="form-group">
-                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%" item="div_id">
+                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%"
+                        item="div_id">
                         <option value="daily">Daily</option>
                         <option value="monthly">Monthly</option>
                         <option value="yearly">Yearly</option>
@@ -1063,7 +1180,8 @@
                 </div>
                 <div class="form-inline monthly " style="display: none">
                     <label for="start_month " class="mr-sm-2 ">Start month</label>
-                    <select name="start_month" id="start_month" class="form-control form-control-sm mb-2 mr-sm-2" item="div_id">
+                    <select name="start_month" id="start_month" class="form-control form-control-sm mb-2 mr-sm-2"
+                        item="div_id">
                         <option value="0">-- Select month --</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -1079,7 +1197,8 @@
                         <option value="12">December</option>
                     </select>
                     <label for="end_month" class="mr-sm-2 ">End month</label>
-                    <select name="end_month" id="end_month" class="form-control form-control-sm mb-2 mr-sm-2" item="div_id">
+                    <select name="end_month" id="end_month" class="form-control form-control-sm mb-2 mr-sm-2"
+                        item="div_id">
                         <option value="0">-- Select month --</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -1097,7 +1216,8 @@
                 </div>
                 <div class="form-inline yearly" style="display: none">
                     <label for="start_year" class="mr-sm-2 ">Start year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="start_year" item="div_id"> 
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="start_year"
+                        item="div_id">
                     <label for="end_year" class="mr-sm-2 ">End year</label>
                     <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="end_year" item="div_id">
                 </div>

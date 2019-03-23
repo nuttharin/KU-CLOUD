@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\LogViewer\LogViewer;
-use App\Repositories\TB_USERS\UsersRepository;
 use App\TB_USERS;
+use App\LogViewer\LogViewer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Gate;
+use App\Repositories\TB_USERS\UsersRepository;
 
 class UserController extends Controller
 {
@@ -22,9 +23,9 @@ class UserController extends Controller
     public function __construct(UsersRepository $users, Request $request)
     {
 
-        // if (!Gate::allows('isCustomer)) {
-        //     abort('403', "Sorry, You can do this actions");
-        // }
+        if (Gate::allows('isCustomer')) {
+            abort('403', "Sorry, You can do this actions");
+        }
 
         $this->users = $users;
         $this->log_viewer = new LogViewer();
@@ -162,9 +163,10 @@ class UserController extends Controller
 
     public function blockUserCompany(Request $request)
     {
-        $user = TB_USERS::where('user_id', $request->get('user_id'))
-            ->update(['block' => $request->get('block')]);
-        return response()->json(["status", "success"], 200);
+        $user = $this->users->isBlockUser($request->get('user_id'),$request->get('block'));
+        if($user){
+            return response()->json(["status", "success"], 200);
+        }
     }
 
     public function getAllCustomer(Request $request)
