@@ -264,18 +264,18 @@
     <h4>IOT Service</h4>
 </div>
 <br/>
-<div class="container " >
+<div class="container" >
     <div class="panel-group">
         <div class="panel panel-default">
         <div class="panel-heading">
-        <a data-toggle="collapse" href="#collapse1">
+        <a data-toggle="collapse" href="#iot1">
             <h4 class="panel-title collap-output">
             <div class="row" id='header-output'>
                 <div class="col-sm-2" >
-                    <button type="button" style="width:70%" class="btn btn-primary">GET</button>
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
-                    <h6 style="color:black">Get data max</h6>
+                    <h6 style="color:black">Get All Data</h6>
                 </div>
                 <div class="col-sm-8" id='header-detail'>
                     <h6 style="color:gray">/webService/GetAlldata</h6>
@@ -284,30 +284,61 @@
             </h4>
         </a>
         </div>
-        <div id="collapse1" class="panel-collapse collapse list-output">
+        <div id="iot1" class="panel-collapse collapse list-output">
             <ul class="list-group">
             <br/>
             <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
             <table id="paramater">
-                <tr>
-                    <th>Parameter</th>
-                    <th>Value</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>Value</td>
-                    <td>column</td>
-                    <td>Germany</td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>Italy</td>
-                </tr>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Table name (DW): 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="table_IoT_DW">
+                            </select>
+                        </div>
+                    </div>
+                <br/>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Summary Table: 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="summary_table">
+                                <option value="Day">Day</option>
+                                <option value="Month">Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
+            </tr>
             </table>
             </ul>
-            <hr style='width:98%;align=center;'>
-            <button type="button" class="" id='btn-try'>Try it</button>
+            <hr>
+            <button type="submit" id="try_iot_it" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_result"></a>
+            <div id="show_detail_iot_tryit">
+                <div id="call">
+                </div>
+            </div>
         </div>
     </div>
   </div>

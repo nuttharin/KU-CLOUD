@@ -6,6 +6,7 @@ $(document).ready(function () {
     })
     let data;
     let jsondata;
+    let dataIoT;
     let detailtryit = (detail_tryit)=>
         { 
             $("#show_detail_tryit").show();
@@ -63,6 +64,28 @@ $(document).ready(function () {
                 }
             });
         }
+        let insertintoIoTDW = (table_DW)=>
+        { 
+            $.ajax({
+                url: "http://localhost:8081/iotService/getInputIoTData",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    tableDW_name: table_DW,
+                },
+                success: (res) => {
+                    //console.log("success")
+                    console.log(res);
+                    let detail_tryit = res;
+                    detailtryit(detail_tryit);
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+        }
         let selectdata = (data)=>
         { 
             //console.log(data)
@@ -72,9 +95,26 @@ $(document).ready(function () {
                     value: data[i].service_name_DW,
                     text: data[i].name
                 }));
+                $('#table_IoT_DW').append($("<option/>", {
+                    value: data[i].iot_name_DW,
+                    text: data[i].name
+                }));
             }
             
         }
+        $.ajax({
+            url: "http://localhost:8000/api/iot/iotservicedata",
+            dataType: 'json',
+            method: "GET",
+            async: false,
+            success: (res) => {
+                dataIoT = res.iotService;
+                console.log(dataIoT)
+            },
+            error: (res) => {
+                console.log(res);
+            }
+        });
         $.ajax({
             url: "http://localhost:8000/api/company/webservicedata",
             dataType: 'json',
@@ -94,8 +134,12 @@ $(document).ready(function () {
             let summary_table = $('#summary_table').val();
             insertintoDW(table_DW,summary_table)
         });
-        
-        
+        $('#try_iot_it').on("click", function () {
+            let table_DW = $("#table_IoT_DW").val();
+            //let summary_table = $('#summary_table').val();
+            insertintoIoTDW(table_DW)
+        });
+        selectdata(dataIoT);
         selectdata(data);
         
 });

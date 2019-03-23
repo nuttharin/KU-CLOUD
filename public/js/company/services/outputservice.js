@@ -6,6 +6,7 @@ $(document).ready(function () {
     })
     let data;
     let jsondata;
+    let dataIoT;
     let detailtryit = (detail_tryit)=>
         { 
             $("#show_detail_tryit").show();
@@ -63,7 +64,7 @@ $(document).ready(function () {
                 }
             });
         }
-        let selectdata = (data)=>
+    let selectdata = (data)=>
         { 
             //console.log(data)
             for(var i=0;i<data.length;i++)
@@ -72,9 +73,26 @@ $(document).ready(function () {
                     value: data[i].service_name_DW,
                     text: data[i].name
                 }));
+                $('#table_IoT_DW').append($("<option/>", {
+                    value: data[i].iot_name_DW,
+                    text: data[i].name
+                }));
             }
             
         }
+        $.ajax({
+            url: "http://localhost:8000/api/iot/getAllIotserviceData",
+            dataType: 'json',
+            method: "GET",
+            async: false,
+            success: (res) => {
+                dataIoT = res.iotService;
+                console.log(dataIoT)
+            },
+            error: (res) => {
+                console.log(res);
+            }
+        });
         $.ajax({
             url: "http://localhost:8000/api/company/webservicedata",
             dataType: 'json',
@@ -88,14 +106,13 @@ $(document).ready(function () {
                 console.log(res);
             }
         });
-        
         $('#try_it').on("click", function () {
             let table_DW = $("#table_DW").val();
             let summary_table = $('#summary_table').val();
             insertintoDW(table_DW,summary_table)
         });
         
-        
+        selectdata(dataIoT);
         selectdata(data);
         
 });

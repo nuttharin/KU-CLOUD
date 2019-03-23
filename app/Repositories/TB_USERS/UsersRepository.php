@@ -40,6 +40,8 @@ interface UsersRepository
 
     public function deletePhoneUser(array $attributes);
 
+    public function isBlockUser($user_id,$isBlock);
+
     //Custom function
     public function getTypeById($user_id);
 

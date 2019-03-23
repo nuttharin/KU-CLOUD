@@ -11,4 +11,6 @@ interface RegisterWebserviceRepository
     public function update(array $attr);
 
     public function delete(array $attr);
+
+    public function getEmailCustomerByWebserviceId($webservice_id);
 }
