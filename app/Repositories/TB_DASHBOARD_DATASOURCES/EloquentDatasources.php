@@ -35,7 +35,7 @@ class EloquentDatasources implements DatasourcesRepository
             ])->get();
 
             $iot = TB_IOTSERVICE::where([
-               ['status', '=', 'public'],
+                ['status', '=', 'public'],
             ])->get();
 
             $data = [
@@ -65,6 +65,24 @@ class EloquentDatasources implements DatasourcesRepository
         //     ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_DASHBOARDS.user_id')
         //     ->get(['TB_DASHBOARD_DATASOURCES.id', 'TB_DASHBOARD_DATASOURCES.name', 'TB_WEBSERVICE.webservice_id', 'TB_DASHBOARD_DATASOURCES.timeInterval', 'TB_DASHBOARD_DATASOURCES.body', 'TB_DASHBOARD_DATASOURCES.headers', 'TB_WEBSERVICE.URL']);
         return \response()->json(compact('data'), 200);
+    }
+
+    public function getDatasourcesPublic()
+    {
+        $webservices = TB_WEBSERVICE::where([
+            ['status', '=', 'public'],
+        ])->get();
+
+        $iot = TB_IOTSERVICE::where([
+            ['status', '=', 'public'],
+        ])->get();
+
+        $data = [
+            'webservices' => $webservices,
+            'iot' => $iot,
+        ];
+
+        return $data;
     }
 
     public function createDatasource(array $attr)

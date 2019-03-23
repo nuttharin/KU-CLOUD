@@ -123,6 +123,7 @@ export const ERROR_INPUT = {
 
 export function addEventValidate(validateInput) {
     let inputs = $(validateInput.parent).find("input, textarea, select");
+    console.log(inputs);
     inputs.each(function () {
         $(this).change(function () {
             // let attr = $(this).attr('name');
@@ -138,6 +139,7 @@ export function addEventValidate(validateInput) {
             inputs.each(function () {
                 attr = $(this).attr('name');
                 let val = $(this).val();
+                console.log(val)
                 check[attr] = val == '' ? null : val;
             })
             let errors = validate(check, validateInput.validate) || {};
@@ -189,17 +191,40 @@ export function checkError(validateInput) {
     } else {
         isError = false;
     }
-    console.log('isError = ' + isError);
     return isError;
 }
 
 // Shows the errors for a specific input
 function showErrorsForInput(input, errors) {
+    if (!validate.isEmpty(errors)) {
+        input.removeClass("has-success");
+        input.addClass("has-error");
+        if(input.parent().find(".messages-error").length > 0){
+            //input.parent().addClass("has-error");
+            input.parent().find(".messages-error").html(errors[0]);
+        }else{
+            //input.parent().addClass("has-error");
+            input.parent().parent().find(".messages-error").html(errors[0]);
+        }
+    } else {
+        input.removeClass("has-error");
+        input.addClass("has-success");
+        if(input.parent().find(".messages-error").length > 0){
+            //input.parent().addClass("has-success");
+            input.parent().find(".messages-error").html('');
+        }else{
+            //input.parent().addClass("has-success");
+            input.parent().parent().find(".messages-error").html('');
+        }
+    }
+}
+
+export function showErrorsForInputCustom(input, errors) {
     //console.log(input, errors);
     if (!validate.isEmpty(errors)) {
         input.removeClass("has-success");
         input.addClass("has-error");
-        input.parent().find(".messages-error").html(errors[0]);
+        input.parent().find(".messages-error").html(errors);
     } else {
         input.removeClass("has-error");
         input.addClass("has-success");

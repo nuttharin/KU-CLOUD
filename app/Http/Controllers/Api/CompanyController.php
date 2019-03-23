@@ -9,12 +9,10 @@ use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_STATIC\StaticRepository;
 use App\Repositories\TB_USERS\UsersRepository;
 use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
-use App\TB_IOTSERVICE;
 use App\TB_WEBSERVICE;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
-use JWTAuth;
 use Log;
 
 class CompanyController extends Controller
@@ -46,7 +44,7 @@ class CompanyController extends Controller
         $this->middleware(function ($request, $next) {
             $this->auth = Auth::user();
             $company_id = $this->auth->user_company()->first()->company_id;
-            $this->log_viewer->setFolder('COMPANY_' . $company_id);
+            //$this->log_viewer->setFolder('COMPANY_' . $company_id);
             return $next($request);
         });
 
@@ -56,6 +54,27 @@ class CompanyController extends Controller
     {
         $user = $this->auth;
         return response()->json(compact('user'), 201);
+    }
+
+    public function getCompanyById()
+    {
+        $data = $this->companies->getCompanyById(Auth::user()->user_company()->first()->company_id);
+        return response()->json(compact('data'), 201);
+    }
+
+    public function updateCompanyId(Request $request){
+        $attr = [
+            'company_name_input' => $request->get('company_name_input'),
+            'alias_input'=> $request->get('alias_input'),
+            'note_input'=> $request->get('note_input'),
+            'address_detail'=> $request->get('address_detail'),
+            'district'=> $request->get('district'),
+            'amphure'=> $request->get('amphure'),
+            'province'=> $request->get('province'),
+        ];
+        
+        $data = $this->companies->updateCompanyId($attr,Auth::user()->user_company()->first()->company_id);
+        return response()->json(compact('data'), 201);
     }
 
     // public function getAllUser(Request $request)
@@ -417,7 +436,6 @@ class CompanyController extends Controller
     //     }
 
     //     return response()->json(compact('iotService'), 200);
-
 
     // }
 

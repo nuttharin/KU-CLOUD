@@ -64,7 +64,7 @@ class DatabaseLogs {
             console.log(folder);
             showLoadingStatus(true, $('#table-log'));
             $.ajax({
-                url: 'http://localhost:8000/api/company/database/logfile',
+                url: `${END_POINT}company/database/logfile`,
                 data: {
                     folder:folder,
                     file: file
@@ -179,7 +179,7 @@ class DatabaseLogs {
         this.refreshDatatable = () => {
             showLoadingStatus(true, $('#table-file-log'));
             $.ajax({
-                url: "http://localhost:8000/api/company/database/log/file",
+                url: `${END_POINT}company/database/log/file`,
                 method: 'GET',
                 success: function (res) {
                     console.log(res);

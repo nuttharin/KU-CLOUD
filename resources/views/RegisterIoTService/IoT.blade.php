@@ -69,15 +69,20 @@
 
             <div class="modal-body">
                 <form id="form_bind_user">
-                    <label for="">IoT name</label>
-                    <select name="iot_name" id="iot_name" class="form-control">
+                    <div class="form-group">
+                        <label for="">IoT name</label>
+                        <select name="IoT" id="iot_name" class="form-control">
 
-                    </select>
-                    <label for="">Email customer</label>
-                    <select multiple name="input_bind_email" id="input_bind_email" placeholder="Choose email address">
+                        </select>
+                        <small class="messages-error"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email customer</label>
+                        <select multiple name="email" id="input_bind_email" placeholder="Choose email address">
 
-                    </select>
-
+                        </select>
+                        <small class="messages-error"></small>
+                    </div>
                 </form>
             </div>
 

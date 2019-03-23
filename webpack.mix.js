@@ -59,8 +59,10 @@ mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/da
     
     .js('resources/js/company/analysis/Analysis.min.js', 'public/js/company/analysis')
     .js('resources/js/company/analysis/DataAnalysis.min.js', 'public/js/company/analysis')
-    .
-    js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js')
+    .js('resources/js/company/ManageCompanyMe.min.js','public/js/company')
+
+    
+    .js('resources/js/ManagementUsers.js', 'public/js/ManagementUsers.js')
 
     //AdminUser
     .js('resources/js/admin/Users/AdminUser.min.js', 'public/js/admin/Users/AdminUser.min.js')
@@ -84,6 +86,13 @@ mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/da
     .js('resources/js/registerWebservice/registerWebservice.min.js', 'public/js/registerWebservice')
     .js('resources/js/registerIoTService/registerIoTService.min.js', 'public/js/registerIoTService')
 
+     //home
+    .js('resources/js/home/home.min.js', 'public/js/home')
+    
+
+    .js('resources/js/dashboards/DashboardListPublic.min.js','public/js/dashboards/DashboardListPublic.min.js')
+    .js('resources/js/dashboards/DashboardPublic.min.js','public/js/dashboards/')
+    
 
     .sass('resources/sass/main.scss', 'public/css');
 
