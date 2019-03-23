@@ -49,7 +49,19 @@ class IoTController extends Controller
 
         return response()->json(compact('iotService'), 200);
     }
+    public function IoTdata(Request $request)
+    {
+      
+        $companyID =  Auth::user()->user_company()->first()->company_id;
+        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW 
+        FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID' and TB_IOTSERVICE.type='input'");
 
+        if (empty($iotService)) {
+            return response()->json(['message' => 'not have data'], 200);
+        }
+
+        return response()->json(compact('iotService'), 200);
+    }
     public function addRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;

@@ -302,8 +302,9 @@ Route::group([
     'prefix' => 'iot',
 ], function ($router) {
     Route::get('iotservicedata', 'Api\IoTController@getAllIotserviceData');
+    Route::get('IoTdata', 'Api\IoTController@IoTdata');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
-
+    
     Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');
     Route::post('getOutput', 'Api\IoTController@getDataOutput');
