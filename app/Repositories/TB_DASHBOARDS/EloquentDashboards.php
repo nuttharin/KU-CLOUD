@@ -35,6 +35,27 @@ class EloquentDashboards implements DashboardsRepository
         return response()->json(compact('data'), 200);
     }
 
+    public function getAllPublicDashboard($start = null, $length = null, $search = "")
+    {
+        $data = DB::table('TB_DASHBOARDS')->where(
+            [
+                ['TB_DASHBOARDS.is_public', '=', true],
+                ['TB_DASHBOARDS.name', 'LIKE', "%{$search}%"],
+            ]
+        )
+
+            ->offset($start)
+            ->limit($length)
+            ->get(['dashboard_id', 'description', 'name']);
+
+        $out['dashboards'] = $data;
+        $out['total'] = DB::table('TB_DASHBOARDS')->where([
+            ['TB_DASHBOARDS.is_public', '=', true],
+        ])->count();
+
+        return $out;
+    }
+
     public function getDashboardById($dashboard_id)
     {
         // TODO: Implement getDashboardById() method.
@@ -56,9 +77,25 @@ class EloquentDashboards implements DashboardsRepository
         return response()->json(compact('data'), 200);
     }
 
+    public function getDashboardPublicById($dashboard_id)
+    {
+        $data = DB::table('TB_DASHBOARDS')->where(
+            [
+                ['TB_DASHBOARDS.is_public', '=', true],
+                ['TB_DASHBOARDS.dashboard_id', '=', $dashboard_id],
+            ]
+        )->first();
+
+        return $data;
+    }
+
     public function createDashboard($attr)
     {
         // TODO: Implement createDashboard() method.
+        if (is_null($attr['is_public'])) {
+            $attr['is_public'] = false;
+        }
+
         DB::beginTransaction();
         try {
             $data = TB_DASHBOARDS::create([

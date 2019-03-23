@@ -35,4 +35,9 @@ class UserController extends Controller
             return view('User.UserCustomer_Admin');
         }
     }
+
+    public function ManageAccount()
+    {
+        return view('User.ManageAccount');
+    }
 }

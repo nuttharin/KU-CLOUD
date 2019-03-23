@@ -12,7 +12,11 @@ interface DashboardsRepository
 {
     public function getAllDashboard();
 
+    public function getAllPublicDashboard($start = null, $length = null, $search = "");
+
     public function getDashboardById($dashboard_id);
+
+    public function getDashboardPublicById($dashboard_id);
 
     public function createDashboard(array $attr);
 

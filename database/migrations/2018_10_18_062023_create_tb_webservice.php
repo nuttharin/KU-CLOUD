@@ -23,7 +23,7 @@ class CreateTbWebservice extends Migration
             $table->string('service_name_DW',100);
             $table->string('alias',100);
             $table->string('URL',200);
-            $table->string('description',1000);
+            $table->string('description',1000)->nullable();
             $table->text('header_row');
             $table->text('value_array')->nullable();
             $table->text('value_cal');

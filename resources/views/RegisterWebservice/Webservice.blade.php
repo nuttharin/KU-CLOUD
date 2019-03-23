@@ -68,14 +68,18 @@
 
             <div class="modal-body">
                 <form id="form_bind_user">
-                    <label for="">Webservice</label>
-                    <select name="webservice" id="webservice" class="form-control">
-
-                    </select>
-                    <label for="">Email customer</label>
-                    <select multiple name="input_bind_email" id="input_bind_email" placeholder="Choose email address">
-
-                    </select>
+                    <div class="form-group">
+                        <label for="">Webservice</label>
+                        <select name="webservice" id="webservice" class="form-control">
+                        </select>
+                        <small class="messages-error"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email customer</label>
+                        <select multiple name="email" id="input_bind_email" placeholder="Choose email address">
+                        </select>
+                        <small class="messages-error"></small>
+                    </div>
 
                 </form>
             </div>

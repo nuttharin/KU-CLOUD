@@ -9,7 +9,7 @@ $(document).ready(function () {
     //Add active class to nav-link based on url dynamically
     //Active class can be hard coded directly in html file also as required
     //location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
-    var current = location.pathname;
+    var current = location.href;
     $('ul li a', sidebar).each(function () {
         var $this = $(this);
         if (current === "") {
@@ -23,7 +23,7 @@ $(document).ready(function () {
             }
         } else {
             //for other url
-            if ($this.attr('href').indexOf(current) !== -1) {
+            if ($this.attr('href') ===  current) {
                 $(this).parents('.nav-item').last().addClass('active');
                 if ($(this).parents('.sub').length) {
                     $(this).closest('.collapse').addClass('show');

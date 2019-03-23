@@ -80,7 +80,7 @@
 
     $('#btn_send_email').click(function() {
         $.ajax({
-            url: 'http://localhost:8000/api/getAllEmail',
+            url: `${END_POINT}getAllEmail`,
             method: 'POST',
             data: {
                 email: $("#input_email").val(),

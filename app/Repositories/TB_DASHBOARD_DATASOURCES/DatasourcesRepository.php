@@ -6,6 +6,8 @@ interface DatasourcesRepository
 {
     public function getDatasources($dashboard_id);
 
+    public function getDatasourcesPublic();
+
     public function createDatasource(array $attr);
 
     public function updateDatasource(array $attr);

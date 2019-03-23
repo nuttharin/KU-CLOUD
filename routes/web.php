@@ -32,7 +32,10 @@ Route::get('/ForgetPassword', 'AuthController@forgetPassword');
 Route::post('/ForgetPasswordSendMail', 'AuthController@forgetPasswordSendMail');
 Route::post('/ResetPasswordPost', 'AuthController@resetPasswordPost');
 
-Route::group(['middleware' => ['jwt.verify.web']], function () {
+Route::get('/Dashboards/Public', 'DashboardController@DashboardsPublic');
+Route::get('/Dashboards/Public/{id}', 'DashboardController@DashboardsPublicId');
+
+Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
 
     Route::post('/SetCookie', 'AuthController@SetCookie');
 
@@ -51,7 +54,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/Service/OutputService', 'CompanyController@Output_service');
 
     // Route::get('/Company/IoT', 'CompanyController@iot');
-    
+
     Route::get('/Company/IoT/Add_InputIot', 'CompanyController@Add_InputIot');
     Route::get('/Company/IoT/Add_OutputIot', 'CompanyController@Add_OutputIot');
 
@@ -64,7 +67,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/Company/testClassi', 'CompanyController@testClassi');
     Route::get('/Company/testRegression', 'CompanyController@testRegression');
     Route::get('/Company/Service/EditService/{id}', 'CompanyController@EditService');
-    
+
     //IoT
     Route::get('IoT', 'IoTController@IoT');
 
@@ -91,6 +94,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
 
     //Company
     Route::get('/Admin/Company', 'CompanyController@Index');
+    Route::get('/ManageCompanyMe', 'CompanyController@ManageCompanyMe');
 
     //RegisterWebservice
     Route::get('/Register/Webservice', 'RegisterWebserviceController@Webservice');
@@ -110,6 +114,7 @@ Route::group(['middleware' => ['jwt.verify.web']], function () {
     Route::get('/User/Administer', 'UserController@UserAdminister');
     Route::get('/User/Company', 'UserController@UserCompany');
     Route::get('/User/Customer', 'UserController@UserCustomer');
+    Route::get('/ManageAccount', 'UserController@ManageAccount');
 
     //Analysis
     Route::get('/Analysis/PrepareData', 'AnalysisController@AnalysisPrepareData');

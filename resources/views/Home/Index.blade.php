@@ -23,6 +23,9 @@
         border-radius: 4px;
     }
 
+    .footer-row{
+        box-shadow: 0 0 0.5cm rgba(0,0,0,0.5) !important;
+    }
     @media screen and (max-width: 850px) {
         #form_login {
             width: 70%;
@@ -243,8 +246,6 @@
 </div>
 
 
-
-
 <!-- <div class="login-wrapper">
     <div class="d-flex flex-column justify-content-center align-items-center " style="margin: 20px;height: 100vh;">
         <form id="form_login" data-aos="zoom-in">
@@ -380,41 +381,27 @@
 </div> -->
 
 <footer>
-</footer>
-
-<div class="modal fade" id="model_body_login">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <div class="modal-header" style="border-bottom:0px">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-
-            <div class="modal-body">
-                <div class="alert alert-danger" style="display:none"></div>
-                <label>Username</label>
-                <input type="text" class="form-control" id="email_login" placeholder="Username">
-                <label>Password</label>
-                <input type="password" class="form-control" id="pwd_login" placeholder="Password">
-                <button class="btn btn-success btn-block btn-radius mt-3" id="btn_submit_login">Login</button>
-                <div class="form-group d-flex justify-content-center mt-3 my-2">
-                    <a href="{{action('AuthController@forgetPassword')}}" class="text-small forgot-password text-black">Forgot
-                        Password
-                    </a>
-                </div>
-                <div class="text-block text-center my-2">
-                    <span class="text-small font-weight-semibold">Not a member ?</span>
-                    <a href="{{action('RegisterController@index')}}" class="text-black text-small">Create new account</a>
-                </div>
-            </div>
-
-            <div class="modal-footer" style="border-top:0px">
-            </div>
-
+<div class="row footer-row" style="background:white; padding:20px;">
+        <div class="col-4">
+            <span class="text-center" style="font-size:5vw"><span style="color:#00ce68">KU</span> CLOUD</span>
+        </div>
+        <div class="col-3" style="color:#848684">
+            <h5 class="text-left">ADDRESS</h5>
+            <h6 class="text-left">99/383 Soi Suanluang</h6>
+            <h6 class="text-left">Kalaprapruek Road</h6>
+            <h6 class="text-left">Bangkok, Jomthong,</h6>
+            <h6 class="text-left">Bangkok 10150</h6>
+        </div>
+        <div class="col-3" style="color:#848684">
+            <h5 class="text-left">CONTACTS</h5>
+            <h6 class="text-left">Email: info@kit-development.com</h6>
+            <h6 class="text-left">Phone: +66.(0)2.490.3527</h6>
+            <h6 class="text-left">Fax: +66.(0)2.490.3527</h6>
         </div>
     </div>
-</div>
+</footer>
+
+
 
 
 <!-- <div class="modal fade" id="model_body_register">
@@ -505,9 +492,5 @@
 </div> -->
 
 
-<script src="{{asset('js/aos/aos.js')}}"></script>
-<script src="{{asset('js/home/home.js')}}"></script>
-<script src="{{asset('js/validate/validate.js')}}"></script>
-<script type="text/javascript " src="{{url( 'js/sweetalert/sweetalert.min.js')}} "></script>
-<script src="{{asset('js/account/register.min.js')}}"></script>
+
 @endsection
