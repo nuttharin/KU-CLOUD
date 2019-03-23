@@ -10,17 +10,19 @@ class iotService {
         let time ;
         let companyID;
         let valueCalIot = "" ;
-        
+        let strField = "";
+        let strUrl = "";
 
         let getDataforInsert = () => {
 
-            let strField = "";
+            
             for(let i =0 ; i < datajson.length ;i++)
             {
                 strField = strField + datajson[i] + ",";
             }
             strField = strField.substring(0,strField.length -1 );
             //console.log(valueCalIot)
+
             // get id company
             $.ajax({
                 url: "http://localhost:8000/api/company/webservice/getCompanyID",
@@ -45,7 +47,7 @@ class iotService {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {                
-                    companyID : companyID                    
+                    companyID : nameiot+companyID                    
                 },
                 success: (res) => { 
                     keyiot = res.key
@@ -56,15 +58,22 @@ class iotService {
                 }
             });
             console.log(typeof datajson)
-            //register DB
-            $.ajax({
+
+           
+
+
+        }        
+
+        let increaseData = () =>{
+             //register DB
+             $.ajax({
                 url: "http://localhost:8000/api/iot/addRegisIotService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
                 data:
                 {
-                    strUrl: 'ss',
+                    strUrl: null,
                     alias: alias,
                     ServiceName: nameiot,
                     description: description,
@@ -84,30 +93,8 @@ class iotService {
                     console.log(res);
                 }
             });
-
-
+            
         }
-
-        // this.increaseDataTableDB = () => {
-        //     //console.log('cccccc')    
-        //     //get company id
-        //     $.ajax({
-        //         url: "http://localhost:8000/api/company/webservice/getCompanyID",
-        //         dataType: 'json',
-        //         method: "GET",
-        //         async: false,
-        //         success: (res) => {
-        //             //console.log(res.companyID);
-        //             companyID = res.companyID ;
-
-        //         },
-        //         error: (res) => {
-                    
-        //             console.log(res);
-        //         }
-        //     });
-        // }
-
         let showDetail = () => {
             // let data =JSON.parse(datajson);
             // let strJson="";
@@ -139,9 +126,12 @@ class iotService {
                 }
             }
             //console.log(otheroutput)
+            increaseData();
+            strUrl = 'http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
             $('#Nameiot').val(nameiot);
             $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
+            
             $('#ShowDetailiotModal').modal('show');
         }  
 
