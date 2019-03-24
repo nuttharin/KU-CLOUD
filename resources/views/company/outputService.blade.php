@@ -173,6 +173,86 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
+                            <select class="form-control" id="table_DW_Getall">
+                            </select>
+                        </div>
+                    </div>
+                <br/>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Summary Table: 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="summary_table">
+                                <option value="Day">Day</option>
+                                <option value="Month">Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
+            </tr>
+            </table>
+            </ul>
+            <hr>
+            <button type="submit" id="try_it_Getall" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_result_Getall"></a>
+            <div id="show_detail_tryit_Getall">
+                <div id="call_Getall">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="container" >
+    <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#collapse3">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
+                </div>
+                <div class="col-sm-2" id='header-detail' >
+                    <h6 style="color:black">Get Lattest Data</h6>
+                </div>
+                <div class="col-sm-8" id='header-detail'>
+                    <h6 style="color:gray">/webService/GetAlldata</h6>
+                </div>
+            </div>
+            </h4>
+        </a>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Table name (DW): 
+                        </div>
+                        <div class="col-sm-6 " >
                             <select class="form-control" id="table_DW">
                             </select>
                         </div>
@@ -215,7 +295,7 @@
     <div class="panel-group">
         <div class="panel panel-default">
         <div class="panel-heading">
-        <a data-toggle="collapse" href="#collapse3">
+        <a data-toggle="collapse" href="#collapse4">
             <h4 class="panel-title collap-output">
             <div class="row " id='header-output'>
                 <div class="col-sm-2" >
@@ -231,7 +311,7 @@
             </h4>
         </a>
         </div>
-        <div id="collapse3" class="panel-collapse collapse list-output">
+        <div id="collapse4" class="panel-collapse collapse list-output">
             <ul class="list-group">
             <br/>
             <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
@@ -278,7 +358,7 @@
                     <h6 style="color:black">Get All Data</h6>
                 </div>
                 <div class="col-sm-8" id='header-detail'>
-                    <h6 style="color:gray">/webService/GetAlldata</h6>
+                    <h6 style="color:gray">/iotService/InsertInputService</h6>
                 </div>
             </div>
             </h4>
@@ -306,20 +386,74 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="table_IoT_DW">
+                            <select class="form-control" id="table_IoT_DW_Getall">
                             </select>
                         </div>
                     </div>
-                <br/>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
+            </tr>
+            </table>
+            </ul>
+            <hr>
+            <button type="submit" id="try_iot_it_Getall" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_IoT_result_Getall"></a>
+            <div id="show_detail_iot_tryit_Getall">
+                <div id="call_IoT_Getall">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="container" >
+    <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#iot2">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
+                </div>
+                <div class="col-sm-2" id='header-detail' >
+                    <h6 style="color:black">Get Lastest Data</h6>
+                </div>
+                <div class="col-sm-8" id='header-detail'>
+                    <h6 style="color:gray">/iotService/InsertInputService</h6>
+                </div>
+            </div>
+            </h4>
+        </a>
+        </div>
+        <div id="iot2" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
                     <div class="row">
                         <div class="col-sm-6" >
-                            Summary Table: 
+                            Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="summary_table">
-                                <option value="Day">Day</option>
-                                <option value="Month">Month</option>
-                                <option value="Year">Year</option>
+                            <select class="form-control" id="table_IoT_DW">
                             </select>
                         </div>
                     </div>
@@ -334,16 +468,15 @@
             </ul>
             <hr>
             <button type="submit" id="try_iot_it" class="btn btn-info">Try it</button>
-            <a href='#' style="color:red" id="clear_result"></a>
+            <a href='#' style="color:red" id="clear_IoT_result"></a>
             <div id="show_detail_iot_tryit">
-                <div id="call">
+                <div id="call_IoT">
                 </div>
             </div>
         </div>
     </div>
   </div>
 </div>
-<br/>
 <!-- <div href="#demo1" class="collap-output" data-toggle="collapse" >    
 
     <div class="row" id='header-output'>
