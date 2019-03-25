@@ -121,6 +121,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
+    <script type="text/javascript" src="{{url('htmltocanvas/htmltocanvas.js')}}"></script>
 
     <!-- Page Content  -->
     <div id="content" >
