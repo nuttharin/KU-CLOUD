@@ -109,7 +109,7 @@
                     aria-expanded="false">
                     <i class="fas fa-angle-right"></i>
                     <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
-                    <img class="img-xs rounded-circle" width="30" height="30" src="{{env('API_URL')}}account/profile/{{$user->img_profile}}"
+                    <img class="img-xs rounded-circle" width="30" height="30" src="{{env('API_URL')}}account/profile"
                         alt="Profile image">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">

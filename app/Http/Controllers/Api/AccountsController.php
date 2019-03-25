@@ -63,9 +63,9 @@ class AccountsController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getProfile($filename)
+    public function getProfile()
     {
-        $path = storage_path('app/upload/' . $filename);
+        $path = storage_path('app/upload/' . Auth::user()->img_profile);
 
         if (!File::exists($path)) {
             abort(404);

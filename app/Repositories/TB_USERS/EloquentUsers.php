@@ -8,27 +8,15 @@
 
 namespace App\Repositories\TB_USERS;
 
-use DB;
-use Auth;
-use Mail;
-use email;
 use App\TB_EMAIL;
 use App\TB_PHONE;
 use App\TB_USERS;
 use App\TB_USER_COMPANY;
-use App\Address_users;
-use App\Provinces;
-use App\Amphures;
-use App\Districts;
-
-
 use App\TB_USER_CUSTOMER;
-use App\Jobs\SendEmailJob;
 use App\USER_FIRST_CREATE;
-use Illuminate\Mail\Message;
-use Illuminate\Support\Carbon;
+use Auth;
+use DB;
 use Illuminate\Support\Facades\Hash;
-
 
 class EloquentUsers implements UsersRepository
 {
@@ -53,7 +41,7 @@ class EloquentUsers implements UsersRepository
         $data = [];
         if ($type == "ADMIN") {
             $users = $this->model::where('type_user', 'ADMIN')->get();
-            
+
             foreach ($users as $user) {
                 $data[] = [
                     'user_id' => $user->user_id,
@@ -63,8 +51,8 @@ class EloquentUsers implements UsersRepository
                     'block' => $user->block,
                     'type_user' => $user->type_user,
                     'address' => DB::select('SELECT address_users.user_id, address_users.address_detail, address_users.district_id, address_users.amphure_id, address_users.province_id,
-                                                    districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
-                                                    amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
+                                                    districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn,
+                                                    amphures.name_th as aNameTh, amphures.name_en as aNameEn,
                                                     provinces.name_th as pNameTh, provinces.name_en as pNameEn
                                             FROM address_users INNER JOIN districts ON districts.district_id = address_users.district_id
                                             INNER JOIN amphures ON amphures.amphure_id = address_users.amphure_id
@@ -90,8 +78,8 @@ class EloquentUsers implements UsersRepository
                     'block' => $user->block,
                     'type_user' => $user->type_user,
                     'address' => DB::select('SELECT address_users.user_id, address_users.address_detail, address_users.district_id, address_users.amphure_id, address_users.province_id,
-                                                    districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
-                                                    amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
+                                                    districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn,
+                                                    amphures.name_th as aNameTh, amphures.name_en as aNameEn,
                                                     provinces.name_th as pNameTh, provinces.name_en as pNameEn
                                             FROM address_users INNER JOIN districts ON districts.district_id = address_users.district_id
                                             INNER JOIN amphures ON amphures.amphure_id = address_users.amphure_id
@@ -120,8 +108,8 @@ class EloquentUsers implements UsersRepository
                     'block' => $user->block,
                     'type_user' => $user->type_user,
                     'address' => DB::select('SELECT address_users.user_id, address_users.address_detail, address_users.district_id, address_users.amphure_id, address_users.province_id,
-                                                                        districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
-                                                                        amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
+                                                                        districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn,
+                                                                        amphures.name_th as aNameTh, amphures.name_en as aNameEn,
                                                                         provinces.name_th as pNameTh, provinces.name_en as pNameEn
                                                                 FROM address_users INNER JOIN districts ON districts.district_id = address_users.district_id
                                                                 INNER JOIN amphures ON amphures.amphure_id = address_users.amphure_id
@@ -204,11 +192,11 @@ class EloquentUsers implements UsersRepository
                         'username' => $user->username,
                         'fname' => $user->fname,
                         'lname' => $user->lname,
-                        'block' => $user->block,
+                        'block' => $user->is_block,
                         'type_user' => $user->type_user,
                         'address' => DB::select('SELECT address_users.user_id, address_users.address_detail, address_users.district_id, address_users.amphure_id, address_users.province_id,
-                                                    districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
-                                                    amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
+                                                    districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn,
+                                                    amphures.name_th as aNameTh, amphures.name_en as aNameEn,
                                                     provinces.name_th as pNameTh, provinces.name_en as pNameEn
                                     FROM address_users INNER JOIN districts ON districts.district_id = address_users.district_id
                                     INNER JOIN amphures ON amphures.amphure_id = address_users.amphure_id
@@ -358,7 +346,7 @@ class EloquentUsers implements UsersRepository
         // TODO: Implement create() method.
         DB::beginTransaction();
         try {
-            $password =  str_random(10);
+            $password = str_random(10);
             $user = TB_USERS::create([
                 'username' => $attributes['username'],
                 'fname' => $attributes['fname'],
@@ -366,7 +354,7 @@ class EloquentUsers implements UsersRepository
                 'password' => Hash::make($password),
                 'type_user' => $attributes['type_user'],
             ]);
-            
+
             // $user_address = Address_users::create([
             //     'user_id' => $user->user_id,
             //     'address_detail' => $attributes['address'],
@@ -455,7 +443,7 @@ class EloquentUsers implements UsersRepository
             // $subject = "Please verify your email address."; // หัวข้อเมล์
             // // //ส่ง Email run queue
             // // dispatch(new SendEmailJob($subject,$name,$email,$verification_code,$attributes['username'],$password));
-           
+
             // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $attributes['username'],'password'=>$password],
             //     function($mail) use ($email, $name, $subject){
             //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
@@ -502,28 +490,25 @@ class EloquentUsers implements UsersRepository
 
             if (!empty($attributes['type_user'])) {
 
-                if($attributes['type_user'] == "COMPANY")
-                {
+                if ($attributes['type_user'] == "COMPANY") {
                     TB_USER_COMPANY::where('user_id', $attributes['user_id'])
-                    ->update([
-                        'sub_type_user' => $attributes['sub_type_user'],
-                    ]);
+                        ->update([
+                            'sub_type_user' => $attributes['sub_type_user'],
+                        ]);
 
                     if (!empty($attributes['company_id'])) {
                         TB_USER_COMPANY::where('user_id', $attributes['user_id'])
-                        ->update([
-                            'company_id' => $attributes['company_id'],
-                        ]);
+                            ->update([
+                                'company_id' => $attributes['company_id'],
+                            ]);
                     }
 
-                }
-                else if($attributes['type_user'] == "CUSTOMER")
-                {
+                } else if ($attributes['type_user'] == "CUSTOMER") {
                     if (!empty($attributes['company_id'])) {
                         TB_USER_CUSTOMER::where('user_id', $attributes['user_id'])
-                        ->update([
-                            'company_id' => $attributes['company_id'],
-                        ]);
+                            ->update([
+                                'company_id' => $attributes['company_id'],
+                            ]);
                     }
                 }
 
@@ -612,17 +597,39 @@ class EloquentUsers implements UsersRepository
         DB::commit();
     }
 
-    public function getCustomerByCompany(){
+    public function getCustomerByCompany()
+    {
         $data = TB_USERS::where([
-            [ 'company_id','=', Auth::user()->user_company()->first()->company_id],
-            ['is_approved','=', true ],
-            ['is_primary','=',true],
-            ['is_verify','=',true],
+            ['company_id', '=', Auth::user()->user_company()->first()->company_id],
+            ['is_approved', '=', true],
+            ['is_primary', '=', true],
+            ['is_verify', '=', true],
         ])
-        ->join('TB_EMAIL', 'TB_EMAIL.user_id', '=', 'TB_USERS.user_id')
-        ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_USERS.user_id')->get();
+            ->join('TB_EMAIL', 'TB_EMAIL.user_id', '=', 'TB_USERS.user_id')
+            ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_USERS.user_id')->get();
 
         return response()->json(compact('data'), 200);
+    }
+
+    public function isBlockUser($user_id,$isBlock)
+    {
+        try {
+            $userInDB = TB_USERS::where('user_id',$user_id)->first();
+            if($userInDB->type_user === "ADMIN" || $userInDB->type_user  === "COMPANY"){
+                $user = TB_USERS::where('user_id', $user_id)
+                    ->update(['block' =>  $isBlock]);
+            }
+            else if($userInDB->type_user  === "CUSTOMER"){
+                $user = TB_USER_CUSTOMER::where('user_id', $user_id)
+                    ->update(['is_block' => $isBlock]);
+            }
+
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+        DB::commit();
     }
 
     //Custom function

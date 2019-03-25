@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Email customer</label>
-                        <select multiple name="email" id="input_bind_email" placeholder="Choose email address">
+                        <select multiple name="email" id="input_bind_email" placeholder="Choose email address" style="display: none">
                         </select>
                         <small class="messages-error"></small>
                     </div>

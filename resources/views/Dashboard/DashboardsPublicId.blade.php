@@ -225,9 +225,9 @@
 </div>
 
 
-<div class="contrainner" style="margin: 107px;">
+<div class="contrainner" style=" margin: 107px 30px 107px 30px;">
 
-    <div class="d-flex flex-wrap align-content-center" id="loading" style="height: 100vh">
+    <div class="d-flex flex-wrap align-content-center" id="loading" style="height: 95vh">
         <div class="lds-ring text-center mx-auto">
             <div></div>
             <div></div>
@@ -239,7 +239,7 @@
             <div></div>
         </div>
     </div>
-    <div class="grid-stack"></div>
+    <div class="grid-stack" ></div>
 
 </div>
 

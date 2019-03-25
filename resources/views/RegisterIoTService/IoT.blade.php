@@ -35,7 +35,6 @@
                     <thead>
                         <tr>
                             <th>Customer name</th>
-                            <th>Email</th>
                             <th>IoT name</th>
                             <th>Action</th>
                         </tr>
@@ -78,7 +77,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Email customer</label>
-                        <select multiple name="email" id="input_bind_email" placeholder="Choose email address">
+                        <select multiple name="email" id="input_bind_email" placeholder="Choose email address" style="display:none">
 
                         </select>
                         <small class="messages-error"></small>
@@ -94,6 +93,7 @@
     </div>
 </div>
 
+<script type="text/javascript " src="{{asset( 'js/sweetalert/sweetalert.min.js')}} "></script>
 <link rel="stylesheet" href="{{asset('js/fastsearch/fastsearch.css')}}">
 <script src="{{asset('js/fastsearch/fastsearch.min.js')}}"></script>
 <script src="{{ mix('/js/registerIoTService/registerIoTService.min.js') }}"></script>

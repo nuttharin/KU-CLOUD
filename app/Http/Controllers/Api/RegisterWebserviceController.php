@@ -39,4 +39,10 @@ class RegisterWebserviceController extends Controller
         ];
         return $this->register->delete($attr);
     }
+
+    public function getEmailCustomerByWebserviceId($webservice_id)
+    {
+        $data = $this->register->getEmailCustomerByWebserviceId($webservice_id);
+        return response()->json(\compact('data'), 200);
+    }
 }

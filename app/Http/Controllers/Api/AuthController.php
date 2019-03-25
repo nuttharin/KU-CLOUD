@@ -45,7 +45,9 @@ class AuthController extends Controller
                     ];
                     if ($user->type_user === "CUSTOMER") {
                         $user_custom['compay_id'] = $user->user_customer()->get();
+                        $user_custom['sub_type_user'] = "";
                     } else {
+                        $user_custom['sub_type_user'] = $user->user_company()->first()->sub_type_user;
                         $user_custom['compay_id'] = $user->user_company()->first()->company_id;
                     }
                     $factory = JWTFactory::customClaims([
@@ -68,7 +70,7 @@ class AuthController extends Controller
                     } else if ($user->type_user == "COMPANY") {
                         return response()->json(['token' => $token->get(), 'socket_token' => $socket_token, 'user' => $user_custom, 'path' => '/User/Company', 'status' => 200], 200)->header('Content-Type', 'application/json');
                     } else if ($user->type_user == "CUSTOMER") {
-                        return response()->json(['token' => $token->get(),  'socket_token' => $socket_token, 'user' => $user_custom, 'path' => '/Infographic', 'status' => 200], 200)->header('Content-Type', 'application/json');
+                        return response()->json(['token' => $token->get(), 'socket_token' => $socket_token, 'user' => $user_custom, 'path' => '/Dashboards', 'status' => 200], 200)->header('Content-Type', 'application/json');
                     }
                 } else {
                     throw new Exception('Password not corrent', 401);
@@ -128,7 +130,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth()->user(), 200);
     }
 
     /**

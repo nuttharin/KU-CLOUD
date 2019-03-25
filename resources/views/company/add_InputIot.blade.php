@@ -3,7 +3,7 @@
 @section('content')
 
 <style>
-    #CopyKey {
+    #CopyKey , #CopyUrl {
         float: right;
     }
 
@@ -417,8 +417,10 @@
                  <div class="form-group">
                     <label  class="col-sm-2 control-label">API</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="Apiiot" type="text" rows="6" ></textarea>
+                        <textarea class="form-control mb-2" id="Apiiot" type="text" rows="6" ></textarea>
+                        <button class="" id="CopyUrl" data-clipboard-target="#Apiiot"><i class="far fa-copy"></i></button>
                     </div>
+
                 </div>
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">Key</label>
@@ -454,6 +456,15 @@
     clipboard.on('error', function(e) {
         console.log(e);
     });
+
+    let copyUrl = new ClipboardJS('#CopyUrl');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+
 </script>
 
 
