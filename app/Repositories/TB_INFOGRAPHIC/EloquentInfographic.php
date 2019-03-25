@@ -69,7 +69,7 @@ class EloquentInfographic implements InfographicRepository
 
     public function getInfoDatasourceByInfoID($info_id)
     {
-        $infoDataList = TB_INFO_DATASOURCE::join('tb_webservice', 'tb_webservice.webservice_id', '=', 'tb_info_datasource.webservice_id')->where('info_id', $info_id)->select('tb_info_datasource.*', 'tb_webservice.value_cal')->get();
+        $infoDataList = TB_INFO_DATASOURCE::join('TB_WEBSERVICE', 'TB_WEBSERVICE.webservice_id', '=', 'TB_INFO_DATASOURCE.webservice_id')->where('info_id', $info_id)->select('TB_INFO_DATASOURCE.*', 'TB_WEBSERVICE.value_cal')->get();
 
         return $infoDataList;
     }
@@ -79,11 +79,11 @@ class EloquentInfographic implements InfographicRepository
     {
         $data = [];
 
-        $infoDataList = $this->model::join('tb_user_company', 'tb_user_company.user_id', '=', 'tb_infographic.user_id')
+        $infoDataList = $this->model::join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_INFOGRAPHIC.user_id')
                                         ->where([
-                                                    ['tb_user_company.company_id', '=', $company_id]
+                                                    ['TB_USER_COMPANY.company_id', '=', $company_id]
                                                 ])
-                                        ->select('tb_infographic.*')
+                                        ->select('TB_INFOGRAPHIC.*')
                                         ->get();
 
         foreach($infoDataList as $infoData ){ 
