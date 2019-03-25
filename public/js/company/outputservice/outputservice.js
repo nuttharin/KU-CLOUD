@@ -3,7 +3,7 @@ class webService {
         this.initService = () => {
             selectdata(datas);
         }
-        let detailtryit = (detail_tryit)=>
+        let detailtryit_Getlasttest_Aggregation = (detail_tryit)=>
         { 
             let jsondata;
             $("#show_detail_tryit").show();
@@ -38,7 +38,7 @@ class webService {
                 });
             });             
         }
-        let detailtryit_Getall = (detail_tryit)=>
+        let detailtryit_Getall_Aggregation = (detail_tryit)=>
         { 
             let jsondata;
             $("#show_detail_tryit_Getall").show();
@@ -73,7 +73,77 @@ class webService {
                 });
             });             
         }
-    let insertintoDW = (table_DW,summary_table)=>
+        let detailtryit_Getall_Data = (detail_tryit)=>
+        { 
+            let jsondata;
+            $("#show_detail_tryit_Getall_Data").show();
+            $("#call_Getall_Data").empty();
+            $('#clear_result_Getall_Data').html( "clear result" );
+           // $('#call').append( "Call<br/><p class='solid'>"+detail_tryit[0].data.header+"</p>" );
+           //text='"+detail_tryit+"'
+            $('#call_Getall_Data').append("<textarea type='text' rows='10' class='form-control mb-2'  id='Getall_Data'></textarea><button class='btn btn-info' id='download-file'>Download</button>");
+            jsondata = JSON.stringify(detail_tryit);
+            //console.log(jsondata);
+            $('#Getall_Data').val(JSON.stringify(detail_tryit, undefined, 2));
+            $('#clear_result_Getall_Data').on("click", function () {
+                $("#show_detail_tryit_Getall_Data").hide();
+            });
+            $('#download-file').on("click", function () {
+                
+                $.ajax({
+                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    dataType: 'json',
+                    method: "POST",
+                    data:
+                    {
+                        jsondata: jsondata
+                    },
+                    success: (res) => {
+                        //console.log("success")
+                        console.log(res);
+                    },
+                    error: (res) => {
+                        console.log(res);
+                    }
+                });
+            });             
+        }
+        let detailtryit_Getlasttest_Data = (detail_tryit)=>
+        { 
+            let jsondata;
+            $("#show_detail_tryit_Getlasttest_Data").show();
+            $("#call_Getlastest_Data").empty();
+            $('#clear_result_Getlastest_Data').html( "clear result" );
+           // $('#call').append( "Call<br/><p class='solid'>"+detail_tryit[0].data.header+"</p>" );
+           //text='"+detail_tryit+"'
+            $('#call_Getlastest_Data').append("<textarea type='text' rows='10' class='form-control mb-2'  id='GetLasttestData'></textarea><button class='btn btn-info' id='download-file'>Download</button>");
+            jsondata = JSON.stringify(detail_tryit);
+            //console.log(jsondata);
+            $('#GetLasttestData').val(JSON.stringify(detail_tryit, undefined, 2));
+            $('#clear_result_Getlastest_Data').on("click", function () {
+                $("#show_detail_tryit_Getlasttest_Data").hide();
+            });
+            $('#download-file').on("click", function () {
+                
+                $.ajax({
+                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    dataType: 'json',
+                    method: "POST",
+                    data:
+                    {
+                        jsondata: jsondata
+                    },
+                    success: (res) => {
+                        //console.log("success")
+                        console.log(res);
+                    },
+                    error: (res) => {
+                        console.log(res);
+                    }
+                });
+            });             
+        }
+    let insertintoDW_Getlasttest_Aggregation = (table_DW,summary_table)=>
         { 
             $.ajax({
                 url: "http://localhost:8081/webService/getDataAggregation",
@@ -89,17 +159,61 @@ class webService {
                     //console.log("success")
                     console.log(res);
                     let detail_tryit = res;
-                    detailtryit(detail_tryit);
+                    detailtryit_Getlasttest_Aggregation(detail_tryit);
                 },
                 error: (res) => {
                     console.log(res);
                 }
             });
         }
-        let insertintoDW_Getall = (table_DW,summary_table)=>
+        let insertintoDW_Getall_Aggregation = (table_DW)=>
         { 
             $.ajax({
                 url: "http://localhost:8081/webService/getDataAggregation_Getall",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    tableDW_name: table_DW,
+                },
+                success: (res) => {
+                    //console.log("success")
+                    console.log(res);
+                    let detail_tryit = res;
+                    detailtryit_Getall_Aggregation(detail_tryit);
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+        }
+        let insertintoDW_Getlasttest_Data = (table_DW)=>
+        { 
+            $.ajax({
+                url: "http://localhost:8081/webService/getLastestData",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    tableDW_name: table_DW,
+                },
+                success: (res) => {
+                    //console.log("success")
+                    console.log(res);
+                    let detail_tryit = res;
+                    detailtryit_Getlasttest_Data(detail_tryit);
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+        }
+        let insertintoDW_Getall_Data = (table_DW,summary_table)=>
+        { 
+            $.ajax({
+                url: "http://localhost:8081/webService/getallData",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -112,7 +226,7 @@ class webService {
                     //console.log("success")
                     console.log(res);
                     let detail_tryit = res;
-                    detailtryit_Getall(detail_tryit);
+                    detailtryit_Getall_Data(detail_tryit);
                 },
                 error: (res) => {
                     console.log(res);
@@ -133,6 +247,14 @@ class webService {
                     value: datas[i].service_name_DW,
                     text: datas[i].name
                 }));
+                $('#table_DW_Getall_Data').append($("<option/>", {
+                    value: datas[i].service_name_DW,
+                    text: datas[i].name
+                }));
+                $('#table_DW_Getlasttest_Data').append($("<option/>", {
+                    value: datas[i].service_name_DW,
+                    text: datas[i].name
+                }));
             }
             
         }
@@ -140,12 +262,20 @@ class webService {
         $('#try_it_Getall').on("click", function () {
             let table_DW = $("#table_DW").val();
             let summary_table = $('#summary_table').val();
-            insertintoDW_Getall(table_DW,summary_table)
+            insertintoDW_Getall_Aggregation(table_DW,summary_table)
         });
         $('#try_it').on("click", function () {
             let table_DW = $("#table_DW").val();
             let summary_table = $('#summary_table').val();
-            insertintoDW(table_DW,summary_table)
+            insertintoDW_Getlasttest_Aggregation(table_DW,summary_table)
+        });
+        $('#try_it_Getall_Data').on("click", function () {
+            let table_DW = $("#table_DW").val();
+            insertintoDW_Getall_Data(table_DW)
+        });
+        $('#try_it_Getlasttest_Data').on("click", function () {
+            let table_DW = $("#table_DW").val();
+            insertintoDW_Getlasttest_Data(table_DW)
         });
         
     }
