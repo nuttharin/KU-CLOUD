@@ -162,38 +162,40 @@
                 </div>
 
                 <form id="form-add-user">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-11">
-                            <div class="row mt-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 mt-2">
                                 <label for="">Username <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="username" id="add_username" />
                                 <div class="messages-error"></div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-6" style="padding-left:0px;">
-                                    <label for="">Firstname <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="firstname" id="add_fname_val" />
-                                    <div class="messages-error"></div>
-                                </div>
-                                <div class="col-6" style="padding-right:0px;">
-                                    <label for="">Lastname <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="lastname" id="add_lname_val" />
-                                    <div class="messages-error"></div>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-12 mt-2">
+                                <label for="">Firstname <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="firstname" id="add_fname_val" />
+                                <div class="messages-error"></div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-6" style="padding-left:0px;">
-                                    <label for="email">Email <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="email" id="add_email_val" placeholder="example@domain.com" />
-                                    <div class="messages-error"></div>
-                                </div>
-                                <div class="col-6" style="padding-right:0px;">
-                                    <label for="">Phone <span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control" name="phone" id="add_phone_val" />
-                                    <div class="messages-error"></div>
-                                </div>
+                            <div class="col-xl-6 col-12 mt-2">
+                                <label for="">Lastname <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="lastname" id="add_lname_val" />
+                                <div class="messages-error"></div>
                             </div>
-                            <div class="row mt-2">
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-12 mt-2">
+                                <label for="email">Email <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="email" id="add_email_val" placeholder="example@domain.com" />
+                                <div class="messages-error"></div>
+                            </div>
+                            <div class="col-xl-6 col-12 mt-2">
+                                <label for="">Phone <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" name="phone" id="add_phone_val" />
+                                <div class="messages-error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mt-2">
                                 <label for="">Type user <span class="text-danger">*</span></label>
                                 <select id="add_type_user_val" class="form-control">
                                     <option>ADMIN</option>

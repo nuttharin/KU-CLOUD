@@ -63,95 +63,115 @@
 
             <div class="modal-body">
                 <form id="form_register" autocomplete="nope">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-5 col-11 header-line">
-                            <span class="header-title">Account detail</span>
-                            <div class="row input-data">
-                                <label for="account">Username <span class="text-danger">*</span></label>
-                                <input type="text" name="accountname" class="form-control" id="accountname">
-                                <small class="messages-error"></small>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-5 col-11 header-line">
+                                <span class="header-title">Account detail</span>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="account">Username <span class="text-danger">*</span></label>
+                                        <input type="text" name="accountname" class="form-control" id="accountname">
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="password">Password <span class="text-danger">*</span></label>
+                                        <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
+                                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row input-data">
-                                <label for="password">Password <span class="text-danger">*</span></label>
-                                <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
-                                <small class="messages-error"></small>
-                            </div>
-                            <div class="row input-data">
-                                <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
-                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
-                                <small class="messages-error"></small>
+                            <div class="col-xl-6 col-11 header-line">
+                                <span class="header-title">Profile detail</span>
+                                <div class="row">
+                                    <div class="col-xl-6 col-12 mt-2">
+                                        <label for="firstname">Firstname <span class="text-danger">*</span></label>
+                                        <input type="text" name="firstname" class="form-control" id="fname">
+                                        <small class="messages-error"></small>
+                                    </div>
+                                    <div class="col-xl-6 col-12 mt-2">
+                                        <label for="lname">Lastname <span class="text-danger">*</span></label>
+                                        <input type="text" name="lastname" class="form-control" id="lname">
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="email">Email address <span class="text-danger">*</span></label>
+                                        <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="phone">Phone <span class="text-danger">*</span></label>
+                                        <input type="text" name="phone" class="form-control" id="phone">
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-11 header-line">
-                            <span class="header-title">Profile detail</span>
-                            <div class="row input-data">
-                                <div class="col-6" style="padding-left:0px;">
-                                    <label for="firstname">Firstname <span class="text-danger">*</span></label>
-                                    <input type="text" name="firstname" class="form-control" id="fname">
-                                    <small class="messages-error"></small>
-                                </div>
-                                <div class="col-6" style="padding-right:0px;">
-                                    <label for="lname">Lastname <span class="text-danger">*</span></label>
-                                    <input type="text" name="lastname" class="form-control" id="lname">
-                                    <small class="messages-error"></small>
-                                </div>
-                            </div>
-                            <div class="row input-data">
-                                <label for="email">Email address <span class="text-danger">*</span></label>
-                                <input type="email" name="email" class="form-control" id="email" autocomplete="nope">
-                                <small class="messages-error"></small>
-                            </div>
-                            <div class="row input-data">
-                                <label for="phone">Phone <span class="text-danger">*</span></label>
-                                <input type="text" name="phone" class="form-control" id="phone">
-                                <small class="messages-error"></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-left" style="margin-top:20px;">
-                        <div class="col-xl-11 col-11" style="padding-left:50px;">
-                            <div class="row input-data">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="checkbox_address" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                    <label class="custom-control-label" for="checkbox_address">Include address detail, You can change address detail it later</label>
+                        <div class="row justify-content-left">
+                            <div class="col-xl-11 col-11" style="padding-left: 4%;">
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="checkbox_address" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            <label class="custom-control-label" for="checkbox_address">Include address detail, You can change address detail it later</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row justify-content-center collapse" id="collapseExample" style="margin-top:20px;">
-                        <div class="col-xl-11 header-line">
-                            <span class="header-title">Address detail</span>
-                            <div class="row input-data">
-                                <label for="address">Address</label>
-                                <textarea name="address_detail" id="address_detail" cols="30" rows="5" class="form-control"></textarea>
-                                <small class="messages-error"></small>
-                            </div>
-                            <div class="row input-data">
-                                <label for="province">Province</label>
-                                <select name="province" id="province" class="form-control">
-                                    <option value="">--Select provice--</option>
-                                </select>
-                                <small class="messages-error"></small>
-                            </div>
-                            <div class="row input-data">
-                                <label for="amphure">Amphure</label>
-                                <select name="amphure" id="amphure" class="form-control">
-                                    <option value="">--Select amphure--</option>
-                                </select>
-                                <small class="messages-error"></small>
-                            </div>
-                            <div class="row input-data">
-                                <div class="col-6" style="padding-left:0px;">
-                                    <label for="district">District</label>
-                                    <select name="district" id="district" class="form-control">
-                                        <option value="">--Select district--</option>
-                                    </select>
-                                    <small class="messages-error"></small>
+                        <div class="row justify-content-center collapse" id="collapseExample">
+                            <div class="col-11 header-line">
+                                <span class="header-title">Address detail</span>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="address">Address</label>
+                                        <textarea name="address_detail" id="address_detail" cols="30" rows="5" class="form-control"></textarea>
+                                        <small class="messages-error"></small>
+                                    </div>
                                 </div>
-                                <div class="col-6" style="padding-right:0px;">
-                                    <label for="zip_code">Zip code</label>
-                                    <input name="zip_code" id="zip_code" class="form-control">
-                                    <small class="messages-error"></small>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="province">Province</label>
+                                        <select name="province" id="province" class="form-control">
+                                            <option value="">--Select provice--</option>
+                                        </select>
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label for="amphure">Amphure</label>
+                                        <select name="amphure" id="amphure" class="form-control">
+                                            <option value="">--Select amphure--</option>
+                                        </select>
+                                        <small class="messages-error"></small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6 col-12 mt-2">
+                                        <label for="district">District</label>
+                                        <select name="district" id="district" class="form-control">
+                                            <option value="">--Select district--</option>
+                                        </select>
+                                        <small class="messages-error"></small>
+                                    </div>
+                                    <div class="col-xl-6 col-12 mt-2">
+                                        <label for="zip_code">Zip code</label>
+                                        <input name="zip_code" id="zip_code" class="form-control">
+                                        <small class="messages-error"></small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
