@@ -48,11 +48,11 @@ class EloquentAddress implements AddressRepository
     public function getDistrictsByAmphures($province_id, $amphure_id)
     {
         $districts = Amphures::where([
-            ['Amphures.province_id', '=', $province_id],
-            ['Amphures.amphure_id', '=', $amphure_id],
+            ['AMPHURES.province_id', '=', $province_id],
+            ['AMPHURES.amphure_id', '=', $amphure_id],
         ])
-            ->join('Districts', 'Districts.amphure_id', '=', 'Amphures.amphure_id')
-            ->orderBy('Districts.name_th')
+            ->join('DISTRICTS', 'DISTRICTS.amphure_id', '=', 'AMPHURES.amphure_id')
+            ->orderBy('DISTRICTS.name_th')
             ->get();
         return $districts;
     }

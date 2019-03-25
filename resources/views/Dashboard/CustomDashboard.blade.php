@@ -180,6 +180,9 @@
 </style>
 
 
+<div id="images">
+
+</div>
 
 <div id="layout-full-screen">
     <div class="modal fade" id="modal_full_screen">
@@ -1032,25 +1035,14 @@
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-success">Realtime</span></h5>
                 </div>
-                <div class="edit-widget" style="display:none">
-                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
-                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
-                </div>
 
-                <!-- <div class="downloadImg">
-                    <div class="dropdown">
-                        <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download" style="cursor:pointer"></i>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <span class="dropdown-item btn-download" item="div_id"><i class="fas fa-image"></i>
-                                Download images</span>
-                            <span class="dropdown-item btn-download btn-download-excel" item="div_id"><i class="fas fa-file-excel"></i>
-                                Download excel</a>
-                        </div>
-                    </div>
-                </div> -->
+                <!-- <div class="edit-widget" style="display:none">
+                        <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                        <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                    </div> -->
 
-                <div class="download" style="display: none">
-                    <div class="dropdown">
+                <div class="tool d-flex">
+                    <div class=" dropdown mr-1">
                         <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
                             style="cursor:pointer"></i>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -1060,6 +1052,10 @@
                                     class="fas fa-file-excel"></i>
                                 Download excel</a>
                         </div>
+                    </div>
+                    <div class="edit-widget" style="display:none">
+                        <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                        <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
                     </div>
                 </div>
             </div>

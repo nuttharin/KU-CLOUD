@@ -11,6 +11,7 @@
         -webkit-animation: Gradient 15s ease infinite;
         -moz-animation: Gradient 15s ease infinite;
         animation: Gradient 15s ease infinite;
+        overflow-x: hidden;
     }
 
     #form_login {

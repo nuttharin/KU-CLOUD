@@ -341,13 +341,16 @@
         <script type="text/javascript" src="{{asset('freetrans/Matrix.js')}}"></script>
         <script type="text/javascript" src="{{asset('freetrans/jquery.freetrans.js')}}"></script>
         <script type="text/javascript" src="{{asset('circlejson/circular-json.js')}}"></script>
-        <script type="text/javascript" src="{{url('htmltocanvas/htmltocanvas.js')}}"></script>
+        <script type="text/javascript" src="{{asset('htmltocanvas/htmltocanvas.js')}}"></script>
+        <script type="text/javascript" src="{{asset('js/lib/saveSvgAsPng.js')}}"></script>
 
         <!-- validate -->
         <script src="{{asset('js/validate/validate.js')}}"></script>
 
         <!-- moment  -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+
+        
 
         
         <script>
@@ -360,6 +363,9 @@
         <div id="content" class="content">
             @yield('content')
         </div>
+
+        <!-- leaflet-image.js -->
+        <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
 
         <!-- socket -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
