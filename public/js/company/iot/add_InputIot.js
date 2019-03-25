@@ -127,9 +127,10 @@ class iotService {
             }
             //console.log(otheroutput)
             increaseData();
+            swal("Registration Success", "", "success");
             strUrl = 'http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
             $('#Nameiot').val(nameiot);
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
+            $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
             
             $('#ShowDetailiotModal').modal('show');
@@ -172,10 +173,38 @@ class iotService {
                         valueCalIot = valueCalIot + $('#datajson'+i).val()  +','  ;
                     }
                 }
-                valueCalIot = valueCalIot.substring(0,valueCalIot.length -1 );
+                if(valueCalIot =="")
+                {
+                    console.log(valueCalIot)
+                    valueCalIot = null ;
+                }
+                else 
+                {
+                    console.log("df")
+                    valueCalIot = valueCalIot.substring(0,valueCalIot.length -1 );
+                   
+                }
                 getDataforInsert();
-                showDetail();
+                showDetail();                    
                 
+            })
+
+            $('#close-modal-show').click(function(){
+                // increaseData();
+                // swal("Registration Success", "", "success");
+                // function sleep(ms) {
+                //     return new Promise(resolve => setTimeout(resolve, ms));
+                //   }
+                  
+                //   async function demo() {
+                //     console.log('Taking a break...');
+                //     await sleep(10000);
+                //     console.log('Two seconds later');
+                //   }
+                  
+                //   demo();
+                location.reload();
+               // window.location.href = "{{action('IoTController@IoT')}}";
             })
 
         }
