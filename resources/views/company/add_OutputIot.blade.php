@@ -417,13 +417,13 @@
                 <div class="form-group">
                     <label  class="col-sm-12 control-label">URLs</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="URLiot" type="text" row="7" disabled></textarea>
+                        <textarea class="form-control" id="URLiot" type="text" rows="7" ></textarea>
                     </div>
                 </div>
                  <div class="form-group">
                     <label  class="col-sm-12 control-label">Data Format</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="Dataformat" row="10" type="text" disabled></textarea>
+                        <textarea class="form-control" id="Dataformat" rows="10" type="text" ></textarea>
                     </div>
                 </div>
             </div>
