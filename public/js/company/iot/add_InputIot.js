@@ -57,10 +57,7 @@ class iotService {
                     console.log(res);
                 }
             });
-            console.log(typeof datajson)
-
-           
-
+            //console.log(typeof datajson)
 
         }        
 
@@ -126,8 +123,7 @@ class iotService {
                 }
             }
             //console.log(otheroutput)
-            increaseData();
-            swal("Registration Success", "", "success");
+            
             strUrl = 'http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
             $('#Nameiot').val(nameiot);
             $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
@@ -190,20 +186,24 @@ class iotService {
             })
 
             $('#close-modal-show').click(function(){
-                // increaseData();
-                // swal("Registration Success", "", "success");
+                increaseData();
+                //swal("Registration Success", "", "success");
+                swal("Registration Success.", "", "success")
+                .then((value) => {
+                    location.reload();
+                });
                 // function sleep(ms) {
                 //     return new Promise(resolve => setTimeout(resolve, ms));
                 //   }
                   
                 //   async function demo() {
                 //     console.log('Taking a break...');
-                //     await sleep(10000);
+                //     await sleep(20000);
                 //     console.log('Two seconds later');
                 //   }
                   
                 //   demo();
-                location.reload();
+                
                // window.location.href = "{{action('IoTController@IoT')}}";
             })
 
