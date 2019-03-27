@@ -12,6 +12,7 @@ class iotService {
         let valueCalIot = "" ;
         let strField = "";
         let strUrl = "";
+        let idIoT = ""; 
 
         let getDataforInsert = () => {
 
@@ -85,6 +86,8 @@ class iotService {
                 success: (res) => {
                     // toastr["success"]("Success");
                     console.log("success DB")
+                    idIoT = res.iotService.iotservice_id ;
+                    //console.log(idIoT);
                 },
                 error: (res) => {
                     console.log(res);
@@ -123,10 +126,11 @@ class iotService {
                 }
             }
             //console.log(otheroutput)
-            
+            increaseData();
+
             strUrl = 'http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
             $('#Nameiot').val(nameiot);
-            $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
+            $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
             
             $('#ShowDetailiotModal').modal('show');
@@ -186,7 +190,7 @@ class iotService {
             })
 
             $('#close-modal-show').click(function(){
-                increaseData();
+                // increaseData();
                 //swal("Registration Success", "", "success");
                 swal("Registration Success.", "", "success")
                 .then((value) => {

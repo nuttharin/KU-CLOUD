@@ -237,26 +237,28 @@ class webService {
         let selectdata = (datas)=>
         { 
             //console.log(data)
-            for(var i=0;i<datas.length;i++)
-            {
-                $('#table_DW').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
-                $('#table_DW_Getall').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
-                $('#table_DW_Getall_Data').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
-                $('#table_DW_Getlasttest_Data').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
+            if(datas.lentgh > 0)
+            {            
+                for(var i=0;i<datas.length;i++)
+                {
+                    $('#table_DW').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                    $('#table_DW_Getall').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                    $('#table_DW_Getall_Data').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                    $('#table_DW_Getlasttest_Data').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                }
             }
-            
         }
         
         $('#try_it_Getall').on("click", function () {
