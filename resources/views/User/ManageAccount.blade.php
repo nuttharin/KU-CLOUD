@@ -11,13 +11,14 @@
         cursor: pointer;
     }
 
-    .edit-address,.delete-address {
+    .edit-address,
+    .delete-address {
         cursor: pointer;
     }
 
-    .address{
-        border:1px solid #eee;
-        padding:50px;
+    .address {
+        border: 1px solid #eee;
+        padding: 50px;
         margin: 20px;
         width: 100%;
         height: 300px;
@@ -25,7 +26,7 @@
         transition: all .2s ease-in-out;
     }
 
-    .address:hover{
+    .address:hover {
         background-color: #eee;
     }
 
@@ -48,8 +49,8 @@
                     aria-controls="profile" aria-selected="true">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account"
-                    aria-selected="false">Account</a>
+                <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab"
+                    aria-controls="account" aria-selected="false">Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="emails-tab" data-toggle="tab" href="#emails" role="tab" aria-controls="emails"
@@ -61,8 +62,8 @@
             </li>
             @if($user->type_user == 'CUSTOMER')
             <li class="nav-item">
-                <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address"
-                    aria-selected="false">Address</a>
+                <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab"
+                    aria-controls="address" aria-selected="false">Address</a>
             </li>
             @endif
         </ul>
@@ -80,14 +81,15 @@
                             <input type="text" class="form-control" name="lastname" value="{{$user->lname}}">
                             <small class="messages-error"></small>
                         </div>
-                        <button type="button" class="btn btn-success mt-2" id="btn-update-profile" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update
+                        <button type="button" class="btn btn-success mt-2" id="btn-update-profile"
+                            data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update
                             profile</button>
                     </div>
                     <div class="col-12 col-md-6">
                         <h6>Profile picture</h6>
 
-                        <img class="img-xs rounded-circle" height="200" width="200" src="{{env('API_URL')}}account/profile"
-                            alt="Profile image"><br />
+                        <img class="img-xs rounded-circle" height="200" width="200"
+                            src="{{env('API_URL')}}account/profile" alt="Profile image"><br />
 
                         <label class="btn btn-primary mt-2">
                             Upload new picture <input type="file" name="img-profile" id="img-profile" hidden>
@@ -100,13 +102,23 @@
                 <h4>Change password</h4>
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <label>Old password</label>
-                        <input type="password" name="old_password" class="form-control">
-                        <label>New password</label>
-                        <input type="password" name="new_password" class="form-control">
-                        <label>Confirm new password</label>
-                        <input type="password" name="confirm_password" class="form-control">
-                        <button type="button" class="btn btn-success mt-2" id="btn-update-password">Update password</button>
+                        <div class="form-group">
+                            <label>Old password</label>
+                            <input type="password" name="old_password" class="form-control">
+                            <small class="messages-error"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>New password</label>
+                            <input type="password" name="new_password" class="form-control">
+                            <small class="messages-error"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm new password</label>
+                            <input type="password" name="confirm_password" class="form-control">
+                            <small class="messages-error"></small>
+                        </div>
+                        <button type="button" class="btn btn-success mt-2" id="btn-update-password">Update
+                            password</button>
                     </div>
                 </div>
                 <hr>
@@ -115,7 +127,8 @@
                     <div class="col-12 col-md-6">
                         <label>Username</label>
                         <input type="text" class="form-control" name="username" value="{{$user->username}}">
-                        <button type="button" class="btn btn-success mt-2" id="btn_update_username" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update
+                        <button type="button" class="btn btn-success mt-2" id="btn_update_username"
+                            data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update
                             username</button>
                     </div>
                 </div>
@@ -170,7 +183,8 @@
             @if($user->type_user == 'CUSTOMER')
             <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                 <div class="row justify-content-start">
-                    <div class="address address-add d-flex justify-content-center flex-column text-center" style="display:none !important">
+                    <div class="address address-add d-flex justify-content-center flex-column text-center"
+                        style="display:none !important">
                         <i class="fas fa-plus fa-lg"></i><br>
                         Add address
                     </div>
@@ -193,7 +207,8 @@
                     <form method="POST" enctype="multipart/form-data" id="imageUploadForm">
                         <div id="upload-demo"></div>
                         <input type="hidden" id="imagebase64" name="imagebase64">
-                        <button type="button" class="btn btn-success btn-block" id="btn-crop-save" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">Set
+                        <button type="button" class="btn btn-success btn-block" id="btn-crop-save"
+                            data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">Set
                             new profile picture</button>
                     </form>
                 </div>
@@ -216,7 +231,8 @@
                         <div class="col-xl-12">
                             <div class="row input-data">
                                 <label for="address">Address</label>
-                                <textarea name="address_detail" id="address_detail" cols="30" rows="5" class="form-control"></textarea>
+                                <textarea name="address_detail" id="address_detail" cols="30" rows="5"
+                                    class="form-control"></textarea>
                                 <small class="messages-error"></small>
                             </div>
                             <div class="row input-data">

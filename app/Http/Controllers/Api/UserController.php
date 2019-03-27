@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\TB_USERS;
+use Gate;
 use App\LogViewer\LogViewer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Gate;
+use App\Http\Requests\User\AddUserCompany;
 use App\Repositories\TB_USERS\UsersRepository;
 
 class UserController extends Controller
@@ -95,13 +95,12 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function addUserCompany(Request $request)
+    public function addUserCompany(AddUserCompany $request)
     {
         $data = [
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
-            // 'password' => $request->get('password'),
             'type_user' => 'COMPANY',
             'company_id' => $this->auth->user_company()->first()->company_id,
             'sub_type_user' => $request->get('sub_type_user'),
@@ -163,8 +162,8 @@ class UserController extends Controller
 
     public function blockUserCompany(Request $request)
     {
-        $user = $this->users->isBlockUser($request->get('user_id'),$request->get('block'));
-        if($user){
+        $user = $this->users->isBlockUser($request->get('user_id'), $request->get('block'));
+        if ($user) {
             return response()->json(["status", "success"], 200);
         }
     }
@@ -249,7 +248,8 @@ class UserController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getAllEmailCustomerInCompany(){
+    public function getAllEmailCustomerInCompany()
+    {
         $data = $this->users->getAllEmailCustomerInCompany();
         return response()->json(compact('data'), 200);
     }
@@ -267,7 +267,8 @@ class UserController extends Controller
         return response()->json(compact('users'), 200);
     }
 
-    public function getCustomerByCompany(Request $request){
-        return  $this->users->getCustomerByCompany();
+    public function getCustomerByCompany(Request $request)
+    {
+        return $this->users->getCustomerByCompany();
     }
 }
