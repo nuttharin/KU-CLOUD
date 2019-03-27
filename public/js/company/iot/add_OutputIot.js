@@ -47,8 +47,12 @@ class iotService {
                 }
             });
 
-            //register DB
-            $.ajax({
+
+        }
+        
+        let registerDB = () => {
+             //register DB
+             $.ajax({
                 url: END_POINT+"iot/addOutputRegisIotService",
                 dataType: 'json',
                 method: "POST",
@@ -74,10 +78,7 @@ class iotService {
                     console.log(res);
                 }
             });
-
-
         }
-        
 
         let increaseDataTableDWFristTime = () => {
             let nametable = 'IoT.Output.'+nameiot+'.'+companyID
@@ -93,7 +94,7 @@ class iotService {
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
-                    swal("Success!", "You clicked the button!", "success");
+                   
                     console.log("success DW")
                 },
                 error: (res) => {
@@ -110,8 +111,12 @@ class iotService {
             //strUrlInsert = 'http://localhost:8081/iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID ;
             $('#ShowDetailiotModal').modal('show');
             $('#close-modal-show').click(function(){
+                registerDB();
                 increaseDataTableDWFristTime();
-                location.reload();
+                swal("Registration Success.", "", "success")
+                .then((value) => {
+                    location.reload();
+                });
             })
 
         }  

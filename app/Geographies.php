@@ -8,7 +8,7 @@ class Geographies extends Model
 {
 
     protected $primaryKey = 'user_id';
-    protected $table = "Geographies";
+    protected $table = "GEOGRAPHIES";
 
     protected $fillable = [
         'geography_id', 'name',

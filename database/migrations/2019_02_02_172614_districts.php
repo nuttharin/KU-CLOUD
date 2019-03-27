@@ -13,7 +13,7 @@ class Districts extends Migration
      */
     public function up()
     {
-        Schema::create('Districts', function (Blueprint $table) {
+        Schema::create('DISTRICTS', function (Blueprint $table) {
             $table->string('district_id', 6);
             $table->integer('zip_code')->unsigned();
             $table->string('name_th', 150);
@@ -21,7 +21,7 @@ class Districts extends Migration
             $table->integer('amphure_id')->unsigned();
             $table->primary('district_id');
             $table->foreign('amphure_id')
-                ->references('amphure_id')->on('Amphures')
+                ->references('amphure_id')->on('AMPHURES')
                 ->onDelete('cascade');
         });
 
@@ -39,6 +39,6 @@ class Districts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Districts');
+        Schema::dropIfExists('DISTRICTS');
     }
 }

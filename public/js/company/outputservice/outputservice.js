@@ -21,7 +21,7 @@ class webService {
             $('#download-file').on("click", function () {
                 
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    url: END_POINT+"company/webservice/downloadJSONFile",
                     dataType: 'json',
                     method: "POST",
                     data:
@@ -56,7 +56,7 @@ class webService {
             $('#download-file').on("click", function () {
                 
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    url: END_POINT+"company/webservice/downloadJSONFile",
                     dataType: 'json',
                     method: "POST",
                     data:
@@ -91,7 +91,7 @@ class webService {
             $('#download-file').on("click", function () {
                 
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    url: END_POINT+"company/webservice/downloadJSONFile",
                     dataType: 'json',
                     method: "POST",
                     data:
@@ -126,7 +126,7 @@ class webService {
             $('#download-file').on("click", function () {
                 
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    url: END_POINT+"company/webservice/downloadJSONFile",
                     dataType: 'json',
                     method: "POST",
                     data:
@@ -146,7 +146,7 @@ class webService {
     let insertintoDW_Getlasttest_Aggregation = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: "http://localhost:8081/webService/getDataAggregation",
+                url: API_DW +"webService/getDataAggregation",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -169,7 +169,7 @@ class webService {
         let insertintoDW_Getall_Aggregation = (table_DW)=>
         { 
             $.ajax({
-                url: "http://localhost:8081/webService/getDataAggregation_Getall",
+                url: API_DW +"webService/getDataAggregation_Getall",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -191,7 +191,7 @@ class webService {
         let insertintoDW_Getlasttest_Data = (table_DW)=>
         { 
             $.ajax({
-                url: "http://localhost:8081/webService/getLastestData",
+                url: API_DW +"webService/getLastestData",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -213,7 +213,7 @@ class webService {
         let insertintoDW_Getall_Data = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: "http://localhost:8081/webService/getallData",
+                url: API_DW +"webService/getallData",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -237,26 +237,28 @@ class webService {
         let selectdata = (datas)=>
         { 
             //console.log(data)
-            for(var i=0;i<datas.length;i++)
-            {
-                $('#table_DW').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
-                $('#table_DW_Getall').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
-                $('#table_DW_Getall_Data').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
-                $('#table_DW_Getlasttest_Data').append($("<option/>", {
-                    value: datas[i].service_name_DW,
-                    text: datas[i].name
-                }));
+            if(datas.lentgh > 0)
+            {            
+                for(var i=0;i<datas.length;i++)
+                {
+                    $('#table_DW').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                    $('#table_DW_Getall').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                    $('#table_DW_Getall_Data').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                    $('#table_DW_Getlasttest_Data').append($("<option/>", {
+                        value: datas[i].service_name_DW,
+                        text: datas[i].name
+                    }));
+                }
             }
-            
         }
         
         $('#try_it_Getall').on("click", function () {
@@ -303,7 +305,7 @@ class iotService{
             $('#download_IoT_file').on("click", function () {
                 
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    url: END_POINT+"company/webservice/downloadJSONFile",
                     dataType: 'json',
                     method: "POST",
                     data:
@@ -338,7 +340,7 @@ class iotService{
             $('#download_IoT_file').on("click", function () {
                 
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    url: END_POINT+"company/webservice/downloadJSONFile",
                     dataType: 'json',
                     method: "POST",
                     data:
@@ -358,7 +360,7 @@ class iotService{
         let insertintoIoTDW_Getall = (table_DW)=>
         { 
             $.ajax({
-                url: "http://localhost:8081/iotService/getInputIoTData_Getall",
+                url: API_DW +"iotService/getInputIoTData_Getall",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -380,7 +382,7 @@ class iotService{
         let insertintoIoTDW = (table_DW)=>
         { 
             $.ajax({
-                url: "http://localhost:8081/iotService/getInputIoTData",
+                url: API_DW +"iotService/getInputIoTData",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -430,42 +432,46 @@ class iotService{
     }
 }
 $(document).ready(function () {
-
+    $('.form-control').select2()
     $('#card_1').hide();
     $('#card_1_h').on('click',function(){
         $('#card_1').show();
     })
     let data;
     let dataIoT;
+    console.log(END_POINT)
+    console.log(API_DW)
         $.ajax({
-            url: "http://localhost:8000/api/iot/IoTdata",
+            url:END_POINT+"iot/IoTdata",
             dataType: 'json',
             method: "GET",
             async: false,
             success: (res) => {
                 dataIoT = res.iotService;
                 console.log(dataIoT)
+                let iotservice = new iotService(dataIoT);        
+                iotservice.initService();
             },
             error: (res) => {
                 console.log(res);
             }
         });
         $.ajax({
-            url: "http://localhost:8000/api/company/webservicedata",
+            url: END_POINT+"company/webservicedata",
             dataType: 'json',
-            method: "GET",
+            menutthod: "GET",
             async: false,
             success: (res) => {
                 data = res.webService;
                 console.log(data)
+                let webservice = new webService(data);
+                webservice.initService();
             },
             error: (res) => {
                 console.log(res);
             }
         });
-        let webservice = new webService(data);
-        let iotservice = new iotService(dataIoT);
-        webservice.initService();
-        iotservice.initService();
+        
+        
         
 });
