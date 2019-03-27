@@ -403,7 +403,7 @@ $(document).ready(function () {
 
         let validate = new Validation(iotName,iotAlias,iotdescription,status,fields);
         validate.validate();
-
+        
        
         //iot.showDetail();
       

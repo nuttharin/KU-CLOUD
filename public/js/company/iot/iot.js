@@ -276,7 +276,7 @@ var IotserviceRepository = new (function(){
                             <div id="dataOther"></div>   
                             <h6>Pins Setting</h6>
                             <div id="dataPin"></div>
-                            <button type="button" class="btn btn-success btn-sm btn-send" index=${keyvalue} id="send_outputIoT">
+                            <button type="button" class="btn btn-success  btn-send" style="float:right;" index=${keyvalue} id="send_outputIoT">
                                 send  
                             </button>
                         </div>
@@ -385,7 +385,7 @@ var IotserviceRepository = new (function(){
                 }
             });
             $(".swal-button--confirm").click(function (){
-                location.reload();
+                //location.reload();
             })
         });
     }
