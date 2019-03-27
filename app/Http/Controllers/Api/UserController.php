@@ -7,7 +7,6 @@ use App\LogViewer\LogViewer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Gate;
 use JWTAuth;
 use App\Http\Requests\User\AddUserCompany;
 use App\Repositories\TB_USERS\UsersRepository;
