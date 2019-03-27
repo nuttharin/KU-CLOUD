@@ -15,7 +15,7 @@ class iotService {
         this.getDataforInsert = () => {
             // get id company
             $.ajax({
-                url: "http://localhost:8000/api/company/webservice/getCompanyID",
+                url: END_POINT+"company/webservice/getCompanyID",
                 dataType: 'json',
                 method: "GET",
                 async: false,
@@ -29,7 +29,7 @@ class iotService {
 
             // create token
             $.ajax({
-                url: "http://localhost:8081/iotService/getKeyiot",
+                url: API_DW +"iotService/getKeyiot",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -49,7 +49,7 @@ class iotService {
 
             //register DB
             $.ajax({
-                url: "http://localhost:8000/api/iot/addOutputRegisIotService",
+                url: END_POINT+"iot/addOutputRegisIotService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -82,7 +82,7 @@ class iotService {
         let increaseDataTableDWFristTime = () => {
             let nametable = 'IoT.Output.'+nameiot+'.'+companyID
             $.ajax({
-                url: "http://localhost:8081/iotService/insertOutputIot",
+                url: API_DW +"iotService/insertOutputIot",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -104,7 +104,7 @@ class iotService {
 
         this.showDetail = () => {
             $('#Nameiot').val(nameiot);
-            $('#URLiot').val('http://localhost:8081/iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID);
+            $('#URLiot').val(API_DW +'iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID);
             // $('#Keyiot').val(keyiot);            
             $('#Dataformat').val(pinfilds);
             //strUrlInsert = 'http://localhost:8081/iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID ;

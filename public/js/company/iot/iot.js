@@ -14,7 +14,7 @@ var IotserviceRepository = new (function(){
     this.refreshDatatable = () => {
         showLoadingStatus(true);
         $.ajax({
-            url: "http://localhost:8000/api/iot/iotservicedata",
+            url: END_POINT+"iot/iotservicedata",
             method: 'GET',
             success: function (result) {
                 console.log(result);
@@ -183,7 +183,7 @@ var IotserviceRepository = new (function(){
         $('#btn-delete-submit').click(function () {
             // alert('fffff')
             $.ajax({
-                url: "http://localhost:8000/api/iot/deleteIoT",
+                url: END_POINT+"iot/deleteIoT",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -345,7 +345,7 @@ var IotserviceRepository = new (function(){
             let str_output1 = JSON.stringify(stroutput);
             console.log(stroutput)
             $.ajax({
-                url: "http://localhost:8000/api/iot/iotupdatedata",
+                url: END_POINT+"iot/iotupdatedata",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -365,7 +365,7 @@ var IotserviceRepository = new (function(){
                 }
             });
             $.ajax({
-                url: "http://localhost:8081/iotService/insertOutputIot",
+                url: API_DW + "iotService/insertOutputIot",
                 dataType: 'json',
                 method: "POST",
                 async: false,
