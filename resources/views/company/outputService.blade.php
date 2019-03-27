@@ -74,7 +74,7 @@
 
     
 </style>
-
+<link href="{{url('css/select2.min.css')}}" rel="stylesheet" />
 <br>
 <h2>Output service</h2><hr>
 <br>
@@ -173,7 +173,7 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="table_DW_Getall_Data">
+                            <select class="form-control" style="width:100%"  name="state" id="table_DW_Getall_Data">
                             </select>
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="table_DW_Getlasttest_Data">
+                            <select class="form-control" style="width:100%" id="table_DW_Getlasttest_Data">
                             </select>
                         </div>
                     </div>
@@ -307,7 +307,7 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="table_DW_Getall">
+                            <select class="form-control" style="width:100%" id="table_DW_Getall">
                             </select>
                         </div>
                     </div>
@@ -387,7 +387,7 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="table_DW">
+                            <select class="form-control" style="width:100%" id="table_DW">
                             </select>
                         </div>
                     </div>
@@ -520,7 +520,7 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="table_IoT_DW_Getall">
+                            <select class="form-control" style="width:100%" id="table_IoT_DW_Getall">
                             </select>
                         </div>
                     </div>
@@ -587,7 +587,7 @@
                             Table name (DW): 
                         </div>
                         <div class="col-sm-6 " >
-                            <select class="form-control" id="table_IoT_DW">
+                            <select class="form-control" style="width:100%" id="table_IoT_DW">
                             </select>
                         </div>
                     </div>
@@ -704,4 +704,5 @@
     </div>
 </div> -->
 <script type="text/javascript" src="{{url('js/company/outputservice/outputservice.js')}}"></script>
+<script type="text/javascript" src="{{url('js/select2.min.js')}}"></script>
 @endsection
