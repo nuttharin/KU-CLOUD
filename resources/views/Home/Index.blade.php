@@ -241,7 +241,7 @@
             </div>
         </div>
         <div class="col-12 text-center mt-5 mb-5">
-            <a href="#" class="btn btn-white mt-3 animated fadeIn" id="Login">See company in KU CLOUD</a>
+            <a href="{{action('HomeController@CompanyList')}}" class="btn btn-white mt-3 animated fadeIn" id="Login">See company in KU CLOUD</a>
         </div>
     </div>
 </div>
@@ -388,16 +388,16 @@
         </div>
         <div class="col-3" style="color:#848684">
             <h5 class="text-left">ADDRESS</h5>
-            <h6 class="text-left">99/383 Soi Suanluang</h6>
-            <h6 class="text-left">Kalaprapruek Road</h6>
-            <h6 class="text-left">Bangkok, Jomthong,</h6>
-            <h6 class="text-left">Bangkok 10150</h6>
+            <h6 class="text-left">1 Moo.6</h6>
+            <h6 class="text-left">Kamphaengsaen</h6>
+            <h6 class="text-left">Kamphaengsaen</h6>
+            <h6 class="text-left">Nakhon Pathom 73140</h6>
         </div>
         <div class="col-3" style="color:#848684">
             <h5 class="text-left">CONTACTS</h5>
-            <h6 class="text-left">Email: info@kit-development.com</h6>
-            <h6 class="text-left">Phone: +66.(0)2.490.3527</h6>
-            <h6 class="text-left">Fax: +66.(0)2.490.3527</h6>
+            <h6 class="text-left">Email: KU.CLOUD.SERVICE@gmail.com</h6>
+            <h6 class="text-left">Phone: +66.(0)3.428.1074</h6>
+            <h6 class="text-left">Fax: +66.(0)3.428.1074</h6>
         </div>
     </div>
 </footer>

@@ -34,7 +34,7 @@ interface UsersRepository
 
     public function update(array $attributes);
 
-    public function delete($id);
+    public function delete($user_id, $type_user);
 
     public function deleteEmailUser(array $attributes);
 

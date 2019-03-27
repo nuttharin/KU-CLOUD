@@ -23,4 +23,9 @@ class HomeController extends Controller
     {
         return view('Home.Index');
     }
+
+    public function CompanyList()
+    {
+        return view('Home.CompanyList');
+    }
 }

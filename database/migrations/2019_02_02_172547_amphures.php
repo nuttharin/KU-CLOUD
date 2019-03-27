@@ -13,7 +13,7 @@ class Amphures extends Migration
      */
     public function up()
     {
-        Schema::create('Amphures', function (Blueprint $table) {
+        Schema::create('AMPHURES', function (Blueprint $table) {
             $table->increments('amphure_id')->unsigned();
             $table->string('code', 4);
             $table->string('name_th', 150);

@@ -114,7 +114,6 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Company Name</th>
                             <th>Active</th>
                             <th>Status</th>
                             <th>Action</th>

@@ -13,7 +13,7 @@ class Geographies extends Migration
      */
     public function up()
     {
-        Schema::create('Geographies', function (Blueprint $table) {
+        Schema::create('GEOGRAPHIES', function (Blueprint $table) {
             $table->increments('geography_id')->unsigned();
             $table->string('name', 100);
         });

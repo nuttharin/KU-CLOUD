@@ -13,7 +13,7 @@ class Provinces extends Migration
      */
     public function up()
     {
-        Schema::create('Provinces', function (Blueprint $table) {
+        Schema::create('PROVINCES', function (Blueprint $table) {
             $table->increments('province_id')->unsigned();
             $table->string('code', 2);
             $table->string('name_th', 150);
