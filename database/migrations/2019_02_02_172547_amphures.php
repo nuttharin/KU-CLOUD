@@ -20,7 +20,7 @@ class Amphures extends Migration
             $table->string('name_en', 150);
             $table->integer('province_id')->unsigned();
             $table->foreign('province_id')
-                ->references('province_id')->on('Provinces')
+                ->references('province_id')->on('PROVINCES')
                 ->onDelete('cascade');
         });
     }
@@ -32,6 +32,6 @@ class Amphures extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Amphures');
+        Schema::dropIfExists('AMPHURES');
     }
 }
