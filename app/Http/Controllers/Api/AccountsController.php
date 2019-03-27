@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\UpdateUsername;
 use App\Repositories\Accounts\AccountsRepository;
 use App\Repositories\Address\AddressRepository;
 use Auth;
@@ -125,12 +126,12 @@ class AccountsController extends Controller
         $this->address->createAddressUser($attr);
     }
 
-    public function updateUsername(Request $request)
+    public function updateUsername(UpdateUsername $request)
     {
         $this->account->updateUsername(Auth::user()->user_id, $request->get('username'));
     }
 
-    public function updateName(Request $request)
+    public function updateName(UpdateName $request)
     {
         $this->account->updateName(Auth::user()->user_id, $request->get('fname'), $request->get('lname'));
     }

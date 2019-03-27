@@ -75,13 +75,14 @@
                             aria-controls="associate" aria-selected="false">Associate</a>
                     </li>
                 </ul>
-                <div class="form-row">
+                <div class="form-row" id="input_analysis">
                         <!-- <span><i class="fas fa-times cancel-getFile grow" style="cursor: pointer;display: none"></i></span> -->
                     <div class="col-12">
                         <h4>Training file <span class="text-danger">*</span> </h4>
                         <select name="training_file" id="training_file" class="form-control">
                             <option value="">--Select training file--</option>
                         </select>
+                        <small class="messages-error"></small>
                         <div class="lds-roller text-center mt-3" style="display:none">
                             <div></div>
                             <div></div>

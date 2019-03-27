@@ -10,6 +10,7 @@
     .dataTables_wrapper {
         font-size: 12px;
     }
+
 </style>
 
 
@@ -31,8 +32,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="example">
+
+                <table style="width: 100%; display:none"
+                    class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -47,6 +49,7 @@
                     <tbody>
                     </tbody>
                 </table>
+
                 <div class="lds-roller text-center">
                     <div></div>
                     <div></div>
@@ -82,20 +85,21 @@
                         </div>
                         <div class="col-12">
                             <label>Description</label>
-                            <textarea name="desc" id="desc" name="description" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="desc" id="desc" name="description" cols="30" rows="10"
+                                class="form-control"></textarea>
                             <small class="messages-error"></small>
                         </div>
                         @if ($user->type_user == 'ADMIN')
                         <div class="col-12 form-inline mt-2">
                             <label class="mr-2">Status Share</label>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="add_statusPrivate" name="add_statusShare"
-                                    value="0" checked>
+                                <input type="radio" class="custom-control-input" id="add_statusPrivate"
+                                    name="add_statusShare" value="0" checked>
                                 <label class="custom-control-label mr-3" for="add_statusPrivate">Private</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="add_statusPublic" name="add_statusShare"
-                                    value="1">
+                                <input type="radio" class="custom-control-input" id="add_statusPublic"
+                                    name="add_statusShare" value="1">
                                 <label class="custom-control-label" for="add_statusPublic">Public</label>
                             </div>
                         </div>
@@ -105,7 +109,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="btn-save-add-static" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
+                <button type="button" id="btn-save-add-static" class="btn btn-success btn-block"
+                    data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
                     Save
                 </button>
             </div>
