@@ -82,23 +82,23 @@
 
 
 <div class="row" style="padding: 30px 0px 10px 0px">
-    <div class="col-12">
+    <div class="col-sm-12">
         <div class="card">
             <div class="card-header bg-white">
                 <div class="row">
-                    <div class="col-6" style="padding: 30px 0px 10px 15px">
+                    <div class="col-sm-6" style="padding: 30px 0px 10px 15px">
                         <span class="h3">Internet of Things (IoT)</span>                       
                         <h6>
                             <p id="total-iotservice"></p>
                         </h6>
                     </div>
-                    <div class="col-3 text-right" style="padding: 30px 0px 10px 15px;width:100%">
+                    <div class="col-sm-3 text-right" style="padding: 30px 0px 10px 15px;width:100%">
                         <a href="{{action('CompanyController@Add_InputIot')}}" class="btn btn-success btn-radius">
                             <i class="fa fa-plus"></i>
                             Create Input IoT
                         </a>
                     </div>
-                    <div class="col-3 text-left" style="padding: 30px 0px 10px 15px;width:100%">
+                    <div class="col-sm-3 text-left" style="padding: 30px 0px 10px 15px;width:100%">
                         <a href="{{action('CompanyController@Add_OutputIot')}}" class="btn btn-warning btn-radius">
                             <i class="fa fa-plus"></i>
                             Create Output IoT

@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use App\Exceptions\CheckOldPasswordExceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -48,12 +47,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
-        if ($request->ajax() || $request->wantsJson())
-        {     
-            if($exception instanceof CheckOldPasswordExceptions){
+        if ($request->ajax() || $request->wantsJson()) {
+            if ($exception instanceof CheckOldPasswordExceptions) {
                 $exception->render($request);
-            }
-            else{
+            } else {
                 $json = [
                     'success' => false,
                     'error' => [

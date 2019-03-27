@@ -35,6 +35,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 <div class="row" style="padding: 30px 0px 10px 0px">
     <div class="col-12">

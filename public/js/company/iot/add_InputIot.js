@@ -25,7 +25,7 @@ class iotService {
 
             // get id company
             $.ajax({
-                url: "http://localhost:8000/api/company/webservice/getCompanyID",
+                url: END_POINT+"company/webservice/getCompanyID",
                 dataType: 'json',
                 method: "GET",
                 async: false,
@@ -40,7 +40,7 @@ class iotService {
 
             // create token
             $.ajax({
-                url: "http://localhost:8081/iotService/getKeyiot",
+                url: API_DW +"iotService/getKeyiot",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -57,17 +57,14 @@ class iotService {
                     console.log(res);
                 }
             });
-            console.log(typeof datajson)
-
-           
-
+            //console.log(typeof datajson)
 
         }        
 
         let increaseData = () =>{
              //register DB
              $.ajax({
-                url: "http://localhost:8000/api/iot/addRegisIotService",
+                url: END_POINT+"iot/addRegisIotService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -126,10 +123,10 @@ class iotService {
                 }
             }
             //console.log(otheroutput)
-            increaseData();
+            
             strUrl = 'http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
             $('#Nameiot').val(nameiot);
-            $('#Apiiot').val('http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
+            $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
             
             $('#ShowDetailiotModal').modal('show');
@@ -172,10 +169,42 @@ class iotService {
                         valueCalIot = valueCalIot + $('#datajson'+i).val()  +','  ;
                     }
                 }
-                valueCalIot = valueCalIot.substring(0,valueCalIot.length -1 );
+                if(valueCalIot =="")
+                {
+                    console.log(valueCalIot)
+                    valueCalIot = null ;
+                }
+                else 
+                {
+                    console.log("df")
+                    valueCalIot = valueCalIot.substring(0,valueCalIot.length -1 );
+                   
+                }
                 getDataforInsert();
-                showDetail();
+                showDetail();                    
                 
+            })
+
+            $('#close-modal-show').click(function(){
+                increaseData();
+                //swal("Registration Success", "", "success");
+                swal("Registration Success.", "", "success")
+                .then((value) => {
+                    location.reload();
+                });
+                // function sleep(ms) {
+                //     return new Promise(resolve => setTimeout(resolve, ms));
+                //   }
+                  
+                //   async function demo() {
+                //     console.log('Taking a break...');
+                //     await sleep(20000);
+                //     console.log('Two seconds later');
+                //   }
+                  
+                //   demo();
+                
+               // window.location.href = "{{action('IoTController@IoT')}}";
             })
 
         }
@@ -374,7 +403,7 @@ $(document).ready(function () {
 
         let validate = new Validation(iotName,iotAlias,iotdescription,status,fields);
         validate.validate();
-
+        
        
         //iot.showDetail();
       

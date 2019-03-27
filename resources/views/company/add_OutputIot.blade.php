@@ -322,7 +322,7 @@
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
                   
 
-            <h6>Others Output</h6>            
+            <h6>Others Output<span> ( ห้ามซ้ำกับ Pin Names )  <span style="color:red">*</span></span></h6>            
             <!-- <div class="container"> -->
                     <div class="row">
                         <div class="control-group" id="fields">
@@ -346,7 +346,7 @@
                     </div>
                 <!-- </div> -->
             <br/>
-            <h6>Pin Names<span> (Default is 0) <span style="color:red">*</span></span></h6>
+            <h6>Pin Names<span> (Default is 0) (ห้ามซ้ำกับ Others Output )<span style="color:red">*</span></span></h6>
                 <!-- <div class="container"> -->
                     <div class="row">
                         <div class="control-group" id="fields">
@@ -368,7 +368,7 @@
                     </div>
                 <!-- </div> -->
                 <br/>
-                <button type="button" id="showvalue" class="btn btn-primary show-header" data-toggle="modal" data-target="#ShowDetailiotModal"><a style="color:white" href="#select">Show Detail</a></button>  
+                <button type="button" id="showvalue" class="btn btn-primary show-header" ><a style="color:white" href="#select">Show Detail</a></button>  
         </div>
         
         <div class="col-sm-4"  >
@@ -417,18 +417,18 @@
                 <div class="form-group">
                     <label  class="col-sm-12 control-label">URLs</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="URLiot" type="text" row="7" disabled></textarea>
+                        <textarea class="form-control" id="URLiot" type="text" rows="5" ></textarea>
                     </div>
                 </div>
                  <div class="form-group">
                     <label  class="col-sm-12 control-label">Data Format</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="Dataformat" row="10" type="text" disabled></textarea>
+                        <textarea class="form-control" id="Dataformat" rows="7" type="text" ></textarea>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="close-modal-show" data-dismiss="modal">Save</button>
                 <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
             </div>
         </div>

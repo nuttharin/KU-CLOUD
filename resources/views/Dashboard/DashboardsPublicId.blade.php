@@ -35,7 +35,9 @@
         color: #2c3e50;
         text-align: center;
         background-color: #FFFFFF;
-        box-shadow: 1px 1px 10px 1px #aaaaaa;
+        -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
     }
 
     /* .modal-lg {
@@ -253,10 +255,7 @@
                 <div>
                     <h5 class="title-widget">((title_name))</h5>
                 </div>
-                <div class="edit-widget" style="display:none">
-                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
-                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
-                </div>
+               
                 <div class="static-mm">
                     <i class="far fa-clock btn-edit-time grow" title="Time" style="cursor:pointer" item="div_id"></i>
                     <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer"
@@ -284,15 +283,9 @@
                 <div>
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-success">Realtime</span></h5>
-                    {{-- <span class="switch switch-sm">
-                        <input type="checkbox" class="switch" id="<<switch>>">
-                        <label for="<<switch>>">Realtime</label>
-                    </span> --}}
+                   
                 </div>
-                <div class="edit-widget" style="display:none">
-                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
-                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
-                </div>
+
 
                 <div class="download" style="display: none">
                     <div class="dropdown">
@@ -353,10 +346,7 @@
 <div id="layout-widget-text" hidden>
     <div>
         <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
-            <div class="panel__header__min ml-auto edit-widget">
-                <i class="fas fa-cog btn-edit-wi grow" item="div_id"></i>
-                <i class="fas fa-trash-alt btn-delete-wi grow" item="div_id"></i>
-            </div>
+         
             <div class="panel__content d-flex align-items-center align-content-center">
                 ((wi))
             </div>
@@ -372,14 +362,7 @@
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-success">Realtime</span></h5>
                 </div>
-                <div class="edit-widget" style="display:none">
-                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
-                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
-                </div>
-                {{--
-                <div class="full-screen">
-                    <i class="fas fa-expand btn-full-screen" title="Full screen" style="cursor:pointer" item="div_id"></i>
-                </div> --}}
+               
             </div>
 
             <div class="card-body d-flex align-items-center align-content-center justify-content-center"
@@ -407,13 +390,7 @@
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-primary">Static</span></h5>
                 </div>
-                <div class="edit-widget" style="display:none">
-                    <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
-                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer"
-                        item="div_id"></i>
-                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
-                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
-                </div>
+              
 
             </div>
 

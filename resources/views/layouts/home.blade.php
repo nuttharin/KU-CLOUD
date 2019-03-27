@@ -59,7 +59,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
-        style="box-shadow: 0 0 0.5cm rgba(0,0,0,0.5) !important;">
+        style="box-shadow: 0 0 0.5cm rgba(0,0,0,0.2) !important;">
         <div class="container">
             <!-- Brand -->
             <a class="navbar-brand" href="#">

@@ -82,7 +82,7 @@
     <h4>Web Service</h4>
 </div>
 <br/>
-<div class="container " >
+<!-- <div class="container " >
     <div class="panel-group">
         <div class="panel panel-default">
         <div class="panel-heading">
@@ -129,8 +129,142 @@
         </div>
     </div>
   </div>
-</div>
+</div> -->
 <br>
+<div class="container" >
+    <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#data_webservice_getall">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
+                </div>
+                <div class="col-sm-2" id='header-detail' >
+                    <h6 style="color:black">Get All Data</h6>
+                </div>
+                <div class="col-sm-8" id='header-detail'>
+                    <h6 style="color:gray">/webService/insertFirstDataTable</h6>
+                </div>
+            </div>
+            </h4>
+        </a>
+        </div>
+        <div id="data_webservice_getall" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Table name (DW): 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="table_DW_Getall_Data">
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
+            </tr>
+            </table>
+            </ul>
+            <hr>
+            <button type="submit" id="try_it_Getall_Data" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_result_Getall_Data"></a>
+            <div id="show_detail_tryit_Getall_Data">
+                <div id="call_Getall_Data">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="container" >
+    <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#data_webservice_getlasttest">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
+                </div>
+                <div class="col-sm-2" id='header-detail' >
+                    <h6 style="color:black">Get Lastest Data</h6>
+                </div>
+                <div class="col-sm-8" id='header-detail'>
+                    <h6 style="color:gray">/webService/insertFirstDataTable</h6>
+                </div>
+            </div>
+            </h4>
+        </a>
+        </div>
+        <div id="data_webservice_getlasttest" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Table name (DW): 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="table_DW_Getlasttest_Data">
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
+            </tr>
+            </table>
+            </ul>
+            <hr>
+            <button type="submit" id="try_it_Getlasttest_Data" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_result_Getlastest_Data"></a>
+            <div id="show_detail_tryit_Getlasttest_Data">
+                <div id="call_Getlastest_Data">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
 <div class="container" >
     <div class="panel-group">
         <div class="panel panel-default">
@@ -142,10 +276,10 @@
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
-                    <h6 style="color:black">Get All Data</h6>
+                    <h6 style="color:black">Get All Aggregation Data</h6>
                 </div>
                 <div class="col-sm-8" id='header-detail'>
-                    <h6 style="color:gray">/webService/GetAlldata</h6>
+                    <h6 style="color:gray">/webService/getDataAggregation_Getall</h6>
                 </div>
             </div>
             </h4>
@@ -222,10 +356,10 @@
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
                 <div class="col-sm-2" id='header-detail' >
-                    <h6 style="color:black">Get Lattest Data</h6>
+                    <h6 style="color:black">Get Lattest Aggregation Data</h6>
                 </div>
                 <div class="col-sm-8" id='header-detail'>
-                    <h6 style="color:gray">/webService/GetAlldata</h6>
+                    <h6 style="color:gray">/webService/getDataAggregation</h6>
                 </div>
             </div>
             </h4>
@@ -291,7 +425,7 @@
   </div>
 </div>
 <br/>
-<div class="container" >
+<!-- <div class="container" >
     <div class="panel-group">
         <div class="panel panel-default">
         <div class="panel-heading">
@@ -339,7 +473,7 @@
     </div>
   </div>
 </div>
-<br>
+<br> -->
 <div class="container">
     <h4>IOT Service</h4>
 </div>
