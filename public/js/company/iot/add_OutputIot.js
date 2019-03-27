@@ -100,7 +100,7 @@ class iotService {
 
         this.showDetail = () => {
             $('#Nameiot').val(nameiot);
-            $('#URLiot').val('http://localhost:8081/iotService/GetOutput?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot);
+            $('#URLiot').val('http://localhost:8081/iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID);
             // $('#Keyiot').val(keyiot);
             
             $('#Dataformat').val(pinfilds);
