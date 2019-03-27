@@ -123,30 +123,44 @@ export const ERROR_INPUT = {
 
 export function addEventValidate(validateInput) {
     let inputs = $(validateInput.parent).find("input, textarea, select");
-    console.log(inputs);
-    inputs.each(function () {
-        $(this).change(function () {
-            // let attr = $(this).attr('name');
-            // let val = $(this).val();
-            // let check = {};
-            // check[attr] = val == '' ? null : val;
-            // let errors = validate(check, validateInput.validate) || {};
-            // console.log(attr, check[attr], errors);
-            // showErrorsForInput($(this), errors[attr]);
-            let elInput = $(this);
-            let check = {};
-            let attr = "";
-            inputs.each(function () {
-                attr = $(this).attr('name');
-                let val = $(this).val();
-                console.log(val)
-                check[attr] = val == '' ? null : val;
-            })
-            let errors = validate(check, validateInput.validate) || {};
-            console.log(elInput, errors);
-            showErrorsForInput(elInput, errors[elInput.attr('name')]);
-        });
+    $(validateInput.parent).on('change','input, textarea, select',function(){
+        let elInput = $(this);
+        let check = {};
+        let attr = "";
+        //inputs.each(function () {
+            attr = $(this).attr('name');
+            let val = $(this).val();
+           // console.log(val)
+            check[attr] = val == '' ? null : val;
+       // })
+        let errors = validate(check, validateInput.validate) || {};
+        console.log(elInput, errors);
+        showErrorsForInput(elInput, errors[elInput.attr('name')]);
     })
+   
+    // inputs.each(function () {
+    //     $(this).change(function () {
+    //         // let attr = $(this).attr('name');
+    //         // let val = $(this).val();
+    //         // let check = {};
+    //         // check[attr] = val == '' ? null : val;
+    //         // let errors = validate(check, validateInput.validate) || {};
+    //         // console.log(attr, check[attr], errors);
+    //         // showErrorsForInput($(this), errors[attr]);
+    //         let elInput = $(this);
+    //         let check = {};
+    //         let attr = "";
+    //         //inputs.each(function () {
+    //             attr = $(this).attr('name');
+    //             let val = $(this).val();
+    //             console.log(val)
+    //             check[attr] = val == '' ? null : val;
+    //        // })
+    //         let errors = validate(check, validateInput.validate) || {};
+    //         console.log(elInput, errors);
+    //         showErrorsForInput(elInput, errors[elInput.attr('name')]);
+    //     });
+    // })
 }
 
 function showErrors(validateInput, errors) {

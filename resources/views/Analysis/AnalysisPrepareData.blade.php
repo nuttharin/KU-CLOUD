@@ -81,11 +81,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" id="form_create_data">
                 <div class="row">
                     <div class="col-12">
                         <label>Name <span class="text-danger">*</span></label>
-                        <input type="text" id="data_name" class="form-control">
+                        <input type="text" id="data_name" name="name" class="form-control">
+                        <small class="messages-error"></small>
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -103,16 +104,19 @@
                     <div class="col-12">
                         <label for="datasource">Datasource <span class="text-danger">*</span></label>
                         <select name="datasource" id="datasource" class="form-control"></select>
+                        <small class="messages-error"></small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label for="start_date">Start date <span class="text-danger">*</span></label>
                         <input type="date" name="start_date" id="start_date" class="form-control">
+                        <small class="messages-error"></small>
                     </div>
                     <div class="col-6">
                         <label for="end_date">End date <span class="text-danger">*</span></label>
                         <input type="date" name="end_date" id="end_date" class="form-control">
+                        <small class="messages-error"></small>
                     </div>
                 </div>
                 <div class="row mt-2">

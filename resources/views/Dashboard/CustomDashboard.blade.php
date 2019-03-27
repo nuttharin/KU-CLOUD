@@ -13,7 +13,9 @@
         color: #2c3e50;
         text-align: center;
         background-color: #FFFFFF;
-        box-shadow: 1px 1px 10px 1px #aaaaaa;
+        -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
     }
 
     /* .modal-lg {
@@ -46,24 +48,36 @@
         overflow-x: hidden;
         overflow-y: auto;
         z-index: 50;
+
+        /* box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13); */
+        left: -1px;
+        top: 100%;
+        right: -1px;
+        font-size: 14px;
     }
 
-    .value-datasource:focus {}
+    table tbody .data-list {
+        left: unset;
+        top: unset;
+        right: unset;
+    }
+
 
     .list-group-item {
         transition: .2s;
+        
     }
 
     .list-group-item:hover {
         color: #fff;
         background-color: #007bff;
         border-color: #007bff;
-
     }
 
     .remove-value,
     .remove-param,
     .remove-datasource {
+        color: #2c3e50;
         transition: all 0.3s;
         cursor: pointer;
     }
@@ -90,12 +104,16 @@
 
     .form-radar-value {
         padding: 20px;
-        border: 2px solid #308ee0;
         border-radius: 27px;
         margin-bottom: 10px;
+        background-color: #fff;
+        -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
     }
 
     .remove-datasource-radar {
+        color: #2c3e50;
         cursor: pointer;
     }
 
@@ -130,11 +148,11 @@
         cursor: pointer;
     }
 
-    icon-container {
+    /* icon-container {
         position: absolute;
         right: 10px;
         top: calc(50% - 10px);
-    }
+    } */
 
     .loader {
         position: relative;
@@ -153,6 +171,14 @@
             transform: rotate(360deg)
         }
     }
+
+    .dropdown-menu {
+        -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+        border: none;
+    }
+
+
 
     .loader::after,
     .loader::before {
@@ -306,11 +332,13 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>Text <span class="text-danger">*</span></label>
-                                <input type="text" id="text_custom" class="form-control" />
+                                <input type="text" id="text_custom" class="form-control" name="text" />
+                                <small class="messages-error"></small>
                             </div>
                             <div class="col-6">
                                 <label>Font Size (px) <span class="text-danger">*</span></label>
-                                <input type="number" id="font_size" class="form-control" />
+                                <input type="number" id="font_size" class="form-control" name="font_size" />
+                                <small class="messages-error"></small>
                             </div>
                         </div>
                     </div>
@@ -361,7 +389,7 @@
 
 
 
-                            <button class="btn btn-primary btn-sm btn-radius mt-2" id="btn-add-value-Mutiline">
+                            <button class="btn btn-primary btn-sm btn-radius mt-2 mb-2" id="btn-add-value-Mutiline">
                                 <i class="fa fa-plus"></i>
                                 Add Line Value Of Y
                             </button>
@@ -369,24 +397,28 @@
                             <div class="row">
                                 <div class="col-3">
                                     <label for="">Datasource <span class="text-danger">*</span></label>
-                                    <select class="form-control select-datasource">
+                                    <select class="form-control select-datasource" name="datasource">
 
                                     </select>
+                                    <small class="messages-error"></small>
                                 </div>
                                 <div class="col-3">
                                     <label for="">Value
                                         <span class="text-danger">* <i class="loader" style="display:none"></i></span>
                                     </label>
-                                    <input class="form-control value-datasource">
-                                    <ul class="list-group data-list">
+                                    <input class="form-control value-datasource" name="value">
+                                    <small class="messages-error"></small>
+                                    <ul class="list-group data-list" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Label <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control label-y-chart-line">
+                                    <input type="text" class="form-control label-y-chart-line" name="label">
+                                    <small class="messages-error"></small>
                                 </div>
                                 <div class="col-2">
                                     <label for="">Color <span class="text-danger">*</span></label>
                                     <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
+                                    <small class="messages-error"></small>
                                 </div>
                             </div>
                         </div>
@@ -403,7 +435,7 @@
                                 <div class="col-4">
                                     <label>Group data</label>
                                     <input type="text" class="form-control value-group-data">
-                                    <ul class="list-group data-list data-list-group">
+                                    <ul class="list-group data-list data-list-group" style="display: none">
                                 </div>
                                 <div class="col-4">
                                     <label for="customRange">Length data</label>
@@ -421,12 +453,12 @@
                                 <div class="col-6">
                                     <label for="">Value <span class="text-danger">*</span></label>
                                     <input class="form-control value-datasource" name="value-data">
-                                    <ul class="list-group data-list data-list-value">
+                                    <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-6">
                                     <label for="">Label <span class="text-danger">*</span></label>
                                     <input class="form-control value-datasource" name="label-data">
-                                    <ul class="list-group data-list data-list-value">
+                                    <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                             </div>
                         </div>
@@ -439,7 +471,7 @@
                     <div id="Radar" class="value-widget mt-3" style="display:none;">
                         <div class="row">
                             <div class="col-6">
-                                <h5>Label Radar</h5>
+                                <h5>Label Radar <span class="text-danger">*</span></h5>
                                 <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn-add-label-radar">
                                     <i class="fa fa-plus"></i>
                                     Add label
@@ -452,11 +484,11 @@
                                 <div id="Radar_label">
                                     <div class="input-group">
                                         <input type="text" class="form-control radar-labels mt-2" bind="radar-label-1"
-                                            value="">
+                                            value="" name="label_axis">
                                     </div>
                                     <div class="input-group">
                                         <input type="text" class="form-control radar-labels mt-2" bind="radar-label-2"
-                                            value="">
+                                            value="" name="label_axis">
                                         <div class="input-group-append">
                                             <button class="btn btn-danger mt-2  remove-radar-labels" type="button"
                                                 bind="radar-label-2"><i class="fas fa-times"></i></button>
@@ -464,7 +496,7 @@
                                     </div>
                                     <div class="input-group">
                                         <input type="text" class="form-control radar-labels mt-2" bind="radar-label-3"
-                                            value="">
+                                            value="" name="label_axis">
                                         <div class="input-group-append">
                                             <button class="btn btn-danger mt-2  remove-radar-labels" type="button"
                                                 bind="radar-label-3"><i class="fas fa-times"></i></button>
@@ -472,7 +504,7 @@
                                     </div>
                                     <div class="input-group">
                                         <input type="text" class="form-control radar-labels mt-2" bind="radar-label-4"
-                                            value="">
+                                            value="" name="label_axis">
                                         <div class="input-group-append">
                                             <button class="btn btn-danger mt-2  remove-radar-labels" type="button"
                                                 bind="radar-label-4"><i class="fas fa-times"></i></button>
@@ -488,8 +520,10 @@
 
                         <div class="row">
                             <div class="col-12">
+
                                 <h5>Datasource Radar</h5>
-                                <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn_add_datasource_radar">
+                                <button class="btn btn-primary btn-sm btn-radius mb-2" id="btn_add_datasource_radar"
+                                    name="datasource">
                                     <i class="fa fa-plus"></i>
                                     Add datasource
                                 </button>
@@ -499,18 +533,21 @@
                                         <h6>Select Datasource</h6>
                                         <div class="row">
                                             <div class="col-4">
-                                                <label for="">Label</label>
-                                                <input type="text" class="form-control label-radar">
+                                                <label for="">Label <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control label-radar" name="label">
+                                                <small class="messages-error"></small>
                                             </div>
                                             <div class="col-4">
-                                                <label for="">Datasource</label>
-                                                <select class="form-control select-datasource">
+                                                <label for="">Datasource <span class="text-danger">*</span></label>
+                                                <select class="form-control select-datasource" nmae="datasource">
 
                                                 </select>
+                                                <small class="messages-error"></small>
                                             </div>
                                             <div class="col-4">
-                                                <label for="">Color</label>
-                                                <input type="color" class="form-control radar-color">
+                                                <label for="">Color <span class="text-danger">*</span></label>
+                                                <input type="color" class="form-control radar-color" name="color">
+                                                <small class="messages-error"></small>
                                             </div>
                                         </div>
                                         <h6>Set Value</h6>
@@ -522,8 +559,9 @@
                                                         readonly value="">
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="">Value</label>
-                                                    <input class="form-control value-datasource">
+                                                    <label for="">Value <span class="text-danger">*</span></label>
+                                                    <input class="form-control value-datasource" name="value">
+                                                    <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
                                             </div>
@@ -534,32 +572,35 @@
                                                         readonly value="">
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="">Value</label>
-                                                    <input class="form-control value-datasource">
+                                                    <label for="">Value <span class="text-danger">*</span></label>
+                                                    <input class="form-control value-datasource" name="value">
+                                                    <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col-6">
-                                                    <label for="">Label</label>
+                                                    <label for="">Label </label>
                                                     <input class="form-control label-radar-select radar-label-3"
                                                         readonly value="">
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="">Value</label>
-                                                    <input class="form-control value-datasource">
+                                                    <label for="">Value <span class="text-danger">*</span></label>
+                                                    <input class="form-control value-datasource" name="value">
+                                                    <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col-6">
-                                                    <label for="">Label</label>
+                                                    <label for="">Label </label>
                                                     <input class="form-control label-radar-select radar-label-4"
                                                         readonly value="">
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="">Value</label>
-                                                    <input class="form-control value-datasource">
+                                                    <label for="">Value <span class="text-danger">*</span></label>
+                                                    <input class="form-control value-datasource" name="value">
+                                                    <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
                                             </div>
@@ -574,8 +615,8 @@
                         <h5>Select Datasource</h5>
                         <div class="row">
                             <div class="col-6">
-                                <label for="">Datasource</label>
-                                <select class="form-control select-datasource">
+                                <label for="">Datasource <span class="text-danger">*</span></label>
+                                <select class="form-control select-datasource" name="datasource">
 
                                 </select>
                                 <div class="mt-2" id="btn-mm-table">
@@ -607,12 +648,12 @@
                     <div id="Gauges" class="value-widget" style="display:none;">
                         <div class="row">
                             <div class="col-4">
-                                <label>limitMin</label>
+                                <label>limitMin <span class="text-danger">*</span></label>
                                 <input type="number" name="limitMin" id="g_limitMin" class="form-control">
                             </div>
 
                             <div class="col-4">
-                                <label>limitMax</label>
+                                <label>limitMax <span class="text-danger">*</span></label>
                                 <input type="number" name="limitMax" id="g_limitMax" class="form-control">
                             </div>
 
@@ -624,15 +665,15 @@
                         <h5>Select Datasource</h5>
                         <div class="row">
                             <div class="col-6">
-                                <label for="">Datasource</label>
+                                <label for="">Datasource <span class="text-danger">*</span></label>
                                 <select class="form-control select-datasource">
 
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label for="">Value</label>
+                                <label for="">Value <span class="text-danger">*</span></label>
                                 <input class="form-control value-datasource">
-                                <ul class="list-group data-list">
+                                <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
                     </div>
@@ -649,19 +690,23 @@
                         <h5>Select Datasource</h5>
                         <div class="row" id="value-text-line">
                             <div class="col-4">
-                                <label for="">Datasource</label>
-                                <select class="form-control select-datasource">
+                                <label for="">Datasource <span class="text-danger">*</span></label>
+                                <select class="form-control select-datasource" name="datasource">
 
                                 </select>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="col-4">
-                                <label for="">Value</label>
-                                <input class="form-control value-datasource">
-                                <ul class="list-group data-list">
+                                <label for="">Value <span class="text-danger">*</span></label>
+                                <input class="form-control value-datasource" name="value">
+                                <small class="messages-error"></small>
+                                <ul class="list-group data-list" style="display: none">
                             </div>
                             <div class="col-4">
-                                <label for="">RGB</label>
-                                <input id="rgb" type="color" class="form-control rgb-chart-line" value="#f6b73c">
+                                <label for="">Color <span class="text-danger">*</span></label>
+                                <input id="rgb" type="color" class="form-control rgb-chart-line" value="#f6b73c"
+                                    name="color">
+                                <small class="messages-error"></small>
                             </div>
                         </div>
                     </div>
@@ -674,7 +719,7 @@
                             </div>
                             <div class="col-6">
                                 <label>Color <span class="text-danger">*</span></label>
-                                <input id="rgb" type="color" class="form-control" value="#f6b73c">
+                                <input id="rgb" type="color" class="form-control" value="#f6b73c" name="color">
                             </div>
                         </div>
                         <h5>Select Datasource</h5>
@@ -688,7 +733,7 @@
                             <div class="col-6">
                                 <label for="">Value <span class="text-danger">*</span></label>
                                 <input class="form-control value-datasource">
-                                <ul class="list-group data-list">
+                                <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
                     </div>
@@ -715,9 +760,10 @@
                             <div class="row">
                                 <div class="col-5">
                                     <label for="">Datasource <span class="text-danger">*</span></label>
-                                    <select class="form-control select-datasource">
+                                    <select class="form-control select-datasource" name="datasource">
 
                                     </select>
+                                    <small class="messages-error"></small>
                                 </div>
                             </div>
 
@@ -730,22 +776,26 @@
 
                                 <div class="col-3">
                                     <label for="">Latitude <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource latitude">
-                                    <ul class="list-group data-list">
+                                    <input class="form-control value-datasource latitude" name="latitude">
+                                    <small class="messages-error"></small>
+                                    <ul class="list-group data-list" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Longitude <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource longitude">
-                                    <ul class="list-group data-list">
+                                    <input class="form-control value-datasource longitude" name="longitude">
+                                    <small class="messages-error"></small>
+                                    <ul class="list-group data-list" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Value <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control value-datasource value-map">
-                                    <ul class="list-group data-list">
+                                    <input type="text" class="form-control value-datasource value-map" name="value">
+                                    <small class="messages-error"></small>
+                                    <ul class="list-group data-list" style="display: none">
                                 </div>
                                 <div class="col-2">
                                     <label for="">Label <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control label-map">
+                                    <input type="text" class="form-control label-map" name="label">
+                                    <small class="messages-error"></small>
                                 </div>
                             </div>
 
@@ -764,7 +814,7 @@
                                 <div class="col-4">
                                     <label>Group data</label>
                                     <input type="text" class="form-control value-group-data">
-                                    <ul class="list-group data-list data-list-group">
+                                    <ul class="list-group data-list data-list-group" style="display: none">
                                 </div>
                                 <div class="col-4">
                                     <label for="customRange">Length data</label>
@@ -782,22 +832,22 @@
                                 <div class="col-3">
                                     <label for="">Latitude <span class="text-danger">*</span></label>
                                     <input class="form-control value-datasource" name="latitude">
-                                    <ul class="list-group data-list data-list-value">
+                                    <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Longitude <span class="text-danger">*</span></label>
                                     <input class="form-control value-datasource" name="longitude">
-                                    <ul class="list-group data-list data-list-value">
+                                    <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Value <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control value-datasource" name="value_data">
-                                    <ul class="list-group data-list data-list-value">
+                                    <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Label <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control value-datasource" name="label_data">
-                                    <ul class="list-group data-list data-list-value">
+                                    <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                             </div>
                         </div>
@@ -906,22 +956,26 @@
     <div class="row">
         <div class="col-3">
             <label for="">Datasource <span class="text-danger">*</span></label>
-            <select class="form-control select-datasource">
+            <select class="form-control select-datasource" name="datasource">
 
             </select>
+            <small class="messages-error"></small>
         </div>
         <div class="col-3">
             <label for="">Value <span class="text-danger">*</span></label>
-            <input class="form-control value-datasource">
-            <ul class="list-group data-list">
+            <input class="form-control value-datasource" name="value">
+            <small class="messages-error"></small>
+            <ul class="list-group data-list" style="display: none"> 
         </div>
         <div class="col-3">
             <label for="">Label <span class="text-danger">*</span></label>
-            <input type="text" class="form-control label-y-chart-line">
+            <input type="text" class="form-control label-y-chart-line" name="label">
+            <small class="messages-error"></small>
         </div>
         <div class="col-2">
             <label for="">Color <span class="text-danger">*</span></label>
-            <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c">
+            <input type="color" id="rgb" class="form-control rgb-chart-line" value="#f6b73c" name="color">
+            <small class="messages-error"></small>
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center" style="margin-top:30px">
             <i class="fas fa-trash-alt remove-value"></i>
@@ -933,22 +987,25 @@
     <div class="row value-of-map">
         <div class="col-3">
             <label for="">Latitude <span class="text-danger">*</span></label>
-            <input class="form-control value-datasource latitude">
-            <ul class="list-group data-list">
+            <input class="form-control value-datasource latitude" name="latitude">
+            <small class="messages-error"></small>
+            <ul class="list-group data-list" style="display: none">
         </div>
         <div class="col-3">
             <label for="">Longitude <span class="text-danger">*</span></label>
-            <input class="form-control value-datasource longitude">
-            <ul class="list-group data-list">
+            <input class="form-control value-datasource longitude" name="longitude">
+            <ul class="list-group data-list" style="display: none">
         </div>
         <div class="col-3">
             <label for="">Value <span class="text-danger">*</span></label>
-            <input type="text" class="form-control value-datasource value-map">
-            <ul class="list-group data-list">
+            <input type="text" class="form-control value-datasource value-map" name="value">
+            <small class="messages-error"></small>
+            <ul class="list-group data-list" style="display: none">
         </div>
         <div class="col-2">
             <label for="">Label <span class="text-danger">*</span></label>
-            <input type="text" class="form-control label-map">
+            <small class="messages-error"></small>
+            <input type="text" class="form-control label-map" name="label">
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center" style="margin-top:30px">
             <i class="fas fa-trash-alt remove-value"></i>
@@ -962,18 +1019,21 @@
         <h6>Select Datasource</h6>
         <div class="row">
             <div class="col-4">
-                <label for="">Label</label>
-                <input type="text" class="form-control label-radar">
+                <label for="">Label <span class="text-danger">*</span></label>
+                <input type="text" class="form-control label-radar" name="lable">
+                <small class="messages-error"></small>
             </div>
             <div class="col-4">
-                <label for="">Datasource</label>
-                <select class="form-control select-datasource">
+                <label for="">Datasource <span class="text-danger">*</span></label>
+                <select class="form-control select-datasource" name="datasource">
 
                 </select>
+                <small class="messages-error"></small>
             </div>
             <div class="col-4">
-                <label for="">Color</label>
-                <input type="color" class="form-control radar-color">
+                <label for="">Color <span class="text-danger">*</span></label>
+                <input type="color" class="form-control radar-color" name="color">
+                <small class="messages-error"></small>
             </div>
         </div>
         <h6>Set Value</h6>
@@ -986,11 +1046,12 @@
 <div id="layout-add-value-radar" hidden>
     <div class="col-6">
         <label for="">Label</label>
-        <input class="form-control label-radar-select" readonly value=((value-radar))>
+        <input class="form-control label-radar-select" readonly value="((value-radar))">
     </div>
     <div class="col-6">
-        <label for="">Value</label>
-        <input class="form-control value-datasource">
+        <label for="">Value <span class="text-danger">*</span></label>
+        <input class="form-control value-datasource" name="value">
+        <small class="messages-error"></small>
         <ul class="list-group data-list" style="display: none">
     </div>
 </div>

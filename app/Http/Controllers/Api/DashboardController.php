@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\CreateDashboard;
+use App\Http\Requests\Dashboard\UpdateDashboard;
+use App\Http\Requests\Dashboard\UpdateDashboardLayout;
 use App\Repositories\TB_DASHBOARDS\DashboardsRepository;
 use Illuminate\Http\Request;
 
@@ -39,7 +42,7 @@ class DashboardController extends Controller
         return $this->dashboards->getDashboardById($dashboard_id);
     }
 
-    public function createDashboard(Request $request)
+    public function createDashboard(CreateDashboard $request)
     {
         $attr = [
             'name' => $request->get('name'),
@@ -49,12 +52,12 @@ class DashboardController extends Controller
         return $this->dashboards->createDashboard($attr);
     }
 
-    public function updateDashboardLayout(Request $request)
+    public function updateDashboardLayout(UpdateDashboardLayout $request)
     {
         return $this->dashboards->updateDashboardLayout($request->get('dashboard_id'), $request->get('dashboard'));
     }
 
-    public function updateDashboard(Request $request)
+    public function updateDashboard(UpdateDashboard $request)
     {
         return $this->dashboards->updateDashboard($request->get('dashboard_id'), $request->get('name'), $request->get('desc'), $request->get('is_public'));
     }
