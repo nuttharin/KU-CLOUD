@@ -10,8 +10,13 @@ textarea[readonly]{
     border: 1;
     font-size: 1em;
     cursor: default;
-  }
+}
 
+@media (min-width: 1200px){
+.modal-lg {
+    max-width: 1140px !important;
+}
+}
 
 .text-primary {
     color: #308ee0;
