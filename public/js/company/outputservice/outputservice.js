@@ -432,7 +432,7 @@ class iotService{
     }
 }
 $(document).ready(function () {
-
+    $('.form-control').select2()
     $('#card_1').hide();
     $('#card_1_h').on('click',function(){
         $('#card_1').show();
