@@ -1,7 +1,7 @@
 class webService {
-    constructor(datas) {
+    constructor(data) {
         this.initService = () => {
-            selectdata(datas);
+            selectdata(data);
         }
         let detailtryit_Getlasttest_Aggregation = (detail_tryit)=>
         { 
@@ -234,30 +234,28 @@ class webService {
             });
         }
         
-        let selectdata = (datas)=>
+        let selectdata = (data)=>
         { 
             //console.log(data)
-            if(datas.lentgh > 0)
-            {            
-                for(var i=0;i<datas.length;i++)
+                      
+                for(var i=0;i<data.length;i++)
                 {
                     $('#table_DW').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
                     $('#table_DW_Getall').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
                     $('#table_DW_Getall_Data').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
                     $('#table_DW_Getlasttest_Data').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
-                }
             }
         }
         
