@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Districts extends Model
 {
     protected $primaryKey = 'district_id';
-    protected $table = "Districts";
+    protected $table = "DISTRICTS";
 
     protected $fillable = [
         'district_id', 'zip_code', 'name_th', 'name_en', 'amphure_id',
