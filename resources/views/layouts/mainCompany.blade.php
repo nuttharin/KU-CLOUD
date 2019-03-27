@@ -354,10 +354,10 @@
 
         
         <script>
-            const END_POINT = "{{ env('API_URL') }}";
-            const END_POINT_WED = "{{env('APP_URL')}}";
-            const WS_URL = "{{env('WS_URL')}}";
-            const API_DW = "{{env('API_DW_URL')}}";
+            const END_POINT = "{{ env('API_URL') }}"; //http://localhost:8000/api/
+            const END_POINT_WED = "{{env('APP_URL')}}"; //http://localhost:8000
+            const WS_URL = "{{env('WS_URL')}}"; 
+            const API_DW = "{{env('API_DW_URL')}}"; //http://localhost:8081/
         </script>
         
         <!-- Page Content  -->

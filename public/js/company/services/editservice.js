@@ -74,7 +74,7 @@ class Service {
                 listSelect2 = deepCopy(selectedElmsIds);
                 createListQuery(selectedElmsIds);
                 $(".swal-button--confirm").click(function (){
-                    window.location.href="http://localhost:8000/Company/Service";
+                    window.location.href=END_POINT_WED+"Company/Service";
                 })
                 // window.location.href="http://localhost:8000/Company/Service";
                 //instance.deselect_all();
@@ -239,7 +239,7 @@ class Service {
         let increaseDataTableDB = () => {
             
             $.ajax({
-                url: "http://localhost:8000/api/company/webservice/editRegisWebService",
+                url: END_POINT+"company/webservice/editRegisWebService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -268,7 +268,7 @@ class Service {
             {
                 //console.log(getCookie('token'))
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/getCompanyID",
+                    url: END_POINT+"company/webservice/getCompanyID",
                     dataType: 'json',
                     method: "GET",
                     async: false,
@@ -282,7 +282,7 @@ class Service {
                     }
                 });
                 $.ajax({
-                    url: "http://localhost:8081/webService/editRegisterTable",
+                    url: API_DW+"webService/editRegisterTable",
                     dataType: 'json',
                     method: "POST",
                     headers: {"Authorization": getCookie('token')},
