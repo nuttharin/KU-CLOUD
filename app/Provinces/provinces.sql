@@ -33,7 +33,7 @@ SET time_zone = "+00:00";
 -- Dumping data for table `geographies`
 --
 
-INSERT INTO `Geographies` (`geography_id`, `name`) VALUES
+INSERT INTO `GEOGRAPHIES` (`geography_id`, `name`) VALUES
 (1, 'ภาคเหนือ'),
 (2, 'ภาคกลาง'),
 (3, 'ภาคตะวันออกเฉียงเหนือ'),
@@ -59,7 +59,7 @@ INSERT INTO `Geographies` (`geography_id`, `name`) VALUES
 -- Dumping data for table `provinces`
 --
 
-INSERT INTO `Provinces` (`province_id`, `code`, `name_th`, `name_en`, `geography_id`) VALUES
+INSERT INTO `PROVINCES` (`province_id`, `code`, `name_th`, `name_en`, `geography_id`) VALUES
 (1, '10', 'กรุงเทพมหานคร', 'Bangkok', 2),
 (2, '11', 'สมุทรปราการ', 'Samut Prakan', 2),
 (3, '12', 'นนทบุรี', 'Nonthaburi', 2),
@@ -156,7 +156,7 @@ INSERT INTO `Provinces` (`province_id`, `code`, `name_th`, `name_en`, `geography
 -- Dumping data for table `amphures`
 --
 
-INSERT INTO `Amphures` (`amphure_id`, `code`, `name_th`, `name_en`, `province_id`) VALUES
+INSERT INTO `AMPHURES` (`amphure_id`, `code`, `name_th`, `name_en`, `province_id`) VALUES
 (1, '1001', 'เขตพระนคร', 'Khet Phra Nakhon', 1),
 (2, '1002', 'เขตดุสิต', 'Khet Dusit', 1),
 (3, '1003', 'เขตหนองจอก', 'Khet Nong Chok', 1),
@@ -1174,7 +1174,7 @@ INSERT INTO `Amphures` (`amphure_id`, `code`, `name_th`, `name_en`, `province_id
 -- Dumping data for table `districts`
 --
 
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('100101', 10200, 'พระบรมมหาราชวัง', 'Phra Borom Maha Ratchawang', 1),
 ('100102', 10200, 'วังบูรพาภิรมย์', 'Wang Burapha Phirom', 1),
 ('100103', 10200, 'วัดราชบพิธ', 'Wat Ratchabophit', 1),
@@ -2175,7 +2175,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('190310', 18230, 'ห้วยทราย', 'Huai Sai', 125),
 ('190311', 18140, 'หนองไข่น้ำ', 'Nong Khai Nam', 125),
 ('190312', 18140, 'หนองแขม', 'Nong Khaem', 125);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('190313', 18230, 'หนองจิก', 'Nong Chik', 125),
 ('190314', 18140, 'หนองจรเข้', 'Nong Chorakhe', 125),
 ('190315', 18230, 'หนองนาก', 'Nong Nak', 125),
@@ -3178,7 +3178,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('301804', 30170, 'บุ่งขี้เหล็ก', 'Bung Khilek', 232),
 ('301805', 30170, 'โนนค่า', 'Non Kha', 232),
 ('301806', 30170, 'โค้งยาง', 'Khong Yang', 232);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('301807', 30170, 'มะเกลือเก่า', 'Makluea Kao', 232),
 ('301808', 30170, 'มะเกลือใหม่', 'Makluea Mai', 232),
 ('301809', 30380, 'นากลาง', 'Na Klang', 232),
@@ -4218,7 +4218,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('341916', 0, '*ช่องเม็ก', '*Chong Mek', 330),
 ('341917', 0, '*โนนก่อ', '*Non Kho', 330),
 ('341918', 34110, 'โนนกาหลง', 'Non Kalong', 330);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('341919', 34110, 'บ้านแขม', 'Ban Khaem', 330),
 ('342001', 34330, 'ตาลสุม', 'Tan Sum', 331),
 ('342002', 34330, 'สำโรง', 'Samrong', 331),
@@ -5248,7 +5248,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('420909', 0, '*ผาสามยอด', '*Pha Sam Yod', 454),
 ('420910', 42130, 'ผาบิ้ง', 'Pha Bing', 454),
 ('420911', 42130, 'เขาหลวง', 'Khao Luang', 454);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('420912', 42130, 'โคกขมิ้น', 'Khok Khamin', 454),
 ('420913', 42130, 'ศรีสงคราม', 'Si Songkhram', 454),
 ('420914', 0, '*ทรัพย์ไพวัลย์', '*Sap Pai Wan', 454),
@@ -6204,7 +6204,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('490403', 49140, 'กกตูม', 'Kok Tum', 564),
 ('490404', 49140, 'หนองแคน', 'Nong Khaen', 564),
 ('490405', 49140, 'ชะโนดน้อย', 'Chanot Noi', 564);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('490406', 49140, 'พังแดง', 'Phang Daeng', 564),
 ('490501', 0, '*หนองสูงใต้', '*Nong Sung Tai', 565),
 ('490502', 0, '*หนองสูง', '*Nong Sung', 565),
@@ -7232,7 +7232,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('600303', 60120, 'พิกุล', 'Phikun', 685),
 ('600304', 60120, 'เกยไชย', 'Koei Chai', 685),
 ('600305', 60120, 'ท่าไม้', 'Tha Mai', 685);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('600306', 60120, 'บางเคียน', 'Bang Khian', 685),
 ('600307', 60120, 'หนองกระเจา', 'Nong Krachao', 685),
 ('600308', 60250, 'พันลาน', 'Phan Lan', 685),
@@ -8231,7 +8231,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('711303', 71170, 'ดอนแสลบ', 'Don Salaep', 794),
 ('711304', 71170, 'สระลงเรือ', 'Sa Long Ruea', 794),
 ('720101', 72000, 'ท่าพี่เลี้ยง', 'Tha Phi Liang', 797);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('720102', 72000, 'รั้วใหญ่', 'Rua Yai', 797),
 ('720103', 72000, 'ทับตีเหล็ก', 'Thap Ti Lek', 797),
 ('720104', 72000, 'ท่าระหัด', 'Tha Rahat', 797),
@@ -9235,7 +9235,7 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 ('860201', 86140, 'ท่าแซะ', 'Tha Sae', 911),
 ('860202', 86140, 'คุริง', 'Khuring', 911),
 ('860203', 86140, 'สลุย', 'Salui', 911);
-INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
+INSERT INTO `DISTRICTS` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphure_id`) VALUES
 ('860204', 86140, 'นากระตาม', 'Na Kratam', 911),
 ('860205', 86190, 'รับร่อ', 'Rap Ro', 911),
 ('860206', 86140, 'ท่าข้าม', 'Tha Kham', 911),
@@ -10040,11 +10040,11 @@ INSERT INTO `Districts` (`district_id`, `zip_code`, `name_th`, `name_en`, `amphu
 -- --------------------------------------------------------
 
 
-INSERT INTO `address_company` (`address_id`, `address_detail`, `amphure_id` , `company_id` , `district_id` , `province_id` , `created_at` , `updated_at`) VALUES
+INSERT INTO `ADDRESS_COMPANY` (`address_id`, `address_detail`, `amphure_id` , `company_id` , `district_id` , `province_id` , `created_at` , `updated_at`) VALUES
 (1, '69/30 Moo.8', 50, 1, '105001', 1, NOW(), NOW()),
 (2, '128/31 Moo.2', 52, 2, '110104', 2, NOW(), NOW());
 
-INSERT INTO `address_users` (`address_id`, `address_detail`, `amphure_id` , `user_id` , `district_id` , `province_id` , `created_at` , `updated_at`) VALUES
+INSERT INTO `ADDRESS_USERS` (`address_id`, `address_detail`, `amphure_id` , `user_id` , `district_id` , `province_id` , `created_at` , `updated_at`) VALUES
 (1, '69/30 Moo.8', 50, 1, '105001', 1, NOW(), NOW()),
 (2, '128/31 Moo.2', 52, 2, '110104', 2, NOW(), NOW()),
 (3, '128/31 Moo.2', 52, 3, '110104', 2, NOW(), NOW());
