@@ -25,7 +25,7 @@ class iotService {
 
             // get id company
             $.ajax({
-                url: "http://localhost:8000/api/company/webservice/getCompanyID",
+                url: END_POINT+"company/webservice/getCompanyID",
                 dataType: 'json',
                 method: "GET",
                 async: false,
@@ -40,7 +40,7 @@ class iotService {
 
             // create token
             $.ajax({
-                url: "http://localhost:8081/iotService/getKeyiot",
+                url: API_DW +"iotService/getKeyiot",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -64,7 +64,7 @@ class iotService {
         let increaseData = () =>{
              //register DB
              $.ajax({
-                url: "http://localhost:8000/api/iot/addRegisIotService",
+                url: END_POINT+"iot/addRegisIotService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -403,7 +403,7 @@ $(document).ready(function () {
 
         let validate = new Validation(iotName,iotAlias,iotdescription,status,fields);
         validate.validate();
-
+        
        
         //iot.showDetail();
       

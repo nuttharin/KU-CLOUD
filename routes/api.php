@@ -27,6 +27,8 @@ Route::post('account/register', 'Api\AccountsController@register');
 
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
+Route::get('companyList/public', 'Api\CompanyController@getCompanyList');
+
 Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
 Route::get('dashboards/public/{dashboard_id}', 'Api\DashboardController@getDashboardPublicById');
 Route::get('datasources/public', 'Api\DatasourceController@getDatasourcesPublic');
@@ -59,31 +61,32 @@ Route::group([
     'prefix' => 'admin',
 ], function ($router) {
 
-    Route::get('administer', 'Api\AdminController@getAllAdminister');
-    Route::post('administer/create', 'Api\AdminController@createAdminister');
-    Route::put('administer/edit', 'Api\AdminController@editAdminister');
-    Route::get('webservice/getCompanyID', 'Api\AdminController@getCompanyID');
-    Route::get('companies', 'Api\AdminController@getAllCompanies');
-    Route::post('company/create', 'Api\AdminController@createCompany');
-    Route::put('company/edit', 'Api\AdminController@editCompany');
+    Route::get('administer', 'Api\UserController@getAllAdminister');
+    Route::post('administer/create', 'Api\UserController@createAdminister');
+    Route::put('administer/edit', 'Api\UserController@editAdminister');
 
-    Route::get('customers', 'Api\AdminController@getAllCustomers');
-    Route::post('customer/create', 'Api\AdminController@createCustomer');
-    Route::put('customer/edit', 'Api\AdminController@editCustomer');
+    Route::get('companies', 'Api\UserController@getAllCompanies');
+    Route::post('company/create', 'Api\UserController@createCompany');
+    Route::put('company/edit', 'Api\UserController@editCompany');
 
+    Route::get('customers', 'Api\UserController@getAllCustomers');
+    Route::post('customer/create', 'Api\UserController@createCustomer');
+    Route::put('customer/edit', 'Api\UserController@editCustomer');
+
+    Route::put('users/block', 'Api\UserController@blockUser');
+
+    Route::delete('users/delete', 'Api\UserController@deleteUser');
+    
     Route::get('companydata', 'Api\AdminController@getAllCompanyData');
     Route::post('companydata/create', 'Api\AdminController@createCompanyData');
     Route::put('companydata/edit', 'Api\AdminController@editCompanyData');
     Route::delete('companydata/delete', 'Api\AdminController@deleteCompanyData');
 
-    Route::put('users/block', 'Api\AdminController@blockUser');
-    Route::put('users/unblock', 'Api\AdminController@unblockUser');
-
-    Route::delete('users/delete', 'Api\AdminController@deleteUser');
-
     Route::get('companydata/checkdelete', 'Api\AdminController@getCountUsersByCompanyID');
 
     Route::get('users/online', 'Api\AdminController@countUserOnline');
+
+    Route::get('webservice/getCompanyID', 'Api\AdminController@getCompanyID');
 
     //Static
     Route::get('webservices', 'Api\AdminController@getWebServiceByCompany');
