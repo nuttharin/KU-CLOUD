@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\TB_EMAIL;
 use App\TB_USERS;
 use App\USER_FIRST_CREATE;
+use App\Repositories\TB_COMPANY\CompanyRepository;
 use Auth;
 use DB;
 use Exception;
@@ -17,6 +18,13 @@ use Log;
 
 class AuthController extends Controller
 {
+    private $companies;
+
+    public function __construct(CompanyRepository $companies) 
+    {
+        $this->companies = $companies;
+    }
+
     public function login(Request $request)
     {
         try {
@@ -215,5 +223,11 @@ class AuthController extends Controller
         } else {
             return response()->json(['success' => false, 'detail' => "This email is not in system."]);
         }
+    }
+
+    public function getCompanyList()
+    {    
+        $data = $this->companies->getCompanyWithAddress();
+        return response()->json(compact('data'), 201);
     }
 }
