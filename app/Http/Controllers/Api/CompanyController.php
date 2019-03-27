@@ -56,12 +56,6 @@ class CompanyController extends Controller
         return response()->json(compact('user'), 201);
     }
 
-    public function getCompanyList()
-    {
-        $data = $this->companies->getCompanyWithAddress();
-        return response()->json(compact('data'), 201);
-    }
-
     public function getCompanyById()
     {
         $data = $this->companies->getCompanyById(Auth::user()->user_company()->first()->company_id);

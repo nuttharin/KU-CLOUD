@@ -155,7 +155,7 @@ class InfographicController extends Controller
 
         $data["daily"][0] = [
             "_id" => "PATTANI AIRPORT",
-            "Stations-Observe-Temperature-Value-\$max" => 32.3,
+            "Stations-Observe-Temperature-Value-\$max" => 10,
             "Stations-Observe-StationPressure-Value-\$max" => 1008.1,
             "Stations-Observe-Temperature-Value-\$min" => 32.3,
             "Stations-Observe-StationPressure-Value-\$min" => 1008.1,
@@ -169,7 +169,7 @@ class InfographicController extends Controller
 
         $data["daily"][1] = [
             "_id" => "PATTANI AIRPORT",
-            "Stations-Observe-Temperature-Value-\$max" => 42.3,
+            "Stations-Observe-Temperature-Value-\$max" => 15,
             "Stations-Observe-StationPressure-Value-\$max" => 2008.1,
             "Stations-Observe-Temperature-Value-\$min" => 42.3,
             "Stations-Observe-StationPressure-Value-\$min" => 2008.1,
@@ -183,7 +183,7 @@ class InfographicController extends Controller
 
         $data["daily"][2] = [             
             "_id" => "PATTANI AIRPORT",
-            "Stations-Observe-Temperature-Value-\$max" => 55.3,
+            "Stations-Observe-Temperature-Value-\$max" => 19,
             "Stations-Observe-StationPressure-Value-\$max" => 1055.1,
             "Stations-Observe-Temperature-Value-\$min" => 55.3,
             "Stations-Observe-StationPressure-Value-\$min" => 1055.1,
@@ -204,7 +204,7 @@ class InfographicController extends Controller
 
         $data["monthly"][0] = [
             "_id" => "PATTANI AIRPORT",
-            "Stations-Observe-Temperature-Value-\$max" => 20.3,
+            "Stations-Observe-Temperature-Value-\$max" => 20,
             "Stations-Observe-StationPressure-Value-\$max" => 1008.1,
             "Stations-Observe-Temperature-Value-\$min" => 21.3,
             "Stations-Observe-StationPressure-Value-\$min" => 1008.1,
@@ -218,7 +218,7 @@ class InfographicController extends Controller
 
         $data["monthly"][1] = [
             "_id" => "PATTANI AIRPORT",
-            "Stations-Observe-Temperature-Value-\$max" => 52.3,
+            "Stations-Observe-Temperature-Value-\$max" => 25,
             "Stations-Observe-StationPressure-Value-\$max" => 2008.1,
             "Stations-Observe-Temperature-Value-\$min" => 52.3,
             "Stations-Observe-StationPressure-Value-\$min" => 2008.1,
@@ -232,7 +232,56 @@ class InfographicController extends Controller
 
         $data["monthly"][2] = [             
             "_id" => "PATTANI AIRPORT",
-            "Stations-Observe-Temperature-Value-\$max" => 65.3,
+            "Stations-Observe-Temperature-Value-\$max" => 29,
+            "Stations-Observe-StationPressure-Value-\$max" => 1055.1,
+            "Stations-Observe-Temperature-Value-\$min" => 65.3,
+            "Stations-Observe-StationPressure-Value-\$min" => 1055.1,
+            "Stations-Observe-Temperature-Value-\$sum" => 410055.2,
+            "Stations-Observe-StationPressure-Value-\$sum" => 12796855.4,
+            "Stations-Observe-Temperature-Value-\$avg" => 65.3,
+            "Stations-Observe-StationPressure-Value-\$avg" => 1055.1,
+            "Stations-Observe-Temperature-Value-\$stdDevSamp" => 10.0,
+            "Stations-Observe-StationPressure-Value-\$stdDevSamp" => 10.0,
+            "day" => "08-2017"];
+
+        return response()->json(compact('data'), 200);
+    }
+
+    public function getApiYearly(Request $request)
+    {
+        $data = [];
+
+        $data["yearly"][0] = [
+            "_id" => "PATTANI AIRPORT",
+            "Stations-Observe-Temperature-Value-\$max" => 30,
+            "Stations-Observe-StationPressure-Value-\$max" => 1008.1,
+            "Stations-Observe-Temperature-Value-\$min" => 21.3,
+            "Stations-Observe-StationPressure-Value-\$min" => 1008.1,
+            "Stations-Observe-Temperature-Value-\$sum" => 410016.2,
+            "Stations-Observe-StationPressure-Value-\$sum" => 12796821.4,
+            "Stations-Observe-Temperature-Value-\$avg" => 23.3,
+            "Stations-Observe-StationPressure-Value-\$avg" => 1008.1,
+            "Stations-Observe-Temperature-Value-\$stdDevSamp" => 0.0,
+            "Stations-Observe-StationPressure-Value-\$stdDevSamp" => 0.0,
+            "day" => "06-2017"];
+
+        $data["yearly"][1] = [
+            "_id" => "PATTANI AIRPORT",
+            "Stations-Observe-Temperature-Value-\$max" => 35,
+            "Stations-Observe-StationPressure-Value-\$max" => 2008.1,
+            "Stations-Observe-Temperature-Value-\$min" => 52.3,
+            "Stations-Observe-StationPressure-Value-\$min" => 2008.1,
+            "Stations-Observe-Temperature-Value-\$sum" => 510016.2,
+            "Stations-Observe-StationPressure-Value-\$sum" => 12795555.4,
+            "Stations-Observe-Temperature-Value-\$avg" => 52.3,
+            "Stations-Observe-StationPressure-Value-\$avg" => 1060.1,
+            "Stations-Observe-Temperature-Value-\$stdDevSamp" => 5.0,
+            "Stations-Observe-StationPressure-Value-\$stdDevSamp" => 5.0,
+            "day" => "07-2017"];
+
+        $data["yearly"][2] = [             
+            "_id" => "PATTANI AIRPORT",
+            "Stations-Observe-Temperature-Value-\$max" => 39,
             "Stations-Observe-StationPressure-Value-\$max" => 1055.1,
             "Stations-Observe-Temperature-Value-\$min" => 65.3,
             "Stations-Observe-StationPressure-Value-\$min" => 1055.1,
