@@ -13,14 +13,14 @@ class Amphures extends Migration
      */
     public function up()
     {
-        Schema::create('Amphures', function (Blueprint $table) {
+        Schema::create('AMPHURES', function (Blueprint $table) {
             $table->increments('amphure_id')->unsigned();
             $table->string('code', 4);
             $table->string('name_th', 150);
             $table->string('name_en', 150);
             $table->integer('province_id')->unsigned();
             $table->foreign('province_id')
-                ->references('province_id')->on('Provinces')
+                ->references('province_id')->on('PROVINCES')
                 ->onDelete('cascade');
         });
     }
@@ -32,6 +32,6 @@ class Amphures extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Amphures');
+        Schema::dropIfExists('AMPHURES');
     }
 }

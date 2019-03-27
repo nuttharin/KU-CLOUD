@@ -14,6 +14,7 @@ use App\TB_USERS;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\USER_FIRST_CREATE;
+use App\Address_users;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -521,9 +522,55 @@ class EloquentUsers implements UsersRepository
         DB::commit();
     }
 
-    public function delete($id)
+    public function delete($user_id, $type_user)
     {
-        // TODO: Implement delete() method.
+        DB::beginTransaction();
+        try {
+            if (!empty($type_user)) {
+
+                if($type_user == "ADMIN")
+                {
+
+                }
+                else if ($type_user == "COMPANY") 
+                {
+                    $userCompany = TB_USER_COMPANY::where('user_id', $user_id)
+                    ->delete();      
+                } 
+                else if ($type_user == "CUSTOMER") 
+                {
+                    $userCustomer = TB_USER_CUSTOMER::where('user_id', $user_id)
+                        ->delete();
+                }
+
+                $email = true;
+                while ($email) {
+                    $email = TB_EMAIL::where('user_id', $user_id)
+                        ->delete();
+                }
+        
+                $phone = true;
+                while ($phone) {
+                    $phone = TB_PHONE::where('user_id', $user_id)
+                        ->delete();
+                }
+
+                $address_user = true;
+                while ($address_user) {
+                    $address_user = Address_users::where('user_id', $user_id)
+                        ->delete();
+                }
+        
+                $user = TB_USERS::where('user_id', $user_id)
+                    ->delete();
+
+            }
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
     }
 
     public function deleteEmailUser(array $attributes)

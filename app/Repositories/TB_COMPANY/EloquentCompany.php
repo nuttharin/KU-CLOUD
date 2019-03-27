@@ -136,4 +136,28 @@ class EloquentCompany implements CompanyRepository
         }
         return $folder_log_size;
     }
+
+    public function getCompanyWithAddress()
+    {
+        $company_all = TB_COMPANY::all();
+        $company_list = [];
+        foreach ($company_all as $value) {
+            $company_list[] = [
+                'company_id' => $value->company_id,
+                'company_name' => $value->company_name,
+                'alias' => $value->alias,
+                'note' => $value->note,
+                'address' => DB::select('SELECT ADDRESS_COMPANY.company_id, ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
+                                                    DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn,
+                                                    AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn,
+                                                    PROVINCES.name_th as pNameTh, PROVINCES.name_en as pNameEn
+                                            FROM ADDRESS_COMPANY INNER JOIN DISTRICTS ON DISTRICTS.district_id = ADDRESS_COMPANY.district_id
+                                            INNER JOIN AMPHURES ON AMPHURES.amphure_id = ADDRESS_COMPANY.amphure_id
+                                            INNER JOIN PROVINCES ON PROVINCES.province_id = ADDRESS_COMPANY.province_id
+                                            WHERE ADDRESS_COMPANY.company_id = ?', [$value->company_id]),
+            ];
+        }
+
+        return $company_list;
+    }
 }

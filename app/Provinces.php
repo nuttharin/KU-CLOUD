@@ -8,7 +8,7 @@ class Provinces extends Model
 {
 
     protected $primaryKey = 'province_id';
-    protected $table = "Provinces";
+    protected $table = "PROVINCES";
 
     protected $fillable = [
         'province_id', 'code', 'name_th', 'name_en', 'geography_id',

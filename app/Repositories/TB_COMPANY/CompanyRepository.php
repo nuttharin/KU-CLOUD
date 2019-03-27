@@ -23,4 +23,6 @@ interface CompanyRepository
     public function approveCompany($company_id);
 
     public function getCompanyFolderLog();
+
+    public function getCompanyWithAddress();
 }

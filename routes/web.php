@@ -26,7 +26,7 @@ Route::get('/Auth/ResetPasswordFirst/{user_id}/{token}', 'AuthController@ResetPa
 
 Route::get('/', 'HomeController@Index');
 Route::get('/Home', 'HomeController@Index');
-
+Route::get('/CompanyList', 'HomeController@CompanyList');
 Route::get('/Register', 'RegisterController@index');
 Route::get('/ForgetPassword', 'AuthController@forgetPassword');
 Route::post('/ForgetPasswordSendMail', 'AuthController@forgetPasswordSendMail');
