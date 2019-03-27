@@ -89,6 +89,7 @@ mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/da
      //home
     .js('resources/js/home/home.min.js', 'public/js/home')
     
+    .js('resources/js/home/CompanyList.min.js', 'public/js/home')
 
     .js('resources/js/dashboards/DashboardListPublic.min.js','public/js/dashboards/DashboardListPublic.min.js')
     .js('resources/js/dashboards/DashboardPublic.min.js','public/js/dashboards/')

@@ -78,7 +78,7 @@
                         <a class="nav-link" href="#" id="about">ABOUT</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="company">COMPANY</a>
+                        <a class="nav-link" href="{{action('HomeController@CompanyList')}}" id="company">COMPANY</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="contact">CONTACT</a>
@@ -106,7 +106,7 @@
         const END_POINT = "{{ env('API_URL') }}";
         const END_POINT_WED = "{{env('APP_URL')}}";
         const WS_URL  = "{{env('WS_URL')}}";
-
+        console.log(END_POINT);
     </script>
 
     <script src="{{asset('js/aos/aos.js')}}"></script>

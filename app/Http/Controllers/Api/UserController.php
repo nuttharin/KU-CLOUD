@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Gate;
+use JWTAuth;
 use App\Repositories\TB_USERS\UsersRepository;
 
 class UserController extends Controller
@@ -270,4 +271,172 @@ class UserController extends Controller
     public function getCustomerByCompany(Request $request){
         return  $this->users->getCustomerByCompany();
     }
+
+    /* Admin */
+
+    public function getAllAdminister(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $data = $this->users->getByTypeForAdmin('ADMIN');
+
+        if (empty($data)) {
+            return response()->json(['message' => 'not have data'], 200);
+        }
+
+        return response()->json(compact('data'), 200);
+    }
+
+    public function createAdminister(Request $request)
+    {
+        $attributes = [
+            'username' => $request->get('username'),
+            'fname' => $request->get('fname'),
+            'lname' => $request->get('lname'),
+            'type_user' => 'ADMIN',
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+        ];
+
+        $this->users->create($attributes);
+        return response()->json(["status_code", "201"], 201);
+    }
+
+    public function editAdminister(Request $request)
+    {
+        $attributes = [
+            'username' => $request->get('username'),
+            'user_id' => $request->get('user_id'),
+            'fname' => $request->get('fname'),
+            'lname' => $request->get('lname'),
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+            'type_user' => $request->get('type_user'),
+        ];
+        $this->users->update($attributes);
+        return response()->json(["status_code", "200"], 200);
+    }
+
+    public function getAllCompanies(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $data = $this->users->getByTypeForAdmin('COMPANY');
+
+        if (empty($data)) {
+            return response()->json(['message' => 'not have data'], 200);
+        }
+
+        return response()->json(compact('data'), 200);
+    }
+
+    public function createCompany(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+
+        $attributes = [
+            'username' => $request->get('username'),
+            'fname' => $request->get('fname'),
+            'lname' => $request->get('lname'),
+            'type_user' => 'COMPANY',
+            'company_id' => $request->get('company_id'),
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+            'sub_type_user' => $request->get('sub_type_user'),
+        ];
+
+        $this->users->create($attributes);
+        return response()->json(["status_code", "201"], 201);
+    }
+
+    public function editCompany(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+
+        $attributes = [
+            'username' => $request->get('username'),
+            'user_id' => $request->get('user_id'),
+            'fname' => $request->get('fname'),
+            'lname' => $request->get('lname'),
+            'phone_user' => $request->get('phone'),
+            'email_user' => $request->get('email'),
+            'sub_type_user' => $request->get('sub_type_user'),
+            'company_id' => $request->get('company_id'),
+            'type_user' => $request->get('type_user'),
+        ];
+        $this->users->update($attributes);
+
+        return response()->json(["status_code", "201"], 201);
+    }
+
+    public function getAllCustomers(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $data = $this->users->getByTypeForAdmin('CUSTOMER');
+
+        if (empty($data)) {
+            return response()->json(['message' => 'not have data'], 200);
+        }
+
+        return response()->json(compact('data'), 200);
+    }
+
+    public function createCustomer(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+
+        $attributes = [
+            'username' => $request->get('username'),
+            'fname' => $request->get('fname'),
+            'lname' => $request->get('lname'),
+            'type_user' => 'CUSTOMER',
+            'company_id' => $request->get('company_id'),
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+        ];
+
+        $this->users->create($attributes);
+
+        return response()->json(["status_code", "201"], 201);
+    }
+
+    public function editCustomer(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+
+        $attributes = [
+            'username' => $request->get('username'),
+            'user_id' => $request->get('user_id'),
+            'fname' => $request->get('fname'),
+            'lname' => $request->get('lname'),
+            'phone_user' => $request->get('phone'),
+            'email_user' => $request->get('email'),
+            'company_id' => $request->get('company_id'),
+            'type_user' => $request->get('type_user'),
+        ];
+        $this->users->update($attributes);
+
+        return response()->json(["status_code", "201"], 201);
+    }
+
+    public function blockUser(Request $request)
+    {
+        $user = $this->users->isBlockUser($request->get('user_id'),$request->get('block'));
+        if($user){
+            return response()->json(["status", "success"], 200);
+        }
+    }
+    
+    public function deleteUser(Request $request)
+    {
+        $this->users->delete($request->get('user_id'), $request->get('type_user'));
+
+        return response()->json(["status", "success"], 200);
+    }
+
 }
