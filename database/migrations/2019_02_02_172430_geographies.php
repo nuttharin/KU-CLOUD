@@ -26,6 +26,6 @@ class Geographies extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Geographies');
+        Schema::dropIfExists('GEOGRAPHIES');
     }
 }

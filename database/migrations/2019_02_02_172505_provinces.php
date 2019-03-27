@@ -20,7 +20,7 @@ class Provinces extends Migration
             $table->string('name_en', 150);
             $table->integer('geography_id')->unsigned();
             $table->foreign('geography_id')
-                ->references('geography_id')->on('Geographies')
+                ->references('geography_id')->on('GEOGRAPHIES')
                 ->onDelete('cascade');
         });
     }
@@ -32,6 +32,6 @@ class Provinces extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Provinces');
+        Schema::dropIfExists('PROVINCES');
     }
 }
