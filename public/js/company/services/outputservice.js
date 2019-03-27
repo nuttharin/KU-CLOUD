@@ -24,7 +24,7 @@ $(document).ready(function () {
             $('#download-file').on("click", function () {
                 
                 $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/downloadJSONFile",
+                    url: END_POINT+"company/webservice/downloadJSONFile",
                     dataType: 'json',
                     method: "POST",
                     data:
@@ -44,7 +44,7 @@ $(document).ready(function () {
     let insertintoDW = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: "http://localhost:8081/webService/getDataAggregation",
+                url: API_DW+"webService/getDataAggregation",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -81,7 +81,7 @@ $(document).ready(function () {
             
         }
         $.ajax({
-            url: "http://localhost:8000/api/iot/getAllIotserviceData",
+            url: END_POINT+"api/iot/getAllIotserviceData",
             dataType: 'json',
             method: "GET",
             async: false,
@@ -94,7 +94,7 @@ $(document).ready(function () {
             }
         });
         $.ajax({
-            url: "http://localhost:8000/api/company/webservicedata",
+            url: END_POINT+"company/webservicedata",
             dataType: 'json',
             method: "GET",
             async: false,
