@@ -27,7 +27,7 @@ Route::post('account/register', 'Api\AccountsController@register');
 
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
-Route::get('companyList/public', 'Api\CompanyController@getCompanyList');
+Route::get('companyList/public', 'Api\AuthController@getCompanyList');
 
 Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
 Route::get('dashboards/public/{dashboard_id}', 'Api\DashboardController@getDashboardPublicById');
@@ -215,6 +215,7 @@ Route::group([
     Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
     Route::get('getApiDaily', 'Api\InfographicController@getApiDaily');
     Route::get('getApiMonthly', 'Api\InfographicController@getApiMonthly');
+    Route::get('getApiYearly', 'Api\InfographicController@getApiYearly');
 });
 
 Route::group([
