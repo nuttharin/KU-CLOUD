@@ -51,6 +51,7 @@ class iotService {
         }
         
         let registerDB = () => {
+            console.log("register")
              //register DB
              $.ajax({
                 url: END_POINT+"iot/addOutputRegisIotService",
