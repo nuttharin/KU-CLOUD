@@ -16,23 +16,23 @@ class ADDRESSCOMPANY extends Migration
         Schema::create('ADDRESS_COMPANY', function (Blueprint $table) {
             $table->increments('address_id');
             $table->integer('company_id')->unsigned();
-            $table->string('address_detail','200');
+            $table->string('address_detail', '200');
             $table->string('district_id', 6);
             $table->integer('amphure_id')->unsigned();
             $table->integer('province_id')->unsigned();
             $table->timestamps();
             $table->foreign('company_id')
-            ->references('company_id')->on('TB_COMPANY')
-            ->onDelete('cascade');
+                ->references('company_id')->on('TB_COMPANY')
+                ->onDelete('cascade');
             $table->foreign('district_id')
-            ->references('district_id')->on('Districts')
-            ->onDelete('cascade');
+                ->references('district_id')->on('DISTRICTS')
+                ->onDelete('cascade');
             $table->foreign('amphure_id')
-            ->references('amphure_id')->on('Amphures')
-            ->onDelete('cascade');
+                ->references('amphure_id')->on('AMPHURES')
+                ->onDelete('cascade');
             $table->foreign('province_id')
-            ->references('province_id')->on('Provinces')
-            ->onDelete('cascade');
+                ->references('province_id')->on('PROVINCES')
+                ->onDelete('cascade');
         });
     }
 
@@ -43,6 +43,6 @@ class ADDRESSCOMPANY extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ADDRESSCOMPANY');
+        Schema::dropIfExists('ADDRESS_COMPANY');
     }
 }
