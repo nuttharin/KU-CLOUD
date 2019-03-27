@@ -260,7 +260,7 @@ class webService {
         }
         
         $('#try_it_Getall').on("click", function () {
-            let table_DW = $("#table_DW").val();
+            let table_DW = $("#table_DW_Getall").val();
             let summary_table = $('#summary_table').val();
             insertintoDW_Getall_Aggregation(table_DW,summary_table)
         });
@@ -270,11 +270,11 @@ class webService {
             insertintoDW_Getlasttest_Aggregation(table_DW,summary_table)
         });
         $('#try_it_Getall_Data').on("click", function () {
-            let table_DW = $("#table_DW").val();
+            let table_DW = $("#table_DW_Getall_Data").val();
             insertintoDW_Getall_Data(table_DW)
         });
         $('#try_it_Getlasttest_Data').on("click", function () {
-            let table_DW = $("#table_DW").val();
+            let table_DW = $("#table_DW_Getlasttest_Data").val();
             insertintoDW_Getlasttest_Data(table_DW)
         });
         

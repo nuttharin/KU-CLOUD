@@ -524,7 +524,7 @@ class Service {
             })
                 // เพิ่มค่าในตารางข้อมูลครั้งเเรก
             $.ajax({
-                url: API_DW+"/webService/insertFirstDataTable",
+                url: API_DW+"webService/insertFirstDataTable",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
