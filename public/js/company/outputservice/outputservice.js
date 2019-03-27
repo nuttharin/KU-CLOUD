@@ -447,6 +447,8 @@ $(document).ready(function () {
             success: (res) => {
                 dataIoT = res.iotService;
                 console.log(dataIoT)
+                let iotservice = new iotService(dataIoT);        
+                iotservice.initService();
             },
             error: (res) => {
                 console.log(res);
@@ -460,14 +462,14 @@ $(document).ready(function () {
             success: (res) => {
                 data = res.webService;
                 console.log(data)
+                let webservice = new webService(data);
+                webservice.initService();
             },
             error: (res) => {
                 console.log(res);
             }
         });
-        let webservice = new webService(data);
-        let iotservice = new iotService(dataIoT);
-        webservice.initService();
-        iotservice.initService();
+        
+        
         
 });
