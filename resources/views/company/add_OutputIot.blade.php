@@ -322,17 +322,17 @@
             <textarea type="text" rows="2" class="form-control mb-2"  id="description-iotservice" placeholder="IoT description" ></textarea>
                   
 
-            <h6>Others Output<span> ( ห้ามซ้ำกับ Pin Names )  <span style="color:red">*</span></span></h6>            
+            <label class='customcheck'><h6>Others Output<span> ( ห้ามซ้ำกับ Pin Names )  <span style="color:red">*</span></span></h6><input type='checkbox' name='chk_otheroutput' id='chk_otheroutput'><span class='checkmark'></span></label>            
             <!-- <div class="container"> -->
                     <div class="row">
                         <div class="control-group" id="fields">
                             <div class="controlsoutput"> 
                                 <div class="container">
                                     <form role="form" autocomplete="off">
-                                        <div class="entry input-group col-xs-3">
-                                            <input class="form-control mb-2 nameoutput" name="nameOutput[]" type="text" placeholder="Name" />
-                                            <span>&nbsp</span>
-                                            <input class="form-control mb-2 valueoutput" name="valueOutput[]" type="text" placeholder="Value" />
+                                        <div class="entry input-group otherfiled col-xs-3">
+                                            <input class="form-control mb-2 nameoutput" id="nameOutput" name="nameOutput[]" type="text" placeholder="Name" />
+                                            <span class="spacebar">&nbsp</span>
+                                            <input class="form-control mb-2 valueoutput" id="valueOutput" name="valueOutput[]" type="text" placeholder="Value" />
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success btn-adds" type="button">
                                                     <span>+</span>
@@ -346,7 +346,7 @@
                     </div>
                 <!-- </div> -->
             <br/>
-            <h6>Pin Names<span> (Default is 0) (ห้ามซ้ำกับ Others Output )<span style="color:red">*</span></span></h6>
+            <label class='customcheck'><h6>Pin Names<span> (Default is 0) (ห้ามซ้ำกับ Others Output )<span style="color:red">*</span></span></h6><input type='checkbox' name='chk_otheroutput' id='chk_otheroutput'><span class='checkmark'></span></label>
                 <!-- <div class="container"> -->
                     <div class="row">
                         <div class="control-group" id="fields">

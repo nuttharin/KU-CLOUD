@@ -267,7 +267,7 @@
             </div>
             <div class="col-xl-3 col-12 mt-4" style="color:#848684;">
                 <span class="text-left contactText">CONTACTS</span>
-                <span class="text-left contactText">Email: KU.CLOUD.SERVICE@gmail.com</span>
+                <span class="text-left contactText">Email: ku.cloud.service@gmail.com</span>
                 <span class="text-left contactText">Phone: +66.(0)3.428.1074</span>
                 <span class="text-left contactText">Fax: +66.(0)3.428.1074</span>
             </div>
