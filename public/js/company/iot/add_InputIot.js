@@ -171,7 +171,7 @@ class iotService {
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
-                    console.log("success DB")
+                    console.log("success DB url")
                 },
                 error: (res) => {
                     console.log(res);
