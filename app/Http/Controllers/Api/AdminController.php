@@ -382,14 +382,14 @@ class AdminController extends Controller
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
         $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note, 
-                                        address_company.address_detail, address_company.district_id, address_company.amphure_id, address_company.province_id,
-                                        districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
-                                        amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
-                                        provinces.name_th as pNameTh, provinces.name_en as pNameEn
-                                FROM TB_COMPANY INNER JOIN address_company ON address_company.company_id = TB_COMPANY.company_id
-                                INNER JOIN districts ON districts.district_id = address_company.district_id
-                                INNER JOIN amphures ON amphures.amphure_id = address_company.amphure_id
-                                INNER JOIN provinces ON provinces.province_id = address_company.province_id');
+                                        ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
+                                        DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn, 
+                                        AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn, 
+                                        PROVINCES.name_th as pNameTh, PROVINCES.name_en as pNameEn
+                                FROM TB_COMPANY INNER JOIN ADDRESS_COMPANY ON ADDRESS_COMPANY.company_id = TB_COMPANY.company_id
+                                INNER JOIN DISTRICTS ON DISTRICTS.district_id = ADDRESS_COMPANY.district_id
+                                INNER JOIN AMPHURES ON AMPHURES.amphure_id = ADDRESS_COMPANY.amphure_id
+                                INNER JOIN PROVINCES ON PROVINCES.province_id = ADDRESS_COMPANY.province_id');
 
         if (empty($company)) {
             return response()->json(['message' => 'not have data'], 200);
