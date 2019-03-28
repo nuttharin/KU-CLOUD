@@ -13,6 +13,7 @@ class iotService {
         let strField = "";
         let strUrl = "";
         let idIoT = ""; 
+        
 
         let getDataforInsert = () => {
 
@@ -94,6 +95,22 @@ class iotService {
             });
             
         }
+
+        let increaseDW = () => {
+            $.ajax({
+                url: strUrl,               
+                method: "POST",
+                async: false,               
+                success: (res) => {                    
+                    console.log("success DW")
+                },
+                error: (res) => {
+                    console.log(strUrl)
+                    console.log(res);
+                }
+            });
+        }
+
         let showDetail = () => {
             // let data =JSON.parse(datajson);
             // let strJson="";
@@ -112,23 +129,32 @@ class iotService {
             //     i++;
             // })
             let otheroutput="";
+            let insertFristTimeDw = "";
             for(let i=0;i<fields.length;i++)
             {
                 
                 if(i==fields.length-1)
                 {
                     otheroutput += fields[i] +"=[value]";
+                    insertFristTimeDw += fields[i] +"=0";
                 }
                 else
                 {
                     otheroutput += fields[i] +"=[value]&";
+                    insertFristTimeDw += fields[i] +"=0&";
                 }
             }
+           
+          
             //console.log(otheroutput)
+            strUrl = API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+insertFristTimeDw ;
+
             increaseData();
-            strUrl = API_DW+'iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
+            increaseDW();
+
+            strUrl = API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+insertFristTimeDw ;
             $('#Nameiot').val(nameiot);
-            $('#Apiiot').val(API_DW+'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
+            $('#Apiiot').val(API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
             $('#ShowDetailiotModal').modal('show');
             console.log(strUrl)

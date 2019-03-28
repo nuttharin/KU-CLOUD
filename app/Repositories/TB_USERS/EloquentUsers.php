@@ -394,11 +394,27 @@ class EloquentUsers implements UsersRepository
                 }
             } else if ($attributes['type_user'] == "COMPANY") {
                 if ($user->user_id) {
-                    TB_USER_COMPANY::create([
-                        'user_id' => $user->user_id,
-                        'company_id' => $attributes['company_id'],
-                        'sub_type_user' => $attributes['sub_type_user'],
-                    ]);
+
+                    if (!empty($attributes['admincheck'])) {
+                        if($attributes['admincheck'] == "true")
+                        {
+                            TB_USER_COMPANY::create([
+                                'user_id' => $user->user_id,
+                                'company_id' => $attributes['company_id'],
+                                'sub_type_user' => $attributes['sub_type_user'],
+                                'is_user_main' => true,
+                            ]);
+                        }
+                    }
+                    else
+                    {
+                        TB_USER_COMPANY::create([
+                            'user_id' => $user->user_id,
+                            'company_id' => $attributes['company_id'],
+                            'sub_type_user' => $attributes['sub_type_user'],
+                        ]);
+                    }
+
 
                     TB_EMAIL::create([
                         'user_id' => $user->user_id,
