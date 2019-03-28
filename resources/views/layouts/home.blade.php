@@ -81,14 +81,14 @@
                         <a class="nav-link" href="{{action('HomeController@CompanyList')}}" id="company">COMPANY</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{action('DashboardController@DashboardsPublic')}}"
+                            id="nav_dashboards">DASHBOARDS</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#" id="contact">CONTACT</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{action('RegisterController@index')}}" id="nav_register">REGISTER</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{action('DashboardController@DashboardsPublic')}}"
-                            id="nav_dashboards">DASHBOARDS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav_login" href="#" id="nav_login">LOGIN</a>

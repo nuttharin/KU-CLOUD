@@ -10,10 +10,14 @@ use App\Repositories\TB_STATIC\StaticRepository;
 use App\Repositories\TB_USERS\UsersRepository;
 use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
 use App\TB_WEBSERVICE;
+use App\TB_COMPANY;
+use App\Address_company;
+
 use Auth;
 use DB;
 use Illuminate\Http\Request;
 use Log;
+use JWTAuth;
 
 class CompanyController extends Controller
 {
@@ -556,4 +560,115 @@ class CompanyController extends Controller
     //     $id = $request->get('id');
     //     $this->static->deleteDatasourceByStatic($static_id,$id);
     // }
+
+    /* Admin */
+    public function getAllCompanyData(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note, 
+                                        ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
+                                        DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn, 
+                                        AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn, 
+                                        PROVINCES.name_th as pNameTh, PROVINCES.name_en as pNameEn
+                                FROM TB_COMPANY INNER JOIN ADDRESS_COMPANY ON ADDRESS_COMPANY.company_id = TB_COMPANY.company_id
+                                INNER JOIN DISTRICTS ON DISTRICTS.district_id = ADDRESS_COMPANY.district_id
+                                INNER JOIN AMPHURES ON AMPHURES.amphure_id = ADDRESS_COMPANY.amphure_id
+                                INNER JOIN PROVINCES ON PROVINCES.province_id = ADDRESS_COMPANY.province_id');
+
+        if (empty($company)) {
+            return response()->json(['message' => 'not have data'], 200);
+        }
+
+        return response()->json(compact('company'), 200);
+    }
+
+    public function createCompanyData(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+
+        $company = TB_COMPANY::create([
+            'company_name' => $request->get('company_name_input'),
+            'alias' => $request->get('alias_input'),
+            'note' => $request->get('note_input'),
+        ]);
+
+        $company_update = TB_COMPANY::where('company_id', $company->company_id)
+        ->update([
+            'folder_log' => $company->company_name.'_'.$company->company_id,
+        ]);
+
+        $address_company = Address_company::insert([
+            'company_id' => $company->company_id,
+            'address_detail' => $request->get('address_detail'),
+            'district_id' => $request->get('district'),
+            'amphure_id' => $request->get('amphure'),
+            'province_id' => $request->get('province'),
+        ]);
+        
+        $attributes = [
+            'username' => $request->get('accountname'),
+            'fname' => $request->get('firstname'),
+            'lname' => $request->get('lastname'),
+            'type_user' => 'COMPANY',
+            'company_id' => $company->company_id,
+            'email_user' => $request->get('email'),
+            'phone_user' => $request->get('phone'),
+            'sub_type_user' => 'ADMIN',
+            'admincheck'=> $request->get('admincheck'),
+        ];
+
+        $this->users->create($attributes);
+
+        return response()->json(["status_code", "201"], 201);
+    }
+
+    public function editCompanyData(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+
+        $company = TB_COMPANY::where('company_id', $request->get('company_id_input'))
+            ->update([
+                'company_name' => $request->get('company_name_input'),
+                'alias' => $request->get('alias_input'),
+                'note' => $request->get('note_input'),
+            ]);
+
+        $address_company = Address_company::where('company_id', $request->get('company_id_input'))
+            ->update([
+                'address_detail' => $request->get('address_detail'),
+                'district_id' => $request->get('district'),
+                'amphure_id' => $request->get('amphure'),
+                'province_id' => $request->get('province'),
+            ]);
+
+        return response()->json(["status_code", "201"], 201);
+    }
+
+    public function deleteCompanyData(Request $request)
+    {
+        $user = TB_COMPANY::where('company_id', $request->get('company_id'))
+            ->delete();
+        return response()->json(["status", "success"], 200);
+    }
+
+    public function getCountUsersByCompanyID(Request $request)
+    {
+        $token = $request->cookie('token');
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $countCustomer = DB::table('TB_USER_CUSTOMER')
+            ->where('company_id', $request->get('company_id'))
+            ->count();
+        $countCompany = DB::table('TB_USER_COMPANY')
+            ->where('company_id', $request->get('company_id'))
+            ->count();
+
+        if ($countCompany + $countCustomer == 0) {
+            return response()->json(true, 200);
+        } else {
+            return response()->json(false, 200);
+        }
+    }
 }
