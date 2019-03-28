@@ -441,7 +441,7 @@ class Service {
         let increaseDataTableDB = () => {
             
             $.ajax({
-                url: "http://localhost:8000/api/company/webservice/addRegisWebService",
+                url: END_POINT+"company/webservice/addRegisWebService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -476,7 +476,7 @@ class Service {
         {    
             // get companyID
             $.ajax({
-                    url: "http://localhost:8000/api/company/webservice/getCompanyID",
+                    url: END_POINT+"company/webservice/getCompanyID",
                     dataType: 'json',
                     method: "GET",
                     async: false,
@@ -493,7 +493,7 @@ class Service {
             //ลงทะเทียนฝั่ง dw
             console.log(ServiceName)
             $.ajax({
-                url: "http://localhost:8081/webService/createRegisterTable",
+                url: API_DW+"webService/createRegisterTable",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -524,7 +524,7 @@ class Service {
             })
                 // เพิ่มค่าในตารางข้อมูลครั้งเเรก
             $.ajax({
-                url: "http://localhost:8081/webService/insertFirstDataTable",
+                url: API_DW+"webService/insertFirstDataTable",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},

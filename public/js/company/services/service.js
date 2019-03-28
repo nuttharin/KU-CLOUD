@@ -28,7 +28,7 @@ var WebserviceRepository = new (function () {
     this.refreshDatatable = () => {
         showLoadingStatus(true);
         $.ajax({
-            url: "http://localhost:8000/api/company/webservicedata",
+            url: END_POINT+"company/webservicedata",
             method: 'GET',
             success: function (result) {
                 //console.log(result);
@@ -187,7 +187,7 @@ var WebserviceRepository = new (function () {
     }
 
     var onEditClick = (key) => {
-        window.location.href = "http://localhost:8000/Company/Service/EditService/"+webserviceList[key].id;
+        window.location.href = END_POINT+"company/Service/EditService/"+webserviceList[key].id;
     }
     
     let onDeleteClick = (key) => {
@@ -222,7 +222,7 @@ var WebserviceRepository = new (function () {
         $('#btn-delete-submit').click(function () {
             // alert('fffff')
             $.ajax({
-                url: "http://localhost:8000/api/company/webservice/deletewebservice",
+                url: END_POINT+"company/webservice/deletewebservice",
                 dataType: 'json',
                 method: "POST",
                 async: false,
@@ -240,7 +240,7 @@ var WebserviceRepository = new (function () {
                 }
             });
             $(".swal-button--confirm").click(function (){
-                window.location.href="http://localhost:8000/Company/Service";
+                location.reload();
             })
             
         });

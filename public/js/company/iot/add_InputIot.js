@@ -12,6 +12,7 @@ class iotService {
         let valueCalIot = "" ;
         let strField = "";
         let strUrl = "";
+        let idIoT = ""; 
 
         let getDataforInsert = () => {
 
@@ -85,6 +86,8 @@ class iotService {
                 success: (res) => {
                     // toastr["success"]("Success");
                     console.log("success DB")
+                    idIoT = res.iotService.iotservice_id ;
+                    //console.log(idIoT);
                 },
                 error: (res) => {
                     console.log(res);
@@ -123,10 +126,11 @@ class iotService {
                 }
             }
             //console.log(otheroutput)
-            
+            increaseData();
+
             strUrl = 'http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
             $('#Nameiot').val(nameiot);
-            $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
+            $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
             
             $('#ShowDetailiotModal').modal('show');
@@ -143,6 +147,7 @@ class iotService {
                                         </div>
                                         <div id='modal-body' class='modal-body'>
                                             <p id='xxx'>The selected value will be calculated in the summary table.</p>
+                                            <button class='btn btn-success'  id='checkall'>Check All</button>&nbsp<button class='btn btn-danger' id='clearall'>Clear All</button><br/><br/>
                                         </div>
                                         <div class='modal-footer'>
                                             <button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal'>Submit</button>
@@ -153,11 +158,19 @@ class iotService {
                             </div>`;
             $('.modalCalValue').empty();
             $('.modalCalValue').append(strModal);
+            $('#checkall').on('click', function (e) {
+                e.preventDefault();
+                $('.chkall').prop('checked', true);
+            });
+            $('#clearall').on('click', function (e) {
+                e.preventDefault();
+                $('.chkall').prop('checked', false);
+            });
             for(let i =0 ;i<datajson.length;i++)
             {
                 console.log(datajson[i])
                 $("#modal-body").append("<label class='customcheck'>"+datajson[i]+"<input type='checkbox' class='chkall'  value='"+datajson[i]+"' id='datajson"+i+"'><span class='checkmark'></span></label>");
-
+                $('.chkall').prop('checked', true);
             }        
             $('#myModal').modal('show');
             $('#submitChkValCal').click(function(){
@@ -180,13 +193,14 @@ class iotService {
                     valueCalIot = valueCalIot.substring(0,valueCalIot.length -1 );
                    
                 }
+                
                 getDataforInsert();
                 showDetail();                    
                 
             })
 
             $('#close-modal-show').click(function(){
-                increaseData();
+                // increaseData();
                 //swal("Registration Success", "", "success");
                 swal("Registration Success.", "", "success")
                 .then((value) => {
