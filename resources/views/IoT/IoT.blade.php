@@ -18,6 +18,9 @@
         border: 1px solid #AED6F1 !important ;
 
     }
+    .modal p {
+    word-wrap: break-word;
+}
    
     .switch {
         position: relative;
@@ -137,7 +140,7 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="{{url('clipboard/clipboard.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/company/iot/iot.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert/sweetalert.min.js')}}"></script>
 @endsection

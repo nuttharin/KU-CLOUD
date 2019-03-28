@@ -14,6 +14,7 @@ class TB_IOTSERVICE extends Model
         'company_id',
         'iot_name',
         'iot_name_DW',
+        'url',
         'type',
         'alias',
         'description',
