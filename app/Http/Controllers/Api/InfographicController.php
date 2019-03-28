@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Repositories\TB_INFOGRAPHIC\InfographicRepository;
 use App\Repositories\TB_USERS\UsersRepository;
+use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
 use App\TB_INFOGRAPHIC;
 use App\TB_USERS;
 use Illuminate\Http\Request;
@@ -15,9 +16,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class InfographicController extends Controller
 {
 
-    private $info, $user;
+    private $info, $user, $webservice;
 
-    public function __construct(InfographicRepository $info, UsersRepository $user)
+    public function __construct(InfographicRepository $info, UsersRepository $user, WebServiceRepository $webservice)
     {
         // if (!Gate::allows('isAdmin')) {
         //     abort('403', "Sorry, You can do this actions");
@@ -33,6 +34,7 @@ class InfographicController extends Controller
 
         $this->info = $info;
         $this->user = $user;
+        $this->webservice = $webservice;
 
         $this->auth = Auth::user();
     }
@@ -147,6 +149,11 @@ class InfographicController extends Controller
         }
 
         return response()->json(compact('data'), 200);
+    }
+
+    public function getServiceByCompany(Request $request)
+    {
+        return $this->webservice->getServiceByCompany();
     }
 
     public function getApiDaily(Request $request)
