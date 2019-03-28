@@ -76,13 +76,13 @@
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     <script src="{{url('livetable/SimpleTableCellEditor.js')}}"></script>
     <!-- pace -->
-    <!-- <script src="{{asset('pace/pace.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('pace/pace.css')}}"> -->
+    <script src="{{asset('pace/pace.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('pace/pace.css')}}">
 
 </head>
 
 <body>
-    <!-- <div class="pace"></div> -->
+    <div class="pace"></div>
     <nav class="navbar navbar-expand-lg default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <a class="navbar-brand brand-logo" style="margin-top:10px" href="#">
@@ -354,10 +354,10 @@
 
         
         <script>
-            const END_POINT = "{{ env('API_URL') }}";
-            const END_POINT_WED = "{{env('APP_URL')}}";
-            const WS_URL = "{{env('WS_URL')}}";
-            const API_DW = "{{env('API_DW_URL')}}";
+            const END_POINT = "{{ env('API_URL') }}"; //http://localhost:8000/api/
+            const END_POINT_WED = "{{env('APP_URL')}}"; //http://localhost:8000
+            const WS_URL = "{{env('WS_URL')}}"; 
+            const API_DW = "{{env('API_DW_URL')}}"; //http://localhost:8081/
         </script>
         
         <!-- Page Content  -->
@@ -372,7 +372,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script src="{{asset('js/socket.js')}}"></script>
 
-        <!-- <script>
+        <script>
             paceOptions = {
                 ajax: true,
                 document: true,
@@ -383,7 +383,7 @@
                 $('#preloader').delay(500).fadeOut(800);
             });
 
-        </script> -->
+        </script>
 
 </body>
 

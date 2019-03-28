@@ -147,6 +147,7 @@ class iotService {
                                         </div>
                                         <div id='modal-body' class='modal-body'>
                                             <p id='xxx'>The selected value will be calculated in the summary table.</p>
+                                            <button class='btn btn-success'  id='checkall'>Check All</button>&nbsp<button class='btn btn-danger' id='clearall'>Clear All</button><br/><br/>
                                         </div>
                                         <div class='modal-footer'>
                                             <button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal'>Submit</button>
@@ -157,11 +158,19 @@ class iotService {
                             </div>`;
             $('.modalCalValue').empty();
             $('.modalCalValue').append(strModal);
+            $('#checkall').on('click', function (e) {
+                e.preventDefault();
+                $('.chkall').prop('checked', true);
+            });
+            $('#clearall').on('click', function (e) {
+                e.preventDefault();
+                $('.chkall').prop('checked', false);
+            });
             for(let i =0 ;i<datajson.length;i++)
             {
                 console.log(datajson[i])
                 $("#modal-body").append("<label class='customcheck'>"+datajson[i]+"<input type='checkbox' class='chkall'  value='"+datajson[i]+"' id='datajson"+i+"'><span class='checkmark'></span></label>");
-
+                $('.chkall').prop('checked', true);
             }        
             $('#myModal').modal('show');
             $('#submitChkValCal').click(function(){
@@ -184,6 +193,7 @@ class iotService {
                     valueCalIot = valueCalIot.substring(0,valueCalIot.length -1 );
                    
                 }
+                
                 getDataforInsert();
                 showDetail();                    
                 

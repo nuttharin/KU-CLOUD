@@ -9,7 +9,7 @@
 <div class="container">
     <div id="message" class="mx-auto text-center">
         <h2>{{ $message }}</h2>
-        <a href="{{url('/Auth')}}" class="btn btn-success">Click To Login</a>
+        <a href="{{url('/')}}" class="btn btn-success">Click To Login</a>
     </div>
 </div>
 @endsection
