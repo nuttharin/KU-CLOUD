@@ -20,7 +20,6 @@ class TB_IOTSERVICE extends Model
         'description',
         'status',
         'dataOutput',
-        'url_onoff_input',
         'strJson',
         'dataformat',
         'value_cal',
