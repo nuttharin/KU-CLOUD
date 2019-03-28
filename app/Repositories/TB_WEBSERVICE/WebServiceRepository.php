@@ -11,4 +11,5 @@ namespace App\Repositories\TB_WEBSERVICE;
 interface WebServiceRepository
 {
     public function getWebServiceByCompany();
+    public function getServiceByCompany();
 }

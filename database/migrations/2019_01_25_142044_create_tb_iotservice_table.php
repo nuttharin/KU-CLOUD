@@ -28,7 +28,6 @@ class CreateTbIotserviceTable extends Migration
             $table->string('description',1000)->nullable();
             $table->string('status',100);
             $table->string('dataOutput',100)->nullable();
-            $table->string('url_onoff_input',100)->nullable();
             $table->string('strJson',100)->nullable();
             $table->string('dataformat',100)->nullable();
             $table->text('value_cal')->nullable();

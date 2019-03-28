@@ -255,19 +255,19 @@
 <footer>
 
         <div class="row" style="background:white; padding:20px;">
-            <div class="col-4">
+            <div class="col-xl-4 col-12 mt-4">
                 <span class="text-center" style="font-size:5vw"><span style="color:#00ce68">KU</span> CLOUD</span>
             </div>
-            <div class="col-3" style="color:#848684;">
+            <div class="col-xl-3 col-12 mt-4" style="color:#848684;">
                 <span class="text-left contactText">ADDRESS</span>
                 <span class="text-left contactText">1 Moo.6</span>
                 <span class="text-left contactText">Kamphaengsaen</span>
                 <span class="text-left contactText">Kamphaengsaen</span>
                 <span class="text-left contactText">Nakhon Pathom 73140</span>
             </div>
-            <div class="col-3" style="color:#848684;">
+            <div class="col-xl-3 col-12 mt-4" style="color:#848684;">
                 <span class="text-left contactText">CONTACTS</span>
-                <span class="text-left contactText">Email: KU.CLOUD.SERVICE@gmail.com</span>
+                <span class="text-left contactText">Email: ku.cloud.service@gmail.com</span>
                 <span class="text-left contactText">Phone: +66.(0)3.428.1074</span>
                 <span class="text-left contactText">Fax: +66.(0)3.428.1074</span>
             </div>

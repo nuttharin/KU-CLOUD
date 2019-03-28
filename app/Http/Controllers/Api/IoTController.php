@@ -106,6 +106,7 @@ class IoTController extends Controller
             'alias' => $request->get('alias'),
             'description' => $request->get('description'),
             'status' => $request->get('stats'),
+            'url' => $request->get('urls'),
             'strJson' => $request->get('showJsonstr'),
             'dataOutput' => $request->get('pinfilds'),
             'value_cal' => $request->get('valueCal'),
