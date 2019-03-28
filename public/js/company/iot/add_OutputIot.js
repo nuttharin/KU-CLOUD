@@ -11,6 +11,7 @@ class iotService {
         let showJsonstr = OutputData;
         let pinfilds = jsonencode;
         let strUrlInsert = ""
+        let strurl;
 
         this.getDataforInsert = () => {
             // get id company
@@ -47,7 +48,7 @@ class iotService {
                 }
             });
 
-
+            strurl = API_DW +'iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID;
         }
         
         let registerDB = () => {
@@ -60,11 +61,10 @@ class iotService {
                 async: false,
                 data:
                 {
-                    strUrl: 'ss',
                     alias: alias,
                     ServiceName: nameiot,
                     description: description,
-                    valueCal: '1',
+                    urls:strurl,
                     stats: stats,
                     pinfilds : pinfilds,
                     showJsonstr:showJsonstr,
@@ -106,6 +106,7 @@ class iotService {
 
         this.showDetail = () => {
             $('#Nameiot').val(nameiot);
+            let strurl = API_DW +'iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID;
             $('#URLiot').val(API_DW +'iotService/getOutputIot?keyIot='+keyiot+'&nameDW=IoT.Output.'+nameiot+'.'+companyID);
             // $('#Keyiot').val(keyiot);            
             $('#Dataformat').val(pinfilds);
@@ -276,7 +277,10 @@ $(document).ready(function () {
     let manage = new Managememt();
     cron.exampleCron();
     manage.checkFormTime();
-
+    $('#nameOutput').attr('disabled',true)
+    $('#valueOutput').attr('disabled',true)
+    $('.btn-adds').attr('disabled',true)
+    
     $(document).on('click', '.btn-add', function(e)
     {
         e.preventDefault();
@@ -301,7 +305,6 @@ $(document).ready(function () {
     $(document).on('click', '.btn-adds', function(e)
     {
         e.preventDefault();
-
         var controlForm = $('.controlsoutput form:first'),
         currentEntry = $(this).parents('.entry:first'),
         newEntry = $(currentEntry.clone()).appendTo(controlForm);
@@ -318,7 +321,23 @@ $(document).ready(function () {
             e.preventDefault();
             return false;
     });
-
+    $('#chk_otheroutput').change(function() {
+        if($('#chk_otheroutput').prop('checked')==false)
+        {
+            $(".nameoutput").attr('disabled',true)
+            $('.valueoutput').attr('disabled',true)
+            $('.btn-adds').attr('disabled',true)
+            $('.btn-removes').attr('disabled',true)              
+        }
+        else
+        {   
+            $(".nameoutput").attr('disabled',false)
+            $('.valueoutput').attr('disabled',false)
+            $('.btn-adds').attr('disabled',false)
+            $('.btn-removes').attr('disabled',false) 
+        }
+        
+    });
     $('#showvalue').click(function(){
         
         let iotName = $('#name-iotservice').val();
