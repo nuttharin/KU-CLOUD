@@ -61,9 +61,9 @@ class Server {
         });
 
         this.app.post('/socket/alert', (req, res) => {
-            console.log('private', res.userInDashboards);
-            console.log('public', res.userInDashboardPublic);
-            console.log(req.body);
+            // console.log('private', res.userInDashboards);
+            // console.log('public', res.userInDashboardPublic);
+            // console.log(req.body);
             
 
             res.userInDashboards.map(_user => {
