@@ -71,7 +71,6 @@ class iotService {
                 async: false,
                 data:
                 {
-                    strUrl: null,
                     alias: alias,
                     ServiceName: nameiot,
                     description: description,
@@ -127,13 +126,32 @@ class iotService {
             }
             //console.log(otheroutput)
             increaseData();
-
             strUrl = 'http://localhost:8081/iotService/insertData?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput ;
             $('#Nameiot').val(nameiot);
             $('#Apiiot').val('http://localhost:8081/iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
             $('#Keyiot').val(keyiot);
-            
             $('#ShowDetailiotModal').modal('show');
+            console.log(strUrl)
+            $.ajax({
+                url: END_POINT+"iot/addRegisIotService_url",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    idIoT :idIoT,
+                    urls:strUrl
+                    
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DB")
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            
         }  
 
         this.showSelectValueCal = () => {    
