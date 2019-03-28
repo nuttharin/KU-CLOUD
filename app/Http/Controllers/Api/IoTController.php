@@ -40,7 +40,7 @@ class IoTController extends Controller
     {
       
         $companyID =  Auth::user()->user_company()->first()->company_id;
-        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.alias,TB_IOTSERVICE.type,TB_IOTSERVICE.description,strJson,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.dataOutput,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
+        $iotService = DB::select("SELECT TB_IOTSERVICE.iotservice_id as id,TB_IOTSERVICE.company_id as idCompany,TB_IOTSERVICE.iot_name as name,TB_IOTSERVICE.iot_name_DW,TB_IOTSERVICE.url,TB_IOTSERVICE.alias,TB_IOTSERVICE.type,TB_IOTSERVICE.description,strJson,TB_IOTSERVICE.value_cal,TB_IOTSERVICE.status,TB_IOTSERVICE.dataOutput,TB_IOTSERVICE.created_at,TB_IOTSERVICE.updated_at
         FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.company_id='$companyID'");
 
         if (empty($iotService)) {
@@ -71,6 +71,7 @@ class IoTController extends Controller
             'company_id' => $companyID,
             'iot_name' => $request->get('ServiceName'),
             'iot_name_DW' => $nameDW,
+            'url'=>$request->get('urls'),
             'type' => $request->get('type'),
             'alias' => $request->get('alias'),
             'description' => $request->get('description'),
@@ -83,7 +84,15 @@ class IoTController extends Controller
         ]);
         return response()->json(compact('iotService'), 200);
     }
-
+    public function addRegisIotService_url(Request $request)
+    {
+        
+        $iotService = TB_IOTSERVICE::where('iotservice_id', $request->get('idIoT'))
+            ->update([
+                'url' => $request->get('urls'),
+            ]);
+        return response()->json(["status", "success"], 200);
+    }
     public function addOutputRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;
