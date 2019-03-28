@@ -22,9 +22,10 @@ class CreateTbIotserviceTable extends Migration
             ->onDelete('cascade');
             $table->string('iot_name',100);
             $table->string('iot_name_DW',100);
+            $table->string('url',1000)->nullable();
             $table->string('type',100);
             $table->string('alias',100);
-            $table->string('description',1000)->nullable();;
+            $table->string('description',1000)->nullable();
             $table->string('status',100);
             $table->string('dataOutput',100)->nullable();
             $table->string('url_onoff_input',100)->nullable();

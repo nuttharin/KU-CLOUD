@@ -56,13 +56,15 @@ class Server {
         });
 
 
-        this.http.listen(this.port, this.host, () => {
+        this.http.listen(this.port, () => {
             console.log(`Listening on http://${this.host}:${this.port}`);
         });
 
         this.app.post('/socket/alert', (req, res) => {
-            console.log('private', res.userInDashboards);
-            console.log('public', res.userInDashboardPublic);
+            // console.log('private', res.userInDashboards);
+            // console.log('public', res.userInDashboardPublic);
+            // console.log(req.body);
+            
 
             res.userInDashboards.map(_user => {
                 _user.datasources.web_services.map(_web => {
@@ -80,9 +82,18 @@ class Server {
                     }
                 });
 
-                // _user.datasources.iot_services.map(_iot => {
-
-                // });
+                _user.datasources.iot_services.map(_iot => {
+                    res.io.of('dashboards').to(_user.socket_id).emit("broadcast", {
+                        service_id: req.body.service_id,
+                        type: req.body.type,
+                        data: req.body.data,
+                    });
+                    res.io.of('dashboardsPublic').to(_user.socket_id).emit("broadcast", {
+                        service_id: req.body.service_id,
+                        type: req.body.type,
+                        data: req.body.data,
+                    });
+                });
 
             })
 

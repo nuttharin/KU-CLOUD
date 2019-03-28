@@ -76,15 +76,19 @@ class CompanyController extends Controller
 
     public function Logout(Request $request)
     {
-        $request->session()->forget('user');
+        try {
+            $request->session()->forget('user');
 
-        Cookie::queue(Cookie::forget('token', '/', 'localhost'));
-        Cookie::queue(Cookie::forget('socket_token', '/', 'localhost'));
-        Cookie::queue(Cookie::forget('io', '/', 'localhost'));
+            Cookie::queue(Cookie::forget('token', '/', config('IP_ADDRESS')));
+            Cookie::queue(Cookie::forget('socket_token', '/', config('IP_ADDRESS')));
+            Cookie::queue(Cookie::forget('io', '/', config('IP_ADDRESS')));
 
-        auth()->logout();
-        // JWTAuth::invalidate(JWTAuth::parseToken());
-        return redirect('/');
+            auth()->logout();
+            // JWTAuth::invalidate(JWTAuth::parseToken());
+            return redirect('/');
+        } catch (Exception $e) {
+            return redirect('/');
+        }
 
         // $tokenRequest = Request::create(
         //     env('APP_URL') . '/api/Auth/Logout',
