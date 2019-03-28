@@ -417,7 +417,7 @@
                  <div class="form-group">
                     <label  class="col-sm-2 control-label">API</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control mb-2" id="Apiiot" type="text" rows="6" ></textarea>
+                        <textarea class="form-control mb-2" id="Apiiot" type="text" rows="6" readonly></textarea>
                         <button class="" id="CopyUrl" data-clipboard-target="#Apiiot"><i class="far fa-copy"></i></button>
                     </div>
 
@@ -426,7 +426,7 @@
                     <label  class="col-sm-2 control-label">Key</label>
                     <div class="col-sm-12">
                         <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
-                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot"   ></textarea>
+                        <textarea type="text" rows="4" class="form-control mb-2"  id="Keyiot"  readonly ></textarea>
                                              
                         <button class="" id="CopyKey" data-clipboard-target="#Keyiot"><i class="far fa-copy"></i></button>
                     </div>

@@ -314,10 +314,10 @@
                                     <option value="TextBox">TextBox</option>
                                 </optgroup>
                                 <optgroup label="Static">
-                                    <option value="MutiLine_static">MutiLine</option>
-                                    <!-- <option value="Radar_static">Radar</option>
-                                    <option value="Map_static">Map</option> -->
-                                    <option value="Table_static">Table</option>
+                                    <!-- <option value="MutiLine_static">MutiLine</option>
+                                    <option value="Radar_static">Radar</option>
+                                    <option value="Map_static">Map</option>
+                                    <option value="Table_static">Table</option> -->
                                 </optgroup>
                             </select>
                         </div>

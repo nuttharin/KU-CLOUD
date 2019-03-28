@@ -132,6 +132,7 @@ var IotserviceRepository = new (function(){
                             <h6>Service Name : <span id="name-iot"><span></h6>
                             <h6>Alias : <span id="alias-iot"><span></h6>
                             <h6>Description : <span id="note-iot"><span></h6>
+                            <h6>Url : <span id="url-iot"><span></h6>
                             <h6>Create Date : <span id="create-iot"><span></h6>
                             <h6>Update Date : <span id="update-iot"><span></h6>
                         </div>
@@ -146,10 +147,17 @@ var IotserviceRepository = new (function(){
         $('#alias-iot').html(iotserviceList[key].alias);
         $('#status-iot').html(iotserviceList[key].status);
         $('#note-iot').html(iotserviceList[key].description);
+        $('#url-iot').html("<input type='text' id='Apiiot' class='form-control' style='min-width: 100%' value='"+iotserviceList[key].url+"' readonly><button class='' id='CopyUrl' data-clipboard-target='#Apiiot'><i class='far fa-copy'></i></button>");
         $('#create-iot').html(iotserviceList[key].created_at);
         $('#update-iot').html(iotserviceList[key].updated_at);
-
         $("#detailIot").modal('show');
+        let copyUrl = new ClipboardJS('#CopyUrl');
+            copyUrl.on('success', function(e) {
+            console.log(e);
+        });
+            copyUrl.on('error', function(e) {
+            console.log(e);
+        });
     }
     let onDeleteClick = (key) => {
         if (modalDelete === null) {

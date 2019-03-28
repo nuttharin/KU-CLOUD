@@ -309,6 +309,7 @@ Route::group([
     Route::get('IoTdata', 'Api\IoTController@IoTdata');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
     
+    Route::post('addRegisIotService_url', 'Api\IoTController@addRegisIotService_url');
     Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');
     Route::post('getOutput', 'Api\IoTController@getDataOutput');

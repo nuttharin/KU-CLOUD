@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\UpdateName;
 use App\Http\Requests\Account\UpdateUsername;
 use App\Repositories\Accounts\AccountsRepository;
 use App\Repositories\Address\AddressRepository;

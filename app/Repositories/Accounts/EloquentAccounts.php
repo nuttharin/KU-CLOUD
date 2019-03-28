@@ -30,10 +30,10 @@ class EloquentAccounts implements AccountsRepository
             'email' => TB_EMAIL::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
             'phone' => TB_PHONE::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
             'address' => Address_users::where('user_id', $user->user_id)
-                ->join('Districts', 'Districts.district_id', '=', 'Address_users.district_id')
-                ->join('Amphures', 'Amphures.amphure_id', '=', 'Address_users.amphure_id')
-                ->join('Provinces', 'Provinces.province_id', '=', 'Address_users.province_id')
-                ->get(['Address_users.address_detail', 'Districts.district_id', 'Districts.name_th as district', 'Districts.zip_code', 'Amphures.amphure_id', 'Amphures.name_th as amphure', 'Provinces.province_id', 'Provinces.name_th as province']),
+                ->join('DISTRICTS', 'DISTRICTS.district_id', '=', 'ADDRESS_USERS.district_id')
+                ->join('AMPHURES', 'AMPHURES.amphure_id', '=', 'ADDRESS_USERS.amphure_id')
+                ->join('PROVINCES', 'PROVINCES.province_id', '=', 'ADDRESS_USERS.province_id')
+                ->get(['ADDRESS_USERS.address_detail', 'DISTRICTS.district_id', 'DISTRICTS.name_th as district', 'DISTRICTS.zip_code', 'AMPHURES.amphure_id', 'AMPHURES.name_th as amphure', 'PROVINCES.province_id', 'PROVINCES.name_th as province']),
         ];
         return $data;
         // TODO: Implement getAccount() method.
