@@ -132,7 +132,7 @@ export function addEventValidate(validateInput) {
             let val = $(this).val();
            // console.log(val)
             check[attr] = val == '' ? null : val;
-       // })
+       //})
         let errors = validate(check, validateInput.validate) || {};
         console.log(elInput, errors);
         showErrorsForInput(elInput, errors[elInput.attr('name')]);

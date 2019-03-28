@@ -1,7 +1,7 @@
 class webService {
-    constructor(datas) {
+    constructor(data) {
         this.initService = () => {
-            selectdata(datas);
+            selectdata(data);
         }
         let detailtryit_Getlasttest_Aggregation = (detail_tryit)=>
         { 
@@ -234,35 +234,33 @@ class webService {
             });
         }
         
-        let selectdata = (datas)=>
+        let selectdata = (data)=>
         { 
             //console.log(data)
-            if(datas.lentgh > 0)
-            {            
-                for(var i=0;i<datas.length;i++)
+                      
+                for(var i=0;i<data.length;i++)
                 {
                     $('#table_DW').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
                     $('#table_DW_Getall').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
                     $('#table_DW_Getall_Data').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
                     $('#table_DW_Getlasttest_Data').append($("<option/>", {
-                        value: datas[i].service_name_DW,
-                        text: datas[i].name
+                        value: data[i].service_name_DW,
+                        text: data[i].name
                     }));
-                }
             }
         }
         
         $('#try_it_Getall').on("click", function () {
-            let table_DW = $("#table_DW").val();
+            let table_DW = $("#table_DW_Getall").val();
             let summary_table = $('#summary_table').val();
             insertintoDW_Getall_Aggregation(table_DW,summary_table)
         });
@@ -272,11 +270,11 @@ class webService {
             insertintoDW_Getlasttest_Aggregation(table_DW,summary_table)
         });
         $('#try_it_Getall_Data').on("click", function () {
-            let table_DW = $("#table_DW").val();
+            let table_DW = $("#table_DW_Getall_Data").val();
             insertintoDW_Getall_Data(table_DW)
         });
         $('#try_it_Getlasttest_Data').on("click", function () {
-            let table_DW = $("#table_DW").val();
+            let table_DW = $("#table_DW_Getlasttest_Data").val();
             insertintoDW_Getlasttest_Data(table_DW)
         });
         

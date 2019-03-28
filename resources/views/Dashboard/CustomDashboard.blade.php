@@ -7,6 +7,7 @@
 
 
 <style type="text/css">
+  
     .grid-stack-item {}
 
     .grid-stack-item-content {
@@ -65,7 +66,7 @@
 
     .list-group-item {
         transition: .2s;
-        
+
     }
 
     .list-group-item:hover {
@@ -160,6 +161,15 @@
         width: 20px;
         display: inline-block;
         animation: around 5.4s infinite;
+    }
+
+    .table-dropdown {
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .table-dropdown:hover {
+        transform: scale(1.05);
     }
 
     @keyframes around {
@@ -307,7 +317,7 @@
                                     <option value="MutiLine_static">MutiLine</option>
                                     <!-- <option value="Radar_static">Radar</option>
                                     <option value="Map_static">Map</option> -->
-                                    <!-- <option value="Table_static">Table</option> -->
+                                    <option value="Table_static">Table</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -965,7 +975,7 @@
             <label for="">Value <span class="text-danger">*</span></label>
             <input class="form-control value-datasource" name="value">
             <small class="messages-error"></small>
-            <ul class="list-group data-list" style="display: none"> 
+            <ul class="list-group data-list" style="display: none">
         </div>
         <div class="col-3">
             <label for="">Label <span class="text-danger">*</span></label>
@@ -1075,7 +1085,7 @@
                 </div>
             </div>
 
-            <div class="card-body" style="overflow:hidden">
+            <div class="card-body" style="">
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -1121,7 +1131,7 @@
                 </div>
             </div>
 
-            <div class="card-body" style="overflow:hidden">
+            <div class="card-body" >
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -1219,17 +1229,34 @@
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-primary">Static</span></h5>
                 </div>
-                <div class="edit-widget" style="display:none">
+                <!-- <div class="edit-widget" style="display:none">
                     <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
                     <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer"
                         item="div_id"></i>
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
                     <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                </div> -->
+                <div class="tool d-flex">
+                    <div class=" dropdown mr-1">
+                        <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
+                            style="cursor:pointer"></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <span class="dropdown-item btn-download" item="div_id"><i class="fas fa-image"></i>
+                                Download images</span>
+                            <span class="dropdown-item btn-download btn-download-excel" item="div_id"><i
+                                    class="fas fa-file-excel"></i>
+                                Download excel</a>
+                        </div>
+                    </div>
+                    <div class="edit-widget" style="display:none">
+                        <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                        <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                    </div>
                 </div>
 
             </div>
 
-            <div class="card-body" style="overflow:hidden">
+            <div class="card-body" >
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
