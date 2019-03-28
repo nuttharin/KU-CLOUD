@@ -91,7 +91,7 @@ body {
 
 
 <div class="modal fade" id="company_detail">
-    <div class="modal-dialog modal-lg" style="width:50%">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -106,7 +106,7 @@ body {
                     <div class="container">
                         <div class="row mt-2 justify-content-center">
                             <div class="col-4 mt-2">
-                                <img src="{{url('flats.png')}}" alt="Card image cap" style="width: inherit; height: 200px;">
+                                <img src="{{url('flats.png')}}" alt="Card image cap" style="width: inherit;">
                             </div>
                         </div>
                         <div class="row mt-4">
