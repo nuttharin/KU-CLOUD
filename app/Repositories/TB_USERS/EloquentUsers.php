@@ -45,27 +45,30 @@ class EloquentUsers implements UsersRepository
             $users = $this->model::where('type_user', 'ADMIN')->get();
 
             foreach ($users as $user) {
-                $data[] = [
-                    'user_id' => $user->user_id,
-                    'username' => $user->username,
-                    'fname' => $user->fname,
-                    'lname' => $user->lname,
-                    'block' => $user->block,
-                    'type_user' => $user->type_user,
-                    'address' => DB::select('SELECT ADDRESS_USERS.user_id, ADDRESS_USERS.address_detail, ADDRESS_USERS.district_id, ADDRESS_USERS.amphure_id, ADDRESS_USERS.province_id,
-                                                    DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn,
-                                                    AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn,
-                                                    PROVINCES.name_th as pNameTh, PROVINCES.name_en as pNameEn
-                                            FROM ADDRESS_USERS INNER JOIN DISTRICTS ON DISTRICTS.district_id = ADDRESS_USERS.district_id
-                                            INNER JOIN AMPHURES ON AMPHURES.amphure_id = ADDRESS_USERS.amphure_id
-                                            INNER JOIN PROVINCES ON PROVINCES.province_id = ADDRESS_USERS.province_id
-                                            WHERE ADDRESS_USERS.user_id = ?', [$user->user_id]),
-                    'created_at' => $user->created_at,
-                    'updated_at' => $user->updated_at,
-                    'online' => $user->online,
-                    'email' => TB_EMAIL::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
-                    'phone' => TB_PHONE::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
-                ];
+                if(Auth::user()->user_id != $user->user_id)
+                {
+                    $data[] = [
+                        'user_id' => $user->user_id,
+                        'username' => $user->username,
+                        'fname' => $user->fname,
+                        'lname' => $user->lname,
+                        'block' => $user->block,
+                        'type_user' => $user->type_user,
+                        'address' => DB::select('SELECT ADDRESS_USERS.user_id, ADDRESS_USERS.address_detail, ADDRESS_USERS.district_id, ADDRESS_USERS.amphure_id, ADDRESS_USERS.province_id,
+                                                        DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn,
+                                                        AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn,
+                                                        PROVINCES.name_th as pNameTh, PROVINCES.name_en as pNameEn
+                                                FROM ADDRESS_USERS INNER JOIN DISTRICTS ON DISTRICTS.district_id = ADDRESS_USERS.district_id
+                                                INNER JOIN AMPHURES ON AMPHURES.amphure_id = ADDRESS_USERS.amphure_id
+                                                INNER JOIN PROVINCES ON PROVINCES.province_id = ADDRESS_USERS.province_id
+                                                WHERE ADDRESS_USERS.user_id = ?', [$user->user_id]),
+                        'created_at' => $user->created_at,
+                        'updated_at' => $user->updated_at,
+                        'online' => $user->online,
+                        'email' => TB_EMAIL::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
+                        'phone' => TB_PHONE::where('user_id', $user->user_id)->orderByRaw('is_primary DESC')->get(),
+                    ];
+                }
             }
             return $data;
         } else if ($type == "COMPANY") {
@@ -394,11 +397,27 @@ class EloquentUsers implements UsersRepository
                 }
             } else if ($attributes['type_user'] == "COMPANY") {
                 if ($user->user_id) {
-                    TB_USER_COMPANY::create([
-                        'user_id' => $user->user_id,
-                        'company_id' => $attributes['company_id'],
-                        'sub_type_user' => $attributes['sub_type_user'],
-                    ]);
+
+                    if (!empty($attributes['admincheck'])) {
+                        if($attributes['admincheck'] == "true")
+                        {
+                            TB_USER_COMPANY::create([
+                                'user_id' => $user->user_id,
+                                'company_id' => $attributes['company_id'],
+                                'sub_type_user' => $attributes['sub_type_user'],
+                                'is_user_main' => true,
+                            ]);
+                        }
+                    }
+                    else
+                    {
+                        TB_USER_COMPANY::create([
+                            'user_id' => $user->user_id,
+                            'company_id' => $attributes['company_id'],
+                            'sub_type_user' => $attributes['sub_type_user'],
+                        ]);
+                    }
+
 
                     TB_EMAIL::create([
                         'user_id' => $user->user_id,

@@ -63,11 +63,15 @@ body {
     .form-control.search-input:hover {
         box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
     }
+
+    .content-line{
+        display:block;
+    }
 </style>
 
 <link href="{{url('css/homepage.css')}}" rel="stylesheet">
 
-<input type="hidden" id="path_src" value="{{url('imagemenu/graph/bar.png')}}"/>
+<input type="hidden" id="path_src" value="{{url('flats.png')}}"/>
 
 <div class="container" style="margin-top:130px;">
     <h1 class="mb-3 text-white text-shadow">Company list</h1>
@@ -87,7 +91,7 @@ body {
 
 
 <div class="modal fade" id="company_detail">
-    <div class="modal-dialog modal-lg" style="width:50%">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -100,23 +104,45 @@ body {
             <div class="modal-body">
                 <form id="form-add-user">
                     <div class="container">
-                        <div class="row">
+                        <div class="row mt-2 justify-content-center">
                             <div class="col-4 mt-2">
-                                <img src="{{url('imagemenu/graph/bar.png')}}" alt="Card image cap" style="width: inherit; height: 200px;">
+                                <img src="{{url('flats.png')}}" alt="Card image cap" style="width: inherit;">
                             </div>
-                            <div class="col-4 mt-2">        
-                                <h5 class="text-left">ADDRESS</h5>
-                                <h6 id="address_detail" class="text-left"></h6>
-                                <h6 id="address_district" class="text-left"></h6>
-                                <h6 id="address_amphure" class="text-left"></h6>
-                                <h6 id="address_province" class="text-left"></h6>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12 mt-2">        
+                                <h4 class="text-left">ADDRESS</h4>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6 class="text-left content-line">Address detail : </h6>
+                                        <h6 class="text-left content-line">District : </h6>
+                                        <h6 class="text-left content-line">Amphure : </h6>
+                                        <h6 class="text-left content-line">Province : </h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6 id="address_detail" class="text-left"></h6>
+                                        <h6 id="address_district" class="text-left"></h6>
+                                        <h6 id="address_amphure" class="text-left"></h6>
+                                        <h6 id="address_province" class="text-left"></h6>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-4 mt-2">        
-                                <h5 class="text-left">Web service</h5>
-                                <h6 class="text-left">service 1</h6>
-                                <h6 class="text-left">service 2</h6>
-                                <h6 class="text-left">service 3</h6>
-                                <h6 class="text-left">service 4</h6>
+                            <div class="col-12 mt-2">        
+                                <h4 class="text-left">Service</h4>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6 class="text-left content-line">Service name : </h6>
+                                        <h6 class="text-left content-line">Service name : </h6>
+                                        <h6 class="text-left content-line">Service name : </h6>
+                                        <h6 class="text-left content-line">Service name : </h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6 class="text-left">name 1</h6>
+                                        <h6 class="text-left">name 2</h6>
+                                        <h6 class="text-left">name 3</h6>
+                                        <h6 class="text-left">name 4</h6>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

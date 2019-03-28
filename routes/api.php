@@ -77,12 +77,12 @@ Route::group([
 
     Route::delete('users/delete', 'Api\UserController@deleteUser');
     
-    Route::get('companydata', 'Api\AdminController@getAllCompanyData');
-    Route::post('companydata/create', 'Api\AdminController@createCompanyData');
-    Route::put('companydata/edit', 'Api\AdminController@editCompanyData');
-    Route::delete('companydata/delete', 'Api\AdminController@deleteCompanyData');
+    Route::get('companydata', 'Api\CompanyController@getAllCompanyData');
+    Route::post('companydata/create', 'Api\CompanyController@createCompanyData');
+    Route::put('companydata/edit', 'Api\CompanyController@editCompanyData');
+    Route::delete('companydata/delete', 'Api\CompanyController@deleteCompanyData');
 
-    Route::get('companydata/checkdelete', 'Api\AdminController@getCountUsersByCompanyID');
+    Route::get('companydata/checkdelete', 'Api\CompanyController@getCountUsersByCompanyID');
 
     Route::get('users/online', 'Api\AdminController@countUserOnline');
 

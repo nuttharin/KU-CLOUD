@@ -1164,6 +1164,9 @@ export class ManagementUsers {
                     this.showLastestDatatable();
                     LOADING.reset(el);
                     $("#addUser").modal('hide');
+                    $("#addUser").find("input,textarea,select")
+                    .val('')
+                    .end();
                 },
                 error: (res) => {
                     console.log(res);

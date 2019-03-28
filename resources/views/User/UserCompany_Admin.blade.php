@@ -206,7 +206,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block">Save</button>
+                <button type="button" id="btn-save-add-user" class="btn btn-success btn-block btn-submit-create" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
             </div>
 
         </div>
