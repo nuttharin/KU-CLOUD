@@ -70,7 +70,7 @@
                                     <div class="row">
                                         <div class="col-12 mt-2">
                                             <label for="account">Username <span class="text-danger">*</span></label>
-                                            <input type="text" name="accountname" class="form-control" id="accountname">
+                                            <input type="text" name="username" class="form-control" id="accountname">
                                             <small class="messages-error"></small>
                                         </div>
                                     </div>
