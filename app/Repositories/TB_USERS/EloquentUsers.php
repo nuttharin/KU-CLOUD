@@ -8,16 +8,17 @@
 
 namespace App\Repositories\TB_USERS;
 
+use DB;
+use Auth;
 use App\TB_EMAIL;
 use App\TB_PHONE;
 use App\TB_USERS;
+use App\Address_users;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\USER_FIRST_CREATE;
-use App\Address_users;
-use Auth;
-use DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class EloquentUsers implements UsersRepository
 {
@@ -438,19 +439,19 @@ class EloquentUsers implements UsersRepository
             $name = $attributes['fname'] . " " . $attributes['lname'];
             $email = $attributes['email_user'];
 
-            // $verification_code = str_random(30); //Generate verification code
+            $verification_code = str_random(30); //Generate verification code
 
-            // DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
-            // $subject = "Please verify your email address."; // หัวข้อเมล์
-            // // //ส่ง Email run queue
-            // // dispatch(new SendEmailJob($subject,$name,$email,$verification_code,$attributes['username'],$password));
+            DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
+            $subject = "Please verify your email address."; // หัวข้อเมล์
+            // //ส่ง Email run queue
+            // dispatch(new SendEmailJob($subject,$name,$email,$verification_code,$attributes['username'],$password));
 
-            // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $attributes['username'],'password'=>$password],
-            //     function($mail) use ($email, $name, $subject){
-            //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
-            //         $mail->to($email, $name);
-            //         $mail->subject($subject);
-            // });
+            Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $attributes['username'],'password'=>$password],
+                function($mail) use ($email, $name, $subject){
+                    $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
+                    $mail->to($email, $name);
+                    $mail->subject($subject);
+            });
 
         } catch (Exception $e) {
             DB::rollBack();
