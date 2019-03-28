@@ -227,5 +227,6 @@ return [
     'weka_output' => env('WEKA_OUTPUT', storage_path('app/weka/output/')),
 
     'SOCKET_KEY' => env('SOCKET_KEY'),
+    'IP_ADDRESS' => env('IP_ADDRESS', 'localhost'),
 
 ];

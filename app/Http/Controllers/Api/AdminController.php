@@ -382,14 +382,14 @@ class AdminController extends Controller
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
         $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note, 
-                                        address_company.address_detail, address_company.district_id, address_company.amphure_id, address_company.province_id,
-                                        districts.zip_code, districts.name_th as dNameTh, districts.name_en as dNameEn, 
-                                        amphures.name_th as aNameTh, amphures.name_en as aNameEn, 
-                                        provinces.name_th as pNameTh, provinces.name_en as pNameEn
-                                FROM TB_COMPANY INNER JOIN address_company ON address_company.company_id = TB_COMPANY.company_id
-                                INNER JOIN districts ON districts.district_id = address_company.district_id
-                                INNER JOIN amphures ON amphures.amphure_id = address_company.amphure_id
-                                INNER JOIN provinces ON provinces.province_id = address_company.province_id');
+                                        ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
+                                        DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn, 
+                                        AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn, 
+                                        PROVINCES.name_th as pNameTh, PROVINCES.name_en as pNameEn
+                                FROM TB_COMPANY INNER JOIN ADDRESS_COMPANY ON ADDRESS_COMPANY.company_id = TB_COMPANY.company_id
+                                INNER JOIN DISTRICTS ON DISTRICTS.district_id = ADDRESS_COMPANY.district_id
+                                INNER JOIN AMPHURES ON AMPHURES.amphure_id = ADDRESS_COMPANY.amphure_id
+                                INNER JOIN PROVINCES ON PROVINCES.province_id = ADDRESS_COMPANY.province_id');
 
         if (empty($company)) {
             return response()->json(['message' => 'not have data'], 200);
@@ -422,55 +422,71 @@ class AdminController extends Controller
             'amphure_id' => $request->get('amphure'),
             'province_id' => $request->get('province'),
         ]);
-
-        $password = str_random(30);
         
-        $user = TB_USERS::create([
-            'username' =>$request->get('accountname'),
+        $attributes = [
+            'username' => $request->get('accountname'),
             'fname' => $request->get('firstname'),
             'lname' => $request->get('lastname'),
-            'password' => Hash::make($password),
             'type_user' => 'COMPANY',
-        ]);
-
-        $user_company = TB_USER_COMPANY::create([
-            'user_id'       => $user->user_id,
-            'is_user_main'  => 1,
-            'company_id'    => $company->company_id,
-            'sub_type_user'    => 'ADMIN',
-        ]);
-
-        $user_email = TB_EMAIL::create([
-            'user_id' => $user->user_id,
+            'company_id' => $company->company_id,
             'email_user' => $request->get('email'),
-            'is_verify' => false,
-            'is_primary' => true,
-        ]);
-
-        $user_phone = TB_PHONE::create([
-            'user_id' => $user->user_id,
             'phone_user' => $request->get('phone'),
-            'is_primary' => true,
-        ]);
+            'sub_type_user' => 'ADMIN',
+        ];
 
-        $user_first = USER_FIRST_CREATE::insert([
-            'user_id' => $user->user_id,
-            'token' => str_random(30),
-        ]);
+        $this->users->create($attributes);
 
-        $name = $user->fname . " " . $user->lname;
-        $email = $request->get('email');
-        $username = $request->get('accountname');
 
-        $verification_code = str_random(30); //Generate verification code
-        $subject = "Please verify your email address."; 
+
+
+        // $password = str_random(30);
         
-        Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $username,'password'=>$password],
-            function($mail) use ($email, $name, $subject){
-                $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
-                $mail->to($email, $name);
-                $mail->subject($subject);
-        });
+        // $user = TB_USERS::create([
+        //     'username' =>$request->get('accountname'),
+        //     'fname' => $request->get('firstname'),
+        //     'lname' => $request->get('lastname'),
+        //     'password' => Hash::make($password),
+        //     'type_user' => 'COMPANY',
+        // ]);
+
+        // $user_company = TB_USER_COMPANY::create([
+        //     'user_id'       => $user->user_id,
+        //     'is_user_main'  => 1,
+        //     'company_id'    => $company->company_id,
+        //     'sub_type_user'    => 'ADMIN',
+        // ]);
+
+        // $user_email = TB_EMAIL::create([
+        //     'user_id' => $user->user_id,
+        //     'email_user' => $request->get('email'),
+        //     'is_verify' => false,
+        //     'is_primary' => true,
+        // ]);
+
+        // $user_phone = TB_PHONE::create([
+        //     'user_id' => $user->user_id,
+        //     'phone_user' => $request->get('phone'),
+        //     'is_primary' => true,
+        // ]);
+
+        // $user_first = USER_FIRST_CREATE::insert([
+        //     'user_id' => $user->user_id,
+        //     'token' => str_random(30),
+        // ]);
+
+        // $name = $user->fname . " " . $user->lname;
+        // $email = $request->get('email');
+        // $username = $request->get('accountname');
+
+        // $verification_code = str_random(30); //Generate verification code
+        // $subject = "Please verify your email address."; 
+        
+        // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email,'username'=> $username,'password'=>$password],
+        //     function($mail) use ($email, $name, $subject){
+        //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD");
+        //         $mail->to($email, $name);
+        //         $mail->subject($subject);
+        // });
 
         //$request->bearerToken(),201
         return response()->json(["status_code", "201"], 201);

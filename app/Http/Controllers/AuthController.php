@@ -37,7 +37,9 @@ class AuthController extends Controller
         if ($response->getStatusCode() == 200) {
             $data = json_decode($response->getContent());
             //Cookie::queue('token', $data->token, 60);
-            $request->session()->put('user', $data->user);
+            if (!empty($data->user)) {
+                $request->session()->put('user', $data->user);
+            }
             return $response->getContent();
             // return redirect('/User/Company')->cookie(
             //     'access_token', //name
