@@ -172,6 +172,63 @@ class Validation{
     {
         
         this.validate = () =>{
+            let chkDatas = false ;
+            console.log(nameoutput.length) 
+            console.log( nameoutput[0])
+            if(iotdescription == ""){
+
+                iotdescription = "";
+            }
+            if(iotName == "")
+            {
+                swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
+            }
+            else if(iotName != "")
+            {
+                if(iotAlias =="")
+                {
+                    console.log("ll" + iotAlias)
+                    swal("คุณไม่ได้กรอก Alias  !", "", "error");
+                }
+                else if(iotAlias !="")
+                {
+                   
+                    for(let i =0 ;i< nameoutput.length; i++)
+                        {
+                            if(nameoutput[i] == "" || valueoutput[i] == "")
+                            {
+                                swal(" Others Output ไม่ถุกต้อง !", "", "error");
+                            }
+                            else if(nameoutput[i] != "" || valueoutput[i] != "")
+                            {
+                                for(let i =0 ;i<fields.length; i++)
+                                {
+                                    if(fields[i] == "")
+                                    {
+                                        swal(" Pin names ไม่ถุกต้อง !", "", "error");
+                                    }
+                                    else if(i==fields.length-1 &&(fields[i] != ""))
+                                    {
+                                        let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode,fields);
+                                        iot.getDataforInsert();
+                                        iot.showDetail();
+                                    }
+                                }
+
+                            }
+                        }
+                           
+                }
+            }
+        }
+
+    }
+}
+class Validation1{
+    constructor(iotName,iotAlias,iotdescription,status,OutputData,jsonencode,fields)
+    {
+        
+        this.validate = () =>{
             let chkData = true ;
             if(iotdescription == ""){
                 iotdescription = "";
@@ -187,33 +244,8 @@ class Validation{
                     swal("คุณไม่ได้กรอก Alias  !", "", "error");
                 }                
             }            
-            if(iotName != "" || iotAlias !="")
+            else if(iotName != "" || iotAlias !="")
             {
-                chkData = true ;
-                for(let i =0 ;i< nameoutput.length; i++)
-                {
-                    if(nameoutput[i] == "" || valueoutput[i] == "")
-                    {
-                        chkData = false ;
-                        break ;
-                    }                        
-
-                }
-               
-                if(chkData) {
-                    console.log(status)
-                    // let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
-                    // //iot.getDataforInsert();                    
-                    // iot.showSelectValueCal();
-                }
-                else {
-                    swal(" Others Output ไม่ถุกต้อง !", "", "error");
-                }
-            }
-            console.log("ldddl" + iotAlias)
-            if(chkData)
-            {
-                console.log("ll" + iotAlias)
                 chkData = true ;
                 for(let i =0 ;i<fields.length; i++)
                 {
@@ -222,7 +254,6 @@ class Validation{
                         chkData = false ;
                         break;
                     }                        
-
                 }
                
                 if(chkData) {
@@ -230,19 +261,16 @@ class Validation{
                     let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode);
                     iot.getDataforInsert();
                     iot.showDetail();
-                    
                 }
                 else {
-                    swal("Pin Names ไม่ถุกต้อง !", "", "error");
+                    swal(" Pin Names ไม่ถุกต้อง !", "", "error");
                 }
-              
-            }  
+            }
 
         }
 
     }
 }
-
 
 class Managememt{
     constructor()
@@ -275,12 +303,18 @@ $(document).ready(function () {
     //var clipboard = new ClipboardJS('#Keyiot');
     let cron = new cronTap();
     let manage = new Managememt();
+    let fields;
+    let valueoutput;
+    let nameoutput;
+    let otheroutput={};
+    let dataOutput ={} ;
+    let showJson={};
+    let count=0;
     cron.exampleCron();
     manage.checkFormTime();
     $('#nameOutput').attr('disabled',true)
     $('#valueOutput').attr('disabled',true)
     $('.btn-adds').attr('disabled',true)
-    
     $(document).on('click', '.btn-add', function(e)
     {
         e.preventDefault();
@@ -308,7 +342,7 @@ $(document).ready(function () {
         var controlForm = $('.controlsoutput form:first'),
         currentEntry = $(this).parents('.entry:first'),
         newEntry = $(currentEntry.clone()).appendTo(controlForm);
-
+        count++;
         newEntry.find('input').val('');
         controlForm.find('.entry:not(:last) .btn-adds')
             .removeClass('btn-adds').addClass('btn-removes')
@@ -317,18 +351,45 @@ $(document).ready(function () {
         }).on('click', '.btn-removes', function(e)
         {
             $(this).parents('.entry:first').remove();
-
+            count--;
             e.preventDefault();
             return false;
     });
     $('#chk_otheroutput').change(function() {
+        console.log(count)
         if($('#chk_otheroutput').prop('checked')==false)
         {
+            if(count==0)
+            {
+                $(".nameoutput").val("");
+                $(".valueoutput").val("");
+                $(".btn-adds").remove();
+                $(".adds").append(`<button class="btn btn-success btn-adds" type="button"><span>+</span></button>`);
+                $(".nameoutput").attr('disabled',true)
+                $('.valueoutput').attr('disabled',true)
+                $('.btn-adds').attr('disabled',true)
+            }
+            else
+            {
+                for(let i=count;i>0;i--)
+                {
+                $(".nameoutput").val("");
+                $(".valueoutput").val("");
+                $(".nameoutput")[i].remove();
+                $(".valueoutput")[i].remove();
+                // $(".btn-adds").remove();
+                $(".btn-removes").remove();
+                $(".otherfiled")[i].remove();
+                }
+            count=0;
+            $(".adds").append(`<button class="btn btn-success btn-adds" type="button"><span>+</span></button>`);
             $(".nameoutput").attr('disabled',true)
             $('.valueoutput').attr('disabled',true)
             $('.btn-adds').attr('disabled',true)
-            $('.btn-removes').attr('disabled',true)              
+            }
+            
         }
+        
         else
         {   
             $(".nameoutput").attr('disabled',false)
@@ -346,24 +407,35 @@ $(document).ready(function () {
         let status = $('#status').val();
         let inputs = document.getElementsByClassName("fields");
         //pin
-        let fields  = [].map.call(inputs, function( input ) {
+        fields  = [].map.call(inputs, function( input ) {
             return input.value;
         });
         // orther output
         let nameout = document.getElementsByClassName("nameoutput");
         let valueout = document.getElementsByClassName("valueoutput");
-        let valueoutput  = [].map.call(valueout, function( input ) {
+        valueoutput  = [].map.call(valueout, function( input ) {
             return input.value;
         });
-        let nameoutput  = [].map.call(nameout, function( input ) {
+        nameoutput  = [].map.call(nameout, function( input ) {
             return input.value;
         });
-        let otheroutput={};
-        let dataOutput ={} ;
-        let showJson={};
+        
+        otheroutput={};
+        dataOutput ={} ;
+        showJson={};
         //console.log(nameoutput)
         if(nameoutput == "" || nameoutput == null)
         {
+            otheroutput = {}
+            if(fields.length>0){
+                for(let i=0;i<fields.length;i++)
+                {
+                    showJson[fields[i]] = 0;
+                    otheroutput[fields[i]] = 0;
+                    console.log(otheroutput)
+                }
+            }
+            dataOutput['pin'] = otheroutput ;
         }
         else
         {
@@ -396,9 +468,17 @@ $(document).ready(function () {
         // console.log(nameoutput)
         // console.log(OutputData)
         // console.log(jsonencode)
-        
-        let validate = new Validation(iotName,iotAlias,iotdescription,status,OutputData,jsonencode,fields,nameoutput,valueoutput);
-        validate.validate();        
+        console.log($('#chk_otheroutput').prop('checked'))
+        if($('#chk_otheroutput').prop('checked')==false){
+            let validate = new Validation1(iotName,iotAlias,iotdescription,status,OutputData,jsonencode,fields);
+            validate.validate();
+        }
+        else if($('#chk_otheroutput').prop('checked')==true)
+        {
+            let validate = new Validation(iotName,iotAlias,iotdescription,status,OutputData,jsonencode,fields,nameoutput,valueoutput);
+            validate.validate();
+    
+        }
         // let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode);
         // iot.getDataforInsert();
         // iot.showDetail();
