@@ -109,6 +109,25 @@ class iotService {
                     console.log(res);
                 }
             });
+
+            $.ajax({
+                url: API_DW +"iotService/AggregateDataInputIot",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    nameDW: "IoT.Input."+nameiot+'.'+companyID,
+	                strValueCal:valueCalIot    
+                },
+                success: (res) => {
+                    console.log("success agg")
+                  
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
         }
 
         let showDetail = () => {
