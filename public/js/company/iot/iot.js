@@ -190,6 +190,9 @@ var IotserviceRepository = new (function(){
 
         $('#btn-delete-submit').click(function () {
             // alert('fffff')
+            $('#DeleteUser').modal('hide');
+
+            let chk = true ;
             $.ajax({
                 url: END_POINT+"iot/deleteIoT",
                 dataType: 'json',
@@ -200,14 +203,37 @@ var IotserviceRepository = new (function(){
                     id:iotserviceList[key].id,
                 },
                 success: (res) => {
-                    swal("Delete Success!", "You clicked the button!", "success");
+                    //swal("Delete Success!", "You clicked the button!", "success");
                     // toastr["success"]("Delete Success");
-                    console.log("delete success")
+                    console.log("delete db success")
+                },
+                error: (res) => {
+                    chk = false ;
+                    console.log(res);
+                }
+            });
+            $.ajax({
+                url: API_DW+"iotService/DeleteInputIotService",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    nameDW:iotserviceList[key].iot_name_DW,
+                    typeService:iotserviceList[key].type
+                },
+                success: (res) => {
+                    
+                    swal("Delete Success!", "You clicked the button!", "success");
+                    
+                   console.log("delete dw success")
+                    
+                    
                 },
                 error: (res) => {
                     console.log(res);
                 }
-            });
+            })
             $(".swal-button--confirm").click(function (){
                 location.reload();
             })
