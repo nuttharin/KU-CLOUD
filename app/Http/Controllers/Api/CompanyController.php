@@ -301,7 +301,7 @@ class CompanyController extends Controller
 
     public function getFileLogByFolder()
     {
-        $folder_log = 'COMPANY_' . $this->auth->user_id;
+        $folder_log = 'COMPANY_' . $this->auth->user_company()->first()->company_id;
         $file_log = $this->log_viewer->getFolderFilesV2($folder_log, true);
         return response()->json(compact('file_log'), 200);
     }
