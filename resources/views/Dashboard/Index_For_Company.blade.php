@@ -32,24 +32,52 @@
                 </div>
             </div>
             <div class="card-body">
-
-                <table style="width: 100%; display:none"
-                    class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Create by</th>
-                            <th>Description</th>
-                            @if ($user->type_user == 'ADMIN')
-                            <th>Status share</th>
-                            @endif
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-
+                <ul class="nav nav-tabs tab-basic" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="company-tab" data-toggle="tab" href="#company" role="tab"
+                            aria-controls="company" aria-selected="true">Company</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="customer-tab" data-toggle="tab" href="#customer" role="tab"
+                            aria-controls="customer" aria-selected="false">Customer</a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-content-basic">
+                    <div class="tab-pane fade active show" id="company" role="tabpanel" aria-labelledby="company-tab">
+                        <table style="width: 100%; display:none"
+                            class="table table-striped table-bordered table-hover dt-responsive nowrap" id="companyTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Create by</th>
+                                    <th>Description</th>
+                                    @if ($user->type_user == 'ADMIN')
+                                    <th>Status share</th>
+                                    @endif
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade " id="customer" role="tabpanel" aria-labelledby="customer-tab">
+                        <table style="width: 100%; display:none"
+                        class="table table-striped table-bordered table-hover dt-responsive nowrap" id="customerTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Create by</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                
                 <div class="lds-roller text-center">
                     <div></div>
                     <div></div>
@@ -60,6 +88,7 @@
                     <div></div>
                     <div></div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -89,21 +118,12 @@
                                 class="form-control"></textarea>
                             <small class="messages-error"></small>
                         </div>
-                        @if ($user->type_user == 'ADMIN')
-                        <div class="col-12 form-inline mt-2">
-                            <label class="mr-2">Status Share</label>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="add_statusPrivate"
-                                    name="add_statusShare" value="0" checked>
-                                <label class="custom-control-label mr-3" for="add_statusPrivate">Private</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="add_statusPublic"
-                                    name="add_statusShare" value="1">
-                                <label class="custom-control-label" for="add_statusPublic">Public</label>
-                            </div>
+                        <div class="col-12">
+                            <label for="customer">Customer</label>
+                            <select name="customer" id="customer" class="form-control">
+                                <option value="">=</option>
+                            </select>
                         </div>
-                        @endif
                     </div>
                 </form>
             </div>
@@ -119,10 +139,7 @@
     </div>
 </div>
 
-@if ($user->type_user == 'CUSTOMER')
-<script src="{{ mix('/js/customer/dashboards/dashboardDataTable.min.js') }}"></script>
-@endif
-@if ($user->type_user == 'ADMIN')
-<script src="{{ mix('/js/admin/dashboards/dashboardDataTable.min.js') }}"></script>
-@endif
+<script src="{{ mix('/js/company/dashboards/dashboardDataTable.min.js') }}"></script>
+
+
 @endsection

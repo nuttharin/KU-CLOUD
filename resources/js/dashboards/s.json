@@ -1,0 +1,241 @@
+[{
+    "x": 0,
+    "y": 0,
+    "width": 4,
+    "height": 4,
+    "widget": {
+        "type": "Gauges",
+        "datasources": [{
+            "id": "17",
+            "type": "iot_services",
+            "val": "Temp"
+        }],
+        "download": true,
+        "title_name": "Temperature",
+        "opts": {
+            "angle": 0,
+            "lineWidth": 0.23,
+            "radiusScale": 1,
+            "pointer": {
+                "length": 0.6,
+                "strokeWidth": 0.035,
+                "color": "#000000"
+            },
+            "limitMax": false,
+            "limitMin": false,
+            "colorStart": "#6FADCF",
+            "colorStop": "#8FC0DA",
+            "strokeColor": "#E0E0E0",
+            "generateGradient": true,
+            "highDpiSupport": true,
+            "staticLabels": {
+                "font": "10px Poppins",
+                "labels": [0, 100],
+                "color": "#000000",
+                "fractionDigits": 0
+            }
+        },
+        "limitMin": "0",
+        "limitMax": "100",
+        "unit": "*C"
+    }
+}, {
+    "x": 4,
+    "y": 0,
+    "width": 4,
+    "height": 4,
+    "widget": {
+        "type": "Gauges",
+        "datasources": [{
+            "id": "17",
+            "type": "iot_services",
+            "val": "Humid"
+        }],
+        "download": true,
+        "title_name": "Humidity",
+        "opts": {
+            "angle": 0,
+            "lineWidth": 0.23,
+            "radiusScale": 1,
+            "pointer": {
+                "length": 0.6,
+                "strokeWidth": 0.035,
+                "color": "#000000"
+            },
+            "limitMax": false,
+            "limitMin": false,
+            "colorStart": "#6FADCF",
+            "colorStop": "#8FC0DA",
+            "strokeColor": "#E0E0E0",
+            "generateGradient": true,
+            "highDpiSupport": true,
+            "staticLabels": {
+                "font": "10px Poppins",
+                "labels": [0, 100],
+                "color": "#000000",
+                "fractionDigits": 0
+            }
+        },
+        "limitMin": "0",
+        "limitMax": "100",
+        "unit": "%RH"
+    }
+}, {
+    "x": 8,
+    "y": 0,
+    "width": 4,
+    "height": 4,
+    "widget": {
+        "type": "Gauges",
+        "datasources": [{
+            "id": "17",
+            "type": "iot_services",
+            "val": "DewP"
+        }],
+        "download": true,
+        "title_name": "Dew Point",
+        "opts": {
+            "angle": 0,
+            "lineWidth": 0.23,
+            "radiusScale": 1,
+            "pointer": {
+                "length": 0.6,
+                "strokeWidth": 0.035,
+                "color": "#000000"
+            },
+            "limitMax": false,
+            "limitMin": false,
+            "colorStart": "#6FADCF",
+            "colorStop": "#8FC0DA",
+            "strokeColor": "#E0E0E0",
+            "generateGradient": true,
+            "highDpiSupport": true,
+            "staticLabels": {
+                "font": "10px Poppins",
+                "labels": [0, 100],
+                "color": "#000000",
+                "fractionDigits": 0
+            }
+        },
+        "limitMin": "0",
+        "limitMax": "100",
+        "unit": "*C"
+    }
+}, {
+    "x": 0,
+    "y": 4,
+    "width": 6,
+    "height": 7,
+    "widget": {
+        "type": "MutiLine",
+        "datasources": [{
+            "id": "17",
+            "type": "iot_services",
+            "val": "Rain"
+        }],
+        "download": true,
+        "isGroupData": false,
+        "title_name": "Rain",
+        "datasets": [{
+            "label": "RainFall",
+            "backgroundColor": "rgba(255,255,255,0.0)",
+            "borderColor": "#ff8000",
+            "lineTension": 0,
+            "pointRadius": 0,
+            "borderWidth": 2
+        }],
+        "axis_x": "time",
+        "axis_y": "Rain (mm)"
+    }
+}, {
+    "x": 6,
+    "y": 4,
+    "width": 6,
+    "height": 2,
+    "widget": {
+        "type": "TextValue",
+        "datasources": [{
+            "id": "17",
+            "type": "iot_services",
+            "val": "Dir"
+        }],
+        "download": false,
+        "title_name": "Wind Direction",
+        "unit": "*",
+        "rgb": "#118aee"
+    }
+}, {
+    "x": 6,
+    "y": 6,
+    "width": 6,
+    "height": 5,
+    "widget": {
+        "type": "MutiLine",
+        "datasources": [{
+            "id": "17",
+            "type": "iot_services",
+            "val": "Wind"
+        }],
+        "download": true,
+        "isGroupData": false,
+        "title_name": "Wind",
+        "datasets": [{
+            "label": "speed",
+            "backgroundColor": "rgba(255,255,255,0.0)",
+            "borderColor": "#3a86f8",
+            "lineTension": 0,
+            "pointRadius": 0,
+            "borderWidth": 2
+        }],
+        "axis_x": "time",
+        "axis_y": "Wind (m/s)"
+    }
+}, {
+    "x": 0,
+    "y": 11,
+    "width": 12,
+    "height": 6,
+    "widget": {
+        "type": "MutiLine",
+        "datasources": [{
+            "id": "17",
+            "type": "iot_services",
+            "val": "All"
+        }, {
+            "id": "17",
+            "type": "iot_services",
+            "val": "Vis"
+        }, {
+            "id": "17",
+            "type": "iot_services",
+            "val": "IR"
+        }],
+        "download": true,
+        "isGroupData": false,
+        "title_name": "Light",
+        "datasets": [{
+            "label": "All Spectrum",
+            "backgroundColor": "rgba(255,255,255,0.0)",
+            "borderColor": "#f6b73c",
+            "lineTension": 0,
+            "pointRadius": 0,
+            "borderWidth": 2
+        }, {
+            "label": "Visible",
+            "backgroundColor": "rgba(255,255,255,0.0)",
+            "borderColor": "#80ff00",
+            "lineTension": 0,
+            "pointRadius": 0,
+            "borderWidth": 2
+        }, {
+            "label": "IR",
+            "backgroundColor": "rgba(255,255,255,0.0)",
+            "borderColor": "#ff80c0",
+            "lineTension": 0,
+            "pointRadius": 0,
+            "borderWidth": 2
+        }],
+        "axis_x": "Time",
+        "axis_y": "W/m^2"
+    }
+}]

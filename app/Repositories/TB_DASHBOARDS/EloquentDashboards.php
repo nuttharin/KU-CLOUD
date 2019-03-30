@@ -9,6 +9,7 @@
 namespace App\Repositories\TB_DASHBOARDS;
 
 use App\TB_DASHBOARDS;
+use App\TB_USERS;
 use Auth;
 use DB;
 
@@ -65,14 +66,25 @@ class EloquentDashboards implements DashboardsRepository
                 ['TB_DASHBOARDS.dashboard_id', $dashboard_id],
             ])
                 ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
-                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_DASHBOARDS.dashboard']);
+                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_DASHBOARDS.dashboard', 'TB_USERS.type_user']);
         } else {
             $data = TB_DASHBOARDS::where([
                 ['TB_USER_COMPANY.company_id', Auth::user()->user_company()->first()->company_id],
                 ['TB_DASHBOARDS.dashboard_id', $dashboard_id],
             ])
                 ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_DASHBOARDS.user_id')
-                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_DASHBOARDS.dashboard']);
+                ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
+                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_DASHBOARDS.dashboard', 'TB_USERS.type_user']);
+
+            if (Auth::user()->type_user == 'COMPANY' && !sizeof($data)) {
+                $data = TB_DASHBOARDS::where([
+                    ['TB_USER_CUSTOMER.company_id', Auth::user()->user_company()->first()->company_id],
+                    ['TB_DASHBOARDS.dashboard_id', $dashboard_id],
+                ])
+                    ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_DASHBOARDS.user_id')
+                    ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
+                    ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.name', 'TB_DASHBOARDS.dashboard', 'TB_USERS.type_user']);
+            }
         }
         return response()->json(compact('data'), 200);
     }
@@ -198,5 +210,18 @@ class EloquentDashboards implements DashboardsRepository
         }
         DB::commit();
         return response()->json(["status", "success"], 201);
+    }
+
+    public function getDashboardCustomerInCompany()
+    {
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $data = TB_USERS::where([
+            ['type_user', '=', 'CUSTOMER'],
+            ['company_id', '=', Auth::user()->user_company()->first()->company_id],
+        ])
+            ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_USERS.user_id')
+            ->join('TB_DASHBOARDS', 'TB_DASHBOARDS.user_id', '=', 'TB_USERS.user_id')
+            ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.user_id', 'TB_DASHBOARDS.name', 'TB_DASHBOARDS.dashboard', 'TB_DASHBOARDS.description', 'TB_USERS.fname', 'TB_USERS.lname', 'TB_USERS.type_user']);
+        return $data;
     }
 }

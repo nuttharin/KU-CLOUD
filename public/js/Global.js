@@ -26,7 +26,7 @@ function StringEmpty(val) {
 
 function setCookie(cname, cvalue) {
     var d = new Date();
-    d.setTime(d.getTime() + 3600 * 1000);
+    d.setTime(d.getTime() + 3600 * 3000);
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
