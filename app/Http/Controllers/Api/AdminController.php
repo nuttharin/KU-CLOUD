@@ -412,7 +412,7 @@ class AdminController extends Controller
 
         $company_update = TB_COMPANY::where('company_id', $company->company_id)
         ->update([
-            'folder_log' => $company->company_name.'_'.$company->company_id,
+            'folder_log' => 'COMPANY_'.$company->company_id,
         ]);
 
         $address_company = Address_company::insert([
