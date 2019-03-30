@@ -329,16 +329,19 @@
                             <div class="controlsoutput"> 
                                 <div class="container">
                                     <form role="form" autocomplete="off">
-                                        <div class="entry input-group otherfiled col-xs-3">
-                                            <input class="form-control mb-2 nameoutput" id="nameOutput" name="nameOutput[]" type="text" placeholder="Name" />
-                                            <span class="spacebar">&nbsp</span>
-                                            <input class="form-control mb-2 valueoutput" id="valueOutput" name="valueOutput[]" type="text" placeholder="Value" />
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success btn-adds" type="button">
-                                                    <span>+</span>
-                                                </button>
-                                            </span>
-                                        </div>
+                                        <div class="addOther">
+                                        
+                                            <div class=" entry input-group otherfiled col-xs-3" id="otherfiled">
+                                                <input class="form-control mb-2 nameoutput" id="nameOutput" name="nameOutput[]" type="text" placeholder="Name" />
+                                                <span class="spacebar">&nbsp</span>
+                                                <input class="form-control mb-2 valueoutput" id="valueOutput" name="valueOutput[]" type="text" placeholder="Value" />
+                                                <span class="input-group-btn adds">
+                                                    <button class="btn btn-success btn-adds" id="btn-adds" name="btn-adds[]" type="button">
+                                                        <span>+</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>    
                                     </form>
                                 </div>
                             </div>
@@ -346,7 +349,7 @@
                     </div>
                 <!-- </div> -->
             <br/>
-            <label class='customcheck'><h6>Pin Names<span> (Default is 0) (ห้ามซ้ำกับ Others Output )<span style="color:red">*</span></span></h6><input type='checkbox' name='chk_otheroutput' id='chk_otheroutput'><span class='checkmark'></span></label>
+            <h6>Pin Names<span> (Default is 0) (ห้ามซ้ำกับ Others Output )<span style="color:red">*</span></span></h6>
                 <!-- <div class="container"> -->
                     <div class="row">
                         <div class="control-group" id="fields">
