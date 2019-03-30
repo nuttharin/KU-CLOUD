@@ -52,11 +52,11 @@ class AuthController extends Controller
                         "type_user" => $user->type_user,
                     ];
                     if ($user->type_user === "CUSTOMER") {
-                        $user_custom['compay_id'] = $user->user_customer()->get();
+                        $user_custom['company_id'] = $user->user_customer()->get();
                         $user_custom['sub_type_user'] = "";
                     } else {
                         $user_custom['sub_type_user'] = $user->user_company()->first()->sub_type_user;
-                        $user_custom['compay_id'] = $user->user_company()->first()->company_id;
+                        $user_custom['company_id'] = $user->user_company()->first()->company_id;
                     }
                     $factory = JWTFactory::customClaims([
                         'sub' => $user->user_id,

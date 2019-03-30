@@ -41,14 +41,17 @@ mix.webpackConfig({
      // .js('resources/js/app.js', 'public/js/app.js')
     // .js('resources/js/containers/company/Accounts/Accounts.js', 'public/js/company/account')
 
-mix.js('resources/js/company/dashboards/dashboard.min.js', 'public/js/company/dashboards')
-    .js('resources/js/admin/dashboards/dashboard.min.js', 'public/js/admin/dashboards')
+mix.js('resources/js/company/dashboards/dashboardCompany.min.js', 'public/js/company/dashboards')
+    .js('resources/js/admin/dashboards/dashboardAdmin.min.js', 'public/js/admin/dashboards')
+    .js('resources/js/customer/dashboards/dashboardCustomer.min.js', 'public/js/customer/dashboards')
+
 
     .js('resources/js/admin/dashboards/dashboardDataTable.min.js', 'public/js/admin/dashboards')
     .js('resources/js/company/dashboards/dashboardDataTable.min.js', 'public/js/company/dashboards')
+    .js('resources/js/customer/dashboards/dashboardDataTable.min.js', 'public/js/customer/dashboards')
 
-    .js( 'resources/js/company/dashboards/dashboardNew.min.js', 'public/js/company/dashboards')
-    .js('resources/js/dashboards/ManagementDashboard.min.js', 'public/js/dashboards')
+    // .js( 'resources/js/company/dashboards/dashboardNew.min.js', 'public/js/company/dashboards')
+    // .js('resources/js/dashboards/ManagementDashboard.min.js', 'public/js/dashboards')
 
     .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 

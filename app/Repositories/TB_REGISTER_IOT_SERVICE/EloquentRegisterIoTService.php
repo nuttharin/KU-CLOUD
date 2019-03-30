@@ -10,7 +10,13 @@ class EloquentRegisterIoTService implements RegisterIoTServiceRepository
 {
     public function getAll()
     {
-        $data = TB_REGISTER_IOT_SERVICE::with(['user', 'iot_service'])->get();
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $data = TB_REGISTER_IOT_SERVICE::where([
+            ['TB_IOTSERVICE.company_id', '=', $company_id],
+        ])
+            ->join("TB_IOTSERVICE", "TB_IOTSERVICE.iotservice_id", "=", "TB_REGISTER_IOT_SERVICE.iotservice_id")
+            ->join("TB_USERS", "TB_USERS.user_id", "=", "TB_REGISTER_IOT_SERVICE.user_id")
+            ->get(['TB_REGISTER_IOT_SERVICE.register_iot_service', 'TB_IOTSERVICE.iotservice_id', 'TB_IOTSERVICE.iot_name', 'TB_USERS.user_id', 'TB_USERS.fname', 'TB_USERS.lname']);
         return \response()->json(compact('data'), 200);
     }
 

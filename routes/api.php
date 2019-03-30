@@ -76,7 +76,7 @@ Route::group([
     Route::put('users/block', 'Api\UserController@blockUser');
 
     Route::delete('users/delete', 'Api\UserController@deleteUser');
-    
+
     Route::get('companydata', 'Api\CompanyController@getAllCompanyData');
     Route::post('companydata/create', 'Api\CompanyController@createCompanyData');
     Route::put('companydata/edit', 'Api\CompanyController@editCompanyData');
@@ -244,6 +244,7 @@ Route::group([
     Route::get('{dashboard_id}', 'Api\DashboardController@getDashboardById');
     Route::put('layout', 'Api\DashboardController@updateDashboardLayout');
     Route::get('/', 'Api\DashboardController@getAllDashboard');
+    Route::get('/company/customers', 'Api\DashboardController@getDashboardCustomerInCompany');
 
     Route::post('/', 'Api\DashboardController@createDashboard');
     Route::put('/', 'Api\DashboardController@updateDashboard');
@@ -264,6 +265,7 @@ Route::group([
     'prefix' => 'datasources',
 ], function ($router) {
     Route::get('/', 'Api\DatasourceController@getDatasources');
+    Route::get('/customer', 'Api\DatasourceController@getDatasourcesCustomer');
     Route::post('/', 'Api\DatasourceController@createDatasource');
     Route::delete('/', 'Api\DatasourceController@deleteDatasource');
 });
@@ -309,7 +311,7 @@ Route::group([
     Route::get('iotservicedata', 'Api\IoTController@getAllIotserviceData');
     Route::get('IoTdata', 'Api\IoTController@IoTdata');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
-    
+
     Route::post('addRegisIotService_url', 'Api\IoTController@addRegisIotService_url');
     Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');

@@ -67,4 +67,11 @@ class DashboardController extends Controller
         return $this->dashboards->deleteDashboard($request->get('dashboard_id'));
     }
 
+    //For Company
+    public function getDashboardCustomerInCompany()
+    {
+        $data = $this->dashboards->getDashboardCustomerInCompany();
+        return response()->json(\compact('data'), 200);
+    }
+
 }
