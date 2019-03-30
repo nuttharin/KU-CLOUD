@@ -49,6 +49,9 @@ class DashboardController extends Controller
             'description' => $request->get('desc'),
             'is_public' => $request->get('is_public'),
         ];
+        if ($request->get('customer_id') !== null) {
+            $attr['user_id'] = $request->get('customer_id');
+        }
         return $this->dashboards->createDashboard($attr);
     }
 

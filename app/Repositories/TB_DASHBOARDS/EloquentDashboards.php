@@ -113,7 +113,7 @@ class EloquentDashboards implements DashboardsRepository
             $data = TB_DASHBOARDS::create([
                 'name' => $attr['name'],
                 'description' => $attr['description'],
-                'user_id' => Auth::user()->user_id,
+                'user_id' => isset($attr['user_id']) ? $attr['user_id'] : Auth::user()->user_id,
                 'is_public' => $attr['is_public'],
                 'dashboard' => '[]',
             ]);

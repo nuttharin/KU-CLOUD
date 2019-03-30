@@ -385,6 +385,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-in-line mb-2">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="areaChart" name="areaChart">
+                                    <label class="custom-control-label" for="areaChart">Area Charts</label>
+                                  </div>
+                            </div>
+
                             <h5>Select Value Of Y</h5>
 
                             <!-- <div class="row">
@@ -1112,7 +1119,7 @@
                     </div> -->
 
                 <div class="tool d-flex">
-                    <div class=" dropdown mr-1">
+                    <div class="dropdown mr-1 download">
                         <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
                             style="cursor:pointer"></i>
                         <div class="dropdown-menu dropdown-menu-right">
