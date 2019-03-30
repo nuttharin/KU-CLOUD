@@ -173,6 +173,7 @@ Route::group([
     Route::delete('/phone', 'Api\UserController@deletePhoneUser');
 
     Route::get('/email/company', 'Api\UserController@getAllEmailCustomerInCompany');
+    Route::get('/username/company', 'Api\UserController@getAllUsernameCustomerInCompany');
     Route::delete('/email', 'Api\UserController@deleteEmailUser');
 
     Route::get('/online', 'Api\UserController@countUserOnline');

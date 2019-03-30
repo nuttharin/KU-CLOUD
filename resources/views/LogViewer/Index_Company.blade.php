@@ -28,6 +28,7 @@
                     <div class="row">
                         <div class="col-6" style="padding: 30px 0px 10px 15px">
                             <h3>Log files</h3>
+                            <p id="total_size"></p>
                         </div>
                     </div>
                 </div>

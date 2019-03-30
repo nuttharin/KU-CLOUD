@@ -118,12 +118,13 @@
                                 class="form-control"></textarea>
                             <small class="messages-error"></small>
                         </div>
-                        <!-- <div class="col-12">
-                            <label for="customer">Customer</label>
+                        <div class="col-12" id="customerList" style="display:none">
+                            <label for="customer">Customer <span class="text-danger">*</span></label>
                             <select name="customer" id="customer" class="form-control">
-                                <option value="">=</option>
+                                
                             </select>
-                        </div> -->
+                            <small class="messages-error"></small>
+                        </div>
                     </div>
                 </form>
             </div>

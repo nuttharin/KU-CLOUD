@@ -157,7 +157,6 @@ class EloquentCompany implements CompanyRepository
                                             WHERE ADDRESS_COMPANY.company_id = ?', [$value->company_id]),
             ];
         }
-
         return $company_list;
     }
 }
