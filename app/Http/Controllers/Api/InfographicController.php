@@ -43,13 +43,11 @@ class InfographicController extends Controller
     {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
-        $type_user = $this->user->getTypeById($payload["sub"]);
+        $type_user = $payload["user"]->type_user;
 
-        if($type_user->type_user == "COMPANY")
+        if($type_user == "COMPANY")
         {
-            $company_id = $this->user->getCompanyIdByUserId($payload["sub"]);
-
-            $data = $this->info->getInfographicByCompanyId($payload["sub"], $company_id->company_id);
+            $data = $this->info->getInfographicByCompanyId($payload["sub"], $payload["user"]->compay_id);
         }
         else
         {
@@ -60,7 +58,7 @@ class InfographicController extends Controller
             return response()->json(['message' => 'not have data'], 200);
         }
 
-        return response()->json(['data' => $data, 'type_user' => $type_user->type_user], 200);
+        return response()->json(['data' => $data, 'type_user' => $type_user], 200);
     }
 
     public function getInfograpicData(Request $request)
