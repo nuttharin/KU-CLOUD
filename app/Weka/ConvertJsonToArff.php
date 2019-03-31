@@ -4,8 +4,6 @@ namespace App\Weka;
 
 use App\ApiHelper\ApiHelper;
 use App\TB_DATA_ANALYSIS;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 class ConvertJsonToArff
@@ -108,7 +106,8 @@ class ConvertJsonToArff
             // Storage::delete('/weka/input/' . $nameCsv);
             TB_DATA_ANALYSIS::where('data_id', $data_id)
                 ->update([
-                    'path_file' => $time . $name,
+                    'path_file' => $nameArff,
+                    'path_file_csv' => $nameCsv,
                     'is_success' => true,
                 ]);
             return;

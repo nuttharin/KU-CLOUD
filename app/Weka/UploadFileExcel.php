@@ -36,7 +36,8 @@ class UploadFileExcel
         TB_DATA_ANALYSIS::create([
             'user_id' => Auth::user()->user_id,
             'name' => $filename,
-            'path_file' => $filenameWeka,
+            'path_file' => $filenameWeka.'arff',
+            'path_file_csv' => $filename,
             'is_success' => true,
         ]);
     }
