@@ -2,6 +2,7 @@
 
 namespace App\Weka;
 
+use App\ApiHelper\ApiHelper;
 use App\TB_DATA_ANALYSIS;
 use Illuminate\Support\Facades\Storage;
 
@@ -64,40 +65,55 @@ class ConvertJsonToArff
 
     }
 
-    public function convertToAttr($pathArray = null, $name = 'test', $data_id)
+    public function convertToAttr($pathArray = null, $name = 'test', $service_id, $type, $tableDW_name, $data_id)
     {
-        $path = public_path() . "/js/company/testConvert.json";
-        $json = json_decode(file_get_contents($path), true);
-        $csv = "";
-        for ($i = 0; $i < sizeof($pathArray); $i++) {
-            $csv .= str_replace('/', '_', $pathArray[$i]);
-            if ($i != sizeof($pathArray) - 1) {
-                $csv .= ",";
+        try {
+            if ($type === "web_services") {
+                $path = public_path() . "/js/company/testConvert.json";
+                $json = json_decode(file_get_contents($path), true);
+            } else if ($type === "iot_services") {
+                $data_array = array(
+                    'tableDW_name' => $tableDW_name,
+                );
+                $get_data = ApiHelper::callAPI('POST', 'http://localhost/node/iotService/getInputIoTData_Getall', json_encode($data_array));
+                $json = json_decode($get_data, true);
             }
-        }
-        $csv .= "\r\n";
-        for ($j = 0; $j < sizeof($json); $j++) {
-            for ($x = 0; $x < count($pathArray); $x++) {
-                self::ArrayGetPath($json[$j], $pathArray[$x], $result);
-                $csv .= $result;
-                if ($x != count($pathArray) - 1) {
+
+            $csv = "";
+            for ($i = 0; $i < sizeof($pathArray); $i++) {
+                $csv .= str_replace('/', '_', $pathArray[$i]);
+                if ($i != sizeof($pathArray) - 1) {
                     $csv .= ",";
                 }
             }
             $csv .= "\r\n";
+            for ($j = 0; $j < sizeof($json); $j++) {
+                for ($x = 0; $x < count($pathArray); $x++) {
+                    self::ArrayGetPath($json[$j], $pathArray[$x], $result);
+                    $csv .= $result;
+                    if ($x != count($pathArray) - 1) {
+                        $csv .= ",";
+                    }
+                }
+                $csv .= "\r\n";
+            }
+            $time = time();
+            $nameCsv = $time . $name . ".csv";
+            $nameArff = $time . $name . ".arff";
+            Storage::put("/weka/input/" . $nameCsv, $csv);
+            $this->cmd .= "$this->pathWekaLib weka.core.converters.CSVLoader $this->pathWekaInput" . "$nameCsv > " . "$this->pathWekaInput" . $nameArff;
+            exec($this->cmd, $output);
+            // Storage::delete('/weka/input/' . $nameCsv);
+            TB_DATA_ANALYSIS::where('data_id', $data_id)
+                ->update([
+                    'path_file' => $nameArff,
+                    'path_file_csv' => $nameCsv,
+                    'is_success' => true,
+                ]);
+            return;
+        } catch (Exception $e) {
+            throw $e;
         }
-        $nameCsv = time() . $name . ".csv";
-        $nameArff = time() . $name . ".arff";
-        Storage::put("/weka/input/" . $nameCsv, $csv);
-        $this->cmd .= "$this->pathWekaLib weka.core.converters.CSVLoader $this->pathWekaInput" . "$nameCsv > " . "$this->pathWekaInput" . $nameArff;
-        exec($this->cmd, $output);
-        Storage::delete('/weka/input/' . $nameCsv);
-        TB_DATA_ANALYSIS::where('data_id', $data_id)
-            ->update([
-                'path_file' => $nameArff,
-                'is_success' => true,
-            ]);
-        return;
 
         //arff
         // $arffFile = "@relation " . $name . "\r\n";

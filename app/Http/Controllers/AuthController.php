@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Mail;
 use App\TB_EMAIL;
-use App\TB_TOKEN_FORGETPASSWORD;
 use App\TB_USERS;
 use App\USER_FIRST_CREATE;
-use DB;
+use App\ApiHelper\ApiHelper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
+use App\TB_TOKEN_FORGETPASSWORD;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Mail;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -29,6 +30,11 @@ class AuthController extends Controller
             , array(
                 "username" => $request->get('username'),
                 "password" => $request->get('password'),
+            ),
+            array(),
+            array(),
+            array(
+                "CONTENT_TYPE" => 'application/json',
             )
         );
 
