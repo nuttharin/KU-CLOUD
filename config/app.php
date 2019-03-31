@@ -226,6 +226,7 @@ return [
     'weka_input' => env('WEKA_INPUT', storage_path('app/weka/input/')),
     'weka_output' => env('WEKA_OUTPUT', storage_path('app/weka/output/')),
 
+    'API_URL' => env('API_URL'),
     'SOCKET_KEY' => env('SOCKET_KEY'),
     'IP_ADDRESS' => env('IP_ADDRESS', 'localhost'),
 
