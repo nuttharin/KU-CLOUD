@@ -108,7 +108,7 @@ Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
 
     //Infographic
     Route::get('/Infographic', 'InfographicController@Index');
-    Route::get('/Infographic/{id}/{name}', 'InfographicController@CustomInfographic');
+    Route::get('/Infographic/{id}/{name}/{type_user}', 'InfographicController@CustomInfographic');
 
     //User
     Route::get('/User/Administer', 'UserController@UserAdminister');

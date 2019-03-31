@@ -78,6 +78,7 @@ mix.js('resources/js/company/dashboards/dashboardCompany.min.js', 'public/js/com
     .js('resources/js/admin/Infographic/DataSource.min.js', 'public/js/admin/Infographic/DataSource.min.js')
     .js('resources/js/admin/Infographic/Infographic.min.js', 'public/js/admin/Infographic/Infographic.min.js')
     .js('resources/js/admin/Infographic/WidgetObject.min.js', 'public/js/admin/Infographic/WidgetObject.min.js')
+    .js('resources/js/admin/Infographic/viewModelInfographic.min.js', 'public/js/admin/Infographic/viewModelInfographic.min.js')
 
     //Customer
     .js('resources/js/customer/manageCompany.min.js', 'public/js/customer/manageCompany')
