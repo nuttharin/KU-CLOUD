@@ -195,7 +195,7 @@ Route::group([
     'middleware' => ['api', 'jwt.verify'],
     'prefix' => 'analysis',
 ], function ($router) {
-    Route::get('/download/{file_name}/{type}', 'Api\AnalysisController@downloadFile');
+    Route::get('/download/{file_name}', 'Api\AnalysisController@downloadFile');
     Route::get('/data', 'Api\AnalysisController@getAllDataAnalysis');
     Route::get('/data/{data_id}', 'Api\AnalysisController@getByIdDataAnalysis');
     Route::post('/data', 'Api\AnalysisController@createDataAnalysis');

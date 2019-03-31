@@ -90,9 +90,9 @@ class AnalysisController extends Controller
 
     }
 
-    public function downloadFile($file_name, $type)
+    public function downloadFile($file_name)
     {
-        $path = storage_path('app/weka/input/' . $file_name . "." . $type);
+        $path = storage_path('app/weka/input/' . $file_name);
         if (!File::exists($path)) {
             \abort(404);
         }
