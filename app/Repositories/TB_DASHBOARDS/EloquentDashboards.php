@@ -32,7 +32,7 @@ class EloquentDashboards implements DashboardsRepository
                 ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
                 ->leftJoin('TB_USERS as USER_UPDATE', 'USER_UPDATE.user_id', '=', 'TB_DASHBOARDS.update_by')
                 ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_USERS.user_id')
-                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.is_public', 'TB_DASHBOARDS.description', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname','USER_UPDATE.fname as update_by_fname','USER_UPDATE.lname as update_by_lname']);
+                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.is_public', 'TB_DASHBOARDS.description', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname', 'USER_UPDATE.fname as update_by_fname', 'USER_UPDATE.lname as update_by_lname']);
         }
         return response()->json(compact('data'), 200);
     }
@@ -92,7 +92,7 @@ class EloquentDashboards implements DashboardsRepository
 
     public function getDashboardPublicById($dashboard_id)
     {
-        $data = DB::table('TB_DASHBOARDS')->where(
+        $data = TB_DASHBOARDS::where(
             [
                 ['TB_DASHBOARDS.is_public', '=', true],
                 ['TB_DASHBOARDS.dashboard_id', '=', $dashboard_id],
