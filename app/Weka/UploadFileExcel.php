@@ -5,7 +5,6 @@ namespace App\Weka;
 use App\TB_DATA_ANALYSIS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class UploadFileExcel
 {
@@ -33,11 +32,11 @@ class UploadFileExcel
         $file->storeAs("weka/input", $filename);
         $this->cmd .= "$this->pathWekaLib weka.core.converters.CSVLoader $this->pathWekaInput" . "$filename > " . "$this->pathWekaInput" . "$filenameWeka.arff";
         exec($this->cmd, $output);
-        Storage::delete('/weka/input/' . $filename);
+        //Storage::delete('/weka/input/' . $filename);
         TB_DATA_ANALYSIS::create([
             'user_id' => Auth::user()->user_id,
-            'name' => $filenameWeka,
-            'path_file' => $filenameWeka . '.arff',
+            'name' => $filename,
+            'path_file' => $filenameWeka,
             'is_success' => true,
         ]);
     }

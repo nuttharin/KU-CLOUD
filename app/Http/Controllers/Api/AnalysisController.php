@@ -11,6 +11,8 @@ use App\Weka\Clusterers\SimpleKMeans;
 use App\Weka\UploadFileExcel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class AnalysisController extends Controller
 {
@@ -44,6 +46,9 @@ class AnalysisController extends Controller
     public function createDataAnalysis(Request $request)
     {
         $data = [
+            'service_id' => $request->get('service_id'),
+            'tableDW_name' => $request->get('tableDW_name'),
+            'type' => $request->get('type'),
             'name' => $request->get('name'),
             'pathArray' => $request->get('pathArray'),
         ];
@@ -71,7 +76,7 @@ class AnalysisController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getByIdDataAnalysis($data_id,$type = 'json')
+    public function getByIdDataAnalysis($data_id, $type = 'json')
     {
         if ($type == "json") {
             return $this->dataAnalysis->getFileToJsonById($data_id);
@@ -82,7 +87,23 @@ class AnalysisController extends Controller
 
     public function getFileToJsonById($data_id, $type)
     {
-       
+
+    }
+
+    public function downloadFile($file_name, $type)
+    {
+        $path = storage_path('app/weka/input/' . $file_name . "." . $type);
+        if (!File::exists($path)) {
+            \abort(404);
+        }
+
+        // $file = File::get($path);
+        // $type = File::mimeType($path);
+
+        // $response = Response::make($file, 200);
+        // $response->header("Content-Type", $type);
+
+        return response()->download($path);
     }
 
     public function analysisProcess(Request $request)

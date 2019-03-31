@@ -26,8 +26,8 @@
         </div>
         <form id="form_edit_company" style="display:none">
             <div class="row justify-content-center">      
-                <div class="col-6 text-center">
-                        <img class="img-xs"  id="img_logo_company" width="300" height="300" src="" alt="logo company">
+                <div class="col-12 col-md-6 text-center">
+                        <img class="img-xs img-responsive"  id="img_logo_company" width="300" height="300" src="" alt="logo company">
                     <label class="btn btn-primary btn-block mt-2">
                         Upload new logo <input type="file" name="imgLogo" id="imgLogo" hidden>
                     </label>
