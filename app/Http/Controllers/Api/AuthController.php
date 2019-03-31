@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\TB_EMAIL;
 use App\TB_USERS;
 use App\USER_FIRST_CREATE;
-use App\Repositories\TB_COMPANY\CompanyRepository;
 use Auth;
 use DB;
 use Exception;
@@ -15,15 +14,10 @@ use Illuminate\Support\Facades\Hash;
 use JWTAuth;
 use JWTFactory;
 use Log;
+use Response;
 
 class AuthController extends Controller
 {
-    private $companies;
-
-    public function __construct(CompanyRepository $companies) 
-    {
-        $this->companies = $companies;
-    }
 
     public function login(Request $request)
     {
@@ -225,9 +219,4 @@ class AuthController extends Controller
         }
     }
 
-    public function getCompanyList()
-    {    
-        $data = $this->companies->getCompanyWithAddress();
-        return response()->json(compact('data'), 201);
-    }
 }

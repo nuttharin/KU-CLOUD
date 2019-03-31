@@ -109,7 +109,7 @@
                     aria-expanded="false">
                     <i class="fas fa-angle-right"></i>
                     <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
-                    <img class="img-xs rounded-circle" width="30" height="30" src="{{env('API_URL')}}account/profile"
+                    <img class="img-xs rounded-circle" id="nav_img_profile" width="30" height="30" src="{{env('API_URL')}}account/profile"
                         alt="Profile image">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -351,7 +351,6 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 
         
-
         
         <script>
             const END_POINT = "{{ env('API_URL') }}"; //http://localhost:8000/api/
@@ -371,6 +370,8 @@
         <!-- socket -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script src="{{asset('js/socket.js')}}"></script>
+
+
 
         <!-- <script>
             paceOptions = {

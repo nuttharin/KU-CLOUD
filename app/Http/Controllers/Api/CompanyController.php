@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Address_company;
 use App\Http\Controllers\Controller;
 use App\LogViewer\LogViewer;
 use App\LogViewer\SizeLog;
@@ -9,15 +10,16 @@ use App\Repositories\TB_COMPANY\CompanyRepository;
 use App\Repositories\TB_STATIC\StaticRepository;
 use App\Repositories\TB_USERS\UsersRepository;
 use App\Repositories\TB_WEBSERVICE\WebServiceRepository;
-use App\TB_WEBSERVICE;
 use App\TB_COMPANY;
-use App\Address_company;
-
+use App\TB_WEBSERVICE;
 use Auth;
 use DB;
+use File;
 use Illuminate\Http\Request;
-use Log;
+use Image;
 use JWTAuth;
+use Log;
+use Response;
 
 class CompanyController extends Controller
 {
@@ -66,18 +68,19 @@ class CompanyController extends Controller
         return response()->json(compact('data'), 201);
     }
 
-    public function updateCompanyId(Request $request){
+    public function updateCompanyId(Request $request)
+    {
         $attr = [
             'company_name_input' => $request->get('company_name_input'),
-            'alias_input'=> $request->get('alias_input'),
-            'note_input'=> $request->get('note_input'),
-            'address_detail'=> $request->get('address_detail'),
-            'district'=> $request->get('district'),
-            'amphure'=> $request->get('amphure'),
-            'province'=> $request->get('province'),
+            'alias_input' => $request->get('alias_input'),
+            'note_input' => $request->get('note_input'),
+            'address_detail' => $request->get('address_detail'),
+            'district' => $request->get('district'),
+            'amphure' => $request->get('amphure'),
+            'province' => $request->get('province'),
         ];
-        
-        $data = $this->companies->updateCompanyId($attr,Auth::user()->user_company()->first()->company_id);
+
+        $data = $this->companies->updateCompanyId($attr, Auth::user()->user_company()->first()->company_id);
         return response()->json(compact('data'), 201);
     }
 
@@ -299,6 +302,42 @@ class CompanyController extends Controller
     //     return response()->json(compact('users'), 200);
     // }
 
+    public function uploadLogo(Request $request)
+    {
+        DB::beginTransaction();
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $img_logo = TB_COMPANY::where('company_id','=',$company_id)->first()->img_logo;
+        try {
+            if ($request->get('img_logo') != '') {
+                if ($img_logo != 'default-logo.jpg') {
+                    $path = storage_path('app/uploadLogoCompany/' . $img_logo);
+                    File::delete($path);
+                }
+
+                $data = $request->get('img_logo');
+                list($type, $data) = explode(';', $data);
+                list(, $data) = explode(',', $data);
+                $data = base64_decode($data);
+                $imageName = str_random(10) . '.' . 'png';
+                \File::put(storage_path() . '/app/uploadLogoCompany/' . $imageName, $data);
+
+                $img = Image::make(storage_path('app/uploadLogoCompany/' . $imageName));
+                $img->resize(400, 400);
+                $img->save();
+
+                TB_COMPANY::where('company_id','=',$company_id)->update([
+                    'img_logo' => $imageName,
+                ]);
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        return response()->json(compact('image'), 200);
+    }
+
+   
     public function getFileLogByFolder()
     {
         $folder_log = 'COMPANY_' . $this->auth->user_company()->first()->company_id;
@@ -566,10 +605,10 @@ class CompanyController extends Controller
     {
         $token = $request->cookie('token');
         $payload = JWTAuth::setToken($token)->getPayload();
-        $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note, 
+        $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note,
                                         ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
-                                        DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn, 
-                                        AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn, 
+                                        DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn,
+                                        AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn,
                                         PROVINCES.name_th as pNameTh, PROVINCES.name_en as pNameEn
                                 FROM TB_COMPANY INNER JOIN ADDRESS_COMPANY ON ADDRESS_COMPANY.company_id = TB_COMPANY.company_id
                                 INNER JOIN DISTRICTS ON DISTRICTS.district_id = ADDRESS_COMPANY.district_id
@@ -595,9 +634,9 @@ class CompanyController extends Controller
         ]);
 
         $company_update = TB_COMPANY::where('company_id', $company->company_id)
-        ->update([
-            'folder_log' => $company->company_name.'_'.$company->company_id,
-        ]);
+            ->update([
+                'folder_log' => $company->company_name . '_' . $company->company_id,
+            ]);
 
         $address_company = Address_company::insert([
             'company_id' => $company->company_id,
@@ -606,7 +645,7 @@ class CompanyController extends Controller
             'amphure_id' => $request->get('amphure'),
             'province_id' => $request->get('province'),
         ]);
-        
+
         $attributes = [
             'username' => $request->get('accountname'),
             'fname' => $request->get('firstname'),
@@ -616,7 +655,7 @@ class CompanyController extends Controller
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
             'sub_type_user' => 'ADMIN',
-            'admincheck'=> $request->get('admincheck'),
+            'admincheck' => $request->get('admincheck'),
         ];
 
         $this->users->create($attributes);

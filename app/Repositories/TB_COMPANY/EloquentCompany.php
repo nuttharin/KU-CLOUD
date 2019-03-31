@@ -36,7 +36,7 @@ class EloquentCompany implements CompanyRepository
     {
         // TODO: Implement getCompanyById() method.
         try {
-            $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note,
+            $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.img_logo,TB_COMPANY.company_name, alias, note,
                                         ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
                                         DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn,
                                         AMPHURES.name_th as aNameTh, AMPHURES.name_en as aNameEn,
@@ -145,6 +145,7 @@ class EloquentCompany implements CompanyRepository
             $company_list[] = [
                 'company_id' => $value->company_id,
                 'company_name' => $value->company_name,
+                'img_logo' => config('app.API_URL') . 'company/logo/'.$value->img_logo,
                 'alias' => $value->alias,
                 'note' => $value->note,
                 'address' => DB::select('SELECT ADDRESS_COMPANY.company_id, ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,

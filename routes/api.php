@@ -27,7 +27,8 @@ Route::post('account/register', 'Api\AccountsController@register');
 
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
-Route::get('companyList/public', 'Api\AuthController@getCompanyList');
+Route::get('company/logo/{file_logo}', 'Api\CompanyPublicController@getLogoCompany');
+Route::get('companyList/public', 'Api\CompanyPublicController@getCompanyList');
 
 Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
 Route::get('dashboards/public/{dashboard_id}', 'Api\DashboardController@getDashboardPublicById');
@@ -52,8 +53,7 @@ Route::group([
     Route::post('Login', 'Api\AuthController@login');
     Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
-    Route::post('Me', 'Api\AuthController@me');
-
+    Route::get('Me', 'Api\AuthController@me');
 });
 
 Route::group([
@@ -124,6 +124,7 @@ Route::group([
     'prefix' => 'company',
 ], function ($router) {
     Route::get('test', 'Api\CompanyController@test'); //test
+    Route::post('/logo', 'Api\CompanyController@uploadLogo');
 
     // Route::get('users', 'Api\CompanyController@getAllUser');
     // Route::post('users', 'Api\CompanyController@addUserCompany');

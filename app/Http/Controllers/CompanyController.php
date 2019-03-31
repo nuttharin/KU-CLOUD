@@ -79,11 +79,12 @@ class CompanyController extends Controller
         try {
             $request->session()->forget('user');
 
+            auth()->logout();
+
             Cookie::queue(Cookie::forget('token', '/', config('IP_ADDRESS')));
             Cookie::queue(Cookie::forget('socket_token', '/', config('IP_ADDRESS')));
             Cookie::queue(Cookie::forget('io', '/', config('IP_ADDRESS')));
 
-            auth()->logout();
             // JWTAuth::invalidate(JWTAuth::parseToken());
             return redirect('/');
         } catch (Exception $e) {

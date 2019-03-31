@@ -30,8 +30,9 @@ class EloquentDashboards implements DashboardsRepository
                 'TB_USER_COMPANY.company_id', Auth::user()->user_company()->first()->company_id
             )
                 ->join('TB_USERS', 'TB_USERS.user_id', '=', 'TB_DASHBOARDS.user_id')
+                ->leftJoin('TB_USERS as USER_UPDATE', 'USER_UPDATE.user_id', '=', 'TB_DASHBOARDS.update_by')
                 ->join('TB_USER_COMPANY', 'TB_USER_COMPANY.user_id', '=', 'TB_USERS.user_id')
-                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.is_public', 'TB_DASHBOARDS.description', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname']);
+                ->get(['TB_DASHBOARDS.dashboard_id', 'TB_DASHBOARDS.is_public', 'TB_DASHBOARDS.description', 'TB_DASHBOARDS.name', 'TB_USERS.fname', 'TB_USERS.lname','USER_UPDATE.fname as update_by_fname','USER_UPDATE.lname as update_by_lname']);
         }
         return response()->json(compact('data'), 200);
     }
@@ -114,6 +115,7 @@ class EloquentDashboards implements DashboardsRepository
                 'name' => $attr['name'],
                 'description' => $attr['description'],
                 'user_id' => isset($attr['user_id']) ? $attr['user_id'] : Auth::user()->user_id,
+                'update_by' => isset($attr['user_id']) ? $attr['user_id'] : Auth::user()->user_id,
                 'is_public' => $attr['is_public'],
                 'dashboard' => '[]',
             ]);
