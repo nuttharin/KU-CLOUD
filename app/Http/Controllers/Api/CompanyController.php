@@ -603,8 +603,6 @@ class CompanyController extends Controller
     /* Admin */
     public function getAllCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note,
                                         ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
                                         DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn,
@@ -624,8 +622,6 @@ class CompanyController extends Controller
 
     public function createCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
 
         $company = TB_COMPANY::create([
             'company_name' => $request->get('company_name_input'),
@@ -665,8 +661,6 @@ class CompanyController extends Controller
 
     public function editCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
 
         $company = TB_COMPANY::where('company_id', $request->get('company_id_input'))
             ->update([
@@ -695,8 +689,6 @@ class CompanyController extends Controller
 
     public function getCountUsersByCompanyID(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $countCustomer = DB::table('TB_USER_CUSTOMER')
             ->where('company_id', $request->get('company_id'))
             ->count();

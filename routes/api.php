@@ -209,6 +209,7 @@ Route::group([
 ], function ($router) {
     Route::get('getInfoByUserType', 'Api\InfographicController@getAllInfograpic');
     Route::get('getInfoByInfoID', 'Api\InfographicController@getInfograpicData');
+    Route::get('getCustomerByCompany', 'Api\InfographicController@getCustomerByCompany');
     Route::post('create', 'Api\InfographicController@createInfograpic');
     Route::put('update', 'Api\InfographicController@updateInfograpic');
     Route::put('updateInfoData', 'Api\InfographicController@updateInfograpicData');

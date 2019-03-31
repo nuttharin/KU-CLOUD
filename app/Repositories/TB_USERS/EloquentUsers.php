@@ -687,6 +687,16 @@ class EloquentUsers implements UsersRepository
         return response()->json(compact('data'), 200);
     }
 
+    public function getCustomerListByCompany()
+    {
+        $data = TB_USERS::where([
+            ['company_id', '=', Auth::user()->user_company()->first()->company_id],
+        ])
+        ->join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_USERS.user_id')->get();
+
+        return $data;
+    }
+
     public function isBlockUser($user_id,$isBlock)
     {
         try {
@@ -717,7 +727,7 @@ class EloquentUsers implements UsersRepository
     public function getCompanyIdByUserId($user_id)
     {
         $data = TB_USER_COMPANY::select('company_id')->where('user_id', $user_id)->first();
-        return $data;
+        return $data->company_id;
     }
 
     public function getUserById($user_id)
