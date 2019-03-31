@@ -149,7 +149,7 @@ class SetupFirst extends Migration
         TB_DATA_ANALYSIS::create([
             'user_id' => 2,
             'name' => 'weather.nominal.arff',
-            'path_file' => 'weather.nominal.arff',
+            'path_file' => 'weather.nominal',
             'is_success' => true,
         ]);
 
@@ -163,14 +163,14 @@ class SetupFirst extends Migration
         TB_DATA_ANALYSIS::create([
             'user_id' => 2,
             'name' => 'glass.arff',
-            'path_file' => 'glass.arff',
+            'path_file' => 'glass',
             'is_success' => true,
         ]);
 
         TB_DATA_ANALYSIS::create([
             'user_id' => 2,
             'name' => 'weather.numeric.arff',
-            'path_file' => 'weather.numeric.arff',
+            'path_file' => 'weather.numeric',
             'is_success' => true,
         ]);
 
