@@ -49,6 +49,9 @@ class DashboardController extends Controller
             'description' => $request->get('desc'),
             'is_public' => $request->get('is_public'),
         ];
+        if ($request->get('customer_id') !== null) {
+            $attr['user_id'] = $request->get('customer_id');
+        }
         return $this->dashboards->createDashboard($attr);
     }
 
@@ -65,6 +68,13 @@ class DashboardController extends Controller
     public function deleteDashboard(Request $request)
     {
         return $this->dashboards->deleteDashboard($request->get('dashboard_id'));
+    }
+
+    //For Company
+    public function getDashboardCustomerInCompany()
+    {
+        $data = $this->dashboards->getDashboardCustomerInCompany();
+        return response()->json(\compact('data'), 200);
     }
 
 }

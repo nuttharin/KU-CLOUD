@@ -27,7 +27,8 @@ Route::post('account/register', 'Api\AccountsController@register');
 
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
-Route::get('companyList/public', 'Api\AuthController@getCompanyList');
+Route::get('company/logo/{file_logo}', 'Api\CompanyPublicController@getLogoCompany');
+Route::get('companyList/public', 'Api\CompanyPublicController@getCompanyList');
 
 Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
 Route::get('dashboards/public/{dashboard_id}', 'Api\DashboardController@getDashboardPublicById');
@@ -52,8 +53,7 @@ Route::group([
     Route::post('Login', 'Api\AuthController@login');
     Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
-    Route::post('Me', 'Api\AuthController@me');
-
+    Route::get('Me', 'Api\AuthController@me');
 });
 
 Route::group([
@@ -76,7 +76,7 @@ Route::group([
     Route::put('users/block', 'Api\UserController@blockUser');
 
     Route::delete('users/delete', 'Api\UserController@deleteUser');
-    
+
     Route::get('companydata', 'Api\CompanyController@getAllCompanyData');
     Route::post('companydata/create', 'Api\CompanyController@createCompanyData');
     Route::put('companydata/edit', 'Api\CompanyController@editCompanyData');
@@ -124,6 +124,7 @@ Route::group([
     'prefix' => 'company',
 ], function ($router) {
     Route::get('test', 'Api\CompanyController@test'); //test
+    Route::post('/logo', 'Api\CompanyController@uploadLogo');
 
     // Route::get('users', 'Api\CompanyController@getAllUser');
     // Route::post('users', 'Api\CompanyController@addUserCompany');
@@ -173,6 +174,7 @@ Route::group([
     Route::delete('/phone', 'Api\UserController@deletePhoneUser');
 
     Route::get('/email/company', 'Api\UserController@getAllEmailCustomerInCompany');
+    Route::get('/username/company', 'Api\UserController@getAllUsernameCustomerInCompany');
     Route::delete('/email', 'Api\UserController@deleteEmailUser');
 
     Route::get('/online', 'Api\UserController@countUserOnline');
@@ -244,6 +246,7 @@ Route::group([
     Route::get('{dashboard_id}', 'Api\DashboardController@getDashboardById');
     Route::put('layout', 'Api\DashboardController@updateDashboardLayout');
     Route::get('/', 'Api\DashboardController@getAllDashboard');
+    Route::get('/company/customers', 'Api\DashboardController@getDashboardCustomerInCompany');
 
     Route::post('/', 'Api\DashboardController@createDashboard');
     Route::put('/', 'Api\DashboardController@updateDashboard');
@@ -264,6 +267,7 @@ Route::group([
     'prefix' => 'datasources',
 ], function ($router) {
     Route::get('/', 'Api\DatasourceController@getDatasources');
+    Route::get('/customer', 'Api\DatasourceController@getDatasourcesCustomer');
     Route::post('/', 'Api\DatasourceController@createDatasource');
     Route::delete('/', 'Api\DatasourceController@deleteDatasource');
 });
@@ -309,7 +313,7 @@ Route::group([
     Route::get('iotservicedata', 'Api\IoTController@getAllIotserviceData');
     Route::get('IoTdata', 'Api\IoTController@IoTdata');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
-    
+
     Route::post('addRegisIotService_url', 'Api\IoTController@addRegisIotService_url');
     Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');

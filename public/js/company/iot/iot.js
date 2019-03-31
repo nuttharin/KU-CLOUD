@@ -73,13 +73,13 @@ var IotserviceRepository = new (function(){
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
                             </button>                           
+                            <button type="button" class="btn btn-warning btn-sm btn-setting"  index=${index}  data-toggle="tooltip"
+                                data-placement="top" title="output">
+                                <i class="fas fa-share-square"></i>
+                            </button>
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-sm btn-setting"  index=${index}  data-toggle="tooltip"
-                                data-placement="top" title="setting">
-                                <i class="fas fa-share-square"></i>
                             </button>
                         </center>`;
             }
@@ -89,7 +89,11 @@ var IotserviceRepository = new (function(){
                             <button type="button" class="btn btn-primary btn-sm btn-detail" index=${index} data-toggle="tooltip"
                                 data-placement="top" title="Detail">
                                 <i class="fas fa-list"></i>
-                            </button>                           
+                            </button>
+                            <button type="button" class="btn btn-warning btn-sm btn-setting"  index=${index}  data-toggle="tooltip" disabled
+                            data-placement="top" title="setting">
+                            <i class="fas fa-cog"></i>
+                            </button>                
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
@@ -142,14 +146,15 @@ var IotserviceRepository = new (function(){
 
             $('body').append(modalDetail);
         }
-
+        let createdate = new Date(iotserviceList[key].created_at);
+        let updatedate = new Date(iotserviceList[key].updated_at);
         $('#name-iot').html(iotserviceList[key].name);
         $('#alias-iot').html(iotserviceList[key].alias);
         $('#status-iot').html(iotserviceList[key].status);
         $('#note-iot').html(iotserviceList[key].description);
         $('#url-iot').html("<input type='text' id='Apiiot' class='form-control' style='min-width: 100%' value='"+iotserviceList[key].url+"' readonly><button class='' id='CopyUrl' data-clipboard-target='#Apiiot'><i class='far fa-copy'></i></button>");
-        $('#create-iot').html(iotserviceList[key].created_at);
-        $('#update-iot').html(iotserviceList[key].updated_at);
+        $('#create-iot').html(createdate.getDate()+"/"+createdate.getMonth()+"/"+createdate.getFullYear()+" "+createdate.toTimeString().split(' ')[0]);
+        $('#update-iot').html(updatedate.getDate()+"/"+updatedate.getMonth()+"/"+updatedate.getFullYear()+" "+updatedate.toTimeString().split(' ')[0]);
         $("#detailIot").modal('show');
         let copyUrl = new ClipboardJS('#CopyUrl');
             copyUrl.on('success', function(e) {
@@ -190,6 +195,9 @@ var IotserviceRepository = new (function(){
 
         $('#btn-delete-submit').click(function () {
             // alert('fffff')
+            $('#DeleteUser').modal('hide');
+
+            let chk = true ;
             $.ajax({
                 url: END_POINT+"iot/deleteIoT",
                 dataType: 'json',
@@ -200,14 +208,37 @@ var IotserviceRepository = new (function(){
                     id:iotserviceList[key].id,
                 },
                 success: (res) => {
-                    swal("Delete Success!", "You clicked the button!", "success");
+                    //swal("Delete Success!", "You clicked the button!", "success");
                     // toastr["success"]("Delete Success");
-                    console.log("delete success")
+                    console.log("delete db success")
+                },
+                error: (res) => {
+                    chk = false ;
+                    console.log(res);
+                }
+            });
+            $.ajax({
+                url: API_DW+"iotService/DeleteInputIotService",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    nameDW:iotserviceList[key].iot_name_DW,
+                    typeService:iotserviceList[key].type
+                },
+                success: (res) => {
+                    
+                    swal("Delete Success!", "You clicked the button!", "success");
+                    
+                   console.log("delete dw success")
+                    
+                    
                 },
                 error: (res) => {
                     console.log(res);
                 }
-            });
+            })
             $(".swal-button--confirm").click(function (){
                 location.reload();
             })

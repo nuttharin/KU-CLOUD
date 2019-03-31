@@ -109,6 +109,25 @@ class iotService {
                     console.log(res);
                 }
             });
+
+            $.ajax({
+                url: API_DW +"iotService/AggregateDataInputIot",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    nameDW: "IoT.Input."+nameiot+'.'+companyID,
+	                strValueCal:valueCalIot    
+                },
+                success: (res) => {
+                    console.log("success agg")
+                  
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
         }
 
         let showDetail = () => {
@@ -171,7 +190,7 @@ class iotService {
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
-                    console.log("success DB")
+                    console.log("success DB url")
                 },
                 error: (res) => {
                     console.log(res);
@@ -194,7 +213,7 @@ class iotService {
                                             <button class='btn btn-success'  id='checkall'>Check All</button>&nbsp<button class='btn btn-danger' id='clearall'>Clear All</button><br/><br/>
                                         </div>
                                         <div class='modal-footer'>
-                                            <button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal'>Submit</button>
+                                            <button type='button' id='submitChkValCal' class='btn btn-info swal-button--confirm' data-toggle='modal'>Save</button>
                                             <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                         </div>
                                     </div>

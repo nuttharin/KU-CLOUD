@@ -123,7 +123,7 @@ Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
 
     // Dashboards
     Route::get('/Dashboards', 'DashboardController@Index');
-    Route::get('/Dashboards/{id}', 'DashboardController@CustomDashboard');
+    Route::get('/Dashboards/{id}/{edit_type}/{user_id}', 'DashboardController@CustomDashboard');
 
     // LogViewer
     Route::get('/LogViewer', 'LogViewerController@Index');

@@ -67,6 +67,31 @@ class EloquentDatasources implements DatasourcesRepository
         return \response()->json(compact('data'), 200);
     }
 
+    public function getDatasourcesCustomer($user_id)
+    {
+        $company_id = Auth::user()->user_company()->first()->company_id;
+
+        $webservices = TB_WEBSERVICE::where([
+            ['user_id', '=', $user_id],
+            ['company_id', '=', $company_id],
+        ])
+            ->join("TB_REGISTER_WEBSERVICE", "TB_REGISTER_WEBSERVICE.webservice_id", "=", "TB_WEBSERVICE.webservice_id")
+            ->get();
+
+        $iot = $iot = TB_IOTSERVICE::where([
+            ['user_id', '=', $user_id],
+            ['company_id', '=', $company_id],
+        ])
+            ->join("TB_REGISTER_IOT_SERVICE", "TB_REGISTER_IOT_SERVICE.iotservice_id", "=", "TB_IOTSERVICE.iotservice_id")
+            ->get();
+
+        $data = [
+            'webservices' => $webservices,
+            'iot' => $iot,
+        ];
+        return $data;
+    }
+
     public function getDatasourcesPublic()
     {
         $webservices = TB_WEBSERVICE::where([

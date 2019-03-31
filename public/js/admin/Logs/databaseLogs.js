@@ -70,6 +70,7 @@ class DatabaseLogs {
                                         </div>
 
                                         <div class="modal-body">
+                                            <p id="total_size"></p>
                                             <table class="table table-striped table-bordered table-hover" id="table-file-log">
                                                 <thead>
                                                     <th>File</th>
@@ -278,7 +279,8 @@ class DatabaseLogs {
                     folder_log: folder_log,
                 },
                 success: (res) => {
-                    fileLogList = res.file_log;
+                    fileLogList = res.file_log.files;
+                    $("#total_size").html(`Size : ${res.file_log.size_total}`)
                     updateDatatableFileLog();
                 },
                 error: (error) => {

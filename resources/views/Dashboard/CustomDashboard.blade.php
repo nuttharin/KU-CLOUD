@@ -4,10 +4,9 @@
 <!-- <script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
 <script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script>
 <link rel="stylesheet" href="{{asset('css/toggle-switches.css')}}">  -->
-
+<?php $user = session('user') ?>
 
 <style type="text/css">
-  
     .grid-stack-item {}
 
     .grid-stack-item-content {
@@ -384,6 +383,13 @@
                                     <label for="">Lable Axis y</label>
                                     <input type="text" class="form-control" id="axis_y">
                                 </div>
+                            </div>
+
+                            <div class="form-in-line mb-2">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="areaChart" name="areaChart">
+                                    <label class="custom-control-label" for="areaChart">Area Charts</label>
+                                  </div>
                             </div>
 
                             <h5>Select Value Of Y</h5>
@@ -1113,7 +1119,7 @@
                     </div> -->
 
                 <div class="tool d-flex">
-                    <div class=" dropdown mr-1">
+                    <div class="dropdown mr-1 download">
                         <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
                             style="cursor:pointer"></i>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -1131,7 +1137,7 @@
                 </div>
             </div>
 
-            <div class="card-body" >
+            <div class="card-body">
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -1256,7 +1262,7 @@
 
             </div>
 
-            <div class="card-body" >
+            <div class="card-body">
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -1328,6 +1334,11 @@
 </div>
 
 <span id="dashboard_id" hidden>{{$id}}</span>
+@if($user->type_user == 'COMPANY')
+<span id="company_id" hidden>{{$user->company_id}}</span>
+@endif
+<span id="edit_type" hidden>{{$edit_type}}</span>
+<span id="user_id" hidden>{{$user_id}}</span>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js "></script>
@@ -1338,8 +1349,15 @@
 
 <script src="{{asset( 'js/canvas-toBlob/canvas-toBlob.js')}} "></script>
 
-
-<script src="{{ mix( '/js/company/dashboards/dashboard.min.js') }} "></script>
+@if($user->type_user == 'ADMIN')
+<script src="{{ mix( '/js/admin/dashboards/dashboardAdmin.min.js') }} "></script>
+@endif
+@if($user->type_user == 'COMPANY')
+<script src="{{ mix( '/js/company/dashboards/dashboardCompany.min.js') }} "></script>
+@endif
+@if($user->type_user == 'CUSTOMER')
+<script src="{{ mix( '/js/customer/dashboards/dashboardCustomer.min.js') }} "></script>
+@endif
 
 <script src="{{ asset( '/js/justgage-1.2.2/justgage.js') }} "></script>
 <script src="{{ asset( '/js/justgage-1.2.2/raphael-2.1.4.min.js') }} "></script>
