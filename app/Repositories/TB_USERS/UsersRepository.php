@@ -18,6 +18,8 @@ interface UsersRepository
 
     public function getCustomerByCompany();
 
+    public function getCustomerListByCompany();
+
     public function getAllEmailCustomer();
 
     public function getAllEmailCustomerInCompany();

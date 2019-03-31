@@ -85,6 +85,7 @@
                             <small class="messages-error"></small>
                         </div>
                     </div>
+                    <div id="customer_section"></div>
                 </form>
             </div>
             <div class="modal-footer">
