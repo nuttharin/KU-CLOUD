@@ -12,4 +12,5 @@ interface WebServiceRepository
 {
     public function getWebServiceByCompany();
     public function getServiceByCompany();
+    public function getServiceByCustomer();
 }

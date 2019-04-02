@@ -31,4 +31,25 @@ class EloquentWebService implements WebServiceRepository
             
         return response()->json(compact('data'), 200);
     }
+
+    public function getServiceByCustomer()
+    {
+        $data = [];
+        $whereCondition = [];
+        $user_customer = Auth::user()->user_customer()->get();
+
+        foreach ($user_customer as $user) 
+        {
+            $whereCondition[] = [
+                'company_id' => $user->company_id,
+            ];
+        }
+
+        $data = [ 
+            'webservice' => TB_WEBSERVICE::whereIn('company_id', $whereCondition)->get(),
+            'iotservice' => TB_IOTSERVICE::whereIn('company_id', $whereCondition)->get(),
+        ];
+            
+        return response()->json(compact('data'), 200);
+    }
 }
