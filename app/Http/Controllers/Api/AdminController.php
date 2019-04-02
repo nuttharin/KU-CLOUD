@@ -73,8 +73,6 @@ class AdminController extends Controller
 
     public function getAllAdminister(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->users->getByTypeForAdmin('ADMIN');
 
         if (empty($data)) {
@@ -120,8 +118,6 @@ class AdminController extends Controller
 
     public function getAllCompanies(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->users->getByTypeForAdmin('COMPANY');
 
         if (empty($data)) {
@@ -133,9 +129,6 @@ class AdminController extends Controller
 
     public function createCompany(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
 
         $attributes = [
             'username' => $request->get('username'),
@@ -158,9 +151,6 @@ class AdminController extends Controller
 
     public function editCompany(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
         $attributes = [
             'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
@@ -201,8 +191,6 @@ class AdminController extends Controller
 
     public function getAllCustomers(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->users->getByTypeForAdmin('CUSTOMER');
 
         if (empty($data)) {
@@ -214,9 +202,6 @@ class AdminController extends Controller
 
     public function createCustomer(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
 
         $attributes = [
             'username' => $request->get('username'),
@@ -265,9 +250,6 @@ class AdminController extends Controller
 
     public function editCustomer(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
         $attributes = [
             'username' => $request->get('username'),
             'user_id' => $request->get('user_id'),
@@ -379,8 +361,6 @@ class AdminController extends Controller
 
     public function getAllCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note, 
                                         ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
                                         DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn, 
@@ -400,9 +380,6 @@ class AdminController extends Controller
 
     public function createCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
 
         $company = TB_COMPANY::create([
             'company_name' => $request->get('company_name_input'),
@@ -412,7 +389,7 @@ class AdminController extends Controller
 
         $company_update = TB_COMPANY::where('company_id', $company->company_id)
         ->update([
-            'folder_log' => $company->company_name.'_'.$company->company_id,
+            'folder_log' => 'COMPANY_'.$company->company_id,
         ]);
 
         $address_company = Address_company::insert([
@@ -494,9 +471,6 @@ class AdminController extends Controller
 
     public function editCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        //dd($payload["user"]->company_id);
 
         $company = TB_COMPANY::where('company_id', $request->get('company_id_input'))
             ->update([
@@ -527,8 +501,6 @@ class AdminController extends Controller
     /* Custom */
     public function getCountUsersByCompanyID(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $countCustomer = DB::table('TB_USER_CUSTOMER')
             ->where('company_id', $request->get('company_id'))
             ->count();

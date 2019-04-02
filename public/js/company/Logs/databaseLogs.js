@@ -47,6 +47,8 @@ class DatabaseLogs {
         let onlookFileClick = (index) => {
             $(".log-viewer").show();
             $(".file-log-viewer").hide();
+            $("#file-size").html('');
+            $("#path-file").html('');
             if (datatableLogViewer === null) {
                 datatableLogViewer = $('#table-log').dataTable({});
             }
@@ -184,9 +186,10 @@ class DatabaseLogs {
                 success: function (res) {
                     console.log(res);
                     initialDatatable();
-                    fileLogList = res.file_log;
+                    fileLogList = res.file_log.files;
                     updateDatatableFileLog();
                     showLoadingStatus(false, $('#table-file-log'));
+                    $("#total_size").html(`Size : ${res.file_log.size_total}`)
                 },
                 error: function (error) {
                     console.log(error);

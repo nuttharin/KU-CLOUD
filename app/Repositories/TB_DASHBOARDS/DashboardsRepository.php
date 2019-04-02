@@ -26,4 +26,6 @@ interface DashboardsRepository
 
     public function deleteDashboard($dashboard_id);
 
+    public function getDashboardCustomerInCompany();
+
 }

@@ -86,18 +86,17 @@ class EloquentInfographic implements InfographicRepository
                                         ->select('TB_INFOGRAPHIC.*')
                                         ->get();
 
-        foreach($infoDataList as $infoData ){ 
-            $data[] = [
-                'info_id'=>$infoData->info_id,
-                'user_id'=>$infoData->user_id,
-                'name'=>$infoData->name,
-                'info_data'=>$infoData->info_data,
-                'created_by'=>$infoData->created_by,
-                'updated_by'=>$infoData->updated_by,
-                'created_at'=>$infoData->create_at,
-                'updated_at'=>$infoData->updated_at,
-            ];
-        }
+        $infoDataCustomerList = $this->model::join('TB_USER_CUSTOMER', 'TB_USER_CUSTOMER.user_id', '=', 'TB_INFOGRAPHIC.user_id')
+        ->where([
+                    ['TB_USER_CUSTOMER.company_id', '=', $company_id]
+                ])
+        ->select('TB_INFOGRAPHIC.*')
+        ->get();
+
+        $data =[
+            'company' => $infoDataList,
+            'customer' => $infoDataCustomerList,
+        ];
 
         return $data;
     }

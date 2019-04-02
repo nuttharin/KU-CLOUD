@@ -119,8 +119,8 @@
     </div>
 </div>
 
-@if ($user->type_user == 'COMPANY' || $user->type_user == 'CUSTOMER')
-<script src="{{ mix('/js/company/dashboards/dashboardDataTable.min.js') }}"></script>
+@if ($user->type_user == 'CUSTOMER')
+<script src="{{ mix('/js/customer/dashboards/dashboardDataTable.min.js') }}"></script>
 @endif
 @if ($user->type_user == 'ADMIN')
 <script src="{{ mix('/js/admin/dashboards/dashboardDataTable.min.js') }}"></script>

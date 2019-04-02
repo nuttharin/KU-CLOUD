@@ -27,7 +27,8 @@ Route::post('account/register', 'Api\AccountsController@register');
 
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
-Route::get('companyList/public', 'Api\AuthController@getCompanyList');
+Route::get('company/logo/{file_logo}', 'Api\CompanyPublicController@getLogoCompany');
+Route::get('companyList/public', 'Api\CompanyPublicController@getCompanyList');
 
 Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
 Route::get('dashboards/public/{dashboard_id}', 'Api\DashboardController@getDashboardPublicById');
@@ -52,8 +53,7 @@ Route::group([
     Route::post('Login', 'Api\AuthController@login');
     Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
-    Route::post('Me', 'Api\AuthController@me');
-
+    Route::get('Me', 'Api\AuthController@me');
 });
 
 Route::group([
@@ -76,7 +76,7 @@ Route::group([
     Route::put('users/block', 'Api\UserController@blockUser');
 
     Route::delete('users/delete', 'Api\UserController@deleteUser');
-    
+
     Route::get('companydata', 'Api\CompanyController@getAllCompanyData');
     Route::post('companydata/create', 'Api\CompanyController@createCompanyData');
     Route::put('companydata/edit', 'Api\CompanyController@editCompanyData');
@@ -124,6 +124,7 @@ Route::group([
     'prefix' => 'company',
 ], function ($router) {
     Route::get('test', 'Api\CompanyController@test'); //test
+    Route::post('/logo', 'Api\CompanyController@uploadLogo');
 
     // Route::get('users', 'Api\CompanyController@getAllUser');
     // Route::post('users', 'Api\CompanyController@addUserCompany');
@@ -173,6 +174,7 @@ Route::group([
     Route::delete('/phone', 'Api\UserController@deletePhoneUser');
 
     Route::get('/email/company', 'Api\UserController@getAllEmailCustomerInCompany');
+    Route::get('/username/company', 'Api\UserController@getAllUsernameCustomerInCompany');
     Route::delete('/email', 'Api\UserController@deleteEmailUser');
 
     Route::get('/online', 'Api\UserController@countUserOnline');
@@ -193,6 +195,7 @@ Route::group([
     'middleware' => ['api', 'jwt.verify'],
     'prefix' => 'analysis',
 ], function ($router) {
+    Route::get('/download/{file_name}', 'Api\AnalysisController@downloadFile');
     Route::get('/data', 'Api\AnalysisController@getAllDataAnalysis');
     Route::get('/data/{data_id}', 'Api\AnalysisController@getByIdDataAnalysis');
     Route::post('/data', 'Api\AnalysisController@createDataAnalysis');
@@ -205,8 +208,9 @@ Route::group([
     'middleware' => ['api', 'jwt.verify'],
     'prefix' => 'infographic',
 ], function ($router) {
-    Route::get('getInfoByUserID', 'Api\InfographicController@getAllInfograpic');
+    Route::get('getInfoByUserType', 'Api\InfographicController@getAllInfograpic');
     Route::get('getInfoByInfoID', 'Api\InfographicController@getInfograpicData');
+    Route::get('getCustomerByCompany', 'Api\InfographicController@getCustomerByCompany');
     Route::post('create', 'Api\InfographicController@createInfograpic');
     Route::put('update', 'Api\InfographicController@updateInfograpic');
     Route::put('updateInfoData', 'Api\InfographicController@updateInfograpicData');
@@ -244,6 +248,7 @@ Route::group([
     Route::get('{dashboard_id}', 'Api\DashboardController@getDashboardById');
     Route::put('layout', 'Api\DashboardController@updateDashboardLayout');
     Route::get('/', 'Api\DashboardController@getAllDashboard');
+    Route::get('/company/customers', 'Api\DashboardController@getDashboardCustomerInCompany');
 
     Route::post('/', 'Api\DashboardController@createDashboard');
     Route::put('/', 'Api\DashboardController@updateDashboard');
@@ -264,6 +269,7 @@ Route::group([
     'prefix' => 'datasources',
 ], function ($router) {
     Route::get('/', 'Api\DatasourceController@getDatasources');
+    Route::get('/customer', 'Api\DatasourceController@getDatasourcesCustomer');
     Route::post('/', 'Api\DatasourceController@createDatasource');
     Route::delete('/', 'Api\DatasourceController@deleteDatasource');
 });
@@ -309,7 +315,7 @@ Route::group([
     Route::get('iotservicedata', 'Api\IoTController@getAllIotserviceData');
     Route::get('IoTdata', 'Api\IoTController@IoTdata');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
-    
+
     Route::post('addRegisIotService_url', 'Api\IoTController@addRegisIotService_url');
     Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');

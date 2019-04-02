@@ -339,6 +339,7 @@
     <script src="{{ mix('/js/admin/Infographic/WidgetObject.min.js') }}"></script>
     <script src="{{ mix('/js/admin/Infographic/DataSource.min.js') }}"></script>
     <script src="{{ mix('/js/admin/Infographic/Infographic.min.js') }}"></script>
+    <script src="{{ mix('/js/admin/Infographic/viewModelInfographic.min.js') }}"></script>
     <script>
         $(document).ready(function () {
         $("#sidebarCollapse").click();

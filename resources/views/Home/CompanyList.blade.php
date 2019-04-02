@@ -106,7 +106,7 @@ body {
                     <div class="container">
                         <div class="row mt-2 justify-content-center">
                             <div class="col-4 mt-2">
-                                <img src="{{url('flats.png')}}" alt="Card image cap" style="width: inherit;">
+                                <img src="" id="modal_logo_company" alt="Card image cap" style="width: inherit;">
                             </div>
                         </div>
                         <div class="row mt-4">

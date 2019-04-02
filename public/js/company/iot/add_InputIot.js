@@ -96,6 +96,7 @@ class iotService {
             
         }
 
+        
         let increaseDW = () => {
             $.ajax({
                 url: strUrl,               

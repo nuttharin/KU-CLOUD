@@ -11,7 +11,13 @@ class EloquentRegisterWebservice implements RegisterWebserviceRepository
 
     public function getAll()
     {
-        $data = TB_REGISTER_WEBSERVICE::with(['user', 'webservice'])->get();
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $data = TB_REGISTER_WEBSERVICE::where([
+            ['TB_WEBSERVICE.company_id', '=', $company_id],
+        ])
+            ->join('TB_WEBSERVICE', 'TB_WEBSERVICE.webservice_id', '=', 'TB_REGISTER_WEBSERVICE.webservice_id')
+            ->join("TB_USERS", "TB_USERS.user_id", "=", "TB_REGISTER_WEBSERVICE.user_id")
+            ->get(['TB_REGISTER_WEBSERVICE.register_webservice_id', 'TB_WEBSERVICE.webservice_id', 'TB_WEBSERVICE.service_name', 'TB_USERS.user_id', 'TB_USERS.fname', 'TB_USERS.lname']);
         return \response()->json(compact('data'), 200);
     }
 

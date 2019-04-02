@@ -108,7 +108,7 @@ Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
 
     //Infographic
     Route::get('/Infographic', 'InfographicController@Index');
-    Route::get('/Infographic/{id}/{name}', 'InfographicController@CustomInfographic');
+    Route::get('/Infographic/{id}/{name}/{type_user}', 'InfographicController@CustomInfographic');
 
     //User
     Route::get('/User/Administer', 'UserController@UserAdminister');
@@ -123,7 +123,7 @@ Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
 
     // Dashboards
     Route::get('/Dashboards', 'DashboardController@Index');
-    Route::get('/Dashboards/{id}', 'DashboardController@CustomDashboard');
+    Route::get('/Dashboards/{id}/{edit_type}/{user_id}', 'DashboardController@CustomDashboard');
 
     // LogViewer
     Route::get('/LogViewer', 'LogViewerController@Index');

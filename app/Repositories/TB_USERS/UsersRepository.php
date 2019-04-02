@@ -18,9 +18,13 @@ interface UsersRepository
 
     public function getCustomerByCompany();
 
+    public function getCustomerListByCompany();
+
     public function getAllEmailCustomer();
 
     public function getAllEmailCustomerInCompany();
+
+    public function getAllUsernameCustomerInCompany();
 
     public function addCustomerInCompany(array $userList);
 

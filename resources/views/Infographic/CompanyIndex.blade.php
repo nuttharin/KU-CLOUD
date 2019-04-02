@@ -27,11 +27,21 @@
         </div>
     </div>
 </div>
-<div class="row" style="">
 
+<div class="row" style="">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <ul class="nav nav-tabs tab-basic" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="company-tab" name="nav_link_item" data-toggle="tab" href="#company" role="tab"
+                            aria-controls="company" aria-selected="true">Company</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="customer-tab" name="nav_link_item" data-toggle="tab" href="#customer" role="tab"
+                            aria-controls="customer" aria-selected="true">Customer</a>
+                    </li>
+                </ul>
                 <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
                     <thead>
                         <tr>
@@ -75,6 +85,7 @@
                             <small class="messages-error"></small>
                         </div>
                     </div>
+                    <div id="customer_section"></div>
                 </form>
             </div>
             <div class="modal-footer">

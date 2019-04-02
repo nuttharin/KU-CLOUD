@@ -18,10 +18,11 @@ class InfographicController extends Controller
         }
     }
 
-    public function CustomInfographic($id, $keyfilename)
+    public function CustomInfographic($id, $keyfilename, $type_user)
     {
         return view('Infographic.CustomInfographic')
             ->with('id', $id)
-            ->with('keyfilename', $keyfilename);
+            ->with('keyfilename', $keyfilename)
+            ->with('type_user', $type_user);
     }
 }

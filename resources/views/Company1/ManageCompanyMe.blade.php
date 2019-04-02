@@ -1,6 +1,7 @@
 @extends('layouts.mainCompany')
 @section('title','Manage Company')
 @section('content')
+<link rel="stylesheet" href="{{asset('css/croppie.css')}}">
 <div class="card bg-white" style="margin-top:30px;">
     <div class="card-header bg-white">
         <div class="row">
@@ -24,6 +25,15 @@
             </div>
         </div>
         <form id="form_edit_company" style="display:none">
+            <div class="row justify-content-center">      
+                <div class="col-12 col-md-6 text-center">
+                        <img class="img-xs img-responsive"  id="img_logo_company" width="300" height="300" src="" alt="logo company">
+                    <label class="btn btn-primary btn-block mt-2">
+                        Upload new logo <input type="file" name="imgLogo" id="imgLogo" hidden>
+                    </label>
+                </div>
+
+            </div>
             <div class="row justify-content-center">
                 <div class="col-xl-11">
                     <div class="row mt-2">
@@ -84,7 +94,31 @@
         </form>
         <div class="row justify-content-center">
             <button class="btn btn-success btn-block btn-radius" id="btn_submit_edit_company"
-                style="width:50% ;display: none"  data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
+                style="width:50% ;display: none"
+                data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Save</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="logo_crop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" id="imageUploadForm">
+                    <div id="upload-demo"></div>
+                    <input type="hidden" id="imagebase64" name="imagebase64">
+                    <button type="button" class="btn btn-success btn-block" id="btn-crop-save"
+                        data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">Set
+                        new logo</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

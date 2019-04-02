@@ -116,6 +116,9 @@ class AccountsController extends Controller
 
     public function addAddress(Request $request)
     {
+        if (!Gate::allows('isCustomer')) {
+            abort('403', "Sorry, You can do this actions");
+        }
         $attr = [
             'user_id' => Auth::user()->user_id,
             'address_detail' => $request->get('address_detail'),
