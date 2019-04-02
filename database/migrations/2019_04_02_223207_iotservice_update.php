@@ -13,7 +13,7 @@ class IotserviceUpdate extends Migration
      */
     public function up()
     {
-        Schema::table('TB_IOTSERVICE', function (Blueprint $table) {
+        Schema::table('TB_IOTSERVICE', function ( $table) {
 
             $table->string('url_aggregation',1000)->nullable();
             
