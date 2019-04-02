@@ -478,6 +478,35 @@ var IotserviceRepository = new (function(){
             let nameIotNew = $("#name-iot-new").val();
             //$("#name-iot-old").empty()
             //modalRegis = null ;
+              //register DB
+              $.ajax({
+                url: END_POINT+"iot/addRegisIotService",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    alias: alias,
+                    ServiceName: nameiot,
+                    description: description,
+                    valueCal: valueCalIot ,
+                    valueGroupby: '1',
+                    updatetime_input: '1',
+                    status: status,
+                    datajson:strField,
+                    type: 'input',
+                    
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DB")
+                    idIoT = res.iotService.iotservice_id ;
+                    //console.log(idIoT);
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
 
             console.log(nameIotNew)
         })
