@@ -13,7 +13,7 @@ class IotserviceUpdate extends Migration
      */
     public function up()
     {
-        Schema::create('TB_IOTSERVICE', function (Blueprint $table) {
+        Schema::table('TB_IOTSERVICE', function (Blueprint $table) {
 
             $table->string('url_aggregation',1000)->nullable();
             
@@ -27,6 +27,6 @@ class IotserviceUpdate extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        //Schema::dropIfExists('users');
     }
 }
