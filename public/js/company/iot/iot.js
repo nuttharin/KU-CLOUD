@@ -6,6 +6,7 @@ var IotserviceRepository = new (function(){
     let modalOutput = null;
     let modalRegis = null;
     let idDB=null;
+    //let idIoT;
 
 
     this.initialAndRun = () => {
@@ -455,8 +456,8 @@ var IotserviceRepository = new (function(){
                                     </div>
                                     <div class="modal-body">
 
-                                        <h5 >Clone IoT Service from  <span id="name-iot-old"><span></h5>
-                                      
+                                        <h5 >Clone IoT Service from :  <span id="name-iot-old"><span></h5>
+                                        <h5 class=" mb-2">Data of input iot :   <span id="data-iot"><span></h5>
                                         <h5>Name Iot (New )  :
                                             <input type='text' class=" mb-2"  id="name-iot-new" >
                                             </input>
@@ -471,7 +472,9 @@ var IotserviceRepository = new (function(){
                         </div>`;
             $('body').append(modalRegis);
         }
+
         $("#name-iot-old").html(iotserviceList[key].name)
+        $("#data-iot").html(iotserviceList[key].dataformat)
         $("#regisModal").modal('show');
         $("#btn-regis-submit").click(function(){
             $("#regisModal").modal('hide');
@@ -479,36 +482,75 @@ var IotserviceRepository = new (function(){
             //$("#name-iot-old").empty()
             //modalRegis = null ;
               //register DB
-              $.ajax({
+
+            // regis iot 
+            $.ajax({
                 url: END_POINT+"iot/addRegisIotService",
                 dataType: 'json',
                 method: "POST",
                 async: false,
                 data:
                 {
-                    alias: alias,
-                    ServiceName: nameiot,
-                    description: description,
-                    valueCal: valueCalIot ,
-                    valueGroupby: '1',
+                    //"IoT.Input.pitest1.2"
+                    alias: iotserviceList[key].alias,
+                    ServiceName: nameIotNew,
+                    description: iotserviceList[key].description,
+                    valueCal: iotserviceList[key].value_cal ,
+                    valueGroupby: '1', 
                     updatetime_input: '1',
-                    status: status,
-                    datajson:strField,
-                    type: 'input',
+                    status: iotserviceList[key].status,
+                    datajson:iotserviceList[key].dataformat,
+                    type: iotserviceList[key].type,
+                    urls: iotserviceList[key].url
                     
                 },
                 success: (res) => {
                     // toastr["success"]("Success");
                     console.log("success DB")
-                    idIoT = res.iotService.iotservice_id ;
+                    //idIoT = res.iotService.iotservice_id ;
                     //console.log(idIoT);
                 },
                 error: (res) => {
                     console.log(res);
                 }
             });
-
-            console.log(nameIotNew)
+            //"http://localhost:8081/iotService/InsertInputService?keyIot=eyJhbGciOiJIU&ID=1&nameDW=IoT.Input.pitest1.2&x1=0&x2=0"
+            $.ajax({
+                url: iotserviceList[key].url,               
+                method: "POST",
+                async: false,               
+                success: (res) => {                    
+                    console.log("success DW")
+                },
+                error: (res) => {
+                    console.log(strUrl)
+                    console.log(res);
+                }
+            });
+            // aggregate
+            $.ajax({
+                url: API_DW +"iotService/AggregateDataInputIot",
+                dataType: 'json',
+                method: "POST",
+                async: false,  
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    nameDW: iotserviceList[key].iot_name_DW,
+	                strValueCal:iotserviceList[key].value_cal   
+                },
+                success: (res) => {
+                    console.log("success agg");
+                    swal("Delete Success!", "You clicked the button!", "success");                  
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            $(".swal-button--confirm").click(function (){
+                location.reload();
+            })
+            //console.log(nameIotNew)
         })
     }
 
