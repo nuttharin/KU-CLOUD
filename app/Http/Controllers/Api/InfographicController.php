@@ -43,10 +43,10 @@ class InfographicController extends Controller
     {
         $user_id = $this->auth->user_id;
         $type_user = $this->auth->type_user;
-        $company_id = $this->auth->user_company()->first()->company_id;
 
         if($type_user == "COMPANY")
         {
+            $company_id = $this->auth->user_company()->first()->company_id;
             $data = $this->info->getInfographicByCompanyId($user_id, $company_id);
         }
         else
@@ -83,12 +83,24 @@ class InfographicController extends Controller
     {
         $userObject = $this->user->getUserById($this->auth->user_id);
 
-        $addinfo = TB_INFOGRAPHIC::create([
-            'user_id' => $this->auth->user_id,
-            'name' => $request->get('name'),
-            'created_by' => $userObject->fname.' '.$userObject->lname,
-            'updated_by' => $userObject->fname.' '.$userObject->lname,
-        ]);
+        if($request->get('user_id') != null)
+        {
+            $addinfo = TB_INFOGRAPHIC::create([
+                'user_id' => $request->get('user_id'),
+                'name' => $request->get('name'),
+                'created_by' => $userObject->fname.' '.$userObject->lname,
+                'updated_by' => $userObject->fname.' '.$userObject->lname,
+            ]);
+        }
+        else
+        {
+            $addinfo = TB_INFOGRAPHIC::create([
+                'user_id' => $this->auth->user_id,
+                'name' => $request->get('name'),
+                'created_by' => $userObject->fname.' '.$userObject->lname,
+                'updated_by' => $userObject->fname.' '.$userObject->lname,
+            ]);
+        }
 
         return response()->json(["status_code", "201"], 201);
     }
@@ -145,9 +157,21 @@ class InfographicController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getServiceByCompany(Request $request)
+    public function getServiceByTypeUser(Request $request)
     {
-        return $this->webservice->getServiceByCompany();
+        if($request->get('type_user') == "COMPANY")
+        {
+            return $this->webservice->getServiceByCompany();
+        }
+        else if($request->get('type_user') == "CUSTOMER")
+        {
+            return $this->webservice->getServiceByCustomer();
+        }
+        else
+        {
+            return $this->webservice->getServiceByCompany();
+        }
+
     }
 
     public function getApiDaily(Request $request)
