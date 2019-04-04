@@ -141,10 +141,10 @@
                 <div class="col-sm-2" >
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
-                <div class="col-sm-2" id='header-detail' >
+                <div class="col-sm-3" id='header-detail' >
                     <h6 style="color:black">Get All Data</h6>
                 </div>
-                <div class="col-sm-8" id='header-detail'>
+                <div class="col-sm-7" id='header-detail'>
                     <h6 style="color:gray">/webService/insertFirstDataTable</h6>
                 </div>
             </div>
@@ -208,10 +208,10 @@
                 <div class="col-sm-2" >
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
-                <div class="col-sm-2" id='header-detail' >
+                <div class="col-sm-3" id='header-detail' >
                     <h6 style="color:black">Get Lastest Data</h6>
                 </div>
-                <div class="col-sm-8" id='header-detail'>
+                <div class="col-sm-7" id='header-detail'>
                     <h6 style="color:gray">/webService/insertFirstDataTable</h6>
                 </div>
             </div>
@@ -275,10 +275,10 @@
                 <div class="col-sm-2" >
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
-                <div class="col-sm-2" id='header-detail' >
+                <div class="col-sm-3" id='header-detail' >
                     <h6 style="color:black">Get All Aggregation Data</h6>
                 </div>
-                <div class="col-sm-8" id='header-detail'>
+                <div class="col-sm-7" id='header-detail'>
                     <h6 style="color:gray">/webService/getDataAggregation_Getall</h6>
                 </div>
             </div>
@@ -355,10 +355,10 @@
                 <div class="col-sm-2" >
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
-                <div class="col-sm-2" id='header-detail' >
-                    <h6 style="color:black">Get Lattest Aggregation Data</h6>
+                <div class="col-sm-3" id='header-detail' >
+                    <h6 style="color:black">Get Lastest Aggregation Data</h6>
                 </div>
-                <div class="col-sm-8" id='header-detail'>
+                <div class="col-sm-7" id='header-detail'>
                     <h6 style="color:gray">/webService/getDataAggregation</h6>
                 </div>
             </div>
@@ -488,10 +488,10 @@
                 <div class="col-sm-2" >
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
-                <div class="col-sm-2" id='header-detail' >
+                <div class="col-sm-3" id='header-detail' >
                     <h6 style="color:black">Get All Data</h6>
                 </div>
-                <div class="col-sm-8" id='header-detail'>
+                <div class="col-sm-7" id='header-detail'>
                     <h6 style="color:gray">/iotService/InsertInputService</h6>
                 </div>
             </div>
@@ -555,10 +555,10 @@
                 <div class="col-sm-2" >
                     <button type="button" style="width:70%" class="btn btn-success">POST</button>
                 </div>
-                <div class="col-sm-2" id='header-detail' >
+                <div class="col-sm-3" id='header-detail' >
                     <h6 style="color:black">Get Lastest Data</h6>
                 </div>
-                <div class="col-sm-8" id='header-detail'>
+                <div class="col-sm-7" id='header-detail'>
                     <h6 style="color:gray">/iotService/InsertInputService</h6>
                 </div>
             </div>
@@ -605,6 +605,172 @@
             <a href='#' style="color:red" id="clear_IoT_result"></a>
             <div id="show_detail_iot_tryit">
                 <div id="call_IoT">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="container" >
+    <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#iot3">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
+                </div>
+                <div class="col-sm-3" id='header-detail' >
+                    <h6 style="color:black">Get All Aggregation Data</h6>
+                </div>
+                <div class="col-sm-7" id='header-detail'>
+                    <h6 style="color:gray">/iotService/getInputAggregationForWeb</h6>
+                </div>
+            </div>
+            </h4>
+        </a>
+        </div>
+        <div id="iot3" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Table name (DW): 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" style="width:100%" id="table_IoT_DW_Aggre_Getall">
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Summary Table: 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="summary_table_Iot_Getall">
+                                <option value="Day">Day</option>
+                                <option value="Week">Week</option>
+                                <option value="Month">Month</option>
+                                <option value="ThreeMonth">Three Month</option>
+                                <option value="SixMonth">Six Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
+            </tr>
+            </table>
+            </ul>
+            <hr>
+            <button type="submit" id="try_iot_it_Aggre_Getall" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_IoT_result_aggra_Getall"></a>
+            <div id="show_detail_aggre_iotGetall_tryit">
+                <div id="call_IoT_agree_getall">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="container" >
+    <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <a data-toggle="collapse" href="#iot4">
+            <h4 class="panel-title collap-output">
+            <div class="row" id='header-output'>
+                <div class="col-sm-2" >
+                    <button type="button" style="width:70%" class="btn btn-success">POST</button>
+                </div>
+                <div class="col-sm-3" id='header-detail' >
+                    <h6 style="color:black">Get Lastest Aggregation Data</h6>
+                </div>
+                <div class="col-sm-7" id='header-detail'>
+                    <h6 style="color:gray">/iotService/getInputAggregationForWeb</h6>
+                </div>
+            </div>
+            </h4>
+        </a>
+        </div>
+        <div id="iot4" class="panel-collapse collapse list-output">
+            <ul class="list-group">
+            <br/>
+            <h6 style="color:black;padding-left:10px">This method allows you to retrieve data records from a resource</h6><br/>
+            <table id="paramater">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <form>
+                <div class="form-group">
+                <td>Data</td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Table name (DW): 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" style="width:100%" id="table_IoT_DW_Aggre_Getlastest">
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            Summary Table: 
+                        </div>
+                        <div class="col-sm-6 " >
+                            <select class="form-control" id="summary_table_Iot_Getlastest">
+                                <option value="Day">Day</option>
+                                <option value="Week">Week</option>
+                                <option value="Month">Month</option>
+                                <option value="ThreeMonth">Three Month</option>
+                                <option value="SixMonth">Six Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+                </form>
+                </td>
+                <td>body</td>
+                <td>Data to be written to the given resource</td>
+                </div>
+            </tr>
+            </table>
+            </ul>
+            <hr>
+            <button type="submit" id="try_iot_it_Aggre_Getlastest" class="btn btn-info">Try it</button>
+            <a href='#' style="color:red" id="clear_IoT_result_aggra_Getlastest"></a>
+            <div id="show_detail_aggre_iotGetlastest_tryit">
+                <div id="call_IoT_agree_getlastest">
                 </div>
             </div>
         </div>
