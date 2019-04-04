@@ -553,12 +553,12 @@ class iotService{
         });
         $('#try_iot_it_Aggre_Getall').on("click", function () {
             let table_DW = $("#table_IoT_DW_Getall").val();
-            let summary_table = $('#summary_table').val();
+            let summary_table = $('#summary_table_Iot_Getall').val();
             insertintoIoTDW_Aggre_Getall(table_DW,summary_table)
         });
         $('#try_iot_it_Aggre_Getlastest').on("click", function () {
             let table_DW = $("#table_IoT_DW_Getall").val();
-            let summary_table = $('#summary_table').val();
+            let summary_table = $('#summary_table_Iot_Getlastest').val();
             insertintoIoTDW_Aggre_Getlastest(table_DW,summary_table)
         });
     }
