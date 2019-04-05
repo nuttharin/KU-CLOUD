@@ -31,7 +31,7 @@ var WebserviceRepository = new (function () {
             url: END_POINT+"company/webservicedata",
             method: 'GET',
             success: function (result) {
-                //console.log(result);
+                console.log(result);
                 initialDatatable();
                 webserviceList = result.webService;
                 showLoadingStatus(false);
@@ -139,14 +139,16 @@ var WebserviceRepository = new (function () {
 
             $('body').append(modalDetail);
         }
-
+        let createdate = new Date(webserviceList[key].created_at);
+        let updatedate = new Date(webserviceList[key].updated_at);
         $('#name-company').html(webserviceList[key].name);
         $('#alias-company').html(webserviceList[key].alias);
         $('#address-company').html(webserviceList[key].URL);
         $('#note-company').html(webserviceList[key].description);
-        $('#create-company').html(webserviceList[key].created_at);
-        $('#update-company').html(webserviceList[key].updated_at);
-
+        // $('#create-company').html(webserviceList[key].created_at);
+        // $('#update-company').html(webserviceList[key].updated_at);
+        $('#create-company').html(createdate.getDate()+"/"+createdate.getMonth()+"/"+createdate.getFullYear()+" "+createdate.toTimeString().split(' ')[0]);
+        $('#update-company').html(updatedate.getDate()+"/"+updatedate.getMonth()+"/"+updatedate.getFullYear()+" "+updatedate.toTimeString().split(' ')[0]);
         $("#detailCompany").modal('show');
     }
 
@@ -231,7 +233,7 @@ var WebserviceRepository = new (function () {
                     id:webserviceList[key].id,
                 },
                 success: (res) => {
-                    swal("Delete Success!", "You clicked the button!", "success");
+                    //swal("Delete Success!", "You clicked the button!", "success");
                     // toastr["success"]("Delete Success");
                     console.log("delete success")
                 },
@@ -239,6 +241,29 @@ var WebserviceRepository = new (function () {
                     console.log(res);
                 }
             });
+            $.ajax({
+                url: API_DW+"webService/DeleteWebService",
+                dataType: 'json',
+                method: "POST",
+                headers: {"Authorization": getCookie('token')},
+                async: false,
+                data:
+                {
+                    nameDW:webserviceList[key].service_name_DW,
+                    //typeService:iotserviceList[key].type
+                },
+                success: (res) => {
+                    
+                    swal("Delete Success!", "You clicked the button!", "success");
+                    
+                   console.log("delete dw success")
+                    
+                    
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            })
             $(".swal-button--confirm").click(function (){
                 location.reload();
             })

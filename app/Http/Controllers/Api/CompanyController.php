@@ -389,7 +389,7 @@ class CompanyController extends Controller
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
-        $nameDW = $request->get('ServiceName') . "." . $companyID;
+        $nameDW = "WebService.".$request->get('ServiceName') . "." . $companyID;
 
         $webService = TB_WEBSERVICE::create([
             'company_id' => $companyID,
@@ -684,8 +684,6 @@ class CompanyController extends Controller
 
     public function editCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
 
         $company = TB_COMPANY::where('company_id', $request->get('company_id_input'))
             ->update([
@@ -714,8 +712,6 @@ class CompanyController extends Controller
 
     public function getCountUsersByCompanyID(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $countCustomer = DB::table('TB_USER_CUSTOMER')
             ->where('company_id', $request->get('company_id'))
             ->count();

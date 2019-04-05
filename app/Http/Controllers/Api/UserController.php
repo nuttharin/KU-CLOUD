@@ -282,8 +282,6 @@ class UserController extends Controller
 
     public function getAllAdminister(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->users->getByTypeForAdmin('ADMIN');
 
         if (empty($data)) {
@@ -325,8 +323,6 @@ class UserController extends Controller
 
     public function getAllCompanies(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->users->getByTypeForAdmin('COMPANY');
 
         if (empty($data)) {
@@ -338,8 +334,6 @@ class UserController extends Controller
 
     public function createCompany(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
 
         $attributes = [
             'username' => $request->get('username'),
@@ -358,8 +352,6 @@ class UserController extends Controller
 
     public function editCompany(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
 
         $attributes = [
             'username' => $request->get('username'),
@@ -379,8 +371,6 @@ class UserController extends Controller
 
     public function getAllCustomers(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->users->getByTypeForAdmin('CUSTOMER');
 
         if (empty($data)) {
@@ -409,8 +399,6 @@ class UserController extends Controller
 
     public function editCustomer(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
 
         $attributes = [
             'username' => $request->get('username'),

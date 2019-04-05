@@ -3,6 +3,10 @@
 @section('content')
 
 <style>
+    .modal-body {
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
+    }
     #CopyKey , #CopyUrl {
         float: right;
     }
@@ -408,6 +412,7 @@
             </div>
             <div class="modal-body">
                
+                <h1>nut</h1><h1>nut</h1><h1>nut</h1><h1>nut</h1>
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Name IoT</label>
                     <div class="col-sm-12">
@@ -415,12 +420,21 @@
                     </div>
                 </div>
                  <div class="form-group">
-                    <label  class="col-sm-2 control-label">API</label>
+                    <label  class="col-sm-2 control-label">API for insert data</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control mb-2" id="Apiiot" type="text" rows="6" readonly></textarea>
+                        <textarea class="form-control mb-2" id="Apiiot" type="text" rows="5" readonly></textarea>
                         <button class="" id="CopyUrl" data-clipboard-target="#Apiiot"><i class="far fa-copy"></i></button>
                     </div>
-
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">API for receiving summary data </label>
+                    <div class="col-sm-12">
+                        <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
+                        <textarea type="text" rows="5" class="form-control mb-2"  id="ApigetData"  readonly ></textarea>
+                                             
+                        <button class="" id="Copyapidata" data-clipboard-target="#ApigetData"><i class="far fa-copy"></i></button>
+                    </div>
+                    
                 </div>
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">Key</label>
@@ -458,10 +472,18 @@
     });
 
     let copyUrl = new ClipboardJS('#CopyUrl');
-    clipboard.on('success', function(e) {
+    copyUrl.on('success', function(e) {
         console.log(e);
     });
-    clipboard.on('error', function(e) {
+    copyUrl.on('error', function(e) {
+        console.log(e);
+    });
+
+    let copyApi = new ClipboardJS('#Copyapidata');
+    copyApi.on('success', function(e) {
+        console.log(e);
+    });
+    copyApi.on('error', function(e) {
         console.log(e);
     });
 

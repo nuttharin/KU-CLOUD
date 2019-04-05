@@ -216,13 +216,14 @@ Route::group([
 ], function ($router) {
     Route::get('getInfoByUserType', 'Api\InfographicController@getAllInfograpic');
     Route::get('getInfoByInfoID', 'Api\InfographicController@getInfograpicData');
+    Route::get('getCustomerByCompany', 'Api\InfographicController@getCustomerByCompany');
     Route::post('create', 'Api\InfographicController@createInfograpic');
     Route::put('update', 'Api\InfographicController@updateInfograpic');
     Route::put('updateInfoData', 'Api\InfographicController@updateInfograpicData');
     Route::delete('delete', 'Api\InfographicController@deleteInfograpic');
     Route::post('createDatasource', 'Api\InfographicController@addDatasourceInfo');
     Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
-    Route::get('getServiceByCompany', 'Api\InfographicController@getServiceByCompany');
+    Route::get('getServiceByTypeUser', 'Api\InfographicController@getServiceByTypeUser');
     Route::get('getApiDaily', 'Api\InfographicController@getApiDaily');
     Route::get('getApiMonthly', 'Api\InfographicController@getApiMonthly');
     Route::get('getApiYearly', 'Api\InfographicController@getApiYearly');

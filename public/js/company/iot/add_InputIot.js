@@ -96,6 +96,7 @@ class iotService {
             
         }
 
+        
         let increaseDW = () => {
             $.ajax({
                 url: strUrl,               
@@ -174,6 +175,8 @@ class iotService {
             strUrl = API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+insertFristTimeDw ;
             $('#Nameiot').val(nameiot);
             $('#Apiiot').val(API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
+            $('#ApigetData').val(API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&type=[Day,Month,SixMonth,Week,Year]');
+
             $('#Keyiot').val(keyiot);
             $('#ShowDetailiotModal').modal('show');
             console.log(strUrl)

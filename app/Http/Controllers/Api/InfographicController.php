@@ -16,7 +16,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class InfographicController extends Controller
 {
 
-    private $info, $user, $webservice;
+    private $info, $user, $webservice, $auth;
 
     public function __construct(InfographicRepository $info, UsersRepository $user, WebServiceRepository $webservice)
     {
@@ -41,17 +41,17 @@ class InfographicController extends Controller
 
     public function getAllInfograpic(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $type_user = $payload["user"]->type_user;
+        $user_id = $this->auth->user_id;
+        $type_user = $this->auth->type_user;
 
         if($type_user == "COMPANY")
         {
-            $data = $this->info->getInfographicByCompanyId($payload["sub"], $payload["user"]->compay_id);
+            $company_id = $this->auth->user_company()->first()->company_id;
+            $data = $this->info->getInfographicByCompanyId($user_id, $company_id);
         }
         else
         {
-            $data = $this->info->getInfographicByUserID($payload["sub"]);
+            $data = $this->info->getInfographicByUserID($user_id);
         }
 
         if (empty($data)) {
@@ -63,8 +63,6 @@ class InfographicController extends Controller
 
     public function getInfograpicData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->info->getInfographicByInfoID($request->get('info_id'));
 
         if (empty($data)) {
@@ -74,27 +72,42 @@ class InfographicController extends Controller
         return response()->json(compact('data'), 200);
     }
 
+    public function getCustomerByCompany(Request $request)
+    {
+        $data = $this->user->getCustomerListByCompany();
+
+        return $data;
+    }
+
     public function createInfograpic(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $userObject = $this->user->getUserById($payload["sub"]);
+        $userObject = $this->user->getUserById($this->auth->user_id);
 
-        $addinfo = TB_INFOGRAPHIC::create([
-            'user_id' => $payload["sub"],
-            'name' => $request->get('name'),
-            'created_by' => $userObject->fname.' '.$userObject->lname,
-            'updated_by' => $userObject->fname.' '.$userObject->lname,
-        ]);
+        if($request->get('user_id') != null)
+        {
+            $addinfo = TB_INFOGRAPHIC::create([
+                'user_id' => $request->get('user_id'),
+                'name' => $request->get('name'),
+                'created_by' => $userObject->fname.' '.$userObject->lname,
+                'updated_by' => $userObject->fname.' '.$userObject->lname,
+            ]);
+        }
+        else
+        {
+            $addinfo = TB_INFOGRAPHIC::create([
+                'user_id' => $this->auth->user_id,
+                'name' => $request->get('name'),
+                'created_by' => $userObject->fname.' '.$userObject->lname,
+                'updated_by' => $userObject->fname.' '.$userObject->lname,
+            ]);
+        }
 
         return response()->json(["status_code", "201"], 201);
     }
 
     public function updateInfograpic(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-        $userObject = $this->user->getUserById($payload["sub"]);
+        $userObject = $this->user->getUserById($this->auth->user_id);
 
         $info = TB_INFOGRAPHIC::where('info_id', $request->get('info_id'))
             ->update([
@@ -107,9 +120,6 @@ class InfographicController extends Controller
 
     public function updateInfograpicData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-
         $info = TB_INFOGRAPHIC::where('info_id', $request->get('info_id'))
             ->update([
                 'info_data' => $request->get('info_data'),
@@ -138,8 +148,6 @@ class InfographicController extends Controller
 
     public function getDatasourceInfo(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $data = $this->info->getInfoDatasourceByInfoID($request->get('info_id'));
 
         if (empty($data)) {
@@ -149,9 +157,21 @@ class InfographicController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getServiceByCompany(Request $request)
+    public function getServiceByTypeUser(Request $request)
     {
-        return $this->webservice->getServiceByCompany();
+        if($request->get('type_user') == "COMPANY")
+        {
+            return $this->webservice->getServiceByCompany();
+        }
+        else if($request->get('type_user') == "CUSTOMER")
+        {
+            return $this->webservice->getServiceByCustomer();
+        }
+        else
+        {
+            return $this->webservice->getServiceByCompany();
+        }
+
     }
 
     public function getApiDaily(Request $request)

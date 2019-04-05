@@ -4,7 +4,9 @@ var IotserviceRepository = new (function(){
     let modalDetail = null;
     let modalDelete = null;
     let modalOutput = null;
+    let modalRegis = null;
     let idDB=null;
+    //let idIoT;
 
 
     this.initialAndRun = () => {
@@ -77,6 +79,10 @@ var IotserviceRepository = new (function(){
                                 data-placement="top" title="output">
                                 <i class="fas fa-share-square"></i>
                             </button>
+                            <button type="button" class="btn btn-secondary btn-sm btn-regis"  index=${index}  data-toggle="tooltip"
+                                data-placement="top" title="Clone IoT Service">
+                                <i class="far fa-clone"></i>
+                            </button>
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
@@ -91,9 +97,13 @@ var IotserviceRepository = new (function(){
                                 <i class="fas fa-list"></i>
                             </button>
                             <button type="button" class="btn btn-warning btn-sm btn-setting"  index=${index}  data-toggle="tooltip" disabled
-                            data-placement="top" title="setting">
-                            <i class="fas fa-cog"></i>
+                                data-placement="top" title="setting">
+                                <i class="fas fa-cog"></i>
                             </button>                
+                            <button type="button" class="btn btn-secondary btn-sm btn-regis"  index=${index}  data-toggle="tooltip"
+                                data-placement="top" title="Clone IoT Service">
+                                <i class="far fa-clone"></i>
+                            </button>
                             <button type="button" class="btn btn-danger btn-sm btn-delete"  index=${index}  data-toggle="tooltip"
                                 data-placement="top" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
@@ -118,6 +128,11 @@ var IotserviceRepository = new (function(){
             console.log('btn-delete')
             onDeleteClick($(this).attr('index'));
         });
+        $('#datatable-iotservice').on('click', '.btn-regis', function () {
+            console.log('btn-regis')
+            onRegisClick($(this).attr('index'));
+        });
+        
 
     }
 
@@ -128,7 +143,7 @@ var IotserviceRepository = new (function(){
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="title-company">Webservice Details</h5>
+                            <h5 class="modal-title" id="title-company">IoT Details</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -171,7 +186,7 @@ var IotserviceRepository = new (function(){
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Delete Web Service</h4>
+                                        <h4 class="modal-title">Delete IoT Service</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
@@ -427,6 +442,116 @@ var IotserviceRepository = new (function(){
                 //location.reload();
             })
         });
+    }
+    let onRegisClick = (key) =>{
+        modalRegis = null
+        if (modalRegis === null) {
+            modalRegis = `
+                        <div class="modal fade" id="regisModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Register IoT Service</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <h5 >Clone IoT Service from :  <span id="name-iot-old"><span></h5>
+                                        <h5 class=" mb-2">Data of input iot :   <span id="data-iot"><span></h5>
+                                        <h5>Name Iot (New )  :
+                                            <input type='text' class=" mb-2"  id="name-iot-new" >
+                                            </input>
+                                        </h5>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" id="btn-regis-submit" class="btn btn-success btn-block">Register</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+            $('body').append(modalRegis);
+        }
+
+        $("#name-iot-old").html(iotserviceList[key].name)
+        $("#data-iot").html(iotserviceList[key].dataformat)
+        $("#regisModal").modal('show');
+        $("#btn-regis-submit").click(function(){
+            $("#regisModal").modal('hide');
+            let nameIotNew = $("#name-iot-new").val();
+            //$("#name-iot-old").empty()
+            //modalRegis = null ;
+              //register DB
+
+            // regis iot 
+            $.ajax({
+                url: END_POINT+"iot/addRegisIotService",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
+                {
+                    //"IoT.Input.pitest1.2"
+                    alias: iotserviceList[key].alias,
+                    ServiceName: nameIotNew,
+                    description: iotserviceList[key].description,
+                    valueCal: iotserviceList[key].value_cal ,
+                    valueGroupby: '1', 
+                    updatetime_input: '1',
+                    status: iotserviceList[key].status,
+                    datajson:iotserviceList[key].dataformat,
+                    type: iotserviceList[key].type,
+                    urls: iotserviceList[key].url
+                    
+                },
+                success: (res) => {
+                    // toastr["success"]("Success");
+                    console.log("success DB")
+                    //idIoT = res.iotService.iotservice_id ;
+                    //console.log(idIoT);
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            //"http://localhost:8081/iotService/InsertInputService?keyIot=eyJhbGciOiJIU&ID=1&nameDW=IoT.Input.pitest1.2&x1=0&x2=0"
+            $.ajax({
+                url: iotserviceList[key].url,               
+                method: "POST",
+                async: false,               
+                success: (res) => {                    
+                    console.log("success DW")
+                },
+                error: (res) => {
+                    console.log(strUrl)
+                    console.log(res);
+                }
+            });
+            // aggregate
+            $.ajax({
+                url: API_DW +"iotService/AggregateDataInputIot",
+                dataType: 'json',
+                method: "POST",
+                async: false,  
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {
+                    nameDW: iotserviceList[key].iot_name_DW,
+	                strValueCal:iotserviceList[key].value_cal   
+                },
+                success: (res) => {
+                    console.log("success agg");
+                    swal("Delete Success!", "You clicked the button!", "success");                  
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            $(".swal-button--confirm").click(function (){
+                location.reload();
+            })
+            //console.log(nameIotNew)
+        })
     }
 
 

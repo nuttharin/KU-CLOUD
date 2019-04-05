@@ -10,6 +10,8 @@
 <input type="hidden" id="pathImg" value="{{url('imagemenu')}}" />
 <input type="hidden" id="infoID" value="{{$id}}" />
 <input type="hidden" id="infoName" value="{{$keyfilename}}" />
+<input type="hidden" id="typeUser" value="{{$type_user}}" />
+<input type="hidden" id="company_id" value="{{$company_id}}" />
 
 <div class="row border-bottom">
     <div class="col-4 text-left" style="padding: 30px 0px 10px 15px">
@@ -339,7 +341,6 @@
     <script src="{{ mix('/js/admin/Infographic/WidgetObject.min.js') }}"></script>
     <script src="{{ mix('/js/admin/Infographic/DataSource.min.js') }}"></script>
     <script src="{{ mix('/js/admin/Infographic/Infographic.min.js') }}"></script>
-    <script src="{{ mix('/js/admin/Infographic/viewModelInfographic.min.js') }}"></script>
     <script>
         $(document).ready(function () {
         $("#sidebarCollapse").click();
