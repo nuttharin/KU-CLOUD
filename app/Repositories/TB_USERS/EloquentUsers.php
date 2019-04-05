@@ -547,7 +547,6 @@ class EloquentUsers implements UsersRepository
         DB::beginTransaction();
         try {
             if (!empty($type_user)) {
-
                 if($type_user == "ADMIN")
                 {
 
@@ -627,11 +626,20 @@ class EloquentUsers implements UsersRepository
     {
         // TODO: Implement getCustomerNoCompany() method.
         $company_id = Auth::user()->user_company()->first()->company_id;
-        $data = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_EMAIL.email_user FROM TB_USERS
-        INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
-        LEFT JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
-        LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
-        WHERE TB_USERS.type_user = ?  AND TB_EMAIL.is_primary = ? AND (TB_COMPANY.company_id IS NULL OR  TB_COMPANY.company_id != ?)', ['CUSTOMER', true, $company_id]);
+        // $data = DB::select('SELECT TB_USERS.user_id,TB_USERS.fname,TB_USERS.lname,TB_EMAIL.email_user FROM TB_USERS
+        // INNER JOIN TB_EMAIL ON TB_EMAIL.user_id = TB_USERS.user_id
+        // LEFT JOIN TB_USER_CUSTOMER ON TB_USER_CUSTOMER.user_id = TB_USERS.user_id
+        // LEFT JOIN TB_COMPANY ON TB_COMPANY.company_id = TB_USER_CUSTOMER.company_id
+        // WHERE TB_USERS.type_user = ?  AND TB_EMAIL.is_primary = ? AND (TB_COMPANY.company_id IS NULL OR  TB_COMPANY.company_id != ?)', ['CUSTOMER', true, $company_id]);
+        $data = TB_USERS::where([
+            ['TB_USERS.type_user','=','CUSTOMER'],
+            ['TB_EMAIL.is_primary','=',1],
+        ])
+         ->join('TB_EMAIL','TB_EMAIL.user_id','=','TB_USERS.user_id')
+        ->whereNotIn('TB_USERS.user_id', function ($query) use($company_id)  {
+                $query->select('user_id')->from('TB_USER_CUSTOMER')
+                ->where('company_id','=',$company_id);
+        })->get(['TB_USERS.user_id','TB_USERS.fname','TB_USERS.lname','TB_EMAIL.email_user']);
         return $data;
     }
 

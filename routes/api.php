@@ -101,12 +101,16 @@ Route::group([
     Route::post('static/datasource', 'Api\AdminController@addDatasourceStatic');
     Route::delete('static/datasource', 'Api\AdminController@deleteDatasourceByStatic');
 
+//log
     Route::get('database/log', 'Api\AdminController@getLogList');
     Route::get('database/log/folder', 'Api\AdminController@getFolderLogs');
+    Route::delete('database/log/folder', 'Api\AdminController@delelteFileLogByFolder');
+    
     Route::get('database/log/file', 'Api\AdminController@getFileLogByFolder');
     Route::get('database/logfile', 'Api\AdminController@getFileLog');
+
     Route::post('database/log/file/download', 'Api\AdminController@downloadFileLog');
-    Route::delete('database/log/file/delete', 'Api\AdminController@deleteFileLog');
+    Route::delete('database/logfile', 'Api\AdminController@deleteFileLog');
 
     // Route::get('infographic/getInfoByUserID', 'Api\AdminController@getAllInfograpic');
     // Route::get('infographic/getInfoByInfoID', 'Api\AdminController@getInfograpicData');
@@ -158,8 +162,10 @@ Route::group([
     // Route::post('analysis/data/upload', 'Api\Company\AnalysisController@uploadFile');
     // Route::post('analysis', 'Api\Company\AnalysisController@analysisProcess');
 
+    Route::get('database/log/download', 'Api\CompanyController@downloadFileLog');
     Route::get('database/log/file', 'Api\CompanyController@getFileLogByFolder');
     Route::get('database/logfile', 'Api\CompanyController@getFileLog');
+    Route::delete('database/logfile', 'Api\CompanyController@deleteFileLog');
 
 });
 

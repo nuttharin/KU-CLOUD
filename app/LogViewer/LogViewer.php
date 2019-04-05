@@ -8,12 +8,13 @@
 
 namespace App\LogViewer;
 
+use Log;
+use SplFileInfo;
 use App\LogViewer\SizeLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
-use Log;
-use SplFileInfo;
 
 class LogViewer
 {
@@ -365,6 +366,7 @@ class LogViewer
     public function delelteFileLogByFolder($folder)
     {
         $path = storage_path('logs') . '/' . $folder;
-        return Storage::allFiles($path);
+       $file = new Filesystem;
+        return  $file->cleanDirectory($path);
     }
 }

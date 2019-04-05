@@ -127,6 +127,8 @@
                     <div class="col-12 col-md-6">
                         <label>Username</label>
                         <input type="text" class="form-control" name="username" value="{{$user->username}}">
+                        <small class="messages-error"></small>
+                        <br/>
                         <button type="button" class="btn btn-success mt-2" id="btn_update_username"
                             data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">Update
                             username</button>
@@ -141,6 +143,7 @@
                         <div class="d-flex">
                             <input type="text" name="add-email" class="form-control">
                             <button type="button" class="ml-2 btn btn-success" id="btn-add-email">Add</button>
+                            <small class="ml-2 messages-error"></small>
                         </div>
                     </div>
                 </div>
@@ -166,6 +169,7 @@
                         <div class="d-flex">
                             <input type="text" name="add-phone" class="form-control">
                             <button type="button" class="ml-2 btn btn-success" id="btn-add-phone">Add</button>
+                            <small class="ml-2 messages-error"></small>
                         </div>
                     </div>
                 </div>

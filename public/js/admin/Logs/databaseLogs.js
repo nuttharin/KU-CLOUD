@@ -13,10 +13,12 @@ class DatabaseLogs {
 
         let showLoadingStatus = (show, datatable) => {
             if (show) {
+                $(".dataTables_wrapper").hide();
                 datatable.hide();
                 $('.lds-roller').show();
             }
             else {
+                $(".dataTables_wrapper").show();
                 datatable.show();
                 $('.lds-roller').hide();
             }
@@ -47,6 +49,8 @@ class DatabaseLogs {
             }
 
             $('#datatable-folder-log').on('click', '.btn-look', function () {
+                $('#table-file-log').hide();
+                $("#modal-file-log .dataTables_wrapper").hide();
                 onlookClick($(this).attr('index'));
             });
 
@@ -71,7 +75,7 @@ class DatabaseLogs {
 
                                         <div class="modal-body">
                                             <p id="total_size"></p>
-                                            <table class="table table-striped table-bordered table-hover" id="table-file-log">
+                                            <table class="table table-striped table-bordered table-hover" style="display:none" id="table-file-log">
                                                 <thead>
                                                     <th>File</th>
                                                     <th>Size</th>
@@ -97,12 +101,23 @@ class DatabaseLogs {
             }
             $('#modal-file-log').modal('show');
             getFileLogByFolder(folderLogList[index].folder_log);
-
-
         };
 
-        let onDeleteClick = () => {
-
+        let onDeleteClick = (index) => {
+            swal({
+                title: "Are you sure?",
+                text: `to delete file logs in folder : ${folderLogList[index].folder_log}`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    deleteFileLogByFolder(folderLogList[index].folder_log)
+                } else {
+                    return;
+                }
+            });
+          
         };
 
         let updateDatatableFileLog = () => {
@@ -159,6 +174,59 @@ class DatabaseLogs {
             getFileLogViewer(fileLogList[index].folder, fileLogList[index].file);
         };
 
+        let onDeleteFileClick = (index) => {
+            swal({
+                title: "Are you sure?",
+                text: `to delete this file : ${fileLogList[index].file}`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    deleteFileLog(fileLogList[index].folder,fileLogList[index].file);
+                } else {
+                    return;
+                }
+            });
+        };
+
+        let deleteFileLogByFolder = (folder) => {
+            $.ajax({
+                url: `${END_POINT}admin/database/log/folder`,
+                method:"DELETE",
+                data : {
+                    folder : folder,
+                },
+                success: (res) => {
+                  console.log(res);
+                  refreshDatatable();
+                },
+                error: (error) => {
+                    console.log(error);
+                },
+            });
+        };
+
+        let deleteFileLog = (folder,file) => {
+            $.ajax({
+                url: `${END_POINT}admin/database/logfile`,
+                method:"DELETE",
+                data : {
+                    folder : folder,
+                    file_name : file
+                },
+                success: (res) => {
+                  console.log(res);
+                  refreshDatatable();
+                  $("#btn-back").click();
+                  $("#modal-file-log").modal('hide');
+                },
+                error: (error) => {
+                    console.log(error);
+                },
+            });
+        };
+
         let onBtnBackClick = () => {
             $(".log-viewer").hide();
             $(".folder-log-viewer").show();
@@ -166,6 +234,8 @@ class DatabaseLogs {
         };
 
         let updateDatatableFileLogViewer = () => {
+            $("#path-file").html('');
+            $("#file-size").html('');
             let Datatable = [];
             datatableLogViewer.fnClearTable();
             if (fileLogViewer.logs.length > 0) {
@@ -195,7 +265,14 @@ class DatabaseLogs {
                         file: filelogSelect.file
                     },
                     success: (res) => {
-                        console.log(res);
+                        var binaryData = [];
+                        binaryData.push(res);
+                        var a = document.createElement('a');
+                        var url = window.URL.createObjectURL(new Blob(binaryData, {type: "application/text"}));
+                        a.href = url;
+                        a.download = `${filelogSelect.folder}_${filelogSelect.file}`;
+                        a.click();
+                        window.URL.revokeObjectURL(url);
                     },
                     error: (error) => {
                         console.log(error);
@@ -204,24 +281,7 @@ class DatabaseLogs {
             });
 
             $("#btn-delete-file").unbind().click(function () {
-                $.ajax({
-                    url: `${END_POINT}admin/database/log/file/delete`,
-                    method: 'DELETE',
-                    data: {
-                        folder: filelogSelect.folder,
-                        file: filelogSelect.file
-                    },
-                    success: (res) => {
-                        if(res.status) {
-                            $(".log-viewer").hide();
-                            $(".folder-log-viewer").show();
-                            refreshDatatable();
-                        }
-                    },
-                    error: (error) => {
-                        console.log(error);
-                    }
-                });
+                deleteFileLog(filelogSelect.folder,filelogSelect.file)
             });
         };
 
@@ -273,6 +333,7 @@ class DatabaseLogs {
         };
 
         let getFileLogByFolder = (folder_log) => {
+            $("#total_size").html('');
             $.ajax({
                 url: `${END_POINT}admin/database/log/file`,
                 data: {
@@ -280,6 +341,8 @@ class DatabaseLogs {
                 },
                 success: (res) => {
                     fileLogList = res.file_log.files;
+                    $('#table-file-log').show();
+                    $("#modal-file-log .dataTables_wrapper").show();
                     $("#total_size").html(`Size : ${res.file_log.size_total}`)
                     updateDatatableFileLog();
                 },

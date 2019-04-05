@@ -3,21 +3,24 @@
 @section('content')
 <style>
     table {
-            font-size: 14px;
-        }
-    
-        .dataTables_wrapper {
-            font-size: 12px;
-        }
-        td.checkbox,th.checkbox {
-            text-align: center;
-            vertical-align: middle;  
-        }
-        #list_value {  
-            height: 300px !important;
-            overflow-y: scroll;
-        }
-        
+        font-size: 14px;
+    }
+
+    .dataTables_wrapper {
+        font-size: 12px;
+    }
+
+    td.checkbox,
+    th.checkbox {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    #list_value {
+        height: 300px !important;
+        overflow-y: scroll;
+    }
+
 </style>
 <link rel="stylesheet" href="{{asset('css/file.css')}}">
 <div class="row" style="margin-top:30px;">
@@ -43,8 +46,8 @@
             <div class="card-body">
                 <h3><i class="fas fa-sync grow" style="cursor: pointer;" data-toggle="tooltip" data-placement="top"
                         title="Refresh" id="refreshData"></i></h3>
-                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="example">
+                <table style="width: 100%; display:none"
+                    class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -107,7 +110,54 @@
                         <small class="messages-error"></small>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <label>Period</label>
+                    </div>
+                    <div class="col-12  form-inline">
+                        <div class="custom-control  custom-radio mr-2">
+                            <input type="radio" class="custom-control-input" id="chcekBoxDay" name="typeTime" value="typeDay"
+                                checked>
+                            <label class="custom-control-label" for="chcekBoxDay">Day</label>
+                        </div>
+                        <div class="custom-control  custom-radio mr-2">
+                            <input type="radio" class="custom-control-input" id="chcekBoxMonth" name="typeTime"
+                                value="typeMonth">
+                            <label class="custom-control-label" for="chcekBoxMonth">Month</label>
+                        </div>
+                        <div class="custom-control  custom-radio mr-2">
+                            <input type="radio" class="custom-control-input" id="chcekBoxYear" name="typeTime" value="typeYear">
+                            <label class="custom-control-label" for="chcekBoxYear">Year</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2 typeTime" id="typeDay" >
+                    <div class="col-12 col-md-4">
+                        <label>Date <span class="text-danger">*</span></label>
+                        <input type="date" name="date" id="date" class="form-control">
+                        <small class="messages-error"></small>
+                    </div>
+                </div>
+                <div class="row mt-2 typeTime" id="typeMonth" style="display:none">
+                    <div class="col-12 col-md-6">
+                        <label>Start month <span class="text-danger">*</span></label>
+                        <input type="month" name="start_month" id="start_month" class="form-control">
+                        <small class="messages-error"></small>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label>End month <span class="text-danger">*</span></label>
+                        <input type="month" name="end_month" id="end_month" class="form-control">
+                        <small class="messages-error"></small>
+                    </div>
+                </div>
+                <div class="row mt-2 typeTime" id="typeYear" style="display:none">
+                    <div class="col-12 col-md-4">
+                        <label>Year <span class="text-danger">*</span></label>
+                        <input type="number" name="year" id="year" class="form-control">
+                        <small class="messages-error"></small>
+                    </div>
+                </div>
+                <!-- <div class="row mt-2">
                     <div class="col-6">
                         <label for="start_date">Start date <span class="text-danger">*</span></label>
                         <input type="date" name="start_date" id="start_date" class="form-control">
@@ -118,9 +168,8 @@
                         <input type="date" name="end_date" id="end_date" class="form-control">
                         <small class="messages-error"></small>
                     </div>
-                </div>
+                </div> -->
                 <div class="row mt-2">
-
                     <div class="col-6">
                         <button class="btn btn-primary btn-sm btn-radius" id="btn_show_values">Show values</button>
                     </div>
@@ -142,8 +191,8 @@
                                 <tr>
                                     <th class="checkbox">
                                         <div class="custom-control custom-checkbox mb-3">
-                                            <input type="checkbox" class="custom-control-input" name="checkAll" id="checkAll"
-                                                checked>
+                                            <input type="checkbox" class="custom-control-input" name="checkAll"
+                                                id="checkAll" checked>
                                             <label class="custom-control-label" for="checkAll"></label>
                                         </div>
                                     </th>
@@ -160,7 +209,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="btn_save" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
+                <button type="button" id="btn_save" class="btn btn-success btn-block"
+                    data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
                     Save
                 </button>
             </div>
@@ -195,7 +245,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="btn_submit_upload" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">
+                <button type="button" id="btn_submit_upload" class="btn btn-success btn-block"
+                    data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Uploading . . .">
                     Upload
                 </button>
             </div>

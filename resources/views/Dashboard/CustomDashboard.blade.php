@@ -313,10 +313,10 @@
                                     <option value="TextBox">TextBox</option>
                                 </optgroup>
                                 <optgroup label="Static">
-                                    <!-- <option value="MutiLine_static">MutiLine</option>
-                                    <option value="Radar_static">Radar</option>
-                                    <option value="Map_static">Map</option>
-                                    <option value="Table_static">Table</option> -->
+                                    <option value="MutiLine_static">MutiLine</option>
+                                    <!-- <option value="Radar_static">Radar</option>
+                                    <option value="Map_static">Map</option> -->
+                                    <option value="Table_static">Table</option> 
                                 </optgroup>
                             </select>
                         </div>
@@ -325,7 +325,7 @@
                     <div class="row" id="default_value" style="display: none">
                         <div class="col-12">
                             <label>Title</label>
-                            <input type="text" name="title_name" id="title-name" class="form-control">
+                            <input type="text" name="title_name" id="title-name" class="form-control" autocomplete="off">
                         </div>
                         <!-- <div class="col-6">
                             <label>Title</label>
@@ -389,7 +389,7 @@
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="areaChart" name="areaChart">
                                     <label class="custom-control-label" for="areaChart">Area Charts</label>
-                                  </div>
+                                </div>
                             </div>
 
                             <h5>Select Value Of Y</h5>
@@ -422,7 +422,7 @@
                                     <label for="">Value
                                         <span class="text-danger">* <i class="loader" style="display:none"></i></span>
                                     </label>
-                                    <input class="form-control value-datasource" name="value">
+                                    <input class="form-control value-datasource" name="value" autocomplete="off">
                                     <small class="messages-error"></small>
                                     <ul class="list-group data-list" style="display: none">
                                 </div>
@@ -468,12 +468,12 @@
                             <div class="row form-group group-value-lable">
                                 <div class="col-6">
                                     <label for="">Value <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource" name="value-data">
+                                    <input class="form-control value-datasource" name="value-data" autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-6">
                                     <label for="">Label <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource" name="label-data">
+                                    <input class="form-control value-datasource" name="label-data" autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                             </div>
@@ -576,7 +576,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value">
+                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -589,7 +589,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value">
+                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -602,7 +602,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value">
+                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -615,7 +615,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value">
+                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -688,7 +688,7 @@
                             </div>
                             <div class="col-6">
                                 <label for="">Value <span class="text-danger">*</span></label>
-                                <input class="form-control value-datasource">
+                                <input class="form-control value-datasource" autocomplete="off">
                                 <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
@@ -714,7 +714,7 @@
                             </div>
                             <div class="col-4">
                                 <label for="">Value <span class="text-danger">*</span></label>
-                                <input class="form-control value-datasource" name="value">
+                                <input class="form-control value-datasource" name="value" autocomplete="off">
                                 <small class="messages-error"></small>
                                 <ul class="list-group data-list" style="display: none">
                             </div>
@@ -748,7 +748,7 @@
                             </div>
                             <div class="col-6">
                                 <label for="">Value <span class="text-danger">*</span></label>
-                                <input class="form-control value-datasource">
+                                <input class="form-control value-datasource" autocomplete="off">
                                 <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
@@ -771,8 +771,27 @@
                             </div>
                         </div> -->
                         <div id="map_value" class="form-group">
-                            <h5>Select value of point in map</h5>
 
+                            <div class="form-in-line mb-2">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="isHeatMap" name="isHeatMap">
+                                    <label class="custom-control-label" for="isHeatMap">Heat map</label>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3" id="max_min_value" style="display: none">
+                                <div class="col-6">
+                                    <label for="min">Min <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="min" id="map_value_min">
+                                </div>
+                                <div class="col-6">
+                                    <label for="max">Max <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="max" id="map_value_max">
+                                </div>
+
+                            </div>
+
+                            <h5>Select value of point in map</h5>
                             <div class="row">
                                 <div class="col-5">
                                     <label for="">Datasource <span class="text-danger">*</span></label>
@@ -783,6 +802,8 @@
                                 </div>
                             </div>
 
+
+
                             <button class="btn btn-primary btn-sm btn-radius mt-2 btn-add-point-map">
                                 <i class="fa fa-plus"></i>
                                 Add Point
@@ -792,25 +813,28 @@
 
                                 <div class="col-3">
                                     <label for="">Latitude <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource latitude" name="latitude">
+                                    <input class="form-control value-datasource latitude" name="latitude"
+                                        autocomplete="off">
                                     <small class="messages-error"></small>
                                     <ul class="list-group data-list" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Longitude <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource longitude" name="longitude">
+                                    <input class="form-control value-datasource longitude" name="longitude"
+                                        autocomplete="off">
                                     <small class="messages-error"></small>
                                     <ul class="list-group data-list" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Value <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control value-datasource value-map" name="value">
+                                    <input type="text" class="form-control value-datasource value-map" name="value"
+                                        autocomplete="off">
                                     <small class="messages-error"></small>
                                     <ul class="list-group data-list" style="display: none">
                                 </div>
                                 <div class="col-2">
                                     <label for="">Label <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control label-map" name="label">
+                                    <input type="text" class="form-control label-map" name="label" autocomplete="off">
                                     <small class="messages-error"></small>
                                 </div>
                             </div>
@@ -847,22 +871,22 @@
                             <div class="row form-group group-value-lable">
                                 <div class="col-3">
                                     <label for="">Latitude <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource" name="latitude">
+                                    <input class="form-control value-datasource" name="latitude" autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Longitude <span class="text-danger">*</span></label>
-                                    <input class="form-control value-datasource" name="longitude">
+                                    <input class="form-control value-datasource" name="longitude" autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Value <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control value-datasource" name="value_data">
+                                    <input type="text" class="form-control value-datasource" name="value_data" autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Label <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control value-datasource" name="label_data">
+                                    <input type="text" class="form-control value-datasource" name="label_data" autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                             </div>
@@ -979,7 +1003,7 @@
         </div>
         <div class="col-3">
             <label for="">Value <span class="text-danger">*</span></label>
-            <input class="form-control value-datasource" name="value">
+            <input class="form-control value-datasource" name="value" autocomplete="off">
             <small class="messages-error"></small>
             <ul class="list-group data-list" style="display: none">
         </div>
@@ -1003,18 +1027,18 @@
     <div class="row value-of-map">
         <div class="col-3">
             <label for="">Latitude <span class="text-danger">*</span></label>
-            <input class="form-control value-datasource latitude" name="latitude">
+            <input class="form-control value-datasource latitude" name="latitude" autocomplete="off">
             <small class="messages-error"></small>
             <ul class="list-group data-list" style="display: none">
         </div>
         <div class="col-3">
             <label for="">Longitude <span class="text-danger">*</span></label>
-            <input class="form-control value-datasource longitude" name="longitude">
+            <input class="form-control value-datasource longitude" name="longitude" autocomplete="off">
             <ul class="list-group data-list" style="display: none">
         </div>
         <div class="col-3">
             <label for="">Value <span class="text-danger">*</span></label>
-            <input type="text" class="form-control value-datasource value-map" name="value">
+            <input type="text" class="form-control value-datasource value-map" name="value" autocomplete="off">
             <small class="messages-error"></small>
             <ul class="list-group data-list" style="display: none">
         </div>
@@ -1066,7 +1090,7 @@
     </div>
     <div class="col-6">
         <label for="">Value <span class="text-danger">*</span></label>
-        <input class="form-control value-datasource" name="value">
+        <input class="form-control value-datasource" name="value" autocomplete="off">
         <small class="messages-error"></small>
         <ul class="list-group data-list" style="display: none">
     </div>
@@ -1276,52 +1300,22 @@
                 </div>
                 <div class="form-inline daily">
                     <label for="start_day" class="mr-sm-2 ">Start day</label>
-                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="start_day" item="div_id">
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 start_day" item="div_id">
                     <label for="end_day " class="mr-sm-2 ">End day</label>
-                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="end_day" item="div_id">
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 end_day" item="div_id">
                 </div>
                 <div class="form-inline monthly " style="display: none">
                     <label for="start_month " class="mr-sm-2 ">Start month</label>
-                    <select name="start_month" id="start_month" class="form-control form-control-sm mb-2 mr-sm-2"
-                        item="div_id">
-                        <option value="0">-- Select month --</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
+                    <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 start_month" item="div_id">
                     <label for="end_month" class="mr-sm-2 ">End month</label>
-                    <select name="end_month" id="end_month" class="form-control form-control-sm mb-2 mr-sm-2"
-                        item="div_id">
-                        <option value="0">-- Select month --</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
+                    <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 end_month" item="div_id">
+                   
                 </div>
                 <div class="form-inline yearly" style="display: none">
                     <label for="start_year" class="mr-sm-2 ">Start year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="start_year"
-                        item="div_id">
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year"  item="div_id">
                     <label for="end_year" class="mr-sm-2 ">End year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="end_year" item="div_id">
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 end_year" item="div_id">
                 </div>
             </div>
 
