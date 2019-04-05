@@ -4,7 +4,7 @@ namespace App\Http\Requests\Account;
 
 use App\Http\Requests\FormRequest;
 
-class UpdateUsername extends FormRequest
+class AddPhone extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateUsername extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|unique:TB_USERS,username|max:10',
+            'phone' => 'required|unique:TB_PHONE,phone_user',
         ];
     }
 }

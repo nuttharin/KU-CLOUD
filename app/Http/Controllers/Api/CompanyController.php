@@ -361,6 +361,30 @@ class CompanyController extends Controller
         return response()->json(compact('data'), 200);
     }
 
+    public function downloadFileLog(Request $request)
+    {
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $path = storage_path('logs/' . "COMPANY_$company_id/".$request->get('file_name'));
+        if (!File::exists($path)) {
+            \abort(404);
+        }
+
+        return response()->download($path);
+    }
+
+    public function deleteFileLog(Request $request)
+    {
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $path = storage_path('logs/' . "COMPANY_$company_id/".$request->get('file_name'));
+        if (!File::exists($path)) {
+            \abort(404);
+        }
+        else{
+            $status = $this->log_viewer->deleteFileLog("COMPANY_$company_id", $request->get('file_name'));
+            return response()->json(compact('status'), 200);
+        }
+    }
+
     // service
     public function addRegisWebService(Request $request)
     {
@@ -603,8 +627,6 @@ class CompanyController extends Controller
     /* Admin */
     public function getAllCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
         $company = DB::select('SELECT TB_COMPANY.company_id, TB_COMPANY.company_name, alias, note,
                                         ADDRESS_COMPANY.address_detail, ADDRESS_COMPANY.district_id, ADDRESS_COMPANY.amphure_id, ADDRESS_COMPANY.province_id,
                                         DISTRICTS.zip_code, DISTRICTS.name_th as dNameTh, DISTRICTS.name_en as dNameEn,
@@ -624,9 +646,6 @@ class CompanyController extends Controller
 
     public function createCompanyData(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-
         $company = TB_COMPANY::create([
             'company_name' => $request->get('company_name_input'),
             'alias' => $request->get('alias_input'),
@@ -635,7 +654,7 @@ class CompanyController extends Controller
 
         $company_update = TB_COMPANY::where('company_id', $company->company_id)
             ->update([
-                'folder_log' => $company->company_name . '_' . $company->company_id,
+                'folder_log' => 'COMPANY' . '_' . $company->company_id,
             ]);
 
         $address_company = Address_company::insert([

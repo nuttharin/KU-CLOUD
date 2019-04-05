@@ -176,16 +176,7 @@
         </div>
     </div> --}}
 </div>
+<script type="text/javascript " src="{{asset( 'js/sweetalert/sweetalert.min.js')}} "></script>
 <script type="text/javascript" src="{{url('js/admin/Logs/databaseLogs.js')}}"></script>
-<script>
-    // $(document).ready(function(){
-    //         $('#table-log').dataTable({
-    //             "columnDefs": [
-    //                 { "width": "40%", "targets": 0 }
-    //             ]
-    //         });
-    //         $('#sidebarCollapse').click();
-    //     });
 
-</script>
 @endsection

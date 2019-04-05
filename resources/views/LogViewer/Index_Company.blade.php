@@ -74,7 +74,7 @@
                         <div class="col-6 text-right">
                             <div class="mr-auto">
                                 <button class="btn btn-success btn-radius" id="btn-download-file"><i class="fas fa-arrow-down"></i></button>
-                                <button class="btn btn-danger btn-radius"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-danger btn-radius" id="btn_delete_file"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
                     </div>
@@ -126,5 +126,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{url('js/company/Logs/databaseLogs.js')}}"></script>
+    
+<script type="text/javascript " src="{{asset( 'js/sweetalert/sweetalert.min.js')}} "></script>
+<script type="text/javascript" src="{{url('js/company/Logs/databaseLogs.js')}}"></script>
 @endsection

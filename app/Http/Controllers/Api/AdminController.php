@@ -651,7 +651,7 @@ class AdminController extends Controller
 
     public function deleteFileLog(Request $request)
     {
-        $status = $this->log_viewer->deleteFileLog($request->get('folder'), $request->get('file'));
+        $status = $this->log_viewer->deleteFileLog($request->get('folder'), $request->get('file_name'));
         return response()->json(compact('status'), 200);
     }
 

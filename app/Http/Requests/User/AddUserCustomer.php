@@ -4,13 +4,13 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\FormRequest;
 
-class AddUserCompany extends FormRequest
+class AddUserCustomer extends FormRequest
 {
+
     protected $rules = [
         'username' => 'required|unique:TB_USERS,username|max:10',
         'fname' => 'required|max:50',
         'lname' => 'required|max:50',
-        'sub_type_user' => 'required',
         'email' => 'required|unique:TB_EMAIL,email_user',
         'phone' => 'required|unique:TB_PHONE,phone_user',
     ];

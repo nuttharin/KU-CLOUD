@@ -5,7 +5,8 @@ import {
     addEventValidate,
     resetInputValidate,
     checkError,
-    checkAuthRes
+    checkAuthRes,
+    showErrorsForInputCustom
 } from './utility';
 
 const language = {
@@ -1159,7 +1160,6 @@ export class ManagementUsers {
                 },
                 success: (res,textStatus,xhr) => {
                     checkAuthRes(xhr);
-                    console.log(res);
                     toastr["success"]("Success");
                     this.showLastestDatatable();
                     LOADING.reset(el);
@@ -1169,7 +1169,17 @@ export class ManagementUsers {
                     .end();
                 },
                 error: (res) => {
-                    console.log(res);
+                    LOADING.reset(el);
+                    let errors = res.responseJSON.errors;
+                    if(errors.username){
+                        showErrorsForInputCustom($("#add_username"),errors.username[0]);
+                    }
+                    if(errors.email){
+                        showErrorsForInputCustom($("#add_email_val"),errors.email[0]);
+                    }
+                    if(errors.phone){
+                        showErrorsForInputCustom($("#add_phone_val"),errors.phone[0]);
+                    }
                     LOADING.reset(el);
                 }
             });

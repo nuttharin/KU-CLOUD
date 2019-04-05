@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use Gate;
+use JWTAuth;
 use App\LogViewer\LogViewer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use JWTAuth;
 use App\Http\Requests\User\AddUserCompany;
+use App\Http\Requests\User\AddUserCustomer;
 use App\Repositories\TB_USERS\UsersRepository;
 
 class UserController extends Controller
@@ -222,12 +223,11 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function addUserCustomer(Request $request)
+    public function addUserCustomer(AddUserCustomer $request)
     {
         // $token = $request->cookie('token');
         // $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
-
         $data = [
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),
@@ -392,9 +392,6 @@ class UserController extends Controller
 
     public function createCustomer(Request $request)
     {
-        $token = $request->cookie('token');
-        $payload = JWTAuth::setToken($token)->getPayload();
-
         $attributes = [
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),

@@ -21,6 +21,10 @@ class DatabaseLogs {
                                         data-placement="top" title="Look">
                                         <i class="fas fa-file"></i>
                                     </button>
+                                    <button type="button" class="btn btn-success btn-sm btn-download-file" index=${index}  data-toggle="tooltip"
+                                        data-placement="top" title="Download">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
                                     <button type="button" class="btn btn-danger btn-sm btn-delete-file"  index=${index}  data-toggle="tooltip"
                                         data-placement="top" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
@@ -31,14 +35,17 @@ class DatabaseLogs {
                 datatableFileLogObject.fnAddData(Datatable);
             }
 
-
+            
             $('#table-file-log').on('click', '.btn-look-file', function () {
                 onlookFileClick($(this).attr('index'));
             });
 
+            $('#table-file-log').on('click', '.btn-download-file', function () {
+                onBtnDownloadFile($(this).attr('index'));
+            });
 
             $('#table-file-log').on('click', '.btn-delete-file', function () {
-                //onDeleteFileClick($(this).attr('index'));
+                onDeleteFileClick($(this).attr('index'));
             });
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -62,8 +69,69 @@ class DatabaseLogs {
             getFileLogViewer(fileLogList[index].folder, fileLogList[index].file);
         };
 
+
+        let onBtnDownloadFile = (index) => {
+            downloadFileLog(fileLogList[index].file);
+        }
+
+      
+        let onDeleteFileClick = (index) => {
+            swal({
+                title: "Are you sure?",
+                text: `to delete this file : ${fileLogList[index].file}`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    deleteFileLog(fileLogList[index].file);
+                } else {
+                    return;
+                }
+            });
+        }
+
+        let downloadFileLog = (file) => {
+            $.ajax({
+                url: `${END_POINT}company/database/log/download`,
+                data : {
+                    file_name : file
+                },
+                success: (res) => {
+                    var binaryData = [];
+                    binaryData.push(res);
+                    var a = document.createElement('a');
+                    var url = window.URL.createObjectURL(new Blob(binaryData, {type: "application/text"}));
+                    a.href = url;
+                    a.download = file;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                },
+                error: (error) => {
+                    console.log(error);
+                },
+            });
+        };
+
+        let deleteFileLog = (file) => {
+            $.ajax({
+                url: `${END_POINT}company/database/logfile`,
+                method:"DELETE",
+                data : {
+                    file_name : file
+                },
+                success: (res) => {
+                  console.log(res);
+                  this.refreshDatatable();
+                  $("#btn-back").click();
+                },
+                error: (error) => {
+                    console.log(error);
+                },
+            });
+        };
+
         let getFileLogViewer = (folder,file) => {
-            console.log(folder);
             showLoadingStatus(true, $('#table-log'));
             $.ajax({
                 url: `${END_POINT}company/database/logfile`,
@@ -91,7 +159,7 @@ class DatabaseLogs {
             let Datatable = [];
             datatableLogViewer.fnClearTable();
             if (fileLogViewer.logs.length > 0) {
-                $("#path-file").html(`${fileLogViewer.current_folder}/${fileLogViewer.current_file}`);
+                $("#path-file").html(`logs/${fileLogViewer.current_file}`);
                 $("#file-size").html(`${fileLogViewer.size}`);
                 $.each(fileLogViewer.logs, function (index, item) {
                     var ret = [];
@@ -109,22 +177,25 @@ class DatabaseLogs {
             }
 
             $("#btn-download-file").unbind().click(function () {
-                // console.log(filelogSelect.folder, filelogSelect.file);
-                // $.ajax({
-                //     url: 'http://localhost:8000/api/admin/database/log/file/download',
-                //     method: 'POST',
-                //     data: {
-                //         folder: filelogSelect.folder,
-                //         file: filelogSelect.file
-                //     },
-                //     success: (res) => {
-                //         console.log(res);
-                //     },
-                //     error: (error) => {
-                //         console.log(error);
-                //     }
-                // });
+                downloadFileLog(filelogSelect.file);
             });
+
+            $("#btn_delete_file").unbind().click(function(){
+                swal({
+                    title: "Are you sure?",
+                    text: `to delete this file : ${filelogSelect.file}`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        deleteFileLog(filelogSelect.file);
+                    } else {
+                        return;
+                    }
+                });
+               
+            })
         };
 
         let onBtnStackClick = (index) => {
@@ -169,10 +240,12 @@ class DatabaseLogs {
 
         let showLoadingStatus = (show, datatable) => {
             if (show) {
+                $(".dataTables_wrapper").hide();
                 datatable.hide();
                 $('.lds-roller').show();
             }
             else {
+                $(".dataTables_wrapper").show();
                 datatable.show();
                 $('.lds-roller').hide();
             }
