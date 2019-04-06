@@ -28,6 +28,8 @@ Route::post('account/register', 'Api\AccountsController@register');
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
 Route::get('company/logo/{file_logo}', 'Api\CompanyPublicController@getLogoCompany');
+Route::get('account/profile/{file_name}', 'Api\AccountsController@getProfile');
+
 Route::get('companyList/public', 'Api\CompanyPublicController@getCompanyList');
 
 Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
@@ -53,7 +55,6 @@ Route::group([
     Route::post('Login', 'Api\AuthController@login');
     Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
-    Route::get('Me', 'Api\AuthController@me');
 });
 
 Route::group([
@@ -105,7 +106,7 @@ Route::group([
     Route::get('database/log', 'Api\AdminController@getLogList');
     Route::get('database/log/folder', 'Api\AdminController@getFolderLogs');
     Route::delete('database/log/folder', 'Api\AdminController@delelteFileLogByFolder');
-    
+
     Route::get('database/log/file', 'Api\AdminController@getFileLogByFolder');
     Route::get('database/logfile', 'Api\AdminController@getFileLog');
 
@@ -184,6 +185,7 @@ Route::group([
     Route::delete('/email', 'Api\UserController@deleteEmailUser');
 
     Route::get('/online', 'Api\UserController@countUserOnline');
+    Route::get('me', 'Api\AuthController@me');
 });
 
 Route::group([
@@ -296,7 +298,6 @@ Route::group([
 
     Route::get('/', 'Api\AccountsController@getAccount');
 
-    Route::get('profile', 'Api\AccountsController@getProfile');
     Route::post('profile', 'Api\AccountsController@uploadProfile');
 
     Route::put('username', 'Api\AccountsController@updateUsername');

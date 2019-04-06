@@ -152,7 +152,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Chumper\Zipper\ZipperServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -217,6 +217,7 @@ return [
         'LogNotFoundException' => Arcanedev\LogViewer\Exceptions\LogNotFoundException::class,
         'StatsTable' => Arcanedev\LogViewer\Tables\StatsTable::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
     ],
 
     'faker_locale' => 'th_TH',
