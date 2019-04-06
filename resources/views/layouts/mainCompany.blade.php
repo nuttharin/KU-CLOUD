@@ -112,10 +112,10 @@
                     aria-expanded="false">
                     <i class="fas fa-angle-right"></i>
                     <span class="profile-text">
-                        
+                        {{$user->fname}} {{$user->lname}}
                     </span>
                     <img class="img-xs rounded-circle img-profile" id="nav_img_profile" width="30" height="30"
-                        src="{{env('API_URL')}}account/profile/default-profile.jpg" alt="Profile image">
+                        src="{{env('API_URL')}}account/profile/{{$user->img_profile}}" alt="Profile image">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <a class="dropdown-item ">
@@ -391,7 +391,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script src="{{asset('js/socket.js')}}"></script>
 
-        <script src="{{asset('js/account/userMe.min.js')}}"></script>
+        <!-- <script src="{{asset('js/account/userMe.min.js')}}"></script> -->
 
 
         <!-- <script>
