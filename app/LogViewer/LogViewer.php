@@ -12,6 +12,7 @@ use Log;
 use SplFileInfo;
 use App\LogViewer\SizeLog;
 use Illuminate\Http\Request;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
@@ -348,6 +349,15 @@ class LogViewer
         $path = storage_path('logs') . '/' . $folder . '/' . $file;
 
         return response()->download($path, $file, $headers);
+    }
+
+    public function downloadByFolder($folder)
+    {
+        $path = storage_path('logs') . '/' . $folder."/*";
+        $path_zip =  storage_path('logs') . '/' . $folder."/$folder.zip";
+        $files = glob($path);
+        Zipper::make($path_zip)->add($files)->close();
+        return response()->download($path_zip)->deleteFileAfterSend();
     }
 
     /**

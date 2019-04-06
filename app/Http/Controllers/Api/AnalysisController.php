@@ -106,6 +106,7 @@ class AnalysisController extends Controller
         Zipper::make($path_zip)->add($files)->close();
 
         return response()->download($path_zip)->deleteFileAfterSend();
+
     }
 
     public function analysisProcess(Request $request)

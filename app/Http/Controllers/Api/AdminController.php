@@ -614,6 +614,12 @@ class AdminController extends Controller
         return response()->json(compact('data'), 200);
     }
 
+    public function downloadFileLogByFolder(Request $request)
+    {
+        $folder = $request->get('folder');
+        return $this->log_viewer->downloadByFolder($folder);
+    }
+
     public function downloadFileLog(Request $request)
     {
         $folder = $request->get('folder');

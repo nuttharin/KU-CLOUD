@@ -103,7 +103,11 @@ Route::group([
     Route::delete('static/datasource', 'Api\AdminController@deleteDatasourceByStatic');
 
 //log
+    
     Route::get('database/log', 'Api\AdminController@getLogList');
+
+    
+    Route::post('database/log/folder/download', 'Api\AdminController@downloadFileLogByFolder');
     Route::get('database/log/folder', 'Api\AdminController@getFolderLogs');
     Route::delete('database/log/folder', 'Api\AdminController@delelteFileLogByFolder');
 

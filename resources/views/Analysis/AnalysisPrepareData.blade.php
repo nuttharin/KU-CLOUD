@@ -21,6 +21,8 @@
         overflow-y: scroll;
     }
 
+   
+
 </style>
 <link rel="stylesheet" href="{{asset('css/file.css')}}">
 <div class="row" style="margin-top:30px;">
@@ -116,8 +118,8 @@
                     </div>
                     <div class="col-12  form-inline">
                         <div class="custom-control  custom-radio mr-2">
-                            <input type="radio" class="custom-control-input" id="chcekBoxDay" name="typeTime" value="typeDay"
-                                checked>
+                            <input type="radio" class="custom-control-input" id="chcekBoxDay" name="typeTime"
+                                value="typeDay" checked>
                             <label class="custom-control-label" for="chcekBoxDay">Day</label>
                         </div>
                         <div class="custom-control  custom-radio mr-2">
@@ -126,12 +128,13 @@
                             <label class="custom-control-label" for="chcekBoxMonth">Month</label>
                         </div>
                         <div class="custom-control  custom-radio mr-2">
-                            <input type="radio" class="custom-control-input" id="chcekBoxYear" name="typeTime" value="typeYear">
+                            <input type="radio" class="custom-control-input" id="chcekBoxYear" name="typeTime"
+                                value="typeYear">
                             <label class="custom-control-label" for="chcekBoxYear">Year</label>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2 typeTime" id="typeDay" >
+                <div class="row mt-2 typeTime" id="typeDay">
                     <div class="col-12 col-md-4">
                         <label>Date <span class="text-danger">*</span></label>
                         <input type="date" name="date" id="date" class="form-control">
@@ -254,5 +257,18 @@
         </div>
     </div>
 </div>
+
+<div class="process-zip-file" style="display:none" >
+    <div class="row">
+        <div class="col-12">Processing compress file</div>
+        <div class="col-12 mt-2" id="file_name"></div>
+        <div class="col-12 mt-2">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"  style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="{{asset('js/company/analysis/DataAnalysis.min.js')}}"></script>
 @endsection
