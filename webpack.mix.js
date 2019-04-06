@@ -53,6 +53,8 @@ mix.js('resources/js/company/dashboards/dashboardCompany.min.js', 'public/js/com
     // .js( 'resources/js/company/dashboards/dashboardNew.min.js', 'public/js/company/dashboards')
     // .js('resources/js/dashboards/ManagementDashboard.min.js', 'public/js/dashboards')
 
+    .js('resources/js/account/userMe.min.js', 'public/js/account')
+
     .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 
     .js('resources/js/account/account.min.js', 'public/js/company/account')

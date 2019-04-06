@@ -88,8 +88,8 @@
                     <div class="col-12 col-md-6">
                         <h6>Profile picture</h6>
 
-                        <img class="img-xs rounded-circle" height="200" width="200"
-                            src="{{env('API_URL')}}account/profile" alt="Profile image"><br />
+                        <img class="img-xs rounded-circle img-profile" height="200" width="200"
+                            src="{{env('API_URL')}}account/profile/default-profile.jpg" alt="Profile image"><br />
 
                         <label class="btn btn-primary mt-2">
                             Upload new picture <input type="file" name="img-profile" id="img-profile" hidden>

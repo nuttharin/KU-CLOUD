@@ -132,7 +132,14 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user(), 200);
+        $user = auth()->user();
+        $user_res = [
+            "username" => $user['username'],
+            "fname" => $user['fname'],
+            "lname" => $user['lname'],
+            "path_img" => env('API_URL') . "account/profile/" . $user['img_profile'],
+        ];
+        return response()->json($user_res, 200);
     }
 
     /**
