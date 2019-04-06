@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        // 'weka' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/weka/input'),
+        //     'url' => env('APP_URL') . '/weka',
+        //     'visibility' => 'public',
+        // ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
