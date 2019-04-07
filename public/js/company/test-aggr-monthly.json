@@ -65,8 +65,8 @@
     },
     {
         "_id": "5ca5fa301c9e98a2695fa339",
-        "DStamp-max": 10,
-        "TStamp-max": 32,
+        "DStamp-max": 5,
+        "TStamp-max": 10,
         "Temp-max": 37.5,
         "Humid-max": 65.2,
         "DewP-max": 25.1,
@@ -125,12 +125,12 @@
         "Vis-stdDevSamp": 93.57146515962131,
         "IR-stdDevSamp": 185.34778178750022,
         "VBat-stdDevSamp": 0,
-        "real_date": "2019-04-07 00:00:00",
+        "real_date": "2019-05-06 00:00:00",
         "create_date": ""
     },{
         "_id": "5ca5fa301c9e98a2695fa339",
-        "DStamp-max": 4,
-        "TStamp-max": 27,
+        "DStamp-max": 16,
+        "TStamp-max": 26,
         "Temp-max": 37.5,
         "Humid-max": 65.2,
         "DewP-max": 25.1,
@@ -189,7 +189,7 @@
         "Vis-stdDevSamp": 93.57146515962131,
         "IR-stdDevSamp": 185.34778178750022,
         "VBat-stdDevSamp": 0,
-        "real_date": "2019-04-08 00:00:00",
+        "real_date": "2019-06-06 00:00:00",
         "create_date": ""
     }
 

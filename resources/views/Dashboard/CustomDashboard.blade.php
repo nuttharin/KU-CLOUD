@@ -666,11 +666,13 @@
                             <div class="col-4">
                                 <label>limitMin <span class="text-danger">*</span></label>
                                 <input type="number" name="limitMin" id="g_limitMin" class="form-control">
+                                <small class="messages-error"></small>
                             </div>
 
                             <div class="col-4">
                                 <label>limitMax <span class="text-danger">*</span></label>
                                 <input type="number" name="limitMax" id="g_limitMax" class="form-control">
+                                <small class="messages-error"></small>
                             </div>
 
                             <div class="col-4">
@@ -682,13 +684,15 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="">Datasource <span class="text-danger">*</span></label>
-                                <select class="form-control select-datasource">
+                                <select class="form-control select-datasource" name="datasource">
 
                                 </select>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="col-6">
                                 <label for="">Value <span class="text-danger">*</span></label>
-                                <input class="form-control value-datasource" autocomplete="off">
+                                <input class="form-control value-datasource" name="value" autocomplete="off">
+                                <small class="messages-error"></small>
                                 <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
@@ -742,13 +746,15 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="">Datasource <span class="text-danger">*</span></label>
-                                <select class="form-control select-datasource">
+                                <select class="form-control select-datasource" name="datasource">
 
                                 </select>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="col-6">
                                 <label for="">Value <span class="text-danger">*</span></label>
-                                <input class="form-control value-datasource" autocomplete="off">
+                                <input class="form-control value-datasource" name="value" autocomplete="off">
+                                <small class="messages-error"></small>
                                 <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
@@ -1290,7 +1296,7 @@
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
                 <div class="form-group">
-                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%"
+                    <select name="type_report"  class="form-control form-control-sm type_report" style="width:20%"
                         item="div_id">
                         <option value="daily">Daily</option>
                         <option value="monthly">Monthly</option>
