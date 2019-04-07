@@ -53,8 +53,15 @@ Route::group([
 ], function ($router) {
     Route::put('ResetPassword', 'Api\AuthController@resetPasswordFirst');
     Route::post('Login', 'Api\AuthController@login');
-    Route::post('Logout', 'Api\AuthController@logout');
+    // Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'auth',
+], function ($router) {
+    Route::post('logout', 'Api\AuthController@logout');
 });
 
 Route::group([

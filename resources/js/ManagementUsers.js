@@ -70,7 +70,7 @@ toastr.options = {
 validate.validators.presence.message = "is required";
 
 let validateInput = {
-    bindUser : {
+    bindUser: {
         parent: "form#form_bind_user",
         validate: {
             email: {
@@ -263,13 +263,11 @@ class ModalDetail {
                 `);
 
                 $('#detail_type_user_val').val(UsersList[key].sub_type_user);
-            }
-            else if (config.type === 'CUSTOMER') {
+            } else if (config.type === 'CUSTOMER') {
                 $('.modal-title').html("Customer User Detail");
 
                 $("#address_detail_list").html('');
-                for(let i = 0; i < UsersList[key].address.length; i++)
-                {
+                for (let i = 0; i < UsersList[key].address.length; i++) {
                     $("#address_detail_list").append(`
                         <div class="row">
                             <div class="col-12 mt-2">
@@ -306,7 +304,7 @@ class ModalDetail {
             $('#detail_username_val').val(UsersList[key].username);
             $('#detail_fname_val').val(UsersList[key].fname);
             $('#detail_lname_val').val(UsersList[key].lname);
-            
+
             let status = "";
             let phone_list = UsersList[key].phone.map(data => {
                 status = "";
@@ -455,8 +453,7 @@ class ModalEdit {
                 `);
 
                 $('#edit_type_user_val').val(UsersList[key].sub_type_user);
-            }
-            else if (config.type === 'CUSTOMER') {
+            } else if (config.type === 'CUSTOMER') {
                 $('.modal-title').html("Edit Customer User");
             }
 
@@ -688,7 +685,7 @@ class ModalEdit {
                     sub_type_user: sub_type_user,
                     type_user: UsersList[index].type_user,
                 },
-                success: (res,textStatus,xhr) => {
+                success: (res, textStatus, xhr) => {
                     checkAuthRes(xhr);
                     toastr["success"]("Success");
                     LOADING.reset($("#btn-edit-submit"));
@@ -764,7 +761,7 @@ class ModalToggleActive {
                     user_id: UsersList[key].user_id,
                     block: UsersList[key].block ? 0 : 1
                 },
-                success: (res,textStatus,xhr) => {
+                success: (res, textStatus, xhr) => {
                     checkAuthRes(xhr);
                     toastr["success"]("Success");
                     $("#BlockUser").modal('hide');
@@ -846,7 +843,10 @@ export class ManagementUsers {
                 return false;
             }
 
-            UsersDATATABLE = $('#example').dataTable({});
+            UsersDATATABLE = $('#example').dataTable({
+autoWidth: true,
+                responsive: true
+            });
         };
 
         let showDatatableLoadingStatus = (showOrHide) => {
@@ -865,7 +865,7 @@ export class ManagementUsers {
             }
         };
 
-        let createTableUsersCompany = async() => {
+        let createTableUsersCompany = async () => {
             if (UsersDATATABLE != null) {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
@@ -889,8 +889,7 @@ export class ManagementUsers {
                             return json.data;
                         }
                     },
-                    "columns": [
-                        {
+                    "columns": [{
                             "mRender": function (data, type, row) {
                                 return row.fname + " " + row.lname;
                             }
@@ -904,7 +903,7 @@ export class ManagementUsers {
                             "mRender": function (data, type, row) {
                                 return row.email[0].email_user;
                             },
-                           
+
                         },
                         {
                             "mData": "block",
@@ -949,7 +948,7 @@ export class ManagementUsers {
                                             </button>
                                         </center>`;
                             },
-                            "orderable":false,
+                            "orderable": false,
                         }
                     ]
                 });
@@ -1001,7 +1000,7 @@ export class ManagementUsers {
             return;
         };
 
-        let createTableUsersCustomer = async() => {
+        let createTableUsersCustomer = async () => {
             if (UsersDATATABLE != null) {
                 let page = UsersDATATABLE.page.info().page;
                 UsersDATATABLE.ajax.reload();
@@ -1081,7 +1080,7 @@ export class ManagementUsers {
                                             </button>
                                         </center>`;
                             },
-                            "orderable":false,
+                            "orderable": false,
                         }
                     ]
                 });
@@ -1090,7 +1089,7 @@ export class ManagementUsers {
                     selector: '[data-toggle="tooltip"]'
                 });
             }
-            
+
             return;
             // let Datatable = [];
             // UsersDATATABLE.fnClearTable();
@@ -1151,34 +1150,34 @@ export class ManagementUsers {
                     authorization: 'bearer ' + getCookie('token'),
                 },
                 data: {
-                    username:username_input,
+                    username: username_input,
                     email: email_input,
                     fname: fname_input,
                     lname: lname_input,
                     phone: phone_input,
                     sub_type_user: type_user_input,
                 },
-                success: (res,textStatus,xhr) => {
+                success: (res, textStatus, xhr) => {
                     checkAuthRes(xhr);
                     toastr["success"]("Success");
                     this.showLastestDatatable();
                     LOADING.reset(el);
                     $("#addUser").modal('hide');
                     $("#addUser").find("input,textarea,select")
-                    .val('')
-                    .end();
+                        .val('')
+                        .end();
                 },
                 error: (res) => {
                     LOADING.reset(el);
                     let errors = res.responseJSON.errors;
-                    if(errors.username){
-                        showErrorsForInputCustom($("#add_username"),errors.username[0]);
+                    if (errors.username) {
+                        showErrorsForInputCustom($("#add_username"), errors.username[0]);
                     }
-                    if(errors.email){
-                        showErrorsForInputCustom($("#add_email_val"),errors.email[0]);
+                    if (errors.email) {
+                        showErrorsForInputCustom($("#add_email_val"), errors.email[0]);
                     }
-                    if(errors.phone){
-                        showErrorsForInputCustom($("#add_phone_val"),errors.phone[0]);
+                    if (errors.phone) {
+                        showErrorsForInputCustom($("#add_phone_val"), errors.phone[0]);
                     }
                     LOADING.reset(el);
                 }
@@ -1292,7 +1291,7 @@ export class ManagementUsers {
                 headers: {
                     authorization: 'bearer ' + getCookie('token'),
                 },
-                success: (res,textStatus,xhr) => {
+                success: (res, textStatus, xhr) => {
                     checkAuthRes(xhr);
                     input_bind_email = $('#input_bind_email');
                     input_bind_email.empty();
@@ -1311,7 +1310,7 @@ export class ManagementUsers {
         };
 
         let addCustomerInCompany = () => {
-            if(checkError(validateInput.bindUser)){
+            if (checkError(validateInput.bindUser)) {
                 return;
             }
             LOADING.set($("#btn_save_bind_user"));
@@ -1324,7 +1323,7 @@ export class ManagementUsers {
                 data: {
                     userList: input_bind_email.val(),
                 },
-                success: (res,textStatus,xhr) => {
+                success: (res, textStatus, xhr) => {
                     checkAuthRes(xhr);
                     $("#bindUser").modal('hide');
                     getAllEmailCustomer();
@@ -1375,7 +1374,7 @@ export class ManagementUsers {
 
             addEventValidate(validateInput.create);
             addEventValidate(validateInput.bindUser);
-            
+
         };
 
 
@@ -1411,7 +1410,7 @@ export class ManagementUsers {
             showDatatableLoadingStatus(false);
         };
 
-       
+
     }
 
 

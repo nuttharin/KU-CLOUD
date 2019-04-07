@@ -78,13 +78,19 @@ class CompanyController extends Controller
     {
         try {
             $request->session()->forget('user');
+            $token = $request->cookie('token');
+            if (!empty($token)) {
+                $logoutRequest = Request::create(
+                    env('API_URL') . 'auth/logout',
+                    'POST'
+                );
 
-            auth()->logout();
+                Cookie::queue(Cookie::forget('token', '/', config('IP_ADDRESS')));
 
-            Cookie::queue(Cookie::forget('token', '/', config('IP_ADDRESS')));
+            }
+
             Cookie::queue(Cookie::forget('socket_token', '/', config('IP_ADDRESS')));
             Cookie::queue(Cookie::forget('io', '/', config('IP_ADDRESS')));
-
             // JWTAuth::invalidate(JWTAuth::parseToken());
             return redirect('/');
         } catch (Exception $e) {
