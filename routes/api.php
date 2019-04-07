@@ -218,9 +218,14 @@ Route::group([
     Route::post('createDatasource', 'Api\InfographicController@addDatasourceInfo');
     Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
     Route::get('getServiceByTypeUser', 'Api\InfographicController@getServiceByTypeUser');
+
     Route::get('getApiDaily', 'Api\InfographicController@getApiDaily');
     Route::get('getApiMonthly', 'Api\InfographicController@getApiMonthly');
     Route::get('getApiYearly', 'Api\InfographicController@getApiYearly');
+
+    Route::get('getImage', 'Api\InfographicController@getImage');
+    Route::post('uploadImage', 'Api\InfographicController@uploadImage');
+    Route::delete('deleteImage', 'Api\InfographicController@deleteImage');
 });
 
 Route::group([
