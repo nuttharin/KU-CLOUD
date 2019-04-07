@@ -75,17 +75,26 @@ body {
 
 <div class="container" style="margin-top:130px;">
     <h1 class="mb-3 text-white text-shadow">Company list</h1>
-    <form id="search_company>
+    <form id="search_company>">
         <div class="form-group">
-            <input type="text" class="form-control search-input" placeholder="Search company"
-                id="search_company_input">
+            <input type="text" class="form-control search-input" placeholder="Search company" id="search_company_input" />
         </div>
     </form>
+    <h6 id="total_company" class="text-white text-shadow"></h6>
 </div>
 
-<div class="container" style="margin-top:40px;">
-    <div class="row" id="space_list">
-        
+<div class="container" style="margin-top:40px; padding-bottom:25px;">
+    <div class="row" id="space_list">       
+    </div>
+    <div class="lds-roller text-center" id="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 </div>
 
@@ -110,8 +119,8 @@ body {
                             </div>
                         </div>
                         <div class="row mt-4">
-                            <div class="col-12 mt-2">        
-                                <h4 class="text-left">ADDRESS</h4>
+                            <div class="col-xl-4 col-12 mt-2">        
+                                <h5 class="text-left">ADDRESS</h5>
                                 <div class="row">
                                     <div class="col-6">
                                         <h6 class="text-left content-line">Address detail : </h6>
@@ -127,21 +136,28 @@ body {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 mt-2">        
-                                <h4 class="text-left">Service</h4>
+                            <div class="col-xl-4 col-12 mt-2">
                                 <div class="row">
                                     <div class="col-6">
-                                        <h6 class="text-left content-line">Service name : </h6>
-                                        <h6 class="text-left content-line">Service name : </h6>
-                                        <h6 class="text-left content-line">Service name : </h6>
-                                        <h6 class="text-left content-line">Service name : </h6>
+                                        <h4 class="text-left">Webservice</h4>
                                     </div>
                                     <div class="col-6">
-                                        <h6 class="text-left">name 1</h6>
-                                        <h6 class="text-left">name 2</h6>
-                                        <h6 class="text-left">name 3</h6>
-                                        <h6 class="text-left">name 4</h6>
+                                        <h4 class="text-left">Description</h4>
                                     </div>
+                                </div>
+                                <div id="webserive_section">
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-12 mt-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h4 class="text-left">IoTservice</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4 class="text-left">Description</h4>
+                                    </div>
+                                </div>
+                                <div id="iotserive_section">
                                 </div>
                             </div>
                         </div>

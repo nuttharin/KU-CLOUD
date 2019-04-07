@@ -50,7 +50,7 @@
                 </div> -->
                 <div class=" vertical-menu">
                     <a href="#" id="btnGraph"><i class="fas fa-chart-line fa-2x"></i></a>
-                    <a href="#" id="btnMap"><i class="fas fa-map-marker-alt fa-2x"></i></a>
+                    <!-- <a href="#" id="btnMap"><i class="fas fa-map-marker-alt fa-2x"></i></a> -->
                     <a href="#" id="btnFont"><i class="fas fa-font fa-2x"></i></a>
                     <a href="#" id="btnImage"><i class="far fa-image fa-2x"></i></a>
                     <a href="#" id="btnShapes"><i class="fab fa-microsoft fa-2x"></i></a>
@@ -356,14 +356,14 @@
 
         var data = `[{"Vehicle":"BMW","Date":"30, Jul 2013 09:24 AM","Location":"Hauz Khas, Enclave, New Delhi, Delhi, India","Speed":42},{"Vehicle":"Honda CBR","Date":"30, Jul 2013 12:00 AM","Location":"Military Road,  West Bengal 734013,  India","Speed":0},{"Vehicle":"Supra","Date":"30, Jul 2013 07:53 AM","Location":"Sec-45, St. Angel's School, Gurgaon, Haryana, India","Speed":58},{"Vehicle":"Land Cruiser","Date":"30, Jul 2013 09:35 AM","Location":"DLF Phase I, Marble Market, Gurgaon, Haryana, India","Speed":83},{"Vehicle":"Suzuki Swift","Date":"30, Jul 2013 12:02 AM","Location":"Behind Central Bank RO, Ram Krishna Rd by-lane, Siliguri, West Bengal, India","Speed":0},{"Vehicle":"Honda Civic","Date":"30, Jul 2013 12:00 AM","Location":"Behind Central Bank RO, Ram Krishna Rd by-lane, Siliguri, West Bengal, India","Speed":0},{"Vehicle":"Honda Accord","Date":"30, Jul 2013 11:05 AM","Location":"DLF Phase IV, Super Mart 1, Gurgaon, Haryana, India","Speed":71}]`;
         
-        // JSONToCSVConvertor(data, "Vehicle Report", true);
+        JSONToCSVConvertor(data, "Vehicle Report", true);
         });
 
 
         function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
     var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
-    
+
     var CSV = '';    
     //Set Report title in first row or line
     
@@ -373,9 +373,9 @@
     if (ShowLabel) {
         var row = "";
         
+        //First row (Head)
         //This loop will extract the label from 1st index of on array
         for (var index in arrData[0]) {
-            
             //Now convert each value to string and comma-seprated
             row += index + ',';
         }
@@ -390,6 +390,7 @@
     for (var i = 0; i < arrData.length; i++) {
         var row = "";
         
+        //Seconed row (Body)
         //2nd loop will extract each column and convert it in string comma-seprated
         for (var index in arrData[i]) {
             row += '"' + arrData[i][index] + '",';
@@ -429,7 +430,7 @@
     
     //this part will append the anchor tag and remove it after automatic click
     document.body.appendChild(link);
-    link.click();
+    // link.click();
     document.body.removeChild(link);
 }
 

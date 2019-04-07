@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use File;
 use Response;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 
@@ -34,9 +35,9 @@ class CompanyPublicController extends Controller
         return $response;
     }
 
-    public function getCompanyList()
+    public function getCompanyList(Request $request)
     {
-        $data = $this->companies->getCompanyWithAddress();
+        $data = $this->companies->getCompanyWithAddress($request->get('search'));
         return response()->json(compact('data'), 201);
     }
 }
