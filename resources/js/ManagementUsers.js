@@ -844,8 +844,6 @@ export class ManagementUsers {
             }
 
             UsersDATATABLE = $('#example').dataTable({
-autoWidth: true,
-                responsive: true
             });
         };
 
