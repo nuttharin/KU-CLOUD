@@ -70,7 +70,10 @@
 
     <!-- toastr -->
     <link href="{{asset('js/toastr/toastr.min.css')}}" rel="stylesheet" />
-
+    
+    <!-- Croppie -->
+    <link rel="stylesheet" href="{{url('cropper/cropper.css')}}">
+    <script src="{{url('cropper/cropper.js')}}"></script>
 
 
     <link rel="stylesheet" href="{{asset('freetrans/jquery.freetrans.css')}}">

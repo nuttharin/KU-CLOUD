@@ -12,6 +12,8 @@ use App\Address_company;
 use App\LogViewer\SizeLog;
 use App\TB_COMPANY;
 use App\TB_USER_CUSTOMER;
+use App\TB_WEBSERVICE;
+use App\TB_IOTSERVICE;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Log;
@@ -137,9 +139,17 @@ class EloquentCompany implements CompanyRepository
         return $folder_log_size;
     }
 
-    public function getCompanyWithAddress()
+    public function getCompanyWithAddress($company_name)
     {
-        $company_all = TB_COMPANY::all();
+        if(empty($company_name))
+        {
+            $company_all = TB_COMPANY::all();
+        }
+        else
+        {
+            $company_all = TB_COMPANY::where('company_name', 'LIKE', '%'.$company_name.'%')->get();
+        }
+
         $company_list = [];
         foreach ($company_all as $value) {
             $company_list[] = [
@@ -156,6 +166,8 @@ class EloquentCompany implements CompanyRepository
                                             INNER JOIN AMPHURES ON AMPHURES.amphure_id = ADDRESS_COMPANY.amphure_id
                                             INNER JOIN PROVINCES ON PROVINCES.province_id = ADDRESS_COMPANY.province_id
                                             WHERE ADDRESS_COMPANY.company_id = ?', [$value->company_id]),
+                'webservice' => TB_WEBSERVICE::where('company_id', $value->company_id)->select('service_name', 'description')->get(),
+                'iotservice' => TB_IOTSERVICE::where('company_id', $value->company_id)->select('iot_name', 'description')->get(),
             ];
         }
         return $company_list;

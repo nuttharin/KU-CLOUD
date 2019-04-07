@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Image;
+use Response;
+use File;
 
 class InfographicController extends Controller
 {
@@ -320,4 +323,64 @@ class InfographicController extends Controller
 
         return response()->json(compact('data'), 200);
     }
+
+    public function getImage(Request $request)
+    {
+        $path = storage_path('app/info_img_widget/' . $request->get('path_image'));
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if($request->get('path_image') != null)
+        {
+            $path = storage_path('app/info_img_widget/' . $request->get('path_image'));
+            File::delete($path);
+        }
+
+        $data = $request->get('src_image');
+        list($type, $data) = explode(';', $data);
+        list(, $data) = explode(',', $data);
+        $data = base64_decode($data);
+        $imageName = str_random(16) . '.' . 'png';
+        File::put(storage_path() . '/app/info_img_widget/' . $imageName, $data);
+
+        return response()->json(compact('imageName'), 200);
+    }
+
+    public function deleteImage(Request $request)
+    {
+
+        for($i = 0; $i < count($request->get('path_image')); $i++)
+        {
+            $path = storage_path('app/info_img_widget/' . $request->get('path_image')[$i]);
+            File::delete($path);
+        }
+        // if($request->get('path_image') != null)
+        // {
+        //     $path = storage_path('app/info_img_widget/' . $request->get('path_image'));
+        //     File::delete($path);
+        // }
+
+        // $data = $request->get('src_image');
+        // list($type, $data) = explode(';', $data);
+        // list(, $data) = explode(',', $data);
+        // $data = base64_decode($data);
+        // $imageName = str_random(16) . '.' . 'png';
+        // File::put(storage_path() . '/app/info_img_widget/' . $imageName, $data);
+
+        // return response()->json(compact('imageName'), 200);
+    }
+
 }

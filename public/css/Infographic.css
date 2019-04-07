@@ -648,7 +648,7 @@ input[type="color"]::-webkit-color-swatch {
   background-color: #a0a0a0;
 }
 .sensor-color::after{
-  content: "Not Allow";
+  content: "This widget have authorized data";
   color: white;
   position: absolute;
   left: 5%;
