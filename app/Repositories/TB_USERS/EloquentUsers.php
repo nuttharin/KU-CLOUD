@@ -17,6 +17,7 @@ use App\Address_users;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\USER_FIRST_CREATE;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 

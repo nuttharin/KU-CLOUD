@@ -788,7 +788,6 @@
                                     <label for="max">Max <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="max" id="map_value_max">
                                 </div>
-
                             </div>
 
                             <h5>Select value of point in map</h5>
