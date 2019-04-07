@@ -60,3 +60,9 @@
 .text-line.lg {
   height: 40px;
 }
+
+@media screen and (max-width : 480px){
+  .text-line {
+    width: 120px;
+  }
+}

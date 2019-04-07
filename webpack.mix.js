@@ -53,6 +53,8 @@ mix.js('resources/js/company/dashboards/dashboardCompany.min.js', 'public/js/com
     // .js( 'resources/js/company/dashboards/dashboardNew.min.js', 'public/js/company/dashboards')
     // .js('resources/js/dashboards/ManagementDashboard.min.js', 'public/js/dashboards')
 
+    .js('resources/js/account/userMe.min.js', 'public/js/account')
+
     .js('resources/js/lib/TableEx.min.js', 'public/js/lib/TableEx.min.js')
 
     .js('resources/js/account/account.min.js', 'public/js/company/account')
@@ -97,6 +99,10 @@ mix.js('resources/js/company/dashboards/dashboardCompany.min.js', 'public/js/com
 
     .js('resources/js/dashboards/DashboardListPublic.min.js','public/js/dashboards/DashboardListPublic.min.js')
     .js('resources/js/dashboards/DashboardPublic.min.js','public/js/dashboards/')
+
+    //logs
+    .js('resources/js/company/Logs/databaseLogs.min.js','public/js/company/Logs/')
+    .js('resources/js/admin/Logs/databaseLogs.min.js','public/js/admin/Logs/')
     
 
     .sass('resources/sass/main.scss', 'public/css');

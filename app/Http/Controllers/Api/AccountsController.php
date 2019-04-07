@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\AddEmail;
+use App\Http\Requests\Account\AddPhone;
 use App\Http\Requests\Account\UpdateName;
 use App\Http\Requests\Account\UpdateUsername;
 use App\Repositories\Accounts\AccountsRepository;
@@ -65,10 +67,9 @@ class AccountsController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getProfile()
+    public function getProfile($file_name)
     {
-        $path = storage_path('app/upload/' . Auth::user()->img_profile);
-
+        $path = storage_path('app/upload/' . $file_name);
         if (!File::exists($path)) {
             abort(404);
         }
@@ -155,7 +156,7 @@ class AccountsController extends Controller
         $this->account->changePrimaryEmail(Auth::user()->user_id, $request->get('email'));
     }
 
-    public function addEmail(Request $request)
+    public function addEmail(AddEmail $request)
     {
         $this->account->addEmail(Auth::user()->user_id, $request->get('email'));
     }
@@ -170,7 +171,7 @@ class AccountsController extends Controller
         $this->account->changePrimaryPhone(Auth::user()->user_id, $request->get('phone'));
     }
 
-    public function addPhone(Request $request)
+    public function addPhone(AddPhone $request)
     {
         $this->account->addPhone(Auth::user()->user_id, $request->get('phone'));
     }
