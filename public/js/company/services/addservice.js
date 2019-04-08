@@ -514,14 +514,14 @@ class Service {
                         
                 },
                 error: (res) => {
-                    swal("Good job!", "You clicked the button!", "error");
+                    //swal("Good job!", "You clicked the button!", "error");
                     console.log(res);
                 }
                 });
             $(".swal-button--confirm").click(function (){
                 location.reload();
             })
-                // เพิ่มค่าในตารางข้อมูลครั้งเเรก
+            // เพิ่มค่าในตารางข้อมูลครั้งเเรก
             $.ajax({
                 url: API_DW+"webService/insertFirstDataTable",
                 dataType: 'json',
@@ -802,7 +802,7 @@ $(document).ready(function () {
             success: (res) => {
                     // toastr["success"]("Success");
                 chkName = res.webService;
-                console.log(chkName)
+                console.log("name" + chkName)
                     //increaseDataTableDW();
             },
             error: (res) => {
