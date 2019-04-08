@@ -393,7 +393,7 @@ class CompanyController extends Controller
         $companyID = $this->auth->user_company()->first()->company_id;
         $name = $request->get('ServiceName');
         $webService = DB::select("SELECT TB_WEBSERVICE.service_name as name
-        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.service_name='$name'");
+        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.service_name='$name' and company_id='$companyID'");
 
         return response()->json(compact('webService'), 200);
     }
