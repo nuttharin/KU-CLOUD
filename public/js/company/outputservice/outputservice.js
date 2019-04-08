@@ -472,13 +472,13 @@ class iotService{
         let insertintoIoTDW_Aggre_Getlastest = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: API_DW +"iotService/getInputAggregationForIot",
+                url: API_DW +"iotService/getInputAggregationForWebLastest",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    nameDW: "IoT.input."+table_DW,
+                    nameDW: table_DW,
                     type:summary_table,
                 },
                 success: (res) => {
