@@ -709,7 +709,7 @@
                     <h6 style="color:black">Get Lastest Aggregation Data</h6>
                 </div>
                 <div class="col-sm-7" id='header-detail'>
-                    <h6 style="color:gray">/iotService/getInputAggregationForWeb</h6>
+                    <h6 style="color:gray">/iotService/getInputAggregationForWebLastest</h6>
                 </div>
             </div>
             </h4>

@@ -390,6 +390,17 @@ class CompanyController extends Controller
     }
 
     // service
+    public function checkServicename(Request $request)
+    {
+        // $token = $request->bearerToken();
+        // $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $name = $request->get('ServiceName');
+        $webService = DB::select("SELECT TB_WEBSERVICE.service_name as name
+        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.service_name='$name'");
+
+        return response()->json(compact('webService'), 200);
+    }
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;

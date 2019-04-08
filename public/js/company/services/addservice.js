@@ -465,11 +465,10 @@ class Service {
                     increaseDataTableDW();
                 },
                 error: (res) => {
-                    swal("Good job!", "You clicked the button!", "error");
+                    swal("Error!", "You clicked the button!", "error");
                     console.log(res);
                 }
             });
-
         }
 
         let increaseDataTableDW = ()=>
@@ -757,82 +756,28 @@ $(document).ready(function () {
 
     $(".show-header").click(function () {
 
-        let url = $("#url-webservice").val();
-        let alias = $('#alias-webservice').val();
-        let ServiceName = $('#name-webservice').val();
-        let description = $("#description-webservice").val();
-        let status = $('#status').val();
-        let minute = $('#time-webservice-minute').val();
-        let hour = $('#time-webservice-hour').val();
-        let time = minute+" "+hour+" * * *";
-        
+        let url;
+        let alias;
+        let ServiceName;
+        let description;
+        let status;
+        let minute;
+        let hour ;
+        let time ;
+        url = $("#url-webservice").val();
+        alias = $('#alias-webservice').val();
+        ServiceName = $('#name-webservice').val();
+        description = $("#description-webservice").val();
+        status = $('#status').val();
+        minute = $('#time-webservice-minute').val();
+        hour = $('#time-webservice-hour').val();
+        time = minute+" "+hour+" * * *";
         //console.log(time)
-        let minuteall = minute.split("*/");
-        let hourall = hour.split("*/");
-        let minute_to = minute.split("-");
-        let hour_to = hour.split("-");
+        
         //console.log(minuteall.length);
         // console.log(hourall.length);
         // console.log(minute_to.length);
         // console.log(hour_to.length);
-        let type_time;
-        let convert_time;
-        if(minuteall.length == 2)
-        {
-            //console.log("minuteall")
-            type_time = "minuteall"
-            convert_time= minuteall[1] * 60;
-        }
-        else if(hourall.length == 2)
-        {
-            //console.log("hourall")
-            type_time="hourall"
-            convert_time= hourall[1] * 360;
-
-        }
-        else if(minute_to.length == 2)
-        {
-            //console.log("minuteto")
-            type_time="minuteto"
-        }
-        else if(hour_to.length == 2)
-        {
-            //console.log("hourall")
-            type_time="hourto"
-            convert_time = hour
-        }
-        else
-        {
-            type_time="time"
-            if(hour<10)
-            {
-                if(minute<10)
-                {
-                    convert_time = "0"+hour+".0"+minute
-                }
-                else
-                {
-                    convert_time = "0"+hour+"."+minute
-                }
-            }
-            else
-            {
-                if(minute =='*' && hour=='*')
-                {
-                    convert_time = 60
-                }
-                else if(minute<10)
-                {
-                    convert_time = hour+".0"+minute
-                }
-                else
-                {
-                    convert_time = hour+"."+minute
-                }
-            }
-            
-            
-        }
         // console.log(type_time)
         // console.log(convert_time)
         if(url == "")
@@ -844,41 +789,67 @@ $(document).ready(function () {
         console.log(ServiceName)
         console.log(minute)
         console.log(hour)
-        if(url == "" || alias == "" || ServiceName == "" || minute == "" || hour == "" )
-        {
-             if(ServiceName == "")
+        let chkName;
+        $.ajax({
+            url: END_POINT+"company/webservice/checkServicename",
+            dataType: 'json',
+            method: "POST",
+            async: false,
+            data:
             {
-                swal("คุณไม่ได้กรอก ServiceName !", "", "error");
-            }  
-            else if(alias == "")
-            {
-                swal("คุณไม่ได้กรอก alias !", "", "error");
+                ServiceName: ServiceName,
+            },
+            success: (res) => {
+                    // toastr["success"]("Success");
+                chkName = res.webService;
+                console.log(chkName)
+                    //increaseDataTableDW();
+            },
+            error: (res) => {
+                swal("Good job!", "You clicked the button!", "error");
+                console.log(res);
             }
-            else  if(url == "")
+            });
+            if(chkName==null||chkName=="")
             {
-                swal("คุณไม่ได้กรอก url !", "", "error");
-            }                 
-            else  if(minute == "")
-            {
-                swal("คุณไม่ได้กรอก minute !", "", "error");
+                if(url != "" && alias != "" && ServiceName != "" && minute != "" && hour != "" )
+                {
+                    let service = new Service(url, alias, ServiceName, description,status,time);
+                    service.initService();
+                }
+                else
+                {
+                    if(url == "" || alias == "" || ServiceName == "" || minute == "" || hour == "" )
+                    {
+                        if(ServiceName == "")
+                        {
+                            swal("คุณไม่ได้กรอก ServiceName !", "", "error");
+                        }  
+                        else if(alias == "")
+                        {
+                            swal("คุณไม่ได้กรอก alias !", "", "error");
+                        }
+                        else  if(url == "")
+                        {
+                            swal("คุณไม่ได้กรอก url !", "", "error");
+                        }                 
+                        else  if(minute == "")
+                        {
+                            swal("คุณไม่ได้กรอก minute !", "", "error");
+                        }
+                        else  if(hour == "")
+                        {
+                            swal("คุณไม่ได้กรอก hour !", "", "error");
+                        }
+                        
+                    }
+                }
+                
             }
-            else  if(hour == "")
+            else
             {
-                swal("คุณไม่ได้กรอก hour !", "", "error");
+                swal("Duplicate Service Name!", "Please enter a new Service Name.", "error");
             }
-            
-        }
-        if(description == ""){
-            description ="";
-        }
-        else {
-            let service = new Service(url, alias, ServiceName, description,status,time);
-            service.initService();
-        }
-       
-        
-      
-        
     })
 
 });
