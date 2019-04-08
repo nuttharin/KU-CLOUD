@@ -361,7 +361,42 @@ class CompanyController extends Controller
         return response()->json(compact('data'), 200);
     }
 
+    public function downloadFileLog(Request $request)
+    {
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $path = storage_path('logs/' . "COMPANY_$company_id/".$request->get('file_name'));
+        if (!File::exists($path)) {
+            \abort(404);
+        }
+
+        return response()->download($path);
+    }
+
+    public function deleteFileLog(Request $request)
+    {
+        $company_id = Auth::user()->user_company()->first()->company_id;
+        $path = storage_path('logs/' . "COMPANY_$company_id/".$request->get('file_name'));
+        if (!File::exists($path)) {
+            \abort(404);
+        }
+        else{
+            $status = $this->log_viewer->deleteFileLog("COMPANY_$company_id", $request->get('file_name'));
+            return response()->json(compact('status'), 200);
+        }
+    }
+
     // service
+    public function checkServicename(Request $request)
+    {
+        // $token = $request->bearerToken();
+        // $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $name = $request->get('ServiceName');
+        $webService = DB::select("SELECT TB_WEBSERVICE.service_name as name
+        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.service_name='$name'");
+
+        return response()->json(compact('webService'), 200);
+    }
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
@@ -622,7 +657,6 @@ class CompanyController extends Controller
 
     public function createCompanyData(Request $request)
     {
-
         $company = TB_COMPANY::create([
             'company_name' => $request->get('company_name_input'),
             'alias' => $request->get('alias_input'),
@@ -631,7 +665,7 @@ class CompanyController extends Controller
 
         $company_update = TB_COMPANY::where('company_id', $company->company_id)
             ->update([
-                'folder_log' => $company->company_name . '_' . $company->company_id,
+                'folder_log' => 'COMPANY' . '_' . $company->company_id,
             ]);
 
         $address_company = Address_company::insert([

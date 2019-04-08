@@ -9,6 +9,7 @@ use App\Weka\Classify\J48;
 use App\Weka\Classify\SimpleLinearRegression;
 use App\Weka\Clusterers\SimpleKMeans;
 use App\Weka\UploadFileExcel;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -93,17 +94,19 @@ class AnalysisController extends Controller
     public function downloadFile($file_name)
     {
         $path = storage_path('app/weka/input/' . $file_name);
+
+        $file_name_zip = str_replace('.csv', '', $file_name);
+        $file_name_zip = str_replace('.arff', '', $file_name);
+
         if (!File::exists($path)) {
             \abort(404);
         }
+        $files = glob($path);
+        $path_zip = storage_path('app/weka/input/' . $file_name_zip . ".zip");
+        Zipper::make($path_zip)->add($files)->close();
 
-        // $file = File::get($path);
-        // $type = File::mimeType($path);
+        return response()->download($path_zip)->deleteFileAfterSend();
 
-        // $response = Response::make($file, 200);
-        // $response->header("Content-Type", $type);
-
-        return response()->download($path);
     }
 
     public function analysisProcess(Request $request)

@@ -7,7 +7,7 @@ use App\Http\Requests\FormRequest;
 class AddUserCompany extends FormRequest
 {
     protected $rules = [
-        'username' => 'required|max:50',
+        'username' => 'required|unique:TB_USERS,username|max:10',
         'fname' => 'required|max:50',
         'lname' => 'required|max:50',
         'sub_type_user' => 'required',

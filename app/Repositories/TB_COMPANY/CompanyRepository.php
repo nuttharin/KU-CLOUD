@@ -24,5 +24,5 @@ interface CompanyRepository
 
     public function getCompanyFolderLog();
 
-    public function getCompanyWithAddress();
+    public function getCompanyWithAddress($company_name);
 }

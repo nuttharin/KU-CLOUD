@@ -108,22 +108,25 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body" id="card_table">
-                <table style="width: 100%; display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
-                    id="example">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Active</th>
-                            <th>Type user</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                        <table style="width:100%;display:none" class="table table-striped table-bordered table-hover dt-responsive nowrap"
+                        id="example">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Active</th>
+                                <th>Type user</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                
 
                 <!-- <div class="lds-roller text-center" id="loading">
                     <div></div>
@@ -219,4 +222,5 @@
 
 
 <script type="text/javascript" src="{{elixir('js/company/users/users.min.js')}}"></script>
+
 @endsection

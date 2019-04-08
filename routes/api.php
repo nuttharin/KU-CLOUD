@@ -28,6 +28,8 @@ Route::post('account/register', 'Api\AccountsController@register');
 Route::post('getAllEmail', 'Api\AuthController@getAllEmail');
 
 Route::get('company/logo/{file_logo}', 'Api\CompanyPublicController@getLogoCompany');
+Route::get('account/profile/{file_name}', 'Api\AccountsController@getProfile');
+
 Route::get('companyList/public', 'Api\CompanyPublicController@getCompanyList');
 
 Route::get('dashboards/public', 'Api\DashboardController@getAllPublicDashboard');
@@ -51,9 +53,15 @@ Route::group([
 ], function ($router) {
     Route::put('ResetPassword', 'Api\AuthController@resetPasswordFirst');
     Route::post('Login', 'Api\AuthController@login');
-    Route::post('Logout', 'Api\AuthController@logout');
+    // Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
-    Route::get('Me', 'Api\AuthController@me');
+});
+
+Route::group([
+    'middleware' => ['api', 'jwt.verify'],
+    'prefix' => 'auth',
+], function ($router) {
+    Route::post('logout', 'Api\AuthController@logout');
 });
 
 Route::group([
@@ -101,12 +109,20 @@ Route::group([
     Route::post('static/datasource', 'Api\AdminController@addDatasourceStatic');
     Route::delete('static/datasource', 'Api\AdminController@deleteDatasourceByStatic');
 
+//log
+    
     Route::get('database/log', 'Api\AdminController@getLogList');
+
+    
+    Route::post('database/log/folder/download', 'Api\AdminController@downloadFileLogByFolder');
     Route::get('database/log/folder', 'Api\AdminController@getFolderLogs');
+    Route::delete('database/log/folder', 'Api\AdminController@delelteFileLogByFolder');
+
     Route::get('database/log/file', 'Api\AdminController@getFileLogByFolder');
     Route::get('database/logfile', 'Api\AdminController@getFileLog');
+
     Route::post('database/log/file/download', 'Api\AdminController@downloadFileLog');
-    Route::delete('database/log/file/delete', 'Api\AdminController@deleteFileLog');
+    Route::delete('database/logfile', 'Api\AdminController@deleteFileLog');
 
     // Route::get('infographic/getInfoByUserID', 'Api\AdminController@getAllInfograpic');
     // Route::get('infographic/getInfoByInfoID', 'Api\AdminController@getInfograpicData');
@@ -158,8 +174,10 @@ Route::group([
     // Route::post('analysis/data/upload', 'Api\Company\AnalysisController@uploadFile');
     // Route::post('analysis', 'Api\Company\AnalysisController@analysisProcess');
 
+    Route::get('database/log/download', 'Api\CompanyController@downloadFileLog');
     Route::get('database/log/file', 'Api\CompanyController@getFileLogByFolder');
     Route::get('database/logfile', 'Api\CompanyController@getFileLog');
+    Route::delete('database/logfile', 'Api\CompanyController@deleteFileLog');
 
 });
 
@@ -178,6 +196,7 @@ Route::group([
     Route::delete('/email', 'Api\UserController@deleteEmailUser');
 
     Route::get('/online', 'Api\UserController@countUserOnline');
+    Route::get('me', 'Api\AuthController@me');
 });
 
 Route::group([
@@ -218,9 +237,14 @@ Route::group([
     Route::post('createDatasource', 'Api\InfographicController@addDatasourceInfo');
     Route::get('getDatasource', 'Api\InfographicController@getDatasourceInfo');
     Route::get('getServiceByTypeUser', 'Api\InfographicController@getServiceByTypeUser');
+
     Route::get('getApiDaily', 'Api\InfographicController@getApiDaily');
     Route::get('getApiMonthly', 'Api\InfographicController@getApiMonthly');
     Route::get('getApiYearly', 'Api\InfographicController@getApiYearly');
+
+    Route::get('getImage', 'Api\InfographicController@getImage');
+    Route::post('uploadImage', 'Api\InfographicController@uploadImage');
+    Route::delete('deleteImage', 'Api\InfographicController@deleteImage');
 });
 
 Route::group([
@@ -290,7 +314,6 @@ Route::group([
 
     Route::get('/', 'Api\AccountsController@getAccount');
 
-    Route::get('profile', 'Api\AccountsController@getProfile');
     Route::post('profile', 'Api\AccountsController@uploadProfile');
 
     Route::put('username', 'Api\AccountsController@updateUsername');
@@ -379,6 +402,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('admin/webservicedata', 'Api\AdminController@getAllWebserviceData');
 
     //company post
+    Route::post('company/webservice/checkServicename', 'Api\CompanyController@checkServicename');
     Route::post('company/webservice/editRegisWebService', 'Api\CompanyController@editRegisWebService');
     Route::post('company/webservice/addRegisWebService', 'Api\CompanyController@addRegisWebService');
     // Route::post('company/iot/addRegisIotService', 'Api\CompanyController@addRegisIotService');

@@ -36,8 +36,9 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 
     <!-- Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fc-3.2.5/fh-3.1.4/r-2.2.2/sc-1.5.0/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/af-2.3.3/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/sc-2.0.0/datatables.min.css"/>
+ 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/af-2.3.3/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/sc-2.0.0/datatables.min.js"></script>
 
     <!-- gridstack -->
     <link rel="stylesheet" href="{{asset('js/gridstack/gridstack.css')}}">
@@ -59,7 +60,8 @@
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.min.css">
 
     <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
     <!-- loading -->
     <link rel="stylesheet" href="{{asset('css/loading.css')}}">
@@ -68,7 +70,10 @@
 
     <!-- toastr -->
     <link href="{{asset('js/toastr/toastr.min.css')}}" rel="stylesheet" />
-
+    
+    <!-- Croppie -->
+    <link rel="stylesheet" href="{{url('cropper/cropper.css')}}">
+    <script src="{{url('cropper/cropper.js')}}"></script>
 
 
     <link rel="stylesheet" href="{{asset('freetrans/jquery.freetrans.css')}}">
@@ -108,9 +113,11 @@
                 <a class="nav-link dropdown-toggle user-dropdown" id="UserDropdown" href="#" data-toggle="dropdown"
                     aria-expanded="false">
                     <i class="fas fa-angle-right"></i>
-                    <span class="profile-text">{{$user->fname." ".$user->lname}}</span>
-                    <img class="img-xs rounded-circle" id="nav_img_profile" width="30" height="30" src="{{env('API_URL')}}account/profile"
-                        alt="Profile image">
+                    <span class="profile-text">
+                        {{$user->fname}} {{$user->lname}}
+                    </span>
+                    <img class="img-xs rounded-circle img-profile" id="nav_img_profile" width="30" height="30"
+                        src="{{env('API_URL')}}account/profile/{{$user->img_profile}}" alt="Profile image">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <a class="dropdown-item ">
@@ -118,7 +125,8 @@
                             <div class="py-3 px-4 d-flex align-items-center justify-content-center">
                                 <i class="far fa-bookmark text-muted"></i>
                             </div>
-                            <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
+                            <div
+                                class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
                                 <i class="far fa-user text-muted"></i>
                             </div>
                             <div class="py-3 px-4 d-flex align-items-center justify-content-center">
@@ -137,7 +145,7 @@
                     @endif
                     @if ($user->type_user == 'COMPANY' || $user->type_user == 'ADMIN')
                     <a class="dropdown-item" href="{{action('CompanyController@ManageCompanyMe')}}">
-                            Manage Company
+                        Manage Company
                     </a>
                     @endif
                     <a class="dropdown-item" href="{{action('CompanyController@Logout')}}">
@@ -175,7 +183,8 @@
                 </li>
                 @if ($user->type_user == 'ADMIN')
                 <li class="nav-item">
-                    <a href="#UsersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                    <a href="#UsersSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-users"></i>
                         <span>Users</span>
                         <i class="fas fa-angle-right"></i>
@@ -221,7 +230,8 @@
                 @endif
                 @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-database"></i>
                         <span> Service</span>
                         <i class="fas fa-angle-right"></i>
@@ -245,12 +255,13 @@
                         <i class="fas fa-cloud-download-alt"></i>
                         <span class="link_hide">Output Service</span>
                     </a>
-                </li> 
+                </li>
                 @endif
 
                 @if ($user->type_user == 'COMPANY')
                 <li class="nav-item">
-                    <a href="#RegisterServiceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                    <a href="#RegisterServiceSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle dropdown-collapse">
                         <i class="fas fa-clipboard-list"></i>
                         <span>Register Service</span>
                         <i class="fas fa-angle-right"></i>
@@ -276,9 +287,10 @@
                         <i class="fas fa-file-image"></i>
                         <span class="link_hide">Infographic</span>
                     </a>
-                </li> 
+                </li>
                 <li class="nav-item">
-                    <a href="#AnalysisSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                    <a href="#AnalysisSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle dropdown-collapse">
                         <!-- <i class="fas fa-terminal"></i> -->
                         <i class="fas fa-chart-line"></i>
                         <span>Analysis</span>
@@ -304,7 +316,8 @@
                 </li>
                 @if ($user->type_user == 'ADMIN' || $user->type_user == 'COMPANY')
                 <li class="nav-item">
-                    <a href="#LogSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dropdown-collapse">
+                    <a href="#LogSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle dropdown-collapse">
                         <i class="far fa-file-alt"></i>
                         <span>Logs</span>
                         <i class="fas fa-angle-right"></i>
@@ -326,8 +339,20 @@
             </ul>
         </nav>
 
+        <script>
+            const END_POINT = "{{ env('API_URL') }}"; //http://localhost:8000/api/
+            const END_POINT_WED = "{{env('APP_URL')}}"; //http://localhost:8000
+            const WS_URL = "{{env('WS_URL')}}";
+            const API_DW = "{{env('API_DW_URL')}}"; //http://localhost:8081/
+
+        </script>
+
+  
+
         <!-- jQuery Custom Scroller CDN -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+        </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.0/lodash.min.js"></script>
@@ -350,15 +375,12 @@
         <!-- moment  -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 
-        
-        
-        <script>
-            const END_POINT = "{{ env('API_URL') }}"; //http://localhost:8000/api/
-            const END_POINT_WED = "{{env('APP_URL')}}"; //http://localhost:8000
-            const WS_URL = "{{env('WS_URL')}}"; 
-            const API_DW = "{{env('API_DW_URL')}}"; //http://localhost:8081/
-        </script>
-        
+
+
+
+
+
+
         <!-- Page Content  -->
         <div id="content" class="content">
             @yield('content')
@@ -371,6 +393,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script src="{{asset('js/socket.js')}}"></script>
 
+        <!-- <script src="{{asset('js/account/userMe.min.js')}}"></script> -->
 
 
         <!-- <script>

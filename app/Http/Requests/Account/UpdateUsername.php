@@ -24,7 +24,7 @@ class UpdateUsername extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|unique:TB_USERS,username',
+            'username' => 'required|unique:TB_USERS,username|max:10',
         ];
     }
 }

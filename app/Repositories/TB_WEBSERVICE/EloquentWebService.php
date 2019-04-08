@@ -10,6 +10,8 @@ namespace App\Repositories\TB_WEBSERVICE;
 
 use App\TB_WEBSERVICE;
 use App\TB_IOTSERVICE;
+use App\TB_REGISTER_IOT_SERVICE;
+use App\TB_REGISTER_WEBSERVICE;
 use Auth;
 
 class EloquentWebService implements WebServiceRepository
@@ -35,19 +37,25 @@ class EloquentWebService implements WebServiceRepository
     public function getServiceByCustomer()
     {
         $data = [];
-        $whereCondition = [];
-        $user_customer = Auth::user()->user_customer()->get();
+        // $whereCondition = [];
+        // $user_customer = Auth::user()->user_customer()->get();
 
-        foreach ($user_customer as $user) 
-        {
-            $whereCondition[] = [
-                'company_id' => $user->company_id,
-            ];
-        }
+        // foreach ($user_customer as $user) 
+        // {
+        //     $whereCondition[] = [
+        //         'company_id' => $user->company_id,
+        //     ];
+        // }
 
         $data = [ 
-            'webservice' => TB_WEBSERVICE::whereIn('company_id', $whereCondition)->get(),
-            'iotservice' => TB_IOTSERVICE::whereIn('company_id', $whereCondition)->get(),
+            'webservice' => TB_REGISTER_WEBSERVICE::join('TB_WEBSERVICE', 'TB_WEBSERVICE.webservice_id', '=', 'TB_REGISTER_WEBSERVICE.webservice_id')
+                        ->where('user_id', Auth::user()->user_id)
+                        ->select('TB_WEBSERVICE.*')
+                        ->get(),
+            'iotservice' => TB_REGISTER_IOT_SERVICE::join('TB_IOTSERVICE', 'TB_IOTSERVICE.iotservice_id', '=', 'TB_REGISTER_IOT_SERVICE.iotservice_id')
+                        ->where('user_id', Auth::user()->user_id)
+                        ->select('TB_IOTSERVICE.*')
+                        ->get(),
         ];
             
         return response()->json(compact('data'), 200);

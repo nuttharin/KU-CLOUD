@@ -134,7 +134,7 @@ export function addEventValidate(validateInput) {
             check[attr] = val == '' ? null : val;
        //})
         let errors = validate(check, validateInput.validate) || {};
-        console.log(elInput, errors);
+        //console.log(elInput, errors);
         showErrorsForInput(elInput, errors[elInput.attr('name')]);
     })
    
@@ -165,7 +165,7 @@ export function addEventValidate(validateInput) {
 
 function showErrors(validateInput, errors) {
     let inputs = $(validateInput.parent).find("input, textarea, select");
-    console.log(errors);
+    //console.log(errors);
     // let isError = true;
     // inputs.each(function () {
     //     let attr = $(this).attr('name');
@@ -190,6 +190,7 @@ function showErrors(validateInput, errors) {
 }
 
 export function checkError(validateInput) {
+    resetInputValidate();
     let inputs = $(validateInput.parent).find("input, textarea, select");
     let isError = true;
     let check = {};

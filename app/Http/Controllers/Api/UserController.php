@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use Gate;
-use App\LogViewer\LogViewer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use JWTAuth;
 use App\Http\Requests\User\AddUserCompany;
+use App\Http\Requests\User\AddUserCustomer;
+use App\LogViewer\LogViewer;
 use App\Repositories\TB_USERS\UsersRepository;
+use Gate;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -33,10 +33,14 @@ class UserController extends Controller
 
         $this->middleware('jwt.verify');
         $this->middleware(function ($request, $next) {
-            $this->auth = Auth::user();
-            $company_id = $this->auth->user_company()->first()->company_id;
-            $this->log_viewer->setFolder('COMPANY_' . $company_id);
-            return $next($request);
+            if (Auth::user()->type_user == "COMPANY") {
+                $company_id = Auth::user()->user_company()->first()->company_id;
+                $this->log_viewer->setFolder('COMPANY_' . $company_id);
+            } else if (Auth::user()->type_user == "ADMIN") {
+                $company_id = Auth::user()->user_company()->first()->company_id;
+                $this->log_viewer->setFolder('KU_CLOUD');
+            }
+             return $next($request);
         });
 
     }
@@ -51,7 +55,7 @@ class UserController extends Controller
             4 => 'sub_type_user',
             5 => 'online',
         );
-        $companyID = $this->auth->user_company()->first()->company_id;
+        $companyID = Auth::user()->user_company()->first()->company_id;
         $draw = $request->input('draw');
         $start = $request->input('start');
         $length = $request->input('length');
@@ -103,29 +107,13 @@ class UserController extends Controller
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'type_user' => 'COMPANY',
-            'company_id' => $this->auth->user_company()->first()->company_id,
+            'company_id' => Auth::user()->user_company()->first()->company_id,
             'sub_type_user' => $request->get('sub_type_user'),
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
         ];
 
         $this->users->create($data);
-
-        // $name = $request->get('fname')." ".$request->get('lname');
-        // $email = $request->get('email');
-
-        // $verification_code = str_random(30); //Generate verification code
-
-        // DB::table('USER_VERIFICATIONS')->insert(['user_id'=>$user->user_id,'token'=>$verification_code]);
-        // $subject = "Please verify your email address.";
-        // Mail::send('auth.verify', ['name' => $name, 'verification_code' => $verification_code,'email' => $email],
-        //     function($mail) use ($email, $name, $subject){
-        //         $mail->from(getenv('MAIL_USERNAME'), "From KU-CLOUD Name Goes Here");
-        //         $mail->to($email, $name);
-        //         $mail->subject($subject);
-        // });
-
-        //$request->bearerToken(),201
 
         return response()->json(["status_code", "201"], 201);
     }
@@ -178,7 +166,7 @@ class UserController extends Controller
             3 => 'block',
             4 => 'online',
         );
-        $companyID = $this->auth->user_company()->first()->company_id;
+        $companyID = Auth::user()->user_company()->first()->company_id;
         $draw = $request->input('draw');
         $start = $request->input('start');
         $length = $request->input('length');
@@ -222,24 +210,22 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function addUserCustomer(Request $request)
+    public function addUserCustomer(AddUserCustomer $request)
     {
         // $token = $request->cookie('token');
         // $payload = JWTAuth::setToken($token)->getPayload();
         //dd($payload["user"]->company_id);
-
         $data = [
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'type_user' => 'CUSTOMER',
-            'company_id' => $this->auth->user_company()->first()->company_id,
+            'company_id' => Auth::user()->user_company()->first()->company_id,
             'email_user' => $request->get('email'),
             'phone_user' => $request->get('phone'),
         ];
 
         $this->users->create($data);
-        //$request->bearerToken(),201
         return response()->json(["status_code", "201"], 201);
     }
 
@@ -255,9 +241,10 @@ class UserController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function getAllUsernameCustomerInCompany(){
+    public function getAllUsernameCustomerInCompany()
+    {
         $data = $this->users->getAllUsernameCustomerInCompany();
-        return  response()->json(compact('data'), 200);
+        return response()->json(compact('data'), 200);
     }
 
     public function addCustomerInCompany(Request $request)
@@ -268,7 +255,7 @@ class UserController extends Controller
     public function countUserOnline(Request $request)
     {
         $type_user = $request->get('type_user');
-        $company_id = $this->auth->user_company()->first()->company_id;
+        $company_id = Auth::user()->user_company()->first()->company_id;
         $users = $this->users->countUserOnline($type_user, $company_id);
         return response()->json(compact('users'), 200);
     }
@@ -382,7 +369,6 @@ class UserController extends Controller
 
     public function createCustomer(Request $request)
     {
-
         $attributes = [
             'username' => $request->get('username'),
             'fname' => $request->get('fname'),
@@ -418,8 +404,8 @@ class UserController extends Controller
 
     public function blockUser(Request $request)
     {
-        $user = $this->users->isBlockUser($request->get('user_id'),$request->get('block'));
-        if($user){
+        $user = $this->users->isBlockUser($request->get('user_id'), $request->get('block'));
+        if ($user) {
             return response()->json(["status", "success"], 200);
         }
     }

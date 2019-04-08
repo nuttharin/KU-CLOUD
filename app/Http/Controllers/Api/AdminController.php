@@ -614,6 +614,12 @@ class AdminController extends Controller
         return response()->json(compact('data'), 200);
     }
 
+    public function downloadFileLogByFolder(Request $request)
+    {
+        $folder = $request->get('folder');
+        return $this->log_viewer->downloadByFolder($folder);
+    }
+
     public function downloadFileLog(Request $request)
     {
         $folder = $request->get('folder');
@@ -623,7 +629,7 @@ class AdminController extends Controller
 
     public function deleteFileLog(Request $request)
     {
-        $status = $this->log_viewer->deleteFileLog($request->get('folder'), $request->get('file'));
+        $status = $this->log_viewer->deleteFileLog($request->get('folder'), $request->get('file_name'));
         return response()->json(compact('status'), 200);
     }
 
