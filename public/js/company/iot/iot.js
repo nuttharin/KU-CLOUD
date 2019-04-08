@@ -19,7 +19,8 @@ var IotserviceRepository = new (function(){
             url: END_POINT+"iot/iotservicedata",
             method: 'GET',
             success: function (result) {
-                console.log(result);
+                //console.log(result.iotService.length);
+                console.log(result.iotService);
                 initialDatatable();
                 iotserviceList = result.iotService;
                 showLoadingStatus(false);
@@ -213,6 +214,7 @@ var IotserviceRepository = new (function(){
             $('#DeleteUser').modal('hide');
 
             let chk = true ;
+
             $.ajax({
                 url: END_POINT+"iot/deleteIoT",
                 dataType: 'json',
@@ -232,6 +234,7 @@ var IotserviceRepository = new (function(){
                     console.log(res);
                 }
             });
+
             $.ajax({
                 url: API_DW+"iotService/DeleteInputIotService",
                 dataType: 'json',
@@ -479,10 +482,52 @@ var IotserviceRepository = new (function(){
         $("#btn-regis-submit").click(function(){
             $("#regisModal").modal('hide');
             let nameIotNew = $("#name-iot-new").val();
+            let keyiot = "";
+            let str = "";
+            let strInsert = "";
+            let idIoT ;
+            $.ajax({
+                url: API_DW +"iotService/getKeyiot",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                headers: {"Authorization": getCookie('token')},
+                data:
+                {                
+                    companyID : nameIotNew+iotserviceList[key].idCompany                    
+                },
+                success: (res) => { 
+                    keyiot = res.key
+                    //console.log(res);                        
+                },
+                error: (res) => {
+                    console.log(res);
+                }
+            });
+            console.log(keyiot)
+            
             //$("#name-iot-old").empty()
             //modalRegis = null ;
               //register DB
-
+              let otheroutput="";
+              let insertFristTimeDw = "";
+              let dataSelect = iotserviceList[key].dataformat.split(',')
+              for(let i=0;i<dataSelect.length;i++)
+              {
+                  
+                  if(i==dataSelect.length-1)
+                  {
+                      otheroutput += dataSelect[i] +"=[value]";
+                      insertFristTimeDw += dataSelect[i] +"=0";
+                  }
+                  else
+                  {
+                      otheroutput += dataSelect[i] +"=[value]&";
+                      insertFristTimeDw += dataSelect[i] +"=0&";
+                  }
+              }
+              str = API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameIotNew+'.'+iotserviceList[key].idCompany+'&'+otheroutput;
+              strInsert = API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameIotNew+'.'+iotserviceList[key].idCompany+'&'+insertFristTimeDw;
             // regis iot 
             $.ajax({
                 url: END_POINT+"iot/addRegisIotService",
@@ -501,22 +546,27 @@ var IotserviceRepository = new (function(){
                     status: iotserviceList[key].status,
                     datajson:iotserviceList[key].dataformat,
                     type: iotserviceList[key].type,
-                    urls: iotserviceList[key].url
+                    urls: strInsert
                     
                 },
                 success: (res) => {
-                    // toastr["success"]("Success");
+                    // toastr["success"]("Success"); 
+                    idIoT = res.iotService.iotservice_id ;
+                    console.log(res.iotService)
                     console.log("success DB")
-                    //idIoT = res.iotService.iotservice_id ;
+                   
                     //console.log(idIoT);
                 },
                 error: (res) => {
                     console.log(res);
                 }
             });
+            
+            console.log(str)
+            console.log(strInsert)
             //"http://localhost:8081/iotService/InsertInputService?keyIot=eyJhbGciOiJIU&ID=1&nameDW=IoT.Input.pitest1.2&x1=0&x2=0"
             $.ajax({
-                url: iotserviceList[key].url,               
+                url: strInsert,               
                 method: "POST",
                 async: false,               
                 success: (res) => {                    
@@ -527,7 +577,7 @@ var IotserviceRepository = new (function(){
                     console.log(res);
                 }
             });
-            // aggregate
+            //aggregate
             $.ajax({
                 url: API_DW +"iotService/AggregateDataInputIot",
                 dataType: 'json',
@@ -536,12 +586,12 @@ var IotserviceRepository = new (function(){
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    nameDW: iotserviceList[key].iot_name_DW,
+                    nameDW: 'IoT.Input.'+nameIotNew+'.'+iotserviceList[key].idCompany,
 	                strValueCal:iotserviceList[key].value_cal   
                 },
                 success: (res) => {
                     console.log("success agg");
-                    swal("Delete Success!", "You clicked the button!", "success");                  
+                    swal("Register Success!", "You clicked the button!", "success");                  
                 },
                 error: (res) => {
                     console.log(res);
