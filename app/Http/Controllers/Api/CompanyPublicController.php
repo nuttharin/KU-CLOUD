@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use File;
-use Response;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TB_COMPANY\CompanyRepository;
+use File;
+use Illuminate\Http\Request;
+use Response;
 
 class CompanyPublicController extends Controller
 {
@@ -14,6 +14,8 @@ class CompanyPublicController extends Controller
 
     public function __construct(CompanyRepository $companies)
     {
+        $this->log_viewer = new LogViewer();
+        $this->log_viewer->setFolder('KU_CLOUD');
         $this->companies = $companies;
     }
 
