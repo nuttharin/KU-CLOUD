@@ -2,7 +2,7 @@
 
 namespace App\Weka;
 
-use App\ApiHelper\ApiHelper;
+use App\Helper\ApiHelper;
 use App\TB_DATA_ANALYSIS;
 use Illuminate\Support\Facades\Storage;
 
@@ -65,7 +65,7 @@ class ConvertJsonToArff
 
     }
 
-    public function convertToAttr($pathArray = null, $name = 'test', $service_id, $type, $tableDW_name, $data_id)
+    public function convertToAttr($pathArray = null, $name = 'test', $service_id, $type, $tableDW_name, $data_id, $period)
     {
         try {
             if ($type === "web_services") {
@@ -74,8 +74,10 @@ class ConvertJsonToArff
             } else if ($type === "iot_services") {
                 $data_array = array(
                     'tableDW_name' => $tableDW_name,
+                    'start_date' => $period['start_date'],
+                    'end_date' => $period['end_date'],
                 );
-                $get_data = ApiHelper::callAPI('POST', 'http://localhost/node/iotService/getInputIoTData_Getall', json_encode($data_array));
+                $get_data = ApiHelper::callAPI('POST', 'http://localhost/node/iotService/getInputIoTData_Time', json_encode($data_array));
                 $json = json_decode($get_data, true);
             }
 

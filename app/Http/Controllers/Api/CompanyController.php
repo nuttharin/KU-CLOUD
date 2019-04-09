@@ -17,7 +17,6 @@ use DB;
 use File;
 use Illuminate\Http\Request;
 use Image;
-use JWTAuth;
 use Log;
 use Response;
 
@@ -49,8 +48,13 @@ class CompanyController extends Controller
         $this->middleware('jwt.verify');
         $this->middleware(function ($request, $next) {
             $this->auth = Auth::user();
-            $company_id = $this->auth->user_company()->first()->company_id;
-            //$this->log_viewer->setFolder('COMPANY_' . $company_id);
+            if ($this->auth->type_user == "COMPANY") {
+                 $company_id = $this->auth->user_company()->first()->company_id;
+                $this->log_viewer->setFolder('COMPANY_' . $company_id);
+            } else {
+                $this->log_viewer->setFolder('KU_CLOUD');
+            }
+
             return $next($request);
         });
 
@@ -306,7 +310,7 @@ class CompanyController extends Controller
     {
         DB::beginTransaction();
         $company_id = Auth::user()->user_company()->first()->company_id;
-        $img_logo = TB_COMPANY::where('company_id','=',$company_id)->first()->img_logo;
+        $img_logo = TB_COMPANY::where('company_id', '=', $company_id)->first()->img_logo;
         try {
             if ($request->get('img_logo') != '') {
                 if ($img_logo != 'default-logo.jpg') {
@@ -325,7 +329,7 @@ class CompanyController extends Controller
                 $img->resize(400, 400);
                 $img->save();
 
-                TB_COMPANY::where('company_id','=',$company_id)->update([
+                TB_COMPANY::where('company_id', '=', $company_id)->update([
                     'img_logo' => $imageName,
                 ]);
             }
@@ -337,7 +341,6 @@ class CompanyController extends Controller
         return response()->json(compact('image'), 200);
     }
 
-   
     public function getFileLogByFolder()
     {
         $folder_log = 'COMPANY_' . $this->auth->user_company()->first()->company_id;
@@ -364,7 +367,7 @@ class CompanyController extends Controller
     public function downloadFileLog(Request $request)
     {
         $company_id = Auth::user()->user_company()->first()->company_id;
-        $path = storage_path('logs/' . "COMPANY_$company_id/".$request->get('file_name'));
+        $path = storage_path('logs/' . "COMPANY_$company_id/" . $request->get('file_name'));
         if (!File::exists($path)) {
             \abort(404);
         }
@@ -375,21 +378,31 @@ class CompanyController extends Controller
     public function deleteFileLog(Request $request)
     {
         $company_id = Auth::user()->user_company()->first()->company_id;
-        $path = storage_path('logs/' . "COMPANY_$company_id/".$request->get('file_name'));
+        $path = storage_path('logs/' . "COMPANY_$company_id/" . $request->get('file_name'));
         if (!File::exists($path)) {
             \abort(404);
-        }
-        else{
+        } else {
             $status = $this->log_viewer->deleteFileLog("COMPANY_$company_id", $request->get('file_name'));
             return response()->json(compact('status'), 200);
         }
     }
 
     // service
+    public function checkServicename(Request $request)
+    {
+        // $token = $request->bearerToken();
+        // $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = $this->auth->user_company()->first()->company_id;
+        $name = $request->get('ServiceName');
+        $webService = DB::select("SELECT TB_WEBSERVICE.service_name as name
+        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.service_name='$name' and company_id='$companyID'");
+
+        return response()->json(compact('webService'), 200);
+    }
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
-        $nameDW = "WebService.".$request->get('ServiceName') . "." . $companyID;
+        $nameDW = "WebService.".$request->get('ServiceName') . "." . $companyID ;
 
         $webService = TB_WEBSERVICE::create([
             'company_id' => $companyID,
@@ -450,6 +463,16 @@ class CompanyController extends Controller
                 'description' => $request->get('description'),
                 'header_row' => $request->get('header'),
             ]);
+        Log::info('Edit Web Service - [] SUCCESS');
+        return response()->json(["status", "success"], 200);
+    }
+
+    public function editNameWebService(Request $request)
+    {
+        $webService = TB_WEBSERVICE::where('webservice_id', $request->get('idDB'))
+        ->update([            
+            'service_name_DW' => $request->get('nameDW')            
+        ]);
         Log::info('Edit Web Service - [] SUCCESS');
         return response()->json(["status", "success"], 200);
     }

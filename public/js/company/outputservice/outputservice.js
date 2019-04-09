@@ -146,14 +146,14 @@ class webService {
     let insertintoDW_Getlasttest_Aggregation = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: API_DW +"webService/getDataAggregation",
+                url: API_DW +"webService/getDataAggregationLastest",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
-                    Agrregation_type:summary_table,
+                    nameDW: table_DW,
+                    type:summary_table,
                 },
                 success: (res) => {
                     //console.log("success")
@@ -166,7 +166,7 @@ class webService {
                 }
             });
         }
-        let insertintoDW_Getall_Aggregation = (table_DW)=>
+        let insertintoDW_Getall_Aggregation = (table_DW,summary_table)=>
         { 
             $.ajax({
                 url: API_DW +"webService/getDataAggregation_Getall",
@@ -175,7 +175,8 @@ class webService {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
+                    nameDW: table_DW,
+                    type:summary_table,
                 },
                 success: (res) => {
                     //console.log("success")
@@ -197,7 +198,7 @@ class webService {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
+                    nameDW: table_DW,
                 },
                 success: (res) => {
                     //console.log("success")
@@ -210,7 +211,7 @@ class webService {
                 }
             });
         }
-        let insertintoDW_Getall_Data = (table_DW,summary_table)=>
+        let insertintoDW_Getall_Data = (table_DW)=>
         { 
             $.ajax({
                 url: API_DW +"webService/getallData",
@@ -219,8 +220,7 @@ class webService {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
-                    Agrregation_type:summary_table,
+                    nameDW: table_DW,
                 },
                 success: (res) => {
                     //console.log("success")
@@ -472,13 +472,13 @@ class iotService{
         let insertintoIoTDW_Aggre_Getlastest = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: API_DW +"iotService/getInputAggregationForIot",
+                url: API_DW +"iotService/getInputAggregationForWebLastest",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    nameDW: "IoT.input."+table_DW,
+                    nameDW: table_DW,
                     type:summary_table,
                 },
                 success: (res) => {
@@ -495,7 +495,7 @@ class iotService{
         let insertintoIoTDW_Aggre_Getall = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: API_DW +"iotService/getInputAggregationForWeb",
+                url: API_DW +"iotService/getInputAggregationForWebAll",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
@@ -552,12 +552,12 @@ class iotService{
             insertintoIoTDW_Getall(table_DW)
         });
         $('#try_iot_it_Aggre_Getall').on("click", function () {
-            let table_DW = $("#table_IoT_DW_Getall").val();
+            let table_DW = $("#table_IoT_DW_Aggre_Getall").val();
             let summary_table = $('#summary_table_Iot_Getall').val();
             insertintoIoTDW_Aggre_Getall(table_DW,summary_table)
         });
         $('#try_iot_it_Aggre_Getlastest').on("click", function () {
-            let table_DW = $("#table_IoT_DW_Getall").val();
+            let table_DW = $("#table_IoT_DW_Aggre_Getlastest").val();
             let summary_table = $('#summary_table_Iot_Getlastest').val();
             insertintoIoTDW_Aggre_Getlastest(table_DW,summary_table)
         });

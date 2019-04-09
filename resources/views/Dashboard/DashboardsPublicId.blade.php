@@ -1,6 +1,6 @@
 @extends('layouts.home')
 @section('title','Dashboards')
-@section('content') 
+@section('content')
 
 <!-- gridstack -->
 <link rel="stylesheet" href="{{asset('js/gridstack/gridstack.css')}}">
@@ -18,17 +18,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 
 <script src="{{url('js/justgage-1.2.2/raphael-2.1.4.min.js')}}"></script>
-<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script> 
+<script src="{{url('js/justgage-1.2.2/justgage.js')}}"></script>
 
 
 <script src="{{asset( 'js/Leaflet.heat-gh-pages/dist/leaflet-heat.js')}} "></script>
 
 
 <style type="text/css">
-     body{
-         background-color: #f2f8f9;
-     }
-     
+    body {
+        background-color: #f2f8f9;
+    }
+
     .grid-stack-item {}
 
     .grid-stack-item-content {
@@ -241,7 +241,7 @@
             <div></div>
         </div>
     </div>
-    <div class="grid-stack" ></div>
+    <div class="grid-stack"></div>
 
 </div>
 
@@ -255,7 +255,7 @@
                 <div>
                     <h5 class="title-widget">((title_name))</h5>
                 </div>
-               
+
                 <div class="static-mm">
                     <i class="far fa-clock btn-edit-time grow" title="Time" style="cursor:pointer" item="div_id"></i>
                     <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer"
@@ -283,7 +283,7 @@
                 <div>
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-success">Realtime</span></h5>
-                   
+
                 </div>
 
 
@@ -346,7 +346,7 @@
 <div id="layout-widget-text" hidden>
     <div>
         <div class="panel grid-stack-item-content" id="div_id" data="((data_widget))">
-         
+
             <div class="panel__content d-flex align-items-center align-content-center">
                 ((wi))
             </div>
@@ -362,7 +362,7 @@
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-success">Realtime</span></h5>
                 </div>
-               
+
             </div>
 
             <div class="card-body d-flex align-items-center align-content-center justify-content-center"
@@ -390,7 +390,7 @@
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-primary">Static</span></h5>
                 </div>
-              
+
 
             </div>
 
@@ -398,62 +398,34 @@
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
-                <div class="form-group">
-                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%"
-                        item="div_id">
-                        <option value="daily">Daily</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="yearly">Yearly</option>
-                    </select>
-                </div>
-                <div class="form-inline daily">
-                    <label for="start_day" class="mr-sm-2 ">Start day</label>
-                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="start_day" item="div_id">
-                    <label for="end_day " class="mr-sm-2 ">End day</label>
-                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 " id="end_day" item="div_id">
-                </div>
-                <div class="form-inline monthly " style="display: none">
-                    <label for="start_month " class="mr-sm-2 ">Start month</label>
-                    <select name="start_month" id="start_month" class="form-control form-control-sm mb-2 mr-sm-2"
-                        item="div_id">
-                        <option value="0">-- Select month --</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                    <label for="end_month" class="mr-sm-2 ">End month</label>
-                    <select name="end_month" id="end_month" class="form-control form-control-sm mb-2 mr-sm-2"
-                        item="div_id">
-                        <option value="0">-- Select month --</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                </div>
-                <div class="form-inline yearly" style="display: none">
-                    <label for="start_year" class="mr-sm-2 ">Start year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="start_year"
-                        item="div_id">
-                    <label for="end_year" class="mr-sm-2 ">End year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2" id="end_year" item="div_id">
+                <div class="form-inline d-flex justify-content-between">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-outline-primary type-report active" item="div_id"
+                            valueType="daily">Daily</button>
+                        <button type="button" class="btn btn-outline-primary type-report " item="div_id"
+                            valueType="monthly">Monthly</button>
+                        <button type="button" class="btn btn-outline-primary type-report " item="div_id"
+                            valueType="yearly">Yearly</button>
+                    </div>
+                    <div class="daily mt-3 form-inline" style="">
+                        <label for="start_day" class="mr-sm-2 ">From</label>
+                        <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 start_day" item="div_id">
+                        <label for="end_day " class="mr-sm-2 ">To</label>
+                        <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 end_day" item="div_id">
+                    </div>
+                    <div class="monthly mt-3 form-inline" style="display: none">
+                        <label for="start_month " class="mr-sm-2 ">From</label>
+                        <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 start_month" item="div_id">
+                        <label for="end_month" class="mr-sm-2 ">To</label>
+                        <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 end_month" item="div_id">
+
+                    </div>
+                    <div class="yearly mt-3 form-inline" style="display: none">
+                        <label for="start_year" class="mr-sm-2 ">From</label>
+                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year" item="div_id">
+                        <label for="end_year" class="mr-sm-2 ">To</label>
+                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 end_year" item="div_id">
+                    </div>
                 </div>
             </div>
 

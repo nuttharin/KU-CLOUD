@@ -339,6 +339,7 @@ Route::group([
     Route::get('IoTdata', 'Api\IoTController@IoTdata');
     Route::get('getkeyiot', 'Api\IoTController@getKeyiot');
 
+    Route::post('checkServicename', 'Api\IoTController@checkServicename');
     Route::post('addRegisIotService_url', 'Api\IoTController@addRegisIotService_url');
     Route::post('deleteIoT', 'Api\IoTController@deleteIoT');
     Route::post('iotupdatedata', 'Api\IoTController@iotupdatedata');
@@ -402,6 +403,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('admin/webservicedata', 'Api\AdminController@getAllWebserviceData');
 
     //company post
+    Route::post('company/webservice/checkServicename', 'Api\CompanyController@checkServicename');
     Route::post('company/webservice/editRegisWebService', 'Api\CompanyController@editRegisWebService');
     Route::post('company/webservice/addRegisWebService', 'Api\CompanyController@addRegisWebService');
     // Route::post('company/iot/addRegisIotService', 'Api\CompanyController@addRegisIotService');

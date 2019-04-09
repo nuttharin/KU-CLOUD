@@ -410,24 +410,23 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body">               
                
-                <h1>nut</h1><h1>nut</h1><h1>nut</h1><h1>nut</h1>
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Name IoT</label>
                     <div class="col-sm-12">
-                        <input class="form-control" id="Nameiot" type="text" disabled>
+                        <input class="form-control" id="Nameiot" type="text" readonly>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label  class="col-sm-2 control-label">API for insert data</label>
+                    <label  class="col-sm-5 control-label">API for insert data (POST)</label>
                     <div class="col-sm-12">
                         <textarea class="form-control mb-2" id="Apiiot" type="text" rows="5" readonly></textarea>
                         <button class="" id="CopyUrl" data-clipboard-target="#Apiiot"><i class="far fa-copy"></i></button>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label  class="col-sm-2 control-label">API for receiving summary data </label>
+                    <label  class="col-sm-12 control-label">API for receiving summary data (GET) </label>
                     <div class="col-sm-12">
                         <!-- <input class="form-control" id="Keyiot" type="text" disabled> -->
                         <textarea type="text" rows="5" class="form-control mb-2"  id="ApigetData"  readonly ></textarea>

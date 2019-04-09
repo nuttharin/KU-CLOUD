@@ -10,6 +10,7 @@ namespace App\Repositories\TB_USERS;
 
 use DB;
 use Auth;
+
 use App\TB_EMAIL;
 use App\TB_PHONE;
 use App\TB_USERS;
@@ -17,6 +18,7 @@ use App\Address_users;
 use App\TB_USER_COMPANY;
 use App\TB_USER_CUSTOMER;
 use App\USER_FIRST_CREATE;
+use App\Helper\LogMessages;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -24,6 +26,7 @@ use Illuminate\Support\Facades\Mail;
 class EloquentUsers implements UsersRepository
 {
 
+    private $user_id;
     /**
      * EloquentUsers constructor.
      * @param TB_USERS $model
@@ -361,14 +364,6 @@ class EloquentUsers implements UsersRepository
                 'type_user' => $attributes['type_user'],
             ]);
 
-            // $user_address = Address_users::create([
-            //     'user_id' => $user->user_id,
-            //     'address_detail' => $attributes['address'],
-            //     'district_id' => $attributes['district'],
-            //     'amphure_id' => $attributes['amphure'],
-            //     'province_id' => $attributes['province'],
-            // ]);
-
             USER_FIRST_CREATE::insert([
                 'user_id' => $user->user_id,
                 'token' => str_random(30),
@@ -473,6 +468,8 @@ class EloquentUsers implements UsersRepository
                     $mail->subject($subject);
             });
 
+            LogMessages::info('create_user',$attributes, Auth::user()->user_id);
+
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
@@ -535,6 +532,8 @@ class EloquentUsers implements UsersRepository
                 }
 
             }
+
+            LogMessages::info('update_user',$attributes, Auth::user()->user_id);
 
         } catch (Exception $e) {
             DB::rollBack();
@@ -601,6 +600,7 @@ class EloquentUsers implements UsersRepository
                 ['email_user', '=', $attributes['email_user']],
                 ['is_primary', '=', false],
             ])->delete();
+             LogMessages::info('deleteEmailUser',$attributes, Auth::user()->user_id);
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
@@ -616,6 +616,7 @@ class EloquentUsers implements UsersRepository
                 ['phone_user', '=', $attributes['phone_user']],
                 ['is_primary', '=', false],
             ])->delete();
+            LogMessages::info('deletePhoneUser',$attributes, Auth::user()->user_id);
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
@@ -675,6 +676,7 @@ class EloquentUsers implements UsersRepository
                     'company_id' => Auth::user()->user_company()->first()->company_id,
                 ]);
             }
+            LogMessages::info('addCustomerInCompany',$userList,$this->user_id);
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
@@ -719,6 +721,7 @@ class EloquentUsers implements UsersRepository
                     ->update(['is_block' => $isBlock]);
             }
 
+             
             return true;
         } catch (Exception $e) {
             DB::rollBack();

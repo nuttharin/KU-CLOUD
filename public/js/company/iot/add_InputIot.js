@@ -175,7 +175,7 @@ class iotService {
             strUrl = API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+insertFristTimeDw ;
             $('#Nameiot').val(nameiot);
             $('#Apiiot').val(API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&ID='+idIoT+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&'+otheroutput);
-            $('#ApigetData').val(API_DW +'iotService/InsertInputService?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&type=[Day,Month,SixMonth,Week,Year]');
+            $('#ApigetData').val(API_DW +'iotService/getInputAggregationForIot?keyIot='+keyiot+'&nameDW=IoT.Input.'+nameiot+'.'+companyID+'&type=[Day,Month,ThreeMonth,SixMonth,Week,Year]');
 
             $('#Keyiot').val(keyiot);
             $('#ShowDetailiotModal').modal('show');
@@ -388,52 +388,70 @@ class Managememt{
 class Validation{
     constructor(iotName,iotAlias,iotdescription,status,fields)
     {
-        
+        let chkName;
+        let chkData;
         this.validate = () =>{
             if(iotdescription == ""){
                 iotdescription = "";
             }
-            if(iotName == "" || iotAlias =="")
-            {
-                if(iotName == ""){
-                    swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
-                }
-                else if(iotAlias ==""){
-                    swal("คุณไม่ได้กรอก Alias  !", "", "error");
-                }
-                
-            }
-            else
-            {
-                let chkData = true ;
-                for(let i =0 ;i<fields.length; i++)
+            $.ajax({
+                url: END_POINT+"iot/checkServicename",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
                 {
-                    if(fields[i] == "")
+                    ServiceName: iotName,
+                },
+                success: (res) => {
+                        // toastr["success"]("Success");
+                    chkName = res.iotService;
+                    console.log("name" + chkName)
+                        //increaseDataTableDW();
+                },
+                error: (res) => {
+                    swal("Good job!", "You clicked the button!", "error");
+                    console.log(res);
+                }
+            });
+            if(chkName!="")
+            {
+                swal("Duplicate Service Name!", "Please enter a new Service Name.", "error");
+            }
+            else if(chkName=="")
+            {
+                if(iotName == "" || iotAlias =="")
+                {
+                    if(iotName == ""){
+                        swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
+                    }
+                    else if(iotAlias ==""){
+                        swal("คุณไม่ได้กรอก Alias  !", "", "error");
+                    }
+                }
+                else
+                {
+                    chkData = true ;
+                    for(let i =0 ;i<fields.length; i++)
                     {
-                        chkData = false ;
-                    }                        
-
-                }
-               
-                if(chkData) {
-                    console.log(status)
-                    let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
-                    //iot.getDataforInsert();                    
-                    iot.showSelectValueCal();
-                }
-                else {
-                    swal("คุณไม่ได้กรอก Data format !", "", "error");
-                }
-              
-              
-            }            
-            
-
-
+                        if(fields[i] == "")
+                        {
+                            chkData = false ;
+                        }                        
+                    }
+                    if(chkData) {
+                        
+                        console.log(status)
+                        let iot = new iotService(iotName,iotAlias,iotdescription,status,fields);
+                        //iot.getDataforInsert();                    
+                        iot.showSelectValueCal();
+                    }
+                    else {
+                        swal("คุณไม่ได้กรอก Data format !", "", "error");
+                    }
+                }     
+            }
         }
-        
-
-
     }
 }
 

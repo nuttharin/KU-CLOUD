@@ -62,6 +62,17 @@ class IoTController extends Controller
 
         return response()->json(compact('iotService'), 200);
     }
+    public function checkServicename(Request $request)
+    {
+        // $token = $request->bearerToken();
+        // $payload = JWTAuth::setToken($token)->getPayload();
+        $companyID = Auth::user()->user_company()->first()->company_id;
+        $name = $request->get('ServiceName');
+        $iotService = DB::select("SELECT TB_IOTSERVICE.iot_name as name
+        FROM TB_IOTSERVICE WHERE TB_IOTSERVICE.iot_name='$name' and company_id='$companyID'");
+
+        return response()->json(compact('iotService'), 200);
+    }
     public function addRegisIotService(Request $request)
     {
         $companyID = Auth::user()->user_company()->first()->company_id;

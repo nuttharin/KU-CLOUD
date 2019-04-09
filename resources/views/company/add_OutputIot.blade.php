@@ -414,19 +414,19 @@
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">IoT  Name</label>
                     <div class="col-sm-12">
-                        <input class="form-control" id="Nameiot" type="text" disabled>
+                        <input class="form-control" id="Nameiot" type="text" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label  class="col-sm-12 control-label">URLs</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="URLiot" type="text" rows="5" ></textarea>
+                        <textarea class="form-control" id="URLiot" type="text" rows="5" readonly></textarea>
                     </div>
                 </div>
                  <div class="form-group">
                     <label  class="col-sm-12 control-label">Data Format</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control" id="Dataformat" rows="7" type="text" ></textarea>
+                        <textarea class="form-control" id="Dataformat" rows="7" type="text" readonly></textarea>
                     </div>
                 </div>
             </div>

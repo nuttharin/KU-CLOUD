@@ -316,7 +316,8 @@
                                     <option value="MutiLine_static">MutiLine</option>
                                     <!-- <option value="Radar_static">Radar</option>
                                     <option value="Map_static">Map</option> -->
-                                    <option value="Table_static">Table</option> 
+                                    <option value="Bar_static">Bar</option>
+                                    <option value="Table_static">Table</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -325,7 +326,8 @@
                     <div class="row" id="default_value" style="display: none">
                         <div class="col-12">
                             <label>Title</label>
-                            <input type="text" name="title_name" id="title-name" class="form-control" autocomplete="off">
+                            <input type="text" name="title_name" id="title-name" class="form-control"
+                                autocomplete="off">
                         </div>
                         <!-- <div class="col-6">
                             <label>Title</label>
@@ -351,6 +353,60 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="bar" class="value-widget mt-2" style="display:none;">
+
+
+                        <div id="bar_value" class="form-group">
+
+                            <h5>Lable Axis</h5>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="">Lable Axis x </label>
+                                    <input type="text" class="form-control" id="axis_x">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Lable Axis y</label>
+                                    <input type="text" class="form-control" id="axis_y">
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary btn-sm btn-radius mt-2 mb-2" id="btn_add_datasource_bar">
+                                <i class="fa fa-plus"></i>
+                                Add Datasource
+                            </button>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="">Datasource <span class="text-danger">*</span></label>
+                                    <select class="form-control select-datasource" name="datasource">
+
+                                    </select>
+                                    <small class="messages-error"></small>
+                                </div>
+                                <div class="col-3">
+                                    <label for="">Value
+                                        <span class="text-danger">* <i class="loader" style="display:none"></i></span>
+                                    </label>
+                                    <input class="form-control value-datasource" name="value" autocomplete="off">
+                                    <small class="messages-error"></small>
+                                    <ul class="list-group data-list" style="display: none">
+                                </div>
+                                <div class="col-3">
+                                    <label for="">Label <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control label-bar" name="label">
+                                    <small class="messages-error"></small>
+                                </div>
+                                <div class="col-2">
+                                    <label for="">Color <span class="text-danger">*</span></label>
+                                    <input type="color" id="rgb" class="form-control color-bar" value="#f6b73c">
+                                    <small class="messages-error"></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div id="MutiLine" class="value-widget mt-2" style="display:none;">
                         <!-- <div class="form-group">
@@ -576,7 +632,8 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
+                                                    <input class="form-control value-datasource" name="value"
+                                                        autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -589,7 +646,8 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
+                                                    <input class="form-control value-datasource" name="value"
+                                                        autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -602,7 +660,8 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
+                                                    <input class="form-control value-datasource" name="value"
+                                                        autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -615,7 +674,8 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="">Value <span class="text-danger">*</span></label>
-                                                    <input class="form-control value-datasource" name="value" autocomplete="off">
+                                                    <input class="form-control value-datasource" name="value"
+                                                        autocomplete="off">
                                                     <small class="messages-error"></small>
                                                     <ul class="list-group data-list" style="display: none">
                                                 </div>
@@ -666,11 +726,13 @@
                             <div class="col-4">
                                 <label>limitMin <span class="text-danger">*</span></label>
                                 <input type="number" name="limitMin" id="g_limitMin" class="form-control">
+                                <small class="messages-error"></small>
                             </div>
 
                             <div class="col-4">
                                 <label>limitMax <span class="text-danger">*</span></label>
                                 <input type="number" name="limitMax" id="g_limitMax" class="form-control">
+                                <small class="messages-error"></small>
                             </div>
 
                             <div class="col-4">
@@ -682,13 +744,15 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="">Datasource <span class="text-danger">*</span></label>
-                                <select class="form-control select-datasource">
+                                <select class="form-control select-datasource" name="datasource">
 
                                 </select>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="col-6">
                                 <label for="">Value <span class="text-danger">*</span></label>
-                                <input class="form-control value-datasource" autocomplete="off">
+                                <input class="form-control value-datasource" name="value" autocomplete="off">
+                                <small class="messages-error"></small>
                                 <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
@@ -742,13 +806,15 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="">Datasource <span class="text-danger">*</span></label>
-                                <select class="form-control select-datasource">
+                                <select class="form-control select-datasource" name="datasource">
 
                                 </select>
+                                <small class="messages-error"></small>
                             </div>
                             <div class="col-6">
                                 <label for="">Value <span class="text-danger">*</span></label>
-                                <input class="form-control value-datasource" autocomplete="off">
+                                <input class="form-control value-datasource" name="value" autocomplete="off">
+                                <small class="messages-error"></small>
                                 <ul class="list-group data-list" style="display: none">
                             </div>
                         </div>
@@ -880,12 +946,14 @@
                                 </div>
                                 <div class="col-3">
                                     <label for="">Value <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control value-datasource" name="value_data" autocomplete="off">
+                                    <input type="text" class="form-control value-datasource" name="value_data"
+                                        autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                                 <div class="col-3">
                                     <label for="">Label <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control value-datasource" name="label_data" autocomplete="off">
+                                    <input type="text" class="form-control value-datasource" name="label_data"
+                                        autocomplete="off">
                                     <ul class="list-group data-list data-list-value" style="display: none">
                                 </div>
                             </div>
@@ -1022,6 +1090,38 @@
     </div>
 </div>
 
+
+<div id="bar_value_layout" hidden>
+    <div class="row">
+        <div class="col-3">
+            <label for="">Datasource <span class="text-danger">*</span></label>
+            <select class="form-control select-datasource" name="datasource">
+
+            </select>
+            <small class="messages-error"></small>
+        </div>
+        <div class="col-3">
+            <label for="">Value <span class="text-danger">*</span></label>
+            <input class="form-control value-datasource" name="value" autocomplete="off">
+            <small class="messages-error"></small>
+            <ul class="list-group data-list" style="display: none">
+        </div>
+        <div class="col-3">
+            <label for="">Label <span class="text-danger">*</span></label>
+            <input type="text" class="form-control label-bar" name="label">
+            <small class="messages-error"></small>
+        </div>
+        <div class="col-2">
+            <label for="">Color <span class="text-danger">*</span></label>
+            <input type="color" id="rgb" class="form-control color-bar" value="#f6b73c" name="color">
+            <small class="messages-error"></small>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center" style="margin-top:30px">
+            <i class="fas fa-trash-alt remove-value"></i>
+        </div>
+    </div>
+</div>
+
 <div id="map_value_layout" hidden>
     <div class="row value-of-map">
         <div class="col-3">
@@ -1102,6 +1202,7 @@
             <div class="card-header d-flex justify-content-between">
                 <div>
                     <h5 class="title-widget">((title_name))</h5>
+
                 </div>
                 <div class="edit-widget" style="display:none">
                     <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
@@ -1114,7 +1215,7 @@
                 </div>
             </div>
 
-            <div class="card-body" style="">
+            <div class="card-body">
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -1183,7 +1284,7 @@
                             <option value="3 Month">3 Month</option>
                             <option value="6 Month">6 Month</option>
                             <option value="12 Month">12 Month</option>
-                            <option value="Custom">Custom</option>
+                            <!-- <option value="Custom">Custom</option> -->
                         </select>
                     </div>
 
@@ -1255,8 +1356,11 @@
 
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5><span class="title-widget">((title_name))</span> <span
-                            class="badge badge-pill badge-primary">Static</span></h5>
+                    <h5>
+                        <span class="title-widget">((title_name))</span>
+                        <span class="badge badge-pill badge-primary">Static</span>
+                    </h5>
+
                 </div>
                 <!-- <div class="edit-widget" style="display:none">
                     <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
@@ -1289,8 +1393,40 @@
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
-                <div class="form-group">
-                    <select name="type_report" id="type_report" class="form-control form-control-sm" style="width:20%"
+                <div class="form-inline d-flex justify-content-between">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-outline-primary type-report active" item="div_id"
+                            valueType="daily">Daily</button>
+                        <button type="button" class="btn btn-outline-primary type-report " item="div_id"
+                            valueType="monthly">Monthly</button>
+                        <button type="button" class="btn btn-outline-primary type-report " item="div_id"
+                            valueType="yearly">Yearly</button>
+                    </div>
+                    <div class="daily mt-3 form-inline" style="">
+                        <label for="start_day" class="mr-sm-2 ">From</label>
+                        <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 start_day" item="div_id">
+                        <label for="end_day " class="mr-sm-2 ">To</label>
+                        <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 end_day" item="div_id">
+                    </div>
+                    <div class="monthly mt-3 form-inline" style="display: none">
+                        <label for="start_month " class="mr-sm-2 ">From</label>
+                        <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 start_month" item="div_id">
+                        <label for="end_month" class="mr-sm-2 ">To</label>
+                        <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 end_month" item="div_id">
+
+                    </div>
+                    <div class="yearly mt-3 form-inline" style="display: none">
+                        <label for="start_year" class="mr-sm-2 ">From</label>
+                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year" item="div_id"
+                            placeholder="ex.2012">
+                        <label for="end_year" class="mr-sm-2 ">To</label>
+                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 end_year" item="div_id"
+                            placeholder="ex.2013">
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <select name="type_report" class="form-control form-control-sm type_report" style="width:20%"
                         item="div_id">
                         <option value="daily">Daily</option>
                         <option value="monthly">Monthly</option>
@@ -1308,14 +1444,14 @@
                     <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 start_month" item="div_id">
                     <label for="end_month" class="mr-sm-2 ">End month</label>
                     <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 end_month" item="div_id">
-                   
+
                 </div>
                 <div class="form-inline yearly" style="display: none">
                     <label for="start_year" class="mr-sm-2 ">Start year</label>
-                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year"  item="div_id">
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year" item="div_id">
                     <label for="end_year" class="mr-sm-2 ">End year</label>
                     <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 end_year" item="div_id">
-                </div>
+                </div> -->
             </div>
 
         </div>
