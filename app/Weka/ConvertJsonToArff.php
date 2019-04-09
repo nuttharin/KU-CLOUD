@@ -2,7 +2,7 @@
 
 namespace App\Weka;
 
-use App\ApiHelper\ApiHelper;
+use App\Helper\ApiHelper;
 use App\TB_DATA_ANALYSIS;
 use Illuminate\Support\Facades\Storage;
 

@@ -48,11 +48,10 @@ class CompanyController extends Controller
         $this->middleware('jwt.verify');
         $this->middleware(function ($request, $next) {
             $this->auth = Auth::user();
-
-            $company_id = $this->auth->user_company()->first()->company_id;
             if ($this->auth->type_user == "COMPANY") {
+                 $company_id = $this->auth->user_company()->first()->company_id;
                 $this->log_viewer->setFolder('COMPANY_' . $company_id);
-            } else if ($this->auth->type_user == "ADMIN") {
+            } else {
                 $this->log_viewer->setFolder('KU_CLOUD');
             }
 
