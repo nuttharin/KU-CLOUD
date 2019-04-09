@@ -319,7 +319,10 @@
                         <div class="col-sm-6 " >
                             <select class="form-control" id="summary_table">
                                 <option value="Day">Day</option>
+                                <option value="Week">Week</option>
                                 <option value="Month">Month</option>
+                                <option value="ThreeMonth">Three Month</option>
+                                <option value="SixMonth">Six Month</option>
                                 <option value="Year">Year</option>
                             </select>
                         </div>
@@ -398,8 +401,11 @@
                         </div>
                         <div class="col-sm-6 " >
                             <select class="form-control" id="summary_table">
-                                <option value="Day">Day</option>
+                            <option value="Day">Day</option>
+                                <option value="Week">Week</option>
                                 <option value="Month">Month</option>
+                                <option value="ThreeMonth">Three Month</option>
+                                <option value="SixMonth">Six Month</option>
                                 <option value="Year">Year</option>
                             </select>
                         </div>

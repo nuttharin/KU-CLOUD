@@ -146,14 +146,14 @@ class webService {
     let insertintoDW_Getlasttest_Aggregation = (table_DW,summary_table)=>
         { 
             $.ajax({
-                url: API_DW +"webService/getDataAggregation",
+                url: API_DW +"webService/getDataAggregationLastest",
                 dataType: 'json',
                 method: "POST",
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
-                    Agrregation_type:summary_table,
+                    nameDW: table_DW,
+                    type:summary_table,
                 },
                 success: (res) => {
                     //console.log("success")
@@ -175,8 +175,8 @@ class webService {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
-                    Agrregation_type:summary_table,
+                    nameDW: table_DW,
+                    type:summary_table,
                 },
                 success: (res) => {
                     //console.log("success")
