@@ -471,13 +471,8 @@ class CompanyController extends Controller
     public function editNameWebService(Request $request)
     {
         $webService = TB_WEBSERVICE::where('webservice_id', $request->get('idDB'))
-        ->update([
-            'service_name' => $request->get('ServiceName'),
-            'service_name_DW' => $nameDW,
-            'alias' => $request->get('alias'),
-            'URL' => $request->get('strUrl'),
-            'description' => $request->get('description'),
-            'header_row' => $request->get('header'),
+        ->update([            
+            'service_name_DW' => $request->get('nameDW')            
         ]);
         Log::info('Edit Web Service - [] SUCCESS');
         return response()->json(["status", "success"], 200);
