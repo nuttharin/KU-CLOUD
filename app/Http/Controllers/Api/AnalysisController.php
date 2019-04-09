@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\LogViewer\LogViewer;
 use App\Repositories\TB_DATA_ANALYSIS\DataAnalysisRepository;
 use App\Weka\Associations\Association;
 use App\Weka\Classify\J48;
@@ -41,6 +42,21 @@ class AnalysisController extends Controller
         $this->associations = new Association();
         $this->j48 = new J48();
         $this->simpleLinearRegression = new SimpleLinearRegression();
+
+        $this->log_viewer = new LogViewer();
+
+        $this->middleware('jwt.verify');
+        $this->middleware(function ($request, $next) {
+            $this->auth = Auth::user();
+            if ($this->auth->type_user == "COMPANY") {
+                $company_id = $this->auth->user_company()->first()->company_id;
+                $this->log_viewer->setFolder('COMPANY_' . $company_id);
+            } else {
+                $this->log_viewer->setFolder('KU_CLOUD');
+            }
+
+            return $next($request);
+        });
 
     }
 

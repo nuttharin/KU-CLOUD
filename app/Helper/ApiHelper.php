@@ -1,5 +1,5 @@
 <?php
-namespace App\ApiHelper;
+namespace App\Helper;
 
 class ApiHelper
 {
