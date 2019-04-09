@@ -3,47 +3,48 @@
 @section('content')
 <style>
     table {
-            font-size: 14px;
-        }
-    
-        .dataTables_wrapper {
-            font-size: 12px;
-        }
-        td.checkbox {
-            text-align: center;
-            vertical-align: middle;  
-        }
+        font-size: 14px;
+    }
 
-        #list_value {  
-            height: 300px !important;
-            overflow-y: scroll;
-        }
-        
-        .result{
-            padding: 20px;
-            border:#eee 1px solid;
-            border-radius: 10px;
-        }  
+    .dataTables_wrapper {
+        font-size: 12px;
+    }
 
-        #graph > svg {
-            margin-top: 10px;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
-        } 
+    td.checkbox {
+        text-align: center;
+        vertical-align: middle;
+    }
 
-        .icon-info{
-            cursor: pointer;
-            color:#1e7bcb;
-        }
+    #list_value {
+        height: 300px !important;
+        overflow-y: scroll;
+    }
 
-        .download-file{
-            cursor: pointer;
-        }
+    .result {
+        padding: 20px;
+        border: #eee 1px solid;
+        border-radius: 10px;
+    }
 
-        .dropdown-menu {
-            border: none;
-            box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.13);
-        }
-   
+    #graph>svg {
+        margin-top: 10px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+    }
+
+    .icon-info {
+        cursor: pointer;
+        color: #1e7bcb;
+    }
+
+    .download-file {
+        cursor: pointer;
+    }
+
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.13);
+    }
+
 </style>
 
 <div class="row" style="margin-top:30px;">
@@ -76,7 +77,7 @@
                     </li>
                 </ul>
                 <div class="form-row" id="input_analysis">
-                        <!-- <span><i class="fas fa-times cancel-getFile grow" style="cursor: pointer;display: none"></i></span> -->
+                    <!-- <span><i class="fas fa-times cancel-getFile grow" style="cursor: pointer;display: none"></i></span> -->
                     <div class="col-12">
                         <h4>Training file <span class="text-danger">*</span> </h4>
                         <select name="training_file" id="training_file" class="form-control">
@@ -121,9 +122,19 @@
                 </div>
 
                 <div class="row justify-content-end mt-3 mr-2" style="text-align: center; ">
-                    <button class="btn btn-primary btn-radius mt-2" id="btn_process" data-loading-text="<i class='fas fa-cog fa-spin'></i> Processing"><i
-                            class="fas fa-cog"></i> Process</button>
+                    <button class="btn btn-primary btn-radius mt-2" id="btn_process"
+                        data-loading-text="<i class='fas fa-cog fa-spin'></i> Processing"><i class="fas fa-cog"></i>
+                        Process</button>
+
                 </div>
+                <!-- <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div> -->
+
 
                 <hr>
 
@@ -134,7 +145,8 @@
 
                     <div class="col-6 text-right">
                         <div class="dropdown">
-                            <button type="button" class="btn btn-success btn-radius dropdown-toggle" data-toggle="dropdown">
+                            <button type="button" class="btn btn-success btn-radius dropdown-toggle"
+                                data-toggle="dropdown">
                                 Save result
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -235,7 +247,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="btn_save" class="btn btn-success btn-block" data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
+                <button type="button" id="btn_save" class="btn btn-success btn-block"
+                    data-loading-text="<i class='fas fa-circle-notch fa-spin'></i> Saving . . .">
                     Save
                 </button>
             </div>

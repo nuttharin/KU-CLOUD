@@ -1284,7 +1284,7 @@
                             <option value="3 Month">3 Month</option>
                             <option value="6 Month">6 Month</option>
                             <option value="12 Month">12 Month</option>
-                            <option value="Custom">Custom</option>
+                            <!-- <option value="Custom">Custom</option> -->
                         </select>
                     </div>
 

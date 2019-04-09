@@ -247,6 +247,13 @@ export function showErrorsForInputCustom(input, errors) {
     }
 }
 
+export function showErrorsForElCustom(el, errors) {
+    //console.log(input, errors);
+    if (!validate.isEmpty(errors)) {
+       el.html(errors);
+    } 
+}
+
 export function resetInputValidate() {
     $("input, textarea, select").removeClass('has-success');
     $("input, textarea, select").removeClass('has-error');

@@ -52,6 +52,7 @@ class AnalysisController extends Controller
             'type' => $request->get('type'),
             'name' => $request->get('name'),
             'pathArray' => $request->get('pathArray'),
+            'period' => $request->get('period'),
         ];
         $this->dataAnalysis->create($data);
     }
