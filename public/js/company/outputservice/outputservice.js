@@ -166,7 +166,7 @@ class webService {
                 }
             });
         }
-        let insertintoDW_Getall_Aggregation = (table_DW)=>
+        let insertintoDW_Getall_Aggregation = (table_DW,summary_table)=>
         { 
             $.ajax({
                 url: API_DW +"webService/getDataAggregation_Getall",
@@ -176,6 +176,7 @@ class webService {
                 data:
                 {
                     tableDW_name: table_DW,
+                    Agrregation_type:summary_table,
                 },
                 success: (res) => {
                     //console.log("success")
@@ -197,7 +198,7 @@ class webService {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
+                    nameDW: table_DW,
                 },
                 success: (res) => {
                     //console.log("success")
@@ -210,7 +211,7 @@ class webService {
                 }
             });
         }
-        let insertintoDW_Getall_Data = (table_DW,summary_table)=>
+        let insertintoDW_Getall_Data = (table_DW)=>
         { 
             $.ajax({
                 url: API_DW +"webService/getallData",
@@ -219,8 +220,7 @@ class webService {
                 headers: {"Authorization": getCookie('token')},
                 data:
                 {
-                    tableDW_name: table_DW,
-                    Agrregation_type:summary_table,
+                    nameDW: table_DW,
                 },
                 success: (res) => {
                     //console.log("success")
