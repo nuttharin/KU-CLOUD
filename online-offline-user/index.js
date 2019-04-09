@@ -83,11 +83,13 @@ class Server {
                 });
 
                 _user.datasources.iot_services.map(_iot => {
-                    res.io.of('dashboards').to(_user.socket_id).emit("broadcast", {
-                        service_id: req.body.service_id,
-                        type: req.body.type,
-                        data: req.body.data,
-                    });
+                    if (_iot == req.body.service_id) {
+                        res.io.of('dashboards').to(_user.socket_id).emit("broadcast", {
+                            service_id: req.body.service_id,
+                            type: req.body.type,
+                            data: req.body.data,
+                        });
+                    }
                     // res.io.of('dashboardsPublic').to(_user.socket_id).emit("broadcast", {
                     //     service_id: req.body.service_id,
                     //     type: req.body.type,
@@ -111,11 +113,13 @@ class Server {
                 });
 
                 _user.datasources.iot_services.map(_iot => {
-                    res.io.of('dashboardsPublic').to(_user.socket_id).emit("broadcast", {
-                        service_id: req.body.service_id,
-                        type: req.body.type,
-                        data: req.body.data,
-                    });
+                    if (_iot == req.body.service_id) {
+                        res.io.of('dashboardsPublic').to(_user.socket_id).emit("broadcast", {
+                            service_id: req.body.service_id,
+                            type: req.body.type,
+                            data: req.body.data,
+                        });
+                    }
                    
                 });
 
