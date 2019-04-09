@@ -403,7 +403,7 @@ class CompanyController extends Controller
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
-        $nameDW = "WebService.".$request->get('ServiceName');
+        $nameDW = "WebService.".$request->get('ServiceName') . "." . $companyID ;
 
         $webService = TB_WEBSERVICE::create([
             'company_id' => $companyID,
