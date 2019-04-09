@@ -319,7 +319,10 @@
                         <div class="col-sm-6 " >
                             <select class="form-control" id="summary_table">
                                 <option value="Day">Day</option>
+                                <option value="Week">Week</option>
                                 <option value="Month">Month</option>
+                                <option value="ThreeMonth">Three Month</option>
+                                <option value="SixMonth">Six Month</option>
                                 <option value="Year">Year</option>
                             </select>
                         </div>
@@ -359,7 +362,7 @@
                     <h6 style="color:black">Get Lastest Aggregation Data</h6>
                 </div>
                 <div class="col-sm-7" id='header-detail'>
-                    <h6 style="color:gray">/webService/getDataAggregation</h6>
+                    <h6 style="color:gray">/webService/getDataAggregationLastest</h6>
                 </div>
             </div>
             </h4>
@@ -398,8 +401,11 @@
                         </div>
                         <div class="col-sm-6 " >
                             <select class="form-control" id="summary_table">
-                                <option value="Day">Day</option>
+                            <option value="Day">Day</option>
+                                <option value="Week">Week</option>
                                 <option value="Month">Month</option>
+                                <option value="ThreeMonth">Three Month</option>
+                                <option value="SixMonth">Six Month</option>
                                 <option value="Year">Year</option>
                             </select>
                         </div>
