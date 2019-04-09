@@ -396,14 +396,14 @@ class CompanyController extends Controller
         $companyID = $this->auth->user_company()->first()->company_id;
         $name = $request->get('ServiceName');
         $webService = DB::select("SELECT TB_WEBSERVICE.service_name as name
-        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.service_name='$name'");
+        FROM TB_WEBSERVICE WHERE TB_WEBSERVICE.service_name='$name' and company_id='$companyID'");
 
         return response()->json(compact('webService'), 200);
     }
     public function addRegisWebService(Request $request)
     {
         $companyID = $this->auth->user_company()->first()->company_id;
-        $nameDW = "WebService." . $request->get('ServiceName') . "." . $companyID;
+        $nameDW = "WebService.".$request->get('ServiceName') . "." . $companyID.".".date("Y");
 
         $webService = TB_WEBSERVICE::create([
             'company_id' => $companyID,
@@ -464,6 +464,21 @@ class CompanyController extends Controller
                 'description' => $request->get('description'),
                 'header_row' => $request->get('header'),
             ]);
+        Log::info('Edit Web Service - [] SUCCESS');
+        return response()->json(["status", "success"], 200);
+    }
+
+    public function editNameWebService(Request $request)
+    {
+        $webService = TB_WEBSERVICE::where('webservice_id', $request->get('idDB'))
+        ->update([
+            'service_name' => $request->get('ServiceName'),
+            'service_name_DW' => $nameDW,
+            'alias' => $request->get('alias'),
+            'URL' => $request->get('strUrl'),
+            'description' => $request->get('description'),
+            'header_row' => $request->get('header'),
+        ]);
         Log::info('Edit Web Service - [] SUCCESS');
         return response()->json(["status", "success"], 200);
     }

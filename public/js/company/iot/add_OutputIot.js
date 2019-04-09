@@ -172,54 +172,82 @@ class Validation{
     {
         
         this.validate = () =>{
-            let chkDatas = false ;
+            let chkDatas;
+            let chkName;
             console.log(nameoutput.length) 
             console.log( nameoutput[0])
             if(iotdescription == ""){
 
                 iotdescription = "";
             }
-            if(iotName == "")
-            {
-                swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
-            }
-            else if(iotName != "")
-            {
-                if(iotAlias =="")
+            $.ajax({
+                url: END_POINT+"iot/checkServicename",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
                 {
-                    console.log("ll" + iotAlias)
-                    swal("คุณไม่ได้กรอก Alias  !", "", "error");
+                    ServiceName: iotName,
+                },
+                success: (res) => {
+                        // toastr["success"]("Success");
+                    chkName = res.iotService;
+                    console.log("name" + chkName)
+                        //increaseDataTableDW();
+                },
+                error: (res) => {
+                    swal("Good job!", "You clicked the button!", "error");
+                    console.log(res);
                 }
-                else if(iotAlias !="")
+            });
+            if(chkName!="")
+            {
+                swal("Duplicate Service Name!", "Please enter a new Service Name.", "error");
+            }
+            else if(chkName=="")
+            {
+                if(iotName == "")
                 {
-                   
-                    for(let i =0 ;i< nameoutput.length; i++)
-                        {
-                            if(nameoutput[i] == "" || valueoutput[i] == "")
+                    swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
+                }
+                else if(iotName != "")
+                {
+                    if(iotAlias =="")
+                    {
+                        console.log("ll" + iotAlias)
+                        swal("คุณไม่ได้กรอก Alias  !", "", "error");
+                    }
+                    else if(iotAlias !="")
+                    {
+                    
+                        for(let i =0 ;i< nameoutput.length; i++)
                             {
-                                swal(" Others Output ไม่ถุกต้อง !", "", "error");
-                            }
-                            else if(nameoutput[i] != "" || valueoutput[i] != "")
-                            {
-                                for(let i =0 ;i<fields.length; i++)
+                                if(nameoutput[i] == "" || valueoutput[i] == "")
                                 {
-                                    if(fields[i] == "")
-                                    {
-                                        swal(" Pin names ไม่ถุกต้อง !", "", "error");
-                                    }
-                                    else if(i==fields.length-1 &&(fields[i] != ""))
-                                    {
-                                        let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode,fields);
-                                        iot.getDataforInsert();
-                                        iot.showDetail();
-                                    }
+                                    swal(" Others Output ไม่ถุกต้อง !", "", "error");
                                 }
+                                else if(nameoutput[i] != "" || valueoutput[i] != "")
+                                {
+                                    for(let i =0 ;i<fields.length; i++)
+                                    {
+                                        if(fields[i] == "")
+                                        {
+                                            swal(" Pin names ไม่ถุกต้อง !", "", "error");
+                                        }
+                                        else if(i==fields.length-1 &&(fields[i] != ""))
+                                        {
+                                            let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode,fields);
+                                            iot.getDataforInsert();
+                                            iot.showDetail();
+                                        }
+                                    }
 
-                            }
-                        }
-                           
+                                }
+                            }       
+                    }
                 }
             }
+            
         }
 
     }
@@ -230,43 +258,70 @@ class Validation1{
         
         this.validate = () =>{
             let chkData = true ;
+            let chkName;
             if(iotdescription == ""){
                 iotdescription = "";
             }
-            if(iotName == "" || iotAlias =="")
-            {
-                
-                if(iotName == ""){
-                    swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
-                }
-                else if(iotAlias ==""){
-                    console.log("ll" + iotAlias)
-                    swal("คุณไม่ได้กรอก Alias  !", "", "error");
-                }                
-            }            
-            else if(iotName != "" || iotAlias !="")
-            {
-                chkData = true ;
-                for(let i =0 ;i<fields.length; i++)
+            $.ajax({
+                url: END_POINT+"iot/checkServicename",
+                dataType: 'json',
+                method: "POST",
+                async: false,
+                data:
                 {
-                    if(fields[i] == "")
+                    ServiceName: iotName,
+                },
+                success: (res) => {
+                        // toastr["success"]("Success");
+                    chkName = res.iotService;
+                    console.log("name" + chkName)
+                        //increaseDataTableDW();
+                },
+                error: (res) => {
+                    swal("Good job!", "You clicked the button!", "error");
+                    console.log(res);
+                }
+            });
+            if(chkName!="")
+            {
+                swal("Duplicate Service Name!", "Please enter a new Service Name.", "error");
+            }
+            else if(chkName=="")
+            {
+                if(iotName == "" || iotAlias =="")
+                {
+                    
+                    if(iotName == ""){
+                        swal("คุณไม่ได้กรอก IoT Name  !", "", "error");
+                    }
+                    else if(iotAlias ==""){
+                        console.log("ll" + iotAlias)
+                        swal("คุณไม่ได้กรอก Alias  !", "", "error");
+                    }                
+                }            
+                else if(iotName != "" || iotAlias !="")
+                {
+                    chkData = true ;
+                    for(let i =0 ;i<fields.length; i++)
                     {
-                        chkData = false ;
-                        break;
-                    }                        
-                }
-               
-                if(chkData) {
-                    console.log(status)
-                    let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode);
-                    iot.getDataforInsert();
-                    iot.showDetail();
-                }
-                else {
-                    swal(" Pin Names ไม่ถุกต้อง !", "", "error");
+                        if(fields[i] == "")
+                        {
+                            chkData = false ;
+                            break;
+                        }                        
+                    }
+                
+                    if(chkData) {
+                        console.log(status)
+                        let iot = new iotService(iotName,iotAlias,iotdescription,status,OutputData,jsonencode);
+                        iot.getDataforInsert();
+                        iot.showDetail();
+                    }
+                    else {
+                        swal(" Pin Names ไม่ถุกต้อง !", "", "error");
+                    }
                 }
             }
-
         }
 
     }

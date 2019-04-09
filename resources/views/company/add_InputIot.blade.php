@@ -415,7 +415,7 @@
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Name IoT</label>
                     <div class="col-sm-12">
-                        <input class="form-control" id="Nameiot" type="text" disabled>
+                        <input class="form-control" id="Nameiot" type="text" readonly>
                     </div>
                 </div>
                  <div class="form-group">
