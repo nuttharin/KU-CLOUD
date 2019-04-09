@@ -21,8 +21,6 @@
         overflow-y: scroll;
     }
 
-   
-
 </style>
 <link rel="stylesheet" href="{{asset('css/file.css')}}">
 <div class="row" style="margin-top:30px;">
@@ -160,6 +158,12 @@
                         <small class="messages-error"></small>
                     </div>
                 </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <small class="messages-error" id="message_date_error"></small>
+                    </div>
+
+                </div>
                 <!-- <div class="row mt-2">
                     <div class="col-6">
                         <label for="start_date">Start date <span class="text-danger">*</span></label>
@@ -258,13 +262,13 @@
     </div>
 </div>
 
-<div class="process-zip-file" style="display:none" >
+<div class="process-zip-file" style="display:none">
     <div class="row">
         <div class="col-12">Processing compress file</div>
         <div class="col-12 mt-2" id="file_name"></div>
         <div class="col-12 mt-2">
             <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated"  style="width:0%"></div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%"></div>
             </div>
         </div>
     </div>
