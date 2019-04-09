@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\LogViewer\LogViewer;
 use App\Repositories\TB_COMPANY\CompanyRepository;
 use File;
 use Illuminate\Http\Request;
