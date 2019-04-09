@@ -431,7 +431,7 @@ class Validation{
                 }
                 else
                 {
-                    let chkData = true ;
+                    chkData = true ;
                     for(let i =0 ;i<fields.length; i++)
                     {
                         if(fields[i] == "")
