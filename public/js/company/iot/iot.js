@@ -40,7 +40,9 @@ var IotserviceRepository = new (function(){
         {
             return false ;
         }
-        datatableObject = $('#datatable-iotservice').dataTable();
+        datatableObject = $('#datatable-iotservice').dataTable({
+            responsive : true
+        });
     }
 
     let showLoadingStatus = (show) => {
@@ -114,7 +116,10 @@ var IotserviceRepository = new (function(){
             Datatable.push(ret);
             total_iotservice++;
         });
-        datatableObject.fnAddData(Datatable);
+        if(Datatable.length > 0)
+        {
+            datatableObject.fnAddData(Datatable);
+        }
         console.log(total_iotservice)
         $('#total-iotservice').html(`Total ${total_iotservice} IoTservices`)
         $('#datatable-iotservice').on('click', '.btn-detail', function () {

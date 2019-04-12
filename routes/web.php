@@ -50,6 +50,8 @@ Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
 
     Route::get('/Company/Service', 'CompanyController@service');
     Route::get('/Company/Service/AddService', 'CompanyController@Add_service');
+    Route::get('/Company/Service/AddServiceGeneral', 'CompanyController@Add_service_General');
+
     Route::get('/Company/Service/ShowService', 'CompanyController@Show_service');
     Route::get('/Company/Service/OutputService', 'CompanyController@Output_service');
 
