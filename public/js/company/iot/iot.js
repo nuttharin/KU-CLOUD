@@ -401,6 +401,7 @@ var IotserviceRepository = new (function(){
             let str_output = JSON.stringify(stroutput, undefined, 2);
             let str_output1 = JSON.stringify(stroutput);
             console.log(stroutput)
+            
             $.ajax({
                 url: END_POINT+"iot/iotupdatedata",
                 dataType: 'json',
