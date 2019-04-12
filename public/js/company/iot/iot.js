@@ -274,7 +274,7 @@ var IotserviceRepository = new (function(){
         let keyvalue=key;
         let data = await JSON.parse(iotserviceList[key].strJson) ;
         let dataOther ="";
-        let dataPin ="";        
+        let dataPin ="";       
         console.log(data)
         Object.keys(data).forEach(function (key) {
             // if(data.other != undefined){
@@ -406,6 +406,7 @@ var IotserviceRepository = new (function(){
             let str_output = JSON.stringify(stroutput, undefined, 2);
             let str_output1 = JSON.stringify(stroutput);
             console.log(stroutput)
+            console.log(iotserviceList[key].id)
             $.ajax({
                 url: END_POINT+"iot/iotupdatedata",
                 dataType: 'json',
@@ -413,7 +414,7 @@ var IotserviceRepository = new (function(){
                 async: false,
                 data:
                 {
-                    id_DB: idDB,
+                    id_DB: iotserviceList[key].id,
                     strJson:str_output,
                     pinfilds:data_Output,
                     

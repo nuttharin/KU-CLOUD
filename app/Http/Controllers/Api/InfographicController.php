@@ -172,7 +172,7 @@ class InfographicController extends Controller
         }
         else
         {
-            return $this->webservice->getServiceByCompany();
+            return $this->webservice->getServiceByAdmin();
         }
 
     }

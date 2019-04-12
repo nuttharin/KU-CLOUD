@@ -251,7 +251,7 @@
                 @endif
                 @if ($user->type_user == 'CUSTOMER' || $user->type_user == 'ADMIN')
                 <li class="nav-item">
-                    <a href="{{action('InfographicController@Index')}}">
+                    <a href="{{action('CustomerController@Output_service')}}">
                         <i class="fas fa-cloud-download-alt"></i>
                         <span class="link_hide">Output Service</span>
                     </a>
