@@ -301,7 +301,7 @@ class Service {
             let lengthMaxList = 0;
             //console.log(list)
             // find max length parents
-            //console.log(list2)
+            console.log(list2)
             for (let i = 0; i < list.length; i++) {
 
                 if (list[i].parents.length >= lengthMaxList) {
@@ -362,7 +362,7 @@ class Service {
                     arrData.push(list[i]);
                 }
             }
-            //console.log(arrData)
+            console.log(arrData)
             
             // Create data to be stored in database DB
             for (let i = 0; i < arrData.length; i++) {
@@ -432,8 +432,7 @@ class Service {
 
             headerLow = str;
             str = "";
-            //console.log(headerLow);
-            //console.log(getCookie('token'));
+            console.log(headerLow);
 
             
             
@@ -636,7 +635,7 @@ class TreeView {
             let dataTemp;
             $.ajax({
                 // url: "https://data.tmd.go.th/api/Weather3Hours/V1/?type=json",                
-                url: API_DW + "webService/getDataWebServiceTMD",
+                url: API_DW + "webService/getDataWebService",
                 method: "POST",
                 dataType: "json",
                 async: false,

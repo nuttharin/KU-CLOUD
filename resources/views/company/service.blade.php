@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-header bg-white">
                 <div class="row">
-                    <div class="col-6" style="padding: 30px 0px 10px 15px">
+                    <div class="col-5" style="padding: 30px 0px 10px 15px">
                         <span class="h3">WebService</span>
                         <!-- <div class="text-loading">
                             <div class="text-line md"></div>
@@ -26,10 +26,17 @@
                             <p id="total-webservice"></p>
                         </h6>
                     </div>
-                    <div class="col-6 text-right" style="padding: 30px 15px 10px 0px;width:100%">
+
+                    <div class="col-4 text-right" style="padding: 30px 15px 10px 0px;width:100%">
                         <a href="{{action('CompanyController@Add_service')}}" class="btn btn-success btn-radius">
                             <i class="fa fa-plus"></i>
-                            Create Service
+                            Create Service TMD
+                        </a>
+                    </div>
+                    <div class="col-2 text-right" style="padding: 30px 15px 10px 0px;width:100%">
+                        <a href="{{action('CompanyController@Add_service_General')}}" class="btn btn-warning btn-radius">
+                            <i class="fa fa-plus"></i>
+                            Create Service General
                         </a>
                     </div>
                 </div>
