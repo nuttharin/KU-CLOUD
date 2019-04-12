@@ -9,6 +9,10 @@
 <style type="text/css">
     .grid-stack-item {}
 
+    .grid-stack-item table {
+        font-size: 12px;
+    }
+
     .grid-stack-item-content {
         color: #2c3e50;
         text-align: center;

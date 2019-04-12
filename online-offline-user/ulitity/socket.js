@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const tokenSocket = require('./Token');
 require('dotenv/config');
 
+
 class Socket {
 
     constructor(socket) {
