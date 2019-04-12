@@ -434,7 +434,7 @@ var IotserviceRepository = new (function(){
                 async: false,
                 data:
                 {
-                    id_DB:idDB,
+                    id_DB:iotserviceList[key].id,
                     nameDW: iotserviceList[key].iot_name_DW,
                     strJson:str_output1,
                 },
