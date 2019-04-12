@@ -32,4 +32,8 @@ class CustomerController extends Controller
     {
         return view('customer.index');
     }
+    public function Output_service()
+    {
+        return view('customer.outputService');
+    }
 }

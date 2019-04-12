@@ -101,6 +101,7 @@ Route::group(['middleware' => ['jwt.verify.web', 'cors']], function () {
     Route::get('/Register/IoT', 'RegisterIoTServiceController@IoT');
 
     //Customer
+    Route::get('/Customer/Service/OutputService', 'CustomerController@Output_service');
     Route::get('/Customer/User', 'CustomerController@Index');
     Route::get('/Customer/ManageAccounts', 'CustomerController@ManageAccounts');
     Route::get('/Customer/ManageCompany', 'CustomerController@ManageCompany');
