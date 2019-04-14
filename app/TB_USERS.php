@@ -12,7 +12,7 @@ class TB_USERS extends Authenticatable implements JWTSubject
     protected $table = "TB_USERS";
     //
     protected $fillable = [
-        'user_id', 'username', 'district_id', 'fname', 'lname', 'password', 'type_user', 'block', 'online', 'img_profile',
+        'user_id', 'username', 'district_id', 'fname', 'lname', 'password', 'type_user', 'block', 'online', 'img_profile', 'remember_token',
     ];
 
     protected $hidden = [
@@ -27,6 +27,21 @@ class TB_USERS extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return ['type_user' => $this->type_user];
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
     }
 
     public function email()

@@ -53,16 +53,16 @@ Route::group([
 ], function ($router) {
     Route::put('ResetPassword', 'Api\AuthController@resetPasswordFirst');
     Route::post('Login', 'Api\AuthController@login');
-    // Route::post('Logout', 'Api\AuthController@logout');
+    Route::post('Logout', 'Api\AuthController@logout');
     Route::post('Refresh', 'Api\AuthController@refresh');
 });
 
-Route::group([
-    'middleware' => ['api', 'jwt.verify'],
-    'prefix' => 'auth',
-], function ($router) {
-    Route::post('logout', 'Api\AuthController@logout');
-});
+// Route::group([
+//     'middleware' => ['api', 'jwt.verify'],
+//     'prefix' => 'auth',
+// ], function ($router) {
+//     Route::post('logout', 'Api\AuthController@logout');
+// });
 
 Route::group([
     'middleware' => ['api', 'jwt.verify'],
@@ -110,10 +110,9 @@ Route::group([
     Route::delete('static/datasource', 'Api\AdminController@deleteDatasourceByStatic');
 
 //log
-    
+
     Route::get('database/log', 'Api\AdminController@getLogList');
 
-    
     Route::post('database/log/folder/download', 'Api\AdminController@downloadFileLogByFolder');
     Route::get('database/log/folder', 'Api\AdminController@getFolderLogs');
     Route::delete('database/log/folder', 'Api\AdminController@delelteFileLogByFolder');

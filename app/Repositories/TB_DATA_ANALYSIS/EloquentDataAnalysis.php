@@ -84,7 +84,7 @@ class EloquentDataAnalysis implements DataAnalysisRepository
                 'name' => $attr['name'],
             ]);
             $convert = new ConvertJsonToArff();
-            $convert->convertToAttr($attr['pathArray'], $attr['name'], $attr['service_id'], $attr['type'], $attr['tableDW_name'], $data->data_id, $attr['period']);
+            $convert->convertToAttr($attr['pathArray'], $attr['name'], $attr['service_id'], $attr['type'], $attr['tableDW_name'], $data->data_id, $attr['period'], $attr['token']);
             //dispatch(new PrepareDataAnalysis($data->data_id, $attr['pathArray'], $attr['name']));
         } catch (Exception $e) {
             DB::rollBack();

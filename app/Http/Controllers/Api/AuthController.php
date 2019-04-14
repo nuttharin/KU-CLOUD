@@ -21,6 +21,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $token = "";
+        $payload = "";
         try {
             $user = TB_USERS::where([
                 ['username', '=', $request->get('username')],
@@ -36,6 +38,7 @@ class AuthController extends Controller
 
                 $hash_password = $user->password;
                 if (Hash::check($request->get('password'), $hash_password)) {
+
                     $user_custom = [
                         "user_id" => $user->user_id,
                         "username" => $user->username,
@@ -52,13 +55,22 @@ class AuthController extends Controller
                         $user_custom['sub_type_user'] = $user->user_company()->first()->sub_type_user;
                         $user_custom['company_id'] = $user->user_company()->first()->company_id;
                     }
+                    JWTFactory::setDefaultClaims(array('jti'));
                     $factory = JWTFactory::customClaims([
                         'sub' => $user->user_id,
-                        'user' => $user_custom,
+                        'user' => [
+                            "user_id" => $user->user_id,
+                            "fname" => $user->fname,
+                            "lname" => $user->lname,
+                            "type_user" => $user->type_user,
+                        ],
                     ]);
+
                     $payload = JWTFactory::make($factory);
                     $token = JWTAuth::encode($payload);
 
+                    TB_USERS::where('user_id', $user->user_id)
+                        ->update(['remember_token' => $token]);
                     //Log::debug('An informational message.',['id'=>$user[0]->type_user]);
                     //$payload = JWTAuth::decode($token);
 
@@ -149,9 +161,14 @@ class AuthController extends Controller
      */
     public function logout()
     {
+
+        Log::debug("logout" . Auth::user()->user_id);
+        TB_USERS::where('user_id', Auth::user()->user_id)
+            ->update(['remember_token' => null]);
         auth()->logout();
         //JWTAuth::invalidate(JWTAuth::getToken());
         return response()->json(['message' => 'Successfully logged out'], 200);
+
     }
 
     /**

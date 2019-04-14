@@ -65,19 +65,26 @@ class ConvertJsonToArff
 
     }
 
-    public function convertToAttr($pathArray = null, $name = 'test', $service_id, $type, $tableDW_name, $data_id, $period)
+    public function convertToAttr($pathArray = null, $name = 'test', $service_id, $type, $tableDW_name, $data_id, $period, $token)
     {
         try {
             if ($type === "web_services") {
-                $path = public_path() . "/js/company/testConvert.json";
-                $json = json_decode(file_get_contents($path), true);
+                // $path = public_path() . "/js/company/testConvert.json";
+                // $json = json_decode(file_get_contents($path), true);
+                $data_array = array(
+                    'nameDW' => $tableDW_name,
+                    'start_date' => $period['start_date'],
+                    'end_date' => $period['end_date'],
+                );
+                $get_data = ApiHelper::callAPI('POST', 'http://203.151.136.15/node/webService/getallDataBytime', json_encode($data_array), $token);
+                $json = json_decode($get_data, true);
             } else if ($type === "iot_services") {
                 $data_array = array(
                     'tableDW_name' => $tableDW_name,
                     'start_date' => $period['start_date'],
                     'end_date' => $period['end_date'],
                 );
-                $get_data = ApiHelper::callAPI('POST', 'http://localhost/node/iotService/getInputIoTData_Time', json_encode($data_array));
+                $get_data = ApiHelper::callAPI('POST', 'http://203.151.136.15/node/iotService/getInputIoTData_Time', json_encode($data_array), $token);
                 $json = json_decode($get_data, true);
             }
 
