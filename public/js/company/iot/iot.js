@@ -40,7 +40,9 @@ var IotserviceRepository = new (function(){
         {
             return false ;
         }
-        datatableObject = $('#datatable-iotservice').dataTable();
+        datatableObject = $('#datatable-iotservice').dataTable({
+            responsive : true
+        });
     }
 
     let showLoadingStatus = (show) => {
@@ -114,7 +116,10 @@ var IotserviceRepository = new (function(){
             Datatable.push(ret);
             total_iotservice++;
         });
-        datatableObject.fnAddData(Datatable);
+        if(Datatable.length > 0)
+        {
+            datatableObject.fnAddData(Datatable);
+        }
         console.log(total_iotservice)
         $('#total-iotservice').html(`Total ${total_iotservice} IoTservices`)
         $('#datatable-iotservice').on('click', '.btn-detail', function () {
@@ -269,7 +274,7 @@ var IotserviceRepository = new (function(){
         let keyvalue=key;
         let data = await JSON.parse(iotserviceList[key].strJson) ;
         let dataOther ="";
-        let dataPin ="";        
+        let dataPin ="";       
         console.log(data)
         Object.keys(data).forEach(function (key) {
             // if(data.other != undefined){
@@ -401,6 +406,7 @@ var IotserviceRepository = new (function(){
             let str_output = JSON.stringify(stroutput, undefined, 2);
             let str_output1 = JSON.stringify(stroutput);
             console.log(stroutput)
+            console.log(iotserviceList[key].id)
             $.ajax({
                 url: END_POINT+"iot/iotupdatedata",
                 dataType: 'json',
@@ -408,7 +414,7 @@ var IotserviceRepository = new (function(){
                 async: false,
                 data:
                 {
-                    id_DB: idDB,
+                    id_DB: iotserviceList[key].id,
                     strJson:str_output,
                     pinfilds:data_Output,
                     
@@ -428,7 +434,7 @@ var IotserviceRepository = new (function(){
                 async: false,
                 data:
                 {
-                    id_DB:idDB,
+                    id_DB:iotserviceList[key].id,
                     nameDW: iotserviceList[key].iot_name_DW,
                     strJson:str_output1,
                 },

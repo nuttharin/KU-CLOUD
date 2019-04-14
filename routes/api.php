@@ -417,4 +417,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('admin/webservice/deletewebservice', 'Api\AdminController@deletewebservice');
     Route::post('admin/infographic/createDatasource', 'Api\AdminController@addDatasourceInfo');
 
+    //customer outputservice
+    Route::get('customer/webservicedata_customer', 'Api\CompanyController@getAllWebserviceData_customer');
+
 });

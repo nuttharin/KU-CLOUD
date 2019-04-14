@@ -48,8 +48,12 @@ var WebserviceRepository = new (function () {
             return false;
         }
 
-        datatableObject = $('#datatable-webservice').dataTable();
+        datatableObject = $('#datatable-webservice').dataTable({
+            responsive : true
+        });
         //console.log(datatableObject)
+        
+       
     }
 
     var showLoadingStatus = (show) => {
@@ -90,7 +94,12 @@ var WebserviceRepository = new (function () {
             Datatable.push(ret);
             total_webservice++;
         });
-        datatableObject.fnAddData(Datatable);
+        
+        if(Datatable.length > 0)
+        {
+            datatableObject.fnAddData(Datatable);
+        }
+        //datatableObject.fnAddData(Datatable);
         $("#total-webservice").html(`Total ${total_webservice} Webservices`);
         $('#datatable-webservice').on('click', '.btn-detail', function () {
             onDetailClick($(this).attr('index'));
