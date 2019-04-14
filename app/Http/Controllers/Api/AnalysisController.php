@@ -69,6 +69,7 @@ class AnalysisController extends Controller
             'name' => $request->get('name'),
             'pathArray' => $request->get('pathArray'),
             'period' => $request->get('period'),
+            'token' => $request->header('Authorization'),
         ];
         $this->dataAnalysis->create($data);
     }

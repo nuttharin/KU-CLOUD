@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use DB;
-use Mail;
 use App\TB_EMAIL;
+use App\TB_TOKEN_FORGETPASSWORD;
 use App\TB_USERS;
 use App\USER_FIRST_CREATE;
-use App\ApiHelper\ApiHelper;
+use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
-use App\TB_TOKEN_FORGETPASSWORD;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Cookie;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -42,8 +42,10 @@ class AuthController extends Controller
 
         if ($response->getStatusCode() == 200) {
             $data = json_decode($response->getContent());
-            //Cookie::queue('token', $data->token, 60);
+            $exp = Carbon::now()->addMinutes(60);
+            Cookie::queue('token', $data->token, 60, null, null, false, false);
             if (!empty($data->user)) {
+                $request->session()->put('token_exp', $exp);
                 $request->session()->put('user', $data->user);
             }
             return $response->getContent();

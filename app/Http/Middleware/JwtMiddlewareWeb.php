@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cookie;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
 class JwtMiddlewareWeb extends BaseMiddleware
@@ -21,7 +23,10 @@ class JwtMiddlewareWeb extends BaseMiddleware
         if (!$request->session()->has('user')) {
             return redirect('/');
         } else {
-            // $token = isset($_COOKIE["token"]) ? $_COOKIE["token"] : "";
+            $exp = $request->session()->get('token_exp');
+            $totalDuration = Carbon::now()->diffInMinutes($exp->addMinutes(30));
+            $token = isset($_COOKIE["token"]) ? $_COOKIE["token"] : "";
+            Cookie::queue('token', $token, $totalDuration, null, null, false, false);
             // $request->headers->set("Authorization", "Bearer $token"); //this is working
             return $next($request);
         }

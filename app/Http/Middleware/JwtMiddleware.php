@@ -23,6 +23,17 @@ class JwtMiddleware extends BaseMiddleware
         $response = $next($request);
         try {
             $user = JWTAuth::parseToken()->authenticate();
+
+            if (!empty($request->cookie('token'))) {
+                if (strcmp($user->getRememberToken(), $request->cookie('token'))) {
+                    return response()->json(['status' => 'Token is Invalid']);
+                }
+            } else if (!empty($request->header('Authorization'))) {
+                if (strcmp($user->getRememberToken(), $request->header('Authorization'))) {
+                    return response()->json(['status' => 'Token is Invalid']);
+                }
+            }
+
             if ($request->cookie('token') != '') {
                 $request->headers->set("Authorization", "Bearer " . $request->cookie('token'));
             }

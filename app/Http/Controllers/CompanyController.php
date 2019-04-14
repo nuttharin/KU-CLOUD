@@ -11,6 +11,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Route;
 
 class CompanyController extends Controller
 {
@@ -81,10 +82,10 @@ class CompanyController extends Controller
             $token = $request->cookie('token');
             if (!empty($token)) {
                 $logoutRequest = Request::create(
-                    env('API_URL') . 'auth/logout',
+                    env('API_URL') . 'Auth/Logout',
                     'POST'
                 );
-
+                $response = Route::dispatch($logoutRequest);
                 Cookie::queue(Cookie::forget('token', '/', config('IP_ADDRESS')));
 
             }
