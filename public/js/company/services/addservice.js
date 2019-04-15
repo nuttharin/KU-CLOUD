@@ -636,7 +636,7 @@ class TreeView {
             let dataTemp;
             $.ajax({
                 // url: "https://data.tmd.go.th/api/Weather3Hours/V1/?type=json",                
-                url: API_DW + "webService/getDataWebServiceTMD",
+                url: API_DW + "webService/getDataWebService",
                 method: "POST",
                 dataType: "json",
                 async: false,
