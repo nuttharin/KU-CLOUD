@@ -10,7 +10,7 @@
     .grid-stack-item {}
 
     .grid-stack-item table {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .grid-stack-item-content {
@@ -853,10 +853,12 @@
                                 <div class="col-6">
                                     <label for="min">Min <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="min" id="map_value_min">
+                                    <small class="messages-error"></small>
                                 </div>
                                 <div class="col-6">
                                     <label for="max">Max <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="max" id="map_value_max">
+                                    <small class="messages-error"></small>
                                 </div>
                             </div>
 

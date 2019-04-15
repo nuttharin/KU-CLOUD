@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Analysis\DeleteDataAnalysis;
 use App\LogViewer\LogViewer;
 use App\Repositories\TB_DATA_ANALYSIS\DataAnalysisRepository;
 use App\Weka\Associations\Association;
@@ -74,7 +75,7 @@ class AnalysisController extends Controller
         $this->dataAnalysis->create($data);
     }
 
-    public function deleteDataAnalysis(Request $request)
+    public function deleteDataAnalysis(DeleteDataAnalysis $request)
     {
         $data = [
             'data_id' => $request->get('data_id'),

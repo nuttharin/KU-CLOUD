@@ -84,6 +84,7 @@ class CompanyController extends Controller
     {
         try {
             $request->session()->forget('user');
+            $request->session()->forget('token_exp');
             $token = $request->cookie('token');
             if (!empty($token)) {
                 $logoutRequest = Request::create(

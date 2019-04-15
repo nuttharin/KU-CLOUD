@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CreateDashboard;
+use App\Http\Requests\Dashboard\DeleteDashboard;
 use App\Http\Requests\Dashboard\UpdateDashboard;
 use App\Http\Requests\Dashboard\UpdateDashboardLayout;
 use App\Repositories\TB_DASHBOARDS\DashboardsRepository;
@@ -65,7 +66,7 @@ class DashboardController extends Controller
         return $this->dashboards->updateDashboard($request->get('dashboard_id'), $request->get('name'), $request->get('desc'), $request->get('is_public'));
     }
 
-    public function deleteDashboard(Request $request)
+    public function deleteDashboard(DeleteDashboard $request)
     {
         return $this->dashboards->deleteDashboard($request->get('dashboard_id'));
     }

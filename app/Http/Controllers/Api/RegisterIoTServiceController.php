@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterIoTService\DeleteRegister;
 use App\Repositories\TB_REGISTER_IOT_SERVICE\RegisterIoTServiceRepository;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class RegisterIoTServiceController extends Controller
         return $this->register->getAll();
     }
 
-    public function deleteRegister(Request $request)
+    public function deleteRegister(DeleteRegister $request)
     {
         return $this->register->delete($request->get('user_id'), $request->get('register_iot_service'));
     }

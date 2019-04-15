@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\AddAddress;
 use App\Http\Requests\Account\AddEmail;
 use App\Http\Requests\Account\AddPhone;
+use App\Http\Requests\Account\ChangePassword;
+use App\Http\Requests\Account\ChangePrimaryEmail;
+use App\Http\Requests\Account\ChangePrimaryPhone;
+use App\Http\Requests\Account\DeleteEmail;
+use App\Http\Requests\Account\DeletePhone;
+use App\Http\Requests\Account\Register;
 use App\Http\Requests\Account\UpdateName;
 use App\Http\Requests\Account\UpdateUsername;
 use App\Repositories\Accounts\AccountsRepository;
@@ -37,7 +44,7 @@ class AccountsController extends Controller
     public function register(Request $request)
     {
         $attr = [
-            'accountname' => $request->get('accountname'),
+            'accountname' => $request->get('username'),
             'fname' => $request->get('fname'),
             'lname' => $request->get('lname'),
             'password' => $request->get('password'),
@@ -115,7 +122,7 @@ class AccountsController extends Controller
         return response()->json(compact('image'), 200);
     }
 
-    public function addAddress(Request $request)
+    public function addAddress(AddAddress $request)
     {
         if (!Gate::allows('isCustomer')) {
             abort('403', "Sorry, You can do this actions");
@@ -141,7 +148,7 @@ class AccountsController extends Controller
         $this->account->updateName(Auth::user()->user_id, $request->get('fname'), $request->get('lname'));
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(ChangePassword $request)
     {
         return $this->account->changePassword($request->get('new_password'), $request->get('old_password'));
     }
@@ -151,7 +158,7 @@ class AccountsController extends Controller
         return $this->account->checkOldPassword($request->get('old_password'));
     }
 
-    public function changePrimaryEmail(Request $request)
+    public function changePrimaryEmail(ChangePrimaryEmail $request)
     {
         $this->account->changePrimaryEmail(Auth::user()->user_id, $request->get('email'));
     }
@@ -161,12 +168,12 @@ class AccountsController extends Controller
         $this->account->addEmail(Auth::user()->user_id, $request->get('email'));
     }
 
-    public function deleteEmail(Request $request)
+    public function deleteEmail(DeleteEmail $request)
     {
         $this->account->deleteEmail(Auth::user()->user_id, $request->get('email'));
     }
 
-    public function changePrimaryPhone(Request $request)
+    public function changePrimaryPhone(ChangePrimaryPhone $request)
     {
         $this->account->changePrimaryPhone(Auth::user()->user_id, $request->get('phone'));
     }
@@ -176,7 +183,7 @@ class AccountsController extends Controller
         $this->account->addPhone(Auth::user()->user_id, $request->get('phone'));
     }
 
-    public function deletePhone(Request $request)
+    public function deletePhone(DeletePhone $request)
     {
         $this->account->deletePhone(Auth::user()->user_id, $request->get('phone'));
     }

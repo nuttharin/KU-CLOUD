@@ -29,7 +29,9 @@
         background-color: #f2f8f9;
     }
 
-    .grid-stack-item {}
+    .grid-stack-item table {
+        font-size: 14px;
+    }
 
     .grid-stack-item-content {
         color: #2c3e50;
@@ -283,12 +285,15 @@
                 <div>
                     <h5><span class="title-widget">((title_name))</span> <span
                             class="badge badge-pill badge-success">Realtime</span></h5>
-
                 </div>
 
+                <!-- <div class="edit-widget" style="display:none">
+                        <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                        <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                    </div> -->
 
-                <div class="download" style="display: none">
-                    <div class="dropdown">
+                <div class="tool d-flex">
+                    <div class="dropdown mr-1 download">
                         <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
                             style="cursor:pointer"></i>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -299,10 +304,14 @@
                                 Download excel</a>
                         </div>
                     </div>
+                    <div class="edit-widget" style="display:none">
+                        <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                        <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                    </div>
                 </div>
             </div>
 
-            <div class="card-body" style="overflow:hidden">
+            <div class="card-body">
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -325,7 +334,7 @@
                             <option value="3 Month">3 Month</option>
                             <option value="6 Month">6 Month</option>
                             <option value="12 Month">12 Month</option>
-                            <option value="Custom">Custom</option>
+                            <!-- <option value="Custom">Custom</option> -->
                         </select>
                     </div>
 
@@ -387,14 +396,40 @@
 
             <div class="card-header d-flex justify-content-between">
                 <div>
-                    <h5><span class="title-widget">((title_name))</span> <span
-                            class="badge badge-pill badge-primary">Static</span></h5>
-                </div>
+                    <h5>
+                        <span class="title-widget">((title_name))</span>
+                        <span class="badge badge-pill badge-primary">Static</span>
+                    </h5>
 
+                </div>
+                <!-- <div class="edit-widget" style="display:none">
+                    <i class="fas fa-file-excel grow" title="Download excel" style="cursor:pointer" item="div_id"></i>
+                    <i class="fas fa-arrow-down btn-download grow" title="Download" style="cursor:pointer"
+                        item="div_id"></i>
+                    <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                    <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                </div> -->
+                <div class="tool d-flex">
+                    <div class=" dropdown mr-1">
+                        <i class="fas fa-arrow-down grow" data-toggle="dropdown" title="Download"
+                            style="cursor:pointer"></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <span class="dropdown-item btn-download" item="div_id"><i class="fas fa-image"></i>
+                                Download images</span>
+                            <span class="dropdown-item btn-download btn-download-excel" item="div_id"><i
+                                    class="fas fa-file-excel"></i>
+                                Download excel</a>
+                        </div>
+                    </div>
+                    <div class="edit-widget" style="display:none">
+                        <i class="fas fa-cog btn-edit-wi grow" title="Edit widget" item="div_id"></i>
+                        <i class="fas fa-trash-alt btn-delete-wi grow" title="Delete widget" item="div_id"></i>
+                    </div>
+                </div>
 
             </div>
 
-            <div class="card-body" style="overflow:hidden">
+            <div class="card-body">
                 ((wi))
             </div>
             <div class="card-footer" style="background-color:#FFFF;border-top:0">
@@ -422,11 +457,41 @@
                     </div>
                     <div class="yearly mt-3 form-inline" style="display: none">
                         <label for="start_year" class="mr-sm-2 ">From</label>
-                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year" item="div_id">
+                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year" item="div_id"
+                            placeholder="ex.2012">
                         <label for="end_year" class="mr-sm-2 ">To</label>
-                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 end_year" item="div_id">
+                        <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 end_year" item="div_id"
+                            placeholder="ex.2013">
                     </div>
                 </div>
+
+                <!-- <div class="form-group">
+                    <select name="type_report" class="form-control form-control-sm type_report" style="width:20%"
+                        item="div_id">
+                        <option value="daily">Daily</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+                <div class="form-inline daily">
+                    <label for="start_day" class="mr-sm-2 ">Start day</label>
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 start_day" item="div_id">
+                    <label for="end_day " class="mr-sm-2 ">End day</label>
+                    <input type="date" class="form-control form-control-sm mb-2 mr-sm-2 end_day" item="div_id">
+                </div>
+                <div class="form-inline monthly " style="display: none">
+                    <label for="start_month " class="mr-sm-2 ">Start month</label>
+                    <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 start_month" item="div_id">
+                    <label for="end_month" class="mr-sm-2 ">End month</label>
+                    <input type="month" class="form-control form-control-sm mb-2 mr-sm-2 end_month" item="div_id">
+
+                </div>
+                <div class="form-inline yearly" style="display: none">
+                    <label for="start_year" class="mr-sm-2 ">Start year</label>
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 start_year" item="div_id">
+                    <label for="end_year" class="mr-sm-2 ">End year</label>
+                    <input type="number" class="form-control form-control-sm mb-2 mr-sm-2 end_year" item="div_id">
+                </div> -->
             </div>
 
         </div>
