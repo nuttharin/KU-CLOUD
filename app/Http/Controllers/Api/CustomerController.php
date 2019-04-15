@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\ApproveCompany;
 use App\Repositories\TB_COMPANY\CompanyRepository;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use App\TB_WEBSERVICE;
-
 
 class CustomerController extends Controller
 {
@@ -33,7 +31,7 @@ class CustomerController extends Controller
         return response()->json(compact('data'), 200);
     }
 
-    public function approveCompany(Request $request)
+    public function approveCompany(ApproveCompany $request)
     {
         $this->company->approveCompany($request->get('company_id'));
     }

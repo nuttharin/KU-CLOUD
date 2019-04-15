@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterWebservice\DeleteRegister;
 use App\Repositories\TB_REGISTER_WEBSERVICE\RegisterWebserviceRepository;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class RegisterWebserviceController extends Controller
         return $this->register->getAll();
     }
 
-    public function deleteRegister(Request $request)
+    public function deleteRegister(DeleteRegister $request)
     {
         $attr = [
             'user_id' => $request->get('user_id'),
