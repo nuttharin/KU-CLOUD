@@ -65,7 +65,6 @@ class Server {
             // console.log('public', res.userInDashboardPublic);
             // console.log(req.body);
             
-
             res.userInDashboards.map(_user => {
                 _user.datasources.web_services.map(_web => {
                     if (_web == req.body.service_id) {
